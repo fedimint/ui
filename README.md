@@ -1,34 +1,34 @@
+# Fedimint UI Projects
 
-<h1 align="center">
-  <a href="https://fedimint.org">
-    Fedimint
-  </a>
-</h1>
+## What's Inside
 
-<p align="center">
-    <img src="docs/banner.png">
-</p>
+This project includes the following apps / packages:
 
-<p align="center">
-  <a href="https://github.com/fedimint/fedimint/actions/workflows/ci-nix.yml">
-      <img src="https://github.com/fedimint/fedimint/actions/workflows/ci-nix.yml/badge.svg" alt="Github Actions CI Build Status">
-  </a>
-  <a href="https://chat.fedimint.org"><img alt="Chat for developers on Discord" src="https://img.shields.io/discord/990354215060795454?label=dev%20chat"></a>
-  <a href="https://github.com/fedimint/fedimint/discussions">
-    <img src="https://img.shields.io/badge/commmunity-discussion-blue" alt="github discussion">
-  </a>
-  <img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/fedimint/fedimint">
-</p>
+### Apps
 
-Fedimint is a federated [Chaumian e-cash](https://en.wikipedia.org/wiki/Ecash) mint backed by bitcoin with deposits and withdrawals that can occur on-chain or via Lightning.
+- `guardian-ui`: Web app experience for setting up and administering fedimints. This is used by the Fedimint guardians
+- `gateway-ui`: Web app experience for managing Fedimint gateways. This is used by Gateway administrators
 
-Fedimint is alpha software. Use cautiously, with small amounts of money. There are still multiple known privacy issues.
+### Packages
 
-* <a id="community" />Community:
-  * [Telegram group](https://t.me/fedimint) for high-level non-technical discussion
-  * [Developer discord](https://chat.fedimint.org) for technical discussion
-* For developers:
-  * [Introduction for contributors](./docs/contributing.md)
-  * [Setting up dev environment](./docs/dev-env.md)
-  * [Running Fedimint for dev testing](./docs/dev-running.md)
-  * [Developer calls on Monday & Thursday](https://calendar.google.com/calendar/u/0/embed?src=fedimintcalendar@gmail.com)
+- `ui`: Shared React UI component library for building Fedimint UI experiences
+- `eslint-config`: Shared `eslint` configurations (includes `eslint-plugin-react` and `eslint-config-prettier`)
+- `tsconfig`: Shared `tsconfig.json`s used throughout Fedimint UI apps
+
+## Development
+
+From root repo directory:
+
+1. `nix develop`
+1. `cd fedimint-ui`
+1. `yarn install` (First time only)
+1. You can run any of the following commands from `fedimint-ui/` directory
+
+- `yarn dev` - Starts development servers and file watchers for all apps and packages
+  - Due to port conflicts, there are dev commands for each app to run individually
+    - `yarn dev:gateway-ui`
+    - `yarn dev:guardian-ui`
+- `yarn test` - Tests all apps and packages in the project
+- `yarn build` - Build all apps and packages in the project
+- `yarn clean` - Cleans previous build outputs from all apps and packages in the project
+- `yarn format` - Fixes formatting in all apps and packages in the project
