@@ -19,10 +19,11 @@ This project includes the following apps / packages:
 
 From root repo directory:
 
-1. `nix develop`
-1. `cd fedimint-ui`
+1. Ensure Docker and yarn/nodejs are installed.
+1. Run `docker compose up` (brings up a 2 server Fedimint)
 1. `yarn install` (First time only)
-1. You can run any of the following commands from `fedimint-ui/` directory
+1. `yarn build` (Needs to be rerun when code in `packages` change)
+1. You can run any of the following commands during development
 
 - `yarn dev` - Starts development servers and file watchers for all apps and packages
   - Due to port conflicts, there are dev commands for each app to run individually
