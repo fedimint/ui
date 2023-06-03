@@ -33,3 +33,22 @@ From root repo directory:
 - `yarn build` - Build all apps and packages in the project
 - `yarn clean` - Cleans previous build outputs from all apps and packages in the project
 - `yarn format` - Fixes formatting in all apps and packages in the project
+
+### Running the Fedimint Config again
+
+After running through the config setup UI flow once, you will need to delete the `fedimintd` data to run through it again. To do this, delete the `fm_1` and `fm_2` folder from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
+
+### Running with mprocs
+
+1. Install [mprocs](https://github.com/pvolok/mprocs)
+1. Run `mprocs -c mprocs.yml` 
+
+After running this command, you'll be present with the mprocs display. Along the left side are the list of processes currently available by mprocs. Along the bottom are hotkeys for navigating/interacting with mprocs. The main pane shows the shell output for the currently selected process.
+
+The `run-ui-federation` process shows combined logging for `fedimintd`, `bitcoind`, `gatewayd`, and `lnd`.
+
+The `teardown-ui-federation` process can be used to stop all docker containers by hitting the `s` key to start the process. After doing so, you can return to the `run-ui-federation` process and hit `r` to restart things.
+
+The `coordinator` and `guardian1` are instances of `guardian-ui` running on different ports and connected to different `fedimintd` instances (running in the `run-ui-federation` process).
+
+You can see more details by viewing the `mprocs.yml` file. 
