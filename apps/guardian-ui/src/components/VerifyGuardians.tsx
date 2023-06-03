@@ -18,7 +18,7 @@ import { useGuardianContext } from '../hooks';
 import { GuardianRole, Peer } from '../types';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
-import { formatApiErrorMessage, getMyPeerId } from '../utils/api';
+import { formatApiErrorMessage } from '../utils/api';
 
 interface PeerWithHash {
   id: string;
@@ -53,6 +53,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         const [
           {
             consensus: { peers },
+            our_current_id
           },
           hashes,
         ] = await Promise.all([
@@ -60,22 +61,15 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           api.getVerifyConfigHash(),
         ]);
 
-        const myPeerId = getMyPeerId(peers);
-        if (!myPeerId) {
-          throw new Error(
-            'Unable to determine which peer you are. Please refresh and try again.'
-          );
-        }
-
-        setMyHash(hashes[myPeerId]);
+        setMyHash(hashes[our_current_id]);
         setPeersWithHash(
           Object.entries(peers)
             .map(([id, peer]) => ({
               id,
               peer,
-              hash: hashes[id],
+              hash: hashes[id as unknown as number],
             }))
-            .filter((peer) => peer.id !== myPeerId)
+            .filter((peer) => peer.id !== our_current_id.toString())
         );
       } catch (err) {
         setError(formatApiErrorMessage(err));
