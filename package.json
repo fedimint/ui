@@ -8,10 +8,12 @@
     "clean": "turbo run clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "prepare": "husky install" 
   },
   "devDependencies": {
     "eslint": "^8.4.1",
+    "husky": "^8.0.3",
     "prettier": "^2.5.1",
     "turbo": "latest"
   },
