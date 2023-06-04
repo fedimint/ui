@@ -5,8 +5,10 @@ import { GuardianApi } from './GuardianApi';
 import { GuardianProvider } from './GuardianContext';
 import { Setup } from './components/Setup';
 import { formatApiErrorMessage } from './utils/api';
+import { useTranslation } from '@fedimint/utils';
 
 export const App = React.memo(function App() {
+  const { t } = useTranslation();
   const api = useMemo(() => new GuardianApi(), []);
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<string>();
@@ -42,7 +44,7 @@ export const App = React.memo(function App() {
               ) : error ? (
                 <Center>
                   <VStack>
-                    <Heading>Something went wrong.</Heading>
+                    <Heading>{t('app.error')}</Heading>
                     <Text>{error}</Text>
                   </VStack>
                 </Center>
