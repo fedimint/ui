@@ -12,6 +12,7 @@ This project includes the following apps / packages:
 ### Packages
 
 - `ui`: Shared React UI component library for building Fedimint UI experiences
+- `utils`: Shared utility functions like the current translation framework on Fedimint UI
 - `eslint-config`: Shared `eslint` configurations (includes `eslint-plugin-react` and `eslint-config-prettier`)
 - `tsconfig`: Shared `tsconfig.json`s used throughout Fedimint UI apps
 
@@ -41,7 +42,7 @@ After running through the config setup UI flow once, you will need to delete the
 ### Running with mprocs
 
 1. Install [mprocs](https://github.com/pvolok/mprocs)
-1. Run `mprocs -c mprocs.yml` 
+1. Run `mprocs -c mprocs.yml`
 
 After running this command, you'll be present with the mprocs display. Along the left side are the list of processes currently available by mprocs. Along the bottom are hotkeys for navigating/interacting with mprocs. The main pane shows the shell output for the currently selected process.
 
@@ -51,4 +52,4 @@ The `teardown-ui-federation` process can be used to stop all docker containers b
 
 The `coordinator` and `guardian1` are instances of `guardian-ui` running on different ports and connected to different `fedimintd` instances (running in the `run-ui-federation` process).
 
-You can see more details by viewing the `mprocs.yml` file. 
+You can see more details by viewing the `mprocs.yml` file.
