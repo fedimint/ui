@@ -5,6 +5,10 @@ import { Admin } from './Admin';
 import { BlockstreamExplorer, MockMintgate } from './api';
 import './index.css';
 import { ApiProvider } from './components';
+import { i18nProvider } from '@fedimint/utils';
+import { languages } from './languages';
+
+i18nProvider(languages);
 
 // Read environment variables
 const gateway_api = process.env.REACT_APP_FM_GATEWAY_API;
