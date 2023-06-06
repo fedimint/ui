@@ -1,9 +1,7 @@
 {
   "common": {
     "next": "Siguiente",
-    "back": "Atrás"
-  },
-  "app": {
+    "back": "Atrás",
     "error": "Algo salió mal."
   },
   "connect_guardians": {

@@ -1,9 +1,7 @@
 {
   "common": {
     "next": "Next",
-    "back": "Back"
-  },
-  "app": {
+    "back": "Back",
     "error": "Something went wrong."
   },
   "connect_guardians": {
