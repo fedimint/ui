@@ -6,9 +6,9 @@ Our source language, i.e. the language we develop in, is English. Any missing tr
 
 ### Example
 
-To begin you will need to add your choice of locale in the resources in the `/apps/###-ui/src/languages` folder as below. Lets use Korean as an example.
+To begin you will need to add your choice of locale in the resources in the `/apps/###-ui/src/languages` folder and export it as below. Lets use Korean as an example.
 
-i18n Index File:
+languages Folder:
 
 ```bash
 src
@@ -20,20 +20,17 @@ src
 │   └── index.ts
 ```
 
-Then you may begin adding your own translations to test as you go.
+- Translation File:
 
-Source File:
-
-```tsx
-// /apps/gateway-ui/src/component/HelloWorld.tsx
-import { useTranslation } from '@fedimint/translation';
-export cdefault function HelloWorldComponent() {
-  const { t } = useTranslation();
-  return <h1>{t('hello_world.heading')}</h1>
+```json
+// /apps/gateway-ui/src/translations/ko.json
+{
+  "hello_world": {
+    "heading": "안녕 세상!"
+  },
+  ...
 }
 ```
-
-Translations Folder:
 
 - Index File:
 
@@ -62,15 +59,17 @@ export const languages = [
 ];
 ```
 
-- Translation File:
+Then you may begin adding your own translations to test as you go.
 
-```json
-// /apps/gateway-ui/src/translations/ko.json
-{
-  "hello_world": {
-    "heading": "안녕 세상!"
-  },
-  ...
+Source File:
+
+```tsx
+// /apps/gateway-ui/src/component/HelloWorld.tsx
+import { useTranslation } from '@fedimint/utils';
+
+export default function HelloWorldComponent() {
+  const { t } = useTranslation();
+  return <h1>{t('hello_world.heading')}</h1>;
 }
 ```
 
