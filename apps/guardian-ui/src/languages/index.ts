@@ -1,7 +1,8 @@
 import en from './en.json';
 import es from './es.json';
+import ko from './ko.json';
 
-//SPANISH TRANSLATIONS FOR TESTING ONLY THEY ARE MADE BY A ROBOT!!!!!
+//SPANISH AND KOREAN TRANSLATIONS FOR TESTING ONLY THEY ARE MADE BY A ROBOT!!!!!
 
 export const languages = [
   {
@@ -13,5 +14,10 @@ export const languages = [
     key: 'es',
     description: 'Espanol',
     translation: es,
+  },
+  {
+    key: 'ko',
+    description: '한국어',
+    translation: ko,
   },
 ];

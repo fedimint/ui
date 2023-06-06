@@ -128,7 +128,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
         {error && (
           <Box>
             <Text textAlign='center' color='red' fontSize='14'>
-              {t('withdraw_tab.Error')}: {error}
+              {t('withdraw_tab.error')}: {error}
             </Text>
           </Box>
         )}
