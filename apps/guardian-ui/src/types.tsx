@@ -52,7 +52,7 @@ export interface BitcoinRpc {
   url: string;
 }
 
-export type PeerHashMap = Record<string, string>;
+export type PeerHashMap = Record<number, string>;
 
 export type LnFedimintModule = [
   'ln',
@@ -94,7 +94,7 @@ export type ConfigGenParams = {
 };
 
 type ConsensusParams = ConfigGenParams & {
-  peers: Record<string, Peer>;
+  peers: Record<number, Peer>;
 };
 
 export interface ConsensusState {
