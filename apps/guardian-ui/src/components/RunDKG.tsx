@@ -56,7 +56,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
             setError(`${t('run_dkg.error_config')}`);
             break;
           default:
-            setError(`${t('run_dkg.error_default')} ${status}`);
+            setError(`${t('run_dkg.error_default')} '${status}'`);
         }
       } catch (err) {
         setError(formatApiErrorMessage(err));

@@ -44,7 +44,7 @@ export const App = React.memo(function App() {
               ) : error ? (
                 <Center>
                   <VStack>
-                    <Heading>{t('app.error')}</Heading>
+                    <Heading>{t('common.error')}</Heading>
                     <Text>{error}</Text>
                   </VStack>
                 </Center>

@@ -14,7 +14,7 @@
   "deposit_tab": {
     "tab_header": "Deposit",
     "header": "Bitcoin Deposit to Federation",
-    "sentence_one": "Please pay to the address address shown to deposit funds into this federation You can scan the QR code to pay.",
+    "sentence_one": "Please pay to the address address shown to deposit funds into this federation. You can scan the QR code to pay.",
     "bitcoin_deposit": "Bitcoin Deposit",
     "confirmations": "Confirmations:",
     "required": "required",

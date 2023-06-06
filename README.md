@@ -12,7 +12,7 @@ This project includes the following apps / packages:
 ### Packages
 
 - `ui`: Shared React UI component library for building Fedimint UI experiences
-- `utils`: Shared utility functions like the current translation framework on Fedimint UI
+- `utils`: Shared utility functions like the current translation framework on Fedimint UI apps
 - `eslint-config`: Shared `eslint` configurations (includes `eslint-plugin-react` and `eslint-config-prettier`)
 - `tsconfig`: Shared `tsconfig.json`s used throughout Fedimint UI apps
 
