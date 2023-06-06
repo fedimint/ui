@@ -23,7 +23,7 @@ src
 - Translation File:
 
 ```json
-// /apps/gateway-ui/src/translations/ko.json
+// /apps/gateway-ui/src/languages/ko.json
 {
   "hello_world": {
     "heading": "안녕 세상!"
@@ -61,10 +61,12 @@ export const languages = [
 
 Then you may begin adding your own translations to test as you go.
 
+### Adding new components
+
 Source File:
 
 ```tsx
-// /apps/gateway-ui/src/component/HelloWorld.tsx
+// /apps/gateway-ui/src/components/HelloWorld.tsx
 import { useTranslation } from '@fedimint/utils';
 
 export default function HelloWorldComponent() {
