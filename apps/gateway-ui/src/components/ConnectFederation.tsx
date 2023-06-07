@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Collapse, HStack } from '@chakra-ui/react';
+import { Box, Button, Collapse, HStack } from '@chakra-ui/react';
 import { ApiContext } from '../ApiProvider';
 import { Federation } from '../types';
-import { Button } from './Button';
 import { Input } from './Input';
 
 export type ConnectFederationProps = {
