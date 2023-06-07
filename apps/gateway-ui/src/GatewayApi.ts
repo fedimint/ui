@@ -3,7 +3,7 @@ import { GatewayInfo, Federation } from './types';
 // GatewayApi is an API to interact with the Gateway server
 interface ApiInterface {
   fetchInfo: () => Promise<GatewayInfo>;
-  fetchAddress: (federationId: string) => Promise<string>;
+  fetchAddress: () => Promise<string>;
   connectFederation: (connectInfo: string) => Promise<Federation>;
   /**
    * Complete a deposit to a federation served by the Gateway
@@ -59,52 +59,12 @@ export class GatewayApi implements ApiInterface {
     }
   };
 
-  fetchAddress = async (federationId: string): Promise<string> => {
-    try {
-      const res: Response = await fetch(`${this.baseUrl}/address`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify({
-          federation_id: federationId,
-        }),
-      });
-
-      if (res.ok) {
-        const address: string = await res.text();
-        return Promise.resolve(address);
-      }
-
-      throw responseToError('fetching federation address', res);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+  fetchAddress = (): Promise<string> => {
+    throw new Error('Not implemented');
   };
 
-  connectFederation = async (connectInfo: string): Promise<Federation> => {
-    try {
-      const res: Response = await fetch(`${this.baseUrl}/connect-fed`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify({
-          connect: connectInfo,
-        }),
-      });
-
-      if (res.ok) {
-        const federation: Federation = await res.json();
-        return Promise.resolve(federation);
-      }
-
-      throw responseToError('Connecting federation', res);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+  connectFederation = async (_connectInfo: string): Promise<Federation> => {
+    throw new Error('Not implemented');
   };
 
   completeDeposit = async (
@@ -129,5 +89,3 @@ const responseToError = (scenario: string, res: Response): Error => {
     `${scenario} \nStatus : ${res.status} \nReason : ${res.statusText}\n`
   );
 };
-
-export { GatewayInfo };

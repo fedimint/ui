@@ -16,8 +16,9 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
-import { TabHeader, Button, Input, ApiContext } from '.';
+import { TabHeader, Button, Input } from '.';
 import { TransactionStatus } from '../ExplorerApi';
+import { ApiContext } from '../ApiProvider';
 
 export const WithdrawTabHeader = () => {
   return <TabHeader>Withdraw</TabHeader>;
