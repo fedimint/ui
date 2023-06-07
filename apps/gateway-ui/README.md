@@ -6,22 +6,18 @@ Web app experience for managing Fedimint gateways. This is used by Gateway admin
 
 ### Environment setup
 
-From root repo directory:
+From repo root directory:
 
-1. Navigate to this directory: `cd /fedimint-ui/apps/gateway-ui`
-2. Install dependencies if necessary: `yarn install`
+1. Install dependencies if necessary: `yarn install`
+1. Run `docker-compose up` to start a gateway along with two federations. You can [learn more about this command here](../../README.md#development)
 
-### Run Federations and UI
+### Run Gateway Admin UI
 
-1. Confirm you are in `gateway-ui/` directory
+1. Confirm you are in `gateway-ui/` app directory
 1. Run `REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="theresnosecondbest" yarn dev`
 
-This will show you a running gateway UI with mock data
+> This will show you a running Gateway UI connected to a gateway.
 
-## Run Tests
+You can connect a federation to this gateway from the UI.
 
-TODO
-
-## CI and misc
-
-TODO
+> Run through the [process of setting up a federation](../guardian-ui/README.md#set-up-your-federation) to get connection string for linking your gateway to the federation
