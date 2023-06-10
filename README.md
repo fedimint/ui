@@ -41,14 +41,16 @@ After running through the config setup UI flow once, you will need to delete the
 ### Running with mprocs
 
 1. Install [mprocs](https://github.com/pvolok/mprocs)
-1. Run `mprocs -c mprocs.yml` 
+1. Run `mprocs -c mprocs.yml`
 
 After running this command, you'll be present with the mprocs display. Along the left side are the list of processes currently available by mprocs. Along the bottom are hotkeys for navigating/interacting with mprocs. The main pane shows the shell output for the currently selected process.
 
-The `run-ui-federation` process shows combined logging for `fedimintd`, `bitcoind`, `gatewayd`, and `lnd`.
+The `start-servers` process shows combined logging for `fedimintd`, `bitcoind`, `gatewayd`, and `lnd`.
 
-The `teardown-ui-federation` process can be used to stop all docker containers by hitting the `s` key to start the process. After doing so, you can return to the `run-ui-federation` process and hit `r` to restart things.
+The `stop-servers` process can be used to stop all docker containers by hitting the `s` key to start the process. After doing so, you can return to the `start-servers` process and hit `r` to restart things.
 
-The `coordinator` and `guardian1` are instances of `guardian-ui` running on different ports and connected to different `fedimintd` instances (running in the `run-ui-federation` process).
+The `guardian-ui-1` and `guardian-ui-2` are instances of `guardian-ui` apps, each running on different ports and connected to a unique `fedimintd` server instance (running in the `start-servers` process).
 
-You can see more details by viewing the `mprocs.yml` file. 
+The `gateway-ui` is an instance of `gateway-ui` app, connected to a `gatewayd` server instance (running in the `start-servers` process).
+
+You can see more details by viewing the `mprocs.yml` file.
