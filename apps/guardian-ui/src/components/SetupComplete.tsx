@@ -1,11 +1,11 @@
 import { Flex, Heading, Text, Button, Icon } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
-import { useGuardianContext } from '../hooks';
+import { useSetupContext } from '../hooks';
 import { SETUP_ACTION_TYPE } from '../types';
 
 export const SetupComplete: React.FC = () => {
-  const { dispatch } = useGuardianContext();
+  const { dispatch } = useSetupContext();
 
   const handleContinue = useCallback(() => {
     dispatch({ type: SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE, payload: true });

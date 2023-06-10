@@ -85,7 +85,7 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
   }
 };
 
-export interface GuardianContextValue {
+export interface SetupContextValue {
   api: GuardianApi;
   state: SetupState;
   dispatch: Dispatch<SetupAction>;
@@ -107,7 +107,7 @@ type FollowerConfigs = ConfigGenParams & {
   hostServerUrl: string;
 };
 
-export const GuardianContext = createContext<GuardianContextValue>({
+export const SetupContext = createContext<SetupContextValue>({
   api: new GuardianApi(),
   state: initialState,
   dispatch: () => null,
@@ -122,7 +122,7 @@ export interface GuardianProviderProps {
   children: ReactNode;
 }
 
-export const GuardianProvider: React.FC<GuardianProviderProps> = ({
+export const SetupContextProvider: React.FC<GuardianProviderProps> = ({
   api,
   children,
 }: GuardianProviderProps) => {
@@ -281,7 +281,7 @@ export const GuardianProvider: React.FC<GuardianProviderProps> = ({
   };
 
   // Single call to save all of the host / follower configurations
-  const submitConfiguration: GuardianContextValue['submitConfiguration'] =
+  const submitConfiguration: SetupContextValue['submitConfiguration'] =
     useCallback(
       async ({ password: newPassword, myName, configs }) => {
         if (!password) {
@@ -344,7 +344,7 @@ export const GuardianProvider: React.FC<GuardianProviderProps> = ({
   }, []);
 
   return (
-    <GuardianContext.Provider
+    <SetupContext.Provider
       value={{
         state,
         dispatch,
@@ -356,6 +356,6 @@ export const GuardianProvider: React.FC<GuardianProviderProps> = ({
       }}
     >
       {children}
-    </GuardianContext.Provider>
+    </SetupContext.Provider>
   );
 };

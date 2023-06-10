@@ -6,7 +6,7 @@ import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg
 import { ReactComponent as CheckIcon } from '../assets/svgs/check.svg';
 import { ReactComponent as StarsIcon } from '../assets/svgs/stars.svg';
 import { ReactComponent as IntersectSquareIcon } from '../assets/svgs/intersect-square.svg';
-import { useGuardianContext } from '../hooks';
+import { useSetupContext } from '../hooks';
 
 interface Props {
   next: () => void;
@@ -15,7 +15,7 @@ interface Props {
 export const RoleSelector = React.memo<Props>(function RoleSelector({
   next,
 }: Props) {
-  const { dispatch } = useGuardianContext();
+  const { dispatch } = useSetupContext();
   const [role, setRole] = useState<GuardianRole>();
   const options: RadioButtonOption<GuardianRole>[] = useMemo(
     () => [

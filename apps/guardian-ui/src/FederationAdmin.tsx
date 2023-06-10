@@ -13,12 +13,12 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { CopyInput } from '@fedimint/ui';
-import { useGuardianContext } from '../hooks';
-import { StatusResponse, Versions } from '../types';
-import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
+import { useSetupContext } from './hooks';
+import { StatusResponse, Versions } from './types';
+import { ReactComponent as CopyIcon } from './assets/svgs/copy.svg';
 
-export const FederationDashboard: React.FC = () => {
-  const { api } = useGuardianContext();
+export const FederationAdmin: React.FC = () => {
+  const { api } = useSetupContext();
   const [versions, setVersions] = useState<Versions>();
   const [epochCount, setEpochCount] = useState<number>();
   const [status, setStatus] = useState<StatusResponse>();
