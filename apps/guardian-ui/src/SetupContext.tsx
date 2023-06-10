@@ -46,7 +46,6 @@ function makeInitialState(loadFromStorage = true): SetupState {
     needsAuth: false,
     numPeers: 0,
     peers: [],
-    isSetupComplete: false,
     ourCurrentId: null,
     ...storageState,
   };
@@ -76,8 +75,6 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
       return { ...state, numPeers: action.payload };
     case SETUP_ACTION_TYPE.SET_PEERS:
       return { ...state, peers: action.payload };
-    case SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE:
-      return { ...state, isSetupComplete: action.payload };
     case SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID:
       return { ...state, ourCurrentId: action.payload };
     default:
@@ -97,6 +94,7 @@ export interface SetupContextValue {
   connectToHost(url: string): Promise<void>;
   fetchConsensusState(): Promise<void>;
   toggleConsensusPolling(toggle: boolean): void;
+  transitionToAdmin(): void;
 }
 
 type HostConfigs = ConfigGenParams & {
@@ -115,17 +113,20 @@ export const SetupContext = createContext<SetupContextValue>({
   connectToHost: () => Promise.reject(),
   fetchConsensusState: () => Promise.reject(),
   toggleConsensusPolling: () => null,
+  transitionToAdmin: () => null,
 });
 
-export interface GuardianProviderProps {
+export interface SetupContextProviderProps {
   api: GuardianApi;
   children: ReactNode;
+  transitionToAdmin: () => void;
 }
 
-export const SetupContextProvider: React.FC<GuardianProviderProps> = ({
+export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   api,
   children,
-}: GuardianProviderProps) => {
+  transitionToAdmin,
+}: SetupContextProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { password, configGenParams, myName } = state;
   const [isPollingConsensus, setIsPollingConsensus] = useState(false);
@@ -170,12 +171,9 @@ export const SetupContextProvider: React.FC<GuardianProviderProps> = ({
             payload: SetupProgress.VerifyGuardians,
           });
         }
-        // If consensus is running, skip past all setup
+        // If consensus is running, skip past all setup, and transition to admin.
         if (status.server === ServerStatus.ConsensusRunning) {
-          dispatch({
-            type: SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE,
-            payload: true,
-          });
+          transitionToAdmin();
         }
       })
       .catch((err) => {
@@ -353,6 +351,7 @@ export const SetupContextProvider: React.FC<GuardianProviderProps> = ({
         connectToHost,
         fetchConsensusState,
         toggleConsensusPolling,
+        transitionToAdmin,
       }}
     >
       {children}

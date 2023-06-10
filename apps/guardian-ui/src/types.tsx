@@ -143,7 +143,6 @@ export interface SetupState {
   numPeers: number;
   needsAuth: boolean;
   peers: Peer[];
-  isSetupComplete: boolean;
 }
 
 export enum SETUP_ACTION_TYPE {
@@ -157,7 +156,6 @@ export enum SETUP_ACTION_TYPE {
   SET_CONFIG_GEN_PARAMS = 'SET_CONFIG_GEN_PARAMS',
   SET_NUM_PEERS = 'SET_NUM_PEERS',
   SET_PEERS = 'SET_PEERS',
-  SET_IS_SETUP_COMPLETE = 'SET_IS_SETUP_COMPLETE',
   SET_OUR_CURRENT_ID = 'SET_OUR_CURRENT_ID',
 }
 
@@ -201,10 +199,6 @@ export type SetupAction =
   | {
       type: SETUP_ACTION_TYPE.SET_PEERS;
       payload: Peer[];
-    }
-  | {
-      type: SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE;
-      payload: boolean;
     }
   | {
       type: SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID;

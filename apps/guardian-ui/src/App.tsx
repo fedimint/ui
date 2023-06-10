@@ -3,13 +3,16 @@ import { Box, VStack, Spinner, Heading, Text, Center } from '@chakra-ui/react';
 import { theme, Fonts, SharedChakraProvider } from '@fedimint/ui';
 import { GuardianApi } from './GuardianApi';
 import { SetupContextProvider } from './SetupContext';
+import { AdminContextProvider } from './AdminContext';
 import { FederationSetup } from './FederationSetup';
 import { formatApiErrorMessage } from './utils/api';
+import { FederationAdmin } from './FederationAdmin';
 
 export const App = React.memo(function App() {
   const api = useMemo(() => new GuardianApi(), []);
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<string>();
+  const [showAdminPage, setShowAdminPage] = useState<boolean>(false);
 
   useEffect(() => {
     api
@@ -37,9 +40,18 @@ export const App = React.memo(function App() {
             p={5}
           >
             {isConnected ? (
-              <SetupContextProvider api={api}>
-                <FederationSetup />
-              </SetupContextProvider>
+              showAdminPage ? (
+                <AdminContextProvider api={api}>
+                  <FederationAdmin />
+                </AdminContextProvider>
+              ) : (
+                <SetupContextProvider
+                  api={api}
+                  transitionToAdmin={() => setShowAdminPage(true)}
+                >
+                  <FederationSetup />
+                </SetupContextProvider>
+              )
             ) : error ? (
               <Center>
                 <VStack>

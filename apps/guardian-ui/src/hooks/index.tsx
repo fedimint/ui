@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { SetupContext, SetupContextValue } from '../SetupContext';
+import { AdminContext, AdminContextValue } from '../AdminContext';
 
 export function useSetupContext(): SetupContextValue {
   return useContext(SetupContext);
@@ -19,6 +20,6 @@ export function useConsensusPolling(shouldPoll = true) {
   }, [shouldPoll]);
 }
 
-export function useAdminContext(): SetupContextValue {
-  return useContext(SetupContext);
+export function useAdminContext(): AdminContextValue {
+  return useContext(AdminContext);
 }
