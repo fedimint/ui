@@ -53,7 +53,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         const [
           {
             consensus: { peers },
-            our_current_id
+            our_current_id,
           },
           hashes,
         ] = await Promise.all([

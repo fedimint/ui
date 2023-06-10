@@ -15,7 +15,7 @@ import {
   ConfigGenParams,
   ServerStatus,
 } from './types';
-import { ApiInterface, GuardianApi } from './GuardianApi';
+import { GuardianApi } from './GuardianApi';
 import { JsonRpcError } from 'jsonrpc-client-websocket';
 
 const LOCAL_STORAGE_KEY = 'guardian-ui-state';
@@ -86,7 +86,7 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
 };
 
 export interface GuardianContextValue {
-  api: ApiInterface;
+  api: GuardianApi;
   state: SetupState;
   dispatch: Dispatch<SetupAction>;
   submitConfiguration<T extends HostConfigs | FollowerConfigs>(config: {
@@ -118,7 +118,7 @@ export const GuardianContext = createContext<GuardianContextValue>({
 });
 
 export interface GuardianProviderProps {
-  api: ApiInterface;
+  api: GuardianApi;
   children: ReactNode;
 }
 
