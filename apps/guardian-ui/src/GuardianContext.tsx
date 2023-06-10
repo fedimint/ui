@@ -47,6 +47,7 @@ function makeInitialState(loadFromStorage = true): SetupState {
     numPeers: 0,
     peers: [],
     isSetupComplete: false,
+    ourCurrentId: null,
     ...storageState,
   };
 }
@@ -77,6 +78,8 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
       return { ...state, peers: action.payload };
     case SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE:
       return { ...state, isSetupComplete: action.payload };
+    case SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID:
+      return { ...state, ourCurrentId: action.payload };
     default:
       return state;
   }
@@ -234,6 +237,10 @@ export const GuardianProvider: React.FC<GuardianProviderProps> = ({
   // Fetch consensus state, dispatch updates with it.
   const fetchConsensusState = useCallback(async () => {
     const consensusState = await api.getConsensusConfigGenParams();
+    dispatch({
+      type: SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID,
+      payload: consensusState.our_current_id,
+    });
     dispatch({
       type: SETUP_ACTION_TYPE.SET_PEERS,
       payload: Object.values(consensusState.consensus.peers),
