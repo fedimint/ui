@@ -35,6 +35,7 @@ export interface ApiInterface {
   // Running RPC methods (only exist after run_consensus)
   version: () => Promise<Versions>;
   fetchEpochCount: () => Promise<number>;
+  connectionCode: () => Promise<string>;
 }
 
 const SESSION_STORAGE_KEY = 'guardian-ui-key';
@@ -225,6 +226,10 @@ export class GuardianApi implements ApiInterface {
 
   consensusStatus = (): Promise<ConsensusStatus> => {
     return this.rpc('consensus_status');
+  };
+
+  connectionCode = (): Promise<string> => {
+    return this.rpc('connection_code');
   };
 
   /*** Internal private methods ***/
