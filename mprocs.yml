@@ -1,20 +1,23 @@
 procs:
   run-ui-federation:
-    shell: docker compose up 
+    shell: docker compose up
   teardown-ui-federation:
     shell: docker compose down
-    autostart: false 
+    autostart: false
   coordinator:
     cwd: apps/guardian-ui/
     shell: yarn dev
     env:
-      PORT: "3000"
+      PORT: '3000'
       REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18174
       BROWSER: none
-  guardian1: 
+  guardian1:
     cwd: apps/guardian-ui/
     shell: yarn dev
     env:
-      PORT: "3001"
+      PORT: '3001'
       REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18184
       BROWSER: none
+  clear-federation-data:
+    shell: rm -rf fm_*
+    autostart: false
