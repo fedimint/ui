@@ -8,7 +8,7 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { useSetupContext } from '../hooks';
-import { SETUP_ACTION_TYPE } from '../types';
+import { SETUP_ACTION_TYPE } from '../setup/types';
 import { formatApiErrorMessage } from '../utils/api';
 
 export const Login: React.FC = () => {

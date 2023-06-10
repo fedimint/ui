@@ -2,11 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Box, VStack, Spinner, Heading, Text, Center } from '@chakra-ui/react';
 import { theme, Fonts, SharedChakraProvider } from '@fedimint/ui';
 import { GuardianApi } from './GuardianApi';
-import { SetupContextProvider } from './SetupContext';
-import { AdminContextProvider } from './AdminContext';
-import { FederationSetup } from './FederationSetup';
+import { SetupContextProvider } from './setup/SetupContext';
+import { AdminContextProvider } from './admin/AdminContext';
+import { FederationSetup } from './setup/FederationSetup';
 import { formatApiErrorMessage } from './utils/api';
-import { FederationAdmin } from './FederationAdmin';
+import { FederationAdmin } from './admin/FederationAdmin';
 
 export const App = React.memo(function App() {
   const api = useMemo(() => new GuardianApi(), []);
@@ -15,15 +15,16 @@ export const App = React.memo(function App() {
   const [showAdminPage, setShowAdminPage] = useState<boolean>(false);
 
   useEffect(() => {
-    api
-      .connect()
-      .then(() => {
-        setIsConnected(true);
-      })
-      .catch((err) => {
-        setError(formatApiErrorMessage(err));
-      });
-  }, [api]);
+    !isConnected &&
+      api
+        .connect()
+        .then(() => {
+          setIsConnected(true);
+        })
+        .catch((err) => {
+          setError(formatApiErrorMessage(err));
+        });
+  }, [api, isConnected]);
 
   return (
     <React.StrictMode>
@@ -47,7 +48,10 @@ export const App = React.memo(function App() {
               ) : (
                 <SetupContextProvider
                   api={api}
-                  transitionToAdmin={() => setShowAdminPage(true)}
+                  transitionToAdmin={() => {
+                    setIsConnected(false);
+                    setShowAdminPage(true);
+                  }}
                 >
                   <FederationSetup />
                 </SetupContextProvider>

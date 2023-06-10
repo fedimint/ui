@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode } from 'react';
-import { AdminApiInterface, GuardianApi } from './GuardianApi';
+import { AdminApiInterface, GuardianApi } from '../GuardianApi';
 
 export interface AdminContextValue {
   api: AdminApiInterface;

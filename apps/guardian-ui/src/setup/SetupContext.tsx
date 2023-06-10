@@ -13,9 +13,9 @@ import {
   SETUP_ACTION_TYPE,
   SetupProgress,
   ConfigGenParams,
-  ServerStatus,
 } from './types';
-import { GuardianApi } from './GuardianApi';
+import { ServerStatus } from '../types';
+import { GuardianApi } from '../GuardianApi';
 import { JsonRpcError } from 'jsonrpc-client-websocket';
 
 const LOCAL_STORAGE_KEY = 'guardian-ui-state';
@@ -341,6 +341,11 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
     setIsPollingConsensus(poll);
   }, []);
 
+  const handleTransitionToAdmin = useCallback(() => {
+    // dispatch({ type: SETUP_ACTION_TYPE.SET_INITIAL_STATE, payload: null });
+    transitionToAdmin();
+  }, [transitionToAdmin]);
+
   return (
     <SetupContext.Provider
       value={{
@@ -351,7 +356,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
         connectToHost,
         fetchConsensusState,
         toggleConsensusPolling,
-        transitionToAdmin,
+        transitionToAdmin: handleTransitionToAdmin,
       }}
     >
       {children}

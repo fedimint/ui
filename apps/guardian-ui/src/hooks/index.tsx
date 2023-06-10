@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { SetupContext, SetupContextValue } from '../SetupContext';
-import { AdminContext, AdminContextValue } from '../AdminContext';
+import { SetupContext, SetupContextValue } from '../setup/SetupContext';
+import { AdminContext, AdminContextValue } from '../admin/AdminContext';
 
 export function useSetupContext(): SetupContextValue {
   return useContext(SetupContext);

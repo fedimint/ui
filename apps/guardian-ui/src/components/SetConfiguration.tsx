@@ -19,7 +19,12 @@ import {
 } from '@chakra-ui/react';
 import { FormGroup, FormGroupHeading } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
-import { BitcoinRpc, ConfigGenParams, GuardianRole, Network } from '../types';
+import {
+  BitcoinRpc,
+  ConfigGenParams,
+  GuardianRole,
+  Network,
+} from '../setup/types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';

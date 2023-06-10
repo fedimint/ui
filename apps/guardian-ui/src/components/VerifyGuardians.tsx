@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { CopyInput, FormGroup, Table } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
-import { GuardianRole, Peer } from '../types';
+import { GuardianRole, Peer } from '../setup/types';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../utils/api';

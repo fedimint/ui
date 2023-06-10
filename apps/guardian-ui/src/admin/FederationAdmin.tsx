@@ -13,9 +13,9 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { CopyInput } from '@fedimint/ui';
-import { useAdminContext } from './hooks';
-import { StatusResponse, Versions } from './types';
-import { ReactComponent as CopyIcon } from './assets/svgs/copy.svg';
+import { useAdminContext } from '../hooks';
+import { StatusResponse, Versions } from '../types';
+import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
