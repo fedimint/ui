@@ -26,9 +26,11 @@ interface Props {
 
 export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   const {
-    state: { role, peers, numPeers, configGenParams },
+    state: { role, peers, numPeers, configGenParams, ourCurrentId },
     api,
   } = useGuardianContext();
+
+  const guardianLink = ourCurrentId !== null ? peers[ourCurrentId].api_url : '';
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -58,7 +60,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       <FormControl maxWidth={400}>
         <FormLabel>Invite Followers</FormLabel>
         <CopyInput
-          value={process.env.REACT_APP_FM_CONFIG_API || ''}
+          value={guardianLink}
           size='lg'
           buttonLeftIcon={<Icon as={CopyIcon} />}
         />
