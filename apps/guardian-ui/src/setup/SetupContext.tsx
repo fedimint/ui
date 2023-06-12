@@ -18,7 +18,7 @@ import { ServerStatus } from '../types';
 import { GuardianApi } from '../GuardianApi';
 import { JsonRpcError } from 'jsonrpc-client-websocket';
 
-const LOCAL_STORAGE_KEY = 'guardian-ui-state';
+const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
 
 /**
  * Creates the initial state using loaded state from local storage.
@@ -27,7 +27,7 @@ function makeInitialState(loadFromStorage = true): SetupState {
   let storageState: Partial<SetupState> = {};
   if (loadFromStorage) {
     try {
-      const storageJson = localStorage.getItem(LOCAL_STORAGE_KEY);
+      const storageJson = localStorage.getItem(LOCAL_STORAGE_SETUP_KEY);
       if (storageJson) {
         storageState = JSON.parse(storageJson);
       }
@@ -94,7 +94,6 @@ export interface SetupContextValue {
   connectToHost(url: string): Promise<void>;
   fetchConsensusState(): Promise<void>;
   toggleConsensusPolling(toggle: boolean): void;
-  transitionToAdmin(): void;
 }
 
 type HostConfigs = ConfigGenParams & {
@@ -113,19 +112,16 @@ export const SetupContext = createContext<SetupContextValue>({
   connectToHost: () => Promise.reject(),
   fetchConsensusState: () => Promise.reject(),
   toggleConsensusPolling: () => null,
-  transitionToAdmin: () => null,
 });
 
 export interface SetupContextProviderProps {
   api: GuardianApi;
   children: ReactNode;
-  transitionToAdmin: () => void;
 }
 
 export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   api,
   children,
-  transitionToAdmin,
 }: SetupContextProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { password, configGenParams, myName } = state;
@@ -173,7 +169,10 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
         }
         // If consensus is running, skip past all setup, and transition to admin.
         if (status.server === ServerStatus.ConsensusRunning) {
-          transitionToAdmin();
+          dispatch({
+            type: SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE,
+            payload: true,
+          });
         }
       })
       .catch((err) => {
@@ -215,7 +214,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   // Update local storage on state changes.
   useEffect(() => {
     localStorage.setItem(
-      LOCAL_STORAGE_KEY,
+      LOCAL_STORAGE_SETUP_KEY,
       JSON.stringify({
         role: state.role,
         progress: state.progress,
@@ -341,11 +340,6 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
     setIsPollingConsensus(poll);
   }, []);
 
-  const handleTransitionToAdmin = useCallback(() => {
-    // dispatch({ type: SETUP_ACTION_TYPE.SET_INITIAL_STATE, payload: null });
-    transitionToAdmin();
-  }, [transitionToAdmin]);
-
   return (
     <SetupContext.Provider
       value={{
@@ -356,7 +350,6 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
         connectToHost,
         fetchConsensusState,
         toggleConsensusPolling,
-        transitionToAdmin: handleTransitionToAdmin,
       }}
     >
       {children}

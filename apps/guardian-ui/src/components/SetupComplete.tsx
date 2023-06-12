@@ -1,10 +1,15 @@
 import React from 'react';
 import { Flex, Heading, Text, Button, Icon } from '@chakra-ui/react';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
-import { useSetupContext } from '../hooks';
+import { useAppContext } from '../hooks';
 
 export const SetupComplete: React.FC = () => {
-  const { transitionToAdmin } = useSetupContext();
+  const { transitionToAdmin } = useAppContext();
+
+  const handleContinue = () => {
+    // TODO: Reset setup state
+    transitionToAdmin();
+  };
 
   return (
     <Flex
@@ -23,10 +28,7 @@ export const SetupComplete: React.FC = () => {
       <Text mb={16} fontWeight='medium'>
         All Guardians’ verification codes have been verified.
       </Text>
-      <Button
-        leftIcon={<Icon as={ArrowRightIcon} />}
-        onClick={transitionToAdmin}
-      >
+      <Button leftIcon={<Icon as={ArrowRightIcon} />} onClick={handleContinue}>
         Continue
       </Button>
     </Flex>
