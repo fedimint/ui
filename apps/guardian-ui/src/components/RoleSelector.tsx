@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Button, VStack, Icon } from '@chakra-ui/react';
 import { RadioButtonGroup, RadioButtonOption } from '@fedimint/ui';
-import { GuardianRole, SETUP_ACTION_TYPE } from '../types';
+import { GuardianRole, SETUP_ACTION_TYPE } from '../setup/types';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { ReactComponent as CheckIcon } from '../assets/svgs/check.svg';
 import { ReactComponent as StarsIcon } from '../assets/svgs/stars.svg';
 import { ReactComponent as IntersectSquareIcon } from '../assets/svgs/intersect-square.svg';
-import { useGuardianContext } from '../hooks';
+import { useSetupContext } from '../hooks';
 
 interface Props {
   next: () => void;
@@ -15,7 +15,7 @@ interface Props {
 export const RoleSelector = React.memo<Props>(function RoleSelector({
   next,
 }: Props) {
-  const { dispatch } = useGuardianContext();
+  const { dispatch } = useSetupContext();
   const [role, setRole] = useState<GuardianRole>();
   const options: RadioButtonOption<GuardianRole>[] = useMemo(
     () => [

@@ -13,12 +13,12 @@ import {
   SETUP_ACTION_TYPE,
   SetupProgress,
   ConfigGenParams,
-  ServerStatus,
 } from './types';
-import { ApiInterface, GuardianApi } from './GuardianApi';
+import { ServerStatus } from '../types';
+import { GuardianApi } from '../GuardianApi';
 import { JsonRpcError } from 'jsonrpc-client-websocket';
 
-const LOCAL_STORAGE_KEY = 'guardian-ui-state';
+const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
 
 /**
  * Creates the initial state using loaded state from local storage.
@@ -27,7 +27,7 @@ function makeInitialState(loadFromStorage = true): SetupState {
   let storageState: Partial<SetupState> = {};
   if (loadFromStorage) {
     try {
-      const storageJson = localStorage.getItem(LOCAL_STORAGE_KEY);
+      const storageJson = localStorage.getItem(LOCAL_STORAGE_SETUP_KEY);
       if (storageJson) {
         storageState = JSON.parse(storageJson);
       }
@@ -46,7 +46,6 @@ function makeInitialState(loadFromStorage = true): SetupState {
     needsAuth: false,
     numPeers: 0,
     peers: [],
-    isSetupComplete: false,
     ourCurrentId: null,
     ...storageState,
   };
@@ -76,8 +75,6 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
       return { ...state, numPeers: action.payload };
     case SETUP_ACTION_TYPE.SET_PEERS:
       return { ...state, peers: action.payload };
-    case SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE:
-      return { ...state, isSetupComplete: action.payload };
     case SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID:
       return { ...state, ourCurrentId: action.payload };
     default:
@@ -85,8 +82,8 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
   }
 };
 
-export interface GuardianContextValue {
-  api: ApiInterface;
+export interface SetupContextValue {
+  api: GuardianApi;
   state: SetupState;
   dispatch: Dispatch<SetupAction>;
   submitConfiguration<T extends HostConfigs | FollowerConfigs>(config: {
@@ -107,7 +104,7 @@ type FollowerConfigs = ConfigGenParams & {
   hostServerUrl: string;
 };
 
-export const GuardianContext = createContext<GuardianContextValue>({
+export const SetupContext = createContext<SetupContextValue>({
   api: new GuardianApi(),
   state: initialState,
   dispatch: () => null,
@@ -117,15 +114,15 @@ export const GuardianContext = createContext<GuardianContextValue>({
   toggleConsensusPolling: () => null,
 });
 
-export interface GuardianProviderProps {
-  api: ApiInterface;
+export interface SetupContextProviderProps {
+  api: GuardianApi;
   children: ReactNode;
 }
 
-export const GuardianProvider: React.FC<GuardianProviderProps> = ({
+export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   api,
   children,
-}: GuardianProviderProps) => {
+}: SetupContextProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { password, configGenParams, myName } = state;
   const [isPollingConsensus, setIsPollingConsensus] = useState(false);
@@ -170,7 +167,7 @@ export const GuardianProvider: React.FC<GuardianProviderProps> = ({
             payload: SetupProgress.VerifyGuardians,
           });
         }
-        // If consensus is running, skip past all setup
+        // If consensus is running, skip past all setup, and transition to admin.
         if (status.server === ServerStatus.ConsensusRunning) {
           dispatch({
             type: SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE,
@@ -217,7 +214,7 @@ export const GuardianProvider: React.FC<GuardianProviderProps> = ({
   // Update local storage on state changes.
   useEffect(() => {
     localStorage.setItem(
-      LOCAL_STORAGE_KEY,
+      LOCAL_STORAGE_SETUP_KEY,
       JSON.stringify({
         role: state.role,
         progress: state.progress,
@@ -281,7 +278,7 @@ export const GuardianProvider: React.FC<GuardianProviderProps> = ({
   };
 
   // Single call to save all of the host / follower configurations
-  const submitConfiguration: GuardianContextValue['submitConfiguration'] =
+  const submitConfiguration: SetupContextValue['submitConfiguration'] =
     useCallback(
       async ({ password: newPassword, myName, configs }) => {
         if (!password) {
@@ -344,7 +341,7 @@ export const GuardianProvider: React.FC<GuardianProviderProps> = ({
   }, []);
 
   return (
-    <GuardianContext.Provider
+    <SetupContext.Provider
       value={{
         state,
         dispatch,
@@ -356,6 +353,6 @@ export const GuardianProvider: React.FC<GuardianProviderProps> = ({
       }}
     >
       {children}
-    </GuardianContext.Provider>
+    </SetupContext.Provider>
   );
 };

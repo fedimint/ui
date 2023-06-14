@@ -15,8 +15,9 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { CopyInput, Table, TableRow } from '@fedimint/ui';
-import { useConsensusPolling, useGuardianContext } from '../hooks';
-import { GuardianRole, ServerStatus } from '../types';
+import { useConsensusPolling, useSetupContext } from '../hooks';
+import { ServerStatus } from '../types';
+import { GuardianRole } from '../setup/types';
 import { getModuleParamsFromConfig } from '../utils/api';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 
@@ -28,7 +29,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   const {
     state: { role, peers, numPeers, configGenParams, ourCurrentId },
     api,
-  } = useGuardianContext();
+  } = useSetupContext();
 
   const guardianLink = ourCurrentId !== null ? peers[ourCurrentId].api_url : '';
 

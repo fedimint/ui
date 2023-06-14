@@ -1,15 +1,15 @@
+import React from 'react';
 import { Flex, Heading, Text, Button, Icon } from '@chakra-ui/react';
-import React, { useCallback } from 'react';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
-import { useGuardianContext } from '../hooks';
-import { SETUP_ACTION_TYPE } from '../types';
+import { useAppContext } from '../hooks';
 
 export const SetupComplete: React.FC = () => {
-  const { dispatch } = useGuardianContext();
+  const { transitionToAdmin } = useAppContext();
 
-  const handleContinue = useCallback(() => {
-    dispatch({ type: SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE, payload: true });
-  }, [dispatch]);
+  const handleContinue = () => {
+    // TODO: Reset setup state
+    transitionToAdmin();
+  };
 
   return (
     <Flex
