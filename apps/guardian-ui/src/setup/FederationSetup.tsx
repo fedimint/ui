@@ -19,6 +19,7 @@ import { ConnectGuardians } from '../components/ConnectGuardians';
 import { RunDKG } from '../components/RunDKG';
 import { VerifyGuardians } from '../components/VerifyGuardians';
 import { SetupComplete } from '../components/SetupComplete';
+import { SetupProgress as SetupStepper } from '../components/SetupProgress';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -111,6 +112,9 @@ export const FederationSetup: React.FC = () => {
   return (
     <VStack gap={8} align='start'>
       <Header />
+      {progressIdx === 0 || !progressIdx ? null : (
+        <SetupStepper setupProgress={progressIdx} isHost={isHost} />
+      )}
       <VStack align='start' gap={2}>
         {prevProgress && canGoBack && (
           <Button
