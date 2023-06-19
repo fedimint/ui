@@ -14,6 +14,12 @@ export enum SetupProgress {
   SetupComplete = 'SetupComplete',
 }
 
+export enum StepState {
+  Active = 'Active',
+  InActive = 'InActive',
+  Completed = 'Completed',
+}
+
 export enum Network {
   Testnet = 'testnet',
   Mainnet = 'mainnet',
