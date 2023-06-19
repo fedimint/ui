@@ -10,12 +10,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useConsensusPolling, useSetupContext } from '../hooks';
 import { ServerStatus } from '../types';
 import { formatApiErrorMessage } from '../utils/api';
+import { useTranslation } from '@fedimint/utils';
 
 interface Props {
   next(): void;
 }
 
 export const RunDKG: React.FC<Props> = ({ next }) => {
+  const { t } = useTranslation();
   const {
     api,
     state: { peers },
@@ -51,12 +53,10 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
             next();
             break;
           case ServerStatus.ConfigGenFailed:
-            setError(
-              'Failed to run distributed key generation. Federation setup must be restarted.'
-            );
+            setError(`${t('run_dkg.error_config')}`);
             break;
           default:
-            setError(`Not ready for DKG, your current status is '${status}'`);
+            setError(`${t('run_dkg.error_default')} '${status}'`);
         }
       } catch (err) {
         setError(formatApiErrorMessage(err));
@@ -96,13 +96,15 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
       {error ? (
         <>
           <Heading size='sm' color={theme.colors.red[500]}>
-            Something went wrong.
+            {t('run_dkg.error_header')}
           </Heading>
           <Text>{error}</Text>
         </>
       ) : (
         <Heading size='sm'>
-          {isWaitingForOthers ? 'Waiting for peers...' : 'Generating codes...'}
+          {isWaitingForOthers
+            ? t('run_dkg.waiting_header')
+            : t('run_dkg.generating_header')}
         </Heading>
       )}
     </VStack>
