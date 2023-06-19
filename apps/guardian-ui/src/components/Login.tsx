@@ -7,14 +7,14 @@ import {
   VStack,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import { useGuardianContext } from '../hooks';
-import { SETUP_ACTION_TYPE } from '../types';
+import { useSetupContext } from '../hooks';
+import { SETUP_ACTION_TYPE } from '../setup/types';
 import { formatApiErrorMessage } from '../utils/api';
 import { useTranslation } from '@fedimint/utils';
 
 export const Login: React.FC = () => {
   const { t } = useTranslation();
-  const { api, dispatch } = useGuardianContext();
+  const { api, dispatch } = useSetupContext();
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>();
 

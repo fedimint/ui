@@ -20,7 +20,6 @@ import { RunDKG } from './RunDKG';
 import { VerifyGuardians } from './VerifyGuardians';
 import { SetupComplete } from './SetupComplete';
 import { FederationDashboard } from './FederationDashboard';
-import { useTranslation } from '@fedimint/utils';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -32,7 +31,6 @@ const PROGRESS_ORDER: SetupProgress[] = [
 ];
 
 export const Setup: React.FC = () => {
-  const { t } = useTranslation();
   const {
     state: {
       progress,

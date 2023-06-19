@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useConsensusPolling, useGuardianContext } from '../hooks';
+import { useConsensusPolling, useSetupContext } from '../hooks';
 import { ServerStatus } from '../types';
 import { formatApiErrorMessage } from '../utils/api';
 import { useTranslation } from '@fedimint/utils';
@@ -21,7 +21,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
   const {
     api,
     state: { peers },
-  } = useGuardianContext();
+  } = useSetupContext();
   const theme = useTheme();
   const [isWaitingForOthers, setIsWaitingForOthers] = useState(false);
   const [error, setError] = useState<string>();

@@ -1,20 +1,27 @@
 procs:
-  run-ui-federation:
-    shell: docker compose up 
-  teardown-ui-federation:
-    shell: docker compose down
-    autostart: false 
-  coordinator:
+  start-servers:
+    shell: docker compose up
+  stop-servers:
+    shell: docker compose down && echo 'Removing fm dirs' && sudo rm -rf fm_* && echo 'Done'
+    autostart: false
+  guardian-ui-1:
     cwd: apps/guardian-ui/
     shell: yarn dev
     env:
-      PORT: "3000"
+      PORT: '3000'
       REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18174
       BROWSER: none
-  guardian1: 
+  guardian-ui-2:
     cwd: apps/guardian-ui/
     shell: yarn dev
     env:
-      PORT: "3001"
+      PORT: '3001'
       REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18184
+      BROWSER: none
+  gateway-ui:
+    cwd: apps/gateway-ui/
+    shell: yarn dev
+    env:
+      PORT: '3002'
+      REACT_APP_FM_GATEWAY_API: 'http://127.0.0.1:8175'
       BROWSER: none

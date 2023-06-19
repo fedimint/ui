@@ -14,8 +14,8 @@ import {
   useTheme,
 } from '@chakra-ui/react';
 import { CopyInput, FormGroup, Table } from '@fedimint/ui';
-import { useGuardianContext } from '../hooks';
-import { GuardianRole, Peer } from '../types';
+import { useSetupContext } from '../hooks';
+import { GuardianRole, Peer } from '../setup/types';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../utils/api';
@@ -36,7 +36,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const {
     api,
     state: { role, numPeers },
-  } = useGuardianContext();
+  } = useSetupContext();
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
   const [myHash, setMyHash] = useState('');

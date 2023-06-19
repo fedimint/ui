@@ -16,8 +16,9 @@ import {
 } from '@chakra-ui/react';
 import { CopyInput, Table, TableRow } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
-import { useConsensusPolling, useGuardianContext } from '../hooks';
-import { GuardianRole, ServerStatus } from '../types';
+import { useConsensusPolling, useSetupContext } from '../hooks';
+import { ServerStatus } from '../types';
+import { GuardianRole } from '../setup/types';
 import { getModuleParamsFromConfig } from '../utils/api';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 
@@ -28,9 +29,11 @@ interface Props {
 export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
   const {
-    state: { role, peers, numPeers, configGenParams },
+    state: { role, peers, numPeers, configGenParams, ourCurrentId },
     api,
-  } = useGuardianContext();
+  } = useSetupContext();
+
+  const guardianLink = ourCurrentId !== null ? peers[ourCurrentId].api_url : '';
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -60,7 +63,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       <FormControl maxWidth={400}>
         <FormLabel>{t('connect_guardians.invite_guardians')}</FormLabel>
         <CopyInput
-          value={process.env.REACT_APP_FM_CONFIG_API || ''}
+          value={guardianLink}
           size='lg'
           buttonLeftIcon={<Icon as={CopyIcon} />}
         />

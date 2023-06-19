@@ -1,8 +1,14 @@
 import { useContext, useEffect } from 'react';
-import { GuardianContext, GuardianContextValue } from '../GuardianContext';
+import { AppContextValue, AppContext } from '../AppContext';
+import { SetupContext, SetupContextValue } from '../setup/SetupContext';
+import { AdminContext, AdminContextValue } from '../admin/AdminContext';
 
-export function useGuardianContext(): GuardianContextValue {
-  return useContext(GuardianContext);
+export function useAppContext(): AppContextValue {
+  return useContext(AppContext);
+}
+
+export function useSetupContext(): SetupContextValue {
+  return useContext(SetupContext);
 }
 
 /**
@@ -10,11 +16,15 @@ export function useGuardianContext(): GuardianContextValue {
  * on dismount.
  */
 export function useConsensusPolling(shouldPoll = true) {
-  const { toggleConsensusPolling } = useGuardianContext();
+  const { toggleConsensusPolling } = useSetupContext();
 
   useEffect(() => {
     if (!shouldPoll) return;
     toggleConsensusPolling(true);
     return () => toggleConsensusPolling(false);
   }, [shouldPoll]);
+}
+
+export function useAdminContext(): AdminContextValue {
+  return useContext(AdminContext);
 }

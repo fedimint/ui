@@ -1,6 +1,7 @@
 import { ColorModeScript } from '@chakra-ui/react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
+import { AppContextProvider } from './AppContext';
 import { App } from './App';
 import { i18nProvider } from '@fedimint/utils';
 import { languages } from './languages';
@@ -14,6 +15,8 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <ColorModeScript />
-    <App />
+    <AppContextProvider>
+      <App />
+    </AppContextProvider>
   </React.StrictMode>
 );

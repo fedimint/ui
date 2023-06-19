@@ -1,5 +1,5 @@
 import { JsonRpcError } from 'jsonrpc-client-websocket';
-import { AnyFedimintModule, ConfigGenParams } from '../types';
+import { AnyFedimintModule, ConfigGenParams } from '../setup/types';
 
 /**
  * Given a config and the name of the module, return the module
