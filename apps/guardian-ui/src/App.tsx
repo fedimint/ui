@@ -6,6 +6,7 @@ import { AdminContextProvider } from './admin/AdminContext';
 import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
 import { useAppContext } from './hooks';
+import { Wrapper } from './components/Wrapper';
 
 export const App = React.memo(function App() {
   const {
@@ -36,7 +37,9 @@ export const App = React.memo(function App() {
           case 'Setup':
             content = (
               <SetupContextProvider api={api}>
-                <FederationSetup />
+                <Wrapper>
+                  <FederationSetup />
+                </Wrapper>
               </SetupContextProvider>
             );
             break;
@@ -60,17 +63,7 @@ export const App = React.memo(function App() {
       <Fonts />
       <SharedChakraProvider theme={theme}>
         <Center>
-          <Box
-            maxW='960px'
-            width='100%'
-            mt={10}
-            mb={10}
-            mr={[2, 4, 6, 10]}
-            ml={[2, 4, 6, 10]}
-            p={5}
-          >
-            {getAppContent()}
-          </Box>
+          <Box width='100%'>{getAppContent()}</Box>
         </Center>
       </SharedChakraProvider>
     </React.StrictMode>
