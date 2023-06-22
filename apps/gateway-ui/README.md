@@ -8,9 +8,8 @@ Web app experience for managing Fedimint gateways. This is used by Gateway admin
 
 From root repo directory:
 
-1. Start nix shell: `nix develop`
 1. Navigate to this directory: `cd /fedimint-ui/apps/gateway-ui`
-1. Install dependencies if necessary: `yarn install`
+2. Install dependencies if necessary: `yarn install`
 
 ### Run Federations and UI
 
