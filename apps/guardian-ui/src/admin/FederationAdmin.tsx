@@ -10,13 +10,11 @@ import {
   Td,
   Thead,
   Th,
-  Icon,
 } from '@chakra-ui/react';
-import { CopyInput } from '@fedimint/ui';
 import { useAdminContext } from '../hooks';
 import { StatusResponse, Versions } from '../types';
-import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { SideBar } from '../components/SideBar';
+import { AdminHeader } from '../components/AdminHeader';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
@@ -39,9 +37,10 @@ export const FederationAdmin: React.FC = () => {
     versions?.core.consensus !== undefined ? `${versions.core.consensus}` : '';
 
   return (
-    <Flex gap={4} flexDirection='row'>
+    <Flex gap='32px' flexDirection='row'>
       <SideBar />
-      <Flex gap={4} flexDirection='column'>
+      <Flex gap={4} flexDirection='column' mt='24px'>
+        <AdminHeader connectionCode={connectionCode} />
         <Flex gap={4}>
           <Card flex='1'>
             <CardHeader>Federation info</CardHeader>
@@ -94,15 +93,6 @@ export const FederationAdmin: React.FC = () => {
             </CardBody>
           </Card>
         </Flex>
-        <Card>
-          <CardHeader>Connection info</CardHeader>
-          <CardBody>
-            <CopyInput
-              value={connectionCode}
-              buttonLeftIcon={<Icon as={CopyIcon} />}
-            />
-          </CardBody>
-        </Card>
       </Flex>
     </Flex>
   );
