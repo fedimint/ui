@@ -23,4 +23,4 @@ jobs:
         with:
           file: Dockerfile.guardian-ui
           push: true
-          tags: fedimint/guardian-ui:latest
+          tags: fedimintui/guardian-ui:latest
