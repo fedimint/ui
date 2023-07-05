@@ -63,6 +63,7 @@ export const FederationAdmin: React.FC = () => {
   const consensusVersion =
     versions?.core.consensus !== undefined ? `${versions.core.consensus}` : '';
 
+  console.log(status);
   return (
     <Flex gap='32px' flexDirection='row'>
       <SideBar />
