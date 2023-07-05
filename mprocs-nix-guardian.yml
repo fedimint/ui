@@ -1,0 +1,54 @@
+procs:
+  user:
+    shell: bash --init-file scripts/mprocs-user-shell.sh
+    stop: SIGKILL
+  fedimint0:
+    shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-0.log
+  fedimint1:
+    shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-1.log
+  fedimint2:
+    shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-2.log
+  fedimint3:
+    shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-3.log
+  cln-gw:
+    shell: tail -n +0 -F $FM_LOGS_DIR/gatewayd-cln.log
+  lnd-gw:
+    shell: tail -n +0 -F $FM_LOGS_DIR/gatewayd-lnd.log
+  cln:
+    shell: tail -n +0 -F $FM_LOGS_DIR/lightningd.log
+  lnd:
+    shell: tail -n +0 -F $FM_LOGS_DIR/lnd.log
+  bitcoind:
+    shell: tail -n +0 -F $FM_LOGS_DIR/bitcoind.log
+  devimint:
+    shell: tail -n +0 -F $FM_LOGS_DIR/devimint.log
+  faucet:
+    shell: tail -n +0 -F $FM_LOGS_DIR/faucet.log
+  guardian-ui-1:
+    cwd: apps/guardian-ui/
+    shell: yarn dev
+    env:
+      PORT: '3000'
+      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18138
+      BROWSER: none
+  guardian-ui-2:
+    cwd: apps/guardian-ui/
+    shell: yarn dev
+    env:
+      PORT: '3001'
+      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18140
+      BROWSER: none
+  guardian-ui-3:
+    cwd: apps/guardian-ui/
+    shell: yarn dev
+    env:
+      PORT: '3002'
+      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18142
+      BROWSER: none
+  guardian-ui-4:
+    cwd: apps/guardian-ui/
+    shell: yarn dev
+    env:
+      PORT: '3003'
+      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18144
+      BROWSER: none
