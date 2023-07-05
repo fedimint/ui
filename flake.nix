@@ -57,6 +57,7 @@
             nativeBuildInputs = [
               fedimint.packages.${system}.devimint
               fedimint.packages.${system}.gateway-pkgs
+              fedimint.packages.${system}.fedimint-pkgs
             ] ++ prev.nativeBuildInputs;
           });
         };
