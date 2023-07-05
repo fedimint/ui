@@ -287,12 +287,10 @@ export class GuardianApi
     // times, but eventually give up and just throw.
     let tries = 0;
     const maxTries = 10;
-    const attempConfirmConsensusRunning = async (): Promise<void> => {
-      // Explicitly start a fresh socket.
-      await this.shutdown();
-      await this.connect();
-      // Confirm status.
+    const attemptConfirmConsensusRunning = async (): Promise<void> => {
       try {
+        await this.connect();
+        await this.shutdown();
         const status = await this.status();
         if (status.server === ServerStatus.ConsensusRunning) {
           return;
@@ -308,13 +306,13 @@ export class GuardianApi
       if (tries < maxTries) {
         tries++;
         await sleep(1000);
-        return attempConfirmConsensusRunning();
+        return attemptConfirmConsensusRunning();
       } else {
         throw new Error('Failed to start consensus, see logs for more info.');
       }
     };
 
-    return attempConfirmConsensusRunning();
+    return attemptConfirmConsensusRunning();
   };
 
   /*** Running RPC methods */
