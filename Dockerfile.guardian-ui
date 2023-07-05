@@ -1,0 +1,8 @@
+FROM node:lts
+WORKDIR /app 
+COPY . /app
+RUN yarn install
+RUN REACT_APP_FM_CONFIG_API="ws://127.0.0.1:8174" yarn build
+RUN npm install -g serve
+CMD if [ ! -z "$REACT_APP_FM_CONFIG_API" ]; then yarn build;fi && serve -s apps/guardian-ui/build/
+EXPOSE 3000
