@@ -36,7 +36,7 @@ services:
       # Configured gateway routing fees Format: <base_msat>,<proportional_millionths>
       - FM_GATEWAY_FEES=0,1000
       # LND RPC address
-      - FM_LND_RPC_ADDR=https://10.5.0.10:11009
+      - FM_LND_RPC_ADDR=https://lnd_1:8180
       # LND TLS cert file path
       - FM_LND_TLS_CERT=/lnd_data/data/tls.cert
       # LND macaroon file path
@@ -56,6 +56,7 @@ services:
     image: lightninglabs/lnd:v0.14.1-beta
     ports:
       - '11009:11009'
+      - '8180:8180'
     volumes:
       - ./misc/test/data:/root/.lnd
       - ./misc/test/lnd.conf:/root/.lnd/lnd.conf

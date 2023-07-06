@@ -30,5 +30,7 @@ procs:
       BROWSER: none
   fedimintd_1-logs:
     shell: sleep 3 && docker logs -f ui-fedimintd_1-1
+  lnd_1-logs:
+    shell: sleep 3 && docker logs -f ui-lnd_1-1
   fedimintd_2-logs:
     shell: sleep 3 && docker logs -f ui-fedimintd_2-1
