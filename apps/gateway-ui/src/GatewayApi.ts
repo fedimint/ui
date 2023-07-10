@@ -45,7 +45,7 @@ export class GatewayApi implements ApiInterface {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${this.password}`,
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify(null),
       });
 
       if (res.ok) {
