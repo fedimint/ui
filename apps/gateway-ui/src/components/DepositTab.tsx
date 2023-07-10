@@ -283,16 +283,6 @@ const WatchTransaction = ({
             status.transactionId
           );
 
-          // Automatically complete the deposit to federation
-          // TODO: Call to completeDeposit should be automated.
-          // once all the required data is available, complete the deposit without requiring user interaction.
-          const fmTxId = await gateway.completeDeposit(
-            federationId,
-            proof.transactionOutProof,
-            proof.transactionHash
-          );
-
-          console.log('Fedimint Transaction ID: ', fmTxId);
           timer && clearInterval(timer);
         }
 
