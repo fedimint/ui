@@ -2,16 +2,11 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Center, Stack } from '@chakra-ui/react';
 import { Header, FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
-import { ExplorerApi } from './ExplorerApi';
 import { ApiProvider } from './ApiProvider';
 import { GatewayInfo, Federation } from './types';
 
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
-  const explorer = useMemo(
-    () => new ExplorerApi('https://blockstream.info/api/'),
-    []
-  );
 
   const [gatewayInfo, setGatewayInfo] = useState<GatewayInfo>({
     federations: [],
@@ -40,7 +35,7 @@ export const App = React.memo(function Admin(): JSX.Element {
   };
 
   return (
-    <ApiProvider props={{ gateway, explorer }}>
+    <ApiProvider props={{ gateway }}>
       <Center>
         <Box
           maxW='1000px'
