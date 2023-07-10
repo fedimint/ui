@@ -60,8 +60,6 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
     setShowDetails(nextState);
   };
 
-  const placeholder_desc = 'fedimint federation';
-
   return (
     <>
       <Stack
@@ -75,7 +73,6 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
               <Text color='white'>FM</Text>
             </Circle>
             <Box pl='2'>
-              <Text fontWeight='500'>{placeholder_desc}</Text>
               <Text fontSize={{ base: '13px', md: '15px', lg: '16px' }}>
                 {`${gateway_pub_key?.substring(0, 24)}...`}
               </Text>
@@ -97,10 +94,7 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
           <Collapse in={showDetails} animateOpacity>
             <Divider />
             <TabPanels>
-              <InfoTab
-                description={placeholder_desc}
-                balance_msat={balance_msat}
-              />
+              <InfoTab balance_msat={balance_msat} />
               <DepositTab
                 federationId={federation_id}
                 active={tab.open === OpenTab.DepositTab}

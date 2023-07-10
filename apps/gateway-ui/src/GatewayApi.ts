@@ -5,18 +5,6 @@ interface ApiInterface {
   fetchInfo: () => Promise<GatewayInfo>;
   fetchAddress: (federationId: string) => Promise<string>;
   connectFederation: (connectInfo: string) => Promise<Federation>;
-  /**
-   * Complete a deposit to a federation served by the Gateway
-   * @param federationId id of the federation to deposit to
-   * @param txOutProof transaction out proof for the deposit made to address previously sourced from federation via fetchAddress
-   * @param tx transaction hash for the deposit made to address previously sourced from federation via fetchAddress
-   * @returns `TransactionId` from the Fedimint federation
-   */
-  completeDeposit: (
-    federationId: string,
-    txOutProof: string,
-    tx: string
-  ) => Promise<string>;
 
   /**
    *  Request a withdrawal from a fedration served by the Gateway
@@ -105,14 +93,6 @@ export class GatewayApi implements ApiInterface {
     } catch (err) {
       return Promise.reject(err);
     }
-  };
-
-  completeDeposit = async (
-    _federationId: string,
-    _txOutProof: string,
-    _tx: string
-  ): Promise<string> => {
-    throw new Error('Not implemented');
   };
 
   requestWithdrawal = async (
