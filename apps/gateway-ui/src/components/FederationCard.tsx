@@ -29,7 +29,11 @@ enum OpenTab {
 }
 
 export const FederationCard = (props: FederationCardProps): JSX.Element => {
-  const { federation_id, mint_pubkey } = props.federation;
+  const {
+    federation_id,
+    balance_msat,
+    registration: { gateway_pub_key },
+  } = props.federation;
 
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [tab, setOpenTab] = useState<{ open: OpenTab; mru: OpenTab }>({
@@ -73,7 +77,7 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
             <Box pl='2'>
               <Text fontWeight='500'>{placeholder_desc}</Text>
               <Text fontSize={{ base: '13px', md: '15px', lg: '16px' }}>
-                {`${mint_pubkey?.substring(0, 24)}...`}
+                {`${gateway_pub_key?.substring(0, 24)}...`}
               </Text>
             </Box>
           </HStack>
@@ -93,7 +97,10 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
           <Collapse in={showDetails} animateOpacity>
             <Divider />
             <TabPanels>
-              <InfoTab date_created='' description={placeholder_desc} />
+              <InfoTab
+                description={placeholder_desc}
+                balance_msat={balance_msat}
+              />
               <DepositTab
                 federationId={federation_id}
                 active={tab.open === OpenTab.DepositTab}

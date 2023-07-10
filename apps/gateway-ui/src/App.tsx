@@ -62,7 +62,7 @@ export const App = React.memo(function Admin(): JSX.Element {
             {fedlist.map((federation: Federation) => {
               return (
                 <FederationCard
-                  key={federation.mint_pubkey}
+                  key={federation.registration.gateway_pub_key}
                   federation={federation}
                 />
               );
