@@ -60,8 +60,15 @@ export const WithdrawTab = React.memo(function WithdrawTab({
     (event: React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
       const { value, name } = event.target;
-
-      setWithdrawObject((prevState) => ({ ...prevState, [name]: value }));
+      // FIXME this is a hack
+      if (name === 'amount') {
+        setWithdrawObject((prevState) => ({
+          ...prevState,
+          [name]: parseInt(value),
+        }));
+      } else {
+        setWithdrawObject((prevState) => ({ ...prevState, [name]: value }));
+      }
     },
     [withdrawObject]
   );
@@ -112,7 +119,8 @@ export const WithdrawTab = React.memo(function WithdrawTab({
         <Input
           labelName=' Amount (sats):'
           placeHolder='Enter amount in sats'
-          value={withdrawObject.amount}
+          // FIXME: this is a hack
+          value={withdrawObject.amount.toString()}
           onChange={(e) => handleInputChange(e)}
           name='amount'
         />

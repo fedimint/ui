@@ -116,11 +116,34 @@ export class GatewayApi implements ApiInterface {
   };
 
   requestWithdrawal = async (
-    _federationId: string,
-    _amountSat: number,
-    _address: string
+    federationId: string,
+    amountSat: number,
+    address: string
   ): Promise<string> => {
-    throw new Error('Not implemented');
+    try {
+      const res: Response = await fetch(`${this.baseUrl}/withdraw`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.password}`,
+        },
+        body: JSON.stringify({
+          federation_id: federationId,
+          amount: amountSat,
+          address,
+        }),
+      });
+
+      if (res.ok) {
+        const txid: string = await res.text();
+        console.log('txid', txid);
+        return Promise.resolve(txid);
+      }
+
+      throw responseToError('withdrawing', res);
+    } catch (err) {
+      return Promise.reject(err);
+    }
   };
 }
 
