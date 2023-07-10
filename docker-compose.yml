@@ -29,7 +29,7 @@ services:
       # Public URL from which the webserver API is reachable
       - FM_GATEWAY_API_ADDR=ws://gatewayd_1:8175
       # Gateway webserver authentication password
-      - FM_GATEWAY_PASSWORD=thereisnosecondbest
+      - FM_GATEWAY_PASSWORD=theresnosecondbest
       # Configured gateway routing fees Format: <base_msat>,<proportional_millionths>
       - FM_GATEWAY_FEES=0,1000
       # LND RPC address

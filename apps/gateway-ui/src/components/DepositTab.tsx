@@ -13,36 +13,47 @@ import {
   Progress,
   Badge,
   Box,
+  Button,
 } from '@chakra-ui/react';
 import { QRCodeSVG } from 'qrcode.react';
-import { ApiContext, Button, TabHeader } from '.';
-import { TransactionStatus } from '../api';
+import { TransactionStatus } from '../ExplorerApi';
+import { ApiContext } from '../ApiProvider';
+import { TabHeader } from '.';
 
 export const DepositTabHeader = (): JSX.Element => {
   return <TabHeader>Deposit</TabHeader>;
 };
 
-const truncateStringFormat = (arg: string): string => {
+const truncateStringFormat = (arg = ''): string => {
   return `${arg.substring(0, 15)}......${arg.substring(
     arg.length,
     arg.length - 15
   )}`;
 };
 
-export const DepositTab = React.memo(function DepositTab(): JSX.Element {
-  const { mintgate, explorer } = React.useContext(ApiContext);
+export interface DepositTabProps {
+  federationId: string;
+  active: boolean;
+}
+
+export const DepositTab = React.memo(function DepositTab({
+  federationId,
+  active,
+}: DepositTabProps): JSX.Element {
+  const { gateway, explorer } = React.useContext(ApiContext);
 
   const [address, setAddress] = useState<string>('');
   const [txStatus, setTxStatus] = useState<TransactionStatus | null>(null);
 
   useEffect(() => {
-    mintgate.fetchAddress().then((newAddress) => {
-      setAddress(newAddress);
-    });
-  }, [mintgate]);
+    !address &&
+      gateway.fetchAddress(federationId).then((newAddress) => {
+        setAddress(newAddress);
+      });
+  }, []);
 
   useEffect(() => {
-    if (!address) return;
+    if (!address || !active) return;
 
     const observeMempool = async (timer?: NodeJS.Timer) => {
       try {
@@ -72,7 +83,7 @@ export const DepositTab = React.memo(function DepositTab(): JSX.Element {
     // observeMempool(timer);
 
     return () => clearInterval(timer);
-  }, [explorer, address]);
+  }, [explorer, address, active]);
 
   const getDepositCardProps = (): DepositCardProps => {
     if (txStatus) {
@@ -255,7 +266,7 @@ const WatchTransaction = ({
   confirmationsRequired,
   federationId,
 }: WatchTransactionProps) => {
-  const { mintgate, explorer } = React.useContext(ApiContext);
+  const { gateway, explorer } = React.useContext(ApiContext);
 
   const [status, setStatus] = useState(txStatus);
 
@@ -275,7 +286,7 @@ const WatchTransaction = ({
           // Automatically complete the deposit to federation
           // TODO: Call to completeDeposit should be automated.
           // once all the required data is available, complete the deposit without requiring user interaction.
-          const fmTxId = await mintgate.completeDeposit(
+          const fmTxId = await gateway.completeDeposit(
             federationId,
             proof.transactionOutProof,
             proof.transactionHash

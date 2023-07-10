@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   Box,
+  Button,
   Flex,
   HStack,
   Modal,
@@ -16,8 +17,9 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
-import { TabHeader, Button, Input, ApiContext } from '.';
-import { TransactionStatus } from '../api';
+import { TransactionStatus } from '../ExplorerApi';
+import { ApiContext } from '../ApiProvider';
+import { TabHeader, Input } from '.';
 
 export const WithdrawTabHeader = () => {
   return <TabHeader>Withdraw</TabHeader>;
@@ -42,7 +44,7 @@ const truncateStringFormat = (arg: string): string => {
 export const WithdrawTab = React.memo(function WithdrawTab({
   federationId,
 }: WithdrawTabProps): JSX.Element {
-  const { mintgate } = React.useContext(ApiContext);
+  const { gateway } = React.useContext(ApiContext);
   const [withdrawObject, setWithdrawObject] = useState<WithdrawObject>({
     amount: 0,
     address: '',
@@ -58,8 +60,15 @@ export const WithdrawTab = React.memo(function WithdrawTab({
     (event: React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
       const { value, name } = event.target;
-
-      setWithdrawObject((prevState) => ({ ...prevState, [name]: value }));
+      // FIXME this is a hack
+      if (name === 'amount') {
+        setWithdrawObject((prevState) => ({
+          ...prevState,
+          [name]: parseInt(value),
+        }));
+      } else {
+        setWithdrawObject((prevState) => ({ ...prevState, [name]: value }));
+      }
     },
     [withdrawObject]
   );
@@ -80,7 +89,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
 
   const startWithdrawal = async () => {
     try {
-      const txId = await mintgate.requestWithdrawal(
+      const txId = await gateway.requestWithdrawal(
         federationId,
         amount,
         address
@@ -110,7 +119,8 @@ export const WithdrawTab = React.memo(function WithdrawTab({
         <Input
           labelName=' Amount (sats):'
           placeHolder='Enter amount in sats'
-          value={withdrawObject.amount}
+          // FIXME: this is a hack
+          value={withdrawObject.amount.toString()}
           onChange={(e) => handleInputChange(e)}
           name='amount'
         />

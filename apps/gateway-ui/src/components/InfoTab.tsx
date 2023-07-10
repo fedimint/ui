@@ -7,14 +7,14 @@ export const InfoTabHeader = (): JSX.Element => {
 };
 
 interface InfoTabProps {
-  date_created: string;
   description: string;
+  balance_msat: number;
 }
 
 export const InfoTab = React.memo(function InfoTab(
   props: InfoTabProps
 ): JSX.Element {
-  const { description, date_created } = props;
+  const { description, balance_msat } = props;
   return (
     <TabPanel>
       <Stack spacing={2}>
@@ -26,9 +26,9 @@ export const InfoTab = React.memo(function InfoTab(
         </Box>
         <Box>
           <Text fontWeight='500' fontSize='15px'>
-            Date Connected:
+            Balance:
           </Text>
-          <Text>{date_created.toString().slice(0, 10)}</Text>
+          <Text>{balance_msat}</Text>
         </Box>
       </Stack>
     </TabPanel>

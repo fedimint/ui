@@ -6,42 +6,30 @@ Web app experience for setting up and administering fedimints. This is used by t
 
 ### Environment setup
 
-From root repo directory:
+From repo root directory:
 
-1. Navigate to this directory: `cd /fedimint-ui/apps/guardian-ui`
-2. Install dependencies if necessary: `yarn install`
+1. Install dependencies if necessary: `yarn install`
+1. Run `docker-compose up` to start two fedimint servers, a gateway, and other dependencies.
 
-### Run Federations and UI
+You can [learn more about this command here](../../README.md#development)
+
+
+### Run Federation Setup UIs
 
 Do the following in separate terminals:
 
-- **First terminal**
-
-1. Confirm you are in the root of fedimint repository
-1. Start fedimintd servers by running `./scripts/run-ui.sh`
-
-- **Second Terminal**
+- **First Terminal**
 
 1. Confirm you are in `guardian-ui/` directory
 1. Run `PORT=3000 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18174" yarn dev`
    - This will be your "Leader" instance
 
-- **Third Terminal**
+- **Second Terminal**
 
 1. Confirm you are in `guardian-ui/` directory
 1. Run `PORT=3001 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18184" yarn dev`
    - This will be your "Follower" instance
 
-- **Other Terminals** (optional)
+### Set up your federation
 
-1. Adapt the steps above to run the UI instances for other "Follower" guardians
-
-This will allow you to complete the full setup process locally with a federation of 2 or more guardians.
-
-## Run Tests
-
-TODO
-
-## CI and misc
-
-TODO
+Use these UIs to set up your two-guardian federation
