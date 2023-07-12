@@ -47,3 +47,34 @@ export interface Versions {
     }
   >;
 }
+
+export enum ModuleKind {
+  Ln = 'ln',
+  Mint = 'mint',
+  Wallet = 'wallet',
+}
+
+interface FedimintModule {
+  config: string;
+  kind: ModuleKind;
+  version: number;
+}
+
+interface ApiEndpoint {
+  name: string;
+  url: string;
+}
+
+export type MetaConfig = { federation_name?: string };
+
+export interface ClientConfig {
+  consenus_version: number;
+  epoch_pk: string;
+  federation_id: string;
+  api_endpoint: Record<number, ApiEndpoint>;
+  modules: Record<number, FedimintModule>;
+  meta: MetaConfig;
+}
+export interface ConfigResponse {
+  client_config: ClientConfig;
+}
