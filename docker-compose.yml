@@ -104,5 +104,32 @@ services:
     volumes:
       - 'bitcoin_datadir:/data'
 
+  # Uncomment me to test out Dockerfile.guardian-ui locally
+  # guardian_ui:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.guardian-ui
+  #   environment:
+  #     - PORT=3001
+  #     - REACT_APP_FM_CONFIG_API=ws://localhost:18184
+  #   expose:
+  #     - '3001'
+  #   ports:
+  #     - '3001:3001'
+
+  # Uncomment me to test out Dockerfile.gateway-ui locally
+  # gateway_ui:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.gateway-ui
+  #   environment:
+  #     - PORT=3002
+  #     - REACT_APP_FM_GATEWAY_API=ws://localhost:8175
+  #     - REACT_APP_FM_GATEWAY_PASSWORD=theresnosecondbest
+  #   expose:
+  #     - '3002'
+  #   ports:
+  #     - '3002:3002'
+
 volumes:
   bitcoin_datadir:
