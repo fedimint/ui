@@ -12,7 +12,6 @@ import {
   Stack,
   TabPanel,
   Text,
-  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { ApiContext } from '../ApiProvider';
@@ -161,7 +160,6 @@ const ConfirmWithdrawModal = (
 ): JSX.Element => {
   const { open, txRequest, onModalClickCallback, startWithdrawalCallback } =
     props;
-  const toast = useToast();
 
   return (
     <div>
@@ -189,14 +187,6 @@ const ConfirmWithdrawModal = (
                 onClick={() => {
                   if (startWithdrawalCallback) {
                     startWithdrawalCallback();
-                    toast({
-                      title: 'Withdrawal created.',
-                      description: 'Please check your transaction history',
-                      status: 'success',
-                      duration: 5000,
-                      isClosable: true,
-                      position: 'top-right',
-                    });
                   }
                 }}
                 fontSize={{ base: '12px', md: '13px', lg: '16px' }}
