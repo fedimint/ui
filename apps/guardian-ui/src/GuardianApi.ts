@@ -1,6 +1,7 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
+  ConfigResponse,
   ConsensusStatus,
   ServerStatus,
   StatusResponse,
@@ -20,7 +21,7 @@ export interface SocketAndAuthInterface {
 interface RpcInterface {
   call: <T>(
     method: SetupRpc | AdminRpc | SharedRpc,
-    params?: object | null
+    params?: unknown
   ) => Promise<T>;
   // TODO: Consider moving this to `SocketAndAuthInterface` as part of the authentication methods.
   clearPassword: () => void;
@@ -130,7 +131,7 @@ class BaseGuardianApi
 
   call = async <T>(
     method: SetupRpc | AdminRpc | SharedRpc,
-    params: object | null = null
+    params: unknown = null
   ): Promise<T> => {
     try {
       const websocket = await this.connect();
@@ -191,12 +192,14 @@ enum AdminRpc {
   fetchEpochCount = 'fetch_epoch_count',
   consensusStatus = 'consensus_status',
   connectionCode = 'connection_code',
+  config = 'config',
 }
 
 export interface AdminApiInterface extends SharedApiInterface {
   version: () => Promise<Versions>;
   fetchEpochCount: () => Promise<number>;
   connectionCode: () => Promise<string>;
+  config: (connection: string) => Promise<ConfigResponse>;
 }
 
 export class GuardianApi
@@ -331,5 +334,9 @@ export class GuardianApi
 
   connectionCode = (): Promise<string> => {
     return this.base.call(AdminRpc.connectionCode);
+  };
+
+  config = (connection: string): Promise<ConfigResponse> => {
+    return this.base.call<ConfigResponse>(AdminRpc.config, connection);
   };
 }
