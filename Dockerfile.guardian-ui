@@ -2,6 +2,7 @@ FROM node:lts
 WORKDIR /app 
 COPY . /app
 RUN yarn install
+RUN yarn build
 RUN REACT_APP_FM_CONFIG_API="{{REACT_APP_FM_CONFIG_API}}" \
   yarn build:guardian-ui
 RUN npm install -g serve
