@@ -2,9 +2,12 @@ FROM node:lts
 WORKDIR /app 
 COPY . /app
 RUN yarn install
-RUN REACT_APP_FM_CONFIG_API="ws://127.0.0.1:8174" yarn build
+RUN REACT_APP_FM_CONFIG_API="{{REACT_APP_FM_CONFIG_API}}" \
+  yarn build:guardian-ui
 RUN npm install -g serve
+COPY scripts/replace-react-env.js scripts/replace-react-env.js
+
 # The following env variables can be given at runtime:
 # - PORT
 # - REACT_APP_FM_CONFIG_API
-CMD if [ ! -z "$REACT_APP_FM_CONFIG_API" ]; then yarn build;fi && serve -s apps/guardian-ui/build/
+CMD node scripts/replace-react-env.js apps/guardian-ui/build && serve -s apps/guardian-ui/build
