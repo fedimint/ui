@@ -9,7 +9,10 @@ export type ConnectFederationProps = {
   renderConnectedFedCallback: (federation: Federation) => void;
 };
 
-export const ConnectFederation = (connect: ConnectFederationProps) => {
+export const ConnectFederation = ({
+  isOpen,
+  renderConnectedFedCallback,
+}: ConnectFederationProps) => {
   const { gateway } = React.useContext(ApiContext);
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [connectInfo, setConnectInfo] = useState<string>('');
@@ -19,18 +22,21 @@ export const ConnectFederation = (connect: ConnectFederationProps) => {
     setConnectInfo(event.target.value);
   };
 
-  const handleConnectFederation = async () => {
-    try {
-      const federation = await gateway.connectFederation(connectInfo);
-      connect.renderConnectedFedCallback(federation);
-      setConnectInfo('');
-    } catch (e) {
-      setErrorMsg(`Failed to connect to federation ${e}`);
-    }
+  const handleConnectFederation = () => {
+    gateway
+      .connectFederation(connectInfo)
+      .then((federation) => {
+        renderConnectedFedCallback(federation);
+        setConnectInfo('');
+      })
+      .catch(({ message, error }) => {
+        console.error(error);
+        setErrorMsg(message);
+      });
   };
 
   return (
-    <Collapse in={connect.isOpen} animateOpacity>
+    <Collapse in={isOpen} animateOpacity>
       <Box m='1'>
         <HStack
           borderRadius='4'

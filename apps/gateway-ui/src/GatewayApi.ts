@@ -23,10 +23,20 @@ interface ApiInterface {
 // GatewayApi is an implementation of the ApiInterface
 export class GatewayApi implements ApiInterface {
   private baseUrl: string | undefined = process.env.REACT_APP_FM_GATEWAY_API;
-  private password = process.env.REACT_APP_FM_GATEWAY_PASSWORD || '';
+  private password: string | undefined =
+    process.env.REACT_APP_FM_GATEWAY_PASSWORD;
+
+  private checkConfig = (): void => {
+    if (this.baseUrl === undefined || this.password === undefined) {
+      throw new Error(
+        'Misconfigured Gateway API. Make sure FM_GATEWAY_API and FM_GATEWAY_PASSWORD are configured appropriately'
+      );
+    }
+  };
 
   fetchInfo = async (): Promise<GatewayInfo> => {
     try {
+      this.checkConfig();
       const res: Response = await fetch(`${this.baseUrl}/info`, {
         method: 'POST',
         headers: {
@@ -41,14 +51,15 @@ export class GatewayApi implements ApiInterface {
         return Promise.resolve(info);
       }
 
-      throw responseToError('Fetching gateway info', res);
-    } catch (err) {
-      return Promise.reject(err);
+      throw responseToError(res);
+    } catch (error) {
+      return Promise.reject({ message: 'Error fetching gateway info', error });
     }
   };
 
   fetchAddress = async (federationId: string): Promise<string> => {
     try {
+      this.checkConfig();
       const res: Response = await fetch(`${this.baseUrl}/address`, {
         method: 'POST',
         headers: {
@@ -65,14 +76,18 @@ export class GatewayApi implements ApiInterface {
         return Promise.resolve(address);
       }
 
-      throw responseToError('fetching federation address', res);
-    } catch (err) {
-      return Promise.reject(err);
+      throw responseToError(res);
+    } catch (error) {
+      return Promise.reject({
+        message: 'Error fetching deposit address',
+        error,
+      });
     }
   };
 
   connectFederation = async (connectInfo: string): Promise<Federation> => {
     try {
+      this.checkConfig();
       const res: Response = await fetch(`${this.baseUrl}/connect-fed`, {
         method: 'POST',
         headers: {
@@ -89,9 +104,9 @@ export class GatewayApi implements ApiInterface {
         return Promise.resolve(federation);
       }
 
-      throw responseToError('Connecting federation', res);
-    } catch (err) {
-      return Promise.reject(err);
+      throw responseToError(res);
+    } catch (error) {
+      return Promise.reject({ message: 'Error connecting federation', error });
     }
   };
 
@@ -101,6 +116,7 @@ export class GatewayApi implements ApiInterface {
     address: string
   ): Promise<string> => {
     try {
+      this.checkConfig();
       const res: Response = await fetch(`${this.baseUrl}/withdraw`, {
         method: 'POST',
         headers: {
@@ -120,15 +136,13 @@ export class GatewayApi implements ApiInterface {
         return Promise.resolve(txid);
       }
 
-      throw responseToError('withdrawing', res);
-    } catch (err) {
-      return Promise.reject(err);
+      throw responseToError(res);
+    } catch (error) {
+      return Promise.reject({ message: 'Error requesting withdrawal', error });
     }
   };
 }
 
-const responseToError = (scenario: string, res: Response): Error => {
-  return new Error(
-    `${scenario} \nStatus : ${res.status} \nReason : ${res.statusText}\n`
-  );
+const responseToError = (res: Response): Error => {
+  return new Error(`Status : ${res.status} \nReason : ${res.statusText}\n`);
 };

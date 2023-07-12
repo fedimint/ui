@@ -18,12 +18,20 @@ export const DepositTab = React.memo(function DepositTab({
 }: DepositTabProps): JSX.Element {
   const { gateway } = React.useContext(ApiContext);
   const [address, setAddress] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     !address &&
-      gateway.fetchAddress(federationId).then((newAddress) => {
-        setAddress(newAddress);
-      });
+      gateway
+        .fetchAddress(federationId)
+        .then((newAddress) => {
+          setAddress(newAddress);
+          setError('');
+        })
+        .catch(({ message, error }) => {
+          console.error(error);
+          setError(message);
+        });
   }, []);
 
   return (
@@ -40,10 +48,16 @@ export const DepositTab = React.memo(function DepositTab({
         alignItems={{ base: 'left', md: 'center' }}
         mb={4}
       >
-        <Text fontSize='lg' fontWeight='500' color='#1A202C' mr={2}>
-          Address:
-        </Text>
-        <Text fontSize='lg'>{address}</Text>
+        {address ? (
+          <>
+            <Text fontSize='lg' fontWeight='500' color='#1A202C' mr={2}>
+              Address:
+            </Text>
+            <Text fontSize='lg'>{address}</Text>
+          </>
+        ) : (
+          <Text>{error}</Text>
+        )}
       </Flex>
       <Box>
         {address && <QRCodeSVG height='20em' width='20em' value={address} />}

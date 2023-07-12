@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Box, Center, Stack } from '@chakra-ui/react';
+import { Box, Center, Heading, Stack, VStack, Text } from '@chakra-ui/react';
 import { Header, FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
@@ -18,52 +18,66 @@ export const App = React.memo(function Admin(): JSX.Element {
     lightning_pub_key: '',
     version_hash: '',
   });
-
-  const [fedlist, setFedlist] = useState<Federation[]>([]);
-
   const [showConnectFed, toggleShowConnectFed] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    gateway.fetchInfo().then((gatewayInfo: GatewayInfo) => {
-      setGatewayInfo(gatewayInfo);
-      setFedlist(gatewayInfo.federations);
-    });
+    gateway
+      .fetchInfo()
+      .then((gatewayInfo: GatewayInfo) => {
+        setGatewayInfo(gatewayInfo);
+      })
+      .catch(({ message, error }) => {
+        console.error(error);
+        setError(message);
+      });
   }, [gateway]);
 
   const renderConnectedFedCallback = (federation: Federation) => {
-    setFedlist([federation, ...fedlist]);
+    setGatewayInfo({
+      ...gatewayInfo,
+      federations: [...gatewayInfo.federations, federation],
+    });
+    toggleShowConnectFed(!showConnectFed);
   };
 
   return (
     <ApiProvider props={{ gateway }}>
       <Center>
-        <Box
-          maxW='1000px'
-          width='100%'
-          mt={10}
-          mb={10}
-          mr={[2, 4, 6, 10]}
-          ml={[2, 4, 6, 10]}
-        >
-          <Header
-            gatewayInfo={gatewayInfo}
-            toggleShowConnectFed={() => toggleShowConnectFed(!showConnectFed)}
-          />
-          <ConnectFederation
-            isOpen={showConnectFed}
-            renderConnectedFedCallback={renderConnectedFedCallback}
-          />
-          <Stack spacing={6} pt={6}>
-            {fedlist.map((federation: Federation) => {
-              return (
-                <FederationCard
-                  key={federation.registration.gateway_pub_key}
-                  federation={federation}
-                />
-              );
-            })}
-          </Stack>
-        </Box>
+        {error ? (
+          <VStack spacing={4}>
+            <Heading size='md'>Error</Heading>
+            <Text>{error}</Text>
+          </VStack>
+        ) : (
+          <Box
+            maxW='1000px'
+            width='100%'
+            mt={10}
+            mb={10}
+            mr={[2, 4, 6, 10]}
+            ml={[2, 4, 6, 10]}
+          >
+            <Header
+              gatewayInfo={gatewayInfo}
+              toggleShowConnectFed={() => toggleShowConnectFed(!showConnectFed)}
+            />
+            <ConnectFederation
+              isOpen={showConnectFed}
+              renderConnectedFedCallback={renderConnectedFedCallback}
+            />
+            <Stack spacing={6} pt={6}>
+              {gatewayInfo.federations.map((federation: Federation) => {
+                return (
+                  <FederationCard
+                    key={federation.registration.gateway_pub_key}
+                    federation={federation}
+                  />
+                );
+              })}
+            </Stack>
+          </Box>
+        )}
       </Center>
     </ApiProvider>
   );
