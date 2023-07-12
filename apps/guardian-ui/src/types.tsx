@@ -78,3 +78,22 @@ export interface ClientConfig {
 export interface ConfigResponse {
   client_config: ClientConfig;
 }
+
+// These types are shared with the gateway-ui
+export interface Fees {
+  base_msat: number;
+  proportional_millionths: number;
+}
+
+export interface Gateway {
+  gateway_pub_key: string;
+  api: string;
+  fees: Fees;
+  mint_channel_id: number;
+  node_pub_key: string;
+  route_hints: object[]; // FIXME: https://github.com/fedimint/ui/issues/80
+  valid_until: {
+    nanos_since_epoch: number;
+    secs_since_epoch: number;
+  };
+}
