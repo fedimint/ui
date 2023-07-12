@@ -81,21 +81,19 @@ export const WithdrawTab = React.memo(function WithdrawTab({
     setModalState(true);
   };
 
-  const startWithdrawal = async () => {
-    try {
-      const txId = await gateway.requestWithdrawal(
-        federationId,
-        amount,
-        address
-      );
-      // FIXME: show this in a better way
-      alert(`Your transaction ID: ${txId}`);
-      setWithdrawObject({ ...withdrawObject, amount: 0, address: '' });
-      setModalState(false);
-    } catch (err) {
-      console.log(err);
-      setError('Failed to request withdrawal');
-    }
+  const startWithdrawal = () => {
+    gateway
+      .requestWithdrawal(federationId, amount, address)
+      .then((txId) => {
+        // FIXME: show this in a better way
+        alert(`Your transaction ID: ${txId}`);
+        setWithdrawObject({ ...withdrawObject, amount: 0, address: '' });
+        setModalState(false);
+      })
+      .catch(({ message, error }) => {
+        console.error(error);
+        setError(message);
+      });
   };
 
   return (
