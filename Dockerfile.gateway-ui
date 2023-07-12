@@ -1,0 +1,11 @@
+FROM node:lts
+WORKDIR /app 
+COPY . /app
+RUN yarn install
+RUN yarn build
+RUN npm install -g serve
+# The following env variables can be given at runtime:
+# - PORT
+# - REACT_APP_FM_GATEWAY_API
+# - REACT_APP_FM_GATEWAY_PASSWORD
+CMD yarn build && serve -s apps/gateway-ui/build/

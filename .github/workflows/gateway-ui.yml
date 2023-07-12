@@ -1,9 +1,13 @@
-name: ci
+name: gateway-ui
 
 on:
   push:
     branches:
       - 'master'
+    paths:
+      - .github/workflows/gateway-ui.yml
+      - apps/gateway-ui/**
+      - packages/**
 
 jobs:
   docker:
@@ -18,9 +22,9 @@ jobs:
         with:
           username: fedimintui
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: Build and push
+      - name: Build and push gateway-ui
         uses: docker/build-push-action@v4
         with:
-          file: Dockerfile.guardian-ui
+          file: Dockerfile.gateway-ui
           push: true
-          tags: fedimintui/guardian-ui:latest
+          tags: fedimintui/gateway-ui:latest
