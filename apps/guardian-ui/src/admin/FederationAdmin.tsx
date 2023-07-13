@@ -12,9 +12,11 @@ import {
   Th,
 } from '@chakra-ui/react';
 import { useAdminContext } from '../hooks';
-import { StatusResponse, Versions } from '../types';
+import { ConfigResponse, Gateway, StatusResponse, Versions } from '../types';
 import { SideBar } from '../components/SideBar';
 import { AdminHeader } from '../components/AdminHeader';
+import { ConnectedNodes } from '../components/ConnectedNodes';
+import { LightningModuleRpc } from '../GuardianApi';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
@@ -22,6 +24,8 @@ export const FederationAdmin: React.FC = () => {
   const [epochCount, setEpochCount] = useState<number>();
   const [status, setStatus] = useState<StatusResponse>();
   const [connectionCode, setConnectionCode] = useState<string>('');
+  const [config, setConfig] = useState<ConfigResponse>();
+  const [gateways, setGateways] = useState<Gateway[]>([]);
 
   useEffect(() => {
     api.version().then(setVersions).catch(console.error);
@@ -29,6 +33,25 @@ export const FederationAdmin: React.FC = () => {
     api.status().then(setStatus).catch(console.error);
     api.connectionCode().then(setConnectionCode).catch(console.error);
   }, [api]);
+
+  useEffect(() => {
+    connectionCode &&
+      api.config(connectionCode).then(setConfig).catch(console.error);
+  }, [connectionCode]);
+
+  useEffect(() => {
+    if (config) {
+      for (const [key, val] of Object.entries(config.client_config.modules)) {
+        if (val.kind === 'ln') {
+          api
+            .moduleApiCall<Gateway[]>(key, LightningModuleRpc.listGateways)
+            .then(setGateways)
+            .catch(console.error);
+          return;
+        }
+      }
+    }
+  }, [config]);
 
   const apiVersion = versions?.core.api.length
     ? `${versions.core.api[0].major}.${versions.core.api[0].minor}`
@@ -93,6 +116,7 @@ export const FederationAdmin: React.FC = () => {
             </CardBody>
           </Card>
         </Flex>
+        <ConnectedNodes gateways={gateways} />
       </Flex>
     </Flex>
   );
