@@ -29,3 +29,4 @@ jobs:
           file: Dockerfile.gateway-ui
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: fedimintui/gateway-ui:latest
+          platforms: linux/amd64,linux/arm64
