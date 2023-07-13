@@ -3,6 +3,8 @@ name: guardian-ui
 on:
   push:
     paths:
+      - package.json
+      - yarn.lock
       - .github/workflows/guardian-ui.yml
       - apps/guardian-ui/**
       - packages/**

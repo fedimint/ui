@@ -3,6 +3,8 @@ name: gateway-ui
 on:
   push:
     paths:
+      - package.json
+      - yarn.lock
       - .github/workflows/gateway-ui.yml
       - apps/gateway-ui/**
       - packages/**
