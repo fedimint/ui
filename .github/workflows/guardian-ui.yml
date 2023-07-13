@@ -28,4 +28,4 @@ jobs:
           file: Dockerfile.guardian-ui
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: fedimintui/guardian-ui:latest
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ github.ref == 'refs/heads/master' && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
