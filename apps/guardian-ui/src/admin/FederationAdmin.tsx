@@ -15,6 +15,7 @@ import { useAdminContext } from '../hooks';
 import { StatusResponse, Versions } from '../types';
 import { SideBar } from '../components/SideBar';
 import { AdminHeader } from '../components/AdminHeader';
+import { AdminMain } from '../components/AdminMain';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
@@ -39,8 +40,9 @@ export const FederationAdmin: React.FC = () => {
   return (
     <Flex gap='32px' flexDirection='row'>
       <SideBar />
-      <Flex gap={4} flexDirection='column' mt='24px'>
+      <Flex gap={4} flexDirection='column' mt='24px' w='100%'>
         <AdminHeader connectionCode={connectionCode} />
+        <AdminMain />
         <Flex gap={4}>
           <Card flex='1'>
             <CardHeader>Federation info</CardHeader>
