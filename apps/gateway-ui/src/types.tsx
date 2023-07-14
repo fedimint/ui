@@ -8,8 +8,11 @@ export interface Registration {
   fees: Fees;
   mint_channel_id: number;
   node_pub_key: string;
-  route_hints: object[]; // FIXME
-  valid_until: object; // FIXME
+  route_hints: object[]; // FIXME : https://github.com/fedimint/ui/issues/80
+  valid_until: {
+    nanos_since_epoch: number;
+    secs_since_epoch: number;
+  };
 }
 
 export interface Federation {

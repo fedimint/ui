@@ -1,4 +1,4 @@
-import { ServerStatus } from '../types';
+import { MetaConfig, ModuleKind, ServerStatus } from '../types';
 
 export enum GuardianRole {
   Host = 'Host',
@@ -42,22 +42,22 @@ export interface BitcoinRpc {
 
 export type PeerHashMap = Record<number, string>;
 
-export type LnFedimintModule = [
-  'ln',
+export type LnModuleParams = [
+  ModuleKind.Ln,
   {
     consensus?: object;
     local?: object;
   }
 ];
-export type MintFedimintModule = [
-  'mint',
+export type MintModuleParams = [
+  ModuleKind.Mint,
   {
     consensus?: { mint_amounts: number[] };
     local?: object;
   }
 ];
-export type WalletFedimintModule = [
-  'wallet',
+export type WalletModuleParams = [
+  ModuleKind.Wallet,
   {
     consensus?: { finality_delay: number; network: Network };
     local?: {
@@ -65,20 +65,16 @@ export type WalletFedimintModule = [
     };
   }
 ];
-export type OtherFedimintModule = [string, object];
-export type AnyFedimintModule =
-  | LnFedimintModule
-  | MintFedimintModule
-  | WalletFedimintModule
-  | OtherFedimintModule;
-
-type Meta = { federation_name?: string };
-
-type Modules = Record<number, AnyFedimintModule>;
+export type OtherModuleParams = [string, object];
+export type AnyModuleParams =
+  | LnModuleParams
+  | MintModuleParams
+  | WalletModuleParams
+  | OtherModuleParams;
 
 export type ConfigGenParams = {
-  meta: Meta;
-  modules: Modules;
+  meta: MetaConfig;
+  modules: Record<number, AnyModuleParams>;
 };
 
 type ConsensusParams = ConfigGenParams & {

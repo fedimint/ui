@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { CopyInput, Table, TableRow } from '@fedimint/ui';
 import { useConsensusPolling, useSetupContext } from '../hooks';
-import { ServerStatus } from '../types';
+import { ModuleKind, ServerStatus } from '../types';
 import { GuardianRole } from '../setup/types';
 import { getModuleParamsFromConfig } from '../utils/api';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
@@ -79,13 +79,13 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       },
       {
         label: 'Network',
-        value: getModuleParamsFromConfig(configGenParams, 'wallet')?.consensus
-          ?.network,
+        value: getModuleParamsFromConfig(configGenParams, ModuleKind.Wallet)
+          ?.consensus?.network,
       },
       {
         label: 'Block confirmations',
-        value: getModuleParamsFromConfig(configGenParams, 'wallet')?.consensus
-          ?.finality_delay,
+        value: getModuleParamsFromConfig(configGenParams, ModuleKind.Wallet)
+          ?.consensus?.finality_delay,
       },
     ];
 

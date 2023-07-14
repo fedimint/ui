@@ -1,7 +1,9 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
+  ConfigResponse,
   ConsensusStatus,
+  Gateway,
   ServerStatus,
   StatusResponse,
   Versions,
@@ -20,7 +22,7 @@ export interface SocketAndAuthInterface {
 interface RpcInterface {
   call: <T>(
     method: SetupRpc | AdminRpc | SharedRpc,
-    params?: object | null
+    params?: unknown
   ) => Promise<T>;
   // TODO: Consider moving this to `SocketAndAuthInterface` as part of the authentication methods.
   clearPassword: () => void;
@@ -130,7 +132,14 @@ class BaseGuardianApi
 
   call = async <T>(
     method: SetupRpc | AdminRpc | SharedRpc,
-    params: object | null = null
+    params: unknown = null
+  ): Promise<T> => {
+    return this.call_any_method(method, params);
+  };
+
+  call_any_method = async <T>(
+    method: string,
+    params: unknown = null
   ): Promise<T> => {
     try {
       const websocket = await this.connect();
@@ -191,12 +200,22 @@ enum AdminRpc {
   fetchEpochCount = 'fetch_epoch_count',
   consensusStatus = 'consensus_status',
   connectionCode = 'connection_code',
+  config = 'config',
+  module = 'module',
 }
+
+export enum LightningModuleRpc {
+  listGateways = 'list_gateways',
+}
+
+type ModuleRpc = LightningModuleRpc;
 
 export interface AdminApiInterface extends SharedApiInterface {
   version: () => Promise<Versions>;
   fetchEpochCount: () => Promise<number>;
   connectionCode: () => Promise<string>;
+  config: (connection: string) => Promise<ConfigResponse>;
+  moduleApiCall: <T>(moduleId: number, rpc: ModuleRpc) => Promise<T>;
 }
 
 export class GuardianApi
@@ -331,5 +350,14 @@ export class GuardianApi
 
   connectionCode = (): Promise<string> => {
     return this.base.call(AdminRpc.connectionCode);
+  };
+
+  config = (connection: string): Promise<ConfigResponse> => {
+    return this.base.call<ConfigResponse>(AdminRpc.config, connection);
+  };
+
+  moduleApiCall = <T>(moduleId: number, rpc: ModuleRpc): Promise<T> => {
+    const method = `${AdminRpc.module}_${moduleId}_${rpc}`;
+    return this.base.call_any_method<T>(method);
   };
 }
