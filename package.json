@@ -12,8 +12,8 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "prepare": "husky install",
-    "nix-guardian": "./scripts/mprocs-nix-guardian.sh",
-    "nix-gateway": "./scripts/mprocs-nix-gateway.sh",
+    "nix-guardian": "./scripts/mprocs-nix.sh dev-fed mprocs-nix-gateway.yml",
+    "nix-gateway": "./scripts/mprocs-nix.sh run-ui mprocs-nix-gateway.yml",
     "mprocs": "mprocs -c ./mprocs.yml"
   },
   "devDependencies": {
