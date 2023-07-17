@@ -25,10 +25,10 @@ From root repo directory:
 1. `yarn build` (Needs to be rerun when code in `packages` change)
 1. You can run any of the following commands during development
 
-- `yarn dev` - Starts development servers and file watchers for all apps and packages
-  - Due to port conflicts, there are dev commands for each app to run individually
-    - `yarn dev:gateway-ui`
-    - `yarn dev:guardian-ui`
+- `yarn dev` - Runs docker compose scripts for Guardian and Gateway UI development
+  - There are targeted dev scripts below:
+    - `yarn dev:gateway` - Runs devimint scripts for gateway development
+    - `yarn dev:guardian`- Runs devimint scripts for guardian ui development
 - `yarn test` - Tests all apps and packages in the project
 - `yarn build` - Build all apps and packages in the project
 - `yarn clean` - Cleans previous build outputs from all apps and packages in the project

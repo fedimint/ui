@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "turbo run dev",
-    "dev:gateway-ui": "turbo run dev --parallel --filter=gateway-ui...",
-    "dev:guardian-ui": "turbo run dev --parallel --filter=guardian-ui...",
+    "dev": "mprocs -c ./mprocs.yml",
+    "dev:gateway": "./scripts/mprocs-nix-gateway.sh",
+    "dev:guardian": "./scripts/mprocs-nix-guardian.sh",
     "build": "turbo run build",
     "build:gateway-ui": "turbo run build --filter=gateway-ui...",
     "build:guardian-ui": "turbo run build --filter=guardian-ui...",
