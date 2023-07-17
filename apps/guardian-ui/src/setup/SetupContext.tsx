@@ -211,6 +211,12 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
     };
   }, [api]);
 
+  // Attach the API to the window for debugging purposes.
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).fedimintApi = api;
+  }, [api]);
+
   // Update local storage on state changes.
   useEffect(() => {
     localStorage.setItem(
