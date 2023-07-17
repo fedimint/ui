@@ -18,7 +18,6 @@
         devShells = fmLib.devShells // {
           default = fmLib.devShells.default.overrideAttrs (prev: {
             nativeBuildInputs = [
-              pkgs.just
               pkgs.mprocs
               pkgs.nodejs
               pkgs.yarn
