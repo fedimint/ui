@@ -26,3 +26,8 @@ echo "  gateway-cln    - cli client for the CLN gateway"
 echo "  gateway-lnd    - cli client for the LND gateway"
 echo
 echo "Use '--help' on each command for more information"
+echo ""
+echo "Important mprocs key sequences:"
+echo ""
+echo "  ctrl+a <up/down arrow> - switching between panels"
+echo "  ctrl+a q               - quit mprocs"
