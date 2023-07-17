@@ -60,7 +60,7 @@ class BaseGuardianApi
         throw new Error('REACT_APP_FM_CONFIG_API not set');
       }
 
-      const requestTimeoutMs = 20000;
+      const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
         websocketUrl,
         requestTimeoutMs,
