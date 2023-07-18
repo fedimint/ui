@@ -11,7 +11,10 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "nix-guardian": "./scripts/mprocs-nix.sh dev-fed mprocs-nix-gateway.yml",
+    "nix-gateway": "./scripts/mprocs-nix.sh run-ui mprocs-nix-gateway.yml",
+    "mprocs": "mprocs -c ./mprocs.yml"
   },
   "devDependencies": {
     "eslint": "^8.4.1",

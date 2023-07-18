@@ -1,0 +1,32 @@
+procs:
+  user:
+    shell: bash --init-file scripts/mprocs-user-shell.sh
+    stop: SIGKILL
+  fedimint0:
+    shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-0.log
+  fedimint1:
+    shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-1.log
+  fedimint2:
+    shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-2.log
+  fedimint3:
+    shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-3.log
+  cln-gw:
+    shell: tail -n +0 -F $FM_LOGS_DIR/gatewayd-cln.log
+  lnd-gw:
+    shell: tail -n +0 -F $FM_LOGS_DIR/gatewayd-lnd.log
+  cln:
+    shell: tail -n +0 -F $FM_LOGS_DIR/lightningd.log
+  lnd:
+    shell: tail -n +0 -F $FM_LOGS_DIR/lnd.log
+  bitcoind:
+    shell: tail -n +0 -F $FM_LOGS_DIR/bitcoind.log
+  devimint:
+    shell: tail -n +0 -F $FM_LOGS_DIR/devimint.log
+  gateway-ui:
+    cwd: apps/gateway-ui/
+    shell: yarn dev
+    env:
+      PORT: '3004'
+      REACT_APP_FM_GATEWAY_API: 'http://127.0.0.1:8175'
+      REACT_APP_FM_GATEWAY_PASSWORD: 'theresnosecondbest'
+      BROWSER: none
