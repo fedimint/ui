@@ -97,6 +97,16 @@ export interface Gateway {
   gateway_redeem_key: string;
   mint_channel_id: number;
   node_pub_key: string;
-  route_hints: object[]; // FIXME : https://github.com/fedimint/ui/issues/80
+  route_hints: RouteHint[];
   valid_until: Validity;
+}
+
+interface RouteHint {
+  base_msat: number;
+  proportional_millionths: number;
+  cltv_expiry_delta: number;
+  htlc_maximum_msat: number;
+  htlc_minimum_msat: number;
+  short_channel_id: string;
+  src_node_id: string;
 }
