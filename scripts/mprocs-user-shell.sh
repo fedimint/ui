@@ -1,8 +1,6 @@
 # shellcheck shell=bash
 
 eval "$(devimint env)"
-source ./scripts/completion.sh
-source ./scripts/aliases.sh
 
 echo Waiting for fedimint start
 
