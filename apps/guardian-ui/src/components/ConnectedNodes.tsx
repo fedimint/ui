@@ -12,7 +12,7 @@ export const ConnectedNodes: FC<ConnectedNodesProps> = ({ gateways }) => {
     <>
       {gateways.map((gateway: Gateway) => (
         <LightningNode
-          key={gateway.gateway_pub_key}
+          key={gateway.gateway_id}
           nodeName={'Gateway'}
           nodeId={gateway.node_pub_key}
           incomingFees={gateway.fees}

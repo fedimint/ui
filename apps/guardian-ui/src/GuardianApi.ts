@@ -3,7 +3,6 @@ import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
   ConfigResponse,
   ConsensusStatus,
-  Gateway,
   ServerStatus,
   StatusResponse,
   Versions,

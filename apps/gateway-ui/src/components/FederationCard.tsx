@@ -29,11 +29,7 @@ enum OpenTab {
 }
 
 export const FederationCard = (props: FederationCardProps): JSX.Element => {
-  const {
-    federation_id,
-    balance_msat,
-    registration: { gateway_pub_key },
-  } = props.federation;
+  const { federation_id, balance_msat } = props.federation;
 
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [tab, setOpenTab] = useState<{ open: OpenTab; mru: OpenTab }>({
@@ -74,7 +70,7 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
             </Circle>
             <Box pl='2'>
               <Text fontSize={{ base: '13px', md: '15px', lg: '16px' }}>
-                {`${gateway_pub_key?.substring(0, 24)}...`}
+                {`${federation_id.substring(0, 24)}...`}
               </Text>
             </Box>
           </HStack>
