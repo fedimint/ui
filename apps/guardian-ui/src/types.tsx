@@ -75,25 +75,28 @@ export interface ClientConfig {
   modules: Record<number, FedimintModule>;
   meta: MetaConfig;
 }
+
 export interface ConfigResponse {
   client_config: ClientConfig;
 }
 
-// These types are shared with the gateway-ui
+interface Validity {
+  nanos_since_epoch: number;
+  secs_since_epoch: number;
+}
+
 export interface Fees {
   base_msat: number;
   proportional_millionths: number;
 }
 
 export interface Gateway {
-  gateway_pub_key: string;
   api: string;
   fees: Fees;
+  gateway_id: string;
+  gateway_redeem_key: string;
   mint_channel_id: number;
   node_pub_key: string;
-  route_hints: object[]; // FIXME: https://github.com/fedimint/ui/issues/80
-  valid_until: {
-    nanos_since_epoch: number;
-    secs_since_epoch: number;
-  };
+  route_hints: object[]; // FIXME : https://github.com/fedimint/ui/issues/80
+  valid_until: Validity;
 }

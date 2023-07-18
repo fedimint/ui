@@ -70,7 +70,7 @@ export const App = React.memo(function Admin(): JSX.Element {
               {gatewayInfo.federations.map((federation: Federation) => {
                 return (
                   <FederationCard
-                    key={federation.registration.gateway_pub_key}
+                    key={federation.federation_id}
                     federation={federation}
                   />
                 );
