@@ -5,11 +5,16 @@
     "dev:gateway-ui": "turbo run dev --parallel --filter=gateway-ui...",
     "dev:guardian-ui": "turbo run dev --parallel --filter=guardian-ui...",
     "build": "turbo run build",
+    "build:gateway-ui": "turbo run build --filter=gateway-ui...",
+    "build:guardian-ui": "turbo run build --filter=guardian-ui...",
     "clean": "turbo run clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "nix-guardian": "./scripts/mprocs-nix.sh dev-fed mprocs-nix-gateway.yml",
+    "nix-gateway": "./scripts/mprocs-nix.sh run-ui mprocs-nix-gateway.yml",
+    "mprocs": "mprocs -c ./mprocs.yml"
   },
   "devDependencies": {
     "eslint": "^8.4.1",

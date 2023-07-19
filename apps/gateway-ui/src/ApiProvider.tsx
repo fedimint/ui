@@ -1,20 +1,13 @@
 import React from 'react';
-import { Explorer, BlockstreamExplorer, Mintgate, MockMintgate } from '../api';
+import { GatewayApi } from './GatewayApi';
 
 interface ApiContextProps {
   // API to interact with the Gateway server
-  mintgate: Mintgate;
-  explorer: Explorer;
+  gateway: GatewayApi;
 }
 
-// Using testnet blockstream explorer for all mocks
-const mockExplorer = new BlockstreamExplorer(
-  'https://blockstream.info/testnet/api/'
-);
-
 export const ApiContext = React.createContext<ApiContextProps>({
-  mintgate: new MockMintgate(),
-  explorer: mockExplorer,
+  gateway: new GatewayApi(),
 });
 
 export const ApiProvider = React.memo(function ApiProvider({

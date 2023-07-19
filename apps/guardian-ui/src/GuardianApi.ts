@@ -1,6 +1,7 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
+  ConfigResponse,
   ConsensusStatus,
   ServerStatus,
   StatusResponse,
@@ -18,9 +19,16 @@ export interface SocketAndAuthInterface {
 }
 
 interface RpcInterface {
-  call: <T>(method: string, params?: object | null) => Promise<T>;
+  call: <T>(
+    method: SetupRpc | AdminRpc | SharedRpc,
+    params?: unknown
+  ) => Promise<T>;
   // TODO: Consider moving this to `SocketAndAuthInterface` as part of the authentication methods.
   clearPassword: () => void;
+}
+
+enum SharedRpc {
+  status = 'status',
 }
 
 interface SharedApiInterface {
@@ -51,7 +59,7 @@ class BaseGuardianApi
         throw new Error('REACT_APP_FM_CONFIG_API not set');
       }
 
-      const requestTimeoutMs = 20000;
+      const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
         websocketUrl,
         requestTimeoutMs,
@@ -114,7 +122,7 @@ class BaseGuardianApi
 
   /*** Shared RPC methods */
   status = (): Promise<StatusResponse> => {
-    return this.call('status');
+    return this.call(SharedRpc.status);
   };
 
   clearPassword = () => {
@@ -122,8 +130,15 @@ class BaseGuardianApi
   };
 
   call = async <T>(
+    method: SetupRpc | AdminRpc | SharedRpc,
+    params: unknown = null
+  ): Promise<T> => {
+    return this.call_any_method(method, params);
+  };
+
+  call_any_method = async <T>(
     method: string,
-    params: object | null = null
+    params: unknown = null
   ): Promise<T> => {
     try {
       const websocket = await this.connect();
@@ -153,6 +168,17 @@ class BaseGuardianApi
 }
 
 // Setup RPC methods (only exist during setup)
+enum SetupRpc {
+  setPassword = 'set_password',
+  setConfigGenConnections = 'set_config_gen_connections',
+  getDefaultConfigGenParams = 'get_default_config_gen_params',
+  getConsensusConfigGenParams = 'get_consensus_config_gen_params',
+  setConfigGenParams = 'set_config_gen_params',
+  getVerifyConfigHash = 'get_verify_config_hash',
+  runDkg = 'run_dkg',
+  startConsensus = 'start_consensus',
+}
+
 export interface SetupApiInterface extends SharedApiInterface {
   setPassword: (password: string) => Promise<void>;
   setConfigGenConnections: (
@@ -168,10 +194,27 @@ export interface SetupApiInterface extends SharedApiInterface {
 }
 
 // Running RPC methods (only exist after run_consensus)
+enum AdminRpc {
+  version = 'version',
+  fetchEpochCount = 'fetch_epoch_count',
+  consensusStatus = 'consensus_status',
+  connectionCode = 'connection_code',
+  config = 'config',
+  module = 'module',
+}
+
+export enum LightningModuleRpc {
+  listGateways = 'list_gateways',
+}
+
+type ModuleRpc = LightningModuleRpc;
+
 export interface AdminApiInterface extends SharedApiInterface {
   version: () => Promise<Versions>;
   fetchEpochCount: () => Promise<number>;
   connectionCode: () => Promise<string>;
+  config: (connection: string) => Promise<ConfigResponse>;
+  moduleApiCall: <T>(moduleId: number, rpc: ModuleRpc) => Promise<T>;
 }
 
 export class GuardianApi
@@ -208,7 +251,7 @@ export class GuardianApi
   setPassword = async (password: string): Promise<void> => {
     sessionStorage.setItem(SESSION_STORAGE_KEY, password);
 
-    return this.base.call('set_password');
+    return this.base.call(SetupRpc.setPassword);
   };
 
   private clearPassword = () => {
@@ -224,27 +267,27 @@ export class GuardianApi
       leader_api_url: leaderUrl,
     };
 
-    return this.base.call('set_config_gen_connections', connections);
+    return this.base.call(SetupRpc.setConfigGenConnections, connections);
   };
 
   getDefaultConfigGenParams = (): Promise<ConfigGenParams> => {
-    return this.base.call('get_default_config_gen_params');
+    return this.base.call(SetupRpc.getDefaultConfigGenParams);
   };
 
   getConsensusConfigGenParams = (): Promise<ConsensusState> => {
-    return this.base.call('get_consensus_config_gen_params');
+    return this.base.call(SetupRpc.getConsensusConfigGenParams);
   };
 
   setConfigGenParams = (params: ConfigGenParams): Promise<void> => {
-    return this.base.call('set_config_gen_params', params);
+    return this.base.call(SetupRpc.setConfigGenParams, params);
   };
 
   getVerifyConfigHash = (): Promise<PeerHashMap> => {
-    return this.base.call('get_verify_config_hash');
+    return this.base.call(SetupRpc.getVerifyConfigHash);
   };
 
   runDkg = (): Promise<void> => {
-    return this.base.call('run_dkg');
+    return this.base.call(SetupRpc.runDkg);
   };
 
   startConsensus = async (): Promise<void> => {
@@ -253,18 +296,19 @@ export class GuardianApi
 
     // Special case: start_consensus kills the server, which sometimes causes it not to respond.
     // If it doesn't respond within 5 seconds, continue on with status checks.
-    await Promise.any([this.base.call<null>('start_consensus'), sleep(5000)]);
+    await Promise.any([
+      this.base.call<null>(SetupRpc.startConsensus),
+      sleep(5000),
+    ]);
 
     // Try to reconnect and confirm that status is ConsensusRunning. Retry multiple
     // times, but eventually give up and just throw.
     let tries = 0;
     const maxTries = 10;
-    const attempConfirmConsensusRunning = async (): Promise<void> => {
-      // Explicitly start a fresh socket.
-      await this.shutdown();
-      await this.connect();
-      // Confirm status.
+    const attemptConfirmConsensusRunning = async (): Promise<void> => {
       try {
+        await this.connect();
+        await this.shutdown();
         const status = await this.status();
         if (status.server === ServerStatus.ConsensusRunning) {
           return;
@@ -280,30 +324,39 @@ export class GuardianApi
       if (tries < maxTries) {
         tries++;
         await sleep(1000);
-        return attempConfirmConsensusRunning();
+        return attemptConfirmConsensusRunning();
       } else {
         throw new Error('Failed to start consensus, see logs for more info.');
       }
     };
 
-    return attempConfirmConsensusRunning();
+    return attemptConfirmConsensusRunning();
   };
 
   /*** Running RPC methods */
 
   version = (): Promise<Versions> => {
-    return this.base.call('version');
+    return this.base.call(AdminRpc.version);
   };
 
   fetchEpochCount = (): Promise<number> => {
-    return this.base.call('fetch_epoch_count');
+    return this.base.call(AdminRpc.fetchEpochCount);
   };
 
   consensusStatus = (): Promise<ConsensusStatus> => {
-    return this.base.call('consensus_status');
+    return this.base.call(AdminRpc.consensusStatus);
   };
 
   connectionCode = (): Promise<string> => {
-    return this.base.call('connection_code');
+    return this.base.call(AdminRpc.connectionCode);
+  };
+
+  config = (connection: string): Promise<ConfigResponse> => {
+    return this.base.call<ConfigResponse>(AdminRpc.config, connection);
+  };
+
+  moduleApiCall = <T>(moduleId: number, rpc: ModuleRpc): Promise<T> => {
+    const method = `${AdminRpc.module}_${moduleId}_${rpc}`;
+    return this.base.call_any_method<T>(method);
   };
 }

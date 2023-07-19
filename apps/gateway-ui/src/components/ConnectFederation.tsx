@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Collapse, HStack } from '@chakra-ui/react';
-import { Federation } from '../federation.types';
-import { ApiContext } from './ApiProvider';
-import { Button } from './Button';
+import { Box, Button, Collapse, HStack } from '@chakra-ui/react';
+import { ApiContext } from '../ApiProvider';
+import { Federation } from '../types';
 import { Input } from './Input';
 import { useTranslation } from '@fedimint/utils';
 
@@ -11,40 +10,35 @@ export type ConnectFederationProps = {
   renderConnectedFedCallback: (federation: Federation) => void;
 };
 
-interface FedConnectInfo {
-  value: string;
-  isValid: boolean;
-}
-
-export const ConnectFederation = (connect: ConnectFederationProps) => {
+export const ConnectFederation = ({
+  isOpen,
+  renderConnectedFedCallback,
+}: ConnectFederationProps) => {
   const { t } = useTranslation();
-  const { mintgate } = React.useContext(ApiContext);
+  const { gateway } = React.useContext(ApiContext);
   const [errorMsg, setErrorMsg] = useState<string>('');
-  const [connectInfo, setConnectInfo] = useState<FedConnectInfo>({
-    value: '',
-    isValid: false,
-  });
+  const [connectInfo, setConnectInfo] = useState<string>('');
 
   const handleInputString = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    const { value } = event.target;
-    setConnectInfo({ value, isValid: true });
+    setConnectInfo(event.target.value);
   };
 
-  const handleConnectFederation = async () => {
-    if (!connectInfo.isValid) return;
-    try {
-      const federation = await mintgate.connectFederation(connectInfo.value);
-      connect.renderConnectedFedCallback(federation);
-      // TODO: Show success UI
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      setErrorMsg('Failed to connect to federation' + e.message);
-    }
+  const handleConnectFederation = () => {
+    gateway
+      .connectFederation(connectInfo)
+      .then((federation) => {
+        renderConnectedFedCallback(federation);
+        setConnectInfo('');
+      })
+      .catch(({ message, error }) => {
+        console.error(error);
+        setErrorMsg(message);
+      });
   };
 
   return (
-    <Collapse in={connect.isOpen} animateOpacity>
+    <Collapse in={isOpen} animateOpacity>
       <Box m='1'>
         <HStack
           borderRadius='4'
@@ -58,14 +52,13 @@ export const ConnectFederation = (connect: ConnectFederationProps) => {
           <Input
             labelName={t('connect_federation.label')}
             placeHolder={t('connect_federation.connection_string_placeholder')}
-            value={connectInfo.value}
+            value={connectInfo}
             onChange={(event) => handleInputString(event)}
           />
           <Button
             borderRadius='4'
             onClick={() => handleConnectFederation()}
             height='48px'
-            disabled={!connectInfo.isValid}
           >
             {t('connect_federation.connect')}
           </Button>

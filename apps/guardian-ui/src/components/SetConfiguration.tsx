@@ -29,6 +29,7 @@ import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { formatApiErrorMessage, getModuleParamsFromConfig } from '../utils/api';
+import { ModuleKind } from '../types';
 import { useTranslation } from '@fedimint/utils';
 
 interface Props {
@@ -71,11 +72,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       setFederationName(params.meta?.federation_name || '');
 
       setMintAmounts(
-        getModuleParamsFromConfig(params, 'mint')?.consensus?.mint_amounts ||
-          mintAmounts
+        getModuleParamsFromConfig(params, ModuleKind.Mint)?.consensus
+          ?.mint_amounts || mintAmounts
       );
 
-      const walletModule = getModuleParamsFromConfig(params, 'wallet');
+      const walletModule = getModuleParamsFromConfig(params, ModuleKind.Wallet);
 
       if (walletModule) {
         setBlockConfirmations(

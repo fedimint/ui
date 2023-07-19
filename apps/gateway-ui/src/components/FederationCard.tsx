@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Button,
   Tabs,
   TabList,
   TabPanels,
@@ -12,20 +13,13 @@ import {
   Flex,
   Stack,
 } from '@chakra-ui/react';
-import { Federation } from '../federation.types';
-import {
-  Button,
-  InfoTabHeader,
-  InfoTab,
-  DepositTab,
-  DepositTabHeader,
-} from '.';
+import { Federation } from '../types';
+import { InfoTabHeader, InfoTab, DepositTab, DepositTabHeader } from '.';
 import { WithdrawTab, WithdrawTabHeader } from './WithdrawTab';
 import { useTranslation } from '@fedimint/utils';
 
 interface FederationCardProps {
   federation: Federation;
-  onClick: () => void;
 }
 
 enum OpenTab {
@@ -37,7 +31,7 @@ enum OpenTab {
 
 export const FederationCard = (props: FederationCardProps): JSX.Element => {
   const { t } = useTranslation();
-  const { federation_id, mint_pubkey, details } = props.federation;
+  const { federation_id, balance_msat } = props.federation;
 
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [tab, setOpenTab] = useState<{ open: OpenTab; mru: OpenTab }>({
@@ -64,14 +58,6 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
     setShowDetails(nextState);
   };
 
-  const getFederationName = (name: string): string => {
-    return name.charAt(0).toUpperCase() + name.charAt(1).toUpperCase();
-  };
-
-  const sliceString = (arg: string): string => {
-    return `${arg.substring(0, 24)}...`;
-  };
-
   return (
     <>
       <Stack
@@ -82,12 +68,11 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
         <Flex justifyContent='space-between' alignItems='center'>
           <HStack>
             <Circle size='54px' bgColor='black'>
-              <Text color='white'>{getFederationName(details.name)}</Text>
+              <Text color='white'>FM</Text>
             </Circle>
             <Box pl='2'>
-              <Text fontWeight='500'>{details.description}</Text>
               <Text fontSize={{ base: '13px', md: '15px', lg: '16px' }}>
-                {sliceString(mint_pubkey)}
+                {`${federation_id.substring(0, 24)}...`}
               </Text>
             </Box>
           </HStack>
@@ -107,9 +92,12 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
           <Collapse in={showDetails} animateOpacity>
             <Divider />
             <TabPanels>
-              <InfoTab {...details} />
-              <DepositTab {...details} />
-              <WithdrawTab {...details} federationId={federation_id} />
+              <InfoTab balance_msat={balance_msat} />
+              <DepositTab
+                federationId={federation_id}
+                active={tab.open === OpenTab.DepositTab}
+              />
+              <WithdrawTab federationId={federation_id} />
             </TabPanels>
           </Collapse>
         </Tabs>
