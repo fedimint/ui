@@ -9,17 +9,18 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
-import { Header } from './Header';
-import { useGuardianContext } from '../hooks';
-import { GuardianRole, SetupProgress, SETUP_ACTION_TYPE } from '../types';
-import { RoleSelector } from './RoleSelector';
-import { SetConfiguration } from './SetConfiguration';
-import { Login } from './Login';
-import { ConnectGuardians } from './ConnectGuardians';
-import { RunDKG } from './RunDKG';
-import { VerifyGuardians } from './VerifyGuardians';
-import { SetupComplete } from './SetupComplete';
-import { FederationDashboard } from './FederationDashboard';
+import { Header } from '../components/Header';
+import { useSetupContext } from '../hooks';
+import { GuardianRole, SetupProgress, SETUP_ACTION_TYPE } from './types';
+import { RoleSelector } from '../components/RoleSelector';
+import { SetConfiguration } from '../components/SetConfiguration';
+import { Login } from '../components/Login';
+import { ConnectGuardians } from '../components/ConnectGuardians';
+import { RunDKG } from '../components/RunDKG';
+import { VerifyGuardians } from '../components/VerifyGuardians';
+import { SetupComplete } from '../components/SetupComplete';
+import { SetupProgress as SetupStepper } from '../components/SetupProgress';
+import { useTranslation } from '@fedimint/utils';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -30,18 +31,12 @@ const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.SetupComplete,
 ];
 
-export const Setup: React.FC = () => {
+export const FederationSetup: React.FC = () => {
+  const { t } = useTranslation();
   const {
-    state: {
-      progress,
-      role,
-      password,
-      needsAuth,
-      isInitializing,
-      isSetupComplete,
-    },
+    state: { progress, role, password, needsAuth, isInitializing },
     dispatch,
-  } = useGuardianContext();
+  } = useSetupContext();
 
   const isHost = role === GuardianRole.Host;
   const progressIdx = PROGRESS_ORDER.indexOf(progress);
@@ -70,8 +65,6 @@ export const Setup: React.FC = () => {
     title = t('setup.auth.title');
     subtitle = t('setup.auth.subtitle');
     content = <Login />;
-  } else if (isSetupComplete) {
-    content = <FederationDashboard />;
   } else {
     switch (progress) {
       case SetupProgress.Start:
