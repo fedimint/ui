@@ -13,13 +13,12 @@ export FM_FED_SIZE=4
 export FM_PID_FILE="$FM_TEST_DIR/.pid"
 export FM_LOGS_DIR="$FM_TEST_DIR/logs"
 
-devimint dev-fed 2>/dev/null &
-
 mkdir $FM_TEST_DIR
 mkdir $FM_LOGS_DIR
 touch $FM_PID_FILE
 echo $! >> $FM_PID_FILE
-eval "$(devimint $DEVIMINT_COMMAND)"
+
+eval "$(devimint $DEVIMINT_COMMAND)" 2>/dev/null &
 
 # Function for killing processes stored in FM_PID_FILE in reverse-order they were created in
 function kill_fedimint_processes {
