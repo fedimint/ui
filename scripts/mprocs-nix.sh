@@ -17,7 +17,7 @@ mkdir $FM_TEST_DIR
 mkdir $FM_LOGS_DIR
 touch $FM_PID_FILE
 
-eval "$(devimint $DEVIMINT_COMMAND)" 2>/dev/null &
+devimint $DEVIMINT_COMMAND 2>/dev/null &
 echo $! >> $FM_PID_FILE
 
 
