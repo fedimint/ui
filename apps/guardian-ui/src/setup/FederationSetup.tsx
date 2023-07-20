@@ -20,6 +20,7 @@ import { RunDKG } from '../components/RunDKG';
 import { VerifyGuardians } from '../components/VerifyGuardians';
 import { SetupComplete } from '../components/SetupComplete';
 import { SetupProgress as SetupStepper } from '../components/SetupProgress';
+import { useTranslation } from '@fedimint/utils';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -31,6 +32,7 @@ const PROGRESS_ORDER: SetupProgress[] = [
 ];
 
 export const FederationSetup: React.FC = () => {
+  const { t } = useTranslation();
   const {
     state: { progress, role, password, needsAuth, isInitializing },
     dispatch,
@@ -60,61 +62,56 @@ export const FederationSetup: React.FC = () => {
   if (isInitializing) {
     content = <Spinner />;
   } else if (needsAuth && !password) {
-    title = 'Welcome back!';
-    subtitle = 'Please enter your password.';
+    title = t('setup.auth.title');
+    subtitle = t('setup.auth.subtitle');
     content = <Login />;
   } else {
     switch (progress) {
       case SetupProgress.Start:
-        title = 'Welcome to Fedimint!';
-        subtitle = 'Are you creating a Federation, or joining one?';
+        title = t('setup.progress.start.title');
+        subtitle = t('setup.progress.start.subtitle');
         content = <RoleSelector next={handleNext} />;
         break;
       case SetupProgress.SetConfiguration:
-        title = 'Let’s set up your federation';
+        title = t('setup.progress.set_config.title');
         subtitle = isHost
-          ? 'Your Federation Followers will confirm this information on their end.'
-          : 'Your Federation Leader will be setting up main Federation details. You’ll confirm them soon.';
+          ? t('setup.progress.set_config.subtitle_leader')
+          : t('setup.progress.set_config.subtitle_follower');
         content = <SetConfiguration next={handleNext} />;
         canGoBack = true;
         break;
       case SetupProgress.ConnectGuardians:
         title = isHost
-          ? 'Invite your Guardians'
-          : 'Confirm your Federation Information';
+          ? t('setup.progress.connect_guardians.title_leader')
+          : t('setup.progress.connect_guardian.title_follower');
         subtitle = isHost
-          ? 'Share the link with the other Guardians to get everyone on the same page. Once all the Guardians join, you’ll automatically move on to the next step.'
-          : 'Make sure that the information here looks right, and that the Federation Guardians are correct. Click the Approve button when you’re sure it looks good.';
+          ? t('setup.progress.connect_guardians.subtitle_leader')
+          : t('setup.progress.set_config_subtitle_follower');
         content = <ConnectGuardians next={handleNext} />;
         canGoBack = true;
         break;
       case SetupProgress.RunDKG:
-        title = 'Boom! Sharing info between Guardians';
-        subtitle =
-          'All Guardians have validated federation setup details. Running some numbers...';
+        title = t('setup.progress.run_dkg.title');
+        subtitle = t('setup.progress.run_dkg.subtitle');
         content = <RunDKG next={handleNext} />;
         break;
       case SetupProgress.VerifyGuardians:
-        title = 'Verify your Guardians';
-        subtitle =
-          'Ask each Guardian for their verification code, and paste them below to check validity. We’re almost done!';
+        title = t('setup.progress.verify_guardians.title');
+        subtitle = t('setup.progress.verify_guardians.subtitle');
         content = <VerifyGuardians next={handleNext} />;
         break;
       case SetupProgress.SetupComplete:
         content = <SetupComplete />;
         break;
       default:
-        title = 'Unknown step';
-        subtitle = 'How did you get here?!';
+        title = t('setup.progress.error.title');
+        subtitle = t('setup.progress.error.subtitle');
     }
   }
 
   return (
     <VStack gap={8} align='start'>
       <Header />
-      {progressIdx === 0 || !progressIdx ? null : (
-        <SetupStepper setupProgress={progressIdx} isHost={isHost} />
-      )}
       <VStack align='start' gap={2}>
         {prevProgress && canGoBack && (
           <Button
@@ -122,7 +119,7 @@ export const FederationSetup: React.FC = () => {
             onClick={handleBack}
             leftIcon={<Icon as={ArrowLeftIcon} />}
           >
-            Back
+            {t('common.back')}
           </Button>
         )}
         {title && (

@@ -7,8 +7,10 @@ import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
 import { useAppContext } from './hooks';
 import { Wrapper } from './components/Wrapper';
+import { useTranslation } from '@fedimint/utils';
 
 export const App = React.memo(function App() {
+  const { t } = useTranslation();
   const {
     appState: { experience },
     apiState: { connected: isConnected, error },
@@ -28,7 +30,7 @@ export const App = React.memo(function App() {
       if (error) {
         content = (
           <VStack spacing={4}>
-            <Heading size='md'>Error</Heading>
+            <Heading size='md'>{t('common.error')}</Heading>
             <Text>{error}</Text>
           </VStack>
         );

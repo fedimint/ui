@@ -3,6 +3,7 @@ import { Box, Button, Collapse, HStack } from '@chakra-ui/react';
 import { ApiContext } from '../ApiProvider';
 import { Federation } from '../types';
 import { Input } from './Input';
+import { useTranslation } from '@fedimint/utils';
 
 export type ConnectFederationProps = {
   isOpen: boolean;
@@ -13,6 +14,7 @@ export const ConnectFederation = ({
   isOpen,
   renderConnectedFedCallback,
 }: ConnectFederationProps) => {
+  const { t } = useTranslation();
   const { gateway } = React.useContext(ApiContext);
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [connectInfo, setConnectInfo] = useState<string>('');
@@ -48,8 +50,8 @@ export const ConnectFederation = ({
           alignItems='flex-end'
         >
           <Input
-            labelName='Connection String:'
-            placeHolder='Enter federation connection string'
+            labelName={t('connect_federation.label')}
+            placeHolder={t('connect_federation.connection_string_placeholder')}
             value={connectInfo}
             onChange={(event) => handleInputString(event)}
           />
@@ -58,7 +60,7 @@ export const ConnectFederation = ({
             onClick={() => handleConnectFederation()}
             height='48px'
           >
-            Connect
+            {t('connect_federation.connect')}
           </Button>
           <Box color='red.500'>{errorMsg}</Box>
         </HStack>

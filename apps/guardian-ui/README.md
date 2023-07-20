@@ -13,7 +13,6 @@ From repo root directory:
 
 You can [learn more about this command here](../../README.md#development)
 
-
 ### Run Federation Setup UIs
 
 Do the following in separate terminals:

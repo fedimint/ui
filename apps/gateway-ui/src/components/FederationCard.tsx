@@ -16,6 +16,7 @@ import {
 import { Federation } from '../types';
 import { InfoTabHeader, InfoTab, DepositTab, DepositTabHeader } from '.';
 import { WithdrawTab, WithdrawTabHeader } from './WithdrawTab';
+import { useTranslation } from '@fedimint/utils';
 
 interface FederationCardProps {
   federation: Federation;
@@ -29,6 +30,7 @@ enum OpenTab {
 }
 
 export const FederationCard = (props: FederationCardProps): JSX.Element => {
+  const { t } = useTranslation();
   const { federation_id, balance_msat } = props.federation;
 
   const [showDetails, setShowDetails] = useState<boolean>(false);
@@ -78,7 +80,7 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
             fontSize={{ base: '12px', md: '15px', lg: '16px' }}
             onClick={detailsControl}
           >
-            Details
+            {t('federation_card.details')}
           </Button>
         </Flex>
         <Tabs index={tab.open} onChange={tabControl} pt={3} variant='unstyled'>

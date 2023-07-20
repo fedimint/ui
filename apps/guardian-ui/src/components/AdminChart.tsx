@@ -18,11 +18,7 @@ const Tab: FC<TabProps> = ({ text, active, onClick, style }) => {
       style={style}
       _hover={{ bgColor: theme.colors.gray[200] }}
     >
-      <Text
-        fontWeight='semibold'
-        color={theme.colors.gray[700]}
-        fontSize='sm'
-      >
+      <Text fontWeight='semibold' color={theme.colors.gray[700]} fontSize='sm'>
         {text}
       </Text>
     </Box>

@@ -16,9 +16,11 @@ import {
 } from '@chakra-ui/react';
 import { ApiContext } from '../ApiProvider';
 import { TabHeader, Input } from '.';
+import { useTranslation } from '@fedimint/utils';
 
 export const WithdrawTabHeader = () => {
-  return <TabHeader>Withdraw</TabHeader>;
+  const { t } = useTranslation();
+  return <TabHeader>{t('withdraw_tab.tab_header')}</TabHeader>;
 };
 
 interface WithdrawObject {
@@ -40,6 +42,7 @@ const truncateStringFormat = (arg: string): string => {
 export const WithdrawTab = React.memo(function WithdrawTab({
   federationId,
 }: WithdrawTabProps): JSX.Element {
+  const { t } = useTranslation();
   const { gateway } = React.useContext(ApiContext);
   const [withdrawObject, setWithdrawObject] = useState<WithdrawObject>({
     amount: 0,
@@ -68,11 +71,11 @@ export const WithdrawTab = React.memo(function WithdrawTab({
 
   const createWithdrawal = () => {
     if (!amount && amount === 0 && typeof amount === 'number') {
-      setError('Amount cannot be empty or equal to zero');
+      setError(`${t('withdraw_tab.error_amount')}`);
       return;
     }
     if (!address) {
-      setError('Amount or address cannot be empty');
+      setError(`${t('withdraw_tab.error_address')}`);
       return;
     }
     // TODO: address validation
@@ -85,13 +88,13 @@ export const WithdrawTab = React.memo(function WithdrawTab({
       .requestWithdrawal(federationId, amount, address)
       .then((txId) => {
         // FIXME: show this in a better way
-        alert(`Your transaction ID: ${txId}`);
+        alert(`${t('withdraw_tab.your_transaction')} ${txId}`);
         setWithdrawObject({ ...withdrawObject, amount: 0, address: '' });
         setModalState(false);
       })
       .catch(({ message, error }) => {
         console.error(error);
-        setError(message);
+        setError(`${t('withdraw_tab.error_request')}`);
       });
   };
 
@@ -99,16 +102,16 @@ export const WithdrawTab = React.memo(function WithdrawTab({
     <TabPanel ml='1px' mr='1px' p={{ base: '4px', md: '16px', lg: '16px' }}>
       <Stack spacing='4' maxWidth={{ base: '100%', md: 'md', lg: 'md' }}>
         <Input
-          labelName=' Amount (sats):'
-          placeHolder='Enter amount in sats'
+          labelName={t('withdraw_tab.amount_label')}
+          placeHolder={t('withdraw_tab.amount_placeholder')}
           // FIXME: this is a hack
           value={withdrawObject.amount.toString()}
           onChange={(e) => handleInputChange(e)}
           name='amount'
         />
         <Input
-          labelName='Your address:'
-          placeHolder='Enter your btc address '
+          labelName={t('withdraw_tab.address_label')}
+          placeHolder={t('withdraw_tab.address_placeholder')}
           value={withdrawObject.address}
           onChange={(e) => handleInputChange(e)}
           name='address'
@@ -117,13 +120,13 @@ export const WithdrawTab = React.memo(function WithdrawTab({
         {error && (
           <Box>
             <Text textAlign='center' color='red' fontSize='14'>
-              Error: {error}
+              {t('withdraw_tab.error')}: {error}
             </Text>
           </Box>
         )}
 
         <Button borderRadius='4' onClick={createWithdrawal}>
-          Withdraw
+          {t('withdraw_tab.withdraw')}
         </Button>
       </Stack>
 
@@ -158,6 +161,7 @@ export interface ConfirmWithdrawModalProps {
 const ConfirmWithdrawModal = (
   props: ConfirmWithdrawModalProps
 ): JSX.Element => {
+  const { t } = useTranslation();
   const { open, txRequest, onModalClickCallback, startWithdrawalCallback } =
     props;
 
@@ -167,17 +171,19 @@ const ConfirmWithdrawModal = (
         <Modal onClose={onModalClickCallback} isOpen={open} isCentered>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Confirm Withdrawal</ModalHeader>
+            <ModalHeader>{t('withdraw_tab.confirm_withdraw')}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <VStack alignItems='flex-start' justifyContent='space-between'>
                 <Box>
-                  <Text>Amount:</Text>
-                  <Text>{txRequest.amount} sats</Text>
+                  <Text>{t('common.amount')}:</Text>
+                  <Text>
+                    {txRequest.amount} {t('common.sats')}
+                  </Text>
                 </Box>
-                <Text>to</Text>
+                <Text>{t('withdraw_tab.to')}</Text>
                 <Box>
-                  <Text>Address:</Text>
+                  <Text>{t('common.address')}:</Text>
                   <Text>{truncateStringFormat(txRequest.address)}</Text>
                 </Box>
               </VStack>
@@ -192,7 +198,7 @@ const ConfirmWithdrawModal = (
                 fontSize={{ base: '12px', md: '13px', lg: '16px' }}
                 p={{ base: '10px', md: '13px', lg: '16px' }}
               >
-                Confirm
+                {t('common.confirm')}
               </Button>
             </ModalFooter>
           </ModalContent>

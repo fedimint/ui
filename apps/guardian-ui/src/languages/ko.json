@@ -1,0 +1,121 @@
+{
+  "common": {
+    "next": "다음",
+    "back": "이전",
+    "error": "문제가 발생했습니다."
+  },
+  "connect_guardians": {
+    "invite_guardians": "팔로워 초대",
+    "invite_guardians_help": "이 링크를 다른 가디언과 공유하세요.",
+    "approve": "승인",
+    "approved": "승인됨",
+    "pending": "대기 중",
+    "not_joined": "참여하지 않음"
+  },
+  "federation_dashboard": {
+    "card_header": "연합 정보",
+    "your_status": "상태",
+    "epoch_count": "에포크 횟수",
+    "api_version": "API 버전",
+    "consensus_version": "합의 버전",
+    "peer_info": "피어 정보",
+    "name": "이름",
+    "status": "상태",
+    "peer": "피어"
+  },
+  "login": {
+    "password": "비밀번호",
+    "submit": "제출"
+  },
+  "role_selector": {
+    "leader": {
+      "label": "리더",
+      "description": "가디언 중 한 명을 리더로 선택하세요. 리더는 연합에 대한 정보를 입력합니다."
+    },
+    "follower": {
+      "label": "팔로워",
+      "description": "가디언 팔로워(다른 가디언 전체)는 리더가 입력한 정보를 확인합니다."
+    }
+  },
+  "run_dkg": {
+    "error_config": "분산 키 생성에 실패했습니다. 연합 설정을 다시 시작해야 합니다.",
+    "error_default": "DKG를 위한 준비가 되지 않았습니다. 현재 상태는 다음과 같습니다:",
+    "error_header": "문제가 발생했습니다.",
+    "waiting_header": "피어 대기 중...",
+    "generating_header": "코드 생성 중..."
+  },
+  "set_config": {
+    "guardian_name": "가디언 이름",
+    "guardian_name_help": "다른 가디언에게 표시될 이름입니다.",
+    "admin_password": "관리자 비밀번호",
+    "admin_password_help": "매번 페이지를 방문할 때마다 필요합니다.",
+    "join_federation": "연합 가입 링크",
+    "join_federation_help": "연합을 생성한 사람에게 링크를 요청하고 여기에 붙여넣으세요.",
+    "federation_settings": "연합 설정",
+    "federation_name": "연합 이름",
+    "guardian_number": "가디언 수",
+    "guardian_number_help": "나중에 변경할 수 없습니다.",
+    "block_confirmations": "블록 확인",
+    "block_confirmations_help": "확인하기 전에 필요한 블록 확인 횟수는 몇 개인가요?",
+    "bitcoin_network": "비트코인 네트워크",
+    "select_network": "네트워크 선택",
+    "set_rpc_help": "로컬로 구성된 비트코인 RPC 주소",
+    "bitcoin_rpc": "비트코인 RPC",
+    "set_rpc_help": "로컬로 구성된 비트코인 RPC 주소",
+    "error_valid_number": "1 이상의 숫자를 입력해주세요."
+  },
+  "setup": {
+    "auth": {
+      "title": "다시 환영합니다!",
+      "subtitle": "비밀번호를 입력하세요."
+    },
+    "progress": {
+      "start": {
+        "title": "Fedimint에 오신 것을 환영합니다!",
+        "subtitle": "연합을 생성하거나 가입하시겠습니까?"
+      },
+      "set_config": {
+        "title": "연합 설정을 해보세요",
+        "subtitle_leader": "팔로워 가디언들은 이 정보를 확인하게 됩니다.",
+        "subtitle_follower": "리더 가디언은 연합의 주요 정보를 설정할 것입니다. 곧 이 정보를 확인하게 됩니다."
+      },
+      "connect_guradians": {
+        "title_leader": "가디언을 초대하세요",
+        "title_follower": "연합 정보를 확인하세요",
+        "subtitle_leader": "모두가 동일한 페이지에서 작업하기 위해 링크를 다른 가디언들과 공유하세요. 모든 가디언이 가입하면 자동으로 다음 단계로 넘어갑니다.",
+        "subtitle_follower": "여기에 있는 정보가 정확하고 가디언이 올바른지 확인하세요. 확인해 보기 좋을 때 승인 버튼을 클릭하세요."
+      },
+      "run_dkg": {
+        "title": "Boom! 가디언들 간에 정보 공유",
+        "subtitle": "모든 가디언이 연합 설정 정보를 검증했습니다. 몇 가지 계산 중..."
+      },
+      "verify_guardians": {
+        "title": "가디언 확인",
+        "subtitle": "각 가디언으로부터 검증 코드를 요청하고 아래에 붙여넣어 유효성을 확인하세요. 거의 끝났습니다!"
+      },
+      "error": {
+        "title": "알 수 없는 단계",
+        "subtitle": "여기에 어떻게 왔나요?!"
+      }
+    }
+  },
+  "setup_complete": {
+    "header": "🎉 🎉 🎉",
+    "congratulations": "축하합니다",
+    "sentence_one": "모든 가디언의 검증 코드가 확인되었습니다.",
+    "continue": "계속"
+  },
+  "verify_guardians": {
+    "verified": "확인됨",
+    "verified_placeholder": "여기에 코드를 입력하세요",
+    "error": "문제가 발생했습니다.",
+    "error_peer_id": "어떤 피어인지 확인할 수 없습니다. 새로 고침 후 다시 시도하세요.",
+    "verification_code": "검증 코드",
+    "verification_code_help": "이 코드를 다른 가디언과 공유하세요.",
+    "table_title": "가디언 검증 코드",
+    "table_description": "각 가디언의 검증 코드를 아래에 입력하세요.",
+    "table_column_name": "이름",
+    "table_column_status": "상태",
+    "table_column_hash_input": "검증 코드 붙여넣기"
+  }
+}

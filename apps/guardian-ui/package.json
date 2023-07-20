@@ -16,6 +16,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@fedimint/ui": "*",
+    "@fedimint/utils": "*",
     "framer-motion": "^6",
     "jsonrpc-client-websocket": "^1.5.2",
     "node": "^20.1.0",
