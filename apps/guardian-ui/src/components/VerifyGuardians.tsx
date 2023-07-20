@@ -90,11 +90,12 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       peersWithHash.every(({ hash }, idx) => hash === enteredHashes[idx]);
 
     if (isAllValid) {
-      api.verifiedConfigs().catch((err) => {
-        setError(formatApiErrorMessage(err));
-      });
+      !verifiedConfigs &&
+        api.verifiedConfigs().catch((err) => {
+          setError(formatApiErrorMessage(err));
+        });
     }
-  }, [api, peersWithHash, enteredHashes]);
+  }, [api, peersWithHash, enteredHashes, verifiedConfigs]);
 
   const handleNext = useCallback(async () => {
     setIsStarting(true);
