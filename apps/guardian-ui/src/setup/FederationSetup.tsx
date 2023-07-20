@@ -19,7 +19,6 @@ import { ConnectGuardians } from '../components/ConnectGuardians';
 import { RunDKG } from '../components/RunDKG';
 import { VerifyGuardians } from '../components/VerifyGuardians';
 import { SetupComplete } from '../components/SetupComplete';
-import { SetupProgress as SetupStepper } from '../components/SetupProgress';
 import { useTranslation } from '@fedimint/utils';
 
 const PROGRESS_ORDER: SetupProgress[] = [
