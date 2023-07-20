@@ -12,6 +12,7 @@ import {
   Input,
   Tag,
   useTheme,
+  HStack,
 } from '@chakra-ui/react';
 import { CopyInput, FormGroup, Table } from '@fedimint/ui';
 import { useConsensusPolling, useSetupContext } from '../hooks';
@@ -203,18 +204,33 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           columns={tableColumns}
           rows={tableRows}
         />
-        <div>
+        <HStack mt={4}>
           <Button
             isDisabled={!verifiedConfigs}
             isLoading={isStarting}
             onClick={verifiedConfigs ? handleNext : undefined}
             leftIcon={<Icon as={ArrowRightIcon} />}
-            mt={4}
           >
             {t('common.next')}
           </Button>
-        </div>
+          <WaitingForVerification verifiedConfigs={verifiedConfigs} />
+        </HStack>
       </VStack>
     );
   }
+};
+
+const WaitingForVerification: React.FC<{ verifiedConfigs: boolean }> = ({
+  verifiedConfigs,
+}) => {
+  const { t } = useTranslation();
+
+  return verifiedConfigs ? (
+    <Text>{t('verify_guardians.all_guardians_verified')}</Text>
+  ) : (
+    <>
+      <Spinner />
+      <Text>{t('verify_guardians.wait_all_guardians_verification')}</Text>
+    </>
+  );
 };

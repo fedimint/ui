@@ -116,6 +116,8 @@
     "table_description": "Enter each Guardian’s verification codes below.",
     "table_column_name": "Name",
     "table_column_status": "Status",
-    "table_column_hash_input": "Paste verification code"
+    "table_column_hash_input": "Paste verification code",
+    "wait_all_guardians_verification": "Waiting for all Guardians to verify their codes",
+    "all_guardians_verified": "All Guardians have verified their codes"
   }
 }
