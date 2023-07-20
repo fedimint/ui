@@ -176,6 +176,7 @@ enum SetupRpc {
   setConfigGenParams = 'set_config_gen_params',
   getVerifyConfigHash = 'get_verify_config_hash',
   runDkg = 'run_dkg',
+  verifiedConfigs = 'verified_configs',
   startConsensus = 'start_consensus',
 }
 
@@ -190,6 +191,7 @@ export interface SetupApiInterface extends SharedApiInterface {
   setConfigGenParams: (params: ConfigGenParams) => Promise<void>;
   getVerifyConfigHash: () => Promise<PeerHashMap>;
   runDkg: () => Promise<void>;
+  verifiedConfigs: () => Promise<void>;
   startConsensus: () => Promise<void>;
 }
 
@@ -288,6 +290,10 @@ export class GuardianApi
 
   runDkg = (): Promise<void> => {
     return this.base.call(SetupRpc.runDkg);
+  };
+
+  verifiedConfigs = (): Promise<void> => {
+    return this.base.call(SetupRpc.verifiedConfigs);
   };
 
   startConsensus = async (): Promise<void> => {

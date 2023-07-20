@@ -14,12 +14,13 @@ import {
   useTheme,
 } from '@chakra-ui/react';
 import { CopyInput, FormGroup, Table } from '@fedimint/ui';
-import { useSetupContext } from '../hooks';
+import { useConsensusPolling, useSetupContext } from '../hooks';
 import { GuardianRole, Peer } from '../setup/types';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../utils/api';
 import { useTranslation } from '@fedimint/utils';
+import { ServerStatus } from '../types';
 
 interface PeerWithHash {
   id: string;
@@ -35,7 +36,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
   const {
     api,
-    state: { role, numPeers },
+    state: { role, numPeers, peers },
   } = useSetupContext();
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
@@ -45,9 +46,12 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
 
-  const isAllValid =
-    peersWithHash &&
-    peersWithHash.every(({ hash }, idx) => hash === enteredHashes[idx]);
+  // Poll for peers and configGenParams while on this page.
+  useConsensusPolling();
+
+  const verifiedConfigs = peers.every(
+    (peer) => peer.status === ServerStatus.VerifiedConfigs
+  );
 
   useEffect(() => {
     async function assembleHashInfo() {
@@ -79,6 +83,18 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     }
     assembleHashInfo();
   }, [api]);
+
+  useEffect(() => {
+    const isAllValid =
+      peersWithHash &&
+      peersWithHash.every(({ hash }, idx) => hash === enteredHashes[idx]);
+
+    if (isAllValid) {
+      api.verifiedConfigs().catch((err) => {
+        setError(formatApiErrorMessage(err));
+      });
+    }
+  }, [api, peersWithHash, enteredHashes]);
 
   const handleNext = useCallback(async () => {
     setIsStarting(true);
@@ -181,16 +197,16 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           </FormControl>
         </FormGroup>
         <Table
-          title={t('verify_guardians.code_table_title')}
-          description={t('verify_guardians.code_table_description')}
+          title={t('verify_guardians.table_title')}
+          description={t('verify_guardians.table_description')}
           columns={tableColumns}
           rows={tableRows}
         />
         <div>
           <Button
-            isDisabled={!isAllValid}
+            isDisabled={!verifiedConfigs}
             isLoading={isStarting}
-            onClick={isAllValid ? handleNext : undefined}
+            onClick={verifiedConfigs ? handleNext : undefined}
             leftIcon={<Icon as={ArrowRightIcon} />}
             mt={4}
           >

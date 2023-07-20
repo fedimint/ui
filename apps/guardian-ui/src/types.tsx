@@ -4,6 +4,7 @@ export enum ServerStatus {
   ReadyForConfigGen = 'ReadyForConfigGen',
   ConfigGenFailed = 'ConfigGenFailed',
   VerifyingConfigs = 'VerifyingConfigs',
+  VerifiedConfigs = 'VerifiedConfigs',
   Upgrading = 'Upgrading',
   ConsensusRunning = 'ConsensusRunning',
 }
