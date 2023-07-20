@@ -92,7 +92,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
         setWithdrawObject({ ...withdrawObject, amount: 0, address: '' });
         setModalState(false);
       })
-      .catch(({ message, error }) => {
+      .catch(({ error }) => {
         console.error(error);
         setError(`${t('withdraw_tab.error_request')}`);
       });
