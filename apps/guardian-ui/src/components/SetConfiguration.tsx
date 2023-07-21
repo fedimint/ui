@@ -90,10 +90,9 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         );
         setNetwork(walletModule.consensus?.network.toString() || network);
         setBitcoinRpc(walletModule.local?.bitcoin_rpc || bitcoinRpc);
-        setClientDefaultBitcoinRpc(
-          walletModule.consensus?.client_default_bitcoin_rpc ||
-            clientDefaultBitcoinRpc
-        );
+        if (walletModule.consensus?.client_default_bitcoin_rpc) {
+          setClientDefaultBitcoinRpc(walletModule.consensus.client_default_bitcoin_rpc);
+        }
       }
     };
 
