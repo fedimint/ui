@@ -59,7 +59,11 @@ export type MintModuleParams = [
 export type WalletModuleParams = [
   ModuleKind.Wallet,
   {
-    consensus?: { finality_delay: number; network: Network };
+    consensus?: {
+      finality_delay: number;
+      network: Network;
+      client_default_bitcoin_rpc: BitcoinRpc;
+    };
     local?: {
       bitcoin_rpc: BitcoinRpc;
     };
