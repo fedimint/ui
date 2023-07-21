@@ -7,50 +7,20 @@ import React, {
 } from 'react';
 import { GuardianApi } from './GuardianApi';
 import { formatApiErrorMessage } from './utils/api';
+import { ServerStatus } from './types';
 
-const LOCAL_STORAGE_KEY = 'guardian-ui-state';
-
-function makeInitialState(loadFromStorage = true): AppState {
-  let storageState: Partial<AppState> = {};
-  if (loadFromStorage) {
-    try {
-      const storageJson = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (storageJson) {
-        storageState = JSON.parse(storageJson);
-      }
-    } catch (err) {
-      console.warn('Encountered error while fetching storage state', err);
-    }
-  }
-
-  return {
-    experience: 'Setup',
-    ...storageState,
-  };
-}
-
-const initialState = makeInitialState();
-
-interface AppState {
-  experience: 'Setup' | 'Admin';
-}
-
-interface ApiState {
-  connected: boolean;
-  error: string;
-}
+type status = 'Loading' | 'Setup' | 'Admin' | 'Error';
 
 export interface AppContextValue {
   api: GuardianApi;
-  apiState: ApiState;
-  appState: AppState;
+  appState: status;
+  appError?: string;
   transitionToAdmin: () => void;
 }
 
 export const AppContext = createContext<AppContextValue>({
   api: new GuardianApi(),
-  apiState: { connected: false, error: '' },
-  appState: initialState,
+  appState: 'Loading',
   transitionToAdmin: () => null,
 });
 
@@ -62,49 +32,38 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }: AppContextProviderProps) => {
   const api = new GuardianApi();
-  const [appState, setAppState] = useState<AppState>(initialState);
-  const [apiState, setApiState] = useState<ApiState>({
-    connected: false,
-    error: '',
-  });
+  const [appState, setAppState] = useState<status>('Loading');
+  const [appError, setAppError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    !apiState.connected &&
-      api
-        .connect()
-        .then(() => {
-          setApiState({
-            connected: true,
-            error: '',
-          });
-        })
-        .catch((err) => {
-          setApiState({
-            connected: false,
-            error: formatApiErrorMessage(err),
-          });
-        });
-  }, [api, apiState.connected]);
+    const load = async () => {
+      try {
+        await api.connect();
+        const status = await api.status();
+        if (status.server === ServerStatus.ConsensusRunning) {
+          setAppState('Admin');
+        } else {
+          setAppState('Setup');
+        }
+      } catch (err) {
+        setAppState('Error');
+        setAppError(formatApiErrorMessage(err));
+      }
+    };
 
-  // Update local storage on state changes.
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(appState));
-  }, [appState.experience]);
+    appState === 'Loading' && load().catch((err) => setAppError(err.message));
+  }, [api, appState]);
 
   const transitionToAdmin = useCallback(() => {
-    setApiState({
-      connected: false,
-      error: '',
-    });
-    setAppState({ experience: 'Admin' });
+    setAppState('Loading');
   }, []);
 
   return (
     <AppContext.Provider
       value={{
         api,
-        apiState,
         appState,
+        appError,
         transitionToAdmin,
       }}
     >
