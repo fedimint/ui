@@ -62,31 +62,31 @@ export const FederationSetup: React.FC = () => {
         content = <RoleSelector next={handleNext} />;
         break;
       case SetupProgress.SetConfiguration:
-        title = t('setup.progress.set_config.title');
+        title = t('setup.progress.set-config.title');
         subtitle = isHost
-          ? t('setup.progress.set_config.subtitle_leader')
-          : t('setup.progress.set_config.subtitle_follower');
+          ? t('setup.progress.set-config.subtitle-leader')
+          : t('setup.progress.set-config.subtitle-follower');
         content = <SetConfiguration next={handleNext} />;
         canGoBack = true;
         break;
       case SetupProgress.ConnectGuardians:
         title = isHost
-          ? t('setup.progress.connect_guardians.title_leader')
-          : t('setup.progress.connect_guardian.title_follower');
+          ? t('setup.progress.connect-guardians.title-leader')
+          : t('setup.progress.connect-guardians.title-follower');
         subtitle = isHost
-          ? t('setup.progress.connect_guardians.subtitle_leader')
-          : t('setup.progress.set_config_subtitle_follower');
+          ? t('setup.progress.connect-guardians.subtitle-leader')
+          : t('setup.progress.set-config.subtitle-follower');
         content = <ConnectGuardians next={handleNext} />;
         canGoBack = true;
         break;
       case SetupProgress.RunDKG:
-        title = t('setup.progress.run_dkg.title');
-        subtitle = t('setup.progress.run_dkg.subtitle');
+        title = t('setup.progress.run-dkg.title');
+        subtitle = t('setup.progress.run-dkg.subtitle');
         content = <RunDKG next={handleNext} />;
         break;
       case SetupProgress.VerifyGuardians:
-        title = t('setup.progress.verify_guardians.title');
-        subtitle = t('setup.progress.verify_guardians.subtitle');
+        title = t('setup.progress.verify-guardians.title');
+        subtitle = t('setup.progress.verify-guardians.subtitle');
         content = <VerifyGuardians next={handleNext} />;
         break;
       case SetupProgress.SetupComplete:

@@ -50,8 +50,8 @@ export const ConnectFederation = ({
           alignItems='flex-end'
         >
           <Input
-            labelName={t('connect_federation.label')}
-            placeHolder={t('connect_federation.connection_string_placeholder')}
+            labelName={t('connect-federation.label')}
+            placeHolder={t('connect-federation.connection-string-placeholder')}
             value={connectInfo}
             onChange={(event) => handleInputString(event)}
           />
@@ -60,7 +60,7 @@ export const ConnectFederation = ({
             onClick={() => handleConnectFederation()}
             height='48px'
           >
-            {t('connect_federation.connect')}
+            {t('connect-federation.connect')}
           </Button>
           <Box color='red.500'>{errorMsg}</Box>
         </HStack>

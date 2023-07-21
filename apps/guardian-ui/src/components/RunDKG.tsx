@@ -53,10 +53,10 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
             next();
             break;
           case ServerStatus.ConfigGenFailed:
-            setError(`${t('run_dkg.error_config')}`);
+            setError(`${t('run-dkg.error-config')}`);
             break;
           default:
-            setError(`${t('run_dkg.error_default')} '${status}'`);
+            setError(`${t('run-dkg.error-default')} '${status}'`);
         }
       } catch (err) {
         setError(formatApiErrorMessage(err));
@@ -96,15 +96,15 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
       {error ? (
         <>
           <Heading size='sm' color={theme.colors.red[500]}>
-            {t('run_dkg.error_header')}
+            {t('run-dkg.error-header')}
           </Heading>
           <Text>{error}</Text>
         </>
       ) : (
         <Heading size='sm'>
           {isWaitingForOthers
-            ? t('run_dkg.waiting_header')
-            : t('run_dkg.generating_header')}
+            ? t('run-dkg.waiting-header')
+            : t('run-dkg.generating-header')}
         </Heading>
       )}
     </VStack>

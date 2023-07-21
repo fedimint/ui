@@ -58,19 +58,21 @@ const Footer = () => {
                 color={theme.colors.blue[50]}
                 fontWeight='600'
               >
-                {t('footer.docs')}
+                {t('footer.docs-section-header')}
               </Text>
               <CustomLink
-                title={t('footer.getting_started')}
-                href={t('footer.fedimint_org_link')}
+                title={t('footer.getting-started-link-text')}
+                href={'https://fedimint.org'}
               />
               <CustomLink
-                title={t('footer.frequently_asked_questions')}
-                href={t('footer.frequently_asked_questions_hyperlink')}
+                title={t('footer.faq-link-text')}
+                href={
+                  'https://fedimint.org/docs/category/frequently-asked-questions'
+                }
               />
               <CustomLink
-                title={t('footer.blog')}
-                href={t('footer.fedimint_docs_intro_hyperlink')}
+                title={t('footer.blog-link-text')}
+                href={'https://fedimint.org/docs/intro'}
               />
             </Stack>
             <Stack spacing='12px'>
@@ -79,15 +81,15 @@ const Footer = () => {
                 color={theme.colors.blue[50]}
                 fontWeight='600'
               >
-                {t('footer.community')}
+                {t('footer.community-section-header')}
               </Text>
               <CustomLink
-                title={t('footer.discord')}
-                href={t('footer.discord_hyperlink')}
+                title={t('footer.discord-link-text')}
+                href={'https://discord.gg/nzqta7AZ'}
               />
               <CustomLink
-                title={t('footer.twitter')}
-                href={t('footer.twitter_hyperlink')}
+                title={t('footer.twitter-link-text')}
+                href={'https://twitter.com/fedimint'}
               />
             </Stack>
 
@@ -97,11 +99,11 @@ const Footer = () => {
                 color={theme.colors.blue[50]}
                 fontWeight='600'
               >
-                {t('footer.contribute')}
+                {t('footer.contribute-section-header')}
               </Text>
               <CustomLink
-                title={t('footer.github')}
-                href={t('footer.github_hyperlink')}
+                title={t('footer.github-link-text')}
+                href={'https://github.com/fedimint'}
               />
             </Stack>
           </Box>

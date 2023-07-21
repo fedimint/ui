@@ -61,14 +61,14 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   } else if (role === GuardianRole.Host) {
     content = (
       <FormControl maxWidth={400}>
-        <FormLabel>{t('connect_guardians.invite_guardians')}</FormLabel>
+        <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
         <CopyInput
           value={guardianLink}
           size='lg'
           buttonLeftIcon={<Icon as={CopyIcon} />}
         />
         <FormHelperText>
-          {t('connect_guardians.connect_guardians_help')}
+          {t('connect-guardians.invite-guardians-help')}
         </FormHelperText>
       </FormControl>
     );
@@ -107,7 +107,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
         </TableContainer>
         <div>
           <Button onClick={handleApprove}>
-            {t('connect_guardians.approve')}
+            {t('connect-guardians.approve')}
           </Button>
         </div>
       </VStack>
@@ -138,16 +138,16 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
             name: peers[i].name,
             status:
               peers[i].status === ServerStatus.ReadyForConfigGen ? (
-                <Tag colorScheme='green'>{t('connect_guardians.approved')}</Tag>
+                <Tag colorScheme='green'>{t('connect-guardians.approved')}</Tag>
               ) : (
-                <Tag colorScheme='orange'>{t('connect_guardians.pending')}</Tag>
+                <Tag colorScheme='orange'>{t('connect-guardians.pending')}</Tag>
               ),
           }
         : {
             key: i,
             name: `Guardian ${i + 1}`,
             status: (
-              <Tag colorScheme='gray'>{t('connect_guardians.not_joined')}</Tag>
+              <Tag colorScheme='gray'>{t('connect-guardians.not-joined')}</Tag>
             ),
           };
       rows = [...rows, row];
@@ -160,8 +160,8 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       {content}
       {peerTableRows.length && (
         <Table
-          title='Federation Guardians'
-          description='Guardians will be confirmed here once they confirm Federation settings.'
+          title={t('connect-guardians.table-title')}
+          description={t('connect-guardians.table-description')}
           columns={peerTableColumns}
           rows={peerTableRows}
         />

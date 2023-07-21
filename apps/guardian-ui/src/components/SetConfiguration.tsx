@@ -91,7 +91,9 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         setNetwork(walletModule.consensus?.network.toString() || network);
         setBitcoinRpc(walletModule.local?.bitcoin_rpc || bitcoinRpc);
         if (walletModule.consensus?.client_default_bitcoin_rpc) {
-          setClientDefaultBitcoinRpc(walletModule.consensus.client_default_bitcoin_rpc);
+          setClientDefaultBitcoinRpc(
+            walletModule.consensus.client_default_bitcoin_rpc
+          );
         }
       }
     };
@@ -204,33 +206,33 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     <VStack gap={8} justify='start' align='start'>
       <FormGroup>
         <FormControl>
-          <FormLabel>{t('set_config.guardian_name')}</FormLabel>
+          <FormLabel>{t('set-config.guardian-name')}</FormLabel>
           <Input
             value={myName}
             onChange={(ev) => setMyName(ev.currentTarget.value)}
           />
-          <FormHelperText>{t('set_config.guardian_name_help')}</FormHelperText>
+          <FormHelperText>{t('set-config.guardian-name-help')}</FormHelperText>
         </FormControl>
         <FormControl>
-          <FormLabel>{t('set_config.admin_password')}</FormLabel>
+          <FormLabel>{t('set-config.admin-password')}</FormLabel>
           <Input
             type='password'
             value={password}
             onChange={(ev) => setPassword(ev.currentTarget.value)}
             isDisabled={!!statePassword}
           />
-          <FormHelperText>{t('set_config.admin_password_help')}</FormHelperText>
+          <FormHelperText>{t('set-config.admin-password-help')}</FormHelperText>
         </FormControl>
         {!isHost && (
           <FormControl>
-            <FormLabel>{t('set_config.join_federation')}</FormLabel>
+            <FormLabel>{t('set-config.join-federation')}</FormLabel>
             <Input
               value={hostServerUrl}
               onChange={(ev) => setHostServerUrl(ev.currentTarget.value)}
               placeholder='ws://...'
             />
             <FormHelperText>
-              {t('set_config.join_federation_help')}
+              {t('set-config.join-federation-help')}
             </FormHelperText>
           </FormControl>
         )}
@@ -240,17 +242,17 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           <FormGroup>
             <FormGroupHeading
               icon={FedimintLogo}
-              title={`${t('set_config.federation_settings')}`}
+              title={`${t('set-config.federation-settings')}`}
             />
             <FormControl>
-              <FormLabel>{t('set_config.federation_name')}</FormLabel>
+              <FormLabel>{t('set-config.federation-name')}</FormLabel>
               <Input
                 value={federationName}
                 onChange={(ev) => setFederationName(ev.currentTarget.value)}
               />
             </FormControl>
             <FormControl isInvalid={!isValidNumber(numPeers)}>
-              <FormLabel>{t('set_config.guardian_number')}</FormLabel>
+              <FormLabel>{t('set-config.guardian-number')}</FormLabel>
               <NumberInput
                 min={1}
                 value={numPeers}
@@ -265,10 +267,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
                 </NumberInputStepper>
               </NumberInput>
               <FormErrorMessage>
-                {t('set_config.error_valid_number')}
+                {t('set-config.error-valid-number')}
               </FormErrorMessage>
               <FormHelperText>
-                {t('set_config.guardian_number_help')}
+                {t('set-config.guardian-number-help')}
               </FormHelperText>
             </FormControl>
           </FormGroup>
@@ -278,7 +280,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           {isHost && (
             <>
               <FormControl isInvalid={!isValidNumber(blockConfirmations)}>
-                <FormLabel>{t('set_config.block_confirmations')}</FormLabel>
+                <FormLabel>{t('set-config.block-confirmations')}</FormLabel>
                 <NumberInput
                   min={1}
                   max={200}
@@ -294,16 +296,16 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
                   </NumberInputStepper>
                 </NumberInput>
                 <FormErrorMessage>
-                  {t('set_config.error_valid_number')}
+                  {t('set-config.error-valid-number')}
                 </FormErrorMessage>
                 <FormHelperText>
-                  {t('set_config.block_confirmations_help')}
+                  {t('set-config.block-confirmations-help')}
                 </FormHelperText>
               </FormControl>
               <FormControl>
-                <FormLabel>{t('set_config.bitcoin_network')}</FormLabel>
+                <FormLabel>{t('set-config.bitcoin-network')}</FormLabel>
                 <Select
-                  placeholder={`${t('set_config.select_network')}`}
+                  placeholder={`${t('set-config.select-network')}`}
                   value={network !== null ? network : ''}
                   onChange={(ev) => {
                     const value = ev.currentTarget.value;
@@ -320,14 +322,14 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             </>
           )}
           <FormControl>
-            <FormLabel>{t('set_config.bitcoin_rpc')}</FormLabel>
+            <FormLabel>{t('set-config.bitcoin-rpc')}</FormLabel>
             <Input
               value={bitcoinRpc.url}
               onChange={(ev) => {
                 setBitcoinRpc({ ...bitcoinRpc, url: ev.currentTarget.value });
               }}
             />
-            <FormHelperText>{t('set_config.set_rpc_help')}</FormHelperText>
+            <FormHelperText>{t('set-config.set-rpc-help')}</FormHelperText>
           </FormControl>
         </FormGroup>
       </>

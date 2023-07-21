@@ -120,17 +120,17 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     () => [
       {
         key: 'name',
-        heading: t('verify_guardians.table_column_name'),
+        heading: t('verify-guardians.table-column-name'),
         width: '200px',
       },
       {
         key: 'status',
-        heading: t('verify_guardians.table_column_status'),
+        heading: t('verify-guardians.table-column-status'),
         width: '160px',
       },
       {
         key: 'hashInput',
-        heading: t('verify_guardians.table_column_hash_input'),
+        heading: t('verify-guardians.table-column-hash-input'),
       },
     ],
     []
@@ -158,7 +158,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           </Text>
         ),
         status: isValid ? (
-          <Tag colorScheme='green'>{t('verify_guardians.verified')}</Tag>
+          <Tag colorScheme='green'>{t('verify-guardians.verified')}</Tag>
         ) : (
           ''
         ),
@@ -167,7 +167,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             <Input
               variant='filled'
               value={value}
-              placeholder={`${t('verify_guardians.verified_placeholder')}`}
+              placeholder={`${t('verify-guardians.verified-placeholder')}`}
               onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
               readOnly={isValid}
             />
@@ -180,7 +180,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   if (error) {
     return (
       <VStack gap={4}>
-        <Heading size='sm'>{t('verify_guardians.error')}</Heading>
+        <Heading size='sm'>{t('verify-guardians.error')}</Heading>
         <Text color={theme.colors.red[500]}>{error}</Text>
       </VStack>
     );
@@ -191,16 +191,16 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       <VStack gap={8} justify='start' align='start'>
         <FormGroup>
           <FormControl>
-            <FormLabel>{t('verify_guardians.verification_code')}</FormLabel>
+            <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
             <CopyInput value={myHash} buttonLeftIcon={<Icon as={CopyIcon} />} />
             <FormHelperText>
-              {t('verify_guardians.verification_code_help')}
+              {t('verify-guardians.verification-code-help')}
             </FormHelperText>
           </FormControl>
         </FormGroup>
         <Table
-          title={t('verify_guardians.table_title')}
-          description={t('verify_guardians.table_description')}
+          title={t('verify-guardians.table-title')}
+          description={t('verify-guardians.table-description')}
           columns={tableColumns}
           rows={tableRows}
         />
@@ -226,11 +226,11 @@ const WaitingForVerification: React.FC<{ verifiedConfigs: boolean }> = ({
   const { t } = useTranslation();
 
   return verifiedConfigs ? (
-    <Text>{t('verify_guardians.all_guardians_verified')}</Text>
+    <Text>{t('verify-guardians.all-guardians-verified')}</Text>
   ) : (
     <>
       <Spinner />
-      <Text>{t('verify_guardians.wait_all_guardians_verification')}</Text>
+      <Text>{t('verify-guardians.wait-all-guardians-verification')}</Text>
     </>
   );
 };
