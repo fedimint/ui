@@ -13,8 +13,8 @@
     "lint": "eslint \"src/**/*.ts*\""
   },
   "dependencies": {
-    "i18next": "^22.4.15",
+    "i18next": "^23.2.11",
     "i18next-browser-languagedetector": "^7.0.1",
-    "react-i18next": "^12.2.2"
+    "react-i18next": "^13.0.2"
   }
 }
