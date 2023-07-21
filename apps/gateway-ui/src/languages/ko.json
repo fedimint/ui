@@ -6,22 +6,22 @@
     "sats": "사토시",
     "confirm": "확인"
   },
-  "connect_federation": {
+  "connect-federation": {
     "connect": "연결하기 🚀",
     "label": "연결 문자열:",
-    "connection_string_placeholder": "연합 연결 문자열을 입력하세요"
+    "connection-string-placeholder": "연합 연결 문자열을 입력하세요"
   },
-  "deposit_tab": {
-    "tab_header": "입금",
+  "deposit-tab": {
+    "tab-header": "입금",
     "header": "연합에 비트코인 입금",
-    "sentence_one": "비트코인을 입금하기 위해 표시된 주소로 입금해 주세요. QR 코드를 스캔하여 결제할 수 있습니다.",
-    "bitcoin_deposit": "비트코인 입금",
+    "sentence-one": "비트코인을 입금하기 위해 표시된 주소로 입금해 주세요. QR 코드를 스캔하여 결제할 수 있습니다.",
+    "bitcoin-deposit": "비트코인 입금",
     "confirmations": "확인 횟수:",
     "required": "필수",
-    "receiving_address": "수신 주소",
-    "transaction_id": "거래 ID"
+    "receiving-address": "수신 주소",
+    "transaction-id": "거래 ID"
   },
-  "federation_card": {
+  "federation-card": {
     "details": "상세 정보"
   },
   "header": {
@@ -29,36 +29,36 @@
     "sort": "정렬",
     "ascending": "오름차순",
     "descending": "내림차순",
-    "date_created": "생성일",
+    "date-created": "생성일",
     "filter": "필터",
     "active": "활성",
     "archived": "보관됨",
     "all": "전체"
   },
-  "info_tab": {
-    "tab_header": "정보",
-    "description": "연합 설명",
-    "date_connected": "연결일"
+  "info-tab": {
+    "tab-header": "정보",
+    "balance": "균형:"
   },
-  "withdraw_tab": {
-    "tab_header": "출금",
+  "withdraw-tab": {
+    "tab-header": "출금",
     "error": "오류",
-    "error_amount": "금액은 비어 있거나 0일 수 없습니다",
-    "error_address": "금액 또는 주소는 비어 있을 수 없습니다",
-    "error_request": "출금 요청에 실패했습니다",
+    "error-amount": "금액은 비어 있거나 0일 수 없습니다",
+    "error-address": "금액 또는 주소는 비어 있을 수 없습니다",
+    "error-request": "출금 요청에 실패했습니다",
+    "your-transaction": "거래 ID:",
     "withdraw": "출금",
-    "withdrawal_history": "출금 내역",
-    "confirm_withdraw": "출금 확인",
+    "withdrawal-history": "출금 내역",
+    "confirm-withdraw": "출금 확인",
     "to": "받는 주소",
-    "amount_label": "금액 (사토시):",
-    "amount_placeholder": "사토시로 금액을 입력하세요",
-    "address_label": "당신의 주소:",
-    "address_placeholder": "당신의 비트코인 주소를 입력하세요",
-    "requested_withdrawal": "출금 요청됨",
-    "request_from": "출금 요청 -",
+    "amount-label": "금액 (사토시):",
+    "amount-placeholder": "사토시로 금액을 입력하세요",
+    "address-label": "당신의 주소:",
+    "address-placeholder": "당신의 비트코인 주소를 입력하세요",
+    "requested-withdrawal": "출금 요청됨",
+    "request-from": "출금 요청 -",
     "view": "보기",
     "close": "닫기",
-    "withdrawal_created": "출금이 생성되었습니다.",
-    "withdrawal_created_description": "거래 내역을 확인해 주세요"
+    "withdrawal-created": "출금이 생성되었습니다.",
+    "withdrawal-created-description": "거래 내역을 확인해 주세요"
   }
 }

@@ -6,22 +6,22 @@
     "sats": "sats",
     "confirm": "Confirm"
   },
-  "connect_federation": {
+  "connect-federation": {
     "connect": "Connect 🚀",
     "label": "Connect String:",
-    "connection_string_placeholder": "Enter federation connection string"
+    "connection-string-placeholder": "Enter federation connection string"
   },
-  "deposit_tab": {
-    "tab_header": "Deposit",
+  "deposit-tab": {
+    "tab-header": "Deposit",
     "header": "Bitcoin Deposit to Federation",
-    "sentence_one": "Please pay to the address address shown to deposit funds into this federation. You can scan the QR code to pay.",
-    "bitcoin_deposit": "Bitcoin Deposit",
+    "sentence-one": "Please pay to the address address shown to deposit funds into this federation. You can scan the QR code to pay.",
+    "bitcoin-deposit": "Bitcoin Deposit",
     "confirmations": "Confirmations:",
     "required": "required",
-    "receiving_address": "Receiving Addr",
-    "transaction_id": "Transaction ID"
+    "receiving-address": "Receiving Addr",
+    "transaction-id": "Transaction ID"
   },
-  "federation_card": {
+  "federation-card": {
     "details": "Details"
   },
   "header": {
@@ -29,35 +29,36 @@
     "sort": "Sort",
     "ascending": "Ascending",
     "descending": "Descending",
-    "date_created": "Date Created",
+    "date-created": "Date Created",
     "filter": "Filter",
     "active": "Active",
     "archived": "Archived",
     "all": "All"
   },
-  "info_tab": {
+  "info-tab": {
+    "tab-header": "Information",
     "balance": "Balance:"
   },
-  "withdraw_tab": {
-    "tab_header": "Withdraw",
+  "withdraw-tab": {
+    "tab-header": "Withdraw",
     "error": "Error",
-    "error_amount": "Amount cannot be empty or equal to zero",
-    "error_address": "Amount or address cannot be empty",
-    "error_request": "Failed to request withdrawal",
-    "your_transaction": "Your transaction ID:",
+    "error-amount": "Amount cannot be empty or equal to zero",
+    "error-address": "Amount or address cannot be empty",
+    "error-request": "Failed to request withdrawal",
+    "your-transaction": "Your transaction ID:",
     "withdraw": "Withdraw",
-    "withdrawal_history": "Withdrawal History",
-    "confirm_withdraw": "Confirm Withdraw",
+    "withdrawal-history": "Withdrawal History",
+    "confirm-withdraw": "Confirm Withdraw",
     "to": "to",
-    "amount_label": "Amount (sats):",
-    "amount_placeholder": "Enter amount in sats",
-    "address_label": "Your address:",
-    "address_placeholder": "Enter your btc address",
-    "requested_withdrawal": "Requested Withdrawal",
-    "request_from": "Requested Withdrawal from",
+    "amount-label": "Amount (sats):",
+    "amount-placeholder": "Enter amount in sats",
+    "address-label": "Your address:",
+    "address-placeholder": "Enter your btc address",
+    "requested-withdrawal": "Requested Withdrawal",
+    "request-from": "Requested Withdrawal from",
     "view": "View",
     "close": "Close",
-    "withdrawal_created": "Withdrawal created.",
-    "withdrawal_created_description": "Please check your transaction history"
+    "withdrawal-created": "Withdrawal created.",
+    "withdrawal-created-description": "Please check your transaction history"
   }
 }

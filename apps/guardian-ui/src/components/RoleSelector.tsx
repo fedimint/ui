@@ -23,14 +23,14 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
     () => [
       {
         value: GuardianRole.Host,
-        label: t('role_selector.leader.label'),
-        description: t('role_selector.leader.description'),
+        label: t('role-selector.leader.label'),
+        description: t('role-selector.leader.description'),
         icon: StarsIcon,
       },
       {
         value: GuardianRole.Follower,
-        label: t('role_selector.follower.label'),
-        description: t('role_selector.follower.description'),
+        label: t('role-selector.follower.label'),
+        description: t('role-selector.follower.description'),
         icon: IntersectSquareIcon,
       },
     ],

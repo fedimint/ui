@@ -20,7 +20,7 @@ import { useTranslation } from '@fedimint/utils';
 
 export const WithdrawTabHeader = () => {
   const { t } = useTranslation();
-  return <TabHeader>{t('withdraw_tab.tab_header')}</TabHeader>;
+  return <TabHeader>{t('withdraw-tab.tab-header')}</TabHeader>;
 };
 
 interface WithdrawObject {
@@ -71,11 +71,11 @@ export const WithdrawTab = React.memo(function WithdrawTab({
 
   const createWithdrawal = () => {
     if (!amount && amount === 0 && typeof amount === 'number') {
-      setError(`${t('withdraw_tab.error_amount')}`);
+      setError(`${t('withdraw-tab.error-amount')}`);
       return;
     }
     if (!address) {
-      setError(`${t('withdraw_tab.error_address')}`);
+      setError(`${t('withdraw-tab.error-address')}`);
       return;
     }
     // TODO: address validation
@@ -88,13 +88,13 @@ export const WithdrawTab = React.memo(function WithdrawTab({
       .requestWithdrawal(federationId, amount, address)
       .then((txId) => {
         // FIXME: show this in a better way
-        alert(`${t('withdraw_tab.your_transaction')} ${txId}`);
+        alert(`${t('withdraw-tab.your-transaction')} ${txId}`);
         setWithdrawObject({ ...withdrawObject, amount: 0, address: '' });
         setModalState(false);
       })
       .catch(({ error }) => {
         console.error(error);
-        setError(`${t('withdraw_tab.error_request')}`);
+        setError(`${t('withdraw-tab.error-request')}`);
       });
   };
 
@@ -102,16 +102,16 @@ export const WithdrawTab = React.memo(function WithdrawTab({
     <TabPanel ml='1px' mr='1px' p={{ base: '4px', md: '16px', lg: '16px' }}>
       <Stack spacing='4' maxWidth={{ base: '100%', md: 'md', lg: 'md' }}>
         <Input
-          labelName={t('withdraw_tab.amount_label')}
-          placeHolder={t('withdraw_tab.amount_placeholder')}
+          labelName={t('withdraw-tab.amount-label')}
+          placeHolder={t('withdraw-tab.amount-placeholder')}
           // FIXME: this is a hack
           value={withdrawObject.amount.toString()}
           onChange={(e) => handleInputChange(e)}
           name='amount'
         />
         <Input
-          labelName={t('withdraw_tab.address_label')}
-          placeHolder={t('withdraw_tab.address_placeholder')}
+          labelName={t('withdraw-tab.address-label')}
+          placeHolder={t('withdraw-tab.address-placeholder')}
           value={withdrawObject.address}
           onChange={(e) => handleInputChange(e)}
           name='address'
@@ -120,13 +120,13 @@ export const WithdrawTab = React.memo(function WithdrawTab({
         {error && (
           <Box>
             <Text textAlign='center' color='red' fontSize='14'>
-              {t('withdraw_tab.error')}: {error}
+              {t('withdraw-tab.error')}: {error}
             </Text>
           </Box>
         )}
 
         <Button borderRadius='4' onClick={createWithdrawal}>
-          {t('withdraw_tab.withdraw')}
+          {t('withdraw-tab.withdraw')}
         </Button>
       </Stack>
 
@@ -171,7 +171,7 @@ const ConfirmWithdrawModal = (
         <Modal onClose={onModalClickCallback} isOpen={open} isCentered>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>{t('withdraw_tab.confirm_withdraw')}</ModalHeader>
+            <ModalHeader>{t('withdraw-tab.confirm-withdraw')}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <VStack alignItems='flex-start' justifyContent='space-between'>
@@ -181,7 +181,7 @@ const ConfirmWithdrawModal = (
                     {txRequest.amount} {t('common.sats')}
                   </Text>
                 </Box>
-                <Text>{t('withdraw_tab.to')}</Text>
+                <Text>{t('withdraw-tab.to')}</Text>
                 <Box>
                   <Text>{t('common.address')}:</Text>
                   <Text>{truncateStringFormat(txRequest.address)}</Text>

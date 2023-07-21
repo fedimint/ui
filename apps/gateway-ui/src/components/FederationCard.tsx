@@ -80,7 +80,7 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
             fontSize={{ base: '12px', md: '15px', lg: '16px' }}
             onClick={detailsControl}
           >
-            {t('federation_card.details')}
+            {t('federation-card.details')}
           </Button>
         </Flex>
         <Tabs index={tab.open} onChange={tabControl} pt={3} variant='unstyled'>

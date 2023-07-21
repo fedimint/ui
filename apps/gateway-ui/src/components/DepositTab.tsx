@@ -7,7 +7,7 @@ import { useTranslation } from '@fedimint/utils';
 
 export const DepositTabHeader = (): JSX.Element => {
   const { t } = useTranslation();
-  return <TabHeader>{t('deposit_tab.tab_header')}</TabHeader>;
+  return <TabHeader>{t('deposit-tab.tab-header')}</TabHeader>;
 };
 
 export interface DepositTabProps {
@@ -44,7 +44,7 @@ export const DepositTab = React.memo(function DepositTab({
         fontSize={{ base: '22', md: '24' }}
         color='#1A202C'
       >
-        {t('deposit_tab.header')}
+        {t('deposit-tab.header')}
       </Heading>
       <Flex
         flexDir={{ base: 'column', md: 'row' }}
