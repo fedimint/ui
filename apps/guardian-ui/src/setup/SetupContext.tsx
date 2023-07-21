@@ -37,7 +37,6 @@ function makeInitialState(loadFromStorage = true): SetupState {
   }
 
   return {
-    isInitializing: true,
     role: null,
     progress: SetupProgress.Start,
     myName: '',
@@ -57,8 +56,6 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
   switch (action.type) {
     case SETUP_ACTION_TYPE.SET_INITIAL_STATE:
       return makeInitialState(false);
-    case SETUP_ACTION_TYPE.SET_IS_INITIALIZING:
-      return { ...state, isInitializing: action.payload };
     case SETUP_ACTION_TYPE.SET_ROLE:
       return { ...state, role: action.payload };
     case SETUP_ACTION_TYPE.SET_PROGRESS:
@@ -186,12 +183,6 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
           // TODO: Present error to user
           console.error(err);
         }
-      })
-      .finally(() => {
-        dispatch({
-          type: SETUP_ACTION_TYPE.SET_IS_INITIALIZING,
-          payload: false,
-        });
       });
   }, [api]);
 
@@ -229,6 +220,14 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
         configGenParams: state.configGenParams,
       })
     );
+
+    return () => {
+      // Clear local storage on setup complete.
+      // This happens when we transition to admin experience.
+      if (state.progress === SetupProgress.SetupComplete) {
+        localStorage.removeItem(LOCAL_STORAGE_SETUP_KEY);
+      }
+    };
   }, [
     state.role,
     state.progress,

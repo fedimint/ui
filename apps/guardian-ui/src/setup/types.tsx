@@ -91,7 +91,6 @@ export interface ConsensusState {
 }
 
 export interface SetupState {
-  isInitializing: boolean;
   role: GuardianRole | null;
   progress: SetupProgress;
   myName: string;
@@ -104,7 +103,6 @@ export interface SetupState {
 }
 
 export enum SETUP_ACTION_TYPE {
-  SET_IS_INITIALIZING = 'SET_IS_INITIALIZING',
   SET_INITIAL_STATE = 'SET_INITIAL_STATE',
   SET_ROLE = 'SET_ROLE',
   SET_PROGRESS = 'SET_PROGRESS',
@@ -122,10 +120,6 @@ export type SetupAction =
   | {
       type: SETUP_ACTION_TYPE.SET_INITIAL_STATE;
       payload: null;
-    }
-  | {
-      type: SETUP_ACTION_TYPE.SET_IS_INITIALIZING;
-      payload: boolean;
     }
   | {
       type: SETUP_ACTION_TYPE.SET_ROLE;

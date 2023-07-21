@@ -11,54 +11,39 @@ import { useTranslation } from '@fedimint/utils';
 
 export const App = React.memo(function App() {
   const { t } = useTranslation();
-  const {
-    appState: { experience },
-    apiState: { connected: isConnected, error },
-    api,
-  } = useAppContext();
+  const { appState, appError, api } = useAppContext();
 
   const getAppContent = useCallback(() => {
-    let content: React.ReactNode = (
-      <Center>
-        <Box p={10}>
-          <Spinner size='xl' />
-        </Box>
-      </Center>
-    );
-
-    if (isConnected) {
-      if (error) {
-        content = (
+    switch (appState) {
+      case 'Loading':
+        return (
+          <Center p={12}>
+            <Spinner size='xl' />
+          </Center>
+        );
+      case 'Setup':
+        return (
+          <SetupContextProvider api={api}>
+            <Wrapper>
+              <FederationSetup />
+            </Wrapper>
+          </SetupContextProvider>
+        );
+      case 'Admin':
+        return (
+          <AdminContextProvider api={api}>
+            <FederationAdmin />
+          </AdminContextProvider>
+        );
+      case 'Error':
+        return (
           <VStack spacing={4}>
             <Heading size='md'>{t('common.error')}</Heading>
-            <Text>{error}</Text>
+            <Text>{appError}</Text>
           </VStack>
         );
-      } else {
-        switch (experience) {
-          case 'Setup':
-            content = (
-              <SetupContextProvider api={api}>
-                <Wrapper>
-                  <FederationSetup />
-                </Wrapper>
-              </SetupContextProvider>
-            );
-            break;
-          case 'Admin':
-            content = (
-              <AdminContextProvider api={api}>
-                <FederationAdmin />
-              </AdminContextProvider>
-            );
-            break;
-          // TODO: Add auth experience
-        }
-      }
     }
-
-    return content;
-  }, [experience, isConnected, error]);
+  }, [appState, appError, api]);
 
   return (
     <React.StrictMode>
