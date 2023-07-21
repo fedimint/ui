@@ -229,6 +229,14 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
         configGenParams: state.configGenParams,
       })
     );
+
+    return () => {
+      // Clear local storage on setup complete.
+      // This happens when we transition to admin experience.
+      if (state.progress === SetupProgress.SetupComplete) {
+        localStorage.removeItem(LOCAL_STORAGE_SETUP_KEY);
+      }
+    };
   }, [
     state.role,
     state.progress,
