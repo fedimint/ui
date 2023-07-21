@@ -64,6 +64,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     kind: '',
     url: '',
   });
+  const [clientDefaultBitcoinRpc, setClientDefaultBitcoinRpc] =
+    useState<BitcoinRpc>({
+      kind: '',
+      url: '',
+    });
   const [mintAmounts, setMintAmounts] = useState<number[]>([]);
   const [error, setError] = useState<string>();
 
@@ -85,6 +90,9 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         );
         setNetwork(walletModule.consensus?.network.toString() || network);
         setBitcoinRpc(walletModule.local?.bitcoin_rpc || bitcoinRpc);
+        if (walletModule.consensus?.client_default_bitcoin_rpc) {
+          setClientDefaultBitcoinRpc(walletModule.consensus.client_default_bitcoin_rpc);
+        }
       }
     };
 
@@ -145,6 +153,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
                   consensus: {
                     finality_delay: parseInt(blockConfirmations, 10),
                     network: network as Network,
+                    client_default_bitcoin_rpc: clientDefaultBitcoinRpc,
                   },
                   local: {
                     bitcoin_rpc: bitcoinRpc,
