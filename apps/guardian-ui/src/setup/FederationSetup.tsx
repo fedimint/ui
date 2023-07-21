@@ -1,13 +1,5 @@
 import React, { useCallback } from 'react';
-import {
-  Box,
-  Button,
-  Text,
-  Heading,
-  Icon,
-  VStack,
-  Spinner,
-} from '@chakra-ui/react';
+import { Box, Button, Text, Heading, Icon, VStack } from '@chakra-ui/react';
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { Header } from '../components/Header';
 import { useSetupContext } from '../hooks';
@@ -33,7 +25,7 @@ const PROGRESS_ORDER: SetupProgress[] = [
 export const FederationSetup: React.FC = () => {
   const { t } = useTranslation();
   const {
-    state: { progress, role, password, needsAuth, isInitializing },
+    state: { progress, role, password, needsAuth },
     dispatch,
   } = useSetupContext();
 
@@ -58,9 +50,7 @@ export const FederationSetup: React.FC = () => {
   let subtitle: React.ReactNode;
   let canGoBack = false;
   let content: React.ReactNode;
-  if (isInitializing) {
-    content = <Spinner />;
-  } else if (needsAuth && !password) {
+  if (needsAuth && !password) {
     title = t('setup.auth.title');
     subtitle = t('setup.auth.subtitle');
     content = <Login />;
