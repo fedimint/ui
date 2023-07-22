@@ -98,7 +98,6 @@ export interface SetupState {
   ourCurrentId: number | null;
   configGenParams: ConfigGenParams | null;
   numPeers: number;
-  needsAuth: boolean;
   peers: Peer[];
 }
 
@@ -108,7 +107,6 @@ export enum SETUP_ACTION_TYPE {
   SET_PROGRESS = 'SET_PROGRESS',
   SET_MY_NAME = 'SET_MY_NAME',
   SET_PASSWORD = 'SET_PASSWORD',
-  SET_NEEDS_AUTH = 'SET_NEEDS_AUTH',
   SET_CONFIG_GEN_PARAMS = 'SET_CONFIG_GEN_PARAMS',
   SET_NUM_PEERS = 'SET_NUM_PEERS',
   SET_PEERS = 'SET_PEERS',
@@ -140,10 +138,6 @@ export type SetupAction =
   | {
       type: SETUP_ACTION_TYPE.SET_PASSWORD;
       payload: string;
-    }
-  | {
-      type: SETUP_ACTION_TYPE.SET_NEEDS_AUTH;
-      payload: boolean;
     }
   | {
       type: SETUP_ACTION_TYPE.SET_NUM_PEERS;
