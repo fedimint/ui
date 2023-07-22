@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
-import { Box, Center } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
+import { Header } from './Header';
+import Footer from './Footer';
 
 export interface WrapperProps {
   children: React.ReactNode;
@@ -9,7 +11,12 @@ export const Wrapper = memo(function Wrapper({
   children,
 }: WrapperProps): JSX.Element {
   return (
-    <Center>
+    <Flex
+      minHeight='100vh'
+      justifyContent='space-between'
+      flexDir='column'
+      alignItems='center'
+    >
       <Box
         maxW='960px'
         mt={10}
@@ -18,9 +25,12 @@ export const Wrapper = memo(function Wrapper({
         ml={[2, 4, 6, 10]}
         p={5}
         width='100%'
+        alignItems='center'
       >
+        <Header />
         {children}
       </Box>
-    </Center>
+      <Footer />
+    </Flex>
   );
 });

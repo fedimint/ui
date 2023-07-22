@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react';
 import { useAdminContext } from '../hooks';
 import { ConfigResponse, Gateway, StatusResponse, Versions } from '../types';
-import { SideBar } from '../components/SideBar';
 import { AdminHeader } from '../components/AdminHeader';
 import { AdminMain } from '../components/AdminMain';
 import { ConnectedNodes } from '../components/ConnectedNodes';
@@ -65,7 +64,6 @@ export const FederationAdmin: React.FC = () => {
 
   return (
     <Flex gap='32px' flexDirection='row'>
-      <SideBar />
       <Flex gap={4} flexDirection='column' mt='24px' w='100%'>
         <AdminHeader connectionCode={connectionCode} />
         <AdminMain />

@@ -32,7 +32,9 @@ export const App = React.memo(function App() {
       case 'Admin':
         return (
           <AdminContextProvider api={api}>
-            <FederationAdmin />
+            <Wrapper>
+              <FederationAdmin />
+            </Wrapper>
           </AdminContextProvider>
         );
       case 'Error':

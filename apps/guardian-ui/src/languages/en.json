@@ -119,5 +119,22 @@
     "table_column_hash_input": "Paste verification code",
     "wait_all_guardians_verification": "Waiting for all Guardians to verify their codes",
     "all_guardians_verified": "All Guardians have verified their codes"
+  },
+  "footer": {
+    "docs": "Docs",
+    "community": "Community",
+    "contribute": "Contribute",
+    "getting_started": "Getting Started",
+    "fedimint_org_link": "https://fedimint.org",
+    "frequently_asked_questions": "Frequently Asked Questions",
+    "frequently_asked_questions_hyperlink": "https://fedimint.org/docs/category/frequently-asked-questions",
+    "blog": "Blog",
+    "fedimint_docs_intro_hyperlink": "https://fedimint.org/docs/intro",
+    "discord": "Discord",
+    "discord_hyperlink": "https://discord.gg/nzqta7AZ",
+    "twitter": "Twitter",
+    "twitter_hyperlink": "https://twitter.com/fedimint",
+    "github": "GitHub",
+    "github_hyperlink": "https://github.com/fedimint"
   }
 }

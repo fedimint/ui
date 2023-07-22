@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { Box, Button, Text, Heading, Icon, VStack } from '@chakra-ui/react';
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { useTranslation } from '@fedimint/utils';
-import { Header } from '../components/Header';
 import { useSetupContext } from '../hooks';
 import { GuardianRole, SetupProgress, SETUP_ACTION_TYPE } from './types';
 import { RoleSelector } from '../components/RoleSelector';
@@ -101,7 +100,6 @@ export const FederationSetup: React.FC = () => {
 
   return (
     <VStack gap={8} align='start'>
-      <Header />
       {progressIdx === 0 || !progressIdx ? null : (
         <SetupStepper setupProgress={progressIdx} isHost={isHost} />
       )}
