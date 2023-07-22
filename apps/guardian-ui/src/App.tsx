@@ -7,45 +7,61 @@ import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
 import { useAppContext } from './hooks';
 import { Wrapper } from './components/Wrapper';
+import { Login } from './components/Login';
 import { useTranslation } from '@fedimint/utils';
+import { Status } from './types';
 
 export const App = React.memo(function App() {
   const { t } = useTranslation();
-  const { appState, appError, api } = useAppContext();
+  const { state, api } = useAppContext();
 
   const getAppContent = useCallback(() => {
-    switch (appState) {
-      case 'Loading':
-        return (
-          <Center p={12}>
-            <Spinner size='xl' />
-          </Center>
-        );
-      case 'Setup':
-        return (
-          <SetupContextProvider api={api}>
-            <Wrapper>
-              <FederationSetup />
-            </Wrapper>
-          </SetupContextProvider>
-        );
-      case 'Admin':
-        return (
-          <AdminContextProvider api={api}>
-            <Wrapper>
-              <FederationAdmin />
-            </Wrapper>
-          </AdminContextProvider>
-        );
-      case 'Error':
-        return (
-          <VStack spacing={4}>
-            <Heading size='md'>{t('common.error')}</Heading>
-            <Text>{appError}</Text>
-          </VStack>
-        );
+    if (state.appError) {
+      return (
+        <VStack spacing={4}>
+          <Heading size='md'>{t('common.error')}</Heading>
+          <Text>{state.appError}</Text>
+        </VStack>
+      );
     }
-  }, [appState, appError, api]);
+
+    if (state.needsAuth) {
+      return (
+        <Wrapper>
+          <Login />
+        </Wrapper>
+      );
+    }
+
+    if (state.status === Status.Setup && state.initServerStatus) {
+      return (
+        <SetupContextProvider
+          initServerStatus={state.initServerStatus}
+          api={api}
+        >
+          <Wrapper>
+            <FederationSetup />
+          </Wrapper>
+        </SetupContextProvider>
+      );
+    }
+
+    if (state.status === Status.Admin) {
+      return (
+        <AdminContextProvider api={api}>
+          <Wrapper>
+            <FederationAdmin />
+          </Wrapper>
+        </AdminContextProvider>
+      );
+    }
+
+    return (
+      <Center p={12}>
+        <Spinner size='xl' />
+      </Center>
+    );
+  }, [state.status, state.initServerStatus, state.appError, api]);
 
   return (
     <React.StrictMode>

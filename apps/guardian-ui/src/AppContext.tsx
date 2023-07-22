@@ -1,27 +1,52 @@
 import React, {
   createContext,
+  Dispatch,
   ReactNode,
-  useCallback,
   useEffect,
-  useState,
+  useReducer,
 } from 'react';
 import { GuardianApi } from './GuardianApi';
 import { formatApiErrorMessage } from './utils/api';
-import { ServerStatus } from './types';
-
-type status = 'Loading' | 'Setup' | 'Admin' | 'Error';
+import {
+  APP_ACTION_TYPE,
+  AppAction,
+  AppState,
+  ServerStatus,
+  Status,
+} from './types';
 
 export interface AppContextValue {
   api: GuardianApi;
-  appState: status;
-  appError?: string;
-  transitionToAdmin: () => void;
+  state: AppState;
+  dispatch: Dispatch<AppAction>;
 }
+
+const initialState = {
+  status: Status.Loading,
+  needsAuth: false,
+  initServerStatus: undefined,
+  appError: undefined,
+};
+
+const reducer = (state: AppState, action: AppAction): AppState => {
+  switch (action.type) {
+    case APP_ACTION_TYPE.SET_STATUS:
+      return { ...state, status: action.payload };
+    case APP_ACTION_TYPE.SET_NEEDS_AUTH:
+      return { ...state, needsAuth: action.payload };
+    case APP_ACTION_TYPE.SET_INIT_SERVER_STATUS:
+      return { ...state, initServerStatus: action.payload };
+    case APP_ACTION_TYPE.SET_ERROR:
+      return { ...state, appError: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const AppContext = createContext<AppContextValue>({
   api: new GuardianApi(),
-  appState: 'Loading',
-  transitionToAdmin: () => null,
+  state: initialState,
+  dispatch: () => null,
 });
 
 export interface AppContextProviderProps {
@@ -32,39 +57,59 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }: AppContextProviderProps) => {
   const api = new GuardianApi();
-  const [appState, setAppState] = useState<status>('Loading');
-  const [appError, setAppError] = useState<string | undefined>(undefined);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Attach the API to the window for debugging purposes.
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).fedimintApi = api;
+  }, [api]);
 
   useEffect(() => {
     const load = async () => {
       try {
         await api.connect();
-        const status = await api.status();
-        if (status.server === ServerStatus.ConsensusRunning) {
-          setAppState('Admin');
-        } else {
-          setAppState('Setup');
+        const server = (await api.status()).server;
+
+        const password = api.getPassword();
+        if (server !== ServerStatus.AwaitingPassword && !password) {
+          dispatch({ type: APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: true });
         }
+
+        if (server === ServerStatus.ConsensusRunning) {
+          dispatch({ type: APP_ACTION_TYPE.SET_STATUS, payload: Status.Admin });
+        } else {
+          dispatch({ type: APP_ACTION_TYPE.SET_STATUS, payload: Status.Setup });
+        }
+
+        dispatch({
+          type: APP_ACTION_TYPE.SET_INIT_SERVER_STATUS,
+          payload: server,
+        });
       } catch (err) {
-        setAppState('Error');
-        setAppError(formatApiErrorMessage(err));
+        dispatch({
+          type: APP_ACTION_TYPE.SET_ERROR,
+          payload: formatApiErrorMessage(err),
+        });
       }
     };
 
-    appState === 'Loading' && load().catch((err) => setAppError(err.message));
-  }, [api, appState]);
+    if (state.status === Status.Loading) {
+      load().catch((err) => console.error(err));
+    }
 
-  const transitionToAdmin = useCallback(() => {
-    setAppState('Loading');
-  }, []);
+    // Shut down API on dismount
+    return () => {
+      api.shutdown();
+    };
+  }, [api, state.status]);
 
   return (
     <AppContext.Provider
       value={{
         api,
-        appState,
-        appError,
-        transitionToAdmin,
+        state,
+        dispatch,
       }}
     >
       {children}
