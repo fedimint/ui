@@ -26,6 +26,8 @@
     "peer": "Par"
   },
   "login": {
+    "title": "¡Bienvenido de nuevo!",
+    "subtitle": "Por favor, ingresa tu contraseña.",
     "password": "Contraseña",
     "submit": "Enviar"
   },
@@ -66,10 +68,6 @@
     "error-valid-number": "Por favor, ingresa un número mayor o igual a 1."
   },
   "setup": {
-    "auth": {
-      "title": "¡Bienvenido de nuevo!",
-      "subtitle": "Por favor, ingresa tu contraseña."
-    },
     "progress": {
       "start": {
         "title": "¡Bienvenido a Fedimint!",

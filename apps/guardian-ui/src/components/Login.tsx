@@ -43,10 +43,10 @@ export const Login: React.FC = () => {
       <VStack pt={8} gap={2} align='start' justify='start'>
         <VStack align='start' gap={2}>
           <Heading size='md' fontWeight='medium'>
-            {t('setup.auth.title')}
+            {t('login.title')}
           </Heading>
           <Text size='md' fontWeight='medium'>
-            {t('setup.auth.subtitle')}
+            {t('login.subtitle')}
           </Text>
         </VStack>
         <FormControl isInvalid={!!error}>

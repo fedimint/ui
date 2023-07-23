@@ -70,7 +70,7 @@ export const FederationSetup: React.FC = () => {
         : t('setup.progress.connect-guardians.title-follower');
       subtitle = isHost
         ? t('setup.progress.connect-guardians.subtitle-leader')
-        : t('setup.progress.set-config.subtitle-follower');
+        : t('setup.progress.connect-guardians.subtitle-follower');
       content = <ConnectGuardians next={handleNext} />;
       canGoBack = true;
       break;

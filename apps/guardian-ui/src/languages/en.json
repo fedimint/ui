@@ -26,6 +26,8 @@
     "peer": "Peer"
   },
   "login": {
+    "title": "Welcome back!",
+    "subtitle": "Please enter your password.",
     "password": "Password",
     "submit": "Submit"
   },
@@ -66,10 +68,6 @@
     "error-valid-number": "Please input a number of 1 or more."
   },
   "setup": {
-    "auth": {
-      "title": "Welcome back!",
-      "subtitle": "Please enter your password."
-    },
     "progress": {
       "start": {
         "title": "Welcome to Fedimint!",
