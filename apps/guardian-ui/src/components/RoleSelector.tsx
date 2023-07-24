@@ -34,7 +34,7 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
         icon: IntersectSquareIcon,
       },
     ],
-    []
+    [t]
   );
 
   const handleNext = useCallback(() => {

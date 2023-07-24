@@ -3,6 +3,7 @@ import React, {
   Dispatch,
   ReactNode,
   useEffect,
+  useMemo,
   useReducer,
 } from 'react';
 import { GuardianApi } from './GuardianApi';
@@ -56,7 +57,7 @@ export interface AppContextProviderProps {
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }: AppContextProviderProps) => {
-  const api = new GuardianApi();
+  const api = useMemo(() => new GuardianApi(), []);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -96,7 +97,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     return () => {
       api.shutdown();
     };
-  }, [api, state.status]);
+  }, [state.status]);
 
   return (
     <AppContext.Provider

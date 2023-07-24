@@ -37,7 +37,7 @@ export const FederationAdmin: React.FC = () => {
   useEffect(() => {
     connectionCode &&
       api.config(connectionCode).then(setConfig).catch(console.error);
-  }, [connectionCode]);
+  }, [connectionCode, api]);
 
   useEffect(() => {
     if (config) {
@@ -54,7 +54,7 @@ export const FederationAdmin: React.FC = () => {
         }
       }
     }
-  }, [config]);
+  }, [config, api]);
 
   const apiVersion = versions?.core.api.length
     ? `${versions.core.api[0].major}.${versions.core.api[0].minor}`

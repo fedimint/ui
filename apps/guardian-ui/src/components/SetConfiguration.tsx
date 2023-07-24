@@ -76,25 +76,24 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     const initStateFromParams = (params: ConfigGenParams) => {
       setFederationName(params.meta?.federation_name || '');
 
-      setMintAmounts(
-        getModuleParamsFromConfig(params, ModuleKind.Mint)?.consensus
-          ?.mint_amounts || mintAmounts
-      );
+      const mintModule = getModuleParamsFromConfig(params, ModuleKind.Mint);
+      if (mintModule?.consensus?.mint_amounts) {
+        setMintAmounts(mintModule?.consensus.mint_amounts);
+      }
 
       const walletModule = getModuleParamsFromConfig(params, ModuleKind.Wallet);
-
-      if (walletModule) {
-        setBlockConfirmations(
-          walletModule.consensus?.finality_delay?.toString() ||
-            blockConfirmations
-        );
-        setNetwork(walletModule.consensus?.network.toString() || network);
-        setBitcoinRpc(walletModule.local?.bitcoin_rpc || bitcoinRpc);
-        if (walletModule.consensus?.client_default_bitcoin_rpc) {
-          setClientDefaultBitcoinRpc(
-            walletModule.consensus.client_default_bitcoin_rpc
-          );
-        }
+      const walletConsensus = walletModule?.consensus;
+      if (walletConsensus?.finality_delay !== undefined) {
+        setBlockConfirmations(walletConsensus.finality_delay.toString());
+      }
+      if (walletConsensus?.network) {
+        setNetwork(walletConsensus.network);
+      }
+      if (walletConsensus?.client_default_bitcoin_rpc) {
+        setClientDefaultBitcoinRpc(walletConsensus.client_default_bitcoin_rpc);
+      }
+      if (walletModule?.local?.bitcoin_rpc) {
+        setBitcoinRpc(walletModule.local.bitcoin_rpc);
       }
     };
 
@@ -108,7 +107,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     } else {
       initStateFromParams(configGenParams);
     }
-  }, [configGenParams]);
+  }, [configGenParams, api]);
 
   // Update password when updated from state
   useEffect(() => {

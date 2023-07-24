@@ -69,7 +69,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
       clearTimeout(timeout);
       canceled = true;
     };
-  }, [next]);
+  }, [next, api, t]);
 
   const progress = useMemo(() => {
     if (!peers.length) return 0;
