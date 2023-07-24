@@ -59,12 +59,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const api = new GuardianApi();
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Attach the API to the window for debugging purposes.
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).fedimintApi = api;
-  }, [api]);
-
   useEffect(() => {
     const load = async () => {
       try {
