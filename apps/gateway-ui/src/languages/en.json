@@ -4,7 +4,9 @@
     "address": "Address",
     "bitcoin": "Bitcoin",
     "sats": "sats",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "copied": "Copied",
+    "btc": "BTC"
   },
   "connect-federation": {
     "connect": "Connect 🚀",
@@ -17,14 +19,15 @@
     "connect-federation-button": "Connect Federation"
   },
   "deposit-tab": {
-    "tab-header": "Deposit",
+    "tab_header": "Deposit Bitcoin",
     "header": "Bitcoin Deposit to Federation",
-    "sentence-one": "Please pay to the address address shown to deposit funds into this federation. You can scan the QR code to pay.",
+    "sentence-one": "Deposit to the address or scan the QR code",
     "bitcoin-deposit": "Bitcoin Deposit",
     "confirmations": "Confirmations:",
     "required": "required",
     "receiving-address": "Receiving Addr",
-    "transaction-id": "Transaction ID"
+    "transaction-id": "Transaction ID",
+    "mempool_deposit_link_text": "View on mempool.space"
   },
   "federation-card": {
     "details": "Details"
@@ -41,11 +44,17 @@
     "all": "All"
   },
   "info-tab": {
-    "tab-header": "Information",
-    "balance": "Balance:"
+    "tab_header": "Node ID",
+    "amboss_node_link_text": "View on 1ml.com"
+  },
+  "balance-tab": {
+    "tab_header": "eCash balance",
+    "sentence": "Denominated in Sats"
   },
   "withdraw-tab": {
-    "tab-header": "Withdraw",
+    "tab-header": "Withdraw Bitcoin",
+    "total_bitcoin": "Total Bitcoin:",
+    "withdraw_all": "Withdraw all",
     "error": "Error",
     "error-amount": "Amount cannot be empty or equal to zero",
     "error-address": "Amount or address cannot be empty",
