@@ -6,15 +6,17 @@ import {
   Button,
   VStack,
   FormErrorMessage,
+  Heading,
+  Text,
 } from '@chakra-ui/react';
-import { useSetupContext } from '../hooks';
-import { SETUP_ACTION_TYPE } from '../setup/types';
-import { formatApiErrorMessage } from '../utils/api';
 import { useTranslation } from '@fedimint/utils';
+import { useAppContext } from '../hooks';
+import { formatApiErrorMessage } from '../utils/api';
+import { APP_ACTION_TYPE } from '../types';
 
 export const Login: React.FC = () => {
   const { t } = useTranslation();
-  const { api, dispatch } = useSetupContext();
+  const { api, dispatch } = useAppContext();
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>();
 
@@ -24,7 +26,7 @@ export const Login: React.FC = () => {
       try {
         const isValid = await api.testPassword(password);
         if (isValid) {
-          dispatch({ type: SETUP_ACTION_TYPE.SET_PASSWORD, payload: password });
+          dispatch({ type: APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: false });
         } else {
           setError('Invalid password');
         }
@@ -38,7 +40,15 @@ export const Login: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <VStack gap={2} align='start' justify='start'>
+      <VStack pt={8} gap={2} align='start' justify='start'>
+        <VStack align='start' gap={2}>
+          <Heading size='md' fontWeight='medium'>
+            {t('login.title')}
+          </Heading>
+          <Text size='md' fontWeight='medium'>
+            {t('login.subtitle')}
+          </Text>
+        </VStack>
         <FormControl isInvalid={!!error}>
           <FormLabel>{t('login.password')}</FormLabel>
           <Input

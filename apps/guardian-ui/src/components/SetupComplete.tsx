@@ -3,14 +3,14 @@ import { Flex, Heading, Text, Button, Icon } from '@chakra-ui/react';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { useAppContext } from '../hooks';
 import { useTranslation } from '@fedimint/utils';
+import { APP_ACTION_TYPE, Status } from '../types';
 
 export const SetupComplete: React.FC = () => {
   const { t } = useTranslation();
-  const { transitionToAdmin } = useAppContext();
+  const { dispatch } = useAppContext();
 
   const handleContinue = () => {
-    // TODO: Reset setup state
-    transitionToAdmin();
+    dispatch({ type: APP_ACTION_TYPE.SET_STATUS, payload: Status.Admin });
   };
 
   return (

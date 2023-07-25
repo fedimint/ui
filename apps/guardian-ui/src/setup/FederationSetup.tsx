@@ -6,7 +6,6 @@ import { useSetupContext } from '../hooks';
 import { GuardianRole, SetupProgress, SETUP_ACTION_TYPE } from './types';
 import { RoleSelector } from '../components/RoleSelector';
 import { SetConfiguration } from '../components/SetConfiguration';
-import { Login } from '../components/Login';
 import { ConnectGuardians } from '../components/ConnectGuardians';
 import { RunDKG } from '../components/RunDKG';
 import { VerifyGuardians } from '../components/VerifyGuardians';
@@ -25,7 +24,7 @@ const PROGRESS_ORDER: SetupProgress[] = [
 export const FederationSetup: React.FC = () => {
   const { t } = useTranslation();
   const {
-    state: { progress, role, password, needsAuth },
+    state: { progress, role },
     dispatch,
   } = useSetupContext();
 
@@ -50,52 +49,47 @@ export const FederationSetup: React.FC = () => {
   let subtitle: React.ReactNode;
   let canGoBack = false;
   let content: React.ReactNode;
-  if (needsAuth && !password) {
-    title = t('setup.auth.title');
-    subtitle = t('setup.auth.subtitle');
-    content = <Login />;
-  } else {
-    switch (progress) {
-      case SetupProgress.Start:
-        title = t('setup.progress.start.title');
-        subtitle = t('setup.progress.start.subtitle');
-        content = <RoleSelector next={handleNext} />;
-        break;
-      case SetupProgress.SetConfiguration:
-        title = t('setup.progress.set-config.title');
-        subtitle = isHost
-          ? t('setup.progress.set-config.subtitle-leader')
-          : t('setup.progress.set-config.subtitle-follower');
-        content = <SetConfiguration next={handleNext} />;
-        canGoBack = true;
-        break;
-      case SetupProgress.ConnectGuardians:
-        title = isHost
-          ? t('setup.progress.connect-guardians.title-leader')
-          : t('setup.progress.connect-guardians.title-follower');
-        subtitle = isHost
-          ? t('setup.progress.connect-guardians.subtitle-leader')
-          : t('setup.progress.set-config.subtitle-follower');
-        content = <ConnectGuardians next={handleNext} />;
-        canGoBack = true;
-        break;
-      case SetupProgress.RunDKG:
-        title = t('setup.progress.run-dkg.title');
-        subtitle = t('setup.progress.run-dkg.subtitle');
-        content = <RunDKG next={handleNext} />;
-        break;
-      case SetupProgress.VerifyGuardians:
-        title = t('setup.progress.verify-guardians.title');
-        subtitle = t('setup.progress.verify-guardians.subtitle');
-        content = <VerifyGuardians next={handleNext} />;
-        break;
-      case SetupProgress.SetupComplete:
-        content = <SetupComplete />;
-        break;
-      default:
-        title = t('setup.progress.error.title');
-        subtitle = t('setup.progress.error.subtitle');
-    }
+
+  switch (progress) {
+    case SetupProgress.Start:
+      title = t('setup.progress.start.title');
+      subtitle = t('setup.progress.start.subtitle');
+      content = <RoleSelector next={handleNext} />;
+      break;
+    case SetupProgress.SetConfiguration:
+      title = t('setup.progress.set-config.title');
+      subtitle = isHost
+        ? t('setup.progress.set-config.subtitle-leader')
+        : t('setup.progress.set-config.subtitle-follower');
+      content = <SetConfiguration next={handleNext} />;
+      canGoBack = true;
+      break;
+    case SetupProgress.ConnectGuardians:
+      title = isHost
+        ? t('setup.progress.connect-guardians.title-leader')
+        : t('setup.progress.connect-guardians.title-follower');
+      subtitle = isHost
+        ? t('setup.progress.connect-guardians.subtitle-leader')
+        : t('setup.progress.connect-guardians.subtitle-follower');
+      content = <ConnectGuardians next={handleNext} />;
+      canGoBack = true;
+      break;
+    case SetupProgress.RunDKG:
+      title = t('setup.progress.run-dkg.title');
+      subtitle = t('setup.progress.run-dkg.subtitle');
+      content = <RunDKG next={handleNext} />;
+      break;
+    case SetupProgress.VerifyGuardians:
+      title = t('setup.progress.verify-guardians.title');
+      subtitle = t('setup.progress.verify-guardians.subtitle');
+      content = <VerifyGuardians next={handleNext} />;
+      break;
+    case SetupProgress.SetupComplete:
+      content = <SetupComplete />;
+      break;
+    default:
+      title = t('setup.progress.error.title');
+      subtitle = t('setup.progress.error.subtitle');
   }
 
   return (

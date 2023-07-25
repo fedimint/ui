@@ -16,7 +16,6 @@ import {
 } from './types';
 import { ServerStatus } from '../types';
 import { GuardianApi } from '../GuardianApi';
-import { JsonRpcError } from 'jsonrpc-client-websocket';
 
 const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
 
@@ -42,7 +41,6 @@ function makeInitialState(loadFromStorage = true): SetupState {
     myName: '',
     configGenParams: null,
     password: '',
-    needsAuth: false,
     numPeers: 0,
     peers: [],
     ourCurrentId: null,
@@ -65,9 +63,7 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
     case SETUP_ACTION_TYPE.SET_CONFIG_GEN_PARAMS:
       return { ...state, configGenParams: action.payload };
     case SETUP_ACTION_TYPE.SET_PASSWORD:
-      return { ...state, password: action.payload, needsAuth: false };
-    case SETUP_ACTION_TYPE.SET_NEEDS_AUTH:
-      return { ...state, needsAuth: action.payload };
+      return { ...state, password: action.payload };
     case SETUP_ACTION_TYPE.SET_NUM_PEERS:
       return { ...state, numPeers: action.payload };
     case SETUP_ACTION_TYPE.SET_PEERS:
@@ -113,100 +109,54 @@ export const SetupContext = createContext<SetupContextValue>({
 
 export interface SetupContextProviderProps {
   api: GuardianApi;
+  initServerStatus: ServerStatus;
   children: ReactNode;
 }
 
 export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   api,
+  initServerStatus,
   children,
 }: SetupContextProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { password, configGenParams, myName } = state;
   const [isPollingConsensus, setIsPollingConsensus] = useState(false);
 
-  // On mount, fetch what status the server has us at, and set state accordingly.
   useEffect(() => {
-    api
-      .status()
-      .then((status) => {
+    switch (initServerStatus) {
+      case ServerStatus.AwaitingPassword:
         // If we're still waiting for a password, restart the whole thing.
-        // Otherwise, fetch the password and indicate if we need auth.
-        if (status.server === ServerStatus.AwaitingPassword) {
-          dispatch({
-            type: SETUP_ACTION_TYPE.SET_INITIAL_STATE,
-            payload: null,
-          });
-        } else {
-          const apiPassword = api.getPassword();
-          if (apiPassword) {
-            dispatch({
-              type: SETUP_ACTION_TYPE.SET_PASSWORD,
-              payload: apiPassword,
-            });
-          } else {
-            dispatch({
-              type: SETUP_ACTION_TYPE.SET_NEEDS_AUTH,
-              payload: true,
-            });
-          }
-        }
+        dispatch({
+          type: SETUP_ACTION_TYPE.SET_INITIAL_STATE,
+          payload: null,
+        });
+        break;
+      case ServerStatus.ReadyForConfigGen:
         // If we're ready for DKG, move them to approve the config to start.
-        if (status.server === ServerStatus.ReadyForConfigGen) {
-          dispatch({
-            type: SETUP_ACTION_TYPE.SET_PROGRESS,
-            payload: SetupProgress.ConnectGuardians,
-          });
-        }
-        // If we're supposed to be verifying, jump to peer validation screen
-        if (status.server === ServerStatus.VerifyingConfigs) {
-          dispatch({
-            type: SETUP_ACTION_TYPE.SET_PROGRESS,
-            payload: SetupProgress.VerifyGuardians,
-          });
-        }
-        // If consensus is running, skip past all setup, and transition to admin.
-        if (status.server === ServerStatus.ConsensusRunning) {
-          dispatch({
-            type: SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE,
-            payload: true,
-          });
-        }
-      })
-      .catch((err) => {
-        // Missing password error
-        if ((err as JsonRpcError).code === 401) {
-          dispatch({
-            type: SETUP_ACTION_TYPE.SET_NEEDS_AUTH,
-            payload: true,
-          });
-        } else {
-          // TODO: Present error to user
-          console.error(err);
-        }
-      });
-  }, [api]);
-
-  useEffect(() => {
-    // Fetch password from API on mount
-    const apiPassword = api.getPassword();
-    if (apiPassword) {
-      dispatch({
-        type: SETUP_ACTION_TYPE.SET_PASSWORD,
-        payload: apiPassword,
-      });
+        dispatch({
+          type: SETUP_ACTION_TYPE.SET_PROGRESS,
+          payload: SetupProgress.ConnectGuardians,
+        });
+        break;
+      case ServerStatus.VerifyingConfigs:
+      case ServerStatus.VerifiedConfigs:
+        // If we're supposed to be verifying, or have verified, jump to peer validation screen
+        dispatch({
+          type: SETUP_ACTION_TYPE.SET_PROGRESS,
+          payload: SetupProgress.VerifyGuardians,
+        });
+        break;
+      case ServerStatus.ConsensusRunning:
+      default:
+        // We should never boot into these states with the setup UI. We probably should show error
+        // For now, skip past all setup, and transition to admin.
+        dispatch({
+          type: SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE,
+          payload: true,
+        });
+        break;
     }
-
-    // Shut down API on dismount
-    return () => {
-      api.shutdown();
-    };
-  }, [api]);
-
-  // Attach the API to the window for debugging purposes.
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).fedimintApi = api;
-  }, [api]);
+  }, [initServerStatus]);
 
   // Update local storage on state changes.
   useEffect(() => {

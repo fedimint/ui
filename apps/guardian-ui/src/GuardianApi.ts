@@ -28,6 +28,7 @@ interface RpcInterface {
 }
 
 enum SharedRpc {
+  auth = 'auth',
   status = 'status',
 }
 
@@ -111,7 +112,7 @@ class BaseGuardianApi
 
     // Attempt a 'status' rpc call with the temporary password.
     try {
-      await this.status();
+      await this.auth();
       return true;
     } catch (err) {
       // TODO: make sure error is auth error, not unrelated
@@ -121,6 +122,10 @@ class BaseGuardianApi
   };
 
   /*** Shared RPC methods */
+  auth = (): Promise<void> => {
+    return this.call(SharedRpc.auth);
+  };
+
   status = (): Promise<StatusResponse> => {
     return this.call(SharedRpc.status);
   };
