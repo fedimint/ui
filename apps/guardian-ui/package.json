@@ -12,6 +12,7 @@
     "clean": "rm -rf build"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.0",
     "@chakra-ui/react": "^2.4.5",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
@@ -27,6 +28,8 @@
     "react-use-websocket": "3.0.0"
   },
   "devDependencies": {
+    "@fedimint/eslint-config": "*",
+    "@fedimint/tsconfig": "*",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.5.0",
@@ -36,8 +39,6 @@
     "@types/react-dom": "^18.2.0",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.2",
-    "@fedimint/eslint-config": "*",
-    "@fedimint/tsconfig": "*",
     "eslint": "^8.4.1",
     "prettier": "^2.8.3",
     "typescript": "^5.1.6"

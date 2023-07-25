@@ -16,8 +16,10 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   NumberInputStepper,
+  HStack,
 } from '@chakra-ui/react';
 import { FormGroup, FormGroupHeading } from '@fedimint/ui';
+import { ConsensusInfo } from './ConsensusInfo';
 import { useSetupContext } from '../hooks';
 import {
   BitcoinRpc,
@@ -252,7 +254,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               />
             </FormControl>
             <FormControl isInvalid={!isValidNumber(numPeers)}>
-              <FormLabel>{t('set-config.guardian-number')}</FormLabel>
+              <HStack>
+                <FormLabel>{t('set-config.guardian-number')}</FormLabel>
+                <ConsensusInfo />
+              </HStack>
               <NumberInput
                 min={1}
                 value={numPeers}
