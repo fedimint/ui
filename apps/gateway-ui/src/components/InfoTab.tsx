@@ -1,32 +1,94 @@
 import React from 'react';
-import { Box, Stack, TabPanel, Text } from '@chakra-ui/react';
-import { TabHeader } from '.';
+import {
+  Text,
+  useTheme,
+  Flex,
+  Link,
+  Box,
+  useClipboard,
+} from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-
-export const InfoTabHeader = (): JSX.Element => {
-  const { t } = useTranslation();
-  return <TabHeader>{t('info-tab.tab-header')}</TabHeader>;
-};
+import { GatewayCard } from '.';
+import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
+import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
 
 interface InfoTabProps {
-  balance_msat: number;
+  nodeId: string;
+  nodeLink: string;
 }
 
 export const InfoTab = React.memo(function InfoTab(
   props: InfoTabProps
 ): JSX.Element {
   const { t } = useTranslation();
-  const { balance_msat } = props;
+  const { nodeId, nodeLink } = props;
+  const theme = useTheme();
+  const { onCopy, hasCopied } = useClipboard(nodeId);
+
   return (
-    <TabPanel>
-      <Stack spacing={2}>
+    <GatewayCard>
+      <Text
+        fontSize='lg'
+        fontWeight='600'
+        color={theme.colors.gray[900]}
+        fontFamily={theme.fonts.body}
+      >
+        {t('info-tab.tab_header')}
+      </Text>
+      <Flex gap='8px'>
+        <Text
+          fontSize='md'
+          color={theme.colors.gray[900]}
+          fontFamily={theme.fonts.body}
+          overflowWrap='break-word'
+          wordBreak='break-word'
+          cursor='pointer'
+          onClick={onCopy}
+        >
+          {nodeId}
+        </Text>
         <Box>
-          <Text fontWeight='500' fontSize='15px'>
-            {t('info-tab.balance')};
-          </Text>
-          <Text>{balance_msat}</Text>
+          {hasCopied ? (
+            <Text
+              fontSize='xs'
+              fontWeight='semibold'
+              color={theme.colors.gray[900]}
+              bgColor={theme.colors.gray[25]}
+              fontFamily={theme.fonts.body}
+              onClick={onCopy}
+              p='4px 12px'
+              borderRadius='16px'
+              border={`1px solid ${theme.colors.gray[400]}`}
+            >
+              {t('common.copied')}
+            </Text>
+          ) : (
+            <CopyIcon
+              color={theme.colors.gray[900]}
+              height='20px'
+              width='20px'
+              onClick={onCopy}
+              cursor='pointer'
+            />
+          )}
         </Box>
-      </Stack>
-    </TabPanel>
+      </Flex>
+      <Flex gap='4px'>
+        <Link
+          fontSize='md'
+          color={theme.colors.blue[600]}
+          fontFamily={theme.fonts.body}
+          _hover={{ textDecoration: 'underline' }}
+          transition={`text-decoration 1s ease-in-out`}
+          href={`https://amboss.space/node/${nodeLink}`}
+          target='_blank'
+          rel='noreferrer'
+          w='fit-content'
+        >
+          {t('info-tab.amboss_node_link_text')}
+        </Link>
+        <LinkIcon color={theme.colors.blue[600]} />
+      </Flex>
+    </GatewayCard>
   );
 });
