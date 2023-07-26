@@ -2,7 +2,7 @@ version: '3'
 
 services:
   fedimintd_1:
-    image: fedimint/fedimintd:master
+    image: fedimint/fedimintd:9aef5c69e303d52639ffda4b32366c9b10fe6d92
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
@@ -19,7 +19,7 @@ services:
       - bitcoind
 
   gatewayd_1:
-    image: fedimint/gatewayd:master
+    image: fedimint/gatewayd:9aef5c69e303d52639ffda4b32366c9b10fe6d92
     command: gatewayd lnd
     environment:
       # Path to folder containing gateway config and data files
@@ -58,7 +58,7 @@ services:
       - fedimintd_1
 
   fedimintd_2:
-    image: fedimint/fedimintd:master
+    image: fedimint/fedimintd:9aef5c69e303d52639ffda4b32366c9b10fe6d92
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
