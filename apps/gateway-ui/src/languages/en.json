@@ -9,7 +9,12 @@
   "connect-federation": {
     "connect": "Connect 🚀",
     "label": "Connect String:",
-    "connection-string-placeholder": "Enter federation connection string"
+    "connection-string-placeholder": "Paste federation invite code",
+    "progress-modal-text": "Connecting to federation...",
+    "heading": "Connect to a federation using an invite code",
+    "sub-heading": "The invite code is a long string that begins with ‘fed1’",
+    "information-bar-text": "The number of federations you can connect to is limited to one. Connecting to multiple federations will be supported soon.",
+    "connect-federation-button": "Connect Federation"
   },
   "deposit-tab": {
     "tab-header": "Deposit",
