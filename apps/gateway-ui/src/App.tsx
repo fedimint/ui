@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Center, Heading, Stack, VStack, Text } from '@chakra-ui/react';
-import { Header, FederationCard, ConnectFederation } from './components';
+import { FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { GatewayInfo, Federation } from './types';
@@ -58,14 +58,13 @@ export const App = React.memo(function Admin(): JSX.Element {
             mr={[2, 4, 6, 10]}
             ml={[2, 4, 6, 10]}
           >
-            <Header
-              gatewayInfo={gatewayInfo}
-              toggleShowConnectFed={() => toggleShowConnectFed(!showConnectFed)}
-            />
-            <ConnectFederation
-              isOpen={showConnectFed}
-              renderConnectedFedCallback={renderConnectedFedCallback}
-            />
+            {gatewayInfo?.federations.length ? null : (
+              <>
+                <ConnectFederation
+                  renderConnectedFedCallback={renderConnectedFedCallback}
+                />
+              </>
+            )}
             <Stack spacing={6} pt={6}>
               {gatewayInfo.federations.map((federation: Federation) => {
                 return (
