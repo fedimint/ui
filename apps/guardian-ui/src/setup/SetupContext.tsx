@@ -97,6 +97,18 @@ type FollowerConfigs = ConfigGenParams & {
   hostServerUrl: string;
 };
 
+const isHostConfigs = (
+  configs: HostConfigs | FollowerConfigs
+): configs is HostConfigs => {
+  return (configs as HostConfigs).numPeers !== undefined;
+};
+
+const isFollowerConfigs = (
+  configs: HostConfigs | FollowerConfigs
+): configs is FollowerConfigs => {
+  return (configs as FollowerConfigs).hostServerUrl !== undefined;
+};
+
 export const SetupContext = createContext<SetupContextValue>({
   api: new GuardianApi(),
   state: initialState,
@@ -201,7 +213,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
       type: SETUP_ACTION_TYPE.SET_CONFIG_GEN_PARAMS,
       payload: consensusState.consensus,
     });
-  }, []);
+  }, [api]);
 
   // Poll for peer state every 2 seconds when isPollingPeers.
   useEffect(() => {
@@ -218,19 +230,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
     };
     pollPeers();
     return () => clearTimeout(timeout);
-  }, [isPollingConsensus]);
-
-  const isHostConfigs = (
-    configs: HostConfigs | FollowerConfigs
-  ): configs is HostConfigs => {
-    return (configs as HostConfigs).numPeers !== undefined;
-  };
-
-  const isFollowerConfigs = (
-    configs: HostConfigs | FollowerConfigs
-  ): configs is FollowerConfigs => {
-    return (configs as FollowerConfigs).hostServerUrl !== undefined;
-  };
+  }, [isPollingConsensus, fetchConsensusState]);
 
   // Single call to save all of the host / follower configurations
   const submitConfiguration: SetupContextValue['submitConfiguration'] =
@@ -280,7 +280,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
           await fetchConsensusState();
         }
       },
-      [password, api, dispatch, configGenParams]
+      [password, api, dispatch, configGenParams, fetchConsensusState]
     );
 
   const connectToHost = useCallback(
@@ -288,7 +288,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
       await api.setConfigGenConnections(myName, url);
       return await fetchConsensusState();
     },
-    [myName, api, dispatch]
+    [myName, api, fetchConsensusState]
   );
 
   const toggleConsensusPolling = useCallback((poll: boolean) => {

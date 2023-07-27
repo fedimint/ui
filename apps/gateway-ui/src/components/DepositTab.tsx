@@ -35,7 +35,7 @@ export const DepositTab = React.memo(function DepositTab({
           console.error(error);
           setError(message);
         });
-  }, []);
+  }, [address, federationId, gateway]);
 
   return (
     <TabPanel pl='8px' pr='8px'>

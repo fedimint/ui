@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { Box, VStack, Spinner, Heading, Text, Center } from '@chakra-ui/react';
 import { theme, Fonts, SharedChakraProvider } from '@fedimint/ui';
 import { SetupContextProvider } from './setup/SetupContext';
@@ -15,7 +15,7 @@ export const App = React.memo(function App() {
   const { t } = useTranslation();
   const { state, api } = useAppContext();
 
-  const getAppContent = useCallback(() => {
+  const content = useMemo(() => {
     if (state.appError) {
       return (
         <VStack spacing={4}>
@@ -61,14 +61,21 @@ export const App = React.memo(function App() {
         <Spinner size='xl' />
       </Center>
     );
-  }, [state.status, state.initServerStatus, state.appError, api]);
+  }, [
+    state.status,
+    state.initServerStatus,
+    state.appError,
+    state.needsAuth,
+    api,
+    t,
+  ]);
 
   return (
     <React.StrictMode>
       <Fonts />
       <SharedChakraProvider theme={theme}>
         <Center>
-          <Box width='100%'>{getAppContent()}</Box>
+          <Box width='100%'>{content}</Box>
         </Center>
       </SharedChakraProvider>
     </React.StrictMode>

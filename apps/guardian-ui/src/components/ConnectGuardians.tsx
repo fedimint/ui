@@ -30,7 +30,6 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
   const {
     state: { role, peers, numPeers, configGenParams, ourCurrentId },
-    api,
   } = useSetupContext();
 
   const guardianLink = ourCurrentId !== null ? peers[ourCurrentId].api_url : '';
@@ -53,7 +52,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
 
   const handleApprove = useCallback(() => {
     next();
-  }, [api, next]);
+  }, [next]);
 
   let content: React.ReactNode;
   if (!configGenParams) {
@@ -153,7 +152,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       rows = [...rows, row];
     }
     return rows;
-  }, [peers]);
+  }, [peers, numPeers, t]);
 
   return (
     <VStack width='100%' justify='start' align='start' gap={8}>

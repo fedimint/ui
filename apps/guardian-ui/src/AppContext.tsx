@@ -43,8 +43,10 @@ const reducer = (state: AppState, action: AppAction): AppState => {
   }
 };
 
+const api = new GuardianApi();
+
 export const AppContext = createContext<AppContextValue>({
-  api: new GuardianApi(),
+  api: api,
   state: initialState,
   dispatch: () => null,
 });
@@ -56,7 +58,6 @@ export interface AppContextProviderProps {
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }: AppContextProviderProps) => {
-  const api = new GuardianApi();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -91,12 +92,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     if (state.status === Status.Loading) {
       load().catch((err) => console.error(err));
     }
-
-    // Shut down API on dismount
-    return () => {
-      api.shutdown();
-    };
-  }, [api, state.status]);
+  }, [state.status]);
 
   return (
     <AppContext.Provider

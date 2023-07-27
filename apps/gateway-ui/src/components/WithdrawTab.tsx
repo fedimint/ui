@@ -66,7 +66,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
         setWithdrawObject((prevState) => ({ ...prevState, [name]: value }));
       }
     },
-    [withdrawObject]
+    []
   );
 
   const createWithdrawal = () => {

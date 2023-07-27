@@ -22,7 +22,7 @@ export function useConsensusPolling(shouldPoll = true) {
     if (!shouldPoll) return;
     toggleConsensusPolling(true);
     return () => toggleConsensusPolling(false);
-  }, [shouldPoll]);
+  }, [shouldPoll, toggleConsensusPolling]);
 }
 
 export function useAdminContext(): AdminContextValue {

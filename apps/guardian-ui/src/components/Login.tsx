@@ -35,7 +35,7 @@ export const Login: React.FC = () => {
         setError(formatApiErrorMessage(err));
       }
     },
-    [api, password]
+    [api, password, dispatch]
   );
 
   return (

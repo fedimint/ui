@@ -107,14 +107,14 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       setError(formatApiErrorMessage(err));
     }
     setIsStarting(false);
-  }, [api]);
+  }, [api, next]);
 
   // Host of one immediately skips this step.
   useEffect(() => {
     if (isHost && !numPeers) {
       handleNext();
     }
-  }, [handleNext, numPeers]);
+  }, [handleNext, numPeers, isHost]);
 
   const tableColumns = useMemo(
     () => [
@@ -133,7 +133,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         heading: t('verify-guardians.table-column-hash-input'),
       },
     ],
-    []
+    [t]
   );
 
   const handleChangeHash = useCallback((value: string, index: number) => {
@@ -175,7 +175,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         ),
       };
     });
-  }, [peersWithHash, enteredHashes, handleChangeHash]);
+  }, [peersWithHash, enteredHashes, handleChangeHash, t]);
 
   if (error) {
     return (
