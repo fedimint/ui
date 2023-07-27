@@ -109,7 +109,7 @@ export const ConnectFederation = ({
 
   return (
     <>
-      <Stack spacing='32px' pt='32px'>
+      <Stack spacing='32px'>
         <Box>
           <Heading
             fontSize='28px'
