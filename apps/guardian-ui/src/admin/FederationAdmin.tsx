@@ -64,7 +64,7 @@ export const FederationAdmin: React.FC = () => {
 
   return (
     <Flex gap='32px' flexDirection='row'>
-      <Flex gap={4} flexDirection='column' mt='24px' w='100%'>
+      <Flex gap={4} flexDirection='column' w='100%'>
         <AdminHeader connectionCode={connectionCode} />
         <AdminMain />
         <Flex gap={4}>

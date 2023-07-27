@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
 import { Box, VStack, Spinner, Heading, Text, Center } from '@chakra-ui/react';
-import { theme, Fonts, SharedChakraProvider } from '@fedimint/ui';
+import { theme, Fonts, SharedChakraProvider, Wrapper } from '@fedimint/ui';
 import { SetupContextProvider } from './setup/SetupContext';
 import { AdminContextProvider } from './admin/AdminContext';
 import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
 import { useAppContext } from './hooks';
-import { Wrapper } from './components/Wrapper';
 import { Login } from './components/Login';
 import { useTranslation } from '@fedimint/utils';
 import { Status } from './types';

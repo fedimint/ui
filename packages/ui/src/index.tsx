@@ -5,3 +5,4 @@ export * from './RadioButtonGroup';
 export * from './Table';
 export * from './theme';
 export * from './SharedChakraProvider';
+export * from './Wrapper';

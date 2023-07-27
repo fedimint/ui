@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import { Header } from './Header';
-import Footer from './Footer';
+import { Footer } from './Footer';
 
 export interface WrapperProps {
   children: React.ReactNode;

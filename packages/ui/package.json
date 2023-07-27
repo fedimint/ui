@@ -12,6 +12,9 @@
     "dev": "tsup --watch",
     "lint": "eslint \"src/**/*.ts*\""
   },
+  "dependencies": {
+    "@fedimint/utils": "*"
+  },
   "devDependencies": {
     "@chakra-ui/react": "^2.4.5",
     "@emotion/react": "^11",

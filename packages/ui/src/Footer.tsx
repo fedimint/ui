@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 
-const Footer = () => {
+export const Footer = () => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -112,5 +112,3 @@ const Footer = () => {
     </Flex>
   );
 };
-
-export default Footer;
