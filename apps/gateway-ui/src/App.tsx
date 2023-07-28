@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Box, Center, Heading, Stack, VStack, Text } from '@chakra-ui/react';
+import { Box, Heading, Stack, VStack, Text } from '@chakra-ui/react';
 import { FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { GatewayInfo, Federation } from './types';
+import { Wrapper } from '@fedimint/ui';
 
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
@@ -43,21 +44,14 @@ export const App = React.memo(function Admin(): JSX.Element {
 
   return (
     <ApiProvider props={{ gateway }}>
-      <Center>
+      <Wrapper>
         {error ? (
           <VStack spacing={4}>
             <Heading size='md'>Error</Heading>
             <Text>{error}</Text>
           </VStack>
         ) : (
-          <Box
-            maxW='1000px'
-            width='100%'
-            mt={10}
-            mb={10}
-            mr={[2, 4, 6, 10]}
-            ml={[2, 4, 6, 10]}
-          >
+          <Box>
             {gatewayInfo?.federations.length ? null : (
               <>
                 <ConnectFederation
@@ -65,7 +59,7 @@ export const App = React.memo(function Admin(): JSX.Element {
                 />
               </>
             )}
-            <Stack spacing={6} pt={6}>
+            <Stack spacing={6}>
               {gatewayInfo.federations.map((federation: Federation) => {
                 return (
                   <FederationCard
@@ -77,7 +71,7 @@ export const App = React.memo(function Admin(): JSX.Element {
             </Stack>
           </Box>
         )}
-      </Center>
+      </Wrapper>
     </ApiProvider>
   );
 });

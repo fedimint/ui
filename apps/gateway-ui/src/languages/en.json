@@ -65,5 +65,16 @@
     "close": "Close",
     "withdrawal-created": "Withdrawal created.",
     "withdrawal-created-description": "Please check your transaction history"
+  },
+  "footer": {
+    "docs-section-header": "Docs",
+    "community-section-header": "Community",
+    "contribute-section-header": "Contribute",
+    "getting-started-link-text": "Getting Started",
+    "faq-link-text": "Frequently Asked Questions",
+    "blog-link-text": "Blog",
+    "discord-link-text": "Discord",
+    "twitter-link-text": "Twitter",
+    "github-link-text": "GitHub"
   }
 }
