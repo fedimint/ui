@@ -2,6 +2,8 @@ import React, { useCallback, useState } from 'react';
 import {
   Box,
   Button,
+  Input,
+  InputGroup,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -10,18 +12,13 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
-  TabPanel,
   Text,
   VStack,
+  useTheme,
 } from '@chakra-ui/react';
 import { ApiContext } from '../ApiProvider';
-import { TabHeader, Input } from '.';
 import { useTranslation } from '@fedimint/utils';
-
-export const WithdrawTabHeader = () => {
-  const { t } = useTranslation();
-  return <TabHeader>{t('withdraw-tab.tab-header')}</TabHeader>;
-};
+import { GatewayCard } from '.';
 
 interface WithdrawObject {
   amount: number;
@@ -43,6 +40,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
   federationId,
 }: WithdrawTabProps): JSX.Element {
   const { t } = useTranslation();
+  const theme = useTheme();
   const { gateway } = React.useContext(ApiContext);
   const [withdrawObject, setWithdrawObject] = useState<WithdrawObject>({
     amount: 0,
@@ -99,36 +97,104 @@ export const WithdrawTab = React.memo(function WithdrawTab({
   };
 
   return (
-    <TabPanel ml='1px' mr='1px' p={{ base: '4px', md: '16px', lg: '16px' }}>
-      <Stack spacing='4' maxWidth={{ base: '100%', md: 'md', lg: 'md' }}>
-        <Input
-          labelName={t('withdraw-tab.amount-label')}
-          placeHolder={t('withdraw-tab.amount-placeholder')}
-          // FIXME: this is a hack
-          value={withdrawObject.amount.toString()}
-          onChange={(e) => handleInputChange(e)}
-          name='amount'
-        />
-        <Input
-          labelName={t('withdraw-tab.address-label')}
-          placeHolder={t('withdraw-tab.address-placeholder')}
-          value={withdrawObject.address}
-          onChange={(e) => handleInputChange(e)}
-          name='address'
-        />
-
-        {error && (
-          <Box>
-            <Text textAlign='center' color='red' fontSize='14'>
-              {t('withdraw-tab.error')}: {error}
+    <Box w='100%'>
+      <GatewayCard>
+        <Stack spacing='4px' h='100%'>
+          <Text
+            fontSize='lg'
+            fontWeight='600'
+            color={theme.colors.gray[900]}
+            fontFamily={theme.fonts.body}
+          >
+            {t('withdraw-tab.tab-header')}
+          </Text>
+          <Text
+            fontSize='md'
+            color={theme.colors.gray[600]}
+            fontFamily={theme.fonts.body}
+          >
+            {t('withdraw-tab.total_bitcoin')} {withdrawObject.amount / 100000}{' '}
+            {t('common.btc')}
+          </Text>
+          <Text
+            cursor='pointer'
+            fontSize='sm'
+            color={theme.colors.blue[600]}
+            fontFamily={theme.fonts.body}
+          >
+            {t('withdraw-tab.withdraw_all')}
+          </Text>
+        </Stack>
+        <Stack spacing='20px'>
+          <InputGroup flexDir='column'>
+            <Text
+              fontSize='sm'
+              fontWeight='500'
+              color={theme.colors.gray[700]}
+              fontFamily={theme.fonts.body}
+              pb='6px'
+            >
+              {t('common.amount')}
             </Text>
-          </Box>
-        )}
+            <Input
+              height='44px'
+              p='14px'
+              border={`1px solid ${theme.colors.gray[300]}`}
+              bgColor={theme.colors.white}
+              boxShadow={theme.shadows.xs}
+              borderRadius='8px'
+              w='100%'
+              placeholder={t('withdraw-tab.amount-placeholder')}
+              // FIXME: this is a hack
+              value={withdrawObject.amount.toString()}
+              onChange={(e) => handleInputChange(e)}
+              name='amount'
+            />
+          </InputGroup>
+          <InputGroup flexDir='column'>
+            <Text
+              fontSize='sm'
+              fontWeight='500'
+              color={theme.colors.gray[700]}
+              fontFamily={theme.fonts.body}
+              pb='6px'
+            >
+              {t('common.address')}
+            </Text>
+            <Input
+              height='44px'
+              p='14px'
+              border={`1px solid ${theme.colors.gray[300]}`}
+              bgColor={theme.colors.white}
+              boxShadow={theme.shadows.xs}
+              borderRadius='8px'
+              w='100%'
+              placeholder={t('withdraw-tab.address-placeholder')}
+              value={withdrawObject.address}
+              onChange={(e) => handleInputChange(e)}
+              name='address'
+            />
+          </InputGroup>
 
-        <Button borderRadius='4' onClick={createWithdrawal}>
-          {t('withdraw-tab.withdraw')}
-        </Button>
-      </Stack>
+          {error && (
+            <Box>
+              <Text textAlign='center' color='red' fontSize='14'>
+                {t('withdraw-tab.error')}: {error}
+              </Text>
+            </Box>
+          )}
+
+          <Button
+            borderRadius='8px'
+            maxW='145px'
+            isDisabled={!address}
+            fontSize='sm'
+            onClick={createWithdrawal}
+          >
+            {t('withdraw-tab.tab-header')}
+          </Button>
+        </Stack>
+      </GatewayCard>
 
       {modalState && (
         <ConfirmWithdrawModal
@@ -143,7 +209,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
           startWithdrawalCallback={startWithdrawal}
         />
       )}
-    </TabPanel>
+    </Box>
   );
 });
 
