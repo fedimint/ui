@@ -29,7 +29,7 @@ export const ConsensusInfo = ({ numberOfGuardians }: Props) => {
       hasArrow
       bg='#575b60'
     >
-      <InfoOutlineIcon viewBox='5 0 20 30' boxSize={5} />
+      <InfoOutlineIcon viewBox='5 0 20 30' boxSize={5} ml={2} />
     </Tooltip>
   );
 };
