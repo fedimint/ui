@@ -256,7 +256,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             <FormControl isInvalid={!isValidNumber(numPeers)}>
               <HStack>
                 <FormLabel>{t('set-config.guardian-number')}</FormLabel>
-                <ConsensusInfo />
+                <ConsensusInfo numberOfGuardians={numPeers} />
               </HStack>
               <NumberInput
                 min={1}

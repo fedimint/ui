@@ -56,6 +56,7 @@
     "federation-settings": "Federation settings",
     "federation-name": "Federation name",
     "guardian-number": "Number of guardians",
+    "guardian-information": "Guardian Information",
     "guardian-number-help": "This cannot be changed later.",
     "block-confirmations": "Block confirmations",
     "block-confirmations-help": "How many block confirmations needed before confirming?",
