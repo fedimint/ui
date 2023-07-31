@@ -105,14 +105,14 @@ export const FederationAdmin: React.FC = () => {
                 </Thead>
                 {status && (
                   <Tbody>
-                    {Object.entries(status?.consensus.status_by_peer).map(
-                      ([peerId, peerStatus]) => (
-                        <Tr key={peerId}>
-                          <Td>Peer {peerId}</Td>
-                          <Td>{peerStatus.connection_status}</Td>
-                        </Tr>
-                      )
-                    )}
+                    {Object.entries(
+                      status?.consensus?.status_by_peer || {}
+                    ).map(([peerId, peerStatus]) => (
+                      <Tr key={peerId}>
+                        <Td>Peer {peerId}</Td>
+                        <Td>{peerStatus.connection_status}</Td>
+                      </Tr>
+                    ))}
                   </Tbody>
                 )}
               </Table>

@@ -31,7 +31,7 @@ export interface ConsensusStatus {
 
 export interface StatusResponse {
   server: ServerStatus;
-  consensus: ConsensusStatus;
+  consensus?: ConsensusStatus;
 }
 
 export interface Versions {
