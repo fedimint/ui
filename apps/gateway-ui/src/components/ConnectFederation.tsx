@@ -31,6 +31,7 @@ export const ConnectFedModal: FC<ConnectFedModalProps> = ({
   onClose,
 }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -61,7 +62,7 @@ export const ConnectFedModal: FC<ConnectFedModalProps> = ({
                   textAlign='center'
                   width='130px'
                 >
-                  Connecting to federation...
+                  {t('connect-federation.progress-modal-text')}
                 </CircularProgressLabel>
               </CircularProgress>
             </Flex>
