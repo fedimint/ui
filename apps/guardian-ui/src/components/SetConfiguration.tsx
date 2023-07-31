@@ -20,15 +20,21 @@ import {
 import { FormGroup, FormGroupHeading } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
 import {
+  AnyModuleParams,
   BitcoinRpc,
   ConfigGenParams,
   GuardianRole,
   Network,
+  OtherModuleParams,
 } from '../setup/types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
-import { formatApiErrorMessage, getModuleParamsFromConfig } from '../utils/api';
+import {
+  formatApiErrorMessage,
+  getModuleParamsFromConfig,
+  getOtherModuleParamsFromConfig,
+} from '../utils/api';
 import { ModuleKind } from '../types';
 import { useTranslation } from '@fedimint/utils';
 
@@ -71,10 +77,12 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     });
   const [mintAmounts, setMintAmounts] = useState<number[]>([]);
   const [error, setError] = useState<string>();
+  const [otherModuleParams, setOtherModuleParams] = useState<object>({});
 
   useEffect(() => {
     const initStateFromParams = (params: ConfigGenParams) => {
       setFederationName(params.meta?.federation_name || '');
+      setOtherModuleParams(getOtherModuleParamsFromConfig(params));
 
       const mintModule = getModuleParamsFromConfig(params, ModuleKind.Mint);
       if (mintModule?.consensus?.mint_amounts) {
@@ -142,33 +150,36 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           configs: {
             numPeers: parseInt(numPeers, 10),
             meta: { federation_name: federationName },
-            modules: {
-              // TODO: figure out way to not hard-code modules here
-              1: [
-                'mint',
-                { consensus: { mint_amounts: mintAmounts }, local: {} },
-              ],
-              2: [
-                'wallet',
-                {
-                  consensus: {
-                    finality_delay: parseInt(blockConfirmations, 10),
-                    network: network as Network,
-                    client_default_bitcoin_rpc: clientDefaultBitcoinRpc,
+            modules: Object.assign(
+              {
+                // TODO: figure out way to not hard-code modules here
+                1: [
+                  'mint',
+                  { consensus: { mint_amounts: mintAmounts }, local: {} },
+                ],
+                2: [
+                  'wallet',
+                  {
+                    consensus: {
+                      finality_delay: parseInt(blockConfirmations, 10),
+                      network: network as Network,
+                      client_default_bitcoin_rpc: clientDefaultBitcoinRpc,
+                    },
+                    local: {
+                      bitcoin_rpc: bitcoinRpc,
+                    },
                   },
-                  local: {
-                    bitcoin_rpc: bitcoinRpc,
+                ],
+                3: [
+                  'ln',
+                  {
+                    consensus: { network: network as Network },
+                    local: { bitcoin_rpc: bitcoinRpc },
                   },
-                },
-              ],
-              3: [
-                'ln',
-                {
-                  consensus: { network: network as Network },
-                  local: { bitcoin_rpc: bitcoinRpc },
-                },
-              ],
-            },
+                ],
+              },
+              otherModuleParams as Record<number, AnyModuleParams> // FIXME
+            ),
           },
         });
       } else {

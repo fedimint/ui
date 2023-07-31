@@ -1,5 +1,6 @@
 import { JsonRpcError } from 'jsonrpc-client-websocket';
 import { AnyModuleParams, ConfigGenParams } from '../setup/types';
+import { ModuleKind } from '../types';
 
 /**
  * Given a config and the name of the module, return the module
@@ -13,6 +14,26 @@ export function getModuleParamsFromConfig<T extends AnyModuleParams[0]>(
   if (!config) return null;
   const module = Object.values(config.modules).find((m) => m[0] === moduleName);
   return module ? module[1] : null;
+}
+
+/**
+ * Given a config, filter out all non-default modules
+ */
+export function getOtherModuleParamsFromConfig(
+  config: ConfigGenParams | null
+): object {
+  if (!config) return {};
+
+  return Object.keys(config.modules)
+    .filter(
+      (key) =>
+        config.modules[parseInt(key)][0] != ModuleKind.Mint &&
+        config.modules[parseInt(key)][0] !== ModuleKind.Ln &&
+        config.modules[parseInt(key)][0] !== ModuleKind.Wallet
+    )
+    .reduce((cur, key) => {
+      return Object.assign(cur, { [key]: config.modules[parseInt(key)] });
+    }, {});
 }
 
 /**
