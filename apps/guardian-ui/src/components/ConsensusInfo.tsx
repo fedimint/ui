@@ -10,11 +10,10 @@ interface Props {
 export const ConsensusInfo = ({ numberOfGuardians }: Props) => {
   const { t } = useTranslation();
 
-  const totalGuardians = numberOfGuardians;
-  const potentialMaliciousGuardians = (parseInt(totalGuardians) - 1) / 3;
+  const potentialMaliciousGuardians = (parseInt(numberOfGuardians) - 1) / 3;
 
   const consensusInfoText = `
-    If the total number of guardians is ${totalGuardians}, 
+    If the total number of guardians is ${numberOfGuardians}, 
     the expected number of potential malicious guardians 
     is ${Math.floor(potentialMaliciousGuardians)}. 
     This is according to the formula 3*f + 1 = n, 
