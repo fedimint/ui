@@ -1,10 +1,10 @@
 export { GatewayCard } from './GatewayCard';
-export { WithdrawTab } from './WithdrawTab';
+export { WithdrawCard } from './WithdrawCard';
 export { FederationCard } from './FederationCard';
 export { Header } from './Header';
 export { Input } from './Input';
 export { ConnectFederation } from './ConnectFederation';
 export { TabHeader } from './TabHeader';
-export { InfoTab } from './InfoTab';
-export { DepositTab } from './DepositTab';
-export { BalanceTab } from './BalanceTab';
+export { InfoCard } from './InfoCard';
+export { DepositCard } from './DepositCard';
+export { BalanceCard } from './BalanceCard';
