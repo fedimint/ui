@@ -69,7 +69,10 @@ export type WalletModuleParams = [
     };
   }
 ];
-export type OtherModuleParams = [string, object];
+export type OtherModuleParams = [
+  string,
+  { consensus?: object; local?: object }
+];
 export type AnyModuleParams =
   | LnModuleParams
   | MintModuleParams

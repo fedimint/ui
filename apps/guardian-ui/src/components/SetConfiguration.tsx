@@ -20,12 +20,10 @@ import {
 import { FormGroup, FormGroupHeading } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
 import {
-  AnyModuleParams,
   BitcoinRpc,
   ConfigGenParams,
   GuardianRole,
   Network,
-  OtherModuleParams,
 } from '../setup/types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
@@ -33,7 +31,8 @@ import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg
 import {
   formatApiErrorMessage,
   getModuleParamsFromConfig,
-  getOtherModuleParamsFromConfig,
+  applyConfigGenModuleParams,
+  removeConfigGenModuleConsensusParams,
 } from '../utils/api';
 import { ModuleKind } from '../types';
 import { useTranslation } from '@fedimint/utils';
@@ -60,6 +59,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
   const [hostServerUrl, setHostServerUrl] = useState('');
+  const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [numPeers, setNumPeers] = useState(
     stateNumPeers ? stateNumPeers.toString() : ''
   );
@@ -70,19 +70,13 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     kind: '',
     url: '',
   });
-  const [clientDefaultBitcoinRpc, setClientDefaultBitcoinRpc] =
-    useState<BitcoinRpc>({
-      kind: '',
-      url: '',
-    });
   const [mintAmounts, setMintAmounts] = useState<number[]>([]);
   const [error, setError] = useState<string>();
-  const [otherModuleParams, setOtherModuleParams] = useState<object>({});
 
   useEffect(() => {
     const initStateFromParams = (params: ConfigGenParams) => {
+      setDefaultParams(params);
       setFederationName(params.meta?.federation_name || '');
-      setOtherModuleParams(getOtherModuleParamsFromConfig(params));
 
       const mintModule = getModuleParamsFromConfig(params, ModuleKind.Mint);
       if (mintModule?.consensus?.mint_amounts) {
@@ -96,9 +90,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       }
       if (walletConsensus?.network) {
         setNetwork(walletConsensus.network);
-      }
-      if (walletConsensus?.client_default_bitcoin_rpc) {
-        setClientDefaultBitcoinRpc(walletConsensus.client_default_bitcoin_rpc);
       }
       if (walletModule?.local?.bitcoin_rpc) {
         setBitcoinRpc(walletModule.local.bitcoin_rpc);
@@ -141,6 +132,29 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const handleNext = async () => {
     setError(undefined);
     try {
+      if (!defaultParams)
+        throw new Error(
+          'Cannot submit before fetching default config gen parameters'
+        );
+      const moduleConfigs = applyConfigGenModuleParams(defaultParams.modules, {
+        [ModuleKind.Mint]: {
+          consensus: { mint_amounts: mintAmounts },
+          local: {},
+        },
+        [ModuleKind.Wallet]: {
+          consensus: {
+            finality_delay: parseInt(blockConfirmations, 10),
+            network: network as Network,
+          },
+          local: {
+            bitcoin_rpc: bitcoinRpc,
+          },
+        },
+        [ModuleKind.Ln]: {
+          consensus: { network: network as Network },
+          local: { bitcoin_rpc: bitcoinRpc },
+        },
+      });
       if (isHost) {
         // Hosts set their own connection name
         // - They should submit both their local and the consensus config gen params.
@@ -150,36 +164,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           configs: {
             numPeers: parseInt(numPeers, 10),
             meta: { federation_name: federationName },
-            modules: Object.assign(
-              {
-                // TODO: figure out way to not hard-code modules here
-                1: [
-                  'mint',
-                  { consensus: { mint_amounts: mintAmounts }, local: {} },
-                ],
-                2: [
-                  'wallet',
-                  {
-                    consensus: {
-                      finality_delay: parseInt(blockConfirmations, 10),
-                      network: network as Network,
-                      client_default_bitcoin_rpc: clientDefaultBitcoinRpc,
-                    },
-                    local: {
-                      bitcoin_rpc: bitcoinRpc,
-                    },
-                  },
-                ],
-                3: [
-                  'ln',
-                  {
-                    consensus: { network: network as Network },
-                    local: { bitcoin_rpc: bitcoinRpc },
-                  },
-                ],
-              },
-              otherModuleParams as Record<number, AnyModuleParams> // FIXME
-            ),
+            modules: moduleConfigs,
           },
         });
       } else {
@@ -191,18 +176,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           configs: {
             hostServerUrl,
             meta: {},
-            modules: {
-              // TODO: figure out way to not hard-code modules here
-              2: [
-                'wallet',
-                {
-                  local: {
-                    bitcoin_rpc: bitcoinRpc,
-                  },
-                },
-              ],
-              3: ['ln', { local: { bitcoin_rpc: bitcoinRpc } }],
-            },
+            modules: removeConfigGenModuleConsensusParams(moduleConfigs),
           },
         });
       }
