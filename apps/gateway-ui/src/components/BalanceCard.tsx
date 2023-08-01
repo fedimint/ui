@@ -3,12 +3,12 @@ import { Box, Flex, Text, useTheme } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '.';
 
-interface BalanceTabProps {
+interface BalanceCardProps {
   balance_msat: number;
 }
 
-export const BalanceTab = React.memo(function BalanceTab(
-  props: BalanceTabProps
+export const BalanceCard = React.memo(function BalanceCard(
+  props: BalanceCardProps
 ): JSX.Element {
   const { t } = useTranslation();
   const { balance_msat } = props;
@@ -24,7 +24,7 @@ export const BalanceTab = React.memo(function BalanceTab(
             color={theme.colors.gray[900]}
             fontFamily={theme.fonts.body}
           >
-            {t('balance-tab.tab_header')}
+            {t('balance-card.card_header')}
           </Text>
           <Text
             fontSize='sm'
@@ -32,7 +32,7 @@ export const BalanceTab = React.memo(function BalanceTab(
             fontFamily={theme.fonts.body}
             pt='4px'
           >
-            {t('balance-tab.sentence')}
+            {t('balance-card.sentence')}
           </Text>
         </Box>
         <Flex>

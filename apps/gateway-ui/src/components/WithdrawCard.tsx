@@ -25,7 +25,7 @@ interface WithdrawObject {
   address: string;
 }
 
-export interface WithdrawTabProps {
+export interface WithdrawCardProps {
   federationId: string;
 }
 
@@ -36,9 +36,9 @@ const truncateStringFormat = (arg: string): string => {
   )}`;
 };
 
-export const WithdrawTab = React.memo(function WithdrawTab({
+export const WithdrawCard = React.memo(function WithdrawCard({
   federationId,
-}: WithdrawTabProps): JSX.Element {
+}: WithdrawCardProps): JSX.Element {
   const { t } = useTranslation();
   const theme = useTheme();
   const { gateway } = React.useContext(ApiContext);
@@ -69,11 +69,11 @@ export const WithdrawTab = React.memo(function WithdrawTab({
 
   const createWithdrawal = () => {
     if (!amount && amount === 0 && typeof amount === 'number') {
-      setError(`${t('withdraw-tab.error-amount')}`);
+      setError(`${t('withdraw-card.error-amount')}`);
       return;
     }
     if (!address) {
-      setError(`${t('withdraw-tab.error-address')}`);
+      setError(`${t('withdraw-card.error-address')}`);
       return;
     }
     // TODO: address validation
@@ -86,13 +86,13 @@ export const WithdrawTab = React.memo(function WithdrawTab({
       .requestWithdrawal(federationId, amount, address)
       .then((txId) => {
         // FIXME: show this in a better way
-        alert(`${t('withdraw-tab.your-transaction')} ${txId}`);
+        alert(`${t('withdraw-card.your-transaction')} ${txId}`);
         setWithdrawObject({ ...withdrawObject, amount: 0, address: '' });
         setModalState(false);
       })
       .catch(({ error }) => {
         console.error(error);
-        setError(`${t('withdraw-tab.error-request')}`);
+        setError(`${t('withdraw-card.error-request')}`);
       });
   };
 
@@ -106,14 +106,14 @@ export const WithdrawTab = React.memo(function WithdrawTab({
             color={theme.colors.gray[900]}
             fontFamily={theme.fonts.body}
           >
-            {t('withdraw-tab.tab-header')}
+            {t('withdraw-card.card-header')}
           </Text>
           <Text
             fontSize='md'
             color={theme.colors.gray[600]}
             fontFamily={theme.fonts.body}
           >
-            {t('withdraw-tab.total_bitcoin')} {withdrawObject.amount / 100000}{' '}
+            {t('withdraw-card.total_bitcoin')} {withdrawObject.amount / 100000}{' '}
             {t('common.btc')}
           </Text>
           <Text
@@ -122,7 +122,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
             color={theme.colors.blue[600]}
             fontFamily={theme.fonts.body}
           >
-            {t('withdraw-tab.withdraw_all')}
+            {t('withdraw-card.withdraw_all')}
           </Text>
         </Stack>
         <Stack spacing='20px'>
@@ -144,7 +144,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
               boxShadow={theme.shadows.xs}
               borderRadius='8px'
               w='100%'
-              placeholder={t('withdraw-tab.amount-placeholder')}
+              placeholder={t('withdraw-card.amount-placeholder')}
               // FIXME: this is a hack
               value={withdrawObject.amount.toString()}
               onChange={(e) => handleInputChange(e)}
@@ -169,7 +169,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
               boxShadow={theme.shadows.xs}
               borderRadius='8px'
               w='100%'
-              placeholder={t('withdraw-tab.address-placeholder')}
+              placeholder={t('withdraw-card.address-placeholder')}
               value={withdrawObject.address}
               onChange={(e) => handleInputChange(e)}
               name='address'
@@ -179,7 +179,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
           {error && (
             <Box>
               <Text textAlign='center' color='red' fontSize='14'>
-                {t('withdraw-tab.error')}: {error}
+                {t('withdraw-card.error')}: {error}
               </Text>
             </Box>
           )}
@@ -191,7 +191,7 @@ export const WithdrawTab = React.memo(function WithdrawTab({
             fontSize='sm'
             onClick={createWithdrawal}
           >
-            {t('withdraw-tab.tab-header')}
+            {t('withdraw-card.card-header')}
           </Button>
         </Stack>
       </GatewayCard>
@@ -237,7 +237,7 @@ const ConfirmWithdrawModal = (
         <Modal onClose={onModalClickCallback} isOpen={open} isCentered>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>{t('withdraw-tab.confirm-withdraw')}</ModalHeader>
+            <ModalHeader>{t('withdraw-card.confirm-withdraw')}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <VStack alignItems='flex-start' justifyContent='space-between'>
@@ -247,7 +247,7 @@ const ConfirmWithdrawModal = (
                     {txRequest.amount} {t('common.sats')}
                   </Text>
                 </Box>
-                <Text>{t('withdraw-tab.to')}</Text>
+                <Text>{t('withdraw-card.to')}</Text>
                 <Box>
                   <Text>{t('common.address')}:</Text>
                   <Text>{truncateStringFormat(txRequest.address)}</Text>

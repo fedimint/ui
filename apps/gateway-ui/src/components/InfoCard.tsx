@@ -12,13 +12,13 @@ import { GatewayCard } from '.';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
 
-interface InfoTabProps {
+interface InfoCardProps {
   nodeId: string;
   nodeLink: string;
 }
 
-export const InfoTab = React.memo(function InfoTab(
-  props: InfoTabProps
+export const InfoCard = React.memo(function InfoCard(
+  props: InfoCardProps
 ): JSX.Element {
   const { t } = useTranslation();
   const { nodeId, nodeLink } = props;
@@ -33,7 +33,7 @@ export const InfoTab = React.memo(function InfoTab(
         color={theme.colors.gray[900]}
         fontFamily={theme.fonts.body}
       >
-        {t('info-tab.tab_header')}
+        {t('info-card.card_header')}
       </Text>
       <Flex gap='8px'>
         <Text
@@ -85,7 +85,7 @@ export const InfoTab = React.memo(function InfoTab(
           rel='noreferrer'
           w='fit-content'
         >
-          {t('info-tab.amboss_node_link_text')}
+          {t('info-card.amboss_node_link_text')}
         </Link>
         <LinkIcon color={theme.colors.blue[600]} />
       </Flex>

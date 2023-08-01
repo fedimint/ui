@@ -22,8 +22,8 @@
     "information-bar-text": "The number of federations you can connect to is limited to one. Connecting to multiple federations will be supported soon.",
     "connect-federation-button": "Connect Federation"
   },
-  "deposit-tab": {
-    "tab_header": "Deposit Bitcoin",
+  "deposit-card": {
+    "card_header": "Deposit Bitcoin",
     "header": "Bitcoin Deposit to Federation",
     "sentence-one": "Deposit to the address or scan the QR code",
     "bitcoin-deposit": "Bitcoin Deposit",
@@ -47,16 +47,16 @@
     "archived": "Archived",
     "all": "All"
   },
-  "info-tab": {
-    "tab_header": "Node ID",
+  "info-card": {
+    "card_header": "Node ID",
     "amboss_node_link_text": "View on amboss.space"
   },
-  "balance-tab": {
-    "tab_header": "eCash balance",
+  "balance-card": {
+    "card_header": "eCash balance",
     "sentence": "Denominated in Sats"
   },
-  "withdraw-tab": {
-    "tab-header": "Withdraw Bitcoin",
+  "withdraw-card": {
+    "card-header": "Withdraw Bitcoin",
     "total_bitcoin": "Total Bitcoin:",
     "withdraw_all": "Withdraw all",
     "error": "Error",

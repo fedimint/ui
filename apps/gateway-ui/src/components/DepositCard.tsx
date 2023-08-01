@@ -15,13 +15,13 @@ import { GatewayCard } from './GatewayCard';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
 
-export interface DepositTabProps {
+export interface DepositCardProps {
   federationId: string;
 }
 
-export const DepositTab = React.memo(function DepositTab({
+export const DepositCard = React.memo(function DepositCard({
   federationId,
-}: DepositTabProps): JSX.Element {
+}: DepositCardProps): JSX.Element {
   const { t } = useTranslation();
   const { gateway } = React.useContext(ApiContext);
   const [address, setAddress] = useState<string>('');
@@ -52,14 +52,14 @@ export const DepositTab = React.memo(function DepositTab({
           color={theme.colors.gray[900]}
           fontFamily={theme.fonts.body}
         >
-          {t('deposit-tab.tab_header')}
+          {t('deposit-card.card_header')}
         </Text>
         <Text
           fontSize='md'
           color={theme.colors.gray[600]}
           fontFamily={theme.fonts.body}
         >
-          {t('deposit-tab.sentence-one')}
+          {t('deposit-card.sentence-one')}
         </Text>
         <Stack spacing='24px'>
           <Flex gap='4px' alignItems='flex-start'>
@@ -128,7 +128,7 @@ export const DepositTab = React.memo(function DepositTab({
             rel='noreferrer'
             w='fit-content'
           >
-            {t('deposit-tab.mempool_deposit_link_text')}
+            {t('deposit-card.mempool_deposit_link_text')}
           </Link>
           <LinkIcon color={theme.colors.blue[600]} />
         </Flex>

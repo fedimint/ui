@@ -1,8 +1,7 @@
 import React from 'react';
 import { Flex, Stack, useTheme, Heading } from '@chakra-ui/react';
 import { Federation } from '../types';
-import { InfoTab, DepositTab, BalanceTab } from '.';
-import { WithdrawTab } from './WithdrawTab';
+import { InfoCard, DepositCard, BalanceCard, WithdrawCard } from '.';
 
 interface FederationCardProps {
   federation: Federation;
@@ -25,12 +24,12 @@ export const FederationCard = (props: FederationCardProps): JSX.Element => {
           Human Action Coalition
         </Heading>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
-          <BalanceTab balance_msat={balance_msat} />
-          <InfoTab nodeId={federation_id} nodeLink={federation_id} />
+          <BalanceCard balance_msat={balance_msat} />
+          <InfoCard nodeId={federation_id} nodeLink={federation_id} />
         </Flex>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
-          <DepositTab federationId={federation_id} />
-          <WithdrawTab federationId={federation_id} />
+          <DepositCard federationId={federation_id} />
+          <WithdrawCard federationId={federation_id} />
         </Flex>
       </Stack>
     </>
