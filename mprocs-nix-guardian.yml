@@ -23,29 +23,25 @@ procs:
   devimint:
     shell: tail -n +0 -F $FM_LOGS_DIR/devimint.log
   guardian-ui-1:
-    cwd: apps/guardian-ui/
-    shell: yarn dev
+    shell: yarn dev:guardian-ui
     env:
       PORT: '3000'
       REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18138
       BROWSER: none
   guardian-ui-2:
-    cwd: apps/guardian-ui/
-    shell: yarn dev
+    shell: yarn dev:guardian-ui
     env:
       PORT: '3001'
       REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18140
       BROWSER: none
   guardian-ui-3:
-    cwd: apps/guardian-ui/
-    shell: yarn dev
+    shell: yarn dev:guardian-ui
     env:
       PORT: '3002'
       REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18142
       BROWSER: none
   guardian-ui-4:
-    cwd: apps/guardian-ui/
-    shell: yarn dev
+    shell: yarn dev:guardian-ui
     env:
       PORT: '3003'
       REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18144
