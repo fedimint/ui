@@ -4,22 +4,19 @@ import { InfoOutlineIcon } from '@chakra-ui/icons';
 import { useTranslation } from '@fedimint/utils';
 
 interface Props {
-  numberOfGuardians: string;
+  totalNumberOfGuardians: string;
 }
 
-export const ConsensusInfo = ({ numberOfGuardians }: Props) => {
+export const ConsensusInfo = ({ totalNumberOfGuardians }: Props) => {
   const { t } = useTranslation();
 
-  const potentialMaliciousGuardians = (parseInt(numberOfGuardians) - 1) / 3;
+  const potentialMaliciousGuardians =
+    (parseInt(totalNumberOfGuardians) - 1) / 3;
 
-  const consensusInfoText = `
-    If the total number of guardians is ${numberOfGuardians}, 
-    the expected number of potential malicious guardians 
-    is ${Math.floor(potentialMaliciousGuardians)}. 
-    This is according to the formula 3*f + 1 = n, 
-    where f is the number of potential malicious guardians, 
-    and n the total number of guardians.
-  `;
+  const consensusInfoText = t('set-config.guardian-consensus-text', {
+    numberOfGuardians: `${totalNumberOfGuardians}`,
+    maliciousGuardians: `${Math.floor(potentialMaliciousGuardians)}`,
+  });
 
   return (
     <Tooltip

@@ -257,7 +257,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               <HStack>
                 <FormLabel>
                   {t('set-config.guardian-number')}
-                  <ConsensusInfo numberOfGuardians={numPeers} />
+                  <ConsensusInfo totalNumberOfGuardians={numPeers} />
                 </FormLabel>
               </HStack>
               <NumberInput
