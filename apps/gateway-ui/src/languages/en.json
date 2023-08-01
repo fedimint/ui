@@ -6,7 +6,11 @@
     "sats": "sats",
     "confirm": "Confirm",
     "copied": "Copied",
-    "btc": "BTC"
+    "btc": "BTC",
+    "error": "Error"
+  },
+  "admin": {
+    "fetch-info-modal-text": "Checking federation details..."
   },
   "connect-federation": {
     "connect": "Connect 🚀",
