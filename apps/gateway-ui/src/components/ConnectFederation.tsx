@@ -95,7 +95,7 @@ export const ConnectFederation = ({
   const handleConnectFederation = () => {
     setLoading(true);
     gateway
-      .connectFederation(connectInfo)
+      .connectFederation(connectInfo.trim())
       .then((federation) => {
         renderConnectedFedCallback(federation);
         setConnectInfo('');
