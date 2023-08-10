@@ -1,6 +1,5 @@
 import React from 'react';
 import { Flex, Spacer } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 export const Header = React.memo(function Header() {
   return (
@@ -43,7 +42,6 @@ export const Header = React.memo(function Header() {
         </>
       </Flex>
       <Spacer />
-      <ColorModeSwitcher justifySelf='flex-end' />
     </Flex>
   );
 });
