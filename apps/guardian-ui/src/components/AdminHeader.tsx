@@ -38,10 +38,10 @@ export const Pill: FC<PillProp> = ({ text, status }) => {
 };
 
 interface AdminHeaderProps {
-  connectionCode: string;
+  inviteCode: string;
 }
 
-export function AdminHeader({ connectionCode }: AdminHeaderProps) {
+export function AdminHeader({ inviteCode }: AdminHeaderProps) {
   const [guardians, setGuardians] = useState<string | undefined>();
   const {
     state: { configGenParams },
@@ -84,7 +84,7 @@ export function AdminHeader({ connectionCode }: AdminHeaderProps) {
             Invite Members
           </Text>
           <CopyInput
-            value={connectionCode}
+            value={inviteCode}
             buttonLeftIcon={<Icon as={CopyIcon} />}
           />
           <Text mt='6px' mb='25px' fontSize='14px' color='#6B7280'>

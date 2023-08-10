@@ -205,7 +205,7 @@ enum AdminRpc {
   version = 'version',
   fetchEpochCount = 'fetch_epoch_count',
   consensusStatus = 'consensus_status',
-  connectionCode = 'connection_code',
+  inviteCode = 'invite_code',
   config = 'config',
   module = 'module',
 }
@@ -219,7 +219,7 @@ type ModuleRpc = LightningModuleRpc;
 export interface AdminApiInterface extends SharedApiInterface {
   version: () => Promise<Versions>;
   fetchEpochCount: () => Promise<number>;
-  connectionCode: () => Promise<string>;
+  inviteCode: () => Promise<string>;
   config: (connection: string) => Promise<ConfigResponse>;
   moduleApiCall: <T>(moduleId: number, rpc: ModuleRpc) => Promise<T>;
 }
@@ -358,8 +358,8 @@ export class GuardianApi
     return this.base.call(AdminRpc.consensusStatus);
   };
 
-  connectionCode = (): Promise<string> => {
-    return this.base.call(AdminRpc.connectionCode);
+  inviteCode = (): Promise<string> => {
+    return this.base.call(AdminRpc.inviteCode);
   };
 
   config = (connection: string): Promise<ConfigResponse> => {

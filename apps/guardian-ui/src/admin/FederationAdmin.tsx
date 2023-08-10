@@ -23,7 +23,7 @@ export const FederationAdmin: React.FC = () => {
   const [versions, setVersions] = useState<Versions>();
   const [epochCount, setEpochCount] = useState<number>();
   const [status, setStatus] = useState<StatusResponse>();
-  const [connectionCode, setConnectionCode] = useState<string>('');
+  const [inviteCode, setInviteCode] = useState<string>('');
   const [config, setConfig] = useState<ConfigResponse>();
   const [gateways, setGateways] = useState<Gateway[]>([]);
 
@@ -31,13 +31,12 @@ export const FederationAdmin: React.FC = () => {
     api.version().then(setVersions).catch(console.error);
     api.fetchEpochCount().then(setEpochCount).catch(console.error);
     api.status().then(setStatus).catch(console.error);
-    api.connectionCode().then(setConnectionCode).catch(console.error);
+    api.inviteCode().then(setInviteCode).catch(console.error);
   }, [api]);
 
   useEffect(() => {
-    connectionCode &&
-      api.config(connectionCode).then(setConfig).catch(console.error);
-  }, [connectionCode, api]);
+    inviteCode && api.config(inviteCode).then(setConfig).catch(console.error);
+  }, [inviteCode, api]);
 
   useEffect(() => {
     if (config) {
@@ -65,7 +64,7 @@ export const FederationAdmin: React.FC = () => {
   return (
     <Flex gap='32px' flexDirection='row'>
       <Flex gap={4} flexDirection='column' w='100%'>
-        <AdminHeader connectionCode={connectionCode} />
+        <AdminHeader inviteCode={inviteCode} />
         <AdminMain />
         <Flex gap={4}>
           <Card flex='1'>
