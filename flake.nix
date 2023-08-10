@@ -3,7 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
-      url = "github:fedimint/fedimint?rev=b2731b0d3068bb7eb8c8e721cf4abe504b07b569";
+      url = "github:fedimint/fedimint?rev=6bc6ba15eb1cf8d67a009af5663468b01db8756f";
     };
   };
   outputs = { self, nixpkgs, flake-utils, fedimint }:

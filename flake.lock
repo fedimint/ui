@@ -106,13 +106,13 @@
         "narHash": "sha256-rRFOf51hxjlfa4JbQt5tDgPo7jgg9Bgr7TVKLJU8i2g=",
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "b2731b0d3068bb7eb8c8e721cf4abe504b07b569",
+        "rev": "6bc6ba15eb1cf8d67a009af5663468b01db8756f",
         "type": "github"
       },
       "original": {
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "b2731b0d3068bb7eb8c8e721cf4abe504b07b569",
+        "rev": "6bc6ba15eb1cf8d67a009af5663468b01db8756f",
         "type": "github"
       }
     },
