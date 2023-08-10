@@ -2,7 +2,7 @@ import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
   ConfigResponse,
-  ConsensusStatus,
+  FederationStatus,
   ServerStatus,
   StatusResponse,
   Versions,
@@ -204,7 +204,7 @@ export interface SetupApiInterface extends SharedApiInterface {
 enum AdminRpc {
   version = 'version',
   fetchEpochCount = 'fetch_epoch_count',
-  consensusStatus = 'consensus_status',
+  federationStatus = 'consensus_status',
   inviteCode = 'invite_code',
   config = 'config',
   module = 'module',
@@ -354,8 +354,8 @@ export class GuardianApi
     return this.base.call(AdminRpc.fetchEpochCount);
   };
 
-  consensusStatus = (): Promise<ConsensusStatus> => {
-    return this.base.call(AdminRpc.consensusStatus);
+  federationStatus = (): Promise<FederationStatus> => {
+    return this.base.call(AdminRpc.federationStatus);
   };
 
   inviteCode = (): Promise<string> => {
