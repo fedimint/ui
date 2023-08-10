@@ -35,14 +35,14 @@ export interface StatusResponse {
 
 export interface Versions {
   core: {
-    consensus: number;
+    core_consensus: number;
     api: { major: number; minor: number }[];
   };
   modules: Record<
     number,
     {
-      core: number;
-      module: number;
+      core_consensus: number;
+      module_consensus: number;
       api: { major: number; minor: number }[];
     }
   >;

@@ -15,15 +15,22 @@
     "table-description": "Guardians will be confirmed here once they confirm Federation settings."
   },
   "federation-dashboard": {
-    "card-header": "Federation info",
-    "your-status": "Your status",
-    "epoch-count": "Epoch count",
-    "api-version": "API Version",
-    "consensus-version": "Consensus version",
-    "peer-info": "Peer info",
-    "name": "Name",
-    "status": "Status",
-    "peer": "Peer"
+    "placeholder-fed-description": "A community-based coalition focused on ushering the world into a bitcoin standard",
+    "invite-members": "Invite members",
+    "invite-members-prompt": "Share this to invite members to join the federation",
+    "fed-info": {
+      "label": "Federation info",
+      "your-status-label": "Your status",
+      "epoch-count-label": "Epoch count",
+      "api-version-label": "API Version",
+      "consensus-version-label": "Consensus version"
+    },
+    "peer-info": {
+      "label": "Peer info",
+      "name-label": "Name",
+      "status-label": "Status",
+      "peer-id-prefix": "Peer"
+    }
   },
   "login": {
     "title": "Welcome back!",
