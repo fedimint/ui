@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { CopyInput } from '@fedimint/ui';
-import { useSetupContext } from '../hooks';
+import { useAppContext, useSetupContext } from '../hooks';
 import { Flex, Box, Text, Icon } from '@chakra-ui/react';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 
@@ -9,6 +9,7 @@ interface PillProp {
   status: string;
 }
 
+// Have to update pull color based on quorum.
 export const Pill: FC<PillProp> = ({ text, status }) => {
   return (
     <Flex gap='8px' alignItems='center'>
@@ -40,10 +41,23 @@ interface AdminHeaderProps {
   connectionCode: string;
 }
 
-export const AdminHeader: FC<AdminHeaderProps> = ({ connectionCode }) => {
+export function AdminHeader({ connectionCode }: AdminHeaderProps) {
+  const [guardians, setGuardians] = useState<string | undefined>();
   const {
     state: { configGenParams },
   } = useSetupContext();
+  const { api } = useAppContext();
+  // will have to do polling
+  useEffect(() => {
+    async function getStatus() {
+      const { consensus } = await api.status();
+      const online = consensus ? consensus.peers_online + 1 : 1;
+      const offline = consensus ? consensus.peers_offline : 1;
+      const totalPeers = online + offline;
+      setGuardians(`${online} / ${totalPeers}`);
+    }
+    getStatus();
+  }, [api]);
   return (
     <Flex>
       <Box>
@@ -61,7 +75,7 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ connectionCode }) => {
           bitcoin standard
         </Text>
         <Flex gap='12px' mt='13px'>
-          <Pill text='Guardians' status='Online' />
+          <Pill text='Guardians' status={`${guardians}`} />
           <Pill text='Server' status='Healthy' />
           <Pill text='Uptime' status='100%' />
         </Flex>
@@ -80,4 +94,4 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ connectionCode }) => {
       </Box>
     </Flex>
   );
-};
+}
