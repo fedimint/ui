@@ -10,13 +10,8 @@ import {
   Button,
   Text,
   useTheme,
-  FormErrorMessage,
-  NumberInput,
-  NumberInputField,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  NumberInputStepper,
 } from '@chakra-ui/react';
+import { useTranslation } from '@fedimint/utils';
 import { FormGroup, FormGroupHeading } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
 import {
@@ -35,7 +30,8 @@ import {
   removeConfigGenModuleConsensusParams,
 } from '../utils/api';
 import { ModuleKind } from '../types';
-import { useTranslation } from '@fedimint/utils';
+import { isValidNumber } from '../utils/validators';
+import { NumberFormControl } from './NumberFormControl';
 
 interface Props {
   next: () => void;
@@ -112,11 +108,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   useEffect(() => {
     setPassword(statePassword);
   }, [statePassword]);
-
-  const isValidNumber = (value: string) => {
-    const int = parseInt(value, 10);
-    return int && !Number.isNaN(int);
-  };
 
   const isValid: boolean = isHost
     ? Boolean(
@@ -235,57 +226,33 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
                 onChange={(ev) => setFederationName(ev.currentTarget.value)}
               />
             </FormControl>
-            <FormControl isInvalid={!isValidNumber(numPeers)}>
-              <FormLabel>{t('set-config.guardian-number')}</FormLabel>
-              <NumberInput
-                min={1}
-                value={numPeers}
-                onChange={(value) => {
-                  setNumPeers(value);
-                }}
-              >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-              <FormErrorMessage>
-                {t('set-config.error-valid-number')}
-              </FormErrorMessage>
-              <FormHelperText>
-                {t('set-config.guardian-number-help')}
-              </FormHelperText>
-            </FormControl>
+            <NumberFormControl
+              labelText={t('set-config.guardian-number')}
+              errorText={t('set-config.error-valid-number')}
+              helperText={t('set-config.guardian-number-help')}
+              min={1}
+              value={numPeers}
+              onChange={(value) => {
+                setNumPeers(value);
+              }}
+            />
           </FormGroup>
         )}
         <FormGroup>
           <FormGroupHeading icon={BitcoinLogo} title='Bitcoin settings' />
           {isHost && (
             <>
-              <FormControl isInvalid={!isValidNumber(blockConfirmations)}>
-                <FormLabel>{t('set-config.block-confirmations')}</FormLabel>
-                <NumberInput
-                  min={1}
-                  max={200}
-                  value={blockConfirmations}
-                  onChange={(value) => {
-                    setBlockConfirmations(value);
-                  }}
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-                <FormErrorMessage>
-                  {t('set-config.error-valid-number')}
-                </FormErrorMessage>
-                <FormHelperText>
-                  {t('set-config.block-confirmations-help')}
-                </FormHelperText>
-              </FormControl>
+              <NumberFormControl
+                labelText={t('set-config.block-confirmations')}
+                errorText={t('set-config.error-valid-number')}
+                helperText={t('set-config.block-confirmations-help')}
+                min={1}
+                max={200}
+                value={blockConfirmations}
+                onChange={(value) => {
+                  setBlockConfirmations(value);
+                }}
+              />
               <FormControl>
                 <FormLabel>{t('set-config.bitcoin-network')}</FormLabel>
                 <Select

@@ -4,7 +4,6 @@ import { ReactComponent as BitcoinIcon } from '../assets/svgs/bitcoin-white.svg'
 import { ReactComponent as EcashIcon } from '../assets/svgs/ecash.svg';
 import { ReactComponent as BankNotesIcon } from '../assets/svgs/banknotes.svg';
 import { ReactComponent as InfoIcon } from '../assets/svgs/info.svg';
-import { Epochs } from './Epochs';
 
 interface FederationBalanceProps {
   title: string;
@@ -107,7 +106,6 @@ export const AdminMain = () => {
           icon={<BankNotesIcon color={theme.colors.white} />}
         />
       </Flex>
-      <Epochs />
     </Flex>
   );
 };

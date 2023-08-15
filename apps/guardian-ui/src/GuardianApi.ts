@@ -2,7 +2,7 @@ import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
   ConfigResponse,
-  ConsensusStatus,
+  FederationStatus,
   ServerStatus,
   StatusResponse,
   Versions,
@@ -204,8 +204,8 @@ export interface SetupApiInterface extends SharedApiInterface {
 enum AdminRpc {
   version = 'version',
   fetchEpochCount = 'fetch_epoch_count',
-  consensusStatus = 'consensus_status',
-  connectionCode = 'connection_code',
+  federationStatus = 'consensus_status',
+  inviteCode = 'invite_code',
   config = 'config',
   module = 'module',
 }
@@ -219,7 +219,7 @@ type ModuleRpc = LightningModuleRpc;
 export interface AdminApiInterface extends SharedApiInterface {
   version: () => Promise<Versions>;
   fetchEpochCount: () => Promise<number>;
-  connectionCode: () => Promise<string>;
+  inviteCode: () => Promise<string>;
   config: (connection: string) => Promise<ConfigResponse>;
   moduleApiCall: <T>(moduleId: number, rpc: ModuleRpc) => Promise<T>;
 }
@@ -354,12 +354,12 @@ export class GuardianApi
     return this.base.call(AdminRpc.fetchEpochCount);
   };
 
-  consensusStatus = (): Promise<ConsensusStatus> => {
-    return this.base.call(AdminRpc.consensusStatus);
+  federationStatus = (): Promise<FederationStatus> => {
+    return this.base.call(AdminRpc.federationStatus);
   };
 
-  connectionCode = (): Promise<string> => {
-    return this.base.call(AdminRpc.connectionCode);
+  inviteCode = (): Promise<string> => {
+    return this.base.call(AdminRpc.inviteCode);
   };
 
   config = (connection: string): Promise<ConfigResponse> => {

@@ -16,13 +16,12 @@ export enum PeerConnectionStatus {
 
 export interface PeerStatus {
   last_contribution?: number;
-  last_contribution_timestamp_seconds?: number;
   connection_status: PeerConnectionStatus;
   flagged: boolean;
 }
 
-export interface ConsensusStatus {
-  last_contribution: number;
+export interface FederationStatus {
+  session_count: number;
   peers_online: number;
   peers_offline: number;
   peers_flagged: number;
@@ -31,19 +30,19 @@ export interface ConsensusStatus {
 
 export interface StatusResponse {
   server: ServerStatus;
-  consensus?: ConsensusStatus;
+  federation?: FederationStatus;
 }
 
 export interface Versions {
   core: {
-    consensus: number;
+    core_consensus: number;
     api: { major: number; minor: number }[];
   };
   modules: Record<
     number,
     {
-      core: number;
-      module: number;
+      core_consensus: number;
+      module_consensus: number;
       api: { major: number; minor: number }[];
     }
   >;
