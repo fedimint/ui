@@ -86,6 +86,11 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   }, [api]);
 
   useEffect(() => {
+    // If we're the only guardian, skip this verify other guardians step.
+    if (numPeers === 1) {
+      next();
+      return;
+    }
     const isAllValid =
       peersWithHash &&
       peersWithHash.every(({ hash }, idx) => hash === enteredHashes[idx]);
