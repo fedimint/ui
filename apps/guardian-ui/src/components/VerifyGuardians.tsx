@@ -101,7 +101,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           setError(formatApiErrorMessage(err));
         });
     }
-  }, [api, peersWithHash, enteredHashes, verifiedConfigs]);
+  }, [api, peersWithHash, enteredHashes, verifiedConfigs, numPeers, next]);
 
   const handleNext = useCallback(async () => {
     setIsStarting(true);
