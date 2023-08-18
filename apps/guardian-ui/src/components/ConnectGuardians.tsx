@@ -137,7 +137,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
             name: peers[i].name,
             status:
               peers[i].status === ServerStatus.ReadyForConfigGen ||
-              role === GuardianRole.Host ? (
+              ourCurrentId === i ? (
                 <Tag colorScheme='green'>{t('connect-guardians.approved')}</Tag>
               ) : (
                 <Tag colorScheme='orange'>{t('connect-guardians.pending')}</Tag>
