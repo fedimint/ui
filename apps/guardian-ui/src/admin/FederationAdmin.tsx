@@ -33,6 +33,9 @@ export const FederationAdmin: React.FC = () => {
   const [config, setConfig] = useState<ConfigResponse>();
   const [gateways, setGateways] = useState<Gateway[]>([]);
   const [guardians, setGuardians] = useState<string | undefined>();
+  const [statusColor, setStatusColor] = useState<
+    'red' | 'green' | 'yellow' | undefined
+  >();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -69,6 +72,14 @@ export const FederationAdmin: React.FC = () => {
     const offline = status?.federation ? status.federation.peers_offline : 0;
 
     const totalPeers = online + offline;
+    const onlinePercentage = online / totalPeers;
+    if (onlinePercentage === 1) {
+      setStatusColor('green');
+    } else if (onlinePercentage >= 2 / 3) {
+      setStatusColor('yellow');
+    } else {
+      setStatusColor('red');
+    }
     setGuardians(`${online} / ${totalPeers}`);
   }, [status]);
 
@@ -98,7 +109,11 @@ export const FederationAdmin: React.FC = () => {
               {t('federation-dashboard.placeholder-fed-description')}
             </Text>
             <Flex gap='12px' mt='13px'>
-              <Pill text='Guardians' status={`${guardians}`} />
+              <Pill
+                text='Guardians'
+                status={`${guardians}`}
+                color={statusColor}
+              />
               <Pill text='Server' status='Healthy' />
               <Pill text='Uptime' status='100%' />
             </Flex>
