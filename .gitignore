@@ -55,5 +55,7 @@ yarn-error.log*
 /build
 fm_1/
 fm_2/
+fm_3/
+fm_4/
 misc/test/data
 misc/test/tls.key

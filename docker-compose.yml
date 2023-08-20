@@ -78,6 +78,36 @@ services:
   #     app_network:
   #       ipv4_address: 10.5.0.8
 
+  fedimintd_3:
+    image: fedimint/fedimintd:6bc6ba15eb1cf8d67a009af5663468b01db8756f
+    environment:
+      - FM_DATA_DIR=/data
+      - FM_BIND_P2P=0.0.0.0:18174
+      - FM_P2P_URL=fedimint://fedimintd_3:18174
+      - FM_BIND_API=0.0.0.0:18185
+      - FM_API_URL=ws://fedimintd_3:18185
+      - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      - FM_BITCOIN_RPC_KIND=bitcoind
+    ports:
+      - '18185:18185'
+    volumes:
+      - ./fm_3/data:/data
+
+  fedimintd_4:
+    image: fedimint/fedimintd:6bc6ba15eb1cf8d67a009af5663468b01db8756f
+    environment:
+      - FM_DATA_DIR=/data
+      - FM_BIND_P2P=0.0.0.0:18175
+      - FM_P2P_URL=fedimint://fedimintd_3:18175
+      - FM_BIND_API=0.0.0.0:18186
+      - FM_API_URL=ws://fedimintd_4:18186
+      - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      - FM_BITCOIN_RPC_KIND=bitcoind
+    ports:
+      - '18186:18186'
+    volumes:
+      - ./fm_4/data:/data
+
   bitcoind:
     image: btcpayserver/bitcoin:24.1
     environment:
