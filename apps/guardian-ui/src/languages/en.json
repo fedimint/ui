@@ -27,9 +27,9 @@
     },
     "peer-info": {
       "label": "Peer info",
+      "id-label": "Id",
       "name-label": "Name",
-      "status-label": "Status",
-      "peer-id-prefix": "Peer"
+      "status-label": "Status"
     }
   },
   "login": {

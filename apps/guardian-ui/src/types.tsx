@@ -71,7 +71,7 @@ export interface ClientConfig {
   consensus_version: number;
   epoch_pk: string;
   federation_id: string;
-  api_endpoint: Record<number, ApiEndpoint>;
+  api_endpoints: Record<number, ApiEndpoint>;
   modules: Record<number, FedimintModule>;
   meta: MetaConfig;
 }
