@@ -17,7 +17,7 @@
   "federation-dashboard": {
     "placeholder-fed-description": "A community-based coalition focused on ushering the world into a bitcoin standard",
     "invite-members": "Invite members",
-    "invite-members-prompt": "Share this to invite members to join the federation",
+    "invite-members-prompt": "Share this to invite members to join the federation. Or have them scan the QR code ->",
     "fed-info": {
       "label": "Federation info",
       "your-status-label": "Your status",

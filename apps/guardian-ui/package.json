@@ -23,10 +23,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
+    "react-qr-code": "^2.0.12",
     "react-scripts": "5.0.1",
     "react-use-websocket": "3.0.0"
   },
   "devDependencies": {
+    "@fedimint/eslint-config": "*",
+    "@fedimint/tsconfig": "*",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.5.0",
@@ -36,8 +39,6 @@
     "@types/react-dom": "^18.2.0",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.2",
-    "@fedimint/eslint-config": "*",
-    "@fedimint/tsconfig": "*",
     "eslint": "^8.4.1",
     "prettier": "^2.8.3",
     "typescript": "^5.1.6"

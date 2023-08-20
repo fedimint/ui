@@ -23,6 +23,7 @@ import { ConnectedNodes } from '../components/ConnectedNodes';
 import { LightningModuleRpc } from '../GuardianApi';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { Pill } from '../components/Pill';
+import QRCode from 'react-qr-code';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
@@ -83,7 +84,7 @@ export const FederationAdmin: React.FC = () => {
   return (
     <Flex gap='32px' flexDirection='row'>
       <Flex gap={4} flexDirection='column' w='100%'>
-        <Flex>
+        <Flex justifyContent='space-between'>
           <Box>
             <Text
               color='#111827'
@@ -114,6 +115,9 @@ export const FederationAdmin: React.FC = () => {
                 {t('federation-dashboard.invite-members-prompt')}
               </Text>
             </Box>
+          </Box>
+          <Box>
+            <QRCode value={inviteCode} />
           </Box>
         </Flex>
         <AdminMain />
