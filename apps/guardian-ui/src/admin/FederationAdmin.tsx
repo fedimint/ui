@@ -67,21 +67,19 @@ export const FederationAdmin: React.FC = () => {
     }
   }, [config, api]);
 
-  useEffect(() => {
-    const online = status?.federation ? status.federation.peers_online + 1 : 1;
-    const offline = status?.federation ? status.federation.peers_offline : 0;
+  const online = status?.federation ? status.federation.peers_online + 1 : 1;
+  const offline = status?.federation ? status.federation.peers_offline : 0;
 
-    const totalPeers = online + offline;
-    const onlinePercentage = online / totalPeers;
-    if (onlinePercentage === 1) {
-      setStatusColor('green');
-    } else if (onlinePercentage >= 2 / 3) {
-      setStatusColor('yellow');
-    } else {
-      setStatusColor('red');
-    }
-    setGuardians(`${online} / ${totalPeers}`);
-  }, [status]);
+  const totalPeers = online + offline;
+  const onlinePercentage = online / totalPeers;
+  if (onlinePercentage === 1) {
+    setStatusColor('green');
+  } else if (onlinePercentage >= 2 / 3) {
+    setStatusColor('yellow');
+  } else {
+    setStatusColor('red');
+  }
+  setGuardians(`${online} / ${totalPeers}`);
 
   const apiVersion = versions?.core.api.length
     ? `${versions.core.api[0].major}.${versions.core.api[0].minor}`
