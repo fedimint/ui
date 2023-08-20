@@ -112,8 +112,8 @@ export const FederationAdmin: React.FC = () => {
                 status={`${guardians}`}
                 color={statusColor}
               />
-              <Pill text='Server' status='Healthy' />
-              <Pill text='Uptime' status='100%' />
+              <Pill text='Server' status='Healthy' color='green' />
+              <Pill text='Uptime' status='100%' color='green' />
             </Flex>
             <Box mt='38px'>
               <Text mb='6px' fontSize='14px' fontWeight='500' color='#344054'>
