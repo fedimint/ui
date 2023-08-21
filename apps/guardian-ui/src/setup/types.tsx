@@ -22,7 +22,7 @@ export enum StepState {
 
 export enum Network {
   Testnet = 'testnet',
-  Mainnet = 'mainnet',
+  Mainnet = 'bitcoin',
   Regtest = 'regtest',
   Signet = 'signet',
 }
