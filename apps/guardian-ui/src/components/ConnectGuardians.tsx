@@ -153,7 +153,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       rows = [...rows, row];
     }
     return rows;
-  }, [numPeers, peers, role, t]);
+  }, [numPeers, ourCurrentId, peers, t]);
 
   return (
     <VStack width='100%' justify='start' align='start' gap={8}>
