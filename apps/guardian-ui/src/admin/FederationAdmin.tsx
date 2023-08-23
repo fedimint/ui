@@ -18,9 +18,7 @@ import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
 import {
-  ClientConfig,
   ConfigResponse,
-  FederationStatus,
   Gateway,
   PeerStatus,
   StatusResponse,
@@ -38,27 +36,6 @@ interface PeerData {
   status: PeerStatus;
 }
 
-function generatePeerData(
-  config: ClientConfig,
-  federationStatus: FederationStatus
-): PeerData[] {
-  const peerDataArray: PeerData[] = [];
-  for (const [id, status] of Object.entries(federationStatus.status_by_peer)) {
-    const numericId = parseInt(id, 10);
-    if (Object.prototype.hasOwnProperty.call(config.api_endpoints, numericId)) {
-      const endpoint = config.api_endpoints[numericId];
-      if (endpoint) {
-        peerDataArray.push({
-          id: numericId,
-          name: endpoint.name,
-          status,
-        });
-      }
-    }
-  }
-  return peerDataArray;
-}
-
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
   const [versions, setVersions] = useState<Versions>();
@@ -67,7 +44,6 @@ export const FederationAdmin: React.FC = () => {
   const [inviteCode, setInviteCode] = useState<string>('');
   const [config, setConfig] = useState<ConfigResponse>();
   const [gateways, setGateways] = useState<Gateway[]>([]);
-  const [peerData, setPeerData] = useState<PeerData[] | undefined>();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -114,10 +90,23 @@ export const FederationAdmin: React.FC = () => {
     return [guardiansStatusText, statusColor];
   }, [status]);
 
-  useEffect(() => {
+  const data = useMemo(() => {
     if (status && status.federation && config) {
-      const data = generatePeerData(config.client_config, status.federation);
-      setPeerData(data);
+      const peerDataArray: PeerData[] = [];
+      for (const [id, federationStatus] of Object.entries(
+        status.federation.status_by_peer
+      )) {
+        const numericId = parseInt(id, 10);
+        const endpoint = config.client_config.api_endpoints[numericId];
+        if (endpoint) {
+          peerDataArray.push({
+            id: numericId,
+            name: endpoint.name,
+            status: federationStatus,
+          });
+        }
+      }
+      return peerDataArray;
     }
   }, [status, config]);
 
@@ -218,8 +207,8 @@ export const FederationAdmin: React.FC = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {peerData &&
-                    peerData?.map((x) => (
+                  {data &&
+                    data?.map((x) => (
                       <Tr key={x.id}>
                         <Td>{x.id}</Td>
                         <Td>{x.name}</Td>
