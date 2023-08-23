@@ -42,7 +42,7 @@ export const Pill: FC<PillProp> = ({ text, status, color }) => {
         alignItems='center'
         bgColor={bgColor}
       >
-        <Box bgColor={bgColor} h='8px' w='8px' borderRadius='32px'></Box>
+        <Box bgColor={textColor} h='8px' w='8px' borderRadius='32px'></Box>
         <Text
           color={textColor}
           fontSize='12px'
