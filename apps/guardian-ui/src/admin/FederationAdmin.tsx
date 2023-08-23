@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   Flex,
   Card,
@@ -32,10 +32,6 @@ export const FederationAdmin: React.FC = () => {
   const [inviteCode, setInviteCode] = useState<string>('');
   const [config, setConfig] = useState<ConfigResponse>();
   const [gateways, setGateways] = useState<Gateway[]>([]);
-  const [guardians, setGuardians] = useState<string | undefined>();
-  const [statusColor, setStatusColor] = useState<
-    'red' | 'green' | 'yellow' | undefined
-  >();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -67,19 +63,20 @@ export const FederationAdmin: React.FC = () => {
     }
   }, [config, api]);
 
-  const online = status?.federation ? status.federation.peers_online + 1 : 1;
-  const offline = status?.federation ? status.federation.peers_offline : 0;
-
-  const totalPeers = online + offline;
-  const onlinePercentage = online / totalPeers;
-  if (onlinePercentage === 1) {
-    setStatusColor('green');
-  } else if (onlinePercentage >= 2 / 3) {
-    setStatusColor('yellow');
-  } else {
-    setStatusColor('red');
-  }
-  setGuardians(`${online} / ${totalPeers}`);
+  const [guardiansStatusText, statusColor] = useMemo(() => {
+    const online = status?.federation ? status.federation.peers_online + 1 : 1;
+    const offline = status?.federation ? status.federation.peers_offline : 0;
+    const totalPeers = online + offline;
+    const onlinePercentage = online / totalPeers;
+    const statusColor: 'green' | 'yellow' | 'red' =
+      onlinePercentage === 1
+        ? 'green'
+        : onlinePercentage >= 2 / 3
+        ? 'yellow'
+        : 'red';
+    const guardiansStatusText = `${online} / ${totalPeers}`;
+    return [guardiansStatusText, statusColor];
+  }, [status]);
 
   const apiVersion = versions?.core.api.length
     ? `${versions.core.api[0].major}.${versions.core.api[0].minor}`
@@ -109,7 +106,7 @@ export const FederationAdmin: React.FC = () => {
             <Flex gap='12px' mt='13px'>
               <Pill
                 text='Guardians'
-                status={`${guardians}`}
+                status={`${guardiansStatusText}`}
                 color={statusColor}
               />
               <Pill text='Server' status='Healthy' color='green' />
