@@ -53,7 +53,6 @@ yarn-error.log*
 /node_modules
 /coverage
 /build
-fm_1/
-fm_2/
+fm_*
 misc/test/data
 misc/test/tls.key

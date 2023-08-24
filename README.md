@@ -37,7 +37,7 @@ From root repo directory:
 
 ### Running the Fedimint Config again
 
-After running through the config setup UI flow once, you will need to delete the `fedimintd` data to run through it again. To do this, delete the `fm_1` and `fm_2` folder from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
+After running through the config setup UI flow once, you will need to delete the `fedimintd` data to run through it again. To do this, delete the `fm_1`, `fm_2`, `fm_3`, and `fm_4` folder from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
 
 ### Running with mprocs
 
