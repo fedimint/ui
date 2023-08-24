@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   Flex,
   Card,
@@ -32,7 +32,6 @@ export const FederationAdmin: React.FC = () => {
   const [inviteCode, setInviteCode] = useState<string>('');
   const [config, setConfig] = useState<ConfigResponse>();
   const [gateways, setGateways] = useState<Gateway[]>([]);
-  const [guardians, setGuardians] = useState<string | undefined>();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -64,12 +63,19 @@ export const FederationAdmin: React.FC = () => {
     }
   }, [config, api]);
 
-  useEffect(() => {
+  const [guardiansStatusText, statusColor] = useMemo(() => {
     const online = status?.federation ? status.federation.peers_online + 1 : 1;
     const offline = status?.federation ? status.federation.peers_offline : 0;
-
     const totalPeers = online + offline;
-    setGuardians(`${online} / ${totalPeers}`);
+    const onlinePercentage = online / totalPeers;
+    const statusColor: 'green' | 'yellow' | 'red' =
+      onlinePercentage === 1
+        ? 'green'
+        : onlinePercentage >= 2 / 3
+        ? 'yellow'
+        : 'red';
+    const guardiansStatusText = `${online} / ${totalPeers}`;
+    return [guardiansStatusText, statusColor];
   }, [status]);
 
   const apiVersion = versions?.core.api.length
@@ -98,9 +104,13 @@ export const FederationAdmin: React.FC = () => {
               {t('federation-dashboard.placeholder-fed-description')}
             </Text>
             <Flex gap='12px' mt='13px'>
-              <Pill text='Guardians' status={`${guardians}`} />
-              <Pill text='Server' status='Healthy' />
-              <Pill text='Uptime' status='100%' />
+              <Pill
+                text='Guardians'
+                status={`${guardiansStatusText}`}
+                color={statusColor}
+              />
+              <Pill text='Server' status='Healthy' color='green' />
+              <Pill text='Uptime' status='100%' color='green' />
             </Flex>
             <Box mt='38px'>
               <Text mb='6px' fontSize='14px' fontWeight='500' color='#344054'>
