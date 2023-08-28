@@ -2,7 +2,7 @@ version: '3'
 
 services:
   fedimintd_1:
-    image: fedimint/fedimintd:6bc6ba15eb1cf8d67a009af5663468b01db8756f
+    image: fedimint/fedimintd:v0.1.0-rc3
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
@@ -19,7 +19,7 @@ services:
       - bitcoind
 
   gatewayd_1:
-    image: fedimint/gatewayd:6bc6ba15eb1cf8d67a009af5663468b01db8756f
+    image: fedimint/gatewayd:v0.1.0-rc3
     command: gatewayd lnd
     environment:
       # Path to folder containing gateway config and data files
@@ -58,7 +58,7 @@ services:
       - fedimintd_1
 
   fedimintd_2:
-    image: fedimint/fedimintd:6bc6ba15eb1cf8d67a009af5663468b01db8756f
+    image: fedimint/fedimintd:v0.1.0-rc3
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
@@ -79,7 +79,7 @@ services:
   #       ipv4_address: 10.5.0.8
 
   fedimintd_3:
-    image: fedimint/fedimintd:6bc6ba15eb1cf8d67a009af5663468b01db8756f
+    image: fedimint/fedimintd:v0.1.0-rc3
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18174
@@ -94,11 +94,11 @@ services:
       - ./fm_3/data:/data
 
   fedimintd_4:
-    image: fedimint/fedimintd:6bc6ba15eb1cf8d67a009af5663468b01db8756f
+    image: fedimint/fedimintd:v0.1.0-rc3
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18175
-      - FM_P2P_URL=fedimint://fedimintd_3:18175
+      - FM_P2P_URL=fedimint://fedimintd_4:18175
       - FM_BIND_API=0.0.0.0:18186
       - FM_API_URL=ws://fedimintd_4:18186
       - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
