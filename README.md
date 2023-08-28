@@ -55,3 +55,12 @@ The `guardian-ui-1` and `guardian-ui-2` are instances of `guardian-ui` apps, eac
 The `gateway-ui` is an instance of `gateway-ui` app, connected to a `gatewayd` server instance (running in the `start-servers` process).
 
 You can see more details by viewing the `mprocs.yml` file.
+
+### Running with local Fedimint
+
+If you would like to run the UIs against changes you have made to fedimint itself:
+
+1. Run `cargo build` in fedimint
+2. Run `env DEVIMINT_PATH=../fedimint/target/debug yarn nix-guardian` (aassuming that you have `ui` and `fedimint` repos checked out in the same directory)
+
+This will put binaries in `fedimint/target/debug` at the front of your `$PATH`. Devimint will use these binaries instead of the ones installed via Nix.
