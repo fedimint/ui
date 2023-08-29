@@ -31,9 +31,11 @@
       "dependsOn": ["^build"]
     },
     "@fedimint/guardian-ui#dev": {
+      "cache": false,
       "dependsOn": ["@fedimint/utils#build", "@fedimint/ui#build"]
     },
     "@fedimint/gateway-ui#dev": {
+      "cache": false,
       "dependsOn": ["@fedimint/utils#build", "@fedimint/ui#build"]
     },
     "clean": {
