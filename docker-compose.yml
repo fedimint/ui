@@ -98,7 +98,7 @@ services:
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18175
-      - FM_P2P_URL=fedimint://fedimintd_3:18175
+      - FM_P2P_URL=fedimint://fedimintd_4:18175
       - FM_BIND_API=0.0.0.0:18186
       - FM_API_URL=ws://fedimintd_4:18186
       - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
