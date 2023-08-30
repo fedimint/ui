@@ -172,7 +172,11 @@ export const FederationAdmin: React.FC = () => {
         <AdminMain />
         <Flex gap={4}>
           <Card flex='1'>
-            <CardHeader>{t('federation-dashboard.fed-info.label')}</CardHeader>
+            <CardHeader>
+              <Text size='lg' fontWeight='600'>
+                {t('federation-dashboard.fed-info.label')}
+              </Text>
+            </CardHeader>
             <CardBody>
               <Table>
                 <Tbody>
@@ -207,7 +211,11 @@ export const FederationAdmin: React.FC = () => {
             </CardBody>
           </Card>
           <Card flex='1'>
-            <CardHeader>{t('federation-dashboard.peer-info.label')}</CardHeader>
+            <CardHeader>
+              <Text size='lg' fontWeight='600'>
+                {t('federation-dashboard.peer-info.label')}
+              </Text>
+            </CardHeader>
             <CardBody>
               <Table>
                 <Thead>
