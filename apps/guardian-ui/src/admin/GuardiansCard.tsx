@@ -73,7 +73,7 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
           ),
           lastContribution: federationStatus.last_contribution
             ? federationStatus.last_contribution
-            : t('federation-dashboard.guardians.last-contribution-unknown'),
+            : t('common.unknown'),
         });
       }
     }

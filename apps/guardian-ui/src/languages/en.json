@@ -2,7 +2,8 @@
   "common": {
     "next": "Next",
     "back": "Back",
-    "error": "Something went wrong."
+    "error": "Something went wrong.",
+    "unknown": "Unknown"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -19,11 +20,16 @@
     "invite-members": "Invite members",
     "invite-members-prompt": "Share this to invite members to join the federation",
     "fed-info": {
-      "label": "Federation info",
-      "your-status-label": "Your status",
+      "label": "Federation Info",
+      "your-status-label": "Status",
       "epoch-count-label": "Epoch count",
-      "api-version-label": "API Version",
+      "api-version-label": "API version",
       "consensus-version-label": "Consensus version"
+    },
+    "bitcoin-node": {
+      "label": "Bitcoin Node",
+      "url-label": "URL",
+      "block-height-label": "Current block height"
     },
     "guardians": {
       "label": "Guardians",
@@ -32,8 +38,7 @@
       "health-label": "Health",
       "health-issue": "Issue",
       "health-good": "Good",
-      "last-contribution-label": "Last contribution epoch",
-      "last-contribution-unknown": "Unknown"
+      "last-contribution-label": "Last contribution epoch"
     }
   },
   "login": {
