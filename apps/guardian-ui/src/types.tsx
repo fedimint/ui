@@ -153,3 +153,13 @@ export interface InitializationState {
   needsAuth: boolean;
   serverStatus: ServerStatus;
 }
+
+export interface ModuleSummary {
+  net_assets: bigint;
+}
+
+export interface AuditSummary {
+  // 9,007,199,254,740,991 milli sats is the upper limit, or ~9007 bitcoin. Should be good?
+  net_assets: bigint;
+  module_summaries: Record<string, ModuleSummary>;
+}
