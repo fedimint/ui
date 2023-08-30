@@ -26,15 +26,7 @@ export const InfoCard = React.memo(function InfoCard(
   const { onCopy, hasCopied } = useClipboard(nodeId);
 
   return (
-    <GatewayCard>
-      <Text
-        fontSize='lg'
-        fontWeight='600'
-        color={theme.colors.gray[900]}
-        fontFamily={theme.fonts.body}
-      >
-        {t('info-card.card_header')}
-      </Text>
+    <GatewayCard title={t('info-card.card_header')}>
       <Flex gap='8px'>
         <Text
           fontSize='md'

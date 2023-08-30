@@ -96,35 +96,16 @@ export const WithdrawCard = React.memo(function WithdrawCard({
       });
   };
 
+  const description = `${t('withdraw-card.total_bitcoin')} ${
+    withdrawObject.amount / 100000
+  } ${t('common.btc')}`;
+
   return (
-    <Box w='100%'>
-      <GatewayCard>
-        <Stack spacing='4px' h='100%'>
-          <Text
-            fontSize='lg'
-            fontWeight='600'
-            color={theme.colors.gray[900]}
-            fontFamily={theme.fonts.body}
-          >
-            {t('withdraw-card.card-header')}
-          </Text>
-          <Text
-            fontSize='md'
-            color={theme.colors.gray[600]}
-            fontFamily={theme.fonts.body}
-          >
-            {t('withdraw-card.total_bitcoin')} {withdrawObject.amount / 100000}{' '}
-            {t('common.btc')}
-          </Text>
-          <Text
-            cursor='pointer'
-            fontSize='sm'
-            color={theme.colors.blue[600]}
-            fontFamily={theme.fonts.body}
-          >
-            {t('withdraw-card.withdraw_all')}
-          </Text>
-        </Stack>
+    <>
+      <GatewayCard
+        title={t('withdraw-card.card-header')}
+        description={description}
+      >
         <Stack spacing='20px'>
           <InputGroup flexDir='column'>
             <Text
@@ -150,6 +131,16 @@ export const WithdrawCard = React.memo(function WithdrawCard({
               onChange={(e) => handleInputChange(e)}
               name='amount'
             />
+
+            <Text
+              mt='4px'
+              cursor='pointer'
+              fontSize='sm'
+              color={theme.colors.blue[600]}
+              fontFamily={theme.fonts.body}
+            >
+              {t('withdraw-card.withdraw_all')}
+            </Text>
           </InputGroup>
           <InputGroup flexDir='column'>
             <Text
@@ -209,7 +200,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
           startWithdrawalCallback={startWithdrawal}
         />
       )}
-    </Box>
+    </>
   );
 });
 
