@@ -45,6 +45,7 @@ export function Table<T extends string>({
       boxShadow={theme.shadows.sm}
       borderRadius={12}
       width='100%'
+      overflow='hidden'
     >
       {hasHeading && (
         <Box
@@ -67,15 +68,19 @@ export function Table<T extends string>({
         </Box>
       )}
       <TableContainer>
-        <ChakraTable style={{ borderCollapse: 'separate' }}>
+        <ChakraTable style={{ borderCollapse: 'collapse' }}>
           <Thead>
             <Tr>
-              {columns.map((column) => (
+              {columns.map((column, idx) => (
                 <Th
                   key={column.key}
                   width={column.width}
                   borderBottom={border}
                   bg={theme.colors.gray[50]}
+                  borderTopLeftRadius={!hasHeading && idx === 0 ? 12 : 0}
+                  borderTopRightRadius={
+                    !hasHeading && idx === columns.length - 1 ? 12 : 0
+                  }
                 >
                   {column.heading}
                 </Th>
