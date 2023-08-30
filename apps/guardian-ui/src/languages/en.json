@@ -25,11 +25,15 @@
       "api-version-label": "API Version",
       "consensus-version-label": "Consensus version"
     },
-    "peer-info": {
-      "label": "Peer info",
-      "id-label": "Id",
+    "guardians": {
+      "label": "Guardians",
       "name-label": "Name",
-      "status-label": "Status"
+      "status-label": "Connection Status",
+      "health-label": "Health",
+      "health-issue": "Issue",
+      "health-good": "Good",
+      "last-contribution-label": "Last contribution epoch",
+      "last-contribution-unknown": "Unknown"
     }
   },
   "login": {

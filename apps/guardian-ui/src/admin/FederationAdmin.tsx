@@ -8,8 +8,6 @@ import {
   Tbody,
   Tr,
   Td,
-  Thead,
-  Th,
   Box,
   Icon,
   Text,
@@ -18,24 +16,12 @@ import {
 import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
-import {
-  ConfigResponse,
-  Gateway,
-  PeerStatus,
-  StatusResponse,
-  Versions,
-} from '../types';
+import { ConfigResponse, Gateway, StatusResponse, Versions } from '../types';
 import { AdminMain } from '../components/AdminMain';
 import { ConnectedNodes } from '../components/ConnectedNodes';
 import { LightningModuleRpc } from '../GuardianApi';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
-import { Pill } from '../components/Pill';
-
-interface PeerData {
-  id: number;
-  name: string;
-  status: PeerStatus;
-}
+import { GuardiansCard } from './GuardiansCard';
 
 export const FederationAdmin: React.FC = () => {
   const theme = useTheme();
@@ -92,26 +78,6 @@ export const FederationAdmin: React.FC = () => {
     return [guardiansStatusText, statusType];
   }, [status]);
 
-  const data = useMemo(() => {
-    if (status && status.federation && config) {
-      const peerDataArray: PeerData[] = [];
-      for (const [id, federationStatus] of Object.entries(
-        status.federation.status_by_peer
-      )) {
-        const numericId = parseInt(id, 10);
-        const endpoint = config.client_config.api_endpoints[numericId];
-        if (endpoint) {
-          peerDataArray.push({
-            id: numericId,
-            name: endpoint.name,
-            status: federationStatus,
-          });
-        }
-      }
-      return peerDataArray;
-    }
-  }, [status, config]);
-
   const apiVersion = versions?.core.api.length
     ? `${versions.core.api[0].major}.${versions.core.api[0].minor}`
     : '';
@@ -136,15 +102,6 @@ export const FederationAdmin: React.FC = () => {
             <Text fontSize='14px' lineHeight='32px'>
               {t('federation-dashboard.placeholder-fed-description')}
             </Text>
-            <Flex gap='12px' mt='13px'>
-              <Pill
-                text='Guardians'
-                status={guardiansStatusText}
-                type={statusType}
-              />
-              <Pill text='Server' status='Healthy' type='success' />
-              <Pill text='Uptime' status='100%' type='success' />
-            </Flex>
             <Box mt='38px'>
               <Text
                 mb='6px'
@@ -210,35 +167,8 @@ export const FederationAdmin: React.FC = () => {
               </Table>
             </CardBody>
           </Card>
-          <Card flex='1'>
-            <CardHeader>
-              <Text size='lg' fontWeight='600'>
-                {t('federation-dashboard.peer-info.label')}
-              </Text>
-            </CardHeader>
-            <CardBody>
-              <Table>
-                <Thead>
-                  <Tr>
-                    <Th>{t('federation-dashboard.peer-info.id-label')}</Th>
-                    <Th>{t('federation-dashboard.peer-info.name-label')}</Th>
-                    <Th>{t('federation-dashboard.peer-info.status-label')}</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {data &&
-                    data?.map((x) => (
-                      <Tr key={x.id}>
-                        <Td>{x.id}</Td>
-                        <Td>{x.name}</Td>
-                        <Td>{x.status.connection_status}</Td>
-                      </Tr>
-                    ))}
-                </Tbody>
-              </Table>
-            </CardBody>
-          </Card>
         </Flex>
+        <GuardiansCard status={status} config={config} />
         <ConnectedNodes gateways={gateways} />
       </Flex>
     </Flex>
