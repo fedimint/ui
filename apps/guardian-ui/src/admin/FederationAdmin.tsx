@@ -3,7 +3,7 @@ import { Flex, Box, Icon, Text, useTheme, Heading } from '@chakra-ui/react';
 import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
-import { ConfigResponse, StatusResponse } from '../types';
+import { AuditSummary, ConfigResponse, StatusResponse } from '../types';
 import { GatewaysCard } from '../components/GatewaysCard';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { GuardiansCard } from '../components/GuardiansCard';
@@ -16,6 +16,7 @@ export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
   const [status, setStatus] = useState<StatusResponse>();
   const [inviteCode, setInviteCode] = useState<string>('');
+  const [auditSummary, setAuditSummary] = useState<AuditSummary>();
   const [config, setConfig] = useState<ConfigResponse>();
   const { t } = useTranslation();
 
@@ -23,6 +24,7 @@ export const FederationAdmin: React.FC = () => {
     // TODO: poll server status
     api.status().then(setStatus).catch(console.error);
     api.inviteCode().then(setInviteCode).catch(console.error);
+    api.audit().then(setAuditSummary).catch(console.error);
   }, [api]);
 
   useEffect(() => {

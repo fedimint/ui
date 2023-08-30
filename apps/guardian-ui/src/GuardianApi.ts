@@ -1,6 +1,7 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
+  AuditSummary,
   ConfigResponse,
   FederationStatus,
   ServerStatus,
@@ -208,6 +209,7 @@ enum AdminRpc {
   inviteCode = 'invite_code',
   config = 'config',
   module = 'module',
+  audit = 'audit',
 }
 
 export enum LightningModuleRpc {
@@ -221,6 +223,7 @@ export interface AdminApiInterface extends SharedApiInterface {
   fetchEpochCount: () => Promise<number>;
   inviteCode: () => Promise<string>;
   config: (connection: string) => Promise<ConfigResponse>;
+  audit: () => Promise<AuditSummary>;
   moduleApiCall: <T>(moduleId: number, rpc: ModuleRpc) => Promise<T>;
 }
 
@@ -364,6 +367,10 @@ export class GuardianApi
 
   config = (connection: string): Promise<ConfigResponse> => {
     return this.base.call<ConfigResponse>(AdminRpc.config, connection);
+  };
+
+  audit = (): Promise<AuditSummary> => {
+    return this.base.call<AuditSummary>(AdminRpc.audit);
   };
 
   moduleApiCall = <T>(moduleId: number, rpc: ModuleRpc): Promise<T> => {
