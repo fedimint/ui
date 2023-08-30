@@ -1,117 +1,117 @@
-import React, { CSSProperties, FC } from 'react';
-import { Box, Center, Flex, Stack, Text, useTheme } from '@chakra-ui/react';
-import { ReactComponent as LightningIcon } from '../assets/svgs/lightningIcon.svg';
-import { Fees, Gateway } from '../types';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Flex,
+  Link,
+  Text,
+  useTheme,
+} from '@chakra-ui/react';
+import { ConfigResponse, Gateway } from '../types';
+import { Table, TableColumn, TableRow } from '@fedimint/ui';
+import { useTranslation } from '@fedimint/utils';
+import { useAdminContext } from '../hooks';
+import { LightningModuleRpc } from '../GuardianApi';
+
+const ellipsisSandwich = (text: string) =>
+  `${text.substring(0, 6)}...${text.substring(text.length - 6)}`;
+
+type TableKey = 'nodeId' | 'gatewayId' | 'fee';
 
 interface ConnectedNodesProps {
-  gateways: Gateway[];
+  config: ConfigResponse | undefined;
 }
 
-export const ConnectedNodes: FC<ConnectedNodesProps> = ({ gateways }) => {
-  return (
-    <>
-      {gateways.map((gateway: Gateway) => (
-        <LightningNode
-          key={gateway.gateway_id}
-          nodeName={'Gateway'}
-          nodeId={gateway.node_pub_key}
-          incomingFees={gateway.fees}
-          outgoingFees={gateway.fees}
-        />
-      ))}
-    </>
-  );
-};
-
-interface LightningNodeProps {
-  nodeName: string;
-  nodeId: string;
-  incomingFees: Fees;
-  outgoingFees: Fees;
-}
-
-const LightningNode: FC<LightningNodeProps> = ({
-  nodeName,
-  nodeId,
-  incomingFees,
-  outgoingFees,
-}) => {
+export const ConnectedNodes: React.FC<ConnectedNodesProps> = ({ config }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
+  const { api } = useAdminContext();
+  const [gateways, setGateways] = useState<Gateway[]>([]);
 
-  const titleStyles: CSSProperties = {
-    color: theme.colors.gray[900],
-    fontWeight: '600',
-  };
+  const lnModuleId = config
+    ? Object.entries(config.client_config.modules).find(
+        (m) => m[1].kind === 'ln'
+      )?.[0]
+    : undefined;
 
-  const subTextStyles: CSSProperties = {
-    color: theme.colors.gray[500],
-    fontWeight: '500',
-  };
+  useEffect(() => {
+    if (!lnModuleId) return;
+    api
+      .moduleApiCall<Gateway[]>(
+        Number(lnModuleId),
+        LightningModuleRpc.listGateways
+      )
+      .then(setGateways)
+      .catch(console.error);
+  }, [config, api, lnModuleId]);
+
+  const columns: TableColumn<TableKey>[] = useMemo(
+    () => [
+      {
+        key: 'nodeId',
+        heading: t('federation-dashboard.gateways.node-id-label'),
+      },
+      {
+        key: 'gatewayId',
+        heading: t('federation-dashboard.gateways.gateway-id-label'),
+      },
+      {
+        key: 'fee',
+        heading: t('federation-dashboard.gateways.fee-label'),
+      },
+    ],
+    [t]
+  );
+
+  const rows: TableRow<TableKey>[] = useMemo(
+    () =>
+      gateways.map(({ gateway_id, node_pub_key, fees }) => {
+        const feePct = fees.proportional_millionths / 10000;
+        const fee = [
+          fees.base_msat ? `${fees.base_msat} sats +` : '',
+          `${fees.proportional_millionths} ppm`,
+          feePct ? `(${feePct}%)` : '',
+        ]
+          .filter(Boolean)
+          .join(' ');
+        return {
+          key: gateway_id,
+          nodeId: (
+            <Flex direction='column' gap='4px'>
+              <Text>{ellipsisSandwich(node_pub_key)}</Text>
+              <Text size='xs'>
+                <Link
+                  color={theme.colors.blue[600]}
+                  href={`https://amboss.space/node/${node_pub_key}`}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  {t('federation-dashboard.gateways.view-on-site', {
+                    site: 'amboss.space',
+                  })}
+                </Link>
+              </Text>
+            </Flex>
+          ),
+          gatewayId: ellipsisSandwich(gateway_id),
+          fee: fee,
+          outgoingFee: fee,
+        };
+      }),
+    [gateways, t, theme]
+  );
 
   return (
-    <Box
-      borderRadius='8px'
-      bgColor={theme.colors.white}
-      boxShadow='0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.10)'
-    >
-      <Flex p='16px 24px' gap='24px'>
-        <Center
-          bgColor={theme.colors.blue[600]}
-          h='48px'
-          w='48px'
-          borderRadius='6px'
-        >
-          <LightningIcon color={theme.colors.white} />
-        </Center>
-        <Flex flexDir='column'>
-          <Text
-            color={theme.colors.gray[900]}
-            textTransform='capitalize'
-            fontSize='lg'
-            fontWeight='semibold'
-            pb='8px'
-          >
-            {nodeName}
-          </Text>
-          <Stack spacing='16px' fontSize='sm' lineHeight='20px'>
-            <Box>
-              <Text style={titleStyles}>Node ID</Text>
-              <Text style={subTextStyles}>{nodeId}</Text>
-            </Box>
-
-            <Box>
-              <Text style={titleStyles}>Fees</Text>
-              <Text
-                style={subTextStyles}
-              >{`Incoming: ${incomingFees.base_msat} sats + (${incomingFees.proportional_millionths} ppm)`}</Text>
-              <Text
-                style={subTextStyles}
-              >{`Outgoing: ${outgoingFees.base_msat} sats + (${outgoingFees.proportional_millionths} ppm)`}</Text>
-            </Box>
-          </Stack>
-        </Flex>
-      </Flex>
-
-      <Flex
-        alignItems='center'
-        gap='4px'
-        p='16px 24px'
-        bgColor={theme.colors.gray[50]}
-      >
-        <a
-          style={{
-            fontSize: '14px',
-            lineHeight: '24px',
-            fontWeight: '500',
-            color: theme.colors.blue[600],
-          }}
-          href={`https://amboss.space/node/${nodeId}`}
-          target='_blank'
-          rel='noreferrer'
-        >
-          View on amboss.space
-        </a>
-      </Flex>
-    </Box>
+    <Card>
+      <CardHeader>
+        <Text size='lg' fontWeight='600'>
+          {t('federation-dashboard.gateways.label')}
+        </Text>
+      </CardHeader>
+      <CardBody>
+        <Table columns={columns} rows={rows} />
+      </CardBody>
+    </Card>
   );
 };

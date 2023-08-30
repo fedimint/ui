@@ -3,9 +3,8 @@ import { Flex, Box, Icon, Text, useTheme } from '@chakra-ui/react';
 import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
-import { ConfigResponse, Gateway, StatusResponse } from '../types';
+import { ConfigResponse, StatusResponse } from '../types';
 import { ConnectedNodes } from '../components/ConnectedNodes';
-import { LightningModuleRpc } from '../GuardianApi';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { GuardiansCard } from './GuardiansCard';
 import { FederationInfoCard } from './FederationInfoCard';
@@ -18,7 +17,6 @@ export const FederationAdmin: React.FC = () => {
   const [status, setStatus] = useState<StatusResponse>();
   const [inviteCode, setInviteCode] = useState<string>('');
   const [config, setConfig] = useState<ConfigResponse>();
-  const [gateways, setGateways] = useState<Gateway[]>([]);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -30,23 +28,6 @@ export const FederationAdmin: React.FC = () => {
   useEffect(() => {
     inviteCode && api.config(inviteCode).then(setConfig).catch(console.error);
   }, [inviteCode, api]);
-
-  useEffect(() => {
-    if (config) {
-      for (const [key, val] of Object.entries(config.client_config.modules)) {
-        if (val.kind === 'ln') {
-          api
-            .moduleApiCall<Gateway[]>(
-              Number(key),
-              LightningModuleRpc.listGateways
-            )
-            .then(setGateways)
-            .catch(console.error);
-          return;
-        }
-      }
-    }
-  }, [config, api]);
 
   return (
     <Flex gap='32px' flexDirection='row'>
@@ -91,7 +72,7 @@ export const FederationAdmin: React.FC = () => {
           </Flex>
         </Flex>
         <GuardiansCard status={status} config={config} />
-        <ConnectedNodes gateways={gateways} />
+        <ConnectedNodes config={config} />
       </Flex>
     </Flex>
   );

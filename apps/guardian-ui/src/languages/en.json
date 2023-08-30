@@ -17,7 +17,6 @@
     "table-description": "Guardians will be confirmed here once they confirm Federation settings."
   },
   "federation-dashboard": {
-    "placeholder-fed-description": "A community-based coalition focused on ushering the world into a bitcoin standard",
     "invite-members": "Invite members",
     "invite-members-prompt": "Share this to invite members to join the federation",
     "fed-info": {
@@ -43,6 +42,13 @@
       "health-issue": "Issue",
       "health-good": "Good",
       "last-contribution-label": "Last contribution epoch"
+    },
+    "gateways": {
+      "label": "Lightning Gateways",
+      "node-id-label": "Node ID",
+      "gateway-id-label": "Gateway ID",
+      "fee-label": "Gateway fee",
+      "view-on-site": "View on {{site}}"
     }
   },
   "login": {
