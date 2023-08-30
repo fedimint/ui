@@ -342,6 +342,26 @@ export const theme = extendTheme(
           },
         },
       },
+      Card: {
+        baseStyle: {
+          container: {
+            boxShadow: `0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.1)`,
+            borderBottom: `20px solid ${colors.gray[50]}`,
+          },
+        },
+        sizes: {
+          md: {
+            header: {
+              padding: '24px',
+              paddingBottom: '8px',
+            },
+            body: {
+              padding: '24px',
+              paddingTop: '8px',
+            },
+          },
+        },
+      },
     },
   },
   // By default all components use blue color scheme
