@@ -75,19 +75,19 @@ export const FederationAdmin: React.FC = () => {
     }
   }, [config, api]);
 
-  const [guardiansStatusText, statusColor] = useMemo(() => {
+  const [guardiansStatusText, statusType] = useMemo(() => {
     const online = status?.federation ? status.federation.peers_online + 1 : 1;
     const offline = status?.federation ? status.federation.peers_offline : 0;
     const totalPeers = online + offline;
     const onlinePercentage = online / totalPeers;
-    const statusColor: 'green' | 'yellow' | 'red' =
+    const statusType: 'success' | 'warning' | 'error' =
       onlinePercentage === 1
-        ? 'green'
+        ? 'success'
         : onlinePercentage >= 2 / 3
-        ? 'yellow'
-        : 'red';
+        ? 'warning'
+        : 'error';
     const guardiansStatusText = `${online} / ${totalPeers}`;
-    return [guardiansStatusText, statusColor];
+    return [guardiansStatusText, statusType];
   }, [status]);
 
   const data = useMemo(() => {
@@ -138,11 +138,11 @@ export const FederationAdmin: React.FC = () => {
             <Flex gap='12px' mt='13px'>
               <Pill
                 text='Guardians'
-                status={`${guardiansStatusText}`}
-                color={statusColor}
+                status={guardiansStatusText}
+                type={statusType}
               />
-              <Pill text='Server' status='Healthy' color='green' />
-              <Pill text='Uptime' status='100%' color='green' />
+              <Pill text='Server' status='Healthy' type='success' />
+              <Pill text='Uptime' status='100%' type='success' />
             </Flex>
             <Box mt='38px'>
               <Text mb='6px' fontSize='14px' fontWeight='500' color='#344054'>
