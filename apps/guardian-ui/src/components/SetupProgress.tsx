@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Center, Flex, Text } from '@chakra-ui/react';
+import { Box, Center, Flex, Text, useTheme } from '@chakra-ui/react';
 import { ReactComponent as CheckIcon } from '../assets/svgs/white-check.svg';
 import { StepState } from '../setup/types';
 
@@ -10,6 +10,8 @@ interface StepProps {
 }
 
 const Step: React.FC<StepProps> = ({ text, state, margin = '-48px' }) => {
+  const theme = useTheme();
+
   const colorState = (
     inActiveColor: string,
     activeColor: string,
@@ -33,20 +35,32 @@ const Step: React.FC<StepProps> = ({ text, state, margin = '-48px' }) => {
         <Box
           w='100%'
           h='2px'
-          bgColor={state === StepState.InActive ? '#EAECF0' : '#1570ef'}
+          bgColor={
+            state === StepState.InActive
+              ? theme.colors.gray[200]
+              : theme.colors.blue[600]
+          }
         ></Box>
         <Flex>
           <Center
             borderRadius={'50%'}
             h={state === StepState.Active ? '36px' : '24px'}
             w={state === StepState.Active ? '36px' : '24px'}
-            bgColor={colorState('transparent', '#EFF8FF', 'transparent')}
+            bgColor={colorState(
+              'transparent',
+              theme.colors.blue[50],
+              'transparent'
+            )}
           >
             <Center
               borderRadius='50%'
               h='24px'
               w='24px'
-              bgColor={colorState('#F2F4F7', '#1570ef', '#1570ef')}
+              bgColor={colorState(
+                theme.colors.gray[100],
+                theme.colors.blue[600],
+                theme.colors.blue[600]
+              )}
             >
               {state === StepState.Completed ? (
                 <CheckIcon />
@@ -66,7 +80,11 @@ const Step: React.FC<StepProps> = ({ text, state, margin = '-48px' }) => {
         textTransform='capitalize'
         fontWeight='600'
         fontSize='14px'
-        color={colorState('#344054', '#1570ef', '#1570ef')}
+        color={colorState(
+          theme.colors.gray[700],
+          theme.colors.blue[600],
+          theme.colors.blue[600]
+        )}
         whiteSpace='nowrap'
         mr={margin}
       >
@@ -77,6 +95,8 @@ const Step: React.FC<StepProps> = ({ text, state, margin = '-48px' }) => {
 };
 
 const InitialStep: React.FC<Pick<StepProps, 'state'>> = ({ state }) => {
+  const theme = useTheme();
+
   return (
     <Flex
       flexDir='column'
@@ -89,9 +109,14 @@ const InitialStep: React.FC<Pick<StepProps, 'state'>> = ({ state }) => {
           borderRadius='50%'
           h={state === StepState.Active ? '36px' : '24px'}
           w={state === StepState.Active ? '36px' : '24px'}
-          bgColor='#EFF8FF'
+          bgColor={theme.colors.blue[50]}
         >
-          <Center borderRadius='50%' h='24px' w='24px' bgColor='#1570EF'>
+          <Center
+            borderRadius='50%'
+            h='24px'
+            w='24px'
+            bgColor={theme.colors.blue[600]}
+          >
             {state === StepState.Completed ? (
               <CheckIcon />
             ) : (
@@ -109,7 +134,11 @@ const InitialStep: React.FC<Pick<StepProps, 'state'>> = ({ state }) => {
         textTransform='capitalize'
         fontWeight='600'
         fontSize='14px'
-        color={state === StepState.InActive ? '#344054' : '#1570ef'}
+        color={
+          state === StepState.InActive
+            ? theme.colors.gray[700]
+            : theme.colors.blue[600]
+        }
         whiteSpace='nowrap'
         mr='-42px'
       >
