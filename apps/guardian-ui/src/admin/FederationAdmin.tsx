@@ -10,6 +10,8 @@ import { LightningModuleRpc } from '../GuardianApi';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { GuardiansCard } from './GuardiansCard';
 import { FederationInfoCard } from './FederationInfoCard';
+import { BitcoinNodeCard } from './BitcoinNodeCard';
+import { BalanceCard } from './BalanceCard';
 
 export const FederationAdmin: React.FC = () => {
   const theme = useTheme();
@@ -88,8 +90,12 @@ export const FederationAdmin: React.FC = () => {
           </Box>
         </Flex>
         <AdminMain />
-        <Flex gap={4}>
+        <Flex gap={6} alignItems='flex-start'>
           <FederationInfoCard status={status} />
+          <Flex flex={1} direction='column' gap={5}>
+            <BalanceCard />
+            <BitcoinNodeCard config={config} />
+          </Flex>
         </Flex>
         <GuardiansCard status={status} config={config} />
         <ConnectedNodes gateways={gateways} />

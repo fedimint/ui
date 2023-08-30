@@ -65,7 +65,7 @@ export const FederationInfoCard: React.FC<Props> = ({ status }) => {
   );
 
   return (
-    <Card flex='1'>
+    <Card flex={1}>
       <CardHeader>
         <Text size='lg' fontWeight='600'>
           {t('federation-dashboard.fed-info.label')}

@@ -1,5 +1,6 @@
 {
   "common": {
+    "bitcoin": "Bitcoin",
     "next": "Next",
     "back": "Back",
     "error": "Something went wrong.",
@@ -25,6 +26,9 @@
       "epoch-count-label": "Epoch count",
       "api-version-label": "API version",
       "consensus-version-label": "Consensus version"
+    },
+    "balance": {
+      "label": "Balance"
     },
     "bitcoin-node": {
       "label": "Bitcoin Node",
