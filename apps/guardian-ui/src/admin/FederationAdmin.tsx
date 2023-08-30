@@ -4,7 +4,6 @@ import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
 import { ConfigResponse, Gateway, StatusResponse } from '../types';
-import { AdminMain } from '../components/AdminMain';
 import { ConnectedNodes } from '../components/ConnectedNodes';
 import { LightningModuleRpc } from '../GuardianApi';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
@@ -51,45 +50,39 @@ export const FederationAdmin: React.FC = () => {
 
   return (
     <Flex gap='32px' flexDirection='row'>
-      <Flex gap={4} flexDirection='column' w='100%'>
-        <Flex>
-          <Box>
+      <Flex gap={6} flexDirection='column' w='100%'>
+        <Box maxWidth='400px'>
+          <Text
+            fontSize='24px'
+            fontWeight='600'
+            lineHeight='32px'
+            textTransform='capitalize'
+          >
+            {config?.client_config.meta.federation_name}
+          </Text>
+          <Box mt='38px'>
             <Text
-              fontSize='24px'
-              fontWeight='600'
-              lineHeight='32px'
-              textTransform='capitalize'
+              mb='6px'
+              fontSize='14px'
+              fontWeight='500'
+              color={theme.colors.gray[700]}
             >
-              {config?.client_config.meta.federation_name}
+              {t('federation-dashboard.invite-members')}
             </Text>
-            <Text fontSize='14px' lineHeight='32px'>
-              {t('federation-dashboard.placeholder-fed-description')}
+            <CopyInput
+              value={inviteCode}
+              buttonLeftIcon={<Icon as={CopyIcon} />}
+            />
+            <Text
+              mt='6px'
+              mb='25px'
+              fontSize='14px'
+              color={theme.colors.gray[500]}
+            >
+              {t('federation-dashboard.invite-members-prompt')}
             </Text>
-            <Box mt='38px'>
-              <Text
-                mb='6px'
-                fontSize='14px'
-                fontWeight='500'
-                color={theme.colors.gray[700]}
-              >
-                {t('federation-dashboard.invite-members')}
-              </Text>
-              <CopyInput
-                value={inviteCode}
-                buttonLeftIcon={<Icon as={CopyIcon} />}
-              />
-              <Text
-                mt='6px'
-                mb='25px'
-                fontSize='14px'
-                color={theme.colors.gray[500]}
-              >
-                {t('federation-dashboard.invite-members-prompt')}
-              </Text>
-            </Box>
           </Box>
-        </Flex>
-        <AdminMain />
+        </Box>
         <Flex gap={6} alignItems='flex-start'>
           <FederationInfoCard status={status} />
           <Flex flex={1} direction='column' gap={5}>
