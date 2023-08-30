@@ -48,7 +48,7 @@ export const App = React.memo(function App() {
     if (state.status === Status.Admin) {
       return (
         <AdminContextProvider api={api}>
-          <Wrapper>
+          <Wrapper size='lg'>
             <FederationAdmin />
           </Wrapper>
         </AdminContextProvider>

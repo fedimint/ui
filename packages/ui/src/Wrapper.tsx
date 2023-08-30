@@ -5,10 +5,12 @@ import { Footer } from './Footer';
 
 export interface WrapperProps {
   children: React.ReactNode;
+  size?: 'md' | 'lg';
 }
 
 export const Wrapper = memo(function Wrapper({
   children,
+  size = 'md',
 }: WrapperProps): JSX.Element {
   return (
     <Flex
@@ -18,7 +20,7 @@ export const Wrapper = memo(function Wrapper({
       alignItems='center'
     >
       <Box
-        maxW='960px'
+        maxW={size === 'lg' ? '1200px' : '960px'}
         mt={10}
         mb={10}
         mr={[2, 4, 6, 10]}
