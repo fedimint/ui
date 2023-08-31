@@ -10,12 +10,9 @@ import {
 } from '@chakra-ui/react';
 import { ConfigResponse, Gateway } from '../types';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
-import { useTranslation } from '@fedimint/utils';
+import { useTranslation, formatEllipsized } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
 import { LightningModuleRpc } from '../GuardianApi';
-
-const ellipsisSandwich = (text: string) =>
-  `${text.substring(0, 6)}...${text.substring(text.length - 6)}`;
 
 type TableKey = 'nodeId' | 'gatewayId' | 'fee';
 
@@ -79,7 +76,7 @@ export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
           key: gateway_id,
           nodeId: (
             <Flex direction='column' gap='4px'>
-              <Text>{ellipsisSandwich(node_pub_key)}</Text>
+              <Text>{formatEllipsized(node_pub_key)}</Text>
               <Text size='xs'>
                 <Link
                   color={theme.colors.blue[600]}
@@ -94,7 +91,7 @@ export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
               </Text>
             </Flex>
           ),
-          gatewayId: ellipsisSandwich(gateway_id),
+          gatewayId: formatEllipsized(gateway_id),
           fee: fee,
           outgoingFee: fee,
         };

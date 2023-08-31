@@ -7,7 +7,7 @@ import {
   Box,
   useClipboard,
 } from '@chakra-ui/react';
-import { useTranslation } from '@fedimint/utils';
+import { formatEllipsized, useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '.';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
@@ -27,7 +27,7 @@ export const InfoCard = React.memo(function InfoCard(
 
   return (
     <GatewayCard title={t('info-card.card_header')}>
-      <Flex gap='8px'>
+      <Flex gap='8px' mb='8px'>
         <Text
           fontSize='md'
           color={theme.colors.gray[900]}
@@ -37,7 +37,7 @@ export const InfoCard = React.memo(function InfoCard(
           cursor='pointer'
           onClick={onCopy}
         >
-          {nodeId}
+          {formatEllipsized(nodeId)}
         </Text>
         <Box>
           {hasCopied ? (

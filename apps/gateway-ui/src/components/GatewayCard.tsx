@@ -13,7 +13,7 @@ export const GatewayCard = React.memo(function GatewayCard({
   children,
 }: GatewayCardProps) {
   return (
-    <Card w='100%' h='100%' maxWidth='100%' maxH='100%'>
+    <Card w='100%' maxWidth='100%'>
       <CardHeader>
         <Text size='lg' fontWeight='600'>
           {title}
