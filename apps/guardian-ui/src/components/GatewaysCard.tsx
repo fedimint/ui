@@ -19,11 +19,11 @@ const ellipsisSandwich = (text: string) =>
 
 type TableKey = 'nodeId' | 'gatewayId' | 'fee';
 
-interface ConnectedNodesProps {
+interface GatewaysCardProps {
   config: ConfigResponse | undefined;
 }
 
-export const ConnectedNodes: React.FC<ConnectedNodesProps> = ({ config }) => {
+export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { api } = useAdminContext();

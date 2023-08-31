@@ -4,12 +4,12 @@ import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
 import { ConfigResponse, StatusResponse } from '../types';
-import { ConnectedNodes } from '../components/ConnectedNodes';
+import { GatewaysCard } from '../components/GatewaysCard';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
-import { GuardiansCard } from './GuardiansCard';
-import { FederationInfoCard } from './FederationInfoCard';
-import { BitcoinNodeCard } from './BitcoinNodeCard';
-import { BalanceCard } from './BalanceCard';
+import { GuardiansCard } from '../components/GuardiansCard';
+import { FederationInfoCard } from '../components/FederationInfoCard';
+import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
+import { BalanceCard } from '../components/BalanceCard';
 
 export const FederationAdmin: React.FC = () => {
   const theme = useTheme();
@@ -69,7 +69,7 @@ export const FederationAdmin: React.FC = () => {
           </Flex>
         </Flex>
         <GuardiansCard status={status} config={config} />
-        <ConnectedNodes config={config} />
+        <GatewaysCard config={config} />
       </Flex>
     </Flex>
   );
