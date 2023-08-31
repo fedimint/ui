@@ -75,7 +75,7 @@ export function Table<T extends string>({
                   key={column.key}
                   width={column.width}
                   borderBottom={border}
-                  bg='#F9FAFB'
+                  bg={theme.colors.gray[50]}
                 >
                   {column.heading}
                 </Th>

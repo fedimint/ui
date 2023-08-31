@@ -13,6 +13,7 @@ import {
   Box,
   Icon,
   Text,
+  useTheme,
 } from '@chakra-ui/react';
 import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
@@ -37,6 +38,7 @@ interface PeerData {
 }
 
 export const FederationAdmin: React.FC = () => {
+  const theme = useTheme();
   const { api } = useAdminContext();
   const [versions, setVersions] = useState<Versions>();
   const [epochCount, setEpochCount] = useState<number>();
@@ -75,19 +77,19 @@ export const FederationAdmin: React.FC = () => {
     }
   }, [config, api]);
 
-  const [guardiansStatusText, statusColor] = useMemo(() => {
+  const [guardiansStatusText, statusType] = useMemo(() => {
     const online = status?.federation ? status.federation.peers_online + 1 : 1;
     const offline = status?.federation ? status.federation.peers_offline : 0;
     const totalPeers = online + offline;
     const onlinePercentage = online / totalPeers;
-    const statusColor: 'green' | 'yellow' | 'red' =
+    const statusType: 'success' | 'warning' | 'error' =
       onlinePercentage === 1
-        ? 'green'
+        ? 'success'
         : onlinePercentage >= 2 / 3
-        ? 'yellow'
-        : 'red';
+        ? 'warning'
+        : 'error';
     const guardiansStatusText = `${online} / ${totalPeers}`;
-    return [guardiansStatusText, statusColor];
+    return [guardiansStatusText, statusType];
   }, [status]);
 
   const data = useMemo(() => {
@@ -124,7 +126,6 @@ export const FederationAdmin: React.FC = () => {
         <Flex>
           <Box>
             <Text
-              color='#111827'
               fontSize='24px'
               fontWeight='600'
               lineHeight='32px'
@@ -132,27 +133,37 @@ export const FederationAdmin: React.FC = () => {
             >
               {config?.client_config.meta.federation_name}
             </Text>
-            <Text color='#111827' fontSize='14px' lineHeight='32px'>
+            <Text fontSize='14px' lineHeight='32px'>
               {t('federation-dashboard.placeholder-fed-description')}
             </Text>
             <Flex gap='12px' mt='13px'>
               <Pill
                 text='Guardians'
-                status={`${guardiansStatusText}`}
-                color={statusColor}
+                status={guardiansStatusText}
+                type={statusType}
               />
-              <Pill text='Server' status='Healthy' color='green' />
-              <Pill text='Uptime' status='100%' color='green' />
+              <Pill text='Server' status='Healthy' type='success' />
+              <Pill text='Uptime' status='100%' type='success' />
             </Flex>
             <Box mt='38px'>
-              <Text mb='6px' fontSize='14px' fontWeight='500' color='#344054'>
+              <Text
+                mb='6px'
+                fontSize='14px'
+                fontWeight='500'
+                color={theme.colors.gray[700]}
+              >
                 {t('federation-dashboard.invite-members')}
               </Text>
               <CopyInput
                 value={inviteCode}
                 buttonLeftIcon={<Icon as={CopyIcon} />}
               />
-              <Text mt='6px' mb='25px' fontSize='14px' color='#6B7280'>
+              <Text
+                mt='6px'
+                mb='25px'
+                fontSize='14px'
+                color={theme.colors.gray[500]}
+              >
                 {t('federation-dashboard.invite-members-prompt')}
               </Text>
             </Box>

@@ -2,7 +2,6 @@ export { GatewayCard } from './GatewayCard';
 export { WithdrawCard } from './WithdrawCard';
 export { FederationCard } from './FederationCard';
 export { Header } from './Header';
-export { Input } from './Input';
 export { ConnectFederation } from './ConnectFederation';
 export { TabHeader } from './TabHeader';
 export { InfoCard } from './InfoCard';

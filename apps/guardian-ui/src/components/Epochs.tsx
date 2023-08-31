@@ -31,7 +31,7 @@ const Epoch: FC<EpochProps> = ({ epochCount, pegin, pegout, gatewayTrxs }) => {
         pt='4px'
         pb='8px'
         fontWeight='semibold'
-        color='#059669'
+        color={theme.colors.success[500]}
         fontSize='md'
       >
         #{epochCount}
