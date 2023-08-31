@@ -85,7 +85,7 @@ export class GatewayApi implements ApiInterface {
     }
   };
 
-  connectFederation = async (connectInfo: string): Promise<Federation> => {
+  connectFederation = async (inviteCode: string): Promise<Federation> => {
     try {
       this.checkConfig();
       const res: Response = await fetch(`${this.baseUrl}/connect-fed`, {
@@ -95,7 +95,7 @@ export class GatewayApi implements ApiInterface {
           Authorization: `Bearer ${this.password}`,
         },
         body: JSON.stringify({
-          connect: connectInfo,
+          invite_code: inviteCode,
         }),
       });
 
