@@ -6,11 +6,13 @@ import {
   InputRightElement,
   useTheme,
   useClipboard,
+  Box,
+  Flex,
 } from '@chakra-ui/react';
 
 export interface CopyInputProps {
   value: string;
-  size?: 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
   buttonLeftIcon?: React.ReactElement;
 }
 
@@ -21,26 +23,43 @@ export const CopyInput: React.FC<CopyInputProps> = ({
 }) => {
   const { onCopy, hasCopied } = useClipboard(value);
   const theme = useTheme();
+  const [buttonWidth, buttonHeight] = {
+    lg: ['115px', '46px'],
+    md: ['100px', '42px'],
+    sm: ['96px', '38px'],
+  }[size];
 
   return (
     <InputGroup width='100%' size={size}>
-      <Input readOnly value={value} width='100%' />
+      <Input
+        readOnly
+        value={value}
+        width='100%'
+        textOverflow='ellipsis'
+        overflow='hidden'
+        paddingRight={buttonWidth}
+      />
       <InputRightElement
         borderLeft={`1px solid ${theme.colors.border.input}`}
-        width={size === 'lg' ? 115 : 100}
+        width={buttonWidth}
         pr={'1px'}
       >
         <Button
           variant='ghost'
-          leftIcon={buttonLeftIcon}
+          leftIcon={
+            <Flex align='center' fontSize='20px'>
+              {buttonLeftIcon}
+            </Flex>
+          }
           onClick={onCopy}
           borderTopLeftRadius={0}
           borderBottomLeftRadius={0}
           size={size}
-          height={size == 'lg' ? '46px' : '42px'}
+          height={buttonHeight}
           width='100%'
           colorScheme='gray'
           bg={theme.colors.white}
+          color={theme.colors.gray[700]}
         >
           {hasCopied ? 'Copied' : 'Copy'}
         </Button>

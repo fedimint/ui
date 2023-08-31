@@ -157,6 +157,7 @@ const inputSizes = Object.keys(buttonSizes).reduce((prev, key) => {
   const css = {
     height: buttonSizes[size].height,
     px: Math.floor(buttonSizes[size].px * 0.75),
+    borderRadius: '8px',
   };
   prev = {
     ...prev,
@@ -281,6 +282,9 @@ export const theme = extendTheme(
               boxShadow: shadows.xs,
               _hover: {
                 borderColor: colors.border.hover,
+              },
+              _readOnly: {
+                color: colors.gray[500],
               },
             },
           },

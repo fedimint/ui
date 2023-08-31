@@ -49,6 +49,7 @@ export const FederationAdmin: React.FC = () => {
             <CopyInput
               value={inviteCode}
               buttonLeftIcon={<Icon as={CopyIcon} />}
+              size='sm'
             />
             <Text
               mt='6px'
