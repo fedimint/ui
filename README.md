@@ -61,6 +61,6 @@ You can see more details by viewing the `mprocs.yml` file.
 If you would like to run the UIs against changes you have made to fedimint itself:
 
 1. Run `cargo build` in fedimint
-2. Run `env DEVIMINT_PATH=../fedimint/target/debug yarn nix-guardian` (aassuming that you have `ui` and `fedimint` repos checked out in the same directory)
+2. Run `env DEVIMINT_PATH=$(realpath ../fedimint/target/debug) yarn nix-guardian` (assuming that you have `ui` and `fedimint` repos checked out in the same directory)
 
 This will put binaries in `fedimint/target/debug` at the front of your `$PATH`. Devimint will use these binaries instead of the ones installed via Nix.
