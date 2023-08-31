@@ -1,3 +1,5 @@
+import type { MSats } from '@fedimint/utils';
+
 export enum ServerStatus {
   AwaitingPassword = 'AwaitingPassword',
   SharingConfigGenParams = 'SharingConfigGenParams',
@@ -155,11 +157,10 @@ export interface InitializationState {
 }
 
 export interface ModuleSummary {
-  net_assets: bigint;
+  net_assets: MSats;
 }
 
 export interface AuditSummary {
-  // 9,007,199,254,740,991 milli sats is the upper limit, or ~9007 bitcoin. Should be good?
-  net_assets: bigint;
-  module_summaries: Record<string, ModuleSummary>;
+  net_assets: MSats;
+  module_summaries: Record<string, ModuleSummary | undefined>;
 }
