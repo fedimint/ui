@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Box, Icon, Text, useTheme } from '@chakra-ui/react';
+import { Flex, Box, Icon, Text, useTheme, Heading } from '@chakra-ui/react';
 import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
@@ -26,22 +26,18 @@ export const FederationAdmin: React.FC = () => {
   }, [api]);
 
   useEffect(() => {
-    inviteCode && api.config(inviteCode).then(setConfig).catch(console.error);
+    if (!inviteCode) return;
+    api.config(inviteCode).then(setConfig).catch(console.error);
   }, [inviteCode, api]);
 
   return (
     <Flex gap='32px' flexDirection='row'>
       <Flex gap={6} flexDirection='column' w='100%'>
         <Box maxWidth='400px'>
-          <Text
-            fontSize='24px'
-            fontWeight='600'
-            lineHeight='32px'
-            textTransform='capitalize'
-          >
+          <Heading size='xs' mt='12px'>
             {config?.client_config.meta.federation_name}
-          </Text>
-          <Box mt='38px'>
+          </Heading>
+          <Box mt='36px'>
             <Text
               mb='6px'
               fontSize='14px'
