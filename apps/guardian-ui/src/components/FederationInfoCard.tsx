@@ -1,13 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Table,
-  Tbody,
-  Td,
-  Text,
-  Tr,
-} from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import React, { useEffect, useMemo, useState } from 'react';
 import { StatusResponse, Versions } from '../types';
@@ -65,7 +56,7 @@ export const FederationInfoCard: React.FC<Props> = ({ status }) => {
   );
 
   return (
-    <Card flex={1}>
+    <Card w='100%'>
       <CardHeader>
         <Text size='lg' fontWeight='600'>
           {t('federation-dashboard.fed-info.label')}

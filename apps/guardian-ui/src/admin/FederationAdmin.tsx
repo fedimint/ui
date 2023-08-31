@@ -61,9 +61,13 @@ export const FederationAdmin: React.FC = () => {
             </Text>
           </Box>
         </Box>
-        <Flex gap={6} alignItems='flex-start'>
+        <Flex
+          gap={6}
+          alignItems='flex-start'
+          flexDir={{ base: 'column', sm: 'column', md: 'row' }}
+        >
           <FederationInfoCard status={status} />
-          <Flex flex={1} direction='column' gap={5}>
+          <Flex w='100%' direction='column' gap={5}>
             <BalanceCard />
             <BitcoinNodeCard config={config} />
           </Flex>

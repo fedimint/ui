@@ -19,7 +19,7 @@ export const BalanceCard: React.FC = () => {
   );
 
   return (
-    <Card>
+    <Card w='100%'>
       <CardHeader>
         <Text size='lg' fontWeight='600'>
           {t('federation-dashboard.balance.label')}

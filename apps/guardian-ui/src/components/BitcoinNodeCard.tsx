@@ -30,7 +30,7 @@ export const BitcoinNodeCard: React.FC<Props> = () => {
   );
 
   return (
-    <Card flex='1'>
+    <Card w='100%'>
       <CardHeader>
         <Text size='lg' fontWeight='600'>
           {t('federation-dashboard.bitcoin-node.label')}
