@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { Box, VStack, Spinner, Heading, Text, Center } from '@chakra-ui/react';
 import { theme, Fonts, SharedChakraProvider, Wrapper } from '@fedimint/ui';
+import spaceGroteskTtf from '@fedimint/ui/assets/fonts/SpaceGrotesk-Variable.ttf';
+import interTtf from '@fedimint/ui/assets/fonts/Inter-Variable.ttf';
 import { SetupContextProvider } from './setup/SetupContext';
 import { AdminContextProvider } from './admin/AdminContext';
 import { FederationSetup } from './setup/FederationSetup';
@@ -71,7 +73,7 @@ export const App = React.memo(function App() {
 
   return (
     <React.StrictMode>
-      <Fonts />
+      <Fonts spaceGroteskTtf={spaceGroteskTtf} interTtf={interTtf} />
       <SharedChakraProvider theme={theme}>
         <Center>
           <Box width='100%'>{content}</Box>
