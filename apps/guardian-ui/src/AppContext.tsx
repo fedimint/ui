@@ -66,9 +66,16 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
         await api.connect();
         const server = (await api.status()).server;
 
-        const password = api.getPassword();
-        if (server !== ServerStatus.AwaitingPassword && !password) {
-          dispatch({ type: APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: true });
+        // If they're at a point where a password has been configured, make
+        // sure they have a valid password set. If not, set needsAuth.
+        if (server !== ServerStatus.AwaitingPassword) {
+          const password = api.getPassword();
+          const hasValidPassword = password
+            ? await api.testPassword(password)
+            : false;
+          if (!hasValidPassword) {
+            dispatch({ type: APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: true });
+          }
         }
 
         if (server === ServerStatus.ConsensusRunning) {
