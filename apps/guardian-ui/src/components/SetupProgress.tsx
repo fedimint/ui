@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Center, Flex, Text, useTheme } from '@chakra-ui/react';
 import { ReactComponent as CheckIcon } from '../assets/svgs/white-check.svg';
-import { StepState } from '../setup/types';
+import { StepState } from '../types';
 
 interface StepProps {
   text: string;

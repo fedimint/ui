@@ -1,4 +1,4 @@
-import { MetaConfig, ModuleKind, ServerStatus } from '../types';
+import { MetaConfig, ModuleKind, Peer, BitcoinRpc, Network } from './api';
 
 export enum GuardianRole {
   Host = 'Host',
@@ -18,26 +18,6 @@ export enum StepState {
   Active = 'Active',
   InActive = 'InActive',
   Completed = 'Completed',
-}
-
-export enum Network {
-  Testnet = 'testnet',
-  Mainnet = 'bitcoin',
-  Regtest = 'regtest',
-  Signet = 'signet',
-}
-
-export interface Peer {
-  name: string;
-  cert: string;
-  api_url: string;
-  p2p_url: string;
-  status: ServerStatus;
-}
-
-export interface BitcoinRpc {
-  kind: string;
-  url: string;
 }
 
 export type PeerHashMap = Record<number, string>;

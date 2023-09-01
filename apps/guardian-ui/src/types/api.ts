@@ -22,6 +22,14 @@ export interface PeerStatus {
   flagged: boolean;
 }
 
+export interface Peer {
+  name: string;
+  cert: string;
+  api_url: string;
+  p2p_url: string;
+  status: ServerStatus;
+}
+
 export interface FederationStatus {
   session_count: number;
   peers_online: number;
@@ -113,47 +121,16 @@ interface RouteHint {
   src_node_id: string;
 }
 
-export enum Status {
-  Loading,
-  Setup,
-  Admin,
+export enum Network {
+  Testnet = 'testnet',
+  Mainnet = 'bitcoin',
+  Regtest = 'regtest',
+  Signet = 'signet',
 }
 
-export interface AppState {
-  status: Status;
-  needsAuth: boolean;
-  initServerStatus?: ServerStatus;
-  appError?: string;
-}
-
-export enum APP_ACTION_TYPE {
-  SET_STATUS = 'SET_STATUS',
-  SET_NEEDS_AUTH = 'SET_NEEDS_AUTH',
-  SET_INIT_SERVER_STATUS = 'SET_INIT_SERVER_STATUS',
-  SET_ERROR = 'SET_ERROR',
-}
-
-export type AppAction =
-  | {
-      type: APP_ACTION_TYPE.SET_STATUS;
-      payload: Status;
-    }
-  | {
-      type: APP_ACTION_TYPE.SET_NEEDS_AUTH;
-      payload: boolean;
-    }
-  | {
-      type: APP_ACTION_TYPE.SET_INIT_SERVER_STATUS;
-      payload: ServerStatus | undefined;
-    }
-  | {
-      type: APP_ACTION_TYPE.SET_ERROR;
-      payload: string | undefined;
-    };
-
-export interface InitializationState {
-  needsAuth: boolean;
-  serverStatus: ServerStatus;
+export interface BitcoinRpc {
+  kind: string;
+  url: string;
 }
 
 export interface ModuleSummary {

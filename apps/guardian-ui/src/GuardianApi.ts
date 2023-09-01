@@ -1,5 +1,4 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
-import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
   AuditSummary,
   ConfigResponse,
@@ -7,6 +6,9 @@ import {
   ServerStatus,
   StatusResponse,
   Versions,
+  ConfigGenParams,
+  ConsensusState,
+  PeerHashMap,
 } from './types';
 
 export interface SocketAndAuthInterface {
