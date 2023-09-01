@@ -32,7 +32,7 @@
     "bitcoin-node": {
       "label": "Bitcoin Node",
       "url-label": "URL",
-      "block-height-label": "Current block height"
+      "network-label": "Network"
     },
     "guardians": {
       "label": "Guardians",
