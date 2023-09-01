@@ -141,3 +141,41 @@ export interface AuditSummary {
   net_assets: MSats;
   module_summaries: Record<string, ModuleSummary | undefined>;
 }
+
+// Consider sharing these types with types/setup.ts *ModuleParams? Need to
+// confirm that setup API returns identical types to the admin API.
+interface ModuleConfigs {
+  [ModuleKind.Ln]: {
+    network: Network;
+    fee_consensus: {
+      contract_input: number;
+      contract_output: number;
+    };
+  };
+  [ModuleKind.Mint]: {
+    fee_consensus: {
+      note_issuance_abs: number;
+      note_spend_abs: number;
+    };
+    max_notes_per_denomination: number;
+    peer_tbs_pks: Record<number, Record<number, string>>;
+  };
+  [ModuleKind.Wallet]: {
+    client_default_bitcoin_rpc: BitcoinRpc;
+    default_fee: { sats_per_kvb: number };
+    fee_consensus: {
+      peg_in_abs: number;
+      peg_out_abs: number;
+    };
+    finality_delay: number;
+    network: Network;
+    peer_peg_in_keys: Record<number, { key: string }>;
+    peg_in_descriptor: number;
+  };
+}
+
+export type ModuleConfig<T extends ModuleKind = ModuleKind> = {
+  kind: T;
+} & ModuleConfigs[T];
+
+export type ModulesConfigResponse = Record<string, ModuleConfig>;
