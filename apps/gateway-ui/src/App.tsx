@@ -91,7 +91,7 @@ export const App = React.memo(function Admin(): JSX.Element {
 
   return (
     <ApiProvider props={{ gateway }}>
-      <Wrapper>
+      <Wrapper size='lg'>
         {error ? (
           <VStack spacing={4}>
             <Heading size='md'>{t('common.error')}</Heading>

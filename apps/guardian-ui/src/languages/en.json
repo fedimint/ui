@@ -1,8 +1,10 @@
 {
   "common": {
+    "bitcoin": "Bitcoin",
     "next": "Next",
     "back": "Back",
-    "error": "Something went wrong."
+    "error": "Something went wrong.",
+    "unknown": "Unknown"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -15,21 +17,38 @@
     "table-description": "Guardians will be confirmed here once they confirm Federation settings."
   },
   "federation-dashboard": {
-    "placeholder-fed-description": "A community-based coalition focused on ushering the world into a bitcoin standard",
     "invite-members": "Invite members",
     "invite-members-prompt": "Share this to invite members to join the federation",
     "fed-info": {
-      "label": "Federation info",
-      "your-status-label": "Your status",
+      "label": "Federation Info",
+      "your-status-label": "Status",
       "epoch-count-label": "Epoch count",
-      "api-version-label": "API Version",
+      "api-version-label": "API version",
       "consensus-version-label": "Consensus version"
     },
-    "peer-info": {
-      "label": "Peer info",
-      "id-label": "Id",
+    "balance": {
+      "label": "Balance"
+    },
+    "bitcoin-node": {
+      "label": "Bitcoin Node",
+      "url-label": "URL",
+      "block-height-label": "Current block height"
+    },
+    "guardians": {
+      "label": "Guardians",
       "name-label": "Name",
-      "status-label": "Status"
+      "status-label": "Connection Status",
+      "health-label": "Health",
+      "health-issue": "Issue",
+      "health-good": "Good",
+      "last-contribution-label": "Last contribution epoch"
+    },
+    "gateways": {
+      "label": "Lightning Gateways",
+      "node-id-label": "Node ID",
+      "gateway-id-label": "Gateway ID",
+      "fee-label": "Gateway fee",
+      "view-on-site": "View on {{site}}"
     }
   },
   "login": {

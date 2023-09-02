@@ -157,6 +157,7 @@ const inputSizes = Object.keys(buttonSizes).reduce((prev, key) => {
   const css = {
     height: buttonSizes[size].height,
     px: Math.floor(buttonSizes[size].px * 0.75),
+    borderRadius: '8px',
   };
   prev = {
     ...prev,
@@ -282,6 +283,9 @@ export const theme = extendTheme(
               _hover: {
                 borderColor: colors.border.hover,
               },
+              _readOnly: {
+                color: colors.gray[500],
+              },
             },
           },
           filled: {
@@ -339,6 +343,26 @@ export const theme = extendTheme(
             borderColor: colors.border.input,
             borderRadius: 12,
             borderCollapse: 'separate',
+          },
+        },
+      },
+      Card: {
+        baseStyle: {
+          container: {
+            boxShadow: shadows.sm,
+            borderBottom: `20px solid ${colors.gray[50]}`,
+          },
+        },
+        sizes: {
+          md: {
+            header: {
+              padding: '24px',
+              paddingBottom: '8px',
+            },
+            body: {
+              padding: '24px',
+              paddingTop: '8px',
+            },
           },
         },
       },
