@@ -13,6 +13,7 @@ import {
   Tag,
   useTheme,
   HStack,
+  CircularProgress,
 } from '@chakra-ui/react';
 import { CopyInput, FormGroup, Table } from '@fedimint/ui';
 import { useConsensusPolling, useSetupContext } from '../hooks';
@@ -88,7 +89,12 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   useEffect(() => {
     // If we're the only guardian, skip this verify other guardians step.
     if (numPeers === 1) {
-      next();
+      api
+        .startConsensus()
+        .then(next)
+        .catch((err) => {
+          setError(formatApiErrorMessage(err));
+        });
       return;
     }
     const isAllValid =
@@ -191,6 +197,17 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     );
   } else if (!peersWithHash) {
     return <Spinner />;
+  } else if (numPeers === 1) {
+    return (
+      <VStack gap={8} justify='center' align='center'>
+        <CircularProgress
+          isIndeterminate
+          color={theme.colors.blue[400]}
+          size='200px'
+        />
+        <Heading size='sm'>{t('verify-guardians.starting-consensus')}</Heading>
+      </VStack>
+    );
   } else {
     return (
       <VStack gap={8} justify='start' align='start'>
