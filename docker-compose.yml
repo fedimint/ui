@@ -71,6 +71,8 @@ services:
       - '18184:18184'
     volumes:
       - ./fm_2/data:/data
+    depends_on:
+      - bitcoind
 
   # gatewayd_2:
   #   image: fedimint/gatewayd:master
@@ -92,6 +94,8 @@ services:
       - '18185:18185'
     volumes:
       - ./fm_3/data:/data
+    depends_on:
+      - bitcoind
 
   fedimintd_4:
     image: fedimint/fedimintd:v0.1.0-rc3
@@ -107,6 +111,8 @@ services:
       - '18186:18186'
     volumes:
       - ./fm_4/data:/data
+    depends_on:
+      - bitcoind
 
   bitcoind:
     image: btcpayserver/bitcoin:24.1

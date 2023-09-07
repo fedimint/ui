@@ -1,3 +1,5 @@
+import type { MSats } from '@fedimint/utils';
+
 export enum ServerStatus {
   AwaitingPassword = 'AwaitingPassword',
   SharingConfigGenParams = 'SharingConfigGenParams',
@@ -152,4 +154,13 @@ export type AppAction =
 export interface InitializationState {
   needsAuth: boolean;
   serverStatus: ServerStatus;
+}
+
+export interface ModuleSummary {
+  net_assets: MSats;
+}
+
+export interface AuditSummary {
+  net_assets: MSats;
+  module_summaries: Record<string, ModuleSummary | undefined>;
 }
