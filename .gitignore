@@ -49,6 +49,7 @@ yarn-error.log*
 .DS_Store
 *.log*
 .env*
+!/.envrc
 /.pnp
 /node_modules
 /coverage
