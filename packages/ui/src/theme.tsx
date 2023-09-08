@@ -374,7 +374,12 @@ export const theme = extendTheme(
   withDefaultColorScheme({ colorScheme: 'gray', components: ['Table'] })
 );
 
-export const Fonts = () => (
+interface FontsProps {
+  spaceGroteskTtf: string;
+  interTtf: string;
+}
+
+export const Fonts: React.FC<FontsProps> = ({ spaceGroteskTtf, interTtf }) => (
   <Global
     styles={`
       @font-face {
@@ -382,7 +387,7 @@ export const Fonts = () => (
         font-style: normal;
         font-weight: 300 700;
         font-display: swap;
-        src: url('/fonts/SpaceGrotesk-Variable.ttf') format('truetype');
+        src: url(${spaceGroteskTtf}) format('truetype');
       }
 
       @font-face {
@@ -390,7 +395,7 @@ export const Fonts = () => (
         font-style: normal;
         font-weight: 100 900;
         font-display: swap;
-        src: url('/fonts/Inter-Variable.ttf') format('truetype');
+        src: url(${interTtf}) format('truetype');
       }
     `}
   />
