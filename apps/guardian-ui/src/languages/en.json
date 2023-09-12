@@ -32,7 +32,7 @@
     "bitcoin-node": {
       "label": "Bitcoin Node",
       "url-label": "URL",
-      "block-height-label": "Current block height"
+      "network-label": "Network"
     },
     "guardians": {
       "label": "Guardians",
@@ -58,6 +58,8 @@
     "submit": "Submit"
   },
   "role-selector": {
+    "disclaimer-title": "Fedimint is alpha software",
+    "disclaimer-text": "You are using a very early version of Fedimint. It is recommended to not use mainnet bitcoin for your federation. Please use with caution.",
     "leader": {
       "label": "Leader",
       "description": "Choose one of your Guardians as a Leader. The Leader will input information about the Federation."

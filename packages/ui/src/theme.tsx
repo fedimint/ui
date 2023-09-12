@@ -1,9 +1,15 @@
 import React from 'react';
 import { Global } from '@emotion/react';
-import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react';
+import {
+  AlertProps,
+  cssVar,
+  extendTheme,
+  withDefaultColorScheme,
+} from '@chakra-ui/react';
 
 const SPACE_GROTESK = 'Space Grotesk';
 const INTER = 'Inter';
+const STATUSES = ['info', 'warning', 'error', 'success'] as const;
 
 export const palette = {
   black: '#000000',
@@ -89,6 +95,7 @@ const shadows = {
 export const colors = {
   ...palette,
   // Aliases
+  info: palette.blue,
   error: palette.red,
   warning: palette.yellow,
   success: palette.green,
@@ -363,6 +370,44 @@ export const theme = extendTheme(
               padding: '24px',
               paddingTop: '8px',
             },
+          },
+        },
+      },
+      Alert: {
+        baseStyle: {
+          container: {
+            alignItems: 'flex-start',
+            padding: '16px',
+            borderRadius: '6px',
+          },
+        },
+        variants: {
+          subtle: (props: AlertProps) => {
+            const { status } = props;
+            const color =
+              status && STATUSES.includes(status as (typeof STATUSES)[number])
+                ? colors[status as (typeof STATUSES)[number]]
+                : colors.gray;
+            return {
+              container: {
+                [cssVar('alert-bg').variable]: color[50],
+                [cssVar('alert-fg').variable]: color[400],
+              },
+              icon: {
+                width: '20px',
+                height: '20px',
+              },
+              title: {
+                color: color[800],
+                fontWeight: '600',
+                marginBottom: '4px',
+                ...textSizes.sm,
+              },
+              description: {
+                color: color[700],
+                ...textSizes.sm,
+              },
+            };
           },
         },
       },

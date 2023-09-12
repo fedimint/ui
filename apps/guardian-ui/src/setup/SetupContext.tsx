@@ -13,8 +13,8 @@ import {
   SETUP_ACTION_TYPE,
   SetupProgress,
   ConfigGenParams,
-} from './types';
-import { ServerStatus } from '../types';
+  ServerStatus,
+} from '../types';
 import { GuardianApi } from '../GuardianApi';
 
 const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
@@ -130,8 +130,11 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   initServerStatus,
   children,
 }: SetupContextProviderProps) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { password, configGenParams, myName } = state;
+  const [state, dispatch] = useReducer(reducer, {
+    ...initialState,
+    password: api.getPassword() || initialState.password,
+  });
+  const { password, myName } = state;
   const [isPollingConsensus, setIsPollingConsensus] = useState(false);
 
   useEffect(() => {
@@ -237,9 +240,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
     useCallback(
       async ({ password: newPassword, myName, configs }) => {
         if (!password) {
-          if (!configGenParams) {
-            await api.setPassword(newPassword);
-          }
+          await api.setPassword(newPassword);
 
           dispatch({
             type: SETUP_ACTION_TYPE.SET_PASSWORD,
@@ -280,7 +281,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
           await fetchConsensusState();
         }
       },
-      [password, api, dispatch, configGenParams, fetchConsensusState]
+      [password, api, dispatch, fetchConsensusState]
     );
 
   const connectToHost = useCallback(

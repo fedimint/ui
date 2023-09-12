@@ -18,7 +18,7 @@ import { CopyInput, Table, TableRow } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { useConsensusPolling, useSetupContext } from '../hooks';
 import { ModuleKind, ServerStatus } from '../types';
-import { GuardianRole } from '../setup/types';
+import { GuardianRole } from '../types';
 import { getModuleParamsFromConfig } from '../utils/api';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 

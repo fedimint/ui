@@ -1,11 +1,21 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Button, VStack, Icon } from '@chakra-ui/react';
+import {
+  Button,
+  Icon,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Box,
+  Flex,
+} from '@chakra-ui/react';
 import { RadioButtonGroup, RadioButtonOption } from '@fedimint/ui';
-import { GuardianRole, SETUP_ACTION_TYPE } from '../setup/types';
+import { GuardianRole, SETUP_ACTION_TYPE } from '../types';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { ReactComponent as CheckIcon } from '../assets/svgs/check.svg';
 import { ReactComponent as StarsIcon } from '../assets/svgs/stars.svg';
 import { ReactComponent as IntersectSquareIcon } from '../assets/svgs/intersect-square.svg';
+import { ReactComponent as WarningIcon } from '../assets/svgs/warning.svg';
 import { useSetupContext } from '../hooks';
 import { useTranslation } from '@fedimint/utils';
 
@@ -44,7 +54,19 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
   }, [role, dispatch, next]);
 
   return (
-    <VStack gap={8} align='left' justify='left'>
+    <Flex direction='column' gap={8} align='left' justify='left' maxWidth={660}>
+      <Alert status='warning'>
+        <AlertIcon>
+          <WarningIcon />
+        </AlertIcon>
+        <Box>
+          <AlertTitle>{t('role-selector.disclaimer-title')}</AlertTitle>
+          <AlertDescription>
+            {t('role-selector.disclaimer-text')}
+          </AlertDescription>
+        </Box>
+      </Alert>
+
       <RadioButtonGroup
         options={options}
         value={role}
@@ -62,6 +84,6 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
           {t('common.next')}
         </Button>
       </div>
-    </VStack>
+    </Flex>
   );
 });

@@ -3,7 +3,7 @@ import { Box, Button, Text, Heading, Icon, VStack } from '@chakra-ui/react';
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { useTranslation } from '@fedimint/utils';
 import { useSetupContext } from '../hooks';
-import { GuardianRole, SetupProgress, SETUP_ACTION_TYPE } from './types';
+import { GuardianRole, SetupProgress, SETUP_ACTION_TYPE } from '../types';
 import { RoleSelector } from '../components/RoleSelector';
 import { SetConfiguration } from '../components/SetConfiguration';
 import { ConnectGuardians } from '../components/ConnectGuardians';

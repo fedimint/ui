@@ -1,5 +1,5 @@
 import { JsonRpcError } from 'jsonrpc-client-websocket';
-import { AnyModuleParams, ConfigGenParams } from '../setup/types';
+import { AnyModuleParams, ConfigGenParams } from '../types';
 import { ModuleKind } from '../types';
 
 /**

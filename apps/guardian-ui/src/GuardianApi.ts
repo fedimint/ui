@@ -1,5 +1,4 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
-import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
   AuditSummary,
   ConfigResponse,
@@ -7,6 +6,10 @@ import {
   ServerStatus,
   StatusResponse,
   Versions,
+  ConfigGenParams,
+  ConsensusState,
+  PeerHashMap,
+  ModulesConfigResponse,
 } from './types';
 
 export interface SocketAndAuthInterface {
@@ -122,6 +125,10 @@ class BaseGuardianApi
     }
   };
 
+  clearPassword = () => {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+  };
+
   /*** Shared RPC methods */
   auth = (): Promise<void> => {
     return this.call(SharedRpc.auth);
@@ -129,10 +136,6 @@ class BaseGuardianApi
 
   status = (): Promise<StatusResponse> => {
     return this.call(SharedRpc.status);
-  };
-
-  clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
   };
 
   call = async <T>(
@@ -208,6 +211,7 @@ enum AdminRpc {
   federationStatus = 'consensus_status',
   inviteCode = 'invite_code',
   config = 'config',
+  modulesConfig = 'modules_config_json',
   module = 'module',
   audit = 'audit',
 }
@@ -224,6 +228,7 @@ export interface AdminApiInterface extends SharedApiInterface {
   inviteCode: () => Promise<string>;
   config: (connection: string) => Promise<ConfigResponse>;
   audit: () => Promise<AuditSummary>;
+  modulesConfig: () => Promise<ModulesConfigResponse>;
   moduleApiCall: <T>(moduleId: number, rpc: ModuleRpc) => Promise<T>;
 }
 
@@ -250,6 +255,10 @@ export class GuardianApi
     return this.base.testPassword(password);
   };
 
+  clearPassword = () => {
+    return this.base.clearPassword();
+  };
+
   /*** Shared RPC methods */
 
   status = (): Promise<StatusResponse> => {
@@ -259,13 +268,16 @@ export class GuardianApi
   /*** Setup RPC methods ***/
 
   setPassword = async (password: string): Promise<void> => {
+    // Save password to session storage so that it's included in the r[c] call
     sessionStorage.setItem(SESSION_STORAGE_KEY, password);
 
-    return this.base.call(SetupRpc.setPassword);
-  };
-
-  private clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    try {
+      await this.base.call(SetupRpc.setPassword);
+    } catch (err) {
+      // If the call failed, clear the password first then re-throw
+      this.clearPassword();
+      throw err;
+    }
   };
 
   setConfigGenConnections = async (
@@ -371,6 +383,10 @@ export class GuardianApi
 
   audit = (): Promise<AuditSummary> => {
     return this.base.call<AuditSummary>(AdminRpc.audit);
+  };
+
+  modulesConfig = () => {
+    return this.base.call<ModulesConfigResponse>(AdminRpc.modulesConfig);
   };
 
   moduleApiCall = <T>(moduleId: number, rpc: ModuleRpc): Promise<T> => {
