@@ -32,7 +32,7 @@ export const BitcoinNodeCard: React.FC<Props> = ({ modulesConfigs }) => {
         ),
       },
       {
-        key: 'blockHeight',
+        key: 'network',
         label: t('federation-dashboard.bitcoin-node.network-label'),
         value: walletConfig ? (
           walletConfig.network
