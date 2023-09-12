@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Center, Flex, Text, useTheme } from '@chakra-ui/react';
 import { ReactComponent as CheckIcon } from '../assets/svgs/white-check.svg';
 import { StepState } from '../setup/types';
+import { useTranslation } from '@fedimint/utils';
 
 interface StepProps {
   text: string;
@@ -85,7 +86,6 @@ const Step: React.FC<StepProps> = ({ text, state, isFirst }) => {
           state === StepState.Active ? '-18px' : '-12px'
         })`}
         textAlign='center'
-        textTransform='capitalize'
         fontWeight='600'
         fontSize={{ base: '12px', md: '14px' }}
         color={colorState(
@@ -110,16 +110,22 @@ export const SetupProgress: React.FC<SetupProgressProps> = ({
   setupProgress,
   isHost,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Flex justifyContent='center' alignItems='center' w='100%'>
       <Flex w='100%' px={{ base: 7, md: 9 }} justifyContent='space-between'>
         <Step
-          text='Federation details'
+          text={t('setup.progress.set-config.step')}
           state={setupProgress === 1 ? StepState.Active : StepState.Completed}
           isFirst
         />
         <Step
-          text={isHost ? 'Invite Guardians' : 'Confirm Info'}
+          text={t(
+            isHost
+              ? 'setup.progress.connect-guardians.step-leader'
+              : 'setup.progress.connect-guardians.step-follower'
+          )}
           state={
             setupProgress === 2
               ? StepState.Active
@@ -129,7 +135,7 @@ export const SetupProgress: React.FC<SetupProgressProps> = ({
           }
         />
         <Step
-          text='Verify Guardians'
+          text={t('setup.progress.verify-guardians.step')}
           state={
             setupProgress === 4
               ? StepState.Active
@@ -139,7 +145,7 @@ export const SetupProgress: React.FC<SetupProgressProps> = ({
           }
         />
         <Step
-          text='Done '
+          text={t('setup.progress.setup-complete.step')}
           state={setupProgress === 5 ? StepState.Completed : StepState.InActive}
         />
       </Flex>
