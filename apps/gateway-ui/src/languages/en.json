@@ -34,7 +34,7 @@
     "mempool_deposit_link_text": "View on mempool.space"
   },
   "federation-card": {
-    "details": "Details"
+    "default-federation-name": "Your federation"
   },
   "header": {
     "connect": "Connect Federation",
