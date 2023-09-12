@@ -99,18 +99,22 @@
     "progress": {
       "start": {
         "title": "Welcome to Fedimint!",
-        "subtitle": "Are you creating a Federation, or joining one?"
+        "subtitle": "Are you creating a Federation, or joining one?",
+        "step": "Federation details"
       },
       "set-config": {
         "title": "Let's set up your federation",
         "subtitle-leader": "Your Federation Followers will confirm this information on their end.",
-        "subtitle-follower": "Your Federation Leader will be setting up main Federation details. You’ll confirm them soon."
+        "subtitle-follower": "Your Federation Leader will be setting up main Federation details. You’ll confirm them soon.",
+        "step": "Federation details"
       },
       "connect-guardians": {
         "title-leader": "Invite your Guardians",
         "title-follower": "Confirm your Federation Information",
         "subtitle-leader": "Share the link with the other Guardians to get everyone on the same page. Once all the Guardians join, you’ll automatically move on to the next step.",
-        "subtitle-follower": "Make sure that the information here looks right, and that the Federation Guardians are correct. Click the Approve button when you’re sure it looks good."
+        "subtitle-follower": "Make sure that the information here looks right, and that the Federation Guardians are correct. Click the Approve button when you’re sure it looks good.",
+        "step-leader": "Invite Guardians",
+        "step-follower": "Confirm info"
       },
       "run-dkg": {
         "title": "Boom! Sharing info between Guardians",
@@ -118,7 +122,11 @@
       },
       "verify-guardians": {
         "title": "Verify your Guardians",
-        "subtitle": "Ask each Guardian for their verification code, and paste them below to check validity. We’re almost done!"
+        "subtitle": "Ask each Guardian for their verification code, and paste them below to check validity. We’re almost done!",
+        "step": "Verify guardians"
+      },
+      "setup-complete": {
+        "step": "Done!"
       },
       "error": {
         "title": "Unknown step",

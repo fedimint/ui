@@ -1,15 +1,16 @@
 import React from 'react';
 import { Box, Center, Flex, Text, useTheme } from '@chakra-ui/react';
 import { ReactComponent as CheckIcon } from '../assets/svgs/white-check.svg';
+import { useTranslation } from '@fedimint/utils';
 import { StepState } from '../types';
 
 interface StepProps {
   text: string;
   state: StepState;
-  margin?: string;
+  isFirst?: boolean;
 }
 
-const Step: React.FC<StepProps> = ({ text, state, margin = '-48px' }) => {
+const Step: React.FC<StepProps> = ({ text, state, isFirst }) => {
   const theme = useTheme();
 
   const colorState = (
@@ -25,11 +26,12 @@ const Step: React.FC<StepProps> = ({ text, state, margin = '-48px' }) => {
 
   return (
     <Flex
-      w='100%'
+      w={isFirst ? 'auto' : '100%'}
+      position='relative'
       flexDir='column'
       alignItems='flex-end'
-      h='72px'
       justifyContent='space-between'
+      pb={{ base: '24px', md: '28px' }}
     >
       <Flex alignItems='center' h='100%' w='100%'>
         <Box
@@ -77,72 +79,23 @@ const Step: React.FC<StepProps> = ({ text, state, margin = '-48px' }) => {
         </Flex>
       </Flex>
       <Text
-        textTransform='capitalize'
+        position='absolute'
+        bottom={0}
+        right={0}
+        transform={`translateX(50%) translateX(${
+          state === StepState.Active ? '-18px' : '-12px'
+        })`}
+        textAlign='center'
         fontWeight='600'
-        fontSize='14px'
+        fontSize={{ base: '12px', md: '14px' }}
         color={colorState(
           theme.colors.gray[700],
           theme.colors.blue[600],
-          theme.colors.blue[600]
+          theme.colors.gray[700]
         )}
         whiteSpace='nowrap'
-        mr={margin}
       >
         {text}
-      </Text>
-    </Flex>
-  );
-};
-
-const InitialStep: React.FC<Pick<StepProps, 'state'>> = ({ state }) => {
-  const theme = useTheme();
-
-  return (
-    <Flex
-      flexDir='column'
-      alignItems='flex-end'
-      h='72px'
-      justifyContent='space-between'
-    >
-      <Flex alignItems='center' h='100%'>
-        <Center
-          borderRadius='50%'
-          h={state === StepState.Active ? '36px' : '24px'}
-          w={state === StepState.Active ? '36px' : '24px'}
-          bgColor={theme.colors.blue[50]}
-        >
-          <Center
-            borderRadius='50%'
-            h='24px'
-            w='24px'
-            bgColor={theme.colors.blue[600]}
-          >
-            {state === StepState.Completed ? (
-              <CheckIcon />
-            ) : (
-              <Center
-                borderRadius='50%'
-                h='8px'
-                w='8px'
-                bgColor='white'
-              ></Center>
-            )}
-          </Center>
-        </Center>
-      </Flex>
-      <Text
-        textTransform='capitalize'
-        fontWeight='600'
-        fontSize='14px'
-        color={
-          state === StepState.InActive
-            ? theme.colors.gray[700]
-            : theme.colors.blue[600]
-        }
-        whiteSpace='nowrap'
-        mr='-42px'
-      >
-        Federation details
       </Text>
     </Flex>
   );
@@ -157,14 +110,22 @@ export const SetupProgress: React.FC<SetupProgressProps> = ({
   setupProgress,
   isHost,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Flex justifyContent='center' alignItems='center' w='100%'>
-      <Flex w='100%' justifyContent='space-between'>
-        <InitialStep
+      <Flex w='100%' px={{ base: 7, md: 9 }} justifyContent='space-between'>
+        <Step
+          text={t('setup.progress.set-config.step')}
           state={setupProgress === 1 ? StepState.Active : StepState.Completed}
+          isFirst
         />
         <Step
-          text={isHost ? 'Invite Guardians' : 'Confirm Info'}
+          text={t(
+            isHost
+              ? 'setup.progress.connect-guardians.step-leader'
+              : 'setup.progress.connect-guardians.step-follower'
+          )}
           state={
             setupProgress === 2
               ? StepState.Active
@@ -172,10 +133,9 @@ export const SetupProgress: React.FC<SetupProgressProps> = ({
               ? StepState.Completed
               : StepState.InActive
           }
-          margin={isHost ? '-48px' : '-32px'}
         />
         <Step
-          text='Verify Guardians'
+          text={t('setup.progress.verify-guardians.step')}
           state={
             setupProgress === 4
               ? StepState.Active
@@ -185,9 +145,8 @@ export const SetupProgress: React.FC<SetupProgressProps> = ({
           }
         />
         <Step
-          text='Done '
+          text={t('setup.progress.setup-complete.step')}
           state={setupProgress === 5 ? StepState.Completed : StepState.InActive}
-          margin='-8px'
         />
       </Flex>
     </Flex>
