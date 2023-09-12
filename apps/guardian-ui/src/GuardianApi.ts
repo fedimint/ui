@@ -122,6 +122,10 @@ class BaseGuardianApi
     }
   };
 
+  clearPassword = () => {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+  };
+
   /*** Shared RPC methods */
   auth = (): Promise<void> => {
     return this.call(SharedRpc.auth);
@@ -129,10 +133,6 @@ class BaseGuardianApi
 
   status = (): Promise<StatusResponse> => {
     return this.call(SharedRpc.status);
-  };
-
-  clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
   };
 
   call = async <T>(
@@ -250,6 +250,10 @@ export class GuardianApi
     return this.base.testPassword(password);
   };
 
+  clearPassword = () => {
+    return this.base.clearPassword();
+  };
+
   /*** Shared RPC methods */
 
   status = (): Promise<StatusResponse> => {
@@ -259,13 +263,16 @@ export class GuardianApi
   /*** Setup RPC methods ***/
 
   setPassword = async (password: string): Promise<void> => {
+    // Save password to session storage so that it's included in the r[c] call
     sessionStorage.setItem(SESSION_STORAGE_KEY, password);
 
-    return this.base.call(SetupRpc.setPassword);
-  };
-
-  private clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    try {
+      await this.base.call(SetupRpc.setPassword);
+    } catch (err) {
+      // If the call failed, clear the password first then re-throw
+      this.clearPassword();
+      throw err;
+    }
   };
 
   setConfigGenConnections = async (
