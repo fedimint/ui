@@ -51,7 +51,7 @@ export function RadioButtonGroup<T extends string | number>({
   };
 
   return (
-    <VStack gap={1} align='left'>
+    <Flex direction='column' gap={3} align='left'>
       {options.map((option) => {
         const isActive = option.value === value;
         return (
@@ -62,7 +62,6 @@ export function RadioButtonGroup<T extends string | number>({
             pl={4}
             pr={4}
             width='full'
-            maxWidth={660}
             height={106}
             borderRadius={12}
             textAlign='left'
@@ -140,6 +139,6 @@ export function RadioButtonGroup<T extends string | number>({
           </Button>
         );
       })}
-    </VStack>
+    </Flex>
   );
 }
