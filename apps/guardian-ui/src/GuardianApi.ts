@@ -1,5 +1,4 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
-import { ConfigGenParams, ConsensusState, PeerHashMap } from './setup/types';
 import {
   AuditSummary,
   ConfigResponse,
@@ -7,6 +6,10 @@ import {
   ServerStatus,
   StatusResponse,
   Versions,
+  ConfigGenParams,
+  ConsensusState,
+  PeerHashMap,
+  ModulesConfigResponse,
 } from './types';
 
 export interface SocketAndAuthInterface {
@@ -208,6 +211,7 @@ enum AdminRpc {
   federationStatus = 'consensus_status',
   inviteCode = 'invite_code',
   config = 'config',
+  modulesConfig = 'modules_config_json',
   module = 'module',
   audit = 'audit',
 }
@@ -224,6 +228,7 @@ export interface AdminApiInterface extends SharedApiInterface {
   inviteCode: () => Promise<string>;
   config: (connection: string) => Promise<ConfigResponse>;
   audit: () => Promise<AuditSummary>;
+  modulesConfig: () => Promise<ModulesConfigResponse>;
   moduleApiCall: <T>(moduleId: number, rpc: ModuleRpc) => Promise<T>;
 }
 
@@ -378,6 +383,10 @@ export class GuardianApi
 
   audit = (): Promise<AuditSummary> => {
     return this.base.call<AuditSummary>(AdminRpc.audit);
+  };
+
+  modulesConfig = () => {
+    return this.base.call<ModulesConfigResponse>(AdminRpc.modulesConfig);
   };
 
   moduleApiCall = <T>(moduleId: number, rpc: ModuleRpc): Promise<T> => {

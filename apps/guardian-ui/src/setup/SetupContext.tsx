@@ -13,8 +13,8 @@ import {
   SETUP_ACTION_TYPE,
   SetupProgress,
   ConfigGenParams,
-} from './types';
-import { ServerStatus } from '../types';
+  ServerStatus,
+} from '../types';
 import { GuardianApi } from '../GuardianApi';
 
 const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
