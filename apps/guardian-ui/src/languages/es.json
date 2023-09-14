@@ -1,122 +1,170 @@
 {
   "common": {
-    "next": "Siguiente",
     "back": "Atrás",
-    "error": "Algo salió mal."
+    "bitcoin": "bitcóin",
+    "error": "Algo salió mal.",
+    "next": "Siguiente",
+    "unknown": "Desconocido"
   },
   "connect-guardians": {
-    "invite-guardians": "Invitar seguidores",
-    "invite-guardians-help": "Comparte este enlace con los demás Guardianes",
     "approve": "Aprobar",
     "approved": "Aprobado",
-    "pending": "Pendiente",
+    "invite-guardians": "Invitar seguidores",
+    "invite-guardians-help": "Comparte este enlace con los demás Guardianes",
     "not-joined": "No unido",
-    "table-title": "Guardianes de la Federación",
-    "table-description": "Los guardianes se confirmarán aquí una vez que confirmen la configuración de la Federación."
+    "pending": "Pendiente",
+    "table-description": "Los guardianes se confirmarán aquí una vez que confirmen la configuración de la Federación.",
+    "table-title": "Guardianes de la Federación"
   },
   "federation-dashboard": {
-    "card-header": "Información de la federación",
-    "your-status": "Tu estado",
-    "epoch-count": "Recuento de épocas",
-    "api-version": "Versión de la API",
-    "consensus-version": "Versión de consenso",
-    "peer-info": "Información del par",
-    "name": "Nombre",
-    "status": "Estado",
-    "peer": "Par"
+    "balance": {
+      "label": "Balance"
+    },
+    "bitcoin-node": {
+      "label": "Nodo Bitcoin",
+      "network-label": "Red",
+      "url-label": "URL"
+    },
+    "fed-info": {
+      "api-version-label": "Versión API",
+      "consensus-version-label": "Versión de consenso",
+      "epoch-count-label": "Recuento de época",
+      "label": "Información de la Federación",
+      "your-status-label": "Estado"
+    },
+    "gateways": {
+      "fee-label": "Tarifa de puerta de enlace",
+      "gateway-id-label": "ID de puerta de enlace",
+      "label": "Puertas de enlace relámpago",
+      "node-id-label": "ID de nodo",
+      "view-on-site": "Ver en {{site}}"
+    },
+    "guardians": {
+      "health-good": "Bien",
+      "health-issue": "Asunto",
+      "health-label": "Salud",
+      "label": "Guardianes",
+      "last-contribution-label": "Última época de contribución",
+      "name-label": "Nombre",
+      "status-label": "Estado de conexión"
+    },
+    "invite-members": "Invitar a los miembros",
+    "invite-members-prompt": "Comparte esto para invitar a miembros a unirse a la federación."
+  },
+  "footer": {
+    "blog-link-text": "Blog",
+    "community-section-header": "Comunidad",
+    "contribute-section-header": "Contribuir",
+    "discord-link-text": "Discordia",
+    "docs-section-header": "Documentos",
+    "faq-link-text": "Preguntas frecuentes",
+    "getting-started-link-text": "Empezando",
+    "github-link-text": "GitHub",
+    "twitter-link-text": "Gorjeo"
   },
   "login": {
-    "title": "¡Bienvenido de nuevo!",
-    "subtitle": "Por favor, ingresa tu contraseña.",
     "password": "Contraseña",
-    "submit": "Enviar"
+    "submit": "Enviar",
+    "subtitle": "Por favor, ingresa tu contraseña.",
+    "title": "¡Bienvenido de nuevo!"
   },
   "role-selector": {
-    "leader": {
-      "label": "Líder",
-      "description": "Elige uno de tus Guardianes como Líder. El Líder ingresará información sobre la Federación."
-    },
+    "disclaimer-text": "Estás utilizando una versión muy temprana de Fedimint. Se recomienda no utilizar bitcoin de la red principal para su federación. Úselo con precaución.",
+    "disclaimer-title": "Fedimint es software alfa",
     "follower": {
-      "label": "Seguidor",
-      "description": "Los seguidores del Guardián (todos los demás Guardianes) confirmarán la información que ingrese el Líder."
+      "description": "Los seguidores del Guardián (todos los demás Guardianes) confirmarán la información que ingrese el Líder.",
+      "label": "Seguidor"
+    },
+    "leader": {
+      "description": "Elige uno de tus Guardianes como Líder. El Líder ingresará información sobre la Federación.",
+      "label": "Líder"
     }
   },
   "run-dkg": {
     "error-config": "Error al ejecutar la generación distribuida de claves. La configuración de la Federación debe reiniciarse.",
     "error-default": "No listo para DKG, tu estado actual es",
     "error-header": "Algo salió mal.",
-    "waiting-header": "Esperando a los pares...",
-    "generating-header": "Generando códigos..."
+    "generating-header": "Generando códigos...",
+    "waiting-header": "Esperando a los pares..."
   },
   "set-config": {
-    "guardian-name": "Nombre del Guardián",
-    "guardian-name-help": "Este nombre se mostrará a otros Guardianes",
     "admin-password": "Contraseña de administrador",
     "admin-password-help": "Necesitarás esto cada vez que visites esta página.",
-    "join-federation": "Enlace de unión a la Federación",
-    "join-federation-help": "Pide el enlace a la persona que creó la Federación y pégalo aquí.",
-    "federation-settings": "Configuración de la Federación",
-    "federation-name": "Nombre de la Federación",
-    "guardian-number": "Número de Guardianes",
-    "guardian-number-help": "Esto no se puede cambiar más tarde.",
+    "bitcoin-network": "Red de Bitcoin",
+    "bitcoin-rpc": "RPC de Bitcoin",
     "block-confirmations": "Confirmaciones de bloque",
     "block-confirmations-help": "¿Cuántas confirmaciones de bloque se necesitan antes de confirmar?",
-    "bitcoin-network": "Red de Bitcoin",
+    "error-valid-number": "Por favor, ingresa un número mayor o igual a 1.",
+    "federation-name": "Nombre de la Federación",
+    "federation-settings": "Configuración de la Federación",
+    "guardian-name": "Nombre del Guardián",
+    "guardian-name-help": "Este nombre se mostrará a otros Guardianes",
+    "guardian-number": "Número de Guardianes",
+    "guardian-number-help": "Esto no se puede cambiar más tarde.",
+    "join-federation": "Enlace de unión a la Federación",
+    "join-federation-help": "Pide el enlace a la persona que creó la Federación y pégalo aquí.",
     "select-network": "Selecciona una red",
-    "set-rpc-help": "Dirección RPC de Bitcoin configurada localmente",
-    "bitcoin-rpc": "RPC de Bitcoin",
-    "error-valid-number": "Por favor, ingresa un número mayor o igual a 1."
+    "set-rpc-help": "Dirección RPC de Bitcoin configurada localmente"
   },
   "setup": {
     "progress": {
-      "start": {
-        "title": "¡Bienvenido a Fedimint!",
-        "subtitle": "¿Estás creando una Federación o uniéndote a una?"
-      },
-      "set-config": {
-        "title": "Configuración de tu federación",
-        "subtitle-leader": "Los seguidores de tu Federación confirmarán esta información en su lado.",
-        "subtitle-follower": "El líder de tu Federación configurará los detalles principales de la Federación. Pronto los confirmarás."
-      },
       "connect-guardians": {
-        "title-leader": "Invita a tus Guardianes",
-        "title-follower": "Confirma la información de tu Federación",
+        "step-follower": "Confirmar información",
+        "step-leader": "Invitar guardianes",
+        "subtitle-follower": "Asegúrate de que la información aquí sea correcta y que los Guardianes de la Federación sean los correctos. Haz clic en el botón Aprobar cuando estés seguro de que todo se ve bien.",
         "subtitle-leader": "Comparte el enlace con los demás Guardianes para que todos estén en la misma página. Una vez que todos los Guardianes se unan, pasarás automáticamente al siguiente paso.",
-        "subtitle-follower": "Asegúrate de que la información aquí sea correcta y que los Guardianes de la Federación sean los correctos. Haz clic en el botón Aprobar cuando estés seguro de que todo se ve bien."
-      },
-      "run-dkg": {
-        "title": "¡Boom! Compartiendo información entre los Guardianes",
-        "subtitle": "Todos los Guardianes han validado los detalles de la configuración de la Federación. Realizando algunos cálculos..."
-      },
-      "verify-guardians": {
-        "title": "Verifica tus Guardianes",
-        "subtitle": "Pide a cada Guardián su código de verificación y pégalo a continuación para comprobar su validez. ¡Casi hemos terminado!"
+        "title-follower": "Confirma la información de tu Federación",
+        "title-leader": "Invita a tus Guardianes"
       },
       "error": {
-        "title": "Paso desconocido",
-        "subtitle": "¿Cómo llegaste aquí?!"
+        "subtitle": "¿Cómo llegaste aquí?!",
+        "title": "Paso desconocido"
+      },
+      "run-dkg": {
+        "subtitle": "Todos los Guardianes han validado los detalles de la configuración de la Federación. Realizando algunos cálculos...",
+        "title": "¡Boom! Compartiendo información entre los Guardianes"
+      },
+      "set-config": {
+        "step": "Detalles de la federación",
+        "subtitle-follower": "El líder de tu Federación configurará los detalles principales de la Federación. Pronto los confirmarás.",
+        "subtitle-leader": "Los seguidores de tu Federación confirmarán esta información en su lado.",
+        "title": "Configuración de tu federación"
+      },
+      "setup-complete": {
+        "step": "¡Hecho!"
+      },
+      "start": {
+        "step": "Detalles de la federación",
+        "subtitle": "¿Estás creando una Federación o uniéndote a una?",
+        "title": "¡Bienvenido a Fedimint!"
+      },
+      "verify-guardians": {
+        "step": "Verificar tutores",
+        "subtitle": "Pide a cada Guardián su código de verificación y pégalo a continuación para comprobar su validez. ¡Casi hemos terminado!",
+        "title": "Verifica tus Guardianes"
       }
     }
   },
   "setup-complete": {
-    "header": "🎉 🎉 🎉",
     "congratulations": "Felicidades",
-    "sentence-one": "Se han verificado los códigos de verificación de todos los Guardianes.",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "header": "🎉 🎉 🎉",
+    "sentence-one": "Se han verificado los códigos de verificación de todos los Guardianes."
   },
   "verify-guardians": {
-    "verified": "Verificado",
-    "verified-placeholder": "Ingresa el código aquí",
+    "all-guardians-verified": "Todos los Guardianes han verificado sus códigos",
     "error": "Algo salió mal.",
     "error-peer-id": "No se pudo determinar qué par eres. Por favor, actualiza y vuelve a intentarlo.",
-    "verification-code": "tu código de verificación",
-    "verification-code-help": "Comparte este código con otros Guardianes",
-    "table-title": "Códigos de verificación de los Guardianes",
-    "table-description": "Ingresa los códigos de verificación de cada Guardián a continuación.",
+    "starting-consensus": "Iniciando consenso...",
+    "table-column-hash-input": "Pegar código de verificación",
     "table-column-name": "Nombre",
     "table-column-status": "Estado",
-    "table-column-hash-input": "Pegar código de verificación",
-    "wait-all-guardians-verification": "Esperando a que todos los guardianes verifiquen sus códigos",
-    "all-guardians-verified": "Todos los Guardianes han verificado sus códigos"
+    "table-description": "Ingresa los códigos de verificación de cada Guardián a continuación.",
+    "table-title": "Códigos de verificación de los Guardianes",
+    "verification-code": "tu código de verificación",
+    "verification-code-help": "Comparte este código con otros Guardianes",
+    "verified": "Verificado",
+    "verified-placeholder": "Ingresa el código aquí",
+    "wait-all-guardians-verification": "Esperando a que todos los guardianes verifiquen sus códigos"
   }
 }

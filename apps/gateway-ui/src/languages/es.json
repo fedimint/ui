@@ -1,64 +1,93 @@
 {
   "common": {
-    "amount": "Monto",
     "address": "Dirección",
+    "amount": "Monto",
     "bitcoin": "Bitcoin",
-    "sats": "sats",
-    "confirm": "Confirmar"
+    "btc": "btc",
+    "confirm": "Confirmar",
+    "copied": "Copiado",
+    "error": "Error",
+    "sats": "sats"
+  },
+  "admin": {
+    "fetch-info-modal-text": "Comprobando datos de la federación..."
+  },
+  "balance-card": {
+    "card_header": "saldo de efectivo electrónico",
+    "sentence": "Denominado en Sats"
   },
   "connect-federation": {
     "connect": "Conectar 🚀",
+    "connect-federation-button": "Conectar Federación",
+    "connection-string-placeholder": "Ingrese la cadena de conexión de la federación",
+    "heading": "Conéctese a una federación usando un código de invitación",
+    "information-bar-text": "La cantidad de federaciones a las que puede conectarse está limitada a una. Pronto se admitirá la conexión a varias federaciones.",
     "label": "Cadena de Conexión:",
-    "connection-string-placeholder": "Ingrese la cadena de conexión de la federación"
+    "progress-modal-text": "Conectándose a la federación...",
+    "sub-heading": "El código de invitación es una cadena larga que comienza con \"fed1\""
   },
-  "deposit-tab": {
-    "tab-header": "Depósito",
-    "header": "Depósito de Bitcoin en la Federación",
-    "sentence-one": "Por favor, pague a la dirección mostrada para depositar fondos en esta federación. Puede escanear el código QR para pagar.",
-    "bitcoin-deposit": "Depósito de Bitcoin",
+  "deposit-card": {
+    "bitcoin-deposit": "Depósito de bitcoins",
+    "card_header": "Depositar Bitcoins",
     "confirmations": "Confirmaciones:",
+    "header": "Depósito de Bitcoin a la Federación",
+    "mempool_deposit_link_text": "Ver en mempool.space",
+    "receiving-address": "Dirección de recepción",
     "required": "requerido",
-    "receiving-address": "Dirección de Recepción",
-    "transaction-id": "ID de Transacción"
+    "sentence-one": "Deposita a la dirección o escanea el código QR",
+    "transaction-id": "ID de transacción"
   },
   "federation-card": {
-    "details": "Detalles"
+    "default-federation-name": "Tu federación"
+  },
+  "footer": {
+    "blog-link-text": "Blog",
+    "community-section-header": "Comunidad",
+    "contribute-section-header": "Contribuir",
+    "discord-link-text": "Discordia",
+    "docs-section-header": "Documentos",
+    "faq-link-text": "Preguntas frecuentes",
+    "getting-started-link-text": "Empezando",
+    "github-link-text": "GitHub",
+    "twitter-link-text": "Gorjeo"
   },
   "header": {
-    "connect": "Conectar Federación",
-    "sort": "Ordenar",
-    "ascending": "Ascendente",
-    "descending": "Descendente",
-    "date-created": "Fecha de Creación",
-    "filter": "Filtrar",
     "active": "Activa",
+    "all": "Todo",
     "archived": "Archivada",
-    "all": "Todo"
+    "ascending": "Ascendente",
+    "connect": "Conectar Federación",
+    "date-created": "Fecha de Creación",
+    "descending": "Descendente",
+    "filter": "Filtrar",
+    "sort": "Ordenar"
   },
-  "info-tab": {
-    "tab-header": "Información",
-    "balance": "Balance:"
+  "info-card": {
+    "amboss_node_link_text": "Ver en amboss.space",
+    "card_header": "ID de nodo"
   },
-  "withdraw-tab": {
-    "tab-header": "Retirar",
-    "error": "Error:",
-    "error-amount": "El monto no puede estar vacío o ser igual a cero",
-    "error-address": "El monto o la dirección no pueden estar vacíos",
-    "error-request": "Error al solicitar el retiro",
-    "your-transaction": "Su ID de transacción:",
-    "withdraw": "Retirar",
-    "withdrawal-history": "Historial de Retiros",
+  "withdraw-card": {
+    "address-label": "Su dirección:",
+    "address-placeholder": "Ingrese su dirección btc",
+    "amount-label": "Cantidad (sats):",
+    "amount-placeholder": "Ingrese la cantidad en sats",
+    "card-header": "Retirar bitcoins",
+    "close": "Cerca",
     "confirm-withdraw": "Confirmar Retiro",
+    "error": "Error",
+    "error-address": "El monto o la dirección no pueden estar vacíos",
+    "error-amount": "La cantidad no puede estar vacía o ser igual a cero",
+    "error-request": "No se pudo solicitar el retiro",
+    "request-from": "Retiro solicitado de",
+    "requested-withdrawal": "Retiro solicitado",
     "to": "a",
-    "amount-label": "Monto (sats):",
-    "amount-placeholder": "Ingrese el monto en sats",
-    "address-label": "Tu dirección:",
-    "address-placeholder": "Ingrese tu dirección de BTC",
-    "requested-withdrawal": "Retiro Solicitado",
-    "request-from": "Retiro Solicitado de",
-    "view": "Ver",
-    "close": "Cerrar",
+    "total_bitcoin": "Bitcoins totales:",
+    "view": "Vista",
+    "withdraw": "Retirar",
+    "withdraw_all": "Retirar todo",
     "withdrawal-created": "Retiro creado.",
-    "withdrawal-created-description": "Por favor, revise su historial de transacciones"
+    "withdrawal-created-description": "Por favor verifique su historial de transacciones",
+    "withdrawal-history": "Historial de retiros",
+    "your-transaction": "Su ID de transacción:"
   }
 }
