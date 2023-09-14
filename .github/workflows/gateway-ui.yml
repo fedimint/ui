@@ -30,7 +30,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha
       - name: Login to Docker Hub
-        if: github.ref == 'refs/heads/master' || (github.ref_type == 'tag' && startsWith(github.ref, 'v'))
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
         uses: docker/login-action@v2
         with:
           username: fedimintui
@@ -39,6 +39,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           file: Dockerfile.gateway-ui
-          push: ${{ github.ref == 'refs/heads/master' || (github.ref_type == 'tag' && startsWith(github.ref, 'v')) }}
+          push: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v') }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
