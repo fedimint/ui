@@ -1,93 +1,93 @@
 {
   "common": {
-    "amount": "Amount",
     "address": "Address",
+    "amount": "Amount",
     "bitcoin": "Bitcoin",
-    "sats": "sats",
+    "btc": "BTC",
     "confirm": "Confirm",
     "copied": "Copied",
-    "btc": "BTC",
-    "error": "Error"
+    "error": "Error",
+    "sats": "sats"
   },
   "admin": {
     "fetch-info-modal-text": "Checking federation details..."
-  },
-  "connect-federation": {
-    "connect": "Connect 🚀",
-    "label": "Connect String:",
-    "connection-string-placeholder": "Paste federation invite code",
-    "progress-modal-text": "Connecting to federation...",
-    "heading": "Connect to a federation using an invite code",
-    "sub-heading": "The invite code is a long string that begins with ‘fed1’",
-    "information-bar-text": "The number of federations you can connect to is limited to one. Connecting to multiple federations will be supported soon.",
-    "connect-federation-button": "Connect Federation"
-  },
-  "deposit-card": {
-    "card_header": "Deposit Bitcoin",
-    "header": "Bitcoin Deposit to Federation",
-    "sentence-one": "Deposit to the address or scan the QR code",
-    "bitcoin-deposit": "Bitcoin Deposit",
-    "confirmations": "Confirmations:",
-    "required": "required",
-    "receiving-address": "Receiving Addr",
-    "transaction-id": "Transaction ID",
-    "mempool_deposit_link_text": "View on mempool.space"
-  },
-  "federation-card": {
-    "default-federation-name": "Your federation"
-  },
-  "header": {
-    "connect": "Connect Federation",
-    "sort": "Sort",
-    "ascending": "Ascending",
-    "descending": "Descending",
-    "date-created": "Date Created",
-    "filter": "Filter",
-    "active": "Active",
-    "archived": "Archived",
-    "all": "All"
-  },
-  "info-card": {
-    "card_header": "Node ID",
-    "amboss_node_link_text": "View on amboss.space"
   },
   "balance-card": {
     "card_header": "eCash balance",
     "sentence": "Denominated in Sats"
   },
-  "withdraw-card": {
-    "card-header": "Withdraw Bitcoin",
-    "total_bitcoin": "Total Bitcoin:",
-    "withdraw_all": "Withdraw all",
-    "error": "Error",
-    "error-amount": "Amount cannot be empty or equal to zero",
-    "error-address": "Amount or address cannot be empty",
-    "error-request": "Failed to request withdrawal",
-    "your-transaction": "Your transaction ID:",
-    "withdraw": "Withdraw",
-    "withdrawal-history": "Withdrawal History",
-    "confirm-withdraw": "Confirm Withdraw",
-    "to": "to",
-    "amount-label": "Amount (sats):",
-    "amount-placeholder": "Enter amount in sats",
-    "address-label": "Your address:",
-    "address-placeholder": "Enter your btc address",
-    "requested-withdrawal": "Requested Withdrawal",
-    "request-from": "Requested Withdrawal from",
-    "view": "View",
-    "close": "Close",
-    "withdrawal-created": "Withdrawal created.",
-    "withdrawal-created-description": "Please check your transaction history"
+  "connect-federation": {
+    "connect": "Connect 🚀",
+    "connect-federation-button": "Connect Federation",
+    "connection-string-placeholder": "Paste federation invite code",
+    "heading": "Connect to a federation using an invite code",
+    "information-bar-text": "The number of federations you can connect to is limited to one. Connecting to multiple federations will be supported soon.",
+    "label": "Connect String:",
+    "progress-modal-text": "Connecting to federation...",
+    "sub-heading": "The invite code is a long string that begins with ‘fed1’"
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Bitcoin Deposit",
+    "card_header": "Deposit Bitcoin",
+    "confirmations": "Confirmations:",
+    "header": "Bitcoin Deposit to Federation",
+    "mempool_deposit_link_text": "View on mempool.space",
+    "receiving-address": "Receiving Addr",
+    "required": "required",
+    "sentence-one": "Deposit to the address or scan the QR code",
+    "transaction-id": "Transaction ID"
+  },
+  "federation-card": {
+    "default-federation-name": "Your federation"
   },
   "footer": {
-    "docs-section-header": "Docs",
+    "blog-link-text": "Blog",
     "community-section-header": "Community",
     "contribute-section-header": "Contribute",
-    "getting-started-link-text": "Getting Started",
-    "faq-link-text": "Frequently Asked Questions",
-    "blog-link-text": "Blog",
     "discord-link-text": "Discord",
-    "twitter-link-text": "Twitter",
-    "github-link-text": "GitHub"
+    "docs-section-header": "Docs",
+    "faq-link-text": "Frequently Asked Questions",
+    "getting-started-link-text": "Getting Started",
+    "github-link-text": "GitHub",
+    "twitter-link-text": "Twitter"
+  },
+  "header": {
+    "active": "Active",
+    "all": "All",
+    "archived": "Archived",
+    "ascending": "Ascending",
+    "connect": "Connect Federation",
+    "date-created": "Date Created",
+    "descending": "Descending",
+    "filter": "Filter",
+    "sort": "Sort"
+  },
+  "info-card": {
+    "amboss_node_link_text": "View on amboss.space",
+    "card_header": "Node ID"
+  },
+  "withdraw-card": {
+    "address-label": "Your address:",
+    "address-placeholder": "Enter your btc address",
+    "amount-label": "Amount (sats):",
+    "amount-placeholder": "Enter amount in sats",
+    "card-header": "Withdraw Bitcoin",
+    "close": "Close",
+    "confirm-withdraw": "Confirm Withdraw",
+    "error": "Error",
+    "error-address": "Amount or address cannot be empty",
+    "error-amount": "Amount cannot be empty or equal to zero",
+    "error-request": "Failed to request withdrawal",
+    "request-from": "Requested Withdrawal from",
+    "requested-withdrawal": "Requested Withdrawal",
+    "to": "to",
+    "total_bitcoin": "Total Bitcoin:",
+    "view": "View",
+    "withdraw": "Withdraw",
+    "withdraw_all": "Withdraw all",
+    "withdrawal-created": "Withdrawal created.",
+    "withdrawal-created-description": "Please check your transaction history",
+    "withdrawal-history": "Withdrawal History",
+    "your-transaction": "Your transaction ID:"
   }
 }
