@@ -1,5 +1,10 @@
 # Fedimint UI Projects
 
+<p align="center">
+<img width="42%" alt="268047037-d648b83d-b676-44fe-98be-07f84f4d7465" src="https://github.com/fedimint/ui/assets/101964499/2d85544d-e1d0-4e06-a610-e2bc618f463b">
+<img width="47%" alt="268046987-3b480175-7f5e-4235-bed3-cab5c092c2e5" src="https://github.com/fedimint/ui/assets/101964499/ce0fe039-9260-4443-9d84-9359bdfa901f">
+</p>
+
 ## What's Inside
 
 This project includes the following apps / packages:
@@ -15,6 +20,78 @@ This project includes the following apps / packages:
 - `utils`: Shared utility functions like the current translation framework on Fedimint UI apps
 - `eslint-config`: Shared `eslint` configurations (includes `eslint-plugin-react` and `eslint-config-prettier`)
 - `tsconfig`: Shared `tsconfig.json`s used throughout Fedimint UI apps
+
+## Version Policy
+
+Fedimint UI releases use semantic versioning (`major.minor.patch`)
+
+- Major and minor versions of `fedimint/ui` are made to be compatible major and minor versions of `fedimint/fedimint`
+  - For instance, any `1.1.x` release of the UI should work with any `1.1.x` release of Fedimint
+- Patch versions of `fedimint/ui` are made independent of `fedimint/fedimint`
+  - For instance, you could run `fedimint/ui@1.0.1` against `fedimint/fedimint@1.0.0` and vice versa
+  - It is always recommended to run the latest patch release of any version as they may contain important fixes
+- The `master` branch of `fedimint/ui` attempts to track `master` of `fedimint/fedimint`
+  - This tracking is a best effort, and sometimes the two will fall out of sync. Feel free to open an issue if you notice an incompatibility.
+  - It is not recommended to run `master` in production as breaking changes may occur without warning
+
+## Running a Release
+
+### Build and Run from Source
+
+#### Guardian UI
+
+```bash
+git clone git@github.com:fedimint/ui.git fedimint-ui
+cd fedimint-ui/apps/guardian-ui
+yarn install
+PORT=3000 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18174" yarn build && yarn start
+```
+
+Replace PORT with a port of your choice, and REACT_APP_FM_CONFIG_API with the domain and port of your fedimintd API.
+
+#### Gateway UI
+
+```bash
+git clone git@github.com:fedimint/ui.git fedimint-ui
+cd fedimint-ui/apps/gateway-ui
+yarn install
+PORT=3001 REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="yourpassword" yarn build && yarn start
+```
+
+### Run with Docker
+
+**Note:** Docker images are only built for `linux/amd64`. Your docker will need to support virtualization to run on other platforms.
+
+#### Guardian UI
+
+The guardian UI container is available at [`fedimintui/guardian-ui`](https://hub.docker.com/r/fedimintui/guardian-ui)
+
+```sh
+docker pull fedimintui/guardian-ui:0.1.0
+docker run \
+  --platform linux/amd64 \
+  --env "REACT_APP_FM_CONFIG_API='ws://127.0.0.1:18174'" \
+  -p 3000:3000 \
+  fedimintui/guardian-ui:0.1.0
+```
+
+Replace `-p 3000:3000` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the domain and port of your fedimintd API.
+
+#### Gateway UI
+
+The gateway UI container is available at [`fedimintui/gateway-ui`](https://hub.docker.com/r/fedimintui/gateway-ui)
+
+```sh
+docker pull fedimintui/gateway-ui:0.1.0
+docker run \
+  --platform linux/amd64 \
+  --env "REACT_APP_FM_GATEWAY_API='ws://127.0.0.1:8175'" \
+  --env REACT_APP_FM_GATEWAY_PASSWORD=password \
+  -p 3001:3000 \
+  fedimintui/gateway-ui:0.1.0
+```
+
+Replace `-p 3001:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the domain and port of your gatewayd API, and REACT_APP_FM_GATEWAY_PASSWORD with the password you set your gateway up with.
 
 ## Development
 
@@ -58,63 +135,9 @@ You can see more details by viewing the `mprocs.yml` file.
 
 ### Running with local Fedimint
 
-If you would like to run the UIs against changes you have made to fedimint itself:
+The docker containers and devimint are for specific releases or commits of `fedimint/fedimint`. If you would like to run the UIs against a particular version of fedimint, or using changes you have made locally to fedimint itself:
 
 1. Run `cargo build` in fedimint
 2. Run `env DEVIMINT_PATH=$(realpath ../fedimint/target/debug) yarn nix-guardian` (assuming that you have `ui` and `fedimint` repos checked out in the same directory)
 
 This will put binaries in `fedimint/target/debug` at the front of your `$PATH`. Devimint will use these binaries instead of the ones installed via Nix.
-
-## Release
-### v0.1.0
-This is the initial release of the Fedimint UI, which includes projects for the Guardian setup and admin UI, and the Gateway admin UI. This release is compatible with Fedimint v0.1.0, and any future 0.1.x patch releases.
-
-<img width="1375" alt="268047037-d648b83d-b676-44fe-98be-07f84f4d7465" src="https://github.com/fedimint/ui/assets/101964499/2d85544d-e1d0-4e06-a610-e2bc618f463b">
-<img width="1375" alt="268046987-3b480175-7f5e-4235-bed3-cab5c092c2e5" src="https://github.com/fedimint/ui/assets/101964499/ce0fe039-9260-4443-9d84-9359bdfa901f">
-
-### Build and Run from Source
-#### Guardian UI
-```bash
-git clone git@github.com:fedimint/ui.git fedimint-ui
-cd fedimint-ui/apps/guardian-ui
-yarn install
-PORT=3000 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18174" yarn build && yarn start
-```
-Replace PORT with a port of your choice, and REACT_APP_FM_CONFIG_API with the domain and port of your fedimintd API.
-
-#### Gateway UI
-```bash
-git clone git@github.com:fedimint/ui.git fedimint-ui
-cd fedimint-ui/apps/gateway-ui
-yarn install
-PORT=3001 REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="yourpassword" yarn build && yarn start
-```
-
-### Run with Docker
-**Note:** Docker images are only built for `linux/amd64`. Your docker will need to support virtualization to run on other platforms.
-
-#### Guardian UI
-The guardian UI container is available at [`fedimintui/guardian-ui`](https://hub.docker.com/r/fedimintui/guardian-ui)
-```
-docker pull fedimintui/gateway-ui:0.1.0
-docker run \
-  --platform linux/amd64 \
-  --env "REACT_APP_FM_GATEWAY_API='ws://127.0.0.1:8175'" \
-  --env REACT_APP_FM_GATEWAY_PASSWORD=password \
-  -p 3001:3000 \
-  fedimintui/gateway-ui:0.1.0
-```
-Replace `-p 3000:3000` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the domain and port of your fedimintd API.
-
-#### Gateway UI
-The gateway UI container is available at [`fedimintui/gateway-ui`](https://hub.docker.com/r/fedimintui/gateway-ui)
-```
-docker pull fedimintui/gateway-ui:0.1.0
-docker run \
-  --platform linux/amd64 \
-  --env "REACT_APP_FM_GATEWAY_API='ws://127.0.0.1:8175'" \
-  --env REACT_APP_FM_GATEWAY_PASSWORD=password \
-  -p 3001:3000 \
-  fedimintui/gateway-ui:0.1.0
-```
-Replace `-p 3001:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the domain and port of your gatewayd API, and REACT_APP_FM_GATEWAY_PASSWORD with the password you set your gateway up with.
