@@ -3,7 +3,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
-      url = "github:fedimint/fedimint?ref=refs/tags/v0.1.0";
+      # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
+      url = "github:fedimint/fedimint?rev=a71267934a5ec2f0df28686fa21362386e762ca0";
     };
   };
   outputs = { self, nixpkgs, flake-utils, fedimint }:
