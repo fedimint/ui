@@ -25,7 +25,7 @@ export const BalanceCard = React.memo(function BalanceCard(
         color={theme.colors.gray[800]}
         fontFamily={theme.fonts.body}
       >
-        {balance_msat}
+        {balance_msat / 1000}
       </Text>
     </GatewayCard>
   );
