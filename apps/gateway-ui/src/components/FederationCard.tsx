@@ -32,7 +32,10 @@ export const FederationCard: React.FC<FederationCardProps> = (props) => {
         </Flex>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <DepositCard federationId={federation_id} />
-          <WithdrawCard federationId={federation_id} />
+          <WithdrawCard
+            federationId={federation_id}
+            balanceMsat={balance_msat}
+          />
         </Flex>
       </Stack>
     </>
