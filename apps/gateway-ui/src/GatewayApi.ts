@@ -72,7 +72,7 @@ export class GatewayApi implements ApiInterface {
       });
 
       if (res.ok) {
-        const address: string = await res.text();
+        const address: string = (await res.text()).replace(/"/g, '').trim();
         return Promise.resolve(address);
       }
 
