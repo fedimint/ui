@@ -4,6 +4,8 @@ import {
   Button,
   Input,
   InputGroup,
+  NumberInput,
+  NumberInputField,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -16,95 +18,66 @@ import {
   VStack,
   useTheme,
 } from '@chakra-ui/react';
+import {
+  useTranslation,
+  formatEllipsized,
+  formatMsatsToBtc,
+  MSats,
+} from '@fedimint/utils';
 import { ApiContext } from '../ApiProvider';
-import { useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '.';
-
-interface WithdrawObject {
-  amount: number;
-  address: string;
-}
 
 export interface WithdrawCardProps {
   federationId: string;
+  balanceMsat: number;
 }
-
-const truncateStringFormat = (arg: string): string => {
-  return `${arg.substring(0, 15)}......${arg.substring(
-    arg.length,
-    arg.length - 15
-  )}`;
-};
 
 export const WithdrawCard = React.memo(function WithdrawCard({
   federationId,
+  balanceMsat,
 }: WithdrawCardProps): JSX.Element {
   const { t } = useTranslation();
   const theme = useTheme();
   const { gateway } = React.useContext(ApiContext);
-  const [withdrawObject, setWithdrawObject] = useState<WithdrawObject>({
-    amount: 0,
-    address: '',
-  });
+
   const [error, setError] = useState<string>('');
   const [modalState, setModalState] = useState<boolean>(false);
-  const { amount, address } = withdrawObject;
+  const [address, setAddress] = useState<string>('');
+  const [amount, setAmount] = useState<number>(0);
 
-  const handleInputChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      event.preventDefault();
-      const { value, name } = event.target;
-      // FIXME this is a hack
-      if (name === 'amount') {
-        setWithdrawObject((prevState) => ({
-          ...prevState,
-          [name]: parseInt(value),
-        }));
-      } else {
-        setWithdrawObject((prevState) => ({ ...prevState, [name]: value }));
-      }
-    },
-    []
-  );
-
-  const createWithdrawal = () => {
-    if (!amount && amount === 0 && typeof amount === 'number') {
-      setError(`${t('withdraw-card.error-amount')}`);
-      return;
+  const createWithdrawal = useCallback(() => {
+    if (amount <= 0) {
+      return setError(`${t('withdraw-card.error-amount')}`);
     }
     if (!address) {
-      setError(`${t('withdraw-card.error-address')}`);
-      return;
+      return setError(`${t('withdraw-card.error-address')}`);
     }
-    // TODO: address validation
     setError('');
     setModalState(true);
-  };
+  }, [amount, address, t]);
 
-  const startWithdrawal = () => {
+  const startWithdrawal = useCallback(() => {
     gateway
       .requestWithdrawal(federationId, amount, address)
       .then((txId) => {
-        // FIXME: show this in a better way
         alert(`${t('withdraw-card.your-transaction')} ${txId}`);
-        setWithdrawObject({ ...withdrawObject, amount: 0, address: '' });
+        setAddress('');
+        setAmount(0);
         setModalState(false);
       })
       .catch(({ error }) => {
         console.error(error);
         setError(`${t('withdraw-card.error-request')}`);
       });
-  };
-
-  const description = `${t('withdraw-card.total_bitcoin')} ${
-    withdrawObject.amount / 100000
-  } ${t('common.btc')}`;
+  }, [gateway, federationId, amount, address, t]);
 
   return (
     <>
       <GatewayCard
         title={t('withdraw-card.card-header')}
-        description={description}
+        description={`${t('withdraw-card.total_bitcoin')} ${formatMsatsToBtc(
+          balanceMsat as MSats
+        )} ${t('common.btc')}`}
       >
         <Stack spacing='20px'>
           <InputGroup flexDir='column'>
@@ -115,29 +88,33 @@ export const WithdrawCard = React.memo(function WithdrawCard({
               fontFamily={theme.fonts.body}
               pb='6px'
             >
-              {t('common.amount')}
+              {`${t('common.amount')} ${t('common.sats')}`}
             </Text>
-            <Input
-              height='44px'
-              p='14px'
-              border={`1px solid ${theme.colors.gray[300]}`}
-              bgColor={theme.colors.white}
-              boxShadow={theme.shadows.xs}
-              borderRadius='8px'
-              w='100%'
-              placeholder={t('withdraw-card.amount-placeholder')}
-              // FIXME: this is a hack
-              value={withdrawObject.amount.toString()}
-              onChange={(e) => handleInputChange(e)}
-              name='amount'
-            />
-
+            <NumberInput
+              min={0}
+              max={balanceMsat / 1000}
+              value={amount}
+              onChange={(value) => {
+                value && setAmount(parseInt(value));
+              }}
+            >
+              <NumberInputField
+                height='44px'
+                p='14px'
+                border={`1px solid ${theme.colors.gray[300]}`}
+                bgColor={theme.colors.white}
+                boxShadow={theme.shadows.xs}
+                borderRadius='8px'
+                w='100%'
+              />
+            </NumberInput>
             <Text
               mt='4px'
               cursor='pointer'
               fontSize='sm'
               color={theme.colors.blue[600]}
               fontFamily={theme.fonts.body}
+              onClick={() => setAmount(balanceMsat / 1000)}
             >
               {t('withdraw-card.withdraw_all')}
             </Text>
@@ -161,8 +138,8 @@ export const WithdrawCard = React.memo(function WithdrawCard({
               borderRadius='8px'
               w='100%'
               placeholder={t('withdraw-card.address-placeholder')}
-              value={withdrawObject.address}
-              onChange={(e) => handleInputChange(e)}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               name='address'
             />
           </InputGroup>
@@ -241,7 +218,7 @@ const ConfirmWithdrawModal = (
                 <Text>{t('withdraw-card.to')}</Text>
                 <Box>
                   <Text>{t('common.address')}:</Text>
-                  <Text>{truncateStringFormat(txRequest.address)}</Text>
+                  <Text>{formatEllipsized(txRequest.address)}</Text>
                 </Box>
               </VStack>
             </ModalBody>
