@@ -28,7 +28,7 @@
     "fed-info": {
       "api-version-label": "API 버전",
       "consensus-version-label": "합의 버전",
-      "epoch-count-label": "에포크 횟수",
+      "block-count-label": "블록 수",
       "label": "연맹 정보",
       "your-status-label": "상태"
     },
@@ -44,7 +44,7 @@
       "health-issue": "문제",
       "health-label": "건강",
       "label": "수호자",
-      "last-contribution-label": "마지막 기여 시대",
+      "last-contribution-label": "마지막 기여 블록",
       "name-label": "이름",
       "status-label": "연결 상태"
     },

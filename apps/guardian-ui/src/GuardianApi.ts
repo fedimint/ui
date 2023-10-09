@@ -207,7 +207,7 @@ export interface SetupApiInterface extends SharedApiInterface {
 // Running RPC methods (only exist after run_consensus)
 enum AdminRpc {
   version = 'version',
-  fetchEpochCount = 'fetch_epoch_count',
+  fetchBlockCount = 'fetch_block_count',
   federationStatus = 'consensus_status',
   inviteCode = 'invite_code',
   config = 'config',
@@ -224,7 +224,7 @@ type ModuleRpc = LightningModuleRpc;
 
 export interface AdminApiInterface extends SharedApiInterface {
   version: () => Promise<Versions>;
-  fetchEpochCount: () => Promise<number>;
+  fetchBlockCount: () => Promise<number>;
   inviteCode: () => Promise<string>;
   config: (connection: string) => Promise<ConfigResponse>;
   audit: () => Promise<AuditSummary>;
@@ -365,8 +365,8 @@ export class GuardianApi
     return this.base.call(AdminRpc.version);
   };
 
-  fetchEpochCount = (): Promise<number> => {
-    return this.base.call(AdminRpc.fetchEpochCount);
+  fetchBlockCount = (): Promise<number> => {
+    return this.base.call(AdminRpc.fetchBlockCount);
   };
 
   federationStatus = (): Promise<FederationStatus> => {

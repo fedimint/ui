@@ -13,7 +13,7 @@ export const FederationInfoCard: React.FC<Props> = ({ status }) => {
   const { t } = useTranslation();
   const { api } = useAdminContext();
   const [versions, setVersions] = useState<Versions>();
-  const [epochCount, setEpochCount] = useState<number>();
+  const [blockCount, setBlockCount] = useState<number>();
 
   const serverStatus = status?.server || '';
   const apiVersion = versions?.core.api.length
@@ -26,7 +26,7 @@ export const FederationInfoCard: React.FC<Props> = ({ status }) => {
 
   useEffect(() => {
     api.version().then(setVersions).catch(console.error);
-    api.fetchEpochCount().then(setEpochCount).catch(console.error);
+    api.fetchBlockCount().then(setBlockCount).catch(console.error);
   }, [api]);
 
   const keyValues = useMemo(
@@ -37,9 +37,9 @@ export const FederationInfoCard: React.FC<Props> = ({ status }) => {
         value: serverStatus,
       },
       {
-        key: 'epochCount',
-        label: t('federation-dashboard.fed-info.epoch-count-label'),
-        value: epochCount,
+        key: 'blockCount',
+        label: t('federation-dashboard.fed-info.block-count-label'),
+        value: blockCount,
       },
       {
         key: 'apiVersion',
@@ -52,7 +52,7 @@ export const FederationInfoCard: React.FC<Props> = ({ status }) => {
         value: consensusVersion,
       },
     ],
-    [t, serverStatus, epochCount, apiVersion, consensusVersion]
+    [t, serverStatus, blockCount, apiVersion, consensusVersion]
   );
 
   return (

@@ -28,7 +28,7 @@
     "fed-info": {
       "api-version-label": "Versión API",
       "consensus-version-label": "Versión de consenso",
-      "epoch-count-label": "Recuento de época",
+      "block-count-label": "Recuento de bloques",
       "label": "Información de la Federación",
       "your-status-label": "Estado"
     },
@@ -44,7 +44,7 @@
       "health-issue": "Asunto",
       "health-label": "Salud",
       "label": "Guardianes",
-      "last-contribution-label": "Última época de contribución",
+      "last-contribution-label": "Último bloque de contribución",
       "name-label": "Nombre",
       "status-label": "Estado de conexión"
     },
