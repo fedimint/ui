@@ -86,14 +86,17 @@
     "federation-settings": "Federation settings",
     "federation-name": "Federation name",
     "guardian-number": "Number of guardians",
-    "guardian-number-help": "This cannot be changed later.",
+    "guardian-number-help": "Federations require a minimum of 4 guardians. This cannot be changed later.",
     "block-confirmations": "Block confirmations",
     "block-confirmations-help": "How many block confirmations needed before confirming?",
     "bitcoin-network": "Bitcoin Network",
     "select-network": "Select a network",
     "set-rpc-help": "Locally configured Bitcoin RPC address",
     "bitcoin-rpc": "Bitcoin RPC",
-    "error-valid-number": "Please input a number of 1 or more."
+    "error-valid-number": "Please input a valid number.",
+    "error-valid-min": "Please input a number of at least {{min}}.",
+    "error-valid-max": "Please input a number of at most {{max}}.",
+    "error-valid-min-max": "Please input a number between {{min}} and {{max}}."
   },
   "setup": {
     "progress": {
