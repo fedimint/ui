@@ -52,7 +52,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [numPeers, setNumPeers] = useState(
-    stateNumPeers ? stateNumPeers.toString() : ''
+    stateNumPeers ? stateNumPeers.toString() : '4'
   );
   const [federationName, setFederationName] = useState('');
   const [blockConfirmations, setBlockConfirmations] = useState('');
@@ -109,8 +109,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         myName &&
           password &&
           federationName &&
-          isValidNumber(numPeers) &&
-          isValidNumber(blockConfirmations) &&
+          isValidNumber(numPeers, 4) &&
+          isValidNumber(blockConfirmations, 1, 200) &&
           network
       )
     : Boolean(myName && password && hostServerUrl);
@@ -223,9 +223,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             </FormControl>
             <NumberFormControl
               labelText={t('set-config.guardian-number')}
-              errorText={t('set-config.error-valid-number')}
               helperText={t('set-config.guardian-number-help')}
-              min={1}
+              min={4}
               value={numPeers}
               onChange={(value) => {
                 setNumPeers(value);
@@ -239,7 +238,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             <>
               <NumberFormControl
                 labelText={t('set-config.block-confirmations')}
-                errorText={t('set-config.error-valid-number')}
                 helperText={t('set-config.block-confirmations-help')}
                 min={1}
                 max={200}
