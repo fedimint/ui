@@ -28,7 +28,9 @@ export const FederationSetup: React.FC = () => {
     state: { progress, role },
     dispatch,
   } = useSetupContext();
-  const [hasAgreedToTos, setHasAgreedToTos] = useState(false);
+  const [needsTosAgreement, setNeedsTosAgreement] = useState(
+    !!process.env.REACT_APP_TOS
+  );
 
   const isHost = role === GuardianRole.Host;
   const progressIdx = PROGRESS_ORDER.indexOf(progress);
@@ -54,13 +56,13 @@ export const FederationSetup: React.FC = () => {
 
   switch (progress) {
     case SetupProgress.Start:
-      if (hasAgreedToTos) {
+      if (needsTosAgreement) {
+        title = t('setup.progress.tos.title');
+        content = <TermsOfService next={() => setNeedsTosAgreement(false)} />;
+      } else {
         title = t('setup.progress.start.title');
         subtitle = t('setup.progress.start.subtitle');
         content = <RoleSelector next={handleNext} />;
-      } else {
-        title = t('setup.progress.tos.title');
-        content = <TermsOfService next={() => setHasAgreedToTos(true)} />;
       }
       break;
     case SetupProgress.SetConfiguration:
