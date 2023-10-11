@@ -3,3 +3,13 @@
 
 # Nix build directory.
 /result
+
+# Host machine node modules
+**/node_modules
+
+# Host machine builds
+apps/*/build
+packages/*/dist
+
+# Fedimint data
+fm_*
