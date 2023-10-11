@@ -25,6 +25,7 @@ COPY --from=builder /app/out/full/ .
 # TODO: Remove this copy once https://github.com/vercel/turbo/issues/3758 is fixed
 COPY ./turbo.json .
 RUN REACT_APP_FM_CONFIG_API="{{REACT_APP_FM_CONFIG_API}}" \
+  REACT_APP_TOS="{{REACT_APP_TOS}}" \
   yarn build:guardian-ui
 
 
