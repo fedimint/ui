@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Box, Button, Text, Heading, Icon, VStack } from '@chakra-ui/react';
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { useTranslation } from '@fedimint/utils';
@@ -11,6 +11,7 @@ import { RunDKG } from '../components/RunDKG';
 import { VerifyGuardians } from '../components/VerifyGuardians';
 import { SetupComplete } from '../components/SetupComplete';
 import { SetupProgress as SetupStepper } from '../components/SetupProgress';
+import { TermsOfService } from '../components/TermsOfService';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -27,6 +28,9 @@ export const FederationSetup: React.FC = () => {
     state: { progress, role },
     dispatch,
   } = useSetupContext();
+  const [needsTosAgreement, setNeedsTosAgreement] = useState(
+    !!process.env.REACT_APP_TOS
+  );
 
   const isHost = role === GuardianRole.Host;
   const progressIdx = PROGRESS_ORDER.indexOf(progress);
@@ -52,9 +56,14 @@ export const FederationSetup: React.FC = () => {
 
   switch (progress) {
     case SetupProgress.Start:
-      title = t('setup.progress.start.title');
-      subtitle = t('setup.progress.start.subtitle');
-      content = <RoleSelector next={handleNext} />;
+      if (needsTosAgreement) {
+        title = t('setup.progress.tos.title');
+        content = <TermsOfService next={() => setNeedsTosAgreement(false)} />;
+      } else {
+        title = t('setup.progress.start.title');
+        subtitle = t('setup.progress.start.subtitle');
+        content = <RoleSelector next={handleNext} />;
+      }
       break;
     case SetupProgress.SetConfiguration:
       title = t('setup.progress.set-config.title');

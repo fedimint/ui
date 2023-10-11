@@ -25,12 +25,7 @@ function processFile(filePath) {
   matches.forEach((match) => {
     // Trim off {{ and }} from match
     const variableName = match.slice(2, -2);
-    const envValue = process.env[variableName];
-    if (envValue === undefined) {
-      throw new Error(
-        `File ${filePath} contains missing required environment variable ${variableName}`
-      );
-    }
+    const envValue = process.env[variableName] || '';
     replacedContent = replacedContent.replace(match, envValue);
   });
 
