@@ -8,7 +8,7 @@
     "guardian-ui#build": {
       "outputs": ["build/**", "dist/**"],
       "dependsOn": ["^build"],
-      "env": ["REACT_APP_FM_CONFIG_API", "REACT_APP_TOS"]
+      "env": ["REACT_APP_FM_CONFIG_API", "REACT_APP_TOS", "PUBLIC_URL"]
     },
     "gateway-ui#build": {
       "outputs": ["build/**", "dist/**"],

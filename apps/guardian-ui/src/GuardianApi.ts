@@ -14,7 +14,7 @@ import {
 
 export interface SocketAndAuthInterface {
   // WebSocket methods
-  connect(): Promise<JsonRpcWebsocket>;
+  connect(websocketUrl: string): Promise<JsonRpcWebsocket>;
   shutdown: () => Promise<boolean>;
 
   // Authentication methods
@@ -47,6 +47,37 @@ class BaseGuardianApi
 {
   private websocket: JsonRpcWebsocket | null = null;
   private connectPromise: Promise<JsonRpcWebsocket> | null = null;
+  private websocketUrl: string | undefined;
+
+  constructor() {
+    // Attempt to get the websocketUrl from the environment variable
+    const websocketUrlFromEnv = process.env.REACT_APP_FM_CONFIG_API;
+
+    // If the environment variable is not set, try to fetch from config.json
+    if (websocketUrlFromEnv) {
+      this.websocketUrl = websocketUrlFromEnv;
+    } else {
+      this.retrieveWebsocketUrlFromConfig();
+    }
+  }
+
+  // Asynchronous method to fetch the websocketUrl from config.json
+  async retrieveWebsocketUrlFromConfig() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', process.env.PUBLIC_URL + '/config.json', false); // Synchronous request
+    xhr.send(null);
+
+    if (xhr.status === 200) {
+      const data = JSON.parse(xhr.responseText);
+      if (data && data.fm_config_api) {
+        this.websocketUrl = data.fm_config_api;
+      } else {
+        throw new Error('config.json does not contain a fm_config_api');
+      }
+    } else {
+      throw new Error('Failed to fetch config.json');
+    }
+  }
 
   /*** WebSocket methods ***/
   connect = async (): Promise<JsonRpcWebsocket> => {
@@ -58,15 +89,13 @@ class BaseGuardianApi
     }
 
     this.connectPromise = new Promise((resolve, reject) => {
-      const websocketUrl = process.env.REACT_APP_FM_CONFIG_API;
-
-      if (!websocketUrl) {
-        throw new Error('REACT_APP_FM_CONFIG_API not set');
+      if (!this.websocketUrl) {
+        throw new Error('websocketUrl not set');
       }
 
       const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
-        websocketUrl,
+        this.websocketUrl,
         requestTimeoutMs,
         (error: JsonRpcError) => {
           console.error('failed to create websocket', error);
@@ -235,7 +264,11 @@ export interface AdminApiInterface extends SharedApiInterface {
 export class GuardianApi
   implements SocketAndAuthInterface, SetupApiInterface, AdminApiInterface
 {
-  private base = new BaseGuardianApi();
+  private base: BaseGuardianApi;
+
+  constructor() {
+    this.base = new BaseGuardianApi();
+  }
 
   /*** WebSocket methods ***/
 
