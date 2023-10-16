@@ -53,4 +53,4 @@ jobs:
           username: fedimintui
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           repository: fedimintui/guardian-ui
-          readme-filepath: /apps/guardian-ui/README.md
+          readme-filepath: ./apps/guardian-ui/README.md
