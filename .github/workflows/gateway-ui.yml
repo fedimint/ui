@@ -47,6 +47,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Checkout repository content
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
+        uses: actions/checkout@v4
+
+      # This workflow requires the repository content to be locally available to read the README
       - name: Update the Docker Hub description
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
         uses: peter-evans/dockerhub-description@v3
