@@ -149,7 +149,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           password,
           configs: {
             numPeers: parseInt(numPeers, 10),
-            meta: { federation_name: federationName },
+            meta: { ...defaultParams.meta, federation_name: federationName },
             modules: moduleConfigs,
           },
         });
