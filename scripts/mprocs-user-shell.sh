@@ -2,7 +2,7 @@
 
 eval "$(devimint env)"
 
-echo Waiting for fedimint start
+echo Waiting for devimint to start up fedimint
 
 STATUS="$(devimint wait)"
 if [ "$STATUS" = "ERROR" ]
