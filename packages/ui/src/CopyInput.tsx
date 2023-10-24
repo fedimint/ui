@@ -27,8 +27,6 @@ export const CopyInput: React.FC<CopyInputProps> = ({
     md: '100px',
     sm: '96px',
   }[size];
-  // Height is input - 2px to account for borders
-  const buttonHeight = theme.components.Input.sizes[size].height - 2;
 
   return (
     <InputGroup width='100%' size={size}>
