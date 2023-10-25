@@ -39,25 +39,33 @@ export class GatewayApi {
     sessionStorage.removeItem(SESSION_STORAGE_KEY);
   };
 
-  private checkConfig = (): void => {
-    if (this.baseUrl === undefined || this.getPassword() === undefined) {
+  private post = async (api: string, body: unknown): Promise<Response> => {
+    if (this.baseUrl === undefined) {
       throw new Error(
-        'Misconfigured Gateway API. Make sure FM_GATEWAY_API and FM_GATEWAY_PASSWORD are configured appropriately'
+        'Misconfigured Gateway API. Make sure FM_GATEWAY_API is configured appropriately'
       );
     }
+
+    const password = this.getPassword();
+    if (password === null) {
+      throw new Error(
+        'Misconfigured Gateway API. Make sure gateway password is configured appropriately'
+      );
+    }
+
+    return fetch(`${this.baseUrl}/${api}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${password}`,
+      },
+      body: JSON.stringify(body),
+    });
   };
 
   fetchInfo = async (): Promise<GatewayInfo> => {
     try {
-      this.checkConfig();
-      const res: Response = await fetch(`${this.baseUrl}/info`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify(null),
-      });
+      const res: Response = await this.post('info', null);
 
       if (res.ok) {
         const info: GatewayInfo = await res.json();
@@ -72,16 +80,8 @@ export class GatewayApi {
 
   fetchAddress = async (federationId: string): Promise<string> => {
     try {
-      this.checkConfig();
-      const res: Response = await fetch(`${this.baseUrl}/address`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify({
-          federation_id: federationId,
-        }),
+      const res: Response = await this.post('address', {
+        federation_id: federationId,
       });
 
       if (res.ok) {
@@ -100,16 +100,8 @@ export class GatewayApi {
 
   connectFederation = async (inviteCode: string): Promise<Federation> => {
     try {
-      this.checkConfig();
-      const res: Response = await fetch(`${this.baseUrl}/connect-fed`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify({
-          invite_code: inviteCode,
-        }),
+      const res: Response = await this.post('connect-fed', {
+        invite_code: inviteCode,
       });
 
       if (res.ok) {
@@ -129,18 +121,10 @@ export class GatewayApi {
     address: string
   ): Promise<string> => {
     try {
-      this.checkConfig();
-      const res: Response = await fetch(`${this.baseUrl}/withdraw`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify({
-          federation_id: federationId,
-          amount: amountSat,
-          address,
-        }),
+      const res: Response = await this.post('withdraw', {
+        federation_id: federationId,
+        amount: amountSat,
+        address,
       });
 
       if (res.ok) {
