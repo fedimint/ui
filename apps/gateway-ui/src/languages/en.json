@@ -12,6 +12,12 @@
   "admin": {
     "fetch-info-modal-text": "Checking federation details..."
   },
+  "login": {
+    "title": "Welcome back!",
+    "subtitle": "Please enter your Gateway password.",
+    "password": "Password",
+    "submit": "Submit"
+  },
   "balance-card": {
     "card_header": "eCash balance",
     "sentence": "Denominated in Sats"
