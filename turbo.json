@@ -1,5 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "packages/eslint-config/*.js",
+    "packages/eslint-config/*.json",
+    "packages/tsconfig/*.json"
+  ],
   "pipeline": {
     "build": {
       "outputs": ["build/**", "dist/**"],
