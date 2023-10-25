@@ -23,14 +23,14 @@ module.exports = {
     'no-restricted-imports': [
       'error',
       {
-        name: 'HStack',
-        message:
-          "Please use <Flex direction='row'> instead as it does not add any additional styling, where as HStack adds 0.5 rem margin to it's children.",
-      },
-      {
-        name: 'VStack',
-        message:
-          "Please use <Flex direction='column'> instead as it does not add any additional styling, where as VStack adds 0.5 rem margin to it's children.",
+        paths: [
+          {
+            name: '@chakra-ui/react',
+            importNames: ['HStack', 'VStack'],
+            message:
+              "Please use <Flex direction='row|column'> instead as it does not add any additional styling, where as HStack/VStack components add 0.5 rem margin to their children, leading to inconsistent styling.",
+          },
+        ],
       },
     ],
   },

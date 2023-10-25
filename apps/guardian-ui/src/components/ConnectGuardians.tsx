@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import {
   FormControl,
   FormLabel,
-  VStack,
+  Flex,
   Button,
   FormHelperText,
   Spinner,
@@ -91,7 +91,14 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
     ];
 
     content = (
-      <VStack gap={3} justify='start' align='start' width='100%' maxWidth={400}>
+      <Flex
+        direction='column'
+        gap={3}
+        justify='start'
+        align='start'
+        width='100%'
+        maxWidth={400}
+      >
         <TableContainer width='100%'>
           <ChakraTable variant='simple'>
             <Tbody>
@@ -109,7 +116,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
             {t('connect-guardians.approve')}
           </Button>
         </div>
-      </VStack>
+      </Flex>
     );
   }
 
@@ -156,7 +163,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   }, [numPeers, ourCurrentId, peers, t]);
 
   return (
-    <VStack width='100%' justify='start' align='start' gap={8}>
+    <Flex direction='column' width='100%' justify='start' align='start' gap={8}>
       {content}
       {peerTableRows.length && (
         <Table
@@ -166,6 +173,6 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
           rows={peerTableRows}
         />
       )}
-    </VStack>
+    </Flex>
   );
 };

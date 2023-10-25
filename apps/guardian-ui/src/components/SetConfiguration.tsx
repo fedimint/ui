@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  VStack,
+  Flex,
   FormControl,
   FormLabel,
   FormHelperText,
@@ -173,7 +173,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   };
 
   return (
-    <VStack gap={8} justify='start' align='start'>
+    <Flex direction='column' gap={8} justify='start' align='start'>
       <FormGroup>
         <FormControl>
           <FormLabel>{t('set-config.guardian-name')}</FormLabel>
@@ -294,6 +294,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           {t('common.next')}
         </Button>
       </div>
-    </VStack>
+    </Flex>
   );
 };

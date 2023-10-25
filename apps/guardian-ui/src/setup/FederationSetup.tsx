@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Box, Button, Text, Heading, Icon, VStack } from '@chakra-ui/react';
+import { Box, Button, Text, Heading, Icon, Flex } from '@chakra-ui/react';
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { useTranslation } from '@fedimint/utils';
 import { useSetupContext } from '../hooks';
@@ -102,11 +102,11 @@ export const FederationSetup: React.FC = () => {
   }
 
   return (
-    <VStack gap={8} align='start'>
+    <Flex direction='column' gap={8} align='start'>
       {progressIdx === 0 || !progressIdx ? null : (
         <SetupStepper setupProgress={progressIdx} isHost={isHost} />
       )}
-      <VStack align='start' gap={2}>
+      <Flex direction='column' align='start' gap={2}>
         {prevProgress && canGoBack && (
           <Button
             variant='link'
@@ -126,10 +126,10 @@ export const FederationSetup: React.FC = () => {
             {subtitle}
           </Text>
         )}
-      </VStack>
+      </Flex>
       <Box mt={10} width='100%'>
         {content}
       </Box>
-    </VStack>
+    </Flex>
   );
 };
