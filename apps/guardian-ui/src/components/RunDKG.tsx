@@ -80,7 +80,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
   }, [peers]);
 
   return (
-    <Flex direction='column' gap={8} justify='center' align='center'>
+    <Flex direction='column' gap={10} justify='center' align='center'>
       <CircularProgress
         isIndeterminate={!isWaitingForOthers}
         value={isWaitingForOthers ? progress : undefined}

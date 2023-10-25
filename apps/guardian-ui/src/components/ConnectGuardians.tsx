@@ -93,7 +93,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
     content = (
       <Flex
         direction='column'
-        gap={3}
+        gap={5}
         justify='start'
         align='start'
         width='100%'
@@ -163,7 +163,13 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   }, [numPeers, ourCurrentId, peers, t]);
 
   return (
-    <Flex direction='column' width='100%' justify='start' align='start' gap={8}>
+    <Flex
+      direction='column'
+      width='100%'
+      justify='start'
+      align='start'
+      gap={10}
+    >
       {content}
       {peerTableRows.length && (
         <Table

@@ -19,7 +19,7 @@ export const App = React.memo(function App() {
   const content = useMemo(() => {
     if (state.appError) {
       return (
-        <Flex direction='column' gap={4}>
+        <Flex direction='column' gap={6}>
           <Heading size='md'>{t('common.error')}</Heading>
           <Text>{state.appError}</Text>
         </Flex>
