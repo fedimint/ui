@@ -23,9 +23,7 @@ procs:
   devimint:
     shell: tail -n +0 -F $FM_LOGS_DIR/devimint.log
   gateway-ui:
-    shell: yarn dev:gateway-ui
+    shell: bash --init-file scripts/mprocs-nix-gateway.sh
     env:
       PORT: '3004'
-      REACT_APP_FM_GATEWAY_API: 'http://127.0.0.1:8175'
-      REACT_APP_FM_GATEWAY_PASSWORD: 'theresnosecondbest'
       BROWSER: none
