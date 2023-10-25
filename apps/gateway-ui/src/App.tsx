@@ -92,7 +92,7 @@ export const App = React.memo(function Admin(): JSX.Element {
     <ApiProvider props={{ gateway }}>
       <Wrapper size='lg'>
         {error ? (
-          <Flex direction='column' gap={4}>
+          <Flex direction='column' gap={6}>
             <Heading size='md'>{t('common.error')}</Heading>
             <Text>{error}</Text>
           </Flex>

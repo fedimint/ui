@@ -173,7 +173,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   };
 
   return (
-    <Flex direction='column' gap={8} justify='start' align='start'>
+    <Flex direction='column' gap={10} justify='start' align='start'>
       <FormGroup>
         <FormControl>
           <FormLabel>{t('set-config.guardian-name')}</FormLabel>

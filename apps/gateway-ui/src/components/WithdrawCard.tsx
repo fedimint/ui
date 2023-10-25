@@ -212,6 +212,7 @@ const ConfirmWithdrawModal = (
                 direction='column'
                 alignItems='flex-start'
                 justifyContent='space-between'
+                gap={2}
               >
                 <Box>
                   <Text>{t('common.amount')}:</Text>

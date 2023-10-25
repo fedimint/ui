@@ -102,11 +102,11 @@ export const FederationSetup: React.FC = () => {
   }
 
   return (
-    <Flex direction='column' gap={8} align='start'>
+    <Flex direction='column' gap={10} align='start'>
       {progressIdx === 0 || !progressIdx ? null : (
         <SetupStepper setupProgress={progressIdx} isHost={isHost} />
       )}
-      <Flex direction='column' align='start' gap={2}>
+      <Flex direction='column' align='start' gap={4}>
         {prevProgress && canGoBack && (
           <Button
             variant='link'

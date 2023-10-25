@@ -189,7 +189,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
   if (error) {
     return (
-      <Flex direction='column' gap={4}>
+      <Flex direction='column' gap={6}>
         <Heading size='sm'>{t('verify-guardians.error')}</Heading>
         <Text color={theme.colors.red[500]}>{error}</Text>
       </Flex>
@@ -198,7 +198,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     return <Spinner />;
   } else if (numPeers === 1) {
     return (
-      <Flex direction='column' gap={8} justify='center' align='center'>
+      <Flex direction='column' gap={10} justify='center' align='center'>
         <CircularProgress
           isIndeterminate
           color={theme.colors.blue[400]}
@@ -209,7 +209,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     );
   } else {
     return (
-      <Flex direction='column' gap={8} justify='start' align='start'>
+      <Flex direction='column' gap={10} justify='start' align='start'>
         <FormGroup>
           <FormControl>
             <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
@@ -225,7 +225,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           columns={tableColumns}
           rows={tableRows}
         />
-        <Flex direction='row' mt={4}>
+        <Flex direction='row' mt={4} gap={2}>
           <Button
             isDisabled={!verifiedConfigs}
             isLoading={isStarting}

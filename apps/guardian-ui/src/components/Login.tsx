@@ -40,8 +40,8 @@ export const Login: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Flex direction='column' pt={8} gap={2} align='start' justify='start'>
-        <Flex direction='column' align='start' gap={2}>
+      <Flex direction='column' pt={8} gap={4} align='start' justify='start'>
+        <Flex direction='column' align='start' gap={4}>
           <Heading size='md' fontWeight='medium'>
             {t('login.title')}
           </Heading>

@@ -62,7 +62,7 @@ export function RadioButtonGroup<T extends string | number>({
             sx={isActive ? activeStyles : defaultStyles}
             role='group'
           >
-            <Flex direction='row' maxWidth='100%' gap={3} align='start'>
+            <Flex direction='row' maxWidth='100%' gap={5} align='start'>
               <Flex
                 width='40px'
                 height='40px'
@@ -81,6 +81,7 @@ export function RadioButtonGroup<T extends string | number>({
                 flex={1}
                 minWidth={0}
                 wrap='wrap'
+                gap={2}
               >
                 <Text
                   fontWeight='medium'
