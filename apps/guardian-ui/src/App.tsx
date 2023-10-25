@@ -1,6 +1,12 @@
 import React, { useMemo } from 'react';
 import { Box, Flex, Spinner, Heading, Text, Center } from '@chakra-ui/react';
-import { theme, Fonts, SharedChakraProvider, Wrapper } from '@fedimint/ui';
+import {
+  theme,
+  Fonts,
+  SharedChakraProvider,
+  Wrapper,
+  Login,
+} from '@fedimint/ui';
 import spaceGroteskTtf from '@fedimint/ui/assets/fonts/SpaceGrotesk-Variable.ttf';
 import interTtf from '@fedimint/ui/assets/fonts/Inter-Variable.ttf';
 import { SetupContextProvider } from './setup/SetupContext';
@@ -8,13 +14,13 @@ import { AdminContextProvider } from './admin/AdminContext';
 import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
 import { useAppContext } from './hooks';
-import { Login } from './components/Login';
 import { useTranslation } from '@fedimint/utils';
-import { Status } from './types';
+import { APP_ACTION_TYPE, Status } from './types';
+import { formatApiErrorMessage } from './utils/api';
 
 export const App = React.memo(function App() {
   const { t } = useTranslation();
-  const { state, api } = useAppContext();
+  const { state, api, dispatch } = useAppContext();
 
   const content = useMemo(() => {
     if (state.appError) {
@@ -29,7 +35,13 @@ export const App = React.memo(function App() {
     if (state.needsAuth) {
       return (
         <Wrapper>
-          <Login />
+          <Login
+            checkAuth={(password) => api.testPassword(password || '')}
+            setAuthenticated={() =>
+              dispatch({ type: APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: false })
+            }
+            parseError={formatApiErrorMessage}
+          />
         </Wrapper>
       );
     }
@@ -68,6 +80,7 @@ export const App = React.memo(function App() {
     state.appError,
     state.needsAuth,
     api,
+    dispatch,
     t,
   ]);
 
