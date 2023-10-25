@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import {
   Box,
   Button,
+  Flex,
   Input,
   InputGroup,
   NumberInput,
@@ -15,7 +16,6 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  VStack,
   useTheme,
 } from '@chakra-ui/react';
 import {
@@ -208,7 +208,11 @@ const ConfirmWithdrawModal = (
             <ModalHeader>{t('withdraw-card.confirm-withdraw')}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <VStack alignItems='flex-start' justifyContent='space-between'>
+              <Flex
+                direction='column'
+                alignItems='flex-start'
+                justifyContent='space-between'
+              >
                 <Box>
                   <Text>{t('common.amount')}:</Text>
                   <Text>
@@ -220,7 +224,7 @@ const ConfirmWithdrawModal = (
                   <Text>{t('common.address')}:</Text>
                   <Text>{formatEllipsized(txRequest.address)}</Text>
                 </Box>
-              </VStack>
+              </Flex>
             </ModalBody>
             <ModalFooter>
               <Button

@@ -3,7 +3,7 @@ import {
   CircularProgressLabel,
   Heading,
   Text,
-  VStack,
+  Flex,
   useTheme,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -56,7 +56,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
             setError(`${t('run-dkg.error-config')}`);
             break;
           default:
-            setError(`${t('run-dkg.error-default')} '${(status.server)}'`);
+            setError(`${t('run-dkg.error-default')} '${status.server}'`);
         }
       } catch (err) {
         setError(formatApiErrorMessage(err));
@@ -80,7 +80,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
   }, [peers]);
 
   return (
-    <VStack gap={8} justify='center' align='center'>
+    <Flex direction='column' gap={8} justify='center' align='center'>
       <CircularProgress
         isIndeterminate={!isWaitingForOthers}
         value={isWaitingForOthers ? progress : undefined}
@@ -107,6 +107,6 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
             : t('run-dkg.generating-header')}
         </Heading>
       )}
-    </VStack>
+    </Flex>
   );
 };

@@ -3,7 +3,6 @@ import {
   Box,
   Heading,
   Stack,
-  VStack,
   Text,
   Flex,
   useTheme,
@@ -93,10 +92,10 @@ export const App = React.memo(function Admin(): JSX.Element {
     <ApiProvider props={{ gateway }}>
       <Wrapper size='lg'>
         {error ? (
-          <VStack spacing={4}>
+          <Flex direction='column' gap={4}>
             <Heading size='md'>{t('common.error')}</Heading>
             <Text>{error}</Text>
-          </VStack>
+          </Flex>
         ) : (
           <Box>
             {gatewayInfo?.federations.length ? null : (
