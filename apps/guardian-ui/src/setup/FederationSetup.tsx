@@ -12,6 +12,7 @@ import { VerifyGuardians } from '../components/VerifyGuardians';
 import { SetupComplete } from '../components/SetupComplete';
 import { SetupProgress as SetupStepper } from '../components/SetupProgress';
 import { TermsOfService } from '../components/TermsOfService';
+import { getEnv } from '../utils/env';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -28,9 +29,7 @@ export const FederationSetup: React.FC = () => {
     state: { progress, role },
     dispatch,
   } = useSetupContext();
-  const [needsTosAgreement, setNeedsTosAgreement] = useState(
-    !!process.env.REACT_APP_TOS
-  );
+  const [needsTosAgreement, setNeedsTosAgreement] = useState(!!getEnv().TOS);
 
   const isHost = role === GuardianRole.Host;
   const progressIdx = PROGRESS_ORDER.indexOf(progress);

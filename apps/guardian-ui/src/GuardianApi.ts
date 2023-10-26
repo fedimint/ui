@@ -11,6 +11,7 @@ import {
   PeerHashMap,
   ModulesConfigResponse,
 } from './types';
+import { getEnv } from './utils/env';
 
 export interface SocketAndAuthInterface {
   // WebSocket methods
@@ -58,7 +59,7 @@ class BaseGuardianApi
     }
 
     this.connectPromise = new Promise((resolve, reject) => {
-      const websocketUrl = process.env.REACT_APP_FM_CONFIG_API;
+      const websocketUrl = getEnv().FM_CONFIG_API;
 
       if (!websocketUrl) {
         throw new Error('REACT_APP_FM_CONFIG_API not set');
