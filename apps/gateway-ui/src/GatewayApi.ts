@@ -10,10 +10,10 @@ export class GatewayApi {
   testPassword = async (password?: string): Promise<boolean> => {
     const tempPassword =
       password ||
-      process.env.REACT_APP_FM_GATEWAY_PASSWORD ||
-      this.getPassword();
+      this.getPassword() ||
+      process.env.REACT_APP_FM_GATEWAY_PASSWORD;
 
-    if (tempPassword === null) {
+    if (!tempPassword) {
       return false;
     }
 
@@ -47,7 +47,7 @@ export class GatewayApi {
     }
 
     const password = this.getPassword();
-    if (password === null) {
+    if (!password) {
       throw new Error(
         'Misconfigured Gateway API. Make sure gateway password is configured appropriately'
       );
