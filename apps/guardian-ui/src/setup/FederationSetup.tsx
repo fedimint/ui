@@ -127,7 +127,7 @@ export const FederationSetup: React.FC = () => {
           </Text>
         )}
       </Flex>
-      <Box mt={10} width='100%'>
+      <Box mt={2} width='100%'>
         {content}
       </Box>
     </Flex>
