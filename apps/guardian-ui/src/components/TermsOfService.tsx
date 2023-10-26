@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button, Flex, Textarea } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
+import { getEnv } from '../utils/env';
 
 interface Props {
   next(): void;
@@ -8,7 +9,7 @@ interface Props {
 
 export const TermsOfService: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
-  const tos = process.env.REACT_APP_TOS;
+  const tos = getEnv().TOS;
 
   // If this was mistakenly rendered with no ToS, just instantly agree and continue.
   useEffect(() => {
@@ -17,7 +18,7 @@ export const TermsOfService: React.FC<Props> = ({ next }) => {
 
   return (
     <Flex direction='column' gap={4} maxWidth={660}>
-      <Textarea value={process.env.REACT_APP_TOS} rows={14} readOnly />
+      <Textarea value={tos} rows={14} readOnly />
       <Button onClick={next}>{t('terms-of-service.agree-and-continue')}</Button>
     </Flex>
   );
