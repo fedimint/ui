@@ -37,42 +37,41 @@ export const App = React.memo(function Admin(): JSX.Element {
   useEffect(() => {
     setLoading(true);
     if (!authenticated) {
-      gateway.testPassword().then(setAuthenticated).catch(console.error);
+      gateway
+        .testPassword()
+        .then((authed) => {
+          setAuthenticated(authed);
+          if (!authed) {
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
     } else {
       gateway
         .fetchInfo()
-        .then((gatewayInfo: GatewayInfo) => {
+        .then((gatewayInfo) => {
           setGatewayInfo(gatewayInfo);
-          setLoading(false);
         })
         .catch(({ message, error }) => {
           console.error(error);
           setError(message);
+        })
+        .finally(() => {
           setLoading(false);
         });
     }
   }, [gateway, authenticated]);
 
   const content = useMemo(() => {
-    if (!authenticated) {
-      return (
-        <Login
-          checkAuth={gateway.testPassword}
-          setAuthenticated={() => setAuthenticated(true)}
-          parseError={(err) => {
-            return (err as Error).message;
-          }}
-        />
-      );
-    }
-
     if (loading) {
       return (
         <Flex
           bgColor={theme.colors.white}
           justifyContent='center'
           alignItems='center'
-          // h='100vh'
         >
           <CircularProgress
             isIndeterminate={true}
@@ -97,10 +96,24 @@ export const App = React.memo(function Admin(): JSX.Element {
     }
 
     if (error) {
-      <Flex gap={4}>
-        <Heading size='md'>{t('common.error')}</Heading>
-        <Text>{error}</Text>
-      </Flex>;
+      return (
+        <Flex gap={6}>
+          <Heading size='md'>{t('common.error')}</Heading>
+          <Text>{error}</Text>
+        </Flex>
+      );
+    }
+
+    if (!authenticated) {
+      return (
+        <Login
+          checkAuth={gateway.testPassword}
+          setAuthenticated={() => setAuthenticated(true)}
+          parseError={(err) => {
+            return (err as Error).message;
+          }}
+        />
+      );
     }
 
     return (
