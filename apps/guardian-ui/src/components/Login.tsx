@@ -4,7 +4,7 @@ import {
   FormControl,
   FormLabel,
   Button,
-  VStack,
+  Flex,
   FormErrorMessage,
   Heading,
   Text,
@@ -40,15 +40,15 @@ export const Login: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <VStack pt={8} gap={2} align='start' justify='start'>
-        <VStack align='start' gap={2}>
+      <Flex direction='column' pt={8} gap={4} align='start' justify='start'>
+        <Flex direction='column' align='start' gap={4}>
           <Heading size='md' fontWeight='medium'>
             {t('login.title')}
           </Heading>
           <Text size='md' fontWeight='medium'>
             {t('login.subtitle')}
           </Text>
-        </VStack>
+        </Flex>
         <FormControl isInvalid={!!error}>
           <FormLabel>{t('login.password')}</FormLabel>
           <Input
@@ -59,7 +59,7 @@ export const Login: React.FC = () => {
           {error && <FormErrorMessage>{error}</FormErrorMessage>}
         </FormControl>
         <Button type='submit'>{t('login.submit')}</Button>
-      </VStack>
+      </Flex>
     </form>
   );
 };

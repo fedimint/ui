@@ -4,15 +4,14 @@ import {
   FormControl,
   FormLabel,
   FormHelperText,
+  Flex,
   Icon,
-  VStack,
   Heading,
   Text,
   Spinner,
   Input,
   Tag,
   useTheme,
-  HStack,
   CircularProgress,
 } from '@chakra-ui/react';
 import { CopyInput, FormGroup, Table } from '@fedimint/ui';
@@ -190,27 +189,27 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
   if (error) {
     return (
-      <VStack gap={4}>
+      <Flex direction='column' gap={6}>
         <Heading size='sm'>{t('verify-guardians.error')}</Heading>
         <Text color={theme.colors.red[500]}>{error}</Text>
-      </VStack>
+      </Flex>
     );
   } else if (!peersWithHash) {
     return <Spinner />;
   } else if (numPeers === 1) {
     return (
-      <VStack gap={8} justify='center' align='center'>
+      <Flex direction='column' gap={10} justify='center' align='center'>
         <CircularProgress
           isIndeterminate
           color={theme.colors.blue[400]}
           size='200px'
         />
         <Heading size='sm'>{t('verify-guardians.starting-consensus')}</Heading>
-      </VStack>
+      </Flex>
     );
   } else {
     return (
-      <VStack gap={8} justify='start' align='start'>
+      <Flex direction='column' gap={10} justify='start' align='start'>
         <FormGroup>
           <FormControl>
             <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
@@ -226,7 +225,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           columns={tableColumns}
           rows={tableRows}
         />
-        <HStack mt={4}>
+        <Flex direction='row' mt={4} gap={2}>
           <Button
             isDisabled={!verifiedConfigs}
             isLoading={isStarting}
@@ -236,8 +235,8 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             {t('common.next')}
           </Button>
           <WaitingForVerification verifiedConfigs={verifiedConfigs} />
-        </HStack>
-      </VStack>
+        </Flex>
+      </Flex>
     );
   }
 };

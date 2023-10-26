@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  VStack,
-  HStack,
-  Button,
-  Icon,
-  Text,
-  Flex,
-  useTheme,
-} from '@chakra-ui/react';
+import { Button, Icon, Text, Flex, useTheme } from '@chakra-ui/react';
 
 export interface RadioButtonOption<T extends string | number> {
   icon: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
@@ -70,7 +62,7 @@ export function RadioButtonGroup<T extends string | number>({
             sx={isActive ? activeStyles : defaultStyles}
             role='group'
           >
-            <HStack maxWidth='100%' gap={3} align='start'>
+            <Flex direction='row' maxWidth='100%' gap={5} align='start'>
               <Flex
                 width='40px'
                 height='40px'
@@ -83,7 +75,14 @@ export function RadioButtonGroup<T extends string | number>({
               >
                 <Icon as={option.icon} />
               </Flex>
-              <VStack align='start' flex={1} minWidth={0} wrap='wrap'>
+              <Flex
+                direction='column'
+                align='start'
+                flex={1}
+                minWidth={0}
+                wrap='wrap'
+                gap={2}
+              >
                 <Text
                   fontWeight='medium'
                   color={isActive ? theme.colors.blue[800] : undefined}
@@ -98,7 +97,7 @@ export function RadioButtonGroup<T extends string | number>({
                 >
                   {option.description}
                 </Text>
-              </VStack>
+              </Flex>
               <Flex
                 align='center'
                 justify='center'
@@ -135,7 +134,7 @@ export function RadioButtonGroup<T extends string | number>({
               >
                 {isActive && activeIcon && <Icon as={activeIcon} />}
               </Flex>
-            </HStack>
+            </Flex>
           </Button>
         );
       })}

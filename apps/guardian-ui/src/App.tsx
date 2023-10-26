@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Box, VStack, Spinner, Heading, Text, Center } from '@chakra-ui/react';
+import { Box, Flex, Spinner, Heading, Text, Center } from '@chakra-ui/react';
 import { theme, Fonts, SharedChakraProvider, Wrapper } from '@fedimint/ui';
 import spaceGroteskTtf from '@fedimint/ui/assets/fonts/SpaceGrotesk-Variable.ttf';
 import interTtf from '@fedimint/ui/assets/fonts/Inter-Variable.ttf';
@@ -19,10 +19,10 @@ export const App = React.memo(function App() {
   const content = useMemo(() => {
     if (state.appError) {
       return (
-        <VStack spacing={4}>
+        <Flex direction='column' gap={6}>
           <Heading size='md'>{t('common.error')}</Heading>
           <Text>{state.appError}</Text>
-        </VStack>
+        </Flex>
       );
     }
 
