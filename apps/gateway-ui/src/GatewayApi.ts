@@ -1,50 +1,71 @@
 import { GatewayInfo, Federation } from './types';
 
-// GatewayApi is an API to interact with the Gateway server
-interface ApiInterface {
-  fetchInfo: () => Promise<GatewayInfo>;
-  fetchAddress: (federationId: string) => Promise<string>;
-  connectFederation: (connectInfo: string) => Promise<Federation>;
-
-  /**
-   *  Request a withdrawal from a fedration served by the Gateway
-   * @param federationId  id of the federation to withdraw from
-   * @param amountSat the amount in satoshis to be withdrawn from the federation
-   * @param address the bitcoin address to withdraw to
-   * @returns `TransactionId` from the Fedimint federation
-   */
-  requestWithdrawal: (
-    federationId: string,
-    amountSat: number,
-    address: string
-  ) => Promise<string>;
-}
+const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
 // GatewayApi is an implementation of the ApiInterface
-export class GatewayApi implements ApiInterface {
+export class GatewayApi {
   private baseUrl: string | undefined = process.env.REACT_APP_FM_GATEWAY_API;
-  private password: string | undefined =
-    process.env.REACT_APP_FM_GATEWAY_PASSWORD;
 
-  private checkConfig = (): void => {
-    if (this.baseUrl === undefined || this.password === undefined) {
+  // Tests a provided password, or the one in the environment config, or the one in session storage
+  testPassword = async (password?: string): Promise<boolean> => {
+    const tempPassword =
+      password ||
+      this.getPassword() ||
+      process.env.REACT_APP_FM_GATEWAY_PASSWORD;
+
+    if (!tempPassword) {
+      return false;
+    }
+
+    // Replace with temp password to check.
+    sessionStorage.setItem(SESSION_STORAGE_KEY, tempPassword);
+
+    try {
+      await this.fetchInfo();
+      return true;
+    } catch (err) {
+      // TODO: make sure error is auth error, not unrelated
+      console.error(err);
+      this.clearPassword();
+      return false;
+    }
+  };
+
+  private getPassword = (): string | null => {
+    return sessionStorage.getItem(SESSION_STORAGE_KEY);
+  };
+
+  clearPassword = () => {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+  };
+
+  private post = async (api: string, body: unknown): Promise<Response> => {
+    if (this.baseUrl === undefined) {
       throw new Error(
-        'Misconfigured Gateway API. Make sure FM_GATEWAY_API and FM_GATEWAY_PASSWORD are configured appropriately'
+        'Misconfigured Gateway API. Make sure FM_GATEWAY_API is configured appropriately'
       );
     }
+
+    const password = this.getPassword();
+    if (!password) {
+      throw new Error(
+        'Misconfigured Gateway API. Make sure gateway password is configured appropriately'
+      );
+    }
+
+    return fetch(`${this.baseUrl}/${api}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${password}`,
+      },
+      body: JSON.stringify(body),
+    });
   };
 
   fetchInfo = async (): Promise<GatewayInfo> => {
     try {
-      this.checkConfig();
-      const res: Response = await fetch(`${this.baseUrl}/info`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify(null),
-      });
+      const res: Response = await this.post('info', null);
 
       if (res.ok) {
         const info: GatewayInfo = await res.json();
@@ -59,16 +80,8 @@ export class GatewayApi implements ApiInterface {
 
   fetchAddress = async (federationId: string): Promise<string> => {
     try {
-      this.checkConfig();
-      const res: Response = await fetch(`${this.baseUrl}/address`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify({
-          federation_id: federationId,
-        }),
+      const res: Response = await this.post('address', {
+        federation_id: federationId,
       });
 
       if (res.ok) {
@@ -87,16 +100,8 @@ export class GatewayApi implements ApiInterface {
 
   connectFederation = async (inviteCode: string): Promise<Federation> => {
     try {
-      this.checkConfig();
-      const res: Response = await fetch(`${this.baseUrl}/connect-fed`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify({
-          invite_code: inviteCode,
-        }),
+      const res: Response = await this.post('connect-fed', {
+        invite_code: inviteCode,
       });
 
       if (res.ok) {
@@ -116,18 +121,10 @@ export class GatewayApi implements ApiInterface {
     address: string
   ): Promise<string> => {
     try {
-      this.checkConfig();
-      const res: Response = await fetch(`${this.baseUrl}/withdraw`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.password}`,
-        },
-        body: JSON.stringify({
-          federation_id: federationId,
-          amount: amountSat,
-          address,
-        }),
+      const res: Response = await this.post('withdraw', {
+        federation_id: federationId,
+        amount: amountSat,
+        address,
       });
 
       if (res.ok) {

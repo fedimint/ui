@@ -10,13 +10,19 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { useAppContext } from '../hooks';
-import { formatApiErrorMessage } from '../utils/api';
-import { APP_ACTION_TYPE } from '../types';
 
-export const Login: React.FC = () => {
+interface LoginProps {
+  checkAuth: (password?: string) => Promise<boolean>;
+  setAuthenticated: () => void;
+  parseError: (err: unknown) => string;
+}
+
+export const Login: React.FC<LoginProps> = ({
+  checkAuth,
+  setAuthenticated,
+  parseError,
+}) => {
   const { t } = useTranslation();
-  const { api, dispatch } = useAppContext();
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>();
 
@@ -24,18 +30,18 @@ export const Login: React.FC = () => {
     async (ev: React.FormEvent) => {
       ev.preventDefault();
       try {
-        const isValid = await api.testPassword(password);
+        const isValid = await checkAuth(password);
         if (isValid) {
-          dispatch({ type: APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: false });
+          setAuthenticated();
         } else {
           setError('Invalid password');
         }
       } catch (err: unknown) {
         console.error({ err });
-        setError(formatApiErrorMessage(err));
+        setError(parseError(err));
       }
     },
-    [api, password, dispatch]
+    [password, checkAuth, setAuthenticated, parseError]
   );
 
   return (

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import {
   Box,
   Heading,
-  Stack,
   Text,
   Flex,
   useTheme,
@@ -13,7 +12,7 @@ import { FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { GatewayInfo, Federation } from './types';
-import { Wrapper } from '@fedimint/ui';
+import { Wrapper, Login } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 
 export const App = React.memo(function Admin(): JSX.Element {
@@ -29,95 +28,125 @@ export const App = React.memo(function Admin(): JSX.Element {
     lightning_pub_key: '',
     version_hash: '',
   });
-  const [showConnectFed, toggleShowConnectFed] = useState<boolean>(false);
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
-  const [loading, setLoading] = useState(false);
   const theme = useTheme();
   const { t } = useTranslation();
 
   useEffect(() => {
     setLoading(true);
-    gateway
-      .fetchInfo()
-      .then((gatewayInfo: GatewayInfo) => {
-        setGatewayInfo(gatewayInfo);
-        setLoading(false);
-      })
-      .catch(({ message, error }) => {
-        console.error(error);
-        setError(message);
-        setLoading(false);
-      });
-  }, [gateway]);
+    if (!authenticated) {
+      gateway
+        .testPassword()
+        .then((authed) => {
+          setAuthenticated(authed);
+          if (!authed) {
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
+    } else {
+      gateway
+        .fetchInfo()
+        .then((gatewayInfo) => {
+          setGatewayInfo(gatewayInfo);
+        })
+        .catch(({ message, error }) => {
+          console.error(error);
+          setError(message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [gateway, authenticated]);
 
-  const renderConnectedFedCallback = (federation: Federation) => {
-    setGatewayInfo({
-      ...gatewayInfo,
-      federations: [...gatewayInfo.federations, federation],
-    });
-    toggleShowConnectFed(!showConnectFed);
-  };
-
-  if (loading) {
-    return (
-      <Flex
-        bgColor={theme.colors.white}
-        justifyContent='center'
-        alignItems='center'
-        h='100vh'
-      >
-        <CircularProgress
-          isIndeterminate={true}
-          color={theme.colors.blue[600]}
-          size='240px'
-          thickness='8px'
-          capIsRound={true}
+  const content = useMemo(() => {
+    if (loading) {
+      return (
+        <Flex
+          bgColor={theme.colors.white}
+          justifyContent='center'
+          alignItems='center'
         >
-          <CircularProgressLabel
-            fontSize='md'
-            fontWeight='500'
-            color={theme.colors.gray[600]}
-            fontFamily={theme.fonts.body}
-            textAlign='center'
-            width='150px'
+          <CircularProgress
+            isIndeterminate={true}
+            color={theme.colors.blue[600]}
+            size='240px'
+            thickness='8px'
+            capIsRound={true}
           >
-            {t('admin.fetch-info-modal-text')}
-          </CircularProgressLabel>
-        </CircularProgress>
-      </Flex>
+            <CircularProgressLabel
+              fontSize='md'
+              fontWeight='500'
+              color={theme.colors.gray[600]}
+              fontFamily={theme.fonts.body}
+              textAlign='center'
+              width='150px'
+            >
+              {t('admin.fetch-info-modal-text')}
+            </CircularProgressLabel>
+          </CircularProgress>
+        </Flex>
+      );
+    }
+
+    if (error) {
+      return (
+        <Flex gap={6}>
+          <Heading size='md'>{t('common.error')}</Heading>
+          <Text>{error}</Text>
+        </Flex>
+      );
+    }
+
+    if (!authenticated) {
+      return (
+        <Login
+          checkAuth={gateway.testPassword}
+          setAuthenticated={() => setAuthenticated(true)}
+          parseError={(err) => {
+            return (err as Error).message;
+          }}
+        />
+      );
+    }
+
+    return (
+      <Box>
+        {gatewayInfo.federations.length === 0 && (
+          <>
+            <ConnectFederation
+              renderConnectedFedCallback={(federation: Federation) => {
+                setGatewayInfo({
+                  ...gatewayInfo,
+                  federations: [...gatewayInfo.federations, federation],
+                });
+              }}
+            />
+          </>
+        )}
+        <Flex direction='column' gap={8}>
+          {gatewayInfo.federations.map((federation: Federation) => {
+            return (
+              <FederationCard
+                key={federation.federation_id}
+                federation={federation}
+              />
+            );
+          })}
+        </Flex>
+      </Box>
     );
-  }
+  }, [gateway, loading, authenticated, error, gatewayInfo, theme, t]);
 
   return (
     <ApiProvider props={{ gateway }}>
-      <Wrapper size='lg'>
-        {error ? (
-          <Flex direction='column' gap={6}>
-            <Heading size='md'>{t('common.error')}</Heading>
-            <Text>{error}</Text>
-          </Flex>
-        ) : (
-          <Box>
-            {gatewayInfo?.federations.length ? null : (
-              <>
-                <ConnectFederation
-                  renderConnectedFedCallback={renderConnectedFedCallback}
-                />
-              </>
-            )}
-            <Stack spacing={6}>
-              {gatewayInfo.federations.map((federation: Federation) => {
-                return (
-                  <FederationCard
-                    key={federation.federation_id}
-                    federation={federation}
-                  />
-                );
-              })}
-            </Stack>
-          </Box>
-        )}
-      </Wrapper>
+      <Wrapper size='lg'>{content}</Wrapper>
     </ApiProvider>
   );
 });
