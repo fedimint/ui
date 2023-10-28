@@ -17,6 +17,7 @@ import { useSetupContext } from '../hooks';
 import { BitcoinRpc, ConfigGenParams, GuardianRole, Network } from '../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
+import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import {
   formatApiErrorMessage,
@@ -251,10 +252,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
                 setNumPeers(value);
               }}
             />
-            <MetaFieldFormControl
-              metaFields={metaFields}
-              onChangeMetaFields={setMetaFields}
-            />
           </FormGroup>
         )}
         <FormGroup>
@@ -301,6 +298,15 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             <FormHelperText>{t('set-config.set-rpc-help')}</FormHelperText>
           </FormControl>
         </FormGroup>
+        {isHost && (
+          <FormGroup maxWidth={470}>
+            <FormGroupHeading icon={ModulesIcon} title='Meta fields' />
+            <MetaFieldFormControl
+              metaFields={metaFields}
+              onChangeMetaFields={setMetaFields}
+            />
+          </FormGroup>
+        )}
       </>
       {error && (
         <Text color={theme.colors.red[500]} mt={4}>
