@@ -105,7 +105,10 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
         } catch {
           /* no-op, use value as string */
         }
-        rows.push({ label: `Meta - ${key}`, value });
+        rows.push({
+          label: t('connect-guardians.meta-field-key', { key }),
+          value,
+        });
       });
 
     content = (
