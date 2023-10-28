@@ -11,6 +11,7 @@ import {
 import React from 'react';
 import { ReactComponent as TrashIcon } from '../assets/svgs/trash.svg';
 import { ReactComponent as PlusIcon } from '../assets/svgs/plus.svg';
+import { useTranslation, Trans } from '@fedimint/utils';
 
 interface Props {
   metaFields: [string, string][];
@@ -21,6 +22,7 @@ export const MetaFieldFormControl: React.FC<Props> = ({
   metaFields,
   onChangeMetaFields,
 }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
 
   const derivedMetaKeys = ['federation_name'];
@@ -43,23 +45,26 @@ export const MetaFieldFormControl: React.FC<Props> = ({
     <FormControl>
       <Flex direction='column' gap={3}>
         <FormHelperText mt={0} mb={2}>
-          Additional configuration sent to fedimint clients. See{' '}
-          <Link
-            href='https://github.com/fedimint/fedimint/blob/master/docs/meta_fields/README.md'
-            target='_blank'
-            rel='noopener noreferrer'
-            color={theme.colors.blue[600]}
-          >
-            documentation
-          </Link>{' '}
-          for more information.
+          <Trans
+            i18nKey='set-config.meta-fields-description'
+            components={{
+              docs: (
+                <Link
+                  href='https://github.com/fedimint/fedimint/blob/master/docs/meta_fields/README.md'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  color={theme.colors.blue[600]}
+                />
+              ),
+            }}
+          />
         </FormHelperText>
         {metaFields.map(([key, value], idx) => {
           const isDerived = derivedMetaKeys.includes(key);
           return (
             <Flex gap={3} key={idx}>
               <Input
-                placeholder='Key'
+                placeholder={t('set-config.meta-fields-key')}
                 value={key}
                 disabled={isDerived}
                 onChange={(ev) =>
@@ -67,7 +72,7 @@ export const MetaFieldFormControl: React.FC<Props> = ({
                 }
               />
               <Input
-                placeholder={isDerived ? '' : 'Value'}
+                placeholder={isDerived ? '' : t('set-config.meta-fields-value')}
                 value={value}
                 disabled={isDerived}
                 onChange={(ev) =>
@@ -83,7 +88,7 @@ export const MetaFieldFormControl: React.FC<Props> = ({
                   width={'42px'}
                   height={'42px'}
                   fontSize={12}
-                  aria-label='Remove'
+                  aria-label={t('common.remove')}
                   colorScheme='red'
                   color={theme.colors.gray[300]}
                   _hover={{ color: theme.colors.red[500] }}
@@ -99,7 +104,7 @@ export const MetaFieldFormControl: React.FC<Props> = ({
           variant='outline'
           onClick={handleAddMetaField}
         >
-          Add another
+          {t('set-config.meta-fields-add-another')}
         </Button>
       </Flex>
     </FormControl>

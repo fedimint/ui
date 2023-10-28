@@ -300,7 +300,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         </FormGroup>
         {isHost && (
           <FormGroup maxWidth={470}>
-            <FormGroupHeading icon={ModulesIcon} title='Meta fields' />
+            <FormGroupHeading
+              icon={ModulesIcon}
+              title={t('set-config.meta-fields')}
+            />
             <MetaFieldFormControl
               metaFields={metaFields}
               onChangeMetaFields={setMetaFields}

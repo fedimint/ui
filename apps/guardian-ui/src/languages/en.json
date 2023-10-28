@@ -4,7 +4,8 @@
     "next": "Next",
     "back": "Back",
     "error": "Something went wrong.",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "remove": "Remove"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -14,7 +15,8 @@
     "pending": "Pending",
     "not-joined": "Not joined",
     "table-title": "Federation Guardians",
-    "table-description": "Guardians will be confirmed here once they confirm Federation settings."
+    "table-description": "Guardians will be confirmed here once they confirm Federation settings.",
+    "meta-field-key": "Meta field - {{key}}"
   },
   "federation-dashboard": {
     "invite-members": "Invite members",
@@ -96,7 +98,12 @@
     "error-valid-number": "Please input a valid number.",
     "error-valid-min": "Please input a number of at least {{min}}.",
     "error-valid-max": "Please input a number of at most {{max}}.",
-    "error-valid-min-max": "Please input a number between {{min}} and {{max}}."
+    "error-valid-min-max": "Please input a number between {{min}} and {{max}}.",
+    "meta-fields": "Meta fields",
+    "meta-fields-description": "Additional configuration sent to fedimint clients. See <docs>documentation</docs> or more information.",
+    "meta-fields-key": "Meta key",
+    "meta-fields-value": "Value",
+    "meta-fields-add-another": "Add another"
   },
   "setup": {
     "progress": {
