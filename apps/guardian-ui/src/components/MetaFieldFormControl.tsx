@@ -1,17 +1,16 @@
 import {
   Button,
-  Collapse,
   Flex,
   FormControl,
   FormHelperText,
-  FormLabel,
   IconButton,
   Input,
   Link,
   useTheme,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
 import { ReactComponent as TrashIcon } from '../assets/svgs/trash.svg';
+import { ReactComponent as PlusIcon } from '../assets/svgs/plus.svg';
 
 interface Props {
   metaFields: [string, string][];
@@ -23,7 +22,6 @@ export const MetaFieldFormControl: React.FC<Props> = ({
   onChangeMetaFields,
 }) => {
   const theme = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
 
   const derivedMetaKeys = ['federation_name'];
 
@@ -43,64 +41,67 @@ export const MetaFieldFormControl: React.FC<Props> = ({
 
   return (
     <FormControl>
-      <FormLabel onClick={() => setIsOpen((s) => !s)} cursor='pointer'>
-        Meta fields
-      </FormLabel>
-      <Collapse in={isOpen}>
-        <Flex direction='column' gap={3}>
-          <FormHelperText mt={0} mb={2}>
-            Configuration sent to federation clients. See{' '}
-            <Link
-              href='https://github.com/fedimint/fedimint/blob/master/docs/meta_fields/README.md'
-              target='_blank'
-              rel='noopener noreferrer'
-              color={theme.colors.blue[600]}
-            >
-              documentation
-            </Link>{' '}
-            for more information.
-          </FormHelperText>
-          {metaFields.map(([key, value], idx) => {
-            const isDerived = derivedMetaKeys.includes(key);
-            return (
-              <Flex gap={3} key={idx}>
-                <Input
-                  placeholder='Key'
-                  value={key}
-                  disabled={isDerived}
-                  onChange={(ev) =>
-                    handleChangeMetaField(ev.target.value, value, idx)
-                  }
+      <Flex direction='column' gap={3}>
+        <FormHelperText mt={0} mb={2}>
+          Additional configuration sent to fedimint clients. See{' '}
+          <Link
+            href='https://github.com/fedimint/fedimint/blob/master/docs/meta_fields/README.md'
+            target='_blank'
+            rel='noopener noreferrer'
+            color={theme.colors.blue[600]}
+          >
+            documentation
+          </Link>{' '}
+          for more information.
+        </FormHelperText>
+        {metaFields.map(([key, value], idx) => {
+          const isDerived = derivedMetaKeys.includes(key);
+          return (
+            <Flex gap={3} key={idx}>
+              <Input
+                placeholder='Key'
+                value={key}
+                disabled={isDerived}
+                onChange={(ev) =>
+                  handleChangeMetaField(ev.target.value, value, idx)
+                }
+              />
+              <Input
+                placeholder={isDerived ? '' : 'Value'}
+                value={value}
+                disabled={isDerived}
+                onChange={(ev) =>
+                  handleChangeMetaField(key, ev.target.value, idx)
+                }
+              />
+              {!isDerived && (
+                <IconButton
+                  position='absolute'
+                  left='100%'
+                  variant='ghost'
+                  size='xs'
+                  width={'42px'}
+                  height={'42px'}
+                  fontSize={12}
+                  aria-label='Remove'
+                  colorScheme='red'
+                  color={theme.colors.gray[300]}
+                  _hover={{ color: theme.colors.red[500] }}
+                  icon={<TrashIcon height={20} />}
+                  onClick={() => handleRemoveMetaField(idx)}
                 />
-                <Input
-                  placeholder='Value'
-                  value={value}
-                  disabled={isDerived}
-                  onChange={(ev) =>
-                    handleChangeMetaField(key, ev.target.value, idx)
-                  }
-                />
-                {!isDerived && (
-                  <IconButton
-                    position='absolute'
-                    left='100%'
-                    transform='translate(8px, 4px)'
-                    variant='ghost'
-                    colorScheme='red'
-                    size='xs'
-                    aria-label='Remove'
-                    icon={<TrashIcon />}
-                    onClick={() => handleRemoveMetaField(idx)}
-                  />
-                )}
-              </Flex>
-            );
-          })}
-          <Button variant='outline' onClick={handleAddMetaField}>
-            Add another
-          </Button>
-        </Flex>
-      </Collapse>
+              )}
+            </Flex>
+          );
+        })}
+        <Button
+          leftIcon={<PlusIcon height={20} width={20} />}
+          variant='outline'
+          onClick={handleAddMetaField}
+        >
+          Add another
+        </Button>
+      </Flex>
     </FormControl>
   );
 };
