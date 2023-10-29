@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Text,
   Flex,
@@ -14,13 +14,16 @@ import { useTranslation } from '@fedimint/utils';
 import { GatewayCard } from './GatewayCard';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
+import { Network } from '../types';
 
 export interface DepositCardProps {
   federationId: string;
+  network?: Network;
 }
 
 export const DepositCard = React.memo(function DepositCard({
   federationId,
+  network,
 }: DepositCardProps): JSX.Element {
   const { t } = useTranslation();
   const { gateway } = React.useContext(ApiContext);
@@ -42,6 +45,11 @@ export const DepositCard = React.memo(function DepositCard({
           setError(message);
         });
   }, [address, federationId, gateway]);
+
+  const url = useMemo(
+    () => getAddressUrl(address, network),
+    [address, network]
+  );
 
   return (
     <GatewayCard
@@ -110,7 +118,7 @@ export const DepositCard = React.memo(function DepositCard({
           fontFamily={theme.fonts.body}
           _hover={{ textDecoration: 'underline' }}
           transition={`text-decoration 1s ease-in-out`}
-          href={`https://mempool.space/address/${address}`}
+          href={url.toString()}
           target='_blank'
           rel='noreferrer'
           w='fit-content'
@@ -122,3 +130,18 @@ export const DepositCard = React.memo(function DepositCard({
     </GatewayCard>
   );
 });
+
+const getAddressUrl = (
+  address: string,
+  network: Network = Network.Bitcoin
+): URL => {
+  switch (network) {
+    case Network.Signet:
+      return new URL(`https://mutinynet.com/address/${address}`);
+    case Network.Testnet:
+      return new URL(`https://mempool.space/testnet/address/${address}`);
+    case Network.Bitcoin:
+    case Network.Regtest:
+      return new URL(`https://mempool.space/address/${address}`);
+  }
+};
