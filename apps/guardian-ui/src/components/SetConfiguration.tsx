@@ -17,6 +17,7 @@ import { useSetupContext } from '../hooks';
 import { BitcoinRpc, ConfigGenParams, GuardianRole, Network } from '../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
+import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import {
   formatApiErrorMessage,
@@ -25,8 +26,9 @@ import {
   removeConfigGenModuleConsensusParams,
 } from '../utils/api';
 import { ModuleKind } from '../types';
-import { isValidNumber } from '../utils/validators';
+import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
+import { MetaFieldFormControl } from './MetaFieldFormControl';
 
 interface Props {
   next: () => void;
@@ -55,6 +57,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     stateNumPeers ? stateNumPeers.toString() : '4'
   );
   const [federationName, setFederationName] = useState('');
+  const [metaFields, setMetaFields] = useState<[string, string][]>([['', '']]);
   const [blockConfirmations, setBlockConfirmations] = useState('');
   const [network, setNetwork] = useState('');
   const [bitcoinRpc, setBitcoinRpc] = useState<BitcoinRpc>({
@@ -68,6 +71,9 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     const initStateFromParams = (params: ConfigGenParams) => {
       setDefaultParams(params);
       setFederationName(params.meta?.federation_name || '');
+
+      const meta = { federation_name: '', ...params.meta };
+      setMetaFields(Object.entries(meta));
 
       const mintModule = getModuleParamsFromConfig(params, ModuleKind.Mint);
       if (mintModule?.consensus?.mint_amounts) {
@@ -111,9 +117,22 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           federationName &&
           isValidNumber(numPeers, 4) &&
           isValidNumber(blockConfirmations, 1, 200) &&
+          isValidMeta(metaFields) &&
           network
       )
     : Boolean(myName && password && hostServerUrl);
+
+  const handleChangeFederationName = (
+    ev: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newName = ev.currentTarget.value;
+    setFederationName(newName);
+    setMetaFields((prev) =>
+      prev.map(([key, val]) =>
+        key === 'federation_name' ? [key, newName] : [key, val]
+      )
+    );
+  };
 
   const handleNext = async () => {
     setError(undefined);
@@ -149,7 +168,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           password,
           configs: {
             numPeers: parseInt(numPeers, 10),
-            meta: { ...defaultParams.meta, federation_name: federationName },
+            meta: metaFields.reduce(
+              (acc, [key, val]) => ({ ...acc, [key]: val }),
+              {}
+            ),
             modules: moduleConfigs,
           },
         });
@@ -218,7 +240,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               <FormLabel>{t('set-config.federation-name')}</FormLabel>
               <Input
                 value={federationName}
-                onChange={(ev) => setFederationName(ev.currentTarget.value)}
+                onChange={handleChangeFederationName}
               />
             </FormControl>
             <NumberFormControl
@@ -276,6 +298,18 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             <FormHelperText>{t('set-config.set-rpc-help')}</FormHelperText>
           </FormControl>
         </FormGroup>
+        {isHost && (
+          <FormGroup maxWidth={470}>
+            <FormGroupHeading
+              icon={ModulesIcon}
+              title={t('set-config.meta-fields')}
+            />
+            <MetaFieldFormControl
+              metaFields={metaFields}
+              onChangeMetaFields={setMetaFields}
+            />
+          </FormGroup>
+        )}
       </>
       {error && (
         <Text color={theme.colors.red[500]} mt={4}>

@@ -73,7 +73,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
     );
   } else {
     // TODO: Consider making this more dynamic, work with unknown modules etc.
-    const rows = [
+    const rows: { label: string; value: React.ReactNode }[] = [
       {
         label: 'Federation name',
         value: configGenParams.meta?.federation_name,
@@ -90,6 +90,27 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       },
     ];
 
+    // Render each meta key as its own row
+    Object.keys(configGenParams.meta || {})
+      .filter((key) => key !== 'federation_name')
+      .forEach((key) => {
+        let value: React.ReactNode = configGenParams.meta?.[key];
+        if (!value) return;
+        try {
+          value = (
+            <pre style={{ maxHeight: 200, overflow: 'auto', maxWidth: '100%' }}>
+              {JSON.stringify(JSON.parse(value as string), null, 2)}
+            </pre>
+          );
+        } catch {
+          /* no-op, use value as string */
+        }
+        rows.push({
+          label: t('connect-guardians.meta-field-key', { key }),
+          value,
+        });
+      });
+
     content = (
       <Flex
         direction='column'
@@ -97,14 +118,15 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
         justify='start'
         align='start'
         width='100%'
-        maxWidth={400}
       >
         <TableContainer width='100%'>
           <ChakraTable variant='simple'>
             <Tbody>
               {rows.map(({ label, value }) => (
                 <Tr key={label}>
-                  <Td fontWeight='semibold'>{label}</Td>
+                  <Td fontWeight='semibold' verticalAlign='top'>
+                    {label}
+                  </Td>
                   <Td>{value}</Td>
                 </Tr>
               ))}
@@ -171,7 +193,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       gap={10}
     >
       {content}
-      {peerTableRows.length && (
+      {!!peerTableRows.length && (
         <Table
           title={t('connect-guardians.table-title')}
           description={t('connect-guardians.table-description')}

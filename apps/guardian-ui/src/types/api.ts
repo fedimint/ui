@@ -75,7 +75,10 @@ interface ApiEndpoint {
   url: string;
 }
 
-export type MetaConfig = { federation_name?: string };
+export type MetaConfig = { federation_name?: string } & Record<
+  string,
+  string | undefined
+>;
 
 export interface ClientConfig {
   consensus_version: number;

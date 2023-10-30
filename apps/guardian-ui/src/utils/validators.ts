@@ -5,3 +5,7 @@ export const isValidNumber = (value: string, min?: number, max?: number) => {
   if (typeof max === 'number' && int > max) return false;
   return true;
 };
+
+export const isValidMeta = (meta: [string, string][]) => {
+  return meta.every(([key, value]) => key && value);
+};
