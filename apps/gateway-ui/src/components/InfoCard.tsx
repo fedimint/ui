@@ -79,7 +79,7 @@ export const InfoCard = React.memo(function InfoCard({
           rel='noreferrer'
           w='fit-content'
         >
-          {t('info-card.amboss_node_link_text')}
+          {t('federation-card.view-link-on', { host: url.host })}
         </Link>
         <LinkIcon color={theme.colors.blue[600]} />
       </Flex>

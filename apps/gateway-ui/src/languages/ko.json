@@ -31,7 +31,6 @@
     "card_header": "비트코인 입금",
     "confirmations": "확인:",
     "header": "페더레이션에 비트코인 예금",
-    "mempool_deposit_link_text": "mempool.space에서 보기",
     "receiving-address": "수신주소",
     "required": "필수의",
     "sentence-one": "해당 주소로 입금하거나 QR코드를 스캔하세요.",
@@ -63,7 +62,6 @@
     "sort": "정렬"
   },
   "info-card": {
-    "amboss_node_link_text": "amboss.space에서 보기",
     "card_header": "노드 ID"
   },
   "withdraw-card": {

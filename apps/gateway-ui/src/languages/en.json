@@ -37,14 +37,14 @@
     "card_header": "Deposit Bitcoin",
     "confirmations": "Confirmations:",
     "header": "Bitcoin Deposit to Federation",
-    "mempool_deposit_link_text": "View on mempool.space",
     "receiving-address": "Receiving Addr",
     "required": "required",
     "sentence-one": "Deposit to the address or scan the QR code",
     "transaction-id": "Transaction ID"
   },
   "federation-card": {
-    "default-federation-name": "Your federation"
+    "default-federation-name": "Your federation",
+    "view-link-on": "View on {{host}}"
   },
   "footer": {
     "blog-link-text": "Blog",
@@ -69,7 +69,6 @@
     "sort": "Sort"
   },
   "info-card": {
-    "amboss_node_link_text": "View on amboss.space",
     "card_header": "Node ID"
   },
   "withdraw-card": {

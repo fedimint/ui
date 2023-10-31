@@ -123,7 +123,7 @@ export const DepositCard = React.memo(function DepositCard({
           rel='noreferrer'
           w='fit-content'
         >
-          {t('deposit-card.mempool_deposit_link_text')}
+          {t('federation-card.view-link-on', { host: url.host })}
         </Link>
         <LinkIcon color={theme.colors.blue[600]} />
       </Flex>
