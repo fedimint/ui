@@ -51,6 +51,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const isHost = role === GuardianRole.Host;
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [numPeers, setNumPeers] = useState(
@@ -121,6 +123,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           network
       )
     : Boolean(myName && password && hostServerUrl);
+
+  useEffect(() => {
+    setPasswordsMatch(password === confirmPassword);
+  }, [password, confirmPassword]);
 
   const handleChangeFederationName = (
     ev: React.ChangeEvent<HTMLInputElement>
@@ -214,6 +220,19 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             isDisabled={!!statePassword}
           />
           <FormHelperText>{t('set-config.admin-password-help')}</FormHelperText>
+        </FormControl>
+        <FormControl>
+          <FormLabel>{t('set-config.confirm-password')}</FormLabel>
+          <Input
+            type='password'
+            value={confirmPassword}
+            onChange={(ev) => setConfirmPassword(ev.currentTarget.value)}
+          />
+          <FormHelperText>
+            {passwordsMatch && password.length > 0
+              ? 'Passwords match!'
+              : 'Passwords do not match!'}
+          </FormHelperText>
         </FormControl>
         {!isHost && (
           <FormControl>
@@ -318,8 +337,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       )}
       <div>
         <Button
-          isDisabled={!isValid}
-          onClick={isValid ? handleNext : undefined}
+          isDisabled={!isValid || !passwordsMatch}
+          onClick={isValid && passwordsMatch ? handleNext : undefined}
           leftIcon={<Icon as={ArrowRightIcon} />}
           mt={4}
         >
