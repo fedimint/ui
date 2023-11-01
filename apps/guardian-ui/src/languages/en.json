@@ -83,6 +83,9 @@
     "guardian-name-help": "This name will be shown to other Guardians",
     "admin-password": "Admin password",
     "admin-password-help": "You'll need this every time you visit this page.",
+    "confirm-password": "Confirm password",
+    "confirm-password-help": "You'll need this every time you visit this page.",
+    "error-password-mismatch": "Passwords don't match",
     "join-federation": "Join Federation link",
     "join-federation-help": "Ask the person who created the Federation for a link, and paste it here.",
     "federation-settings": "Federation settings",
@@ -100,7 +103,7 @@
     "error-valid-max": "Please input a number of at most {{max}}.",
     "error-valid-min-max": "Please input a number between {{min}} and {{max}}.",
     "meta-fields": "Meta fields",
-    "meta-fields-description": "Additional configuration sent to fedimint clients. See <docs>documentation</docs> or more information.",
+    "meta-fields-description": "Additional configuration sent to fedimint clients. See <docs>documentation</docs> for more information.",
     "meta-fields-key": "Meta key",
     "meta-fields-value": "Value",
     "meta-fields-add-another": "Add another"

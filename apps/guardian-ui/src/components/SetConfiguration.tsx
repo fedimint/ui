@@ -10,6 +10,7 @@ import {
   Button,
   Text,
   useTheme,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup, FormGroupHeading } from '@fedimint/ui';
@@ -51,6 +52,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const isHost = role === GuardianRole.Host;
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [numPeers, setNumPeers] = useState(
@@ -114,6 +116,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     ? Boolean(
         myName &&
           password &&
+          password === confirmPassword &&
           federationName &&
           isValidNumber(numPeers, 4) &&
           isValidNumber(blockConfirmations, 1, 200) &&
@@ -214,6 +217,21 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             isDisabled={!!statePassword}
           />
           <FormHelperText>{t('set-config.admin-password-help')}</FormHelperText>
+        </FormControl>
+        <FormControl
+          isInvalid={password !== confirmPassword && password.length > 0}
+        >
+          <FormLabel>{t('set-config.confirm-password')}</FormLabel>
+          <Input
+            type='password'
+            value={confirmPassword}
+            onChange={(ev) => setConfirmPassword(ev.currentTarget.value)}
+          />
+          <FormErrorMessage>
+            {password !== confirmPassword &&
+              password.length > 0 &&
+              t('set-config.error-password-mismatch')}
+          </FormErrorMessage>
         </FormControl>
         {!isHost && (
           <FormControl>

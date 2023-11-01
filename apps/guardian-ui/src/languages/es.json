@@ -90,6 +90,9 @@
   "set-config": {
     "admin-password": "Contraseña de administrador",
     "admin-password-help": "Necesitarás esto cada vez que visites esta página.",
+    "confirm-password": "Confirmar contraseña",
+    "confirm-password-help": "Necesitarás esto cada vez que visites esta página",
+    "error-password-mismatch": "Las contraseñas no coinciden",
     "bitcoin-network": "Red de Bitcoin",
     "bitcoin-rpc": "RPC de Bitcoin",
     "block-confirmations": "Confirmaciones de bloque",
