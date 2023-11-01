@@ -90,6 +90,9 @@
   "set-config": {
     "admin-password": "관리자 비밀번호",
     "admin-password-help": "매번 페이지를 방문할 때마다 필요합니다.",
+    "confirm-password": "비밀번호 확인",
+    "confirm-password-help": "이 페이지를 방문할 때마다 이 정보가 필요합니다.",
+    "error-password-mismatch": "비밀번호가 일치하지 않습니다",
     "bitcoin-network": "비트코인 네트워크",
     "bitcoin-rpc": "비트코인 RPC",
     "block-confirmations": "블록 확인",
