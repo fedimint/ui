@@ -85,6 +85,7 @@
     "admin-password-help": "You'll need this every time you visit this page.",
     "confirm-password": "Confirm password",
     "confirm-password-help": "You'll need this every time you visit this page.",
+    "error-password-mismatch": "Passwords don't match",
     "join-federation": "Join Federation link",
     "join-federation-help": "Ask the person who created the Federation for a link, and paste it here.",
     "federation-settings": "Federation settings",

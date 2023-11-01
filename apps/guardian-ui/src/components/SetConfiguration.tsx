@@ -10,6 +10,7 @@ import {
   Button,
   Text,
   useTheme,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup, FormGroupHeading } from '@fedimint/ui';
@@ -52,7 +53,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordsMatch, setPasswordsMatch] = useState(false);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [numPeers, setNumPeers] = useState(
@@ -116,6 +116,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     ? Boolean(
         myName &&
           password &&
+          password === confirmPassword &&
           federationName &&
           isValidNumber(numPeers, 4) &&
           isValidNumber(blockConfirmations, 1, 200) &&
@@ -123,10 +124,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           network
       )
     : Boolean(myName && password && hostServerUrl);
-
-  useEffect(() => {
-    setPasswordsMatch(password === confirmPassword);
-  }, [password, confirmPassword]);
 
   const handleChangeFederationName = (
     ev: React.ChangeEvent<HTMLInputElement>
@@ -221,18 +218,20 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           />
           <FormHelperText>{t('set-config.admin-password-help')}</FormHelperText>
         </FormControl>
-        <FormControl>
+        <FormControl
+          isInvalid={password !== confirmPassword && password.length > 0}
+        >
           <FormLabel>{t('set-config.confirm-password')}</FormLabel>
           <Input
             type='password'
             value={confirmPassword}
             onChange={(ev) => setConfirmPassword(ev.currentTarget.value)}
           />
-          <FormHelperText>
-            {passwordsMatch && password.length > 0
-              ? 'Passwords match!'
-              : 'Passwords do not match!'}
-          </FormHelperText>
+          <FormErrorMessage>
+            {password !== confirmPassword &&
+              password.length > 0 &&
+              t('set-config.error-password-mismatch')}
+          </FormErrorMessage>
         </FormControl>
         {!isHost && (
           <FormControl>
@@ -337,8 +336,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       )}
       <div>
         <Button
-          isDisabled={!isValid || !passwordsMatch}
-          onClick={isValid && passwordsMatch ? handleNext : undefined}
+          isDisabled={!isValid}
+          onClick={isValid ? handleNext : undefined}
           leftIcon={<Icon as={ArrowRightIcon} />}
           mt={4}
         >
