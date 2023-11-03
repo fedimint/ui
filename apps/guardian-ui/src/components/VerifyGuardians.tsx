@@ -50,7 +50,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
 
-  const verifiedConfigs = peers.every(
+  const verifiedConfigs: boolean = peers.every(
     (peer) => peer.status === ServerStatus.VerifiedConfigs
   );
 
@@ -78,6 +78,16 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             }))
             .filter((peer) => peer.id !== our_current_id.toString())
         );
+
+        // If we're already at the VerifiedConfigs state, prefill all the other hashes with the correct values
+        if (peers[our_current_id].status === ServerStatus.VerifiedConfigs) {
+          const otherPeers = Object.entries(peers).filter(
+            ([id]) => id !== our_current_id.toString()
+          );
+          setEnteredHashes(
+            otherPeers.map(([id]) => hashes[id as unknown as number])
+          );
+        }
       } catch (err) {
         setError(formatApiErrorMessage(err));
       }
@@ -96,6 +106,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         });
       return;
     }
+
     const isAllValid =
       peersWithHash &&
       peersWithHash.every(({ hash }, idx) => hash === enteredHashes[idx]);
