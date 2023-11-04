@@ -66,7 +66,7 @@ export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
       gateways.map(({ gateway_id, node_pub_key, fees }) => {
         const feePct = fees.proportional_millionths / 10000;
         const fee = [
-          fees.base_msat ? `${fees.base_msat} sats +` : '',
+          fees.base_msat ? `${fees.base_msat / 1000} sats +` : '',
           `${fees.proportional_millionths} ppm`,
           feePct ? `(${feePct}%)` : '',
         ]
