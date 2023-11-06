@@ -31,7 +31,6 @@
     "card_header": "Depositar Bitcoins",
     "confirmations": "Confirmaciones:",
     "header": "Depósito de Bitcoin a la Federación",
-    "mempool_deposit_link_text": "Ver en mempool.space",
     "receiving-address": "Dirección de recepción",
     "required": "requerido",
     "sentence-one": "Deposita a la dirección o escanea el código QR",
@@ -63,7 +62,6 @@
     "sort": "Ordenar"
   },
   "info-card": {
-    "amboss_node_link_text": "Ver en amboss.space",
     "card_header": "ID de nodo"
   },
   "withdraw-card": {

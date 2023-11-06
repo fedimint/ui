@@ -136,6 +136,7 @@ export const App = React.memo(function Admin(): JSX.Element {
               <FederationCard
                 key={federation.federation_id}
                 federation={federation}
+                network={gatewayInfo.network}
               />
             );
           })}

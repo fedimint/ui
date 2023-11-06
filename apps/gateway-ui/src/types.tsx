@@ -43,6 +43,15 @@ export interface GatewayInfo {
   lightning_alias: string;
   lightning_pub_key: string;
   version_hash: string;
+  network?: Network;
+}
+
+// Type adaptation from https://docs.rs/bitcoin/latest/bitcoin/network/enum.Network.html
+export enum Network {
+  Bitcoin = 'main',
+  Testnet = 'test',
+  Signet = 'signet',
+  Regtest = 'regtest',
 }
 
 export type TransactionId = string;

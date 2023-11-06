@@ -11,19 +11,21 @@ import { formatEllipsized, useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '.';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
+import { Network } from '../types';
 
 interface InfoCardProps {
   nodeId: string;
-  nodeLink: string;
+  network?: Network;
 }
 
-export const InfoCard = React.memo(function InfoCard(
-  props: InfoCardProps
-): JSX.Element {
+export const InfoCard = React.memo(function InfoCard({
+  nodeId,
+  network,
+}: InfoCardProps): JSX.Element {
   const { t } = useTranslation();
-  const { nodeId, nodeLink } = props;
   const theme = useTheme();
   const { onCopy, hasCopied } = useClipboard(nodeId);
+  const url = getNodeUrl(nodeId, network);
 
   return (
     <GatewayCard title={t('info-card.card_header')}>
@@ -72,15 +74,30 @@ export const InfoCard = React.memo(function InfoCard(
           fontFamily={theme.fonts.body}
           _hover={{ textDecoration: 'underline' }}
           transition={`text-decoration 1s ease-in-out`}
-          href={`https://amboss.space/node/${nodeLink}`}
+          href={url.toString()}
           target='_blank'
           rel='noreferrer'
           w='fit-content'
         >
-          {t('info-card.amboss_node_link_text')}
+          {t('federation-card.view-link-on', { host: url.host })}
         </Link>
         <LinkIcon color={theme.colors.blue[600]} />
       </Flex>
     </GatewayCard>
   );
 });
+
+const getNodeUrl = (
+  nodeId: string,
+  network: Network = Network.Bitcoin
+): URL => {
+  switch (network) {
+    case Network.Signet:
+      return new URL(`https://mutinynet.com/lightning/node/${nodeId}`);
+    case Network.Testnet:
+      return new URL(`https://mempool.space/testnet/lightning/node/${nodeId}`);
+    case Network.Bitcoin:
+    case Network.Regtest:
+      return new URL(`https://mempool.space/lightning/node/${nodeId}`);
+  }
+};
