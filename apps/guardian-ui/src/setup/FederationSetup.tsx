@@ -41,11 +41,13 @@ export const FederationSetup: React.FC = () => {
   const handleBack = useCallback(() => {
     if (!prevProgress) return;
     dispatch({ type: SETUP_ACTION_TYPE.SET_PROGRESS, payload: prevProgress });
+    window.scrollTo(0, 0);
   }, [dispatch, prevProgress]);
 
   const handleNext = useCallback(() => {
     if (!nextProgress) return;
     dispatch({ type: SETUP_ACTION_TYPE.SET_PROGRESS, payload: nextProgress });
+    window.scrollTo(0, 0);
   }, [dispatch, nextProgress]);
 
   let title: React.ReactNode;
