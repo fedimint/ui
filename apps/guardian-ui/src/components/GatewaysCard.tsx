@@ -35,11 +35,11 @@ export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
   useEffect(() => {
     if (!lnModuleId) return;
     api
-      .moduleApiCall<Gateway[]>(
+      .moduleApiCall<{ info: Gateway }[]>(
         Number(lnModuleId),
         LightningModuleRpc.listGateways
       )
-      .then(setGateways)
+      .then((gateways) => setGateways(gateways.map((g) => g.info)))
       .catch(console.error);
   }, [config, api, lnModuleId]);
 
