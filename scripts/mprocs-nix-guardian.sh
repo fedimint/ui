@@ -15,7 +15,7 @@ then
 fi
 
 # Conigure UI env from devimint env
-export REACT_APP_FM_GATEWAY_API=$FM_GATEWAY_API_ADDR
-export REACT_APP_FM_GATEWAY_PASSWORD=$FM_GATEWAY_PASSWORD
+CONFIG_PORT=$(($FM_PORT_FEDIMINTD_BASE + 1)) # Fedimintd 0 config AOU port is always base + 1
+export REACT_APP_FM_CONFIG_API="ws://127.0.0.1:$CONFIG_PORT"
 
-yarn dev:gateway-ui
+yarn dev:guardian-ui

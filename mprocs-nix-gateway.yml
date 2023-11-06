@@ -24,6 +24,13 @@ procs:
     shell: tail -n +0 -F $FM_LOGS_DIR/devimint.log
   gateway-ui:
     shell: bash --init-file scripts/mprocs-nix-gateway.sh
+    stop: SIGKILL
     env:
       PORT: '3004'
+      BROWSER: none
+  guardian-ui:
+    shell: bash --init-file scripts/mprocs-nix-guardian.sh
+    stop: SIGKILL
+    env:
+      PORT: '3000'
       BROWSER: none
