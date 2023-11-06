@@ -4,7 +4,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
       # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-      url = "github:fedimint/fedimint?rev=a71267934a5ec2f0df28686fa21362386e762ca0";
+      url = "github:fedimint/fedimint?rev=23ee7cb6e96fce89bb024fbc1fcfccbfb3dc968b";
     };
   };
   outputs = { self, nixpkgs, flake-utils, fedimint }:
