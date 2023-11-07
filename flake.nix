@@ -3,7 +3,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
-      # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
       url = "github:fedimint/fedimint?rev=23ee7cb6e96fce89bb024fbc1fcfccbfb3dc968b";
     };
   };
@@ -26,6 +25,9 @@
               fedimint.packages.${system}.gateway-pkgs
               fedimint.packages.${system}.fedimint-pkgs
             ] ++ prev.nativeBuildInputs;
+            shellHook = ''
+              yarn install
+            '';
           });
         };
       });
