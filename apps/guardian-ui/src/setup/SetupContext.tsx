@@ -16,6 +16,7 @@ import {
   ServerStatus,
 } from '../types';
 import { GuardianApi } from '../GuardianApi';
+import { isConsensusparams } from '../utils/validators';
 
 const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
 
@@ -35,7 +36,7 @@ function makeInitialState(loadFromStorage = true): SetupState {
     }
   }
 
-  return {
+  const initialState = {
     role: null,
     progress: SetupProgress.Start,
     myName: '',
@@ -46,6 +47,18 @@ function makeInitialState(loadFromStorage = true): SetupState {
     ourCurrentId: null,
     ...storageState,
   };
+
+  if (
+    initialState.progress !== SetupProgress.Start &&
+    initialState.configGenParams !== null &&
+    isConsensusparams(initialState.configGenParams)
+  ) {
+    const peers = Object.values(initialState.configGenParams.peers);
+    initialState.peers = peers;
+    initialState.numPeers = peers.length;
+  }
+
+  return initialState;
 }
 
 const initialState = makeInitialState();
@@ -183,6 +196,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
         myName: state.myName,
         numPeers: state.numPeers,
         configGenParams: state.configGenParams,
+        ourCurrentId: state.ourCurrentId,
       })
     );
 
@@ -199,6 +213,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
     state.myName,
     state.numPeers,
     state.configGenParams,
+    state.ourCurrentId,
   ]);
 
   // Fetch consensus state, dispatch updates with it.
