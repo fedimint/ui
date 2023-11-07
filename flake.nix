@@ -21,12 +21,14 @@
               pkgs.mprocs
               pkgs.nodejs
               pkgs.yarn
+              pkgs.starship
               fedimint.packages.${system}.devimint
               fedimint.packages.${system}.gateway-pkgs
               fedimint.packages.${system}.fedimint-pkgs
             ] ++ prev.nativeBuildInputs;
             shellHook = ''
               yarn install
+              eval "$(starship init bash)"
             '';
           });
         };
