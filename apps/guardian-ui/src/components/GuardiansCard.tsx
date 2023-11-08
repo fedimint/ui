@@ -22,7 +22,7 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
       },
       {
         key: 'status',
-        heading: t('federation-dashboard.guardians.name-label'),
+        heading: t('federation-dashboard.guardians.status-label'),
       },
       {
         key: 'health',
