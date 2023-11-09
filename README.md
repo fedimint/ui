@@ -66,6 +66,7 @@ nix-guardian spins up these instances
 ```bash
 yarn nix-gateway
 ```
+nix-gateway spins up these instances
 | ui instance | uri | 
 | ----------------- | --- |
 | gateway-ui | http://127.0.0.1:3004/ |
