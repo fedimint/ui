@@ -257,12 +257,16 @@ const WaitingForVerification: React.FC<{ verifiedConfigs: boolean }> = ({
 }) => {
   const { t } = useTranslation();
 
-  return verifiedConfigs ? (
-    <Text>{t('verify-guardians.all-guardians-verified')}</Text>
-  ) : (
-    <>
-      <Spinner />
-      <Text>{t('verify-guardians.wait-all-guardians-verification')}</Text>
-    </>
+  return (
+    <Flex direction='column' height='100%' my={'auto'}>
+      {verifiedConfigs ? (
+        <Text>{t('verify-guardians.all-guardians-verified')}</Text>
+      ) : (
+        <>
+          <Spinner />
+          <Text>{t('verify-guardians.wait-all-guardians-verification')}</Text>
+        </>
+      )}
+    </Flex>
   );
 };
