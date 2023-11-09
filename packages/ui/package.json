@@ -22,6 +22,7 @@
     "@emotion/styled": "^11",
     "@fedimint/eslint-config": "*",
     "@fedimint/tsconfig": "*",
+    "@fedimint/types": "*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "react": "^18.2.0",

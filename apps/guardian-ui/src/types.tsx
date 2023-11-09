@@ -1,4 +1,42 @@
-import { MetaConfig, ModuleKind, Peer, BitcoinRpc, Network } from './api';
+import { Peer, ServerStatus, ConfigGenParams } from '@fedimint/types';
+
+export enum Status {
+  Loading,
+  Setup,
+  Admin,
+}
+
+export interface AppState {
+  status: Status;
+  needsAuth: boolean;
+  initServerStatus?: ServerStatus;
+  appError?: string;
+}
+
+export enum APP_ACTION_TYPE {
+  SET_STATUS = 'SET_STATUS',
+  SET_NEEDS_AUTH = 'SET_NEEDS_AUTH',
+  SET_INIT_SERVER_STATUS = 'SET_INIT_SERVER_STATUS',
+  SET_ERROR = 'SET_ERROR',
+}
+
+export type AppAction =
+  | {
+      type: APP_ACTION_TYPE.SET_STATUS;
+      payload: Status;
+    }
+  | {
+      type: APP_ACTION_TYPE.SET_NEEDS_AUTH;
+      payload: boolean;
+    }
+  | {
+      type: APP_ACTION_TYPE.SET_INIT_SERVER_STATUS;
+      payload: ServerStatus | undefined;
+    }
+  | {
+      type: APP_ACTION_TYPE.SET_ERROR;
+      payload: string | undefined;
+    };
 
 export enum GuardianRole {
   Host = 'Host',
@@ -18,59 +56,6 @@ export enum StepState {
   Active = 'Active',
   InActive = 'InActive',
   Completed = 'Completed',
-}
-
-export type PeerHashMap = Record<number, string>;
-
-export type LnModuleParams = [
-  ModuleKind.Ln,
-  {
-    consensus?: object;
-    local?: object;
-  }
-];
-export type MintModuleParams = [
-  ModuleKind.Mint,
-  {
-    consensus?: { mint_amounts: number[] };
-    local?: object;
-  }
-];
-export type WalletModuleParams = [
-  ModuleKind.Wallet,
-  {
-    consensus?: {
-      finality_delay: number;
-      network: Network;
-      client_default_bitcoin_rpc: BitcoinRpc;
-    };
-    local?: {
-      bitcoin_rpc: BitcoinRpc;
-    };
-  }
-];
-export type OtherModuleParams = [
-  string,
-  { consensus?: object; local?: object }
-];
-export type AnyModuleParams =
-  | LnModuleParams
-  | MintModuleParams
-  | WalletModuleParams
-  | OtherModuleParams;
-
-export type ConfigGenParams = {
-  meta: MetaConfig;
-  modules: Record<number, AnyModuleParams>;
-};
-
-export type ConsensusParams = ConfigGenParams & {
-  peers: Record<number, Peer>;
-};
-
-export interface ConsensusState {
-  consensus: ConsensusParams;
-  our_current_id: number;
 }
 
 export interface SetupState {

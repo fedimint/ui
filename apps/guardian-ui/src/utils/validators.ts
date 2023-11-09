@@ -1,4 +1,4 @@
-import { ConfigGenParams, ConsensusParams } from '../types';
+import { ConfigGenParams, ConsensusParams } from '@fedimint/types';
 
 export const isValidNumber = (value: string, min?: number, max?: number) => {
   const int = parseInt(value, 10);

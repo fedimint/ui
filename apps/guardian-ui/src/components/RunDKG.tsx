@@ -1,3 +1,4 @@
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   CircularProgress,
   CircularProgressLabel,
@@ -6,11 +7,10 @@ import {
   Flex,
   useTheme,
 } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useConsensusPolling, useSetupContext } from '../hooks';
-import { ServerStatus } from '../types';
-import { formatApiErrorMessage } from '../utils/api';
+import { ServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
+import { useConsensusPolling, useSetupContext } from '../hooks';
+import { formatApiErrorMessage } from '../utils/api';
 
 interface Props {
   next(): void;
