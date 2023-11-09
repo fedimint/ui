@@ -258,7 +258,7 @@ const WaitingForVerification: React.FC<{ verifiedConfigs: boolean }> = ({
   const { t } = useTranslation();
 
   return (
-    <Flex direction='column' height='100%' my={'auto'}>
+    <Flex direction='row' height='100%' my={'auto'}>
       {verifiedConfigs ? (
         <Text>{t('verify-guardians.all-guardians-verified')}</Text>
       ) : (
