@@ -55,7 +55,7 @@ Fedimint UI releases use semantic versioning (`major.minor.patch`)
 yarn nix-guardian
 ```
 nix-guardian spins up these instances
-| ui instance | uri |
+| ui instance | url |
 | ----------------- | --- |
 | guardian-ui-1 | http://127.0.0.1:3000/ |
 | guardian-ui-2 | http://127.0.0.1:3001/ |
@@ -67,7 +67,7 @@ nix-guardian spins up these instances
 yarn nix-gateway
 ```
 nix-gateway spins up these instances
-| ui instance | uri | 
+| ui instance | url | 
 | ----------------- | --- |
 | gateway-ui | http://127.0.0.1:3004/ |
 | guardian-ui | http://127.0.0.1:3000/ |
