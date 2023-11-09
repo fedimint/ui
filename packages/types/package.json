@@ -1,5 +1,5 @@
 {
-  "name": "@fedimint/ui",
+  "name": "@fedimint/types",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -12,19 +12,9 @@
     "dev": "tsup --watch",
     "lint": "eslint \"src/**/*.ts*\""
   },
-  "dependencies": {
-    "@fedimint/types": "*",
-    "@fedimint/utils": "*"
-  },
   "devDependencies": {
-    "@chakra-ui/react": "^2.4.5",
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11",
     "@fedimint/eslint-config": "*",
     "@fedimint/tsconfig": "*",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "react": "^18.2.0",
     "tsup": "^5.10.1"
   }
 }
