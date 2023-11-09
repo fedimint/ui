@@ -48,7 +48,7 @@ Fedimint UI releases use semantic versioning (`major.minor.patch`)
    ```bash
    nix develop
    ```
-1. Run `yarn nix-gateway` or `nix-guardian` Note: **nix-gateway** preconfigures the federation so you don't have to go through federation setup. **nix-guardian** starts separate guardian nodes that are connected into the federation when you run through the federation setup process.
+1. Run `yarn nix-gateway` or `yarn nix-guardian` Note: **nix-gateway** preconfigures the federation so you don't have to go through federation setup. **nix-guardian** starts separate guardian nodes that are connected into the federation when you run through the federation setup process.
 
 **guardian-ui**
 ```bash
