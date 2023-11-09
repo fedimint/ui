@@ -36,6 +36,43 @@ Fedimint UI releases use semantic versioning (`major.minor.patch`)
 
 ## Running a Release
 
+### Running with Nix
+
+1. Install Nix
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+   ```
+1. Add `experimental-features = nix-command flakes` to your `/etc/nix/nix.conf` file   
+1. In terminal `cd` to the fedimint-ui repo root directory
+1. Enter the following command to start Nix development environment
+   ```bash
+   nix develop
+   ```
+1. Run `yarn nix-gateway` or `nix-guardian` Note: **nix-gateway** preconfigures the federation so you don't have to go through federation setup. **nix-guardian** starts separate guardian nodes that are connected into the federation when you run through the federation setup process.
+
+**guardian-ui**
+```bash
+yarn nix-guardian
+```
+nix-guardian spins up these instances
+| ui instance | uri |
+| ----------------- | --- |
+| guardian-ui-1 | http://127.0.0.1:3000/ |
+| guardian-ui-2 | http://127.0.0.1:3001/ |
+| guardian-ui-3 | http://127.0.0.1:3002/ |
+| guardian-ui-4 | http://127.0.0.1:3003/ |
+
+**gateway-ui**
+```bash
+yarn nix-gateway
+```
+| ui instance | uri | 
+| ----------------- | --- |
+| gateway-ui | http://127.0.0.1:3004/ |
+| guardian-ui | http://127.0.0.1:3000/ |
+
+
+
 ### Build and Run from Source
 
 #### Guardian UI
@@ -116,13 +153,9 @@ From root repo directory:
 
 After running through the config setup UI flow once, you will need to delete the `fedimintd` data to run through it again. To do this, delete the `fm_1`, `fm_2`, `fm_3`, and `fm_4` folder from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
 
-### Running with Nix and mprocs
+### Running mprocs
 
 1. Install [mprocs](https://github.com/pvolok/mprocs)
-1. Install [Nix](https://nixos.org/download)
-1. Add `experimental-features = nix-command flakes` to your `/etc/nix/nix.conf` file
-1. In a terminal `cd` to the fedimint-ui repo root directory
-1. Run `nix develop`
 1. Run `mprocs -c mprocs.yml`
 
 After running this command, you'll be present with the mprocs display. Along the left side are the list of processes currently available by mprocs. Along the bottom are hotkeys for navigating/interacting with mprocs. The main pane shows the shell output for the currently selected process.
@@ -134,14 +167,6 @@ The `stop-servers` process can be used to stop all docker containers by hitting 
 The `guardian-ui-1`, `guardian-ui-2`, `guardian-ui-3`, `guardian-ui-4` are instances of `guardian-ui` apps, each running on different ports and connected to a unique `fedimintd` server instance (running in the `start-servers` process).
 
 The `gateway-ui` is an instance of `gateway-ui` app, connected to a `gatewayd` server instance (running in the `start-servers` process).
-
-| ui instance | uri | api endpoint
-| ----------------- | --- | -------------------------- |
-| guardian-ui-1 | http://127.0.0.1:3000/ | ws://127.0.0.1:18174 |
-| guardian-ui-2 | http://127.0.0.1:3001/ | ws://127.0.0.1:18184 |
-| guardian-ui-3 | http://127.0.0.1:3002/ | ws://127.0.0.1:18185 |
-| guardian-ui-4 | http://127.0.0.1:3003/ | ws://127.0.0.1:18186 |
-| gateway-ui | http://127.0.0.1:3004/ | http://127.0.0.1:8175 |
 
 You can see more details by viewing the `mprocs.yml` file.
 
