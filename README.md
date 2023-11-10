@@ -36,44 +36,7 @@ Fedimint UI releases use semantic versioning (`major.minor.patch`)
 
 ## Running a Release
 
-### Option 1 - Running with Nix (preferred)
-
-1. Install Nix
-   ```bash
-   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-   ```
-1. Add `experimental-features = nix-command flakes` to your `/etc/nix/nix.conf` file   
-1. In terminal `cd` to the fedimint-ui repo root directory
-1. Enter the following command to start Nix development environment
-   ```bash
-   nix develop
-   ```
-1. Run `yarn nix-gateway` or `yarn nix-guardian` Note: **nix-gateway** preconfigures the federation so you don't have to go through federation setup. **nix-guardian** starts separate guardian nodes that are connected into the federation when you run through the federation setup process.
-
-#### **Gateway UI**
-```bash
-yarn nix-gateway
-```
-nix-gateway spins up these instances
-| instance | url | 
-| ---------- | --- |
-| gateway-ui | http://127.0.0.1:3004/ |
-| guardian-ui | http://127.0.0.1:3000/ |
-
-#### **Guardian UI**
-```bash
-yarn nix-guardian
-```
-nix-guardian spins up these instances
-| instance | url |
-| ------------- | --- |
-| guardian-ui-1 | http://127.0.0.1:3000/ |
-| guardian-ui-2 | http://127.0.0.1:3001/ |
-| guardian-ui-3 | http://127.0.0.1:3002/ |
-| guardian-ui-4 | http://127.0.0.1:3003/ |
-
-
-### Option 2 - Build and Run from Source
+### Build and Run from Source
 
 #### Guardian UI
 
@@ -95,7 +58,7 @@ yarn install
 PORT=3001 REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="yourpassword" yarn build && yarn start
 ```
 
-### Option 3 - Run with Docker
+### Run with Docker
 
 **Note:** Docker images are only built for `linux/amd64`. Your docker will need to support virtualization to run on other platforms.
 
@@ -131,6 +94,44 @@ docker run \
 Replace `-p 3001:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the domain and port of your gatewayd API, and REACT_APP_FM_GATEWAY_PASSWORD with the password you set your gateway up with.
 
 ## Development
+
+### Option 1 - Using Nix (preferred)
+
+1. Install Nix
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+   ```
+1. Add `experimental-features = nix-command flakes` to your `/etc/nix/nix.conf` file   
+1. In terminal `cd` to the fedimint-ui repo root directory
+1. Enter the following command to start Nix development environment
+   ```bash
+   nix develop
+   ```
+1. Run `yarn nix-gateway` or `yarn nix-guardian` Note: **nix-gateway** preconfigures the federation so you don't have to go through federation setup. **nix-guardian** starts separate guardian nodes that are connected into the federation when you run through the federation setup process.
+
+#### **Gateway UI**
+```bash
+yarn nix-gateway
+```
+nix-gateway spins up these instances
+| instance | url | 
+| ---------- | --- |
+| gateway-ui | http://127.0.0.1:3004/ |
+| guardian-ui | http://127.0.0.1:3000/ |
+
+#### **Guardian UI**
+```bash
+yarn nix-guardian
+```
+nix-guardian spins up these instances
+| instance | url |
+| ------------- | --- |
+| guardian-ui-1 | http://127.0.0.1:3000/ |
+| guardian-ui-2 | http://127.0.0.1:3001/ |
+| guardian-ui-3 | http://127.0.0.1:3002/ |
+| guardian-ui-4 | http://127.0.0.1:3003/ |
+
+### Option 2 - Using Docker Compose and Yarn manually
 
 From root repo directory:
 
