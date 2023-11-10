@@ -52,6 +52,9 @@ export const WithdrawCard = React.memo(function WithdrawCard({
     if (!address) {
       return setError(`${t('withdraw-card.error-address')}`);
     }
+    if (address.startsWith('bitcoin:')) {
+      setAddress(address.replace('bitcoin:', ''));
+    }
     setError('');
     setModalState(true);
   }, [amount, address, t]);
