@@ -12,7 +12,6 @@ import {
   ModalBody,
   ModalCloseButton,
   Flex,
-  Button,
 } from '@chakra-ui/react';
 import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
