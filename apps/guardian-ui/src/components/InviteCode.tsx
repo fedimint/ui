@@ -19,6 +19,8 @@ import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as QrIcon } from '../assets/svgs/qr.svg';
 import QRCode from 'qrcode.react'; // import the QRCode component
 
+const QR_CODE_SIZE = 256;
+
 interface InviteCodeProps {
   inviteCode: string;
 }
@@ -66,7 +68,15 @@ export const InviteCode: React.FC<InviteCodeProps> = ({ inviteCode }) => {
           <ModalCloseButton />
           <ModalBody pb={6}>
             <Flex justifyContent='center' alignItems='center'>
-              <QRCode value={inviteCode} />
+              <QRCode
+                value={inviteCode}
+                size={QR_CODE_SIZE}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  maxWidth: QR_CODE_SIZE,
+                }}
+              />
             </Flex>
           </ModalBody>
         </ModalContent>
