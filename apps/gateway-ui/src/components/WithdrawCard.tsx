@@ -45,6 +45,15 @@ export const WithdrawCard = React.memo(function WithdrawCard({
   const [address, setAddress] = useState<string>('');
   const [amount, setAmount] = useState<number>(0);
 
+  const handleBitcoinUri = (address: string) => {
+    const uri = new URL(address);
+    const amt = uri.searchParams.get('amount');
+    if (amt) {
+      setAmount(parseFloat(amt));
+    }
+    setAddress(uri.pathname);
+  };
+
   const createWithdrawal = useCallback(() => {
     if (amount <= 0) {
       return setError(`${t('withdraw-card.error-amount')}`);
@@ -53,7 +62,11 @@ export const WithdrawCard = React.memo(function WithdrawCard({
       return setError(`${t('withdraw-card.error-address')}`);
     }
     if (address.startsWith('bitcoin:')) {
-      setAddress(address.replace('bitcoin:', ''));
+      try {
+        handleBitcoinUri(address);
+      } catch (e) {
+        return setError(`${t('withdraw-card.error-address')}`);
+      }
     }
     setError('');
     setModalState(true);
