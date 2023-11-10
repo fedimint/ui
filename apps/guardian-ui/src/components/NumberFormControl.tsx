@@ -10,7 +10,6 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
-  Text,
 } from '@chakra-ui/react';
 import { isValidNumber } from '../utils/validators';
 import { useTranslation } from '@fedimint/utils';
