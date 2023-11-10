@@ -14,6 +14,7 @@ import { GuardiansCard } from '../components/GuardiansCard';
 import { FederationInfoCard } from '../components/FederationInfoCard';
 import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
 import { BalanceCard } from '../components/BalanceCard';
+import { InviteCode } from '../components/InviteCode';
 
 export const FederationAdmin: React.FC = () => {
   const theme = useTheme();
@@ -43,29 +44,7 @@ export const FederationAdmin: React.FC = () => {
           <Heading size='xs' mt='12px'>
             {config?.client_config.meta.federation_name}
           </Heading>
-          <Box mt='36px'>
-            <Text
-              mb='6px'
-              fontSize='14px'
-              fontWeight='500'
-              color={theme.colors.gray[700]}
-            >
-              {t('federation-dashboard.invite-members')}
-            </Text>
-            <CopyInput
-              value={inviteCode}
-              buttonLeftIcon={<Icon as={CopyIcon} />}
-              size='sm'
-            />
-            <Text
-              mt='6px'
-              mb='25px'
-              fontSize='14px'
-              color={theme.colors.gray[500]}
-            >
-              {t('federation-dashboard.invite-members-prompt')}
-            </Text>
-          </Box>
+          <InviteCode inviteCode={inviteCode} />
         </Box>
         <Flex
           gap={6}
