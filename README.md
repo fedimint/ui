@@ -95,7 +95,7 @@ Replace `-p 3001:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` wi
 
 ## Development
 
-### Option 1 - Using Nix (preferred)
+### Option 1 - Running with Nix (preferred)
 
 1. Install Nix
    ```bash
@@ -131,7 +131,7 @@ nix-guardian spins up these instances
 | guardian-ui-3 | http://127.0.0.1:3002/ |
 | guardian-ui-4 | http://127.0.0.1:3003/ |
 
-### Option 2 - Using Docker Compose and Yarn manually
+### Option 2 - Running with Docker Compose and Yarn manually
 
 From root repo directory:
 
@@ -154,7 +154,7 @@ From root repo directory:
 
 After running through the config setup UI flow once, you will need to delete the `fedimintd` data to run through it again. To do this, delete the `fm_1`, `fm_2`, `fm_3`, and `fm_4` folder from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
 
-### Running mprocs
+### Running with mprocs
 
 1. Install [mprocs](https://github.com/pvolok/mprocs)
 1. Run `mprocs -c mprocs.yml`
