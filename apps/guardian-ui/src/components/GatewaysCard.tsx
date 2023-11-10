@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
   Card,
-  CardBody,
   CardHeader,
   Flex,
   Link,
@@ -13,6 +17,7 @@ import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation, formatEllipsized } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
 import { LightningModuleRpc } from '../GuardianApi';
+import { ReactComponent as InfoIcon } from '../assets/svgs/info.svg';
 
 type TableKey = 'nodeId' | 'gatewayId' | 'fee';
 
@@ -106,9 +111,25 @@ export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
           {t('federation-dashboard.gateways.label')}
         </Text>
       </CardHeader>
-      <CardBody>
+      {gateways.length === 0 ? (
+        <Flex justifyContent='center' mx={4}>
+          <Alert status='info'>
+            <AlertIcon as={InfoIcon} />
+            <Box>
+              <AlertTitle>
+                {t('federation-dashboard.gateways.no-gateways-info-title')}
+              </AlertTitle>
+              <AlertDescription>
+                {t(
+                  'federation-dashboard.gateways.no-gateways-info-description'
+                )}
+              </AlertDescription>
+            </Box>
+          </Alert>
+        </Flex>
+      ) : (
         <Table columns={columns} rows={rows} />
-      </CardBody>
+      )}
     </Card>
   );
 };
