@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Box, Icon, Text, useTheme, Heading } from '@chakra-ui/react';
-import { CopyInput } from '@fedimint/ui';
-import { useTranslation } from '@fedimint/utils';
+import { Flex, Box, Heading } from '@chakra-ui/react';
 import { useAdminContext } from '../hooks';
 import {
   ConfigResponse,
@@ -9,20 +7,18 @@ import {
   StatusResponse,
 } from '../types';
 import { GatewaysCard } from '../components/GatewaysCard';
-import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { GuardiansCard } from '../components/GuardiansCard';
 import { FederationInfoCard } from '../components/FederationInfoCard';
 import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
 import { BalanceCard } from '../components/BalanceCard';
+import { InviteCode } from '../components/InviteCode';
 
 export const FederationAdmin: React.FC = () => {
-  const theme = useTheme();
   const { api } = useAdminContext();
   const [status, setStatus] = useState<StatusResponse>();
   const [inviteCode, setInviteCode] = useState<string>('');
   const [config, setConfig] = useState<ConfigResponse>();
   const [modulesConfigs, setModulesConfigs] = useState<ModulesConfigResponse>();
-  const { t } = useTranslation();
 
   useEffect(() => {
     // TODO: poll server status
@@ -43,29 +39,7 @@ export const FederationAdmin: React.FC = () => {
           <Heading size='xs' mt='12px'>
             {config?.client_config.meta.federation_name}
           </Heading>
-          <Box mt='36px'>
-            <Text
-              mb='6px'
-              fontSize='14px'
-              fontWeight='500'
-              color={theme.colors.gray[700]}
-            >
-              {t('federation-dashboard.invite-members')}
-            </Text>
-            <CopyInput
-              value={inviteCode}
-              buttonLeftIcon={<Icon as={CopyIcon} />}
-              size='sm'
-            />
-            <Text
-              mt='6px'
-              mb='25px'
-              fontSize='14px'
-              color={theme.colors.gray[500]}
-            >
-              {t('federation-dashboard.invite-members-prompt')}
-            </Text>
-          </Box>
+          <InviteCode inviteCode={inviteCode} />
         </Box>
         <Flex
           gap={6}
