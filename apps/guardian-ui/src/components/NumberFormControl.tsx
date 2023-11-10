@@ -10,6 +10,7 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
+  Text,
 } from '@chakra-ui/react';
 import { isValidNumber } from '../utils/validators';
 import { useTranslation } from '@fedimint/utils';
@@ -17,6 +18,8 @@ import { useTranslation } from '@fedimint/utils';
 interface NumberFormControlProps extends NumberInputProps {
   labelText: string;
   errorText?: string;
+  recommendedMin?: number;
+  warningText?: string;
   helperText: string;
 }
 
@@ -25,6 +28,8 @@ export const NumberFormControl = React.memo<NumberFormControlProps>(
     labelText,
     errorText,
     helperText,
+    recommendedMin,
+    warningText,
     min,
     max,
     value,
@@ -35,6 +40,9 @@ export const NumberFormControl = React.memo<NumberFormControlProps>(
     const onValueChange = (value: string) => {
       onChange && onChange(value, Number(value));
     };
+
+    const showWarning =
+      value && recommendedMin && Number(value) < recommendedMin;
 
     const isValid = isValidNumber(value?.toString() || '', min, max);
     if (!isValid && !errorText) {
@@ -60,7 +68,11 @@ export const NumberFormControl = React.memo<NumberFormControlProps>(
           </NumberInputStepper>
         </NumberInput>
         <FormErrorMessage>{errorText}</FormErrorMessage>
-        <FormHelperText>{helperText}</FormHelperText>
+        {showWarning ? (
+          <FormHelperText color='yellow.500'>{warningText}</FormHelperText>
+        ) : (
+          <FormHelperText>{helperText}</FormHelperText>
+        )}
       </FormControl>
     );
   }

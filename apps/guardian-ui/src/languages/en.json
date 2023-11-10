@@ -96,6 +96,7 @@
     "guardian-number-help": "Federations require a minimum of 4 guardians. This cannot be changed later.",
     "block-confirmations": "Block confirmations",
     "block-confirmations-help": "How many block confirmations needed before confirming?",
+    "block-confirmations-warning": "Running Fedimint with less than 6 block confirmations is extremely risky!",
     "bitcoin-network": "Bitcoin Network",
     "select-network": "Select a network",
     "set-rpc-help": "Locally configured Bitcoin RPC address",
