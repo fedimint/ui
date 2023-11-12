@@ -17,6 +17,8 @@ import {
   Stack,
   Text,
   useTheme,
+  Link,
+  Icon,
 } from '@chakra-ui/react';
 import {
   useTranslation,
@@ -26,6 +28,8 @@ import {
 } from '@fedimint/utils';
 import { ApiContext } from '../ApiProvider';
 import { GatewayCard } from '.';
+import { Network } from '../types';
+import { ReactComponent as CheckCircleIcon } from '../assets/svgs/check-circle.svg';
 
 export interface WithdrawCardProps {
   federationId: string;
@@ -44,6 +48,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
   const [modalState, setModalState] = useState<boolean>(false);
   const [address, setAddress] = useState<string>('');
   const [amount, setAmount] = useState<number>(0);
+  const [withdrawTxUrl, setWithdrawTxUrl] = useState<URL | null>(null);
 
   const createWithdrawal = useCallback(() => {
     if (amount <= 0) {
@@ -60,7 +65,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
     gateway
       .requestWithdrawal(federationId, amount, address)
       .then((txId) => {
-        alert(`${t('withdraw-card.your-transaction')} ${txId}`);
+        setWithdrawTxUrl(getTxUrl(txId));
         setAddress('');
         setAmount(0);
         setModalState(false);
@@ -177,6 +182,34 @@ export const WithdrawCard = React.memo(function WithdrawCard({
           startWithdrawalCallback={startWithdrawal}
         />
       )}
+
+      {withdrawTxUrl && (
+        <Modal
+          isOpen={!!withdrawTxUrl}
+          onClose={() => setWithdrawTxUrl(null)}
+          isCentered
+        >
+          <ModalOverlay />
+          <ModalContent textAlign='center'>
+            <ModalHeader>{t('withdraw-card.transaction-sent')}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Icon as={CheckCircleIcon} color='green.500' w={24} h={24} />
+              <Text>
+                {t('withdraw-card.view-it-on')}
+                <Link
+                  href={withdrawTxUrl.toString()}
+                  isExternal
+                  color='blue.500'
+                >
+                  {' '}
+                  {withdrawTxUrl.host}
+                </Link>
+              </Text>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 });
@@ -262,3 +295,15 @@ export interface TransactionInfoProps {
   onClick?: () => void;
   color?: string;
 }
+
+const getTxUrl = (txId: string, network: Network = Network.Bitcoin): URL => {
+  switch (network) {
+    case Network.Signet:
+      return new URL(`https://mutinynet.com/tx/${txId}`);
+    case Network.Testnet:
+      return new URL(`https://mempool.space/testnet/tx/${txId}`);
+    case Network.Bitcoin:
+    case Network.Regtest:
+      return new URL(`https://mempool.space/tx/${txId}`);
+  }
+};
