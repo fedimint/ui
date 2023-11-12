@@ -50,6 +50,20 @@ export const WithdrawCard = React.memo(function WithdrawCard({
   const [amount, setAmount] = useState<number>(0);
   const [withdrawTxUrl, setWithdrawTxUrl] = useState<URL | null>(null);
 
+  const handleChangeAddress = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    const address = ev.currentTarget.value;
+    if (address.toLowerCase().startsWith('bitcoin:')) {
+      const uri = new URL(address);
+      const amt = uri.searchParams.get('amount');
+      if (amt) {
+        setAmount(Math.round(parseFloat(amt) * 100_000_000));
+      }
+      setAddress(uri.pathname);
+    } else {
+      setAddress(address);
+    }
+  };
+
   const createWithdrawal = useCallback(() => {
     if (amount <= 0) {
       return setError(`${t('withdraw-card.error-amount')}`);
@@ -144,7 +158,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
               w='100%'
               placeholder={t('withdraw-card.address-placeholder')}
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={handleChangeAddress}
               name='address'
             />
           </InputGroup>
