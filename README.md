@@ -95,6 +95,44 @@ Replace `-p 3001:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` wi
 
 ## Development
 
+### Option 1 - Running with Nix (preferred)
+
+1. Install Nix
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+   ```
+1. Add `experimental-features = nix-command flakes` to your `/etc/nix/nix.conf` file   
+1. In terminal `cd` to the fedimint-ui repo root directory
+1. Enter the following command to start Nix development environment
+   ```bash
+   nix develop
+   ```
+1. Run `yarn nix-gateway` or `yarn nix-guardian` Note: **nix-gateway** preconfigures the federation so you don't have to go through federation setup. **nix-guardian** starts separate guardian nodes that are connected into the federation when you run through the federation setup process.
+
+#### **Gateway UI**
+```bash
+yarn nix-gateway
+```
+nix-gateway spins up these instances
+| instance | url | 
+| ---------- | --- |
+| gateway-ui | http://127.0.0.1:3004/ |
+| guardian-ui | http://127.0.0.1:3000/ |
+
+#### **Guardian UI**
+```bash
+yarn nix-guardian
+```
+nix-guardian spins up these instances
+| instance | url |
+| ------------- | --- |
+| guardian-ui-1 | http://127.0.0.1:3000/ |
+| guardian-ui-2 | http://127.0.0.1:3001/ |
+| guardian-ui-3 | http://127.0.0.1:3002/ |
+| guardian-ui-4 | http://127.0.0.1:3003/ |
+
+### Option 2 - Running with Docker Compose and Yarn manually
+
 From root repo directory:
 
 1. Ensure Docker and yarn/nodejs are installed.
@@ -127,7 +165,7 @@ The `start-servers` process shows combined logging for `fedimintd`, `bitcoind`, 
 
 The `stop-servers` process can be used to stop all docker containers by hitting the `s` key to start the process. After doing so, you can return to the `start-servers` process and hit `r` to restart things.
 
-The `guardian-ui-1` and `guardian-ui-2` are instances of `guardian-ui` apps, each running on different ports and connected to a unique `fedimintd` server instance (running in the `start-servers` process).
+The `guardian-ui-1`, `guardian-ui-2`, `guardian-ui-3`, `guardian-ui-4` are instances of `guardian-ui` apps, each running on different ports and connected to a unique `fedimintd` server instance (running in the `start-servers` process).
 
 The `gateway-ui` is an instance of `gateway-ui` app, connected to a `gatewayd` server instance (running in the `start-servers` process).
 
