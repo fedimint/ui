@@ -26,7 +26,12 @@ export const FederationInfoCard: React.FC<Props> = ({ status }) => {
 
   useEffect(() => {
     api.version().then(setVersions).catch(console.error);
-    api.fetchBlockCount().then(setBlockCount).catch(console.error);
+    const fetchBlockCount = () => {
+      api.fetchBlockCount().then(setBlockCount).catch(console.error);
+    };
+    fetchBlockCount();
+    const interval = setInterval(fetchBlockCount, 5000);
+    return () => clearInterval(interval);
   }, [api]);
 
   const keyValues = useMemo(

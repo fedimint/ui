@@ -21,10 +21,15 @@ export const FederationAdmin: React.FC = () => {
   const [modulesConfigs, setModulesConfigs] = useState<ModulesConfigResponse>();
 
   useEffect(() => {
-    // TODO: poll server status
-    api.status().then(setStatus).catch(console.error);
-    api.inviteCode().then(setInviteCode).catch(console.error);
     api.modulesConfig().then(setModulesConfigs).catch(console.error);
+    api.inviteCode().then(setInviteCode).catch(console.error);
+    const fetchStatus = () => {
+      console.log('fetching status');
+      api.status().then(setStatus).catch(console.error);
+    };
+    fetchStatus();
+    const interval = setInterval(fetchStatus, 5000);
+    return () => clearInterval(interval);
   }, [api]);
 
   useEffect(() => {

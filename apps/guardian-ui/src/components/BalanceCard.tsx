@@ -15,7 +15,12 @@ export const BalanceCard: React.FC = () => {
     : undefined;
 
   useEffect(() => {
-    api.audit().then(setAuditSummary).catch(console.error);
+    const fetchBalance = () => {
+      api.audit().then(setAuditSummary).catch(console.error);
+    };
+    fetchBalance();
+    const interval = setInterval(fetchBalance, 5000);
+    return () => clearInterval(interval);
   }, [api]);
 
   const keyValues = useMemo(

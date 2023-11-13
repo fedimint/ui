@@ -50,18 +50,22 @@ export const App = React.memo(function Admin(): JSX.Element {
           setLoading(false);
         });
     } else {
-      gateway
-        .fetchInfo()
-        .then((gatewayInfo) => {
-          setGatewayInfo(gatewayInfo);
-        })
-        .catch(({ message, error }) => {
-          console.error(error);
-          setError(message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      const fetchInfo = () => {
+        gateway
+          .fetchInfo()
+          .then((gatewayInfo) => {
+            setGatewayInfo(gatewayInfo);
+          })
+          .catch(({ message, error }) => {
+            console.error(error);
+            setError(message);
+          });
+      };
+
+      fetchInfo();
+      setLoading(false);
+      const interval = setInterval(fetchInfo, 5000);
+      return () => clearInterval(interval);
     }
   }, [gateway, authenticated]);
 
