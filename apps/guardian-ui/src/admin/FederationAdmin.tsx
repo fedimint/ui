@@ -21,7 +21,6 @@ export const FederationAdmin: React.FC = () => {
   const [modulesConfigs, setModulesConfigs] = useState<ModulesConfigResponse>();
 
   useEffect(() => {
-    // TODO: poll server status
     api.modulesConfig().then(setModulesConfigs).catch(console.error);
     api.inviteCode().then(setInviteCode).catch(console.error);
     const fetchStatus = () => {

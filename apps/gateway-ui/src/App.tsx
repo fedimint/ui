@@ -59,13 +59,11 @@ export const App = React.memo(function Admin(): JSX.Element {
           .catch(({ message, error }) => {
             console.error(error);
             setError(message);
-          })
-          .finally(() => {
-            setLoading(false);
           });
       };
 
       fetchInfo();
+      setLoading(false);
       const interval = setInterval(fetchInfo, 5000);
       return () => clearInterval(interval);
     }
