@@ -1,5 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Center, Flex, Text, useTheme } from '@chakra-ui/react';
+import React from 'react';
+import {
+  Box,
+  Center,
+  Flex,
+  Hide,
+  Progress,
+  Show,
+  Text,
+  useTheme,
+} from '@chakra-ui/react';
 import { ReactComponent as CheckIcon } from '../assets/svgs/white-check.svg';
 import { useTranslation } from '@fedimint/utils';
 import { StepState } from '../types';
@@ -8,10 +17,9 @@ interface StepProps {
   text: string;
   state: StepState;
   isFirst?: boolean;
-  isMobile?: boolean;
 }
 
-const Step: React.FC<StepProps> = ({ text, state, isFirst, isMobile }) => {
+const Step: React.FC<StepProps> = ({ text, state, isFirst }) => {
   const theme = useTheme();
 
   const colorState = (
@@ -79,27 +87,25 @@ const Step: React.FC<StepProps> = ({ text, state, isFirst, isMobile }) => {
           </Center>
         </Flex>
       </Flex>
-      {(state === StepState.Active || !isMobile) && (
-        <Text
-          position='absolute'
-          bottom={0}
-          right={0}
-          transform={`translateX(50%) translateX(${
-            state === StepState.Active ? '-18px' : '-12px'
-          })`}
-          textAlign='center'
-          fontWeight='600'
-          fontSize={{ base: '12px', md: '14px' }}
-          color={colorState(
-            theme.colors.gray[700],
-            theme.colors.blue[600],
-            theme.colors.gray[700]
-          )}
-          whiteSpace='nowrap'
-        >
-          {text}
-        </Text>
-      )}
+      <Text
+        position='absolute'
+        bottom={0}
+        right={0}
+        transform={`translateX(50%) translateX(${
+          state === StepState.Active ? '-18px' : '-12px'
+        })`}
+        textAlign='center'
+        fontWeight='600'
+        fontSize='14px'
+        color={colorState(
+          theme.colors.gray[700],
+          theme.colors.blue[600],
+          theme.colors.gray[700]
+        )}
+        whiteSpace='nowrap'
+      >
+        {text}
+      </Text>
     </Flex>
   );
 };
@@ -114,58 +120,56 @@ export const SetupProgress: React.FC<SetupProgressProps> = ({
   isHost,
 }) => {
   const { t } = useTranslation();
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth < 768);
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <Flex justifyContent='center' alignItems='center' w='100%'>
-      <Flex w='100%' px={{ base: 7, md: 9 }} justifyContent='space-between'>
-        <Step
-          text={t('setup.progress.set-config.step')}
-          state={setupProgress === 1 ? StepState.Active : StepState.Completed}
-          isFirst
-          isMobile={isMobile}
+      <Hide below='md'>
+        <Flex w='100%' px={{ base: 7, md: 9 }} justifyContent='space-between'>
+          <Step
+            text={t('setup.progress.set-config.step')}
+            state={setupProgress === 1 ? StepState.Active : StepState.Completed}
+            isFirst
+          />
+          <Step
+            text={t(
+              isHost
+                ? 'setup.progress.connect-guardians.step-leader'
+                : 'setup.progress.connect-guardians.step-follower'
+            )}
+            state={
+              setupProgress === 2
+                ? StepState.Active
+                : setupProgress > 2
+                ? StepState.Completed
+                : StepState.InActive
+            }
+          />
+          <Step
+            text={t('setup.progress.verify-guardians.step')}
+            state={
+              setupProgress === 4
+                ? StepState.Active
+                : setupProgress > 4
+                ? StepState.Completed
+                : StepState.InActive
+            }
+          />
+          <Step
+            text={t('setup.progress.setup-complete.step')}
+            state={
+              setupProgress === 5 ? StepState.Completed : StepState.InActive
+            }
+          />
+        </Flex>
+      </Hide>
+      <Show below='md'>
+        <Progress
+          w='100%'
+          value={(setupProgress / 5) * 100}
+          size='sm'
+          colorScheme='blue'
         />
-        <Step
-          text={t(
-            isHost
-              ? 'setup.progress.connect-guardians.step-leader'
-              : 'setup.progress.connect-guardians.step-follower'
-          )}
-          state={
-            setupProgress === 2
-              ? StepState.Active
-              : setupProgress > 2
-              ? StepState.Completed
-              : StepState.InActive
-          }
-          isMobile={isMobile}
-        />
-        <Step
-          text={t('setup.progress.verify-guardians.step')}
-          state={
-            setupProgress === 4
-              ? StepState.Active
-              : setupProgress > 4
-              ? StepState.Completed
-              : StepState.InActive
-          }
-          isMobile={isMobile}
-        />
-        <Step
-          text={t('setup.progress.setup-complete.step')}
-          state={setupProgress === 5 ? StepState.Completed : StepState.InActive}
-          isMobile={isMobile}
-        />
-      </Flex>
+      </Show>
     </Flex>
   );
 };
