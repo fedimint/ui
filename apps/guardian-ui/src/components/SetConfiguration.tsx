@@ -20,6 +20,7 @@ import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
 import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
+import { ReactComponent as LightbulbLogo } from '../assets/svgs/lightbulb.svg';
 import {
   formatApiErrorMessage,
   getModuleParamsFromConfig,
@@ -200,6 +201,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   return (
     <Flex direction='column' gap={10} justify='start' align='start'>
       <FormGroup>
+        <FormGroupHeading
+          icon={LightbulbLogo}
+          title={`${t('set-config.basic-settings')}`}
+        />
         <FormControl>
           <FormLabel>{t('set-config.guardian-name')}</FormLabel>
           <Input

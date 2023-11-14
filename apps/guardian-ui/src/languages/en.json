@@ -90,6 +90,7 @@
     "error-password-mismatch": "Passwords don't match",
     "join-federation": "Join Federation link",
     "join-federation-help": "Ask the person who created the Federation for a link, and paste it here.",
+    "basic-settings": "Basics",
     "federation-settings": "Federation settings",
     "federation-name": "Federation name",
     "guardian-number": "Number of guardians",
