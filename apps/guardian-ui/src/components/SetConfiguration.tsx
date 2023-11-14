@@ -199,12 +199,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   };
 
   return (
-    <Flex direction='column' gap={10} justify='start' align='start'>
-      <FormGroup>
-        <FormGroupHeading
-          icon={LightbulbLogo}
-          title={`${t('set-config.basic-settings')}`}
-        />
+    <Flex direction='column' gap={['2', '6']} justify='start' align='start'>
+      <FormGroup
+        icon={LightbulbLogo}
+        title={`${t('set-config.basic-settings')}`}
+      >
         <FormControl>
           <FormLabel>{t('set-config.guardian-name')}</FormLabel>
           <Input
@@ -254,11 +253,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       </FormGroup>
       <>
         {isHost && (
-          <FormGroup>
-            <FormGroupHeading
-              icon={FedimintLogo}
-              title={`${t('set-config.federation-settings')}`}
-            />
+          <FormGroup
+            icon={FedimintLogo}
+            title={`${t('set-config.federation-settings')}`}
+          >
             <FormControl>
               <FormLabel>{t('set-config.federation-name')}</FormLabel>
               <Input
@@ -277,8 +275,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             />
           </FormGroup>
         )}
-        <FormGroup>
-          <FormGroupHeading icon={BitcoinLogo} title='Bitcoin settings' />
+        <FormGroup icon={BitcoinLogo} title='Bitcoin settings'>
           {isHost && (
             <>
               <NumberFormControl
@@ -324,11 +321,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           </FormControl>
         </FormGroup>
         {isHost && (
-          <FormGroup maxWidth={470}>
-            <FormGroupHeading
-              icon={ModulesIcon}
-              title={t('set-config.meta-fields')}
-            />
+          <FormGroup icon={ModulesIcon} title={t('set-config.meta-fields')}>
             <MetaFieldFormControl
               metaFields={metaFields}
               onChangeMetaFields={setMetaFields}
@@ -341,16 +334,16 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           {error}
         </Text>
       )}
-      <div>
-        <Button
-          isDisabled={!isValid}
-          onClick={isValid ? handleNext : undefined}
-          leftIcon={<Icon as={ArrowRightIcon} />}
-          mt={4}
-        >
-          {t('common.next')}
-        </Button>
-      </div>
+      <Button
+        isDisabled={!isValid}
+        onClick={isValid ? handleNext : undefined}
+        leftIcon={<Icon as={ArrowRightIcon} />}
+        mt={4}
+        alignSelf='center'
+        justifySelf='center'
+      >
+        {t('common.next')}
+      </Button>
     </Flex>
   );
 };

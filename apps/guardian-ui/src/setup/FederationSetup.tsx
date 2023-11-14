@@ -103,16 +103,18 @@ export const FederationSetup: React.FC = () => {
   }
 
   return (
-    <Flex direction='column' gap={[2, 10]} align='start'>
+    <Flex direction='column' gap={[2, 10]} align='center'>
       {progressIdx === 0 || !progressIdx ? null : (
         <SetupStepper setupProgress={progressIdx} isHost={isHost} />
       )}
-      <Flex direction='column' align='start' gap={4}>
+      <Flex direction='column' gap={[2, 10]} alignItems='flex-start'>
         {prevProgress && canGoBack && (
           <Button
             variant='link'
             onClick={handleBack}
             leftIcon={<Icon as={ArrowLeftIcon} />}
+            alignSelf='start'
+            justifySelf='start'
           >
             {t('common.back')}
           </Button>
