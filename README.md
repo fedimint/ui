@@ -44,10 +44,10 @@ Fedimint UI releases use semantic versioning (`major.minor.patch`)
 git clone git@github.com:fedimint/ui.git fedimint-ui
 cd fedimint-ui/apps/guardian-ui
 yarn install
-PORT=3000 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18174" yarn build && yarn start
+PORT=3000 REACT_APP_FM_CONFIG_API="[app-address-here]" yarn build && yarn start
 ```
 
-Replace PORT with a port of your choice, and REACT_APP_FM_CONFIG_API with the domain and port of your fedimintd API.
+Replace `PORT` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your fedimintd API.
 
 #### Gateway UI
 
@@ -55,8 +55,10 @@ Replace PORT with a port of your choice, and REACT_APP_FM_CONFIG_API with the do
 git clone git@github.com:fedimint/ui.git fedimint-ui
 cd fedimint-ui/apps/gateway-ui
 yarn install
-PORT=3001 REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="yourpassword" yarn build && yarn start
+PORT=3000 REACT_APP_FM_GATEWAY_API="[app-address-here]" REACT_APP_FM_GATEWAY_PASSWORD="[password-here]" yarn build && yarn start
 ```
+
+Replace `PORT` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address of your gatewayd API, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password you set your gateway up with.
 
 ### Run with Docker
 
@@ -70,12 +72,12 @@ The guardian UI container is available at [`fedimintui/guardian-ui`](https://hub
 docker pull fedimintui/guardian-ui:0.1.0
 docker run \
   --platform linux/amd64 \
-  --env "REACT_APP_FM_CONFIG_API='ws://127.0.0.1:18174'" \
+  --env "REACT_APP_FM_CONFIG_API='[app-address-here]'" \
   -p 3000:3000 \
   fedimintui/guardian-ui:0.1.0
 ```
 
-Replace `-p 3000:3000` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the domain and port of your fedimintd API.
+Replace `-p 3000:3000` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your fedimintd API.
 
 #### Gateway UI
 
@@ -85,13 +87,13 @@ The gateway UI container is available at [`fedimintui/gateway-ui`](https://hub.d
 docker pull fedimintui/gateway-ui:0.1.0
 docker run \
   --platform linux/amd64 \
-  --env "REACT_APP_FM_GATEWAY_API='ws://127.0.0.1:8175'" \
-  --env REACT_APP_FM_GATEWAY_PASSWORD=password \
-  -p 3001:3000 \
+  --env "REACT_APP_FM_GATEWAY_API='[app-address-here]'" \
+  --env "REACT_APP_FM_GATEWAY_PASSWORD='[password-here]'" \
+  -p 3000:3000 \
   fedimintui/gateway-ui:0.1.0
 ```
 
-Replace `-p 3001:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the domain and port of your gatewayd API, and REACT_APP_FM_GATEWAY_PASSWORD with the password you set your gateway up with.
+Replace `-p 3000:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address of your gatewayd API, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password you set your gateway up with.
 
 ## Development
 
@@ -101,7 +103,7 @@ Replace `-p 3001:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` wi
    ```bash
    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
    ```
-1. Add `experimental-features = nix-command flakes` to your `/etc/nix/nix.conf` file   
+1. Add `experimental-features = nix-command flakes` to your `/etc/nix/nix.conf` file
 1. In terminal `cd` to the fedimint-ui repo root directory
 1. Enter the following command to start Nix development environment
    ```bash
@@ -110,19 +112,23 @@ Replace `-p 3001:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` wi
 1. Run `yarn nix-gateway` or `yarn nix-guardian` Note: **nix-gateway** preconfigures the federation so you don't have to go through federation setup. **nix-guardian** starts separate guardian nodes that are connected into the federation when you run through the federation setup process.
 
 #### **Gateway UI**
+
 ```bash
 yarn nix-gateway
 ```
+
 nix-gateway spins up these instances
-| instance | url | 
+| instance | url |
 | ---------- | --- |
 | gateway-ui | http://127.0.0.1:3004/ |
 | guardian-ui | http://127.0.0.1:3000/ |
 
 #### **Guardian UI**
+
 ```bash
 yarn nix-guardian
 ```
+
 nix-guardian spins up these instances
 | instance | url |
 | ------------- | --- |
