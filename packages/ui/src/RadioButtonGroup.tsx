@@ -51,10 +51,9 @@ export function RadioButtonGroup<T extends string | number>({
             key={option.value}
             onClick={() => onChange(option.value)}
             variant='outline'
-            pl={4}
-            pr={4}
+            p={4}
             width='full'
-            height={106}
+            height='auto' // Changed from fixed height to auto
             borderRadius={12}
             textAlign='left'
             margin={0}
@@ -71,28 +70,32 @@ export function RadioButtonGroup<T extends string | number>({
                 bg={theme.colors.blue[100]}
                 boxShadow={`0 0 0 6px ${theme.colors.blue[50]}`}
                 borderRadius='100%'
-                mixBlendMode='multiply'
+                // Ensure icons fit well and are not too large
+                p={1} // Adjust padding around the icon
               >
-                <Icon as={option.icon} />
+                <Icon as={option.icon} boxSize='24px' />
               </Flex>
               <Flex
                 direction='column'
                 align='start'
                 flex={1}
                 minWidth={0}
-                wrap='wrap'
+                wrap='nowrap' // Changed to nowrap
                 gap={2}
               >
                 <Text
+                  size={['md', 'lg']}
                   fontWeight='medium'
                   color={isActive ? theme.colors.blue[800] : undefined}
+                  isTruncated // Add truncation to prevent overflow
                 >
                   {option.label}
                 </Text>
                 <Text
+                  size={['sm', 'md']}
                   variant='secondary'
                   fontWeight='normal'
-                  whiteSpace='break-spaces'
+                  whiteSpace='normal' // Ensure text wraps and does not overflow
                   color={isActive ? theme.colors.blue[700] : undefined}
                 >
                   {option.description}

@@ -66,7 +66,6 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
           </AlertDescription>
         </Box>
       </Alert>
-
       <RadioButtonGroup
         options={options}
         value={role}
@@ -76,7 +75,7 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
 
       <div>
         <Button
-          width='auto'
+          width={['100%', 'auto']}
           leftIcon={<Icon as={ArrowRightIcon} />}
           isDisabled={!role}
           onClick={handleNext}
