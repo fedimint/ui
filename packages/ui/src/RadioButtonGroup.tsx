@@ -62,41 +62,50 @@ export function RadioButtonGroup<T extends string | number>({
             sx={isActive ? activeStyles : defaultStyles}
             role='group'
           >
-            <Flex direction='row' maxWidth='100%' gap={5} align='start'>
-              <Flex
-                width='40px'
-                height='40px'
-                align='center'
-                justify='center'
-                bg={theme.colors.blue[100]}
-                boxShadow={`0 0 0 6px ${theme.colors.blue[50]}`}
-                borderRadius='100%'
-                mixBlendMode='multiply'
-              >
-                <Icon as={option.icon} />
-              </Flex>
-              <Flex
-                direction='column'
-                align='start'
-                flex={1}
-                minWidth={0}
-                wrap='wrap'
-                gap={2}
-              >
-                <Text
-                  fontWeight='medium'
-                  color={isActive ? theme.colors.blue[800] : undefined}
+            <Flex
+              direction='row'
+              w='100%'
+              gap={5}
+              align='start'
+              justify='space-between'
+              justifyContent='space-between'
+            >
+              <Flex direction='row' gap={5} align='start'>
+                <Flex
+                  width='40px'
+                  height='40px'
+                  align='center'
+                  justify='center'
+                  bg={theme.colors.blue[100]}
+                  boxShadow={`0 0 0 6px ${theme.colors.blue[50]}`}
+                  borderRadius='100%'
+                  mixBlendMode='multiply'
                 >
-                  {option.label}
-                </Text>
-                <Text
-                  variant='secondary'
-                  fontWeight='normal'
-                  whiteSpace='break-spaces'
-                  color={isActive ? theme.colors.blue[700] : undefined}
+                  <Icon as={option.icon} />
+                </Flex>
+                <Flex
+                  direction='column'
+                  align='start'
+                  flex={1}
+                  minWidth={0}
+                  wrap='wrap'
+                  gap={2}
                 >
-                  {option.description}
-                </Text>
+                  <Text
+                    fontWeight='medium'
+                    color={isActive ? theme.colors.blue[800] : undefined}
+                  >
+                    {option.label}
+                  </Text>
+                  <Text
+                    variant='secondary'
+                    fontWeight='normal'
+                    whiteSpace='break-spaces'
+                    color={isActive ? theme.colors.blue[700] : undefined}
+                  >
+                    {option.description}
+                  </Text>
+                </Flex>
               </Flex>
               <Flex
                 align='center'

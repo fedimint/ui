@@ -189,7 +189,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       direction='column'
       width='100%'
       justify='start'
-      align='start'
+      align='center'
       gap={10}
     >
       {content}

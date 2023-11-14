@@ -54,7 +54,7 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
   }, [role, dispatch, next]);
 
   return (
-    <Flex direction='column' gap={8} align='left' justify='left' maxWidth={660}>
+    <Flex direction='column' gap={8} align='center' justify='center'>
       <Alert status='warning'>
         <AlertIcon>
           <WarningIcon />
