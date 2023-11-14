@@ -118,12 +118,12 @@ export const FederationSetup: React.FC = () => {
           </Button>
         )}
         {title && (
-          <Heading size={['sm', 'md']} fontWeight={['medium']}>
+          <Heading size={['sm', 'md']} fontWeight='medium'>
             {title}
           </Heading>
         )}
         {subtitle && (
-          <Text size={['sm', 'md']} fontWeight={['medium']}>
+          <Text size={['sm', 'md']} fontWeight='medium'>
             {subtitle}
           </Text>
         )}
