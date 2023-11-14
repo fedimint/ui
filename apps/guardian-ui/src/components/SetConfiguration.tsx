@@ -279,6 +279,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               <NumberFormControl
                 labelText={t('set-config.block-confirmations')}
                 helperText={t('set-config.block-confirmations-help')}
+                warningText={t('set-config.block-confirmations-warning')}
+                recommendedMin={6}
                 min={1}
                 max={200}
                 value={blockConfirmations}
