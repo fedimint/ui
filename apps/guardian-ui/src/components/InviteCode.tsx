@@ -34,7 +34,7 @@ export const InviteCode: React.FC<InviteCodeProps> = ({ inviteCode }) => {
   const handleClose = () => setIsOpen(false);
 
   return (
-    <Box mt='36px'>
+    <Box mt={['12px', '24px', '36px']} bg='blue.50' p={2} borderRadius='md'>
       <Text
         mb='6px'
         fontSize='14px'
@@ -53,6 +53,7 @@ export const InviteCode: React.FC<InviteCodeProps> = ({ inviteCode }) => {
           as={QrIcon}
           cursor='pointer'
           onClick={handleOpen}
+          bg='white'
           boxSize='40px'
           borderRadius='10%'
           border='1px solid lightgray'
