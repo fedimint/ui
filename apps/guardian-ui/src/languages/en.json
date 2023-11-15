@@ -136,7 +136,7 @@
         "step-follower": "Confirm info"
       },
       "run-dkg": {
-        "title": "Boom! Sharing info between Guardians",
+        "title": "Success!",
         "subtitle": "All Guardians have validated federation setup details. Running some numbers..."
       },
       "verify-guardians": {
