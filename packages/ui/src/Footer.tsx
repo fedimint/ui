@@ -9,6 +9,7 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
+import { ReactComponent as DiscordIcon } from '../assets/svgs/discord.svg';
 
 export const Footer = () => {
   const theme = useTheme();

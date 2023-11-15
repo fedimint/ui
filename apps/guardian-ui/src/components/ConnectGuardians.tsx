@@ -59,7 +59,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
     content = <Spinner />;
   } else if (role === GuardianRole.Host) {
     content = (
-      <FormControl maxWidth={400}>
+      <FormControl maxWidth={400} bg='blue.50' p={2} borderRadius='md'>
         <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
         <CopyInput
           value={guardianLink}
