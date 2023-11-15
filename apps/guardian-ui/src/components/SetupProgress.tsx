@@ -168,6 +168,7 @@ export const SetupProgress: React.FC<SetupProgressProps> = ({
           value={(setupProgress / 5) * 100}
           size='sm'
           colorScheme='blue'
+          borderRadius='100'
         />
       </Show>
     </Flex>
