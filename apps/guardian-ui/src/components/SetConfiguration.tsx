@@ -13,14 +13,17 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FormGroup, FormGroupHeading } from '@fedimint/ui';
+import { FormGroup } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
 import { BitcoinRpc, ConfigGenParams, GuardianRole, Network } from '../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
 import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
-import { ReactComponent as LightbulbLogo } from '../assets/svgs/lightbulb.svg';
+import { ReactComponent as LightbulbIcon } from '../assets/svgs/lightbulb.svg';
+import { ReactComponent as CheckIcon } from '../assets/svgs/check-circle.svg';
+import { ReactComponent as CrossIcon } from '../assets/svgs/x-circle.svg';
+
 import {
   formatApiErrorMessage,
   getModuleParamsFromConfig,
@@ -28,7 +31,12 @@ import {
   removeConfigGenModuleConsensusParams,
 } from '../utils/api';
 import { ModuleKind } from '../types';
-import { isValidMeta, isValidNumber } from '../utils/validators';
+import {
+  isValidMeta,
+  isValidBasicSettings,
+  isValidBitcoinSettings,
+  isValidFederationSettings,
+} from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
 import { MetaFieldFormControl } from './MetaFieldFormControl';
 
@@ -55,11 +63,13 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [password, setPassword] = useState(statePassword);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hostServerUrl, setHostServerUrl] = useState('');
+  const [basicSettingsValid, setBasicSettingsValid] = useState(false);
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [numPeers, setNumPeers] = useState(
     stateNumPeers ? stateNumPeers.toString() : '4'
   );
   const [federationName, setFederationName] = useState('');
+  const [federationSettingsValid, setFederationSettingsValid] = useState(true);
   const [metaFields, setMetaFields] = useState<[string, string][]>([['', '']]);
   const [blockConfirmations, setBlockConfirmations] = useState('');
   const [network, setNetwork] = useState('');
@@ -67,6 +77,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     kind: '',
     url: '',
   });
+  const [bitcoinSettingsValid, setBitcoinSettingsValid] = useState(true);
+  const [isAllValid, setIsAllValid] = useState(false);
   const [mintAmounts, setMintAmounts] = useState<number[]>([]);
   const [error, setError] = useState<string>();
 
@@ -108,23 +120,51 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     }
   }, [configGenParams, api]);
 
-  // Update password when updated from state
   useEffect(() => {
     setPassword(statePassword);
   }, [statePassword]);
 
-  const isValid: boolean = isHost
-    ? Boolean(
-        myName &&
-          password &&
-          password === confirmPassword &&
-          federationName &&
-          isValidNumber(numPeers, 4) &&
-          isValidNumber(blockConfirmations, 1, 200) &&
-          isValidMeta(metaFields) &&
-          network
+  // Validate basic settings
+  useEffect(() => {
+    setBasicSettingsValid(
+      isValidBasicSettings(
+        myName,
+        password,
+        confirmPassword,
+        hostServerUrl,
+        isHost
       )
-    : Boolean(myName && password && hostServerUrl);
+    );
+  }, [myName, password, confirmPassword, hostServerUrl, isHost]);
+
+  // Validate federation settings
+  useEffect(() => {
+    setFederationSettingsValid(
+      isValidFederationSettings(isHost, federationName, numPeers)
+    );
+  }, [federationName, numPeers, isHost]);
+
+  // Validate bitcoin settings
+  useEffect(() => {
+    setBitcoinSettingsValid(
+      isValidBitcoinSettings(isHost, blockConfirmations, network)
+    );
+  }, [blockConfirmations, network, isHost]);
+
+  // Validate all settings
+  useEffect(() => {
+    setIsAllValid(
+      basicSettingsValid &&
+        federationSettingsValid &&
+        bitcoinSettingsValid &&
+        isValidMeta(metaFields)
+    );
+  }, [
+    basicSettingsValid,
+    federationSettingsValid,
+    bitcoinSettingsValid,
+    metaFields,
+  ]);
 
   const handleChangeFederationName = (
     ev: React.ChangeEvent<HTMLInputElement>
@@ -201,8 +241,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   return (
     <Flex direction='column' gap={['2', '6']} justify='start' align='start'>
       <FormGroup
-        icon={LightbulbLogo}
+        isOpen={true}
+        icon={LightbulbIcon}
         title={`${t('set-config.basic-settings')}`}
+        validIcon={basicSettingsValid ? CheckIcon : CrossIcon}
       >
         <FormControl>
           <FormLabel>{t('set-config.guardian-name')}</FormLabel>
@@ -254,8 +296,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       <>
         {isHost && (
           <FormGroup
+            isOpen={true}
             icon={FedimintLogo}
             title={`${t('set-config.federation-settings')}`}
+            validIcon={federationSettingsValid ? CheckIcon : CrossIcon}
           >
             <FormControl>
               <FormLabel>{t('set-config.federation-name')}</FormLabel>
@@ -275,7 +319,12 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             />
           </FormGroup>
         )}
-        <FormGroup icon={BitcoinLogo} title='Bitcoin settings'>
+        <FormGroup
+          isOpen={false}
+          icon={BitcoinLogo}
+          title='Bitcoin settings'
+          validIcon={bitcoinSettingsValid ? CheckIcon : CrossIcon}
+        >
           {isHost && (
             <>
               <NumberFormControl
@@ -321,7 +370,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           </FormControl>
         </FormGroup>
         {isHost && (
-          <FormGroup icon={ModulesIcon} title={t('set-config.meta-fields')}>
+          <FormGroup
+            icon={ModulesIcon}
+            title={t('set-config.meta-fields')}
+            validIcon={isValidMeta(metaFields) ? CheckIcon : CrossIcon}
+          >
             <MetaFieldFormControl
               metaFields={metaFields}
               onChangeMetaFields={setMetaFields}
@@ -335,8 +388,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         </Text>
       )}
       <Button
-        isDisabled={!isValid}
-        onClick={isValid ? handleNext : undefined}
+        isDisabled={!isAllValid}
+        onClick={isAllValid ? handleNext : undefined}
         leftIcon={<Icon as={ArrowRightIcon} />}
         mt={4}
         alignSelf='center'

@@ -5,6 +5,7 @@ import { Flex, Icon, Heading, Spacer, useTheme } from '@chakra-ui/react';
 interface Props {
   icon?: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
   title: React.ReactNode;
+  validIcon?: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
   onClick?: () => void;
   chevronIcon?: string;
 }
@@ -12,6 +13,7 @@ interface Props {
 export const FormGroupHeading: React.FC<Props> = ({
   icon,
   title,
+  validIcon,
   onClick,
   chevronIcon,
 }) => {
@@ -32,6 +34,7 @@ export const FormGroupHeading: React.FC<Props> = ({
         {title}
       </Heading>
       <Spacer />
+      {validIcon && <Icon ml={2} width='15px' height='15px' as={validIcon} />}
       {chevronIcon}
     </Flex>
   );

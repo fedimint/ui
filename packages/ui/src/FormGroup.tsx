@@ -7,10 +7,18 @@ interface Props {
   maxWidth?: number;
   title: React.ReactNode;
   icon?: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+  isOpen?: boolean;
+  validIcon?: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
 }
 
-export const FormGroup: React.FC<Props> = ({ children, title, icon }) => {
-  const [show, setShow] = useState(false);
+export const FormGroup: React.FC<Props> = ({
+  children,
+  title,
+  validIcon,
+  icon,
+  isOpen,
+}) => {
+  const [show, setShow] = useState(isOpen ?? true);
 
   const handleToggle = () => setShow(!show);
 
@@ -25,6 +33,7 @@ export const FormGroup: React.FC<Props> = ({ children, title, icon }) => {
       <FormGroupHeading
         icon={icon}
         title={title}
+        validIcon={validIcon}
         onClick={handleToggle}
         chevronIcon={
           show ? String.fromCharCode(0x25b4) : String.fromCharCode(0x25be)
