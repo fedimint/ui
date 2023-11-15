@@ -7,12 +7,16 @@ interface Props {
   maxWidth?: number;
   title: React.ReactNode;
   icon?: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+  isOpen?: boolean;
 }
 
-export const FormGroup: React.FC<Props> = ({ children, title, icon }) => {
-  const [show, setShow] = useState(false);
-
-  const handleToggle = () => setShow(!show);
+export const FormGroup: React.FC<Props> = ({
+  children,
+  title,
+  icon,
+  isOpen,
+}) => {
+  const [open, setOpen] = useState(isOpen ?? true);
 
   return (
     <Flex
@@ -25,12 +29,12 @@ export const FormGroup: React.FC<Props> = ({ children, title, icon }) => {
       <FormGroupHeading
         icon={icon}
         title={title}
-        onClick={handleToggle}
+        onClick={() => setOpen(!open)}
         chevronIcon={
-          show ? String.fromCharCode(0x25b4) : String.fromCharCode(0x25be)
+          open ? String.fromCharCode(0x25b4) : String.fromCharCode(0x25be)
         }
       />
-      <Collapse in={show}>{children}</Collapse>
+      <Collapse in={open}>{children}</Collapse>
     </Flex>
   );
 };

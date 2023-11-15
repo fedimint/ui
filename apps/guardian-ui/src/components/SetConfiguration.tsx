@@ -13,7 +13,7 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FormGroup, FormGroupHeading } from '@fedimint/ui';
+import { FormGroup } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
 import { BitcoinRpc, ConfigGenParams, GuardianRole, Network } from '../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
@@ -203,6 +203,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       <FormGroup
         icon={LightbulbLogo}
         title={`${t('set-config.basic-settings')}`}
+        isOpen={true}
       >
         <FormControl>
           <FormLabel>{t('set-config.guardian-name')}</FormLabel>
@@ -256,6 +257,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           <FormGroup
             icon={FedimintLogo}
             title={`${t('set-config.federation-settings')}`}
+            isOpen={true}
           >
             <FormControl>
               <FormLabel>{t('set-config.federation-name')}</FormLabel>
@@ -275,7 +277,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             />
           </FormGroup>
         )}
-        <FormGroup icon={BitcoinLogo} title='Bitcoin settings'>
+        <FormGroup icon={BitcoinLogo} title='Bitcoin settings' isOpen={false}>
           {isHost && (
             <>
               <NumberFormControl
@@ -321,7 +323,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           </FormControl>
         </FormGroup>
         {isHost && (
-          <FormGroup icon={ModulesIcon} title={t('set-config.meta-fields')}>
+          <FormGroup
+            icon={ModulesIcon}
+            title={t('set-config.meta-fields')}
+            isOpen={false}
+          >
             <MetaFieldFormControl
               metaFields={metaFields}
               onChangeMetaFields={setMetaFields}
