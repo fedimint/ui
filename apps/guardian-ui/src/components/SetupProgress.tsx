@@ -1,5 +1,14 @@
 import React from 'react';
-import { Box, Center, Flex, Text, useTheme } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  Flex,
+  Hide,
+  Progress,
+  Show,
+  Text,
+  useTheme,
+} from '@chakra-ui/react';
 import { ReactComponent as CheckIcon } from '../assets/svgs/white-check.svg';
 import { useTranslation } from '@fedimint/utils';
 import { StepState } from '../types';
@@ -87,7 +96,7 @@ const Step: React.FC<StepProps> = ({ text, state, isFirst }) => {
         })`}
         textAlign='center'
         fontWeight='600'
-        fontSize={{ base: '12px', md: '14px' }}
+        fontSize='14px'
         color={colorState(
           theme.colors.gray[700],
           theme.colors.blue[600],
@@ -114,41 +123,54 @@ export const SetupProgress: React.FC<SetupProgressProps> = ({
 
   return (
     <Flex justifyContent='center' alignItems='center' w='100%'>
-      <Flex w='100%' px={{ base: 7, md: 9 }} justifyContent='space-between'>
-        <Step
-          text={t('setup.progress.set-config.step')}
-          state={setupProgress === 1 ? StepState.Active : StepState.Completed}
-          isFirst
+      <Hide below='md'>
+        <Flex w='100%' px={{ base: 7, md: 9 }} justifyContent='space-between'>
+          <Step
+            text={t('setup.progress.set-config.step')}
+            state={setupProgress === 1 ? StepState.Active : StepState.Completed}
+            isFirst
+          />
+          <Step
+            text={t(
+              isHost
+                ? 'setup.progress.connect-guardians.step-leader'
+                : 'setup.progress.connect-guardians.step-follower'
+            )}
+            state={
+              setupProgress === 2
+                ? StepState.Active
+                : setupProgress > 2
+                ? StepState.Completed
+                : StepState.InActive
+            }
+          />
+          <Step
+            text={t('setup.progress.verify-guardians.step')}
+            state={
+              setupProgress === 4
+                ? StepState.Active
+                : setupProgress > 4
+                ? StepState.Completed
+                : StepState.InActive
+            }
+          />
+          <Step
+            text={t('setup.progress.setup-complete.step')}
+            state={
+              setupProgress === 5 ? StepState.Completed : StepState.InActive
+            }
+          />
+        </Flex>
+      </Hide>
+      <Show below='md'>
+        <Progress
+          w='100%'
+          value={(setupProgress / 5) * 100}
+          size='sm'
+          colorScheme='blue'
+          borderRadius='100'
         />
-        <Step
-          text={t(
-            isHost
-              ? 'setup.progress.connect-guardians.step-leader'
-              : 'setup.progress.connect-guardians.step-follower'
-          )}
-          state={
-            setupProgress === 2
-              ? StepState.Active
-              : setupProgress > 2
-              ? StepState.Completed
-              : StepState.InActive
-          }
-        />
-        <Step
-          text={t('setup.progress.verify-guardians.step')}
-          state={
-            setupProgress === 4
-              ? StepState.Active
-              : setupProgress > 4
-              ? StepState.Completed
-              : StepState.InActive
-          }
-        />
-        <Step
-          text={t('setup.progress.setup-complete.step')}
-          state={setupProgress === 5 ? StepState.Completed : StepState.InActive}
-        />
-      </Flex>
+      </Show>
     </Flex>
   );
 };
