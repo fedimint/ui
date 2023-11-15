@@ -82,7 +82,7 @@ export const InviteCode: React.FC<InviteCodeProps> = ({ inviteCode }) => {
           </ModalBody>
         </ModalContent>
       </Modal>
-      <Text mt='6px' mb='25px' fontSize='14px' color={theme.colors.gray[500]}>
+      <Text mt='6px' fontSize='14px' color={theme.colors.gray[500]}>
         {t('federation-dashboard.invite-members-prompt')}
       </Text>
     </Box>
