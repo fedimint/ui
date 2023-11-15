@@ -25,13 +25,16 @@ export const FormGroup: React.FC<Props> = ({
       alignSelf='center'
       justifySelf='center'
       w={['100%', '100%', '60%']}
+      fontSize='sm'
     >
       <FormGroupHeading
         icon={icon}
         title={title}
         onClick={() => setOpen(!open)}
         chevronIcon={
-          open ? String.fromCharCode(0x25b4) : String.fromCharCode(0x25be)
+          open
+            ? String.fromCharCode(0x25b4)
+            : String.fromCharCode(0x25be) + ' Show Fields'
         }
       />
       <Collapse in={open}>{children}</Collapse>
