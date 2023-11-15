@@ -63,7 +63,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
         <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
         <CopyInput
           value={guardianLink}
-          size='lg'
+          size='sm'
           buttonLeftIcon={<Icon as={CopyIcon} />}
         />
         <FormHelperText>
