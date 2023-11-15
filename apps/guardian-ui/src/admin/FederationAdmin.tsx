@@ -40,7 +40,7 @@ export const FederationAdmin: React.FC = () => {
   return (
     <Flex gap='32px' flexDirection='row'>
       <Flex gap={6} flexDirection='column' w='100%'>
-        <Box maxWidth='400px'>
+        <Box maxWidth='440px'>
           <Heading size='xs' mt='12px'>
             {config?.client_config.meta.federation_name}
           </Heading>

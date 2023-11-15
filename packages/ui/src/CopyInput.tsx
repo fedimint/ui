@@ -37,6 +37,7 @@ export const CopyInput: React.FC<CopyInputProps> = ({
         textOverflow='ellipsis'
         overflow='hidden'
         paddingRight={buttonWidth}
+        bg={theme.colors.white}
       />
       <InputRightElement
         borderLeft={`1px solid ${theme.colors.border.input}`}
