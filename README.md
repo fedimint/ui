@@ -177,11 +177,24 @@ The `gateway-ui` is an instance of `gateway-ui` app, connected to a `gatewayd` s
 
 You can see more details by viewing the `mprocs.yml` file.
 
+## Referencing Fedimint
+
+The docker containers and devimint are for specific releases or commits of `fedimint/fedimint`. At present, the reference commit-hash is `f58f1913e62b6529a2ff36ec5c89a3852aba7ca7`
+
 ### Running with local Fedimint
 
-The docker containers and devimint are for specific releases or commits of `fedimint/fedimint`. If you would like to run the UIs against a particular version of fedimint, or using changes you have made locally to fedimint itself:
+If you would like to run the UIs against a particular version of fedimint, or using changes you have made locally to fedimint itself:
 
 1. Run `cargo build` in fedimint
-2. Run `env DEVIMINT_PATH=$(realpath ../fedimint/target/debug) yarn nix-guardian` (assuming that you have `ui` and `fedimint` repos checked out in the same directory)
+2. Run `env DEVIMINT_BIN=$(realpath ../fedimint/target/debug) yarn nix-guardian` (assuming that you have `ui` and `fedimint` repos checked out in the same directory)
 
 This will put binaries in `fedimint/target/debug` at the front of your `$PATH`. Devimint will use these binaries instead of the ones installed via Nix.
+
+### Bumping referenced Fedimint
+
+You can officially bump the referenced version of Fedimint using the following steps:
+
+1. Locate a desired hash from [Fedimint](https://github.com/fedimint/fedimint/commits/master)
+2. Find and replace all instances of the current reference commit hash: `f58f1913e62b6529a2ff36ec5c89a3852aba7ca7`
+3. Run `nix flake update` at the root of the repo
+4. Restart your nix shell and validate the reference, then commit to complete bump
