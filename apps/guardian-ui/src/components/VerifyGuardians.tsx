@@ -222,7 +222,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     return (
       <Flex direction='column' gap={10} justify='start' align='start'>
         <FormGroup>
-          <FormControl>
+          <FormControl bg={theme.blue[50]} p={2} borderRadius='md'>
             <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
             <CopyInput value={myHash} buttonLeftIcon={<Icon as={CopyIcon} />} />
             <FormHelperText>
