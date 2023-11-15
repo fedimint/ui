@@ -69,15 +69,15 @@
     "title": "¡Bienvenido de nuevo!"
   },
   "role-selector": {
-    "disclaimer-text": "Estás utilizando una versión muy temprana de Fedimint. Se recomienda no utilizar bitcoin de la red principal para su federación. Úselo con precaución.",
     "disclaimer-title": "Fedimint es software alfa",
-    "follower": {
-      "description": "Los seguidores del Guardián (todos los demás Guardianes) confirmarán la información que ingrese el Líder.",
-      "label": "Seguidor"
-    },
+    "disclaimer-text": "Estás utilizando una versión muy temprana de Fedimint. Por favor, úsala con precaución e informa de los problemas a los desarrolladores de Fedimint en Github.",
     "leader": {
-      "description": "Elige uno de tus Guardianes como Líder. El Líder ingresará información sobre la Federación.",
-      "label": "Líder"
+      "label": "Líder de Configuración",
+      "description": "Introduce los ajustes de configuración que otros Guardianes aprueban. Un Guardián actúa como Líder de Configuración."
+    },
+    "follower": {
+      "label": "Seguidor",
+      "description": "Una vez que un Líder de Configuración establece las configuraciones, otros Guardianes eligen esta opción para aprobar los ajustes y crear la Federación."
     }
   },
   "run-dkg": {

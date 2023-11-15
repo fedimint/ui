@@ -1,10 +1,14 @@
 import React from 'react';
-import { Flex, Spacer } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 export const Header = React.memo(function Header() {
   return (
-    <Flex width='100%' mb='32px'>
-      <Flex alignItems='center' gap='2'>
+    <Flex width='100%' mb='32px' justifyContent={['center', 'flex-start']}>
+      <Flex
+        alignItems='center'
+        justifyContent={['center', 'flex-start']}
+        gap='2'
+      >
         <>
           <svg
             width='200'
@@ -41,7 +45,6 @@ export const Header = React.memo(function Header() {
           </svg>
         </>
       </Flex>
-      <Spacer />
     </Flex>
   );
 });

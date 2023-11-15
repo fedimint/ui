@@ -63,14 +63,14 @@
   },
   "role-selector": {
     "disclaimer-title": "Fedimint is alpha software",
-    "disclaimer-text": "You are using a very early version of Fedimint. It is recommended to not use mainnet bitcoin for your federation. Please use with caution.",
+    "disclaimer-text": "You are using a very early version of Fedimint. Please use with caution & report issues to the Fedimint developers on Github.",
     "leader": {
-      "label": "Leader",
-      "description": "Choose one of your Guardians as a Leader. The Leader will input information about the Federation."
+      "label": "Setup Leader",
+      "description": "Input configuration settings that other Guardians approve. One Guardian acts as Setup Leader. "
     },
     "follower": {
       "label": "Follower",
-      "description": "Guardian Followers (all other Guardians) will confirm information that the Leader inputs."
+      "description": "Once a Setup Leader sets the configurations, other Guardians choose this option to approve the settings and create the Federation."
     }
   },
   "run-dkg": {
@@ -117,7 +117,7 @@
         "title": "Terms of service"
       },
       "start": {
-        "title": "Welcome to Fedimint!",
+        "title": "Welcome, Guardian!",
         "subtitle": "Are you creating a Federation, or joining one?",
         "step": "Federation details"
       },

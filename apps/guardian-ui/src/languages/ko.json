@@ -69,15 +69,15 @@
     "title": "돌아온 것을 환영합니다!"
   },
   "role-selector": {
-    "disclaimer-text": "귀하는 매우 초기 버전의 Fedimint를 사용하고 있습니다. 귀하의 연합에는 메인넷 비트코인을 사용하지 않는 것이 좋습니다. 주의해서 사용하십시오.",
+    "disclaimer-text": "귀하는 매우 초기 버전의 Fedimint를 사용하고 있습니다. 주의해서 사용하고 Github의 Fedimint 개발자에게 문제를 보고하세요.",
     "disclaimer-title": "Fedimint는 알파 소프트웨어입니다.",
     "follower": {
-      "description": "가디언 팔로워(다른 가디언 전체)는 리더가 입력한 정보를 확인합니다.",
+      "description": "구성 리더가 구성을 설정하면 다른 보호자가 이 옵션을 선택하여 설정을 승인하고 연합을 만듭니다.",
       "label": "팔로워"
     },
     "leader": {
-      "description": "가디언 중 한 명을 리더로 선택하세요. 리더는 연합에 대한 정보를 입력합니다.",
-      "label": "리더"
+      "description": "다른 보호자가 승인한 구성 설정을 입력하세요. 한 명의 보호자가 설정 리더 역할을 합니다.",
+      "label": "구성 리더"
     }
   },
   "run-dkg": {

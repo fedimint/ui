@@ -118,19 +118,17 @@ export const FederationSetup: React.FC = () => {
           </Button>
         )}
         {title && (
-          <Heading size='md' fontWeight='medium'>
+          <Heading size={['sm', 'md']} fontWeight='medium'>
             {title}
           </Heading>
         )}
         {subtitle && (
-          <Text size='md' fontWeight='medium'>
+          <Text size={['sm', 'md']} fontWeight='medium'>
             {subtitle}
           </Text>
         )}
       </Flex>
-      <Box mt={2} width='100%'>
-        {content}
-      </Box>
+      <Box width='100%'>{content}</Box>
     </Flex>
   );
 };

@@ -55,6 +55,12 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
 
   return (
     <Flex direction='column' gap={8} align='left' justify='left' maxWidth={660}>
+      <RadioButtonGroup
+        options={options}
+        value={role}
+        onChange={(value) => setRole(value)}
+        activeIcon={CheckIcon}
+      />
       <Alert status='warning'>
         <AlertIcon>
           <WarningIcon />
@@ -66,17 +72,9 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
           </AlertDescription>
         </Box>
       </Alert>
-
-      <RadioButtonGroup
-        options={options}
-        value={role}
-        onChange={(value) => setRole(value)}
-        activeIcon={CheckIcon}
-      />
-
       <div>
         <Button
-          width='auto'
+          width={['100%', 'auto']}
           leftIcon={<Icon as={ArrowRightIcon} />}
           isDisabled={!role}
           onClick={handleNext}

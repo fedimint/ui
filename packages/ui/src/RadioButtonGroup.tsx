@@ -51,10 +51,8 @@ export function RadioButtonGroup<T extends string | number>({
             key={option.value}
             onClick={() => onChange(option.value)}
             variant='outline'
-            pl={4}
-            pr={4}
+            p={4}
             width='full'
-            height={106}
             borderRadius={12}
             textAlign='left'
             margin={0}
@@ -71,7 +69,7 @@ export function RadioButtonGroup<T extends string | number>({
                 bg={theme.colors.blue[100]}
                 boxShadow={`0 0 0 6px ${theme.colors.blue[50]}`}
                 borderRadius='100%'
-                mixBlendMode='multiply'
+                p={1}
               >
                 <Icon as={option.icon} />
               </Flex>
@@ -80,19 +78,20 @@ export function RadioButtonGroup<T extends string | number>({
                 align='start'
                 flex={1}
                 minWidth={0}
-                wrap='wrap'
                 gap={2}
               >
                 <Text
+                  size={['md', 'lg']}
                   fontWeight='medium'
                   color={isActive ? theme.colors.blue[800] : undefined}
+                  isTruncated
                 >
                   {option.label}
                 </Text>
                 <Text
+                  size={['sm', 'md']}
                   variant='secondary'
                   fontWeight='normal'
-                  whiteSpace='break-spaces'
                   color={isActive ? theme.colors.blue[700] : undefined}
                 >
                   {option.description}
