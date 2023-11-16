@@ -53,6 +53,7 @@ export function RadioButtonGroup<T extends string | number>({
             variant='outline'
             p={4}
             width='full'
+            height='auto'
             borderRadius={12}
             textAlign='left'
             margin={0}
@@ -92,6 +93,7 @@ export function RadioButtonGroup<T extends string | number>({
                   size={['sm', 'md']}
                   variant='secondary'
                   fontWeight='normal'
+                  whiteSpace='break-spaces'
                   color={isActive ? theme.colors.blue[700] : undefined}
                 >
                   {option.description}
