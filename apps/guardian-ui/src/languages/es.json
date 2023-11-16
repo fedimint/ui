@@ -128,7 +128,7 @@
       },
       "run-dkg": {
         "subtitle": "Todos los Guardianes han validado los detalles de la configuración de la Federación. Realizando algunos cálculos...",
-        "title": "¡Boom! Compartiendo información entre los Guardianes"
+        "title": "¡Éxito!"
       },
       "set-config": {
         "step": "Detalles de la federación",
