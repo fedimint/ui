@@ -13,13 +13,14 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FormGroup, FormGroupHeading } from '@fedimint/ui';
+import { FormGroup } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
 import { BitcoinRpc, ConfigGenParams, GuardianRole, Network } from '../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
 import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
+import { ReactComponent as LightbulbLogo } from '../assets/svgs/lightbulb.svg';
 import {
   formatApiErrorMessage,
   getModuleParamsFromConfig,
@@ -198,8 +199,12 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   };
 
   return (
-    <Flex direction='column' gap={10} justify='start' align='start'>
-      <FormGroup>
+    <Flex direction='column' gap={['2', '6']} justify='start' align='start'>
+      <FormGroup
+        icon={LightbulbLogo}
+        title={`${t('set-config.basic-settings')}`}
+        isOpen={true}
+      >
         <FormControl>
           <FormLabel>{t('set-config.guardian-name')}</FormLabel>
           <Input
@@ -249,11 +254,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       </FormGroup>
       <>
         {isHost && (
-          <FormGroup>
-            <FormGroupHeading
-              icon={FedimintLogo}
-              title={`${t('set-config.federation-settings')}`}
-            />
+          <FormGroup
+            icon={FedimintLogo}
+            title={`${t('set-config.federation-settings')}`}
+            isOpen={true}
+          >
             <FormControl>
               <FormLabel>{t('set-config.federation-name')}</FormLabel>
               <Input
@@ -272,8 +277,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             />
           </FormGroup>
         )}
-        <FormGroup>
-          <FormGroupHeading icon={BitcoinLogo} title='Bitcoin settings' />
+        <FormGroup icon={BitcoinLogo} title='Bitcoin settings' isOpen={false}>
           {isHost && (
             <>
               <NumberFormControl
@@ -319,33 +323,33 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           </FormControl>
         </FormGroup>
         {isHost && (
-          <FormGroup maxWidth={470}>
-            <FormGroupHeading
-              icon={ModulesIcon}
-              title={t('set-config.meta-fields')}
-            />
+          <FormGroup
+            icon={ModulesIcon}
+            title={t('set-config.meta-fields')}
+            isOpen={false}
+          >
             <MetaFieldFormControl
               metaFields={metaFields}
               onChangeMetaFields={setMetaFields}
             />
           </FormGroup>
         )}
-      </>
-      {error && (
-        <Text color={theme.colors.red[500]} mt={4}>
-          {error}
-        </Text>
-      )}
-      <div>
+        {error && (
+          <Text color={theme.colors.red[500]} mt={4}>
+            {error}
+          </Text>
+        )}
         <Button
           isDisabled={!isValid}
           onClick={isValid ? handleNext : undefined}
           leftIcon={<Icon as={ArrowRightIcon} />}
-          mt={4}
+          justifySelf='start'
+          mt={['2', '4']}
+          width={['100%', 'auto']}
         >
           {t('common.next')}
         </Button>
-      </div>
+      </>
     </Flex>
   );
 };
