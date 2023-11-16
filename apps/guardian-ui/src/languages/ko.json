@@ -135,14 +135,14 @@
         "step": "제휴 세부정보",
         "subtitle-follower": "리더 가디언은 연합의 주요 정보를 설정할 것입니다. 곧 이 정보를 확인하게 됩니다.",
         "subtitle-leader": "팔로워 가디언들은 이 정보를 확인하게 됩니다.",
-        "title": "연합 설정을 해보세요"
+        "title": "페더레이션에 대한 몇 가지 구성을 설정해야 합니다"
       },
       "setup-complete": {
         "step": "완료!"
       },
       "start": {
         "step": "제휴 세부정보",
-        "subtitle": "연합을 생성하거나 가입하시겠습니까?",
+        "subtitle": "연맹을 설정합시다.",
         "title": "Fedimint에 오신 것을 환영합니다!"
       },
       "verify-guardians": {

@@ -134,14 +134,14 @@
         "step": "Detalles de la federación",
         "subtitle-follower": "El líder de tu Federación configurará los detalles principales de la Federación. Pronto los confirmarás.",
         "subtitle-leader": "Los seguidores de tu Federación confirmarán esta información en su lado.",
-        "title": "Configuración de tu federación"
+        "title": "Necesitamos establecer algunas configuraciones para su Federación"
       },
       "setup-complete": {
         "step": "¡Hecho!"
       },
       "start": {
         "step": "Detalles de la federación",
-        "subtitle": "¿Estás creando una Federación o uniéndote a una?",
+        "subtitle": "Configuremos su federación.",
         "title": "¡Bienvenido a Fedimint!"
       },
       "verify-guardians": {

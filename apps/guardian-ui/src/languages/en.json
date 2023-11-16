@@ -118,11 +118,11 @@
       },
       "start": {
         "title": "Welcome, Guardian!",
-        "subtitle": "Are you creating a Federation, or joining one?",
+        "subtitle": "Let's set up your federation.",
         "step": "Federation details"
       },
       "set-config": {
-        "title": "Let's set up your federation",
+        "title": "We need to set some configurations for your Federation",
         "subtitle-leader": "Your Federation Followers will confirm this information on their end.",
         "subtitle-follower": "Your Federation Leader will be setting up main Federation details. You’ll confirm them soon.",
         "step": "Federation details"
