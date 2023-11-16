@@ -127,7 +127,7 @@ export const FederationSetup: React.FC = () => {
           </Heading>
         )}
         {subtitle && (
-          <Text size={['sm', 'md']} fontWeight='medium'>
+          <Text size={['sm', 'md']} fontWeight='medium' alignSelf='start'>
             {subtitle}
           </Text>
         )}

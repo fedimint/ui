@@ -339,16 +339,24 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             {error}
           </Text>
         )}
-        <Button
-          isDisabled={!isValid}
-          onClick={isValid ? handleNext : undefined}
-          leftIcon={<Icon as={ArrowRightIcon} />}
-          justifySelf='start'
-          mt={['2', '4']}
-          width={['100%', 'auto']}
+        <Flex
+          direction='row'
+          justify='space-between'
+          alignSelf='center'
+          width={['100%', '100%', '60%']}
         >
-          {t('common.next')}
-        </Button>
+          <Button
+            isDisabled={!isValid}
+            onClick={isValid ? handleNext : undefined}
+            leftIcon={<Icon as={ArrowRightIcon} />}
+            justifySelf='center'
+            alignSelf='center'
+            mt={['2', '4']}
+            width={['100%', 'auto']}
+          >
+            {t('common.next')}
+          </Button>
+        </Flex>
       </>
     </Flex>
   );
