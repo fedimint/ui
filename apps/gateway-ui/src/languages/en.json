@@ -20,7 +20,8 @@
   },
   "balance-card": {
     "card_header": "eCash balance",
-    "sentence": "Denominated in Sats"
+    "sentence": "Denominated in Sats",
+    "your-balance": "Your eCash balance on this federation:"
   },
   "connect-federation": {
     "connect": "Connect 🚀",
@@ -34,7 +35,7 @@
   },
   "deposit-card": {
     "bitcoin-deposit": "Bitcoin Deposit",
-    "card_header": "Deposit Bitcoin",
+    "card_header": "Deposit Bitcoin (BTC -> eCash)",
     "confirmations": "Confirmations:",
     "header": "Bitcoin Deposit to Federation",
     "receiving-address": "Receiving Addr",
@@ -43,7 +44,7 @@
     "transaction-id": "Transaction ID"
   },
   "federation-card": {
-    "default-federation-name": "Your federation",
+    "default-federation-name": "Your connected federation: ",
     "view-link-on": "View on {{host}}"
   },
   "footer": {
@@ -66,17 +67,18 @@
     "date-created": "Date Created",
     "descending": "Descending",
     "filter": "Filter",
-    "sort": "Sort"
+    "sort": "Sort",
+    "title": "Lightning Gateway Dashboard"
   },
   "info-card": {
-    "card_header": "Node ID"
+    "card_header": "Lightning Node ID"
   },
   "withdraw-card": {
     "address-label": "Your address:",
     "address-placeholder": "Enter your btc address",
     "amount-label": "Amount (sats):",
     "amount-placeholder": "Enter amount in sats",
-    "card-header": "Withdraw Bitcoin",
+    "card-header": "Withdraw Bitcoin (eCash -> BTC)",
     "close": "Close",
     "confirm-withdraw": "Confirm Withdraw",
     "error": "Error",

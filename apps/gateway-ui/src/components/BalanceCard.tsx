@@ -1,10 +1,11 @@
 import React from 'react';
 import { Text, useTheme } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { GatewayCard } from './GatewayCard';
+import { FedNameCard } from './FedNameCard';
 
 interface BalanceCardProps {
   balance_msat: number;
+  federationName: string;
 }
 
 export const BalanceCard = React.memo(function BalanceCard(
@@ -15,18 +16,21 @@ export const BalanceCard = React.memo(function BalanceCard(
   const theme = useTheme();
 
   return (
-    <GatewayCard
-      title={t('balance-card.card_header')}
-      description={t('balance-card.sentence')}
+    <FedNameCard
+      title={t('federation-card.default-federation-name')}
+      federationName={props.federationName}
     >
+      <Text variant='secondary' size='sm'>
+        {t('balance-card.your-balance')}
+      </Text>
       <Text
-        fontSize='24px'
+        fontSize='xl'
         fontWeight='600'
         color={theme.colors.gray[800]}
         fontFamily={theme.fonts.body}
       >
-        {balance_msat / 1000}
+        {balance_msat / 1000} {'sats'}
       </Text>
-    </GatewayCard>
+    </FedNameCard>
   );
 });
