@@ -53,7 +53,7 @@ export const DepositCard = React.memo(function DepositCard({
 
   return (
     <GatewayCard
-      title={t('deposit-card.card_header')}
+      title={t('deposit-card.card_header') + '(BTC -> eCash)'}
       description={t('deposit-card.sentence-one')}
     >
       <Stack spacing='24px'>

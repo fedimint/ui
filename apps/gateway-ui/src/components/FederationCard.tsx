@@ -27,11 +27,13 @@ export const FederationCard: React.FC<FederationCardProps> = ({
           color={theme.colors.gray[900]}
           fontFamily={theme.fonts.heading}
         >
-          {config.meta.federation_name ||
-            t('federation-card.default-federation-name')}
+          {t('header.title')}
         </Heading>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
-          <BalanceCard balance_msat={balance_msat} />
+          <BalanceCard
+            balance_msat={balance_msat}
+            federationName={config.meta.federation_name || federation_id}
+          />
           <InfoCard nodeId={federation_id} network={network} />
         </Flex>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>

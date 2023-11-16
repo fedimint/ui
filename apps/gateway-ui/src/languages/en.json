@@ -20,7 +20,8 @@
   },
   "balance-card": {
     "card_header": "eCash balance",
-    "sentence": "Denominated in Sats"
+    "sentence": "Denominated in Sats",
+    "your-balance": "Your eCash balance on this federation:"
   },
   "connect-federation": {
     "connect": "Connect 🚀",
@@ -43,7 +44,7 @@
     "transaction-id": "Transaction ID"
   },
   "federation-card": {
-    "default-federation-name": "Your federation",
+    "default-federation-name": "Your connected federation: ",
     "view-link-on": "View on {{host}}"
   },
   "footer": {
@@ -66,10 +67,11 @@
     "date-created": "Date Created",
     "descending": "Descending",
     "filter": "Filter",
-    "sort": "Sort"
+    "sort": "Sort",
+    "title": "Lightning Gateway Dashboard"
   },
   "info-card": {
-    "card_header": "Node ID"
+    "card_header": "Lightning Node ID"
   },
   "withdraw-card": {
     "address-label": "Your address:",

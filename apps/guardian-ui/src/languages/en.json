@@ -47,7 +47,7 @@
     },
     "gateways": {
       "label": "Lightning Gateways",
-      "node-id-label": "Node ID",
+      "node-id-label": "Lightning Node ID",
       "gateway-id-label": "Gateway ID",
       "fee-label": "Gateway fee",
       "view-on-site": "View on {{site}}",
