@@ -60,41 +60,6 @@ export function RadioButtonGroup<T extends string | number>({
             sx={isActive ? activeStyles : defaultStyles}
             role='group'
           >
-<<<<<<< HEAD
-            <Flex direction='row' maxWidth='100%' gap={5} align='start'>
-              <Flex
-                width='40px'
-                height='40px'
-                align='center'
-                justify='center'
-                bg={theme.colors.blue[100]}
-                boxShadow={`0 0 0 6px ${theme.colors.blue[50]}`}
-                borderRadius='100%'
-                p={1}
-              >
-                <Icon as={option.icon} />
-              </Flex>
-              <Flex
-                direction='column'
-                align='start'
-                flex={1}
-                minWidth={0}
-                gap={2}
-              >
-                <Text
-                  size={['md', 'lg']}
-                  fontWeight='medium'
-                  color={isActive ? theme.colors.blue[800] : undefined}
-                  isTruncated
-                >
-                  {option.label}
-                </Text>
-                <Text
-                  size={['sm', 'md']}
-                  variant='secondary'
-                  fontWeight='normal'
-                  color={isActive ? theme.colors.blue[700] : undefined}
-=======
             <Flex
               direction='row'
               w='100%'
@@ -123,7 +88,6 @@ export function RadioButtonGroup<T extends string | number>({
                   minWidth={0}
                   wrap='wrap'
                   gap={2}
->>>>>>> 8a9eb033 (fix: mobile ui centering)
                 >
                   <Text
                     fontWeight='medium'
