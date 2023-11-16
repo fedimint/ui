@@ -178,7 +178,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
             fontSize='sm'
             onClick={createWithdrawal}
           >
-            {t('withdraw-card.card-header')}
+            {t('withdraw-card.withdraw')}
           </Button>
         </Stack>
       </GatewayCard>
