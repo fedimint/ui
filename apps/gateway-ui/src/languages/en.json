@@ -35,7 +35,7 @@
   },
   "deposit-card": {
     "bitcoin-deposit": "Bitcoin Deposit",
-    "card_header": "Deposit Bitcoin (BTC -> eCash)",
+    "card_header": "Deposit Bitcoin",
     "confirmations": "Confirmations:",
     "header": "Bitcoin Deposit to Federation",
     "receiving-address": "Receiving Addr",
@@ -78,7 +78,7 @@
     "address-placeholder": "Enter your btc address",
     "amount-label": "Amount (sats):",
     "amount-placeholder": "Enter amount in sats",
-    "card-header": "Withdraw Bitcoin (eCash -> BTC)",
+    "card-header": "Withdraw Bitcoin",
     "close": "Close",
     "confirm-withdraw": "Confirm Withdraw",
     "error": "Error",
