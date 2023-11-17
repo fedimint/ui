@@ -64,7 +64,7 @@ export type ConfigGenParams = {
   modules: Record<number, AnyModuleParams>;
 };
 
-type ConsensusParams = ConfigGenParams & {
+export type ConsensusParams = ConfigGenParams & {
   peers: Record<number, Peer>;
 };
 

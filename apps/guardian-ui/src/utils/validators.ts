@@ -1,3 +1,5 @@
+import { ConfigGenParams, ConsensusParams } from '../types';
+
 export const isValidNumber = (value: string, min?: number, max?: number) => {
   const int = parseInt(value, 10);
   if (Number.isNaN(int)) return false;
@@ -9,3 +11,9 @@ export const isValidNumber = (value: string, min?: number, max?: number) => {
 export const isValidMeta = (meta: [string, string][]) => {
   return meta.every(([key, value]) => key && value);
 };
+
+export function isConsensusparams(
+  params: ConfigGenParams | ConsensusParams
+): params is ConsensusParams {
+  return 'peers' in params;
+}

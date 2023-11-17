@@ -37,7 +37,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
   const {
     api,
-    state: { role, numPeers, peers },
+    state: { role, numPeers, peers, ourCurrentId },
   } = useSetupContext();
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
@@ -47,28 +47,27 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
 
-  // Poll for peers and configGenParams while on this page.
-  useConsensusPolling();
-
   const verifiedConfigs: boolean = peers.every(
     (peer) => peer.status === ServerStatus.VerifiedConfigs
   );
 
+  // Poll for peers and configGenParams while on this page.
+  useConsensusPolling(!verifiedConfigs);
+
   useEffect(() => {
     async function assembleHashInfo() {
-      try {
-        const [
-          {
-            consensus: { peers },
-            our_current_id,
-          },
-          hashes,
-        ] = await Promise.all([
-          api.getConsensusConfigGenParams(),
-          api.getVerifyConfigHash(),
-        ]);
+      if (peers.length === 0) {
+        return setError(t('verify-guardians.error'));
+      }
 
-        setMyHash(hashes[our_current_id]);
+      if (ourCurrentId === null) {
+        return setError(t('verify-guardians.error-peer-id'));
+      }
+
+      try {
+        const hashes = await api.getVerifyConfigHash();
+
+        setMyHash(hashes[ourCurrentId]);
         setPeersWithHash(
           Object.entries(peers)
             .map(([id, peer]) => ({
@@ -76,13 +75,13 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
               peer,
               hash: hashes[id as unknown as number],
             }))
-            .filter((peer) => peer.id !== our_current_id.toString())
+            .filter((peer) => peer.id !== ourCurrentId.toString())
         );
 
         // If we're already at the VerifiedConfigs state, prefill all the other hashes with the correct values
-        if (peers[our_current_id].status === ServerStatus.VerifiedConfigs) {
+        if (peers[ourCurrentId].status === ServerStatus.VerifiedConfigs) {
           const otherPeers = Object.entries(peers).filter(
-            ([id]) => id !== our_current_id.toString()
+            ([id]) => id !== ourCurrentId.toString()
           );
           setEnteredHashes(
             otherPeers.map(([id]) => hashes[id as unknown as number])
@@ -93,7 +92,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       }
     }
     assembleHashInfo();
-  }, [api]);
+  }, [api, peers, ourCurrentId, t]);
 
   useEffect(() => {
     // If we're the only guardian, skip this verify other guardians step.
@@ -111,11 +110,10 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       peersWithHash &&
       peersWithHash.every(({ hash }, idx) => hash === enteredHashes[idx]);
 
-    if (isAllValid) {
-      !verifiedConfigs &&
-        api.verifiedConfigs().catch((err) => {
-          setError(formatApiErrorMessage(err));
-        });
+    if (isAllValid && !verifiedConfigs) {
+      api.verifiedConfigs().catch((err) => {
+        setError(formatApiErrorMessage(err));
+      });
     }
   }, [api, peersWithHash, enteredHashes, verifiedConfigs, numPeers, next]);
 
