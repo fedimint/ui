@@ -102,6 +102,7 @@
     "error-valid-max": "최대한 {{max}} 이하의 숫자를 입력해주세요.",
     "error-valid-min-max": "{{min}}에서 {{max}} 사이의 숫자를 입력해주세요.",
     "federation-name": "연합 이름",
+    "basic-settings": "기본 설정",
     "federation-settings": "연합 설정",
     "guardian-name": "가디언 이름",
     "guardian-name-help": "다른 가디언에게 표시될 이름입니다.",

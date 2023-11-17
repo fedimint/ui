@@ -102,6 +102,7 @@
     "error-valid-max": "Por favor ingrese un número de como máximo {{max}}.",
     "error-valid-min-max": "Por favor ingrese un número entre {{min}} y {{max}}.",
     "federation-name": "Nombre de la Federación",
+    "basic-settings": "Configuración básica",
     "federation-settings": "Configuración de la Federación",
     "guardian-name": "Nombre del Guardián",
     "guardian-name-help": "Este nombre se mostrará a otros Guardianes",

@@ -219,8 +219,8 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   } else {
     return (
       <Flex direction='column' gap={10} justify='start' align='start'>
-        <FormGroup maxWidth={400}>
-          <FormControl bg={theme.colors.blue[50]} p={2} borderRadius='md'>
+        <FormGroup title={t('verify-guardians.verification-code-title')}>
+          <FormControl>
             <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
             <CopyInput
               value={myHash}
