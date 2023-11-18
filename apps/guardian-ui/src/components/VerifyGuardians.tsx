@@ -13,8 +13,13 @@ import {
   Tag,
   useTheme,
   CircularProgress,
+  Hide,
+  Show,
+  Box,
+  InputGroup,
+  InputLeftElement,
 } from '@chakra-ui/react';
-import { CopyInput, FormGroup, Table } from '@fedimint/ui';
+import { CopyInput, Table } from '@fedimint/ui';
 import { useConsensusPolling, useSetupContext } from '../hooks';
 import { GuardianRole, Peer } from '../types';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
@@ -22,6 +27,8 @@ import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../utils/api';
 import { useTranslation } from '@fedimint/utils';
 import { ServerStatus } from '../types';
+import { ReactComponent as CheckCircleIcon } from '../assets/svgs/check-circle.svg';
+import { ReactComponent as XCircleIcon } from '../assets/svgs/x-circle.svg';
 
 interface PeerWithHash {
   id: string;
@@ -219,25 +226,66 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   } else {
     return (
       <Flex direction='column' gap={10} justify='start' align='start'>
-        <FormGroup title={t('verify-guardians.verification-code-title')}>
-          <FormControl>
-            <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
-            <CopyInput
-              value={myHash}
-              buttonLeftIcon={<Icon as={CopyIcon} />}
-              size='sm'
-            />
-            <FormHelperText>
-              {t('verify-guardians.verification-code-help')}
-            </FormHelperText>
-          </FormControl>
-        </FormGroup>
-        <Table
-          title={t('verify-guardians.table-title')}
-          description={t('verify-guardians.table-description')}
-          columns={tableColumns}
-          rows={tableRows}
-        />
+        <FormControl bg={theme.colors.blue[50]} p={4} borderRadius='md'>
+          <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
+          <CopyInput
+            value={myHash}
+            buttonLeftIcon={<Icon as={CopyIcon} />}
+            size='sm'
+          />
+          <FormHelperText>
+            {t('verify-guardians.verification-code-help')}
+          </FormHelperText>
+        </FormControl>
+        <Hide below='sm'>
+          <Table
+            title={t('verify-guardians.table-title')}
+            description={t('verify-guardians.table-description')}
+            columns={tableColumns}
+            rows={tableRows}
+          />
+        </Hide>
+        <Show below='sm'>
+          <Flex direction='column' width='full' gap={4}>
+            {peersWithHash.map(({ peer, hash }, idx) => {
+              const value = enteredHashes[idx] || '';
+              const isValid = value === hash;
+              const isError = value && !isValid;
+
+              return (
+                <Box key={peer.cert}>
+                  <Text fontWeight='bold' isTruncated>
+                    {peer.name}
+                  </Text>
+                  <Flex direction='row' align='center' justify='start'>
+                    <FormControl ml={4}>
+                      <InputGroup>
+                        <InputLeftElement pointerEvents='none'>
+                          {isValid ? (
+                            <CheckCircleIcon color='green' />
+                          ) : isError ? (
+                            <XCircleIcon color='red' />
+                          ) : null}
+                        </InputLeftElement>
+                        <Input
+                          variant='filled'
+                          value={value}
+                          placeholder={`${t(
+                            'verify-guardians.verified-placeholder'
+                          )}`}
+                          onChange={(ev) =>
+                            handleChangeHash(ev.currentTarget.value, idx)
+                          }
+                          readOnly={isValid}
+                        />
+                      </InputGroup>
+                    </FormControl>
+                  </Flex>
+                </Box>
+              );
+            })}
+          </Flex>
+        </Show>
         <Flex direction='row' mt={4} gap={2}>
           <Button
             isDisabled={!verifiedConfigs}
