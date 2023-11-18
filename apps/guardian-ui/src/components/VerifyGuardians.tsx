@@ -258,7 +258,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
                     {peer.name}
                   </Text>
                   <Flex direction='row' align='center' justify='start'>
-                    <FormControl ml={4}>
+                    <FormControl>
                       <InputGroup>
                         <InputLeftElement pointerEvents='none'>
                           {isValid ? (
@@ -286,7 +286,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             })}
           </Flex>
         </Show>
-        <Flex direction='row' mt={4} gap={2}>
+        <Flex direction='row' mt={4} gap={4}>
           <Button
             isDisabled={!verifiedConfigs}
             isLoading={isStarting}
@@ -308,7 +308,7 @@ const WaitingForVerification: React.FC<{ verifiedConfigs: boolean }> = ({
   const { t } = useTranslation();
 
   return (
-    <Flex direction='row' height='100%' my={'auto'}>
+    <Flex direction='row' height='100%' my={'auto'} gap={4}>
       {verifiedConfigs ? (
         <Text>{t('verify-guardians.all-guardians-verified')}</Text>
       ) : (

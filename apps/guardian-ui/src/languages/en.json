@@ -165,7 +165,7 @@
   },
   "verify-guardians": {
     "verified": "Verified",
-    "verified-placeholder": "Input code here",
+    "verified-placeholder": "Paste code here",
     "error": "Something went wrong.",
     "error-peer-id": "Unable to determine which peer you are. Please refresh and try again.",
     "verification-code": "Your verification code",
