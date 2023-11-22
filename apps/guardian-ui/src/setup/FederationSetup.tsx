@@ -132,7 +132,7 @@ export const FederationSetup: React.FC = () => {
           </Text>
         )}
       </Flex>
-      <Box width='100%' justifyItems='center'>
+      <Box width={['100%', '90%']} justifyItems='center'>
         {content}
       </Box>
     </Flex>

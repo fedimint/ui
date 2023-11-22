@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, Collapse } from '@chakra-ui/react';
+import { Flex, Collapse, Stack } from '@chakra-ui/react';
 import { FormGroupHeading } from './FormGroupHeading';
 
 interface Props {
@@ -21,7 +21,6 @@ export const FormGroup: React.FC<Props> = ({
   return (
     <Flex
       direction='column'
-      gap={['2', '6']}
       alignSelf='center'
       justifySelf='center'
       w={['100%', '100%', '60%']}
@@ -37,7 +36,9 @@ export const FormGroup: React.FC<Props> = ({
             : String.fromCharCode(0x25be) + ' Show Fields'
         }
       />
-      <Collapse in={open}>{children}</Collapse>
+      <Collapse in={open}>
+        <Stack spacing={4}>{children}</Stack>
+      </Collapse>
     </Flex>
   );
 };
