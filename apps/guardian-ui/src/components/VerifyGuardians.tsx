@@ -17,7 +17,9 @@ import {
   Show,
   Box,
   InputGroup,
-  InputLeftElement,
+  useBreakpointValue,
+  Stack,
+  StackDirection,
 } from '@chakra-ui/react';
 import { CopyInput, Table } from '@fedimint/ui';
 import { useConsensusPolling, useSetupContext } from '../hooks';
@@ -162,6 +164,11 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     [t]
   );
 
+  const direction = useBreakpointValue({
+    base: 'column-reverse',
+    sm: 'row',
+  }) as StackDirection | undefined;
+
   const handleChangeHash = useCallback((value: string, index: number) => {
     setEnteredHashes((hashes) => {
       const newHashes = [...hashes];
@@ -226,7 +233,12 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   } else {
     return (
       <Flex direction='column' gap={10} justify='start' align='start'>
-        <FormControl bg={theme.colors.blue[50]} p={4} borderRadius='md'>
+        <FormControl
+          bg={theme.colors.blue[50]}
+          p={4}
+          borderRadius='md'
+          maxW='md'
+        >
           <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
           <CopyInput
             value={myHash}
@@ -254,21 +266,37 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
               return (
                 <Box key={peer.cert}>
-                  <Text fontWeight='bold' isTruncated>
-                    {peer.name}
-                  </Text>
+                  <Flex align='center' mb={2}>
+                    <Text fontWeight='bold' isTruncated>
+                      {peer.name}
+                    </Text>
+                    {isValid ? (
+                      <CheckCircleIcon
+                        color='green'
+                        style={{
+                          marginLeft: '8px',
+                          height: '1em',
+                          width: '1em',
+                        }}
+                      />
+                    ) : isError ? (
+                      <XCircleIcon
+                        color='red'
+                        style={{
+                          marginLeft: '8px',
+                          height: '1em',
+                          width: '1em',
+                        }}
+                      />
+                    ) : null}
+                  </Flex>
+
                   <Flex direction='row' align='center' justify='start'>
                     <FormControl>
                       <InputGroup>
-                        <InputLeftElement pointerEvents='none'>
-                          {isValid ? (
-                            <CheckCircleIcon color='green' />
-                          ) : isError ? (
-                            <XCircleIcon color='red' />
-                          ) : null}
-                        </InputLeftElement>
                         <Input
                           variant='filled'
+                          borderColor={'gray.100'}
                           value={value}
                           placeholder={`${t(
                             'verify-guardians.verified-placeholder'
@@ -286,17 +314,18 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             })}
           </Flex>
         </Show>
-        <Flex direction='row' mt={4} gap={4}>
+        <Stack direction={direction} gap={4} width='full' align='center'>
           <Button
             isDisabled={!verifiedConfigs}
             isLoading={isStarting}
             onClick={verifiedConfigs ? handleNext : undefined}
             leftIcon={<Icon as={ArrowRightIcon} />}
+            width={{ base: 'full', sm: 'auto' }}
           >
             {t('common.next')}
           </Button>
           <WaitingForVerification verifiedConfigs={verifiedConfigs} />
-        </Flex>
+        </Stack>
       </Flex>
     );
   }
@@ -308,7 +337,7 @@ const WaitingForVerification: React.FC<{ verifiedConfigs: boolean }> = ({
   const { t } = useTranslation();
 
   return (
-    <Flex direction='row' height='100%' my={'auto'} gap={4}>
+    <Flex direction='row' height='100%' my={'auto'} gap={4} align='center'>
       {verifiedConfigs ? (
         <Text>{t('verify-guardians.all-guardians-verified')}</Text>
       ) : (
