@@ -47,7 +47,7 @@ yarn install
 PORT=3000 REACT_APP_FM_CONFIG_API="[app-address-here]" yarn build && yarn start
 ```
 
-Replace `PORT` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your fedimintd API.
+Replace `PORT` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
 
 #### Gateway UI
 
@@ -58,7 +58,7 @@ yarn install
 PORT=3000 REACT_APP_FM_GATEWAY_API="[app-address-here]" REACT_APP_FM_GATEWAY_PASSWORD="[password-here]" yarn build && yarn start
 ```
 
-Replace `PORT` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address of your gatewayd API, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password you set your gateway up with.
+Replace `PORT` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password of your deployed gatewayd server.
 
 ### Run with Docker
 
@@ -77,7 +77,7 @@ docker run \
   fedimintui/guardian-ui:0.1.0
 ```
 
-Replace `-p 3000:3000` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your fedimintd API.
+Replace `-p 3000:3000` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
 
 #### Gateway UI
 
@@ -93,7 +93,7 @@ docker run \
   fedimintui/gateway-ui:0.1.0
 ```
 
-Replace `-p 3000:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address of your gatewayd API, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password you set your gateway up with.
+Replace `-p 3000:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password of your deployed gatewayd server.
 
 ## Development
 
@@ -137,33 +137,10 @@ nix-guardian spins up these instances
 | guardian-ui-3 | http://127.0.0.1:3002/ |
 | guardian-ui-4 | http://127.0.0.1:3003/ |
 
-### Option 2 - Running with Docker Compose and Yarn manually
-
-From root repo directory:
-
-1. Ensure Docker and yarn/nodejs are installed.
-1. Run `docker compose up` (brings up a 2 server Fedimint)
-1. `yarn install` (First time only)
-1. `yarn build` (Needs to be rerun when code in `packages` change)
-1. You can run any of the following commands during development
-
-- `yarn dev` - Starts development servers and file watchers for all apps and packages
-  - Due to port conflicts, there are dev commands for each app to run individually
-    - `yarn dev:gateway-ui`
-    - `yarn dev:guardian-ui`
-- `yarn test` - Tests all apps and packages in the project
-- `yarn build` - Build all apps and packages in the project
-- `yarn clean` - Cleans previous build outputs from all apps and packages in the project
-- `yarn format` - Fixes formatting in all apps and packages in the project
-
-### Running the Fedimint Config again
-
-After running through the config setup UI flow once, you will need to delete the `fedimintd` data to run through it again. To do this, delete the `fm_1`, `fm_2`, `fm_3`, and `fm_4` folder from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
-
-### Running with mprocs
+### Option 2 - Running with mprocs
 
 1. Install [mprocs](https://github.com/pvolok/mprocs)
-1. Run `mprocs -c mprocs.yml`
+1. Run `yarn mprocs`
 
 After running this command, you'll be present with the mprocs display. Along the left side are the list of processes currently available by mprocs. Along the bottom are hotkeys for navigating/interacting with mprocs. The main pane shows the shell output for the currently selected process.
 
@@ -176,6 +153,43 @@ The `guardian-ui-1`, `guardian-ui-2`, `guardian-ui-3`, `guardian-ui-4` are insta
 The `gateway-ui` is an instance of `gateway-ui` app, connected to a `gatewayd` server instance (running in the `start-servers` process).
 
 You can see more details by viewing the `mprocs.yml` file.
+
+yarn mprocs spins up these instances
+| instance | url |
+| ------------- | --- |
+| guardian-ui-1 | http://127.0.0.1:3000/ |
+| guardian-ui-2 | http://127.0.0.1:3001/ |
+| guardian-ui-3 | http://127.0.0.1:3002/ |
+| guardian-ui-4 | http://127.0.0.1:3003/ |
+| gateway-ui | http://127.0.0.1:3004/ |
+
+### Option 3 - Running with Docker Compose and Yarn manually
+
+From root repo directory:
+
+1. Ensure Docker and yarn/nodejs are installed.
+1. Run `docker compose up` - runs 4 fedimintd servers and a gatewayd server, plus associated services. See [compose file for details](./docker-compose.yml)
+1. `yarn install` (first time only)
+1. Run gurdian-ui in development environment
+
+   ```bash
+     # first guardian
+     PORT=3000 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18174" yarn dev:guardian-ui
+     # second guardian
+     PORT=3001 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18184" yarn dev:guardian-ui
+     # third guardian
+     PORT=3002 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18185" yarn dev:guardian-ui
+     # fourth guardian
+     PORT=3003 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18186" yarn dev:guardian-ui
+   ```
+
+1. Run gateway-ui in development environment
+
+   ```bash
+     PORT=3004 REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="thereisnosecondbest" yarn dev:gateway-ui
+   ```
+
+1. Run `docker compose down` when done. It might be worth deleting `fm_1`, `fm_2`, `fm_3`, and `fm_4` folder from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
 
 ## Referencing Fedimint
 

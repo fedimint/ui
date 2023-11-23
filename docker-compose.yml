@@ -165,7 +165,7 @@ services:
   #     dockerfile: Dockerfile.gateway-ui
   #   environment:
   #     - PORT=3002
-  #     - REACT_APP_FM_GATEWAY_API=ws://localhost:8175
+  #     - REACT_APP_FM_GATEWAY_API=http://127.0.0.1:8175
   #     - REACT_APP_FM_GATEWAY_PASSWORD=thereisnosecondbest
   #   expose:
   #     - '3002'
