@@ -189,7 +189,7 @@ From root repo directory:
      PORT=3004 REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="thereisnosecondbest" yarn dev:gateway-ui
    ```
 
-1. Run `docker compose down` when done. It might be worth deleting `fm_1`, `fm_2`, `fm_3`, and `fm_4` folder from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
+1. Run `docker compose down` when done. It might be worth deleting `fm_*`, directory from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
 
 ## Referencing Fedimint
 
