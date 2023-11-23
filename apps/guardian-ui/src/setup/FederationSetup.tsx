@@ -111,7 +111,16 @@ export const FederationSetup: React.FC = () => {
       {progressIdx === 0 || !progressIdx ? null : (
         <SetupStepper setupProgress={progressIdx} isHost={isHost} />
       )}
-      <Flex direction='column' gap={[2, 10]} align='start'>
+      <Flex
+        width={
+          progress === SetupProgress.SetConfiguration
+            ? ['100%', '90%', '70%']
+            : ['100%', '90%']
+        }
+        direction='column'
+        gap={[2, 10]}
+        align='start'
+      >
         {prevProgress && canGoBack && (
           <Button
             variant='link'
@@ -127,7 +136,7 @@ export const FederationSetup: React.FC = () => {
           </Heading>
         )}
         {subtitle && (
-          <Text size={['sm', 'md']} fontWeight='medium' alignSelf='start'>
+          <Text size={['sm', 'md']} fontWeight='medium'>
             {subtitle}
           </Text>
         )}
