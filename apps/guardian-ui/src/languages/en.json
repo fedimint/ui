@@ -71,6 +71,10 @@
     "follower": {
       "label": "Follower",
       "description": "Once a Setup Leader sets the configurations, other Guardians choose this option to approve the settings and create the Federation."
+    },
+    "solo": {
+      "label": "Solo",
+      "description": "Operate Fedimint as a Solo Guardian without consensus, fault tolerance, federated backups, or other resilience benefits of Fedimint. Proceed with caution, not intended for production use."
     }
   },
   "run-dkg": {

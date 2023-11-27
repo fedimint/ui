@@ -43,6 +43,12 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
         description: t('role-selector.follower.description'),
         icon: IntersectSquareIcon,
       },
+      {
+        value: GuardianRole.Solo,
+        label: t('role-selector.solo.label'),
+        description: t('role-selector.solo.description'),
+        icon: IntersectSquareIcon,
+      },
     ],
     [t]
   );
