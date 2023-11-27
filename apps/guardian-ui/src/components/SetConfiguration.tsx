@@ -36,7 +36,7 @@ import {
 import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
 import { MetaFieldFormControl } from './MetaFieldFormControl';
-import { getNetworkIndicator } from '../utils/network';
+import { getNetworkIndicator } from '@fedimint/ui';
 interface Props {
   next: () => void;
 }
