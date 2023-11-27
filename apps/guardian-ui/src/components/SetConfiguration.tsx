@@ -36,7 +36,7 @@ import {
 import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
 import { MetaFieldFormControl } from './MetaFieldFormControl';
-
+import { getNetworkIndicator } from '../utils/network';
 interface Props {
   next: () => void;
 }
@@ -284,7 +284,12 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         )}
         <FormGroup
           icon={BitcoinLogo}
-          title={'Bitcoin settings: ' + network}
+          title={
+            <>
+              <span>Bitcoin settings: </span>
+              {getNetworkIndicator(network, bitcoinRpc.url)}
+            </>
+          }
           isOpen={false}
         >
           {isHost && (
@@ -301,25 +306,25 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
                   setBlockConfirmations(value);
                 }}
               />
-              <FormControl>
-                <FormLabel>{t('set-config.bitcoin-network')}</FormLabel>
-                <Select
-                  placeholder={`${t('set-config.select-network')}`}
-                  value={network !== null ? network : ''}
-                  onChange={(ev) => {
-                    const value = ev.currentTarget.value;
-                    setNetwork(value as unknown as Network);
-                  }}
-                >
-                  {Object.entries(Network).map(([label, value]) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
             </>
           )}
+          <FormControl>
+            <FormLabel>{t('set-config.bitcoin-network')}</FormLabel>
+            <Select
+              placeholder={`${t('set-config.select-network')}`}
+              value={network !== null ? network : ''}
+              onChange={(ev) => {
+                const value = ev.currentTarget.value;
+                setNetwork(value as unknown as Network);
+              }}
+            >
+              {Object.entries(Network).map(([label, value]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
           <FormControl>
             <FormLabel>{t('set-config.bitcoin-rpc')}</FormLabel>
             <Input
