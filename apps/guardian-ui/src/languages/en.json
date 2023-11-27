@@ -95,6 +95,7 @@
     "federation-name": "Federation name",
     "guardian-number": "Number of guardians",
     "guardian-number-help": "Federations require a minimum of 4 guardians. This cannot be changed later.",
+    "bitcoin-settings": "Bitcoin settings",
     "block-confirmations": "Block confirmations",
     "block-confirmations-help": "How many block confirmations needed before confirming?",
     "block-confirmations-warning": "Running Fedimint with less than 6 block confirmations is extremely risky!",

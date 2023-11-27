@@ -286,7 +286,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           icon={BitcoinLogo}
           title={
             <>
-              <span>Bitcoin settings: </span>
+              <span>{t('set-config.bitcoin-settings') + ': '}</span>
               {getNetworkIndicator(network, bitcoinRpc.url)}
             </>
           }
