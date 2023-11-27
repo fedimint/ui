@@ -21,14 +21,14 @@ import {
   Stack,
   StackDirection,
 } from '@chakra-ui/react';
+import { ServerStatus, Peer } from '@fedimint/types';
+import { useTranslation } from '@fedimint/utils';
 import { CopyInput, Table } from '@fedimint/ui';
 import { useConsensusPolling, useSetupContext } from '../hooks';
-import { GuardianRole, Peer } from '../types';
+import { GuardianRole } from '../types';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../utils/api';
-import { useTranslation } from '@fedimint/utils';
-import { ServerStatus } from '../types';
 import { ReactComponent as CheckCircleIcon } from '../assets/svgs/check-circle.svg';
 import { ReactComponent as XCircleIcon } from '../assets/svgs/x-circle.svg';
 

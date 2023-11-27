@@ -5,15 +5,10 @@ import React, {
   useEffect,
   useReducer,
 } from 'react';
+import { ServerStatus } from '@fedimint/types';
 import { GuardianApi } from './GuardianApi';
 import { formatApiErrorMessage } from './utils/api';
-import {
-  APP_ACTION_TYPE,
-  AppAction,
-  AppState,
-  ServerStatus,
-  Status,
-} from './types';
+import { APP_ACTION_TYPE, AppAction, AppState, Status } from './types';
 
 export interface AppContextValue {
   api: GuardianApi;

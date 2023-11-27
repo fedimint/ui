@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "turbo run dev",
-    "dev:gateway-ui": "turbo run dev --parallel --filter=gateway-ui...",
-    "dev:guardian-ui": "turbo run dev --parallel --filter=guardian-ui...",
+    "dev:gateway-ui": "turbo run dev --filter=gateway-ui...",
+    "dev:guardian-ui": "turbo run dev --filter=guardian-ui...",
     "build": "turbo run build",
     "build:gateway-ui": "turbo run build --filter=gateway-ui...",
     "build:guardian-ui": "turbo run build --filter=guardian-ui...",

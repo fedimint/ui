@@ -12,10 +12,16 @@ import {
   useTheme,
   FormErrorMessage,
 } from '@chakra-ui/react';
+import {
+  BitcoinRpc,
+  ConfigGenParams,
+  ModuleKind,
+  Network,
+} from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
-import { BitcoinRpc, ConfigGenParams, GuardianRole, Network } from '../types';
+import { GuardianRole } from '../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
 import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
@@ -27,7 +33,6 @@ import {
   applyConfigGenModuleParams,
   removeConfigGenModuleConsensusParams,
 } from '../utils/api';
-import { ModuleKind } from '../types';
 import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
 import { MetaFieldFormControl } from './MetaFieldFormControl';

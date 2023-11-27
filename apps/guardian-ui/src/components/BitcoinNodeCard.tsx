@@ -1,7 +1,11 @@
-import { Card, CardBody, CardHeader, Skeleton, Text } from '@chakra-ui/react';
-import { useTranslation } from '@fedimint/utils';
 import React, { useMemo } from 'react';
-import { ModuleConfig, ModuleKind, ModulesConfigResponse } from '../types';
+import { Card, CardBody, CardHeader, Skeleton, Text } from '@chakra-ui/react';
+import {
+  ModuleConfig,
+  ModuleKind,
+  ModulesConfigResponse,
+} from '@fedimint/types';
+import { useTranslation } from '@fedimint/utils';
 import { KeyValues } from '@fedimint/ui';
 
 interface Props {

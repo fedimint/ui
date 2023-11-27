@@ -1,9 +1,9 @@
-import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
-import { useTranslation } from '@fedimint/utils';
 import React, { useEffect, useMemo, useState } from 'react';
-import { StatusResponse, Versions } from '../types';
-import { useAdminContext } from '../hooks';
+import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
+import { StatusResponse, Versions } from '@fedimint/types';
+import { useTranslation } from '@fedimint/utils';
 import { KeyValues } from '@fedimint/ui';
+import { useAdminContext } from '../hooks';
 
 interface Props {
   status: StatusResponse | undefined;

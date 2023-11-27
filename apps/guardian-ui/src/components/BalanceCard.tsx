@@ -1,8 +1,8 @@
-import { Card, CardBody, CardHeader, Skeleton, Text } from '@chakra-ui/react';
-import { KeyValues } from '@fedimint/ui';
-import { MSats, formatMsatsToBtc, useTranslation } from '@fedimint/utils';
 import React, { useEffect, useMemo, useState } from 'react';
-import { AuditSummary } from '../types';
+import { Card, CardBody, CardHeader, Skeleton, Text } from '@chakra-ui/react';
+import { MSats, AuditSummary } from '@fedimint/types';
+import { KeyValues } from '@fedimint/ui';
+import { formatMsatsToBtc, useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
 
 export const BalanceCard: React.FC = () => {
