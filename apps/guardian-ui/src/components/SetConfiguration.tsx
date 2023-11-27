@@ -282,7 +282,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             />
           </FormGroup>
         )}
-        <FormGroup icon={BitcoinLogo} title='Bitcoin settings' isOpen={false}>
+        <FormGroup
+          icon={BitcoinLogo}
+          title={'Bitcoin settings: ' + network}
+          isOpen={false}
+        >
           {isHost && (
             <>
               <NumberFormControl
