@@ -392,7 +392,6 @@ export class GuardianApi
     return this.base.call(AdminRpc.inviteCode);
   };
 
-  // TODO: FIXME
   config = (): Promise<ClientConfig> => {
     return this.base.call(AdminRpc.config);
   };
