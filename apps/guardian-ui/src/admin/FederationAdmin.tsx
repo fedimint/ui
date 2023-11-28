@@ -23,6 +23,7 @@ export const FederationAdmin: React.FC = () => {
   useEffect(() => {
     api.modulesConfig().then(setModulesConfigs).catch(console.error);
     api.inviteCode().then(setInviteCode).catch(console.error);
+    api.config().then(setConfig).catch(console.error);
     const fetchStatus = () => {
       console.log('fetching status');
       api.status().then(setStatus).catch(console.error);
@@ -31,11 +32,6 @@ export const FederationAdmin: React.FC = () => {
     const interval = setInterval(fetchStatus, 5000);
     return () => clearInterval(interval);
   }, [api]);
-
-  useEffect(() => {
-    if (!inviteCode) return;
-    api.config().then(setConfig).catch(console.error);
-  }, [inviteCode, api]);
 
   return (
     <Flex gap='32px' flexDirection='row'>
