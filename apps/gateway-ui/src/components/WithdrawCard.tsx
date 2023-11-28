@@ -19,6 +19,7 @@ import {
   useTheme,
   Link,
   Icon,
+  Checkbox,
 } from '@chakra-ui/react';
 import { MSats, Network } from '@fedimint/types';
 import {
@@ -47,6 +48,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
   const [modalState, setModalState] = useState<boolean>(false);
   const [address, setAddress] = useState<string>('');
   const [amount, setAmount] = useState<number>(0);
+  const [withdrawAll, setWithdrawAll] = useState<boolean>(false);
   const [withdrawTxUrl, setWithdrawTxUrl] = useState<URL | null>(null);
 
   const handleChangeAddress = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +66,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
   };
 
   const createWithdrawal = useCallback(() => {
-    if (amount <= 0) {
+    if (!withdrawAll && amount <= 0) {
       return setError(`${t('withdraw-card.error-amount')}`);
     }
     if (!address) {
@@ -72,11 +74,12 @@ export const WithdrawCard = React.memo(function WithdrawCard({
     }
     setError('');
     setModalState(true);
-  }, [amount, address, t]);
+  }, [withdrawAll, amount, address, t]);
 
   const startWithdrawal = useCallback(() => {
+    const withdrawalAmount = withdrawAll ? 'all' : amount;
     gateway
-      .requestWithdrawal(federationId, amount, address)
+      .requestWithdrawal(federationId, withdrawalAmount, address)
       .then((txId) => {
         setWithdrawTxUrl(getTxUrl(txId));
         setAddress('');
@@ -87,7 +90,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
         console.error(error);
         setError(`${t('withdraw-card.error-request')}`);
       });
-  }, [gateway, federationId, amount, address, t]);
+  }, [gateway, federationId, amount, address, t, withdrawAll]);
 
   return (
     <>
@@ -111,9 +114,11 @@ export const WithdrawCard = React.memo(function WithdrawCard({
             <NumberInput
               min={0}
               max={balanceMsat / 1000}
-              value={amount}
+              // FIXME: we should subtract expected fees here in withdrawAll case
+              value={withdrawAll ? balanceMsat / 1000 : amount}
               onChange={(value) => {
                 value && setAmount(parseInt(value));
+                value && setWithdrawAll(false);
               }}
             >
               <NumberInputField
@@ -126,16 +131,16 @@ export const WithdrawCard = React.memo(function WithdrawCard({
                 w='100%'
               />
             </NumberInput>
-            <Text
+            <Checkbox
               mt='4px'
               cursor='pointer'
               fontSize='sm'
-              color={theme.colors.blue[600]}
               fontFamily={theme.fonts.body}
-              onClick={() => setAmount(balanceMsat / 1000)}
+              onChange={() => setWithdrawAll(!withdrawAll)}
+              isChecked={withdrawAll}
             >
               {t('withdraw-card.withdraw-all')}
-            </Text>
+            </Checkbox>
           </InputGroup>
           <InputGroup flexDir='column'>
             <Text
@@ -185,7 +190,11 @@ export const WithdrawCard = React.memo(function WithdrawCard({
       {modalState && (
         <ConfirmWithdrawModal
           open={modalState}
-          txRequest={{ amount, address }}
+          txRequest={{
+            // FIXME: we should subtract expected fees here
+            amount: withdrawAll ? balanceMsat / 1000 : amount,
+            address,
+          }}
           onModalClickCallback={() => {
             setModalState(false);
           }}
