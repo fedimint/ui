@@ -5,6 +5,7 @@ import {
   ConfigGenParams,
   ConsensusState,
   FederationStatus,
+  ModuleKind,
   ModulesConfigResponse,
   PeerHashMap,
   ServerStatus,
@@ -372,7 +373,9 @@ export class GuardianApi
 
   fetchBlockCount = (config: ClientConfig): Promise<number> => {
     const walletModuleId = config
-      ? Object.entries(config.modules).find((m) => m[1].kind === 'wallet')?.[0]
+      ? Object.entries(config.modules).find(
+          (m) => m[1].kind === ModuleKind.Wallet
+        )?.[0]
       : undefined;
 
     if (!walletModuleId) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Card, CardBody, CardHeader, Skeleton, Text } from '@chakra-ui/react';
-import { MSats, AuditSummary } from '@fedimint/types';
+import { MSats, AuditSummary, ModuleKind } from '@fedimint/types';
 import { KeyValues } from '@fedimint/ui';
 import { formatMsatsToBtc, useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
@@ -10,9 +10,12 @@ export const BalanceCard: React.FC = () => {
   const { api } = useAdminContext();
   const [auditSummary, setAuditSummary] = useState<AuditSummary>();
 
+  // FIXME: we shouldn't default to 0 balance
   const walletBalance = auditSummary
-    ? auditSummary.module_summaries.wallet?.net_assets || (0 as MSats)
-    : undefined;
+    ? Object.entries(auditSummary.module_summaries).find(
+        (m) => m[1].kind === ModuleKind.Wallet
+      )?.[1].net_assets
+    : (0 as MSats);
 
   useEffect(() => {
     const fetchBalance = () => {

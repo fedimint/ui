@@ -22,7 +22,7 @@ export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
     : '';
   const consensusVersion =
     versions?.core.core_consensus !== undefined
-      ? `${versions.core.core_consensus}`
+      ? `${versions.core.core_consensus.major}.${versions.core.core_consensus.minor}`
       : '';
 
   useEffect(() => {
