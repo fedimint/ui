@@ -15,9 +15,9 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { CopyInput, Table, TableRow } from '@fedimint/ui';
+import { ModuleKind, ServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { useConsensusPolling, useSetupContext } from '../hooks';
-import { ModuleKind, ServerStatus } from '../types';
 import { GuardianRole } from '../types';
 import { getModuleParamsFromConfig } from '../utils/api';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';

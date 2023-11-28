@@ -20,15 +20,14 @@ import {
   Link,
   Icon,
 } from '@chakra-ui/react';
+import { MSats, Network } from '@fedimint/types';
 import {
   useTranslation,
   formatEllipsized,
   formatMsatsToBtc,
-  MSats,
 } from '@fedimint/utils';
 import { ApiContext } from '../ApiProvider';
 import { GatewayCard } from '.';
-import { Network } from '../types';
 import { ReactComponent as CheckCircleIcon } from '../assets/svgs/check-circle.svg';
 
 export interface WithdrawCardProps {

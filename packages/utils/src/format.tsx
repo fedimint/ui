@@ -1,4 +1,4 @@
-import { MSats } from './types';
+import { MSats } from '@fedimint/types';
 
 /**
  * Given a string, turn it into an "ellipsis sandwich" with the start and

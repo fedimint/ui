@@ -13,7 +13,7 @@ import {
   Text,
   useTheme,
 } from '@chakra-ui/react';
-import { ConfigResponse, Gateway } from '../types';
+import { ConfigResponse, Gateway } from '@fedimint/types';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation, formatEllipsized } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';

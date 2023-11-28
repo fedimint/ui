@@ -1,6 +1,7 @@
 import React from 'react';
 import { Flex, Stack, useTheme, Heading } from '@chakra-ui/react';
-import { Federation, Network } from '../types';
+import { Network } from '@fedimint/types';
+import { Federation } from '../types';
 import { InfoCard, DepositCard, BalanceCard, WithdrawCard } from '.';
 import { useTranslation } from '@fedimint/utils';
 
