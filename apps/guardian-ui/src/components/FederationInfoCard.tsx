@@ -55,7 +55,7 @@ export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
       {
         key: 'consensusVersion',
         label: t('federation-dashboard.fed-info.consensus-version-label'),
-        value: consensusVersion.
+        value: consensusVersion,
       },
     ],
     [t, serverStatus, blockCount, apiVersion, consensusVersion]
