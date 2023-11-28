@@ -13,7 +13,7 @@ import {
   Text,
   useTheme,
 } from '@chakra-ui/react';
-import { ClientConfig, Gateway } from '@fedimint/types';
+import { ClientConfig, Gateway, ModuleKind } from '@fedimint/types';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation, formatEllipsized } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
@@ -34,7 +34,9 @@ export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
 
   // TODO: This is a hack to get the ln module id, extract this logic into the api interface like block count
   const lnModuleId = config
-    ? Object.entries(config.modules).find((m) => m[1].kind === 'ln')?.[0]
+    ? Object.entries(config.modules).find(
+        (m) => m[1].kind === ModuleKind.Ln
+      )?.[0]
     : undefined;
 
   useEffect(() => {

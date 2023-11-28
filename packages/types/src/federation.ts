@@ -18,7 +18,7 @@ export enum PeerConnectionStatus {
 }
 
 export interface PeerStatus {
-  last_contribution?: number;
+  last_contribution: number;
   connection_status: PeerConnectionStatus;
   flagged: boolean;
 }
@@ -48,15 +48,15 @@ export interface StatusResponse {
 
 export interface Versions {
   core: {
-    core_consensus: number;
-    api: { major: number; minor: number }[];
+    core_consensus: CoreConsensusVersion;
+    api: CoreApiVersion[];
   };
   modules: Record<
     number,
     {
-      core_consensus: number;
-      module_consensus: number;
-      api: { major: number; minor: number }[];
+      core_consensus: CoreConsensusVersion;
+      module_consensus: ModuleConsensusVersion;
+      api: ModuleApiVersion[];
     }
   >;
 }
@@ -71,13 +71,17 @@ export type MetaConfig = { federation_name?: string } & Record<
   string | undefined
 >;
 
-export type ConsensusVersion = {
+type MajorAndMinorVersions = {
   major: number;
   minor: number;
 };
+export type CoreConsensusVersion = MajorAndMinorVersions;
+export type CoreApiVersion = MajorAndMinorVersions;
+export type ModuleConsensusVersion = MajorAndMinorVersions;
+export type ModuleApiVersion = MajorAndMinorVersions;
 
 export interface ClientConfig {
-  consensus_version: ConsensusVersion;
+  consensus_version: CoreConsensusVersion;
   epoch_pk: string;
   federation_id: string;
   api_endpoints: Record<number, ApiEndpoint>;
@@ -91,7 +95,7 @@ export interface ModuleSummary {
 
 export interface AuditSummary {
   net_assets: MSats;
-  module_summaries: Record<string, ModuleSummary | undefined>;
+  module_summaries: Record<number, ModuleSummary>;
 }
 
 export type ModulesConfigResponse = Record<string, ModuleConfig>;
