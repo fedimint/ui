@@ -134,7 +134,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
               fontFamily={theme.fonts.body}
               onClick={() => setAmount(balanceMsat / 1000)}
             >
-              {t('withdraw-card.withdraw_all')}
+              {t('withdraw-card.withdraw-all')}
             </Text>
           </InputGroup>
           <InputGroup flexDir='column'>

@@ -82,7 +82,7 @@
     "total_bitcoin": "Bitcoins totales:",
     "view": "Vista",
     "withdraw": "Retirar",
-    "withdraw_all": "Retirar todo",
+    "withdraw-all": "Retirar todo",
     "withdrawal-created": "Retiro creado.",
     "withdrawal-created-description": "Por favor verifique su historial de transacciones",
     "withdrawal-history": "Historial de retiros",
