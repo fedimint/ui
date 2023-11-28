@@ -1,5 +1,10 @@
 import type { MSats } from './bitcoin';
-import { AnyModuleParams, FedimintModule, ModuleConfig } from './modules';
+import {
+  AnyModuleParams,
+  FedimintModule,
+  ModuleConfig,
+  ModuleKind,
+} from './modules';
 
 export enum ServerStatus {
   AwaitingPassword = 'AwaitingPassword',
@@ -91,6 +96,7 @@ export interface ClientConfig {
 
 export interface ModuleSummary {
   net_assets: MSats;
+  kind: ModuleKind;
 }
 
 export interface AuditSummary {
