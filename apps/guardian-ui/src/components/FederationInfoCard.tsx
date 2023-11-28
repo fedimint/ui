@@ -7,7 +7,7 @@ import { useAdminContext } from '../hooks';
 
 interface Props {
   status: StatusResponse | undefined;
-  config: ClientConfig;
+  config: ClientConfig | undefined;
 }
 
 export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
@@ -27,6 +27,10 @@ export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
 
   useEffect(() => {
     api.version().then(setVersions).catch(console.error);
+  }, [api]);
+
+  useEffect(() => {
+    if (!config) return;
     const fetchBlockCount = () => {
       api.fetchBlockCount(config).then(setBlockCount).catch(console.error);
     };

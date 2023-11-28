@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Box, Heading, Text } from '@chakra-ui/react';
+import { Flex, Box, Heading, Skeleton } from '@chakra-ui/react';
 import {
   ClientConfig,
   ModulesConfigResponse,
@@ -37,15 +37,16 @@ export const FederationAdmin: React.FC = () => {
     api.config().then(setConfig).catch(console.error);
   }, [inviteCode, api]);
 
-  // TODO: FIXME to use better loading state
-  if (!config || !status) return <Text>{'Loading...'}</Text>;
-
   return (
     <Flex gap='32px' flexDirection='row'>
       <Flex gap={6} flexDirection='column' w='100%'>
         <Box maxWidth='440px'>
           <Heading size='xs' mt='12px'>
-            {config.meta.federation_name}
+            {config ? (
+              config.meta.federation_name
+            ) : (
+              <Skeleton height='32px' width='180px' />
+            )}
           </Heading>
           <InviteCode inviteCode={inviteCode} />
         </Box>
