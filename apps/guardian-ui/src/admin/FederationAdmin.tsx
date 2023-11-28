@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Box, Heading } from '@chakra-ui/react';
+import { Flex, Box, Heading, Text } from '@chakra-ui/react';
 import {
-  ConfigResponse,
+  ClientConfig,
   ModulesConfigResponse,
   StatusResponse,
 } from '@fedimint/types';
@@ -17,7 +17,7 @@ export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
   const [status, setStatus] = useState<StatusResponse>();
   const [inviteCode, setInviteCode] = useState<string>('');
-  const [config, setConfig] = useState<ConfigResponse>();
+  const [config, setConfig] = useState<ClientConfig>();
   const [modulesConfigs, setModulesConfigs] = useState<ModulesConfigResponse>();
 
   useEffect(() => {
@@ -34,15 +34,18 @@ export const FederationAdmin: React.FC = () => {
 
   useEffect(() => {
     if (!inviteCode) return;
-    api.config(inviteCode).then(setConfig).catch(console.error);
+    api.config().then(setConfig).catch(console.error);
   }, [inviteCode, api]);
+
+  // TODO: FIXME to use better loading state
+  if (!config || !status) return <Text>{'Loading...'}</Text>;
 
   return (
     <Flex gap='32px' flexDirection='row'>
       <Flex gap={6} flexDirection='column' w='100%'>
         <Box maxWidth='440px'>
           <Heading size='xs' mt='12px'>
-            {config?.client_config.meta.federation_name}
+            {config.meta.federation_name}
           </Heading>
           <InviteCode inviteCode={inviteCode} />
         </Box>
@@ -51,7 +54,7 @@ export const FederationAdmin: React.FC = () => {
           alignItems='flex-start'
           flexDir={{ base: 'column', sm: 'column', md: 'row' }}
         >
-          <FederationInfoCard status={status} />
+          <FederationInfoCard status={status} config={config} />
           <Flex w='100%' direction='column' gap={5}>
             <BalanceCard />
             <BitcoinNodeCard modulesConfigs={modulesConfigs} />

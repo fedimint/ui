@@ -56,6 +56,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   } = useSetupContext();
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
+  const isSolo = role === GuardianRole.Solo;
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -129,6 +130,17 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           isValidMeta(metaFields) &&
           network
       )
+    : isSolo
+    ? Boolean(
+        myName &&
+          password &&
+          password === confirmPassword &&
+          federationName &&
+          isValidNumber(numPeers, 1) &&
+          isValidNumber(blockConfirmations, 1, 200) &&
+          isValidMeta(metaFields) &&
+          network
+      )
     : Boolean(myName && password && hostServerUrl);
 
   const handleChangeFederationName = (
@@ -169,7 +181,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           local: { bitcoin_rpc: bitcoinRpc },
         },
       });
-      if (isHost) {
+      if (isHost || isSolo) {
         // Hosts set their own connection name
         // - They should submit both their local and the consensus config gen params.
         await submitConfiguration({
@@ -243,7 +255,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               t('set-config.error-password-mismatch')}
           </FormErrorMessage>
         </FormControl>
-        {!isHost && (
+        {!isHost && !isSolo && (
           <FormControl>
             <FormLabel>{t('set-config.join-federation')}</FormLabel>
             <Input
@@ -282,40 +294,66 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             />
           </FormGroup>
         )}
-        <FormGroup icon={BitcoinLogo} title='Bitcoin settings' isOpen={false}>
-          {isHost && (
-            <>
-              <NumberFormControl
-                labelText={t('set-config.block-confirmations')}
-                helperText={t('set-config.block-confirmations-help')}
-                warningText={t('set-config.block-confirmations-warning')}
-                recommendedMin={6}
-                min={1}
-                max={200}
-                value={blockConfirmations}
-                onChange={(value) => {
-                  setBlockConfirmations(value);
-                }}
+        {isSolo && (
+          <FormGroup
+            icon={FedimintLogo}
+            title={`${t('set-config.federation-settings')}`}
+            isOpen={true}
+          >
+            <FormControl>
+              <FormLabel>{t('set-config.federation-name')}</FormLabel>
+              <Input
+                value={federationName}
+                onChange={handleChangeFederationName}
               />
-              <FormControl>
-                <FormLabel>{t('set-config.bitcoin-network')}</FormLabel>
-                <Select
-                  placeholder={`${t('set-config.select-network')}`}
-                  value={network !== null ? network : ''}
-                  onChange={(ev) => {
-                    const value = ev.currentTarget.value;
-                    setNetwork(value as unknown as Network);
+            </FormControl>
+            <NumberFormControl
+              labelText={t('set-config.guardian-number')}
+              helperText={t('set-config.guardian-number-help')}
+              value={1}
+              min={1}
+              max={1}
+              onChange={(value) => {
+                setNumPeers(value);
+              }}
+            />
+          </FormGroup>
+        )}
+        <FormGroup icon={BitcoinLogo} title='Bitcoin settings' isOpen={false}>
+          {isHost ||
+            (isSolo && (
+              <>
+                <NumberFormControl
+                  labelText={t('set-config.block-confirmations')}
+                  helperText={t('set-config.block-confirmations-help')}
+                  warningText={t('set-config.block-confirmations-warning')}
+                  recommendedMin={6}
+                  min={1}
+                  max={200}
+                  value={blockConfirmations}
+                  onChange={(value) => {
+                    setBlockConfirmations(value);
                   }}
-                >
-                  {Object.entries(Network).map(([label, value]) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
-            </>
-          )}
+                />
+                <FormControl>
+                  <FormLabel>{t('set-config.bitcoin-network')}</FormLabel>
+                  <Select
+                    placeholder={`${t('set-config.select-network')}`}
+                    value={network !== null ? network : ''}
+                    onChange={(ev) => {
+                      const value = ev.currentTarget.value;
+                      setNetwork(value as unknown as Network);
+                    }}
+                  >
+                    {Object.entries(Network).map(([label, value]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
+              </>
+            ))}
           <FormControl>
             <FormLabel>{t('set-config.bitcoin-rpc')}</FormLabel>
             <Input
@@ -327,18 +365,19 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             <FormHelperText>{t('set-config.set-rpc-help')}</FormHelperText>
           </FormControl>
         </FormGroup>
-        {isHost && (
-          <FormGroup
-            icon={ModulesIcon}
-            title={t('set-config.meta-fields')}
-            isOpen={false}
-          >
-            <MetaFieldFormControl
-              metaFields={metaFields}
-              onChangeMetaFields={setMetaFields}
-            />
-          </FormGroup>
-        )}
+        {isHost ||
+          (isSolo && (
+            <FormGroup
+              icon={ModulesIcon}
+              title={t('set-config.meta-fields')}
+              isOpen={false}
+            >
+              <MetaFieldFormControl
+                metaFields={metaFields}
+                onChangeMetaFields={setMetaFields}
+              />
+            </FormGroup>
+          ))}
         {error && (
           <Text color={theme.colors.red[500]} mt={4}>
             {error}

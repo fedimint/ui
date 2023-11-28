@@ -8,3 +8,5 @@ gate:
     yarn nix-gateway
 guard:
     yarn nix-guardian
+kill:
+    npx kill-port 3000 && npx kill-port 3001 && npx kill-port 3002 && npx kill-port 3003 && npx kill-port 3004

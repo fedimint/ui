@@ -1,15 +1,17 @@
 import { Network } from './bitcoin';
-
+import { ConsensusVersion } from './federation';
 export enum ModuleKind {
   Ln = 'ln',
   Mint = 'mint',
   Wallet = 'wallet',
 }
 
+export type ModuleConsensusVersion = ConsensusVersion;
+
 export interface FedimintModule {
   config: string;
   kind: ModuleKind;
-  version: number;
+  version: ModuleConsensusVersion;
 }
 
 // Consider sharing these types with types/setup.ts *ModuleParams? Need to
