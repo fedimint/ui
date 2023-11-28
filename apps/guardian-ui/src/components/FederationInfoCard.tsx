@@ -1,15 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
-import { StatusResponse, Versions } from '@fedimint/types';
+import { ClientConfig, StatusResponse, Versions } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues } from '@fedimint/ui';
 import { useAdminContext } from '../hooks';
 
 interface Props {
   status: StatusResponse | undefined;
+  config: ClientConfig;
 }
 
-export const FederationInfoCard: React.FC<Props> = ({ status }) => {
+export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
   const { t } = useTranslation();
   const { api } = useAdminContext();
   const [versions, setVersions] = useState<Versions>();
@@ -27,12 +28,12 @@ export const FederationInfoCard: React.FC<Props> = ({ status }) => {
   useEffect(() => {
     api.version().then(setVersions).catch(console.error);
     const fetchBlockCount = () => {
-      api.fetchBlockCount().then(setBlockCount).catch(console.error);
+      api.fetchBlockCount(config).then(setBlockCount).catch(console.error);
     };
     fetchBlockCount();
     const interval = setInterval(fetchBlockCount, 5000);
     return () => clearInterval(interval);
-  }, [api]);
+  }, [api, config]);
 
   const keyValues = useMemo(
     () => [

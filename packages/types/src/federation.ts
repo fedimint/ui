@@ -71,17 +71,18 @@ export type MetaConfig = { federation_name?: string } & Record<
   string | undefined
 >;
 
+export type ConsensusVersion = {
+  major: number;
+  minor: number;
+};
+
 export interface ClientConfig {
-  consensus_version: number;
+  consensus_version: ConsensusVersion;
   epoch_pk: string;
   federation_id: string;
   api_endpoints: Record<number, ApiEndpoint>;
   modules: Record<number, FedimintModule>;
   meta: MetaConfig;
-}
-
-export interface ConfigResponse {
-  client_config: ClientConfig;
 }
 
 export interface ModuleSummary {
