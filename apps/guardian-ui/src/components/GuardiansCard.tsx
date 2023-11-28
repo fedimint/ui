@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
 import {
-  ConfigResponse,
+  ClientConfig,
   PeerConnectionStatus,
   StatusResponse,
 } from '@fedimint/types';
@@ -12,7 +12,7 @@ type TableKey = 'name' | 'status' | 'health' | 'lastContribution';
 
 interface Props {
   status: StatusResponse | undefined;
-  config: ConfigResponse | undefined;
+  config: ClientConfig | undefined;
 }
 
 export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
@@ -47,7 +47,7 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
       status.federation.status_by_peer
     )) {
       const numericId = parseInt(id, 10);
-      const endpoint = config.client_config.api_endpoints[numericId];
+      const endpoint = config.api_endpoints[numericId];
       if (endpoint) {
         peerDataArray.push({
           key: id,
@@ -75,9 +75,7 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
               )}
             </StatusIndicator>
           ),
-          lastContribution: federationStatus.last_contribution
-            ? federationStatus.last_contribution
-            : t('common.unknown'),
+          lastContribution: federationStatus.last_contribution,
         });
       }
     }

@@ -1,5 +1,10 @@
 import type { MSats } from './bitcoin';
-import { AnyModuleParams, FedimintModule, ModuleConfig } from './modules';
+import {
+  AnyModuleParams,
+  FedimintModule,
+  ModuleConfig,
+  ModuleKind,
+} from './modules';
 
 export enum ServerStatus {
   AwaitingPassword = 'AwaitingPassword',
@@ -18,7 +23,7 @@ export enum PeerConnectionStatus {
 }
 
 export interface PeerStatus {
-  last_contribution?: number;
+  last_contribution: number;
   connection_status: PeerConnectionStatus;
   flagged: boolean;
 }
@@ -48,15 +53,15 @@ export interface StatusResponse {
 
 export interface Versions {
   core: {
-    core_consensus: number;
-    api: { major: number; minor: number }[];
+    core_consensus: CoreConsensusVersion;
+    api: CoreApiVersion[];
   };
   modules: Record<
     number,
     {
-      core_consensus: number;
-      module_consensus: number;
-      api: { major: number; minor: number }[];
+      core_consensus: CoreConsensusVersion;
+      module_consensus: ModuleConsensusVersion;
+      api: ModuleApiVersion[];
     }
   >;
 }
@@ -71,8 +76,17 @@ export type MetaConfig = { federation_name?: string } & Record<
   string | undefined
 >;
 
+type MajorAndMinorVersions = {
+  major: number;
+  minor: number;
+};
+export type CoreConsensusVersion = MajorAndMinorVersions;
+export type CoreApiVersion = MajorAndMinorVersions;
+export type ModuleConsensusVersion = MajorAndMinorVersions;
+export type ModuleApiVersion = MajorAndMinorVersions;
+
 export interface ClientConfig {
-  consensus_version: number;
+  consensus_version: CoreConsensusVersion;
   epoch_pk: string;
   federation_id: string;
   api_endpoints: Record<number, ApiEndpoint>;
@@ -80,17 +94,14 @@ export interface ClientConfig {
   meta: MetaConfig;
 }
 
-export interface ConfigResponse {
-  client_config: ClientConfig;
-}
-
 export interface ModuleSummary {
   net_assets: MSats;
+  kind: ModuleKind;
 }
 
 export interface AuditSummary {
   net_assets: MSats;
-  module_summaries: Record<string, ModuleSummary | undefined>;
+  module_summaries: Record<number, ModuleSummary>;
 }
 
 export type ModulesConfigResponse = Record<string, ModuleConfig>;

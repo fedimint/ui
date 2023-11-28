@@ -22,7 +22,7 @@ export const BitcoinNodeCard: React.FC<Props> = ({ modulesConfigs }) => {
       )
     : undefined;
 
-  // TODO: Populate values from config.client_config.modules.config
+  // TODO: Populate values from config.modules.config
   // It's currently mysteriously hex encoded
   const keyValues = useMemo(
     () => [

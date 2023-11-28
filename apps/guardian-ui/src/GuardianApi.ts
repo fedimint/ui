@@ -1,10 +1,11 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import {
   AuditSummary,
-  ConfigResponse,
+  ClientConfig,
   ConfigGenParams,
   ConsensusState,
   FederationStatus,
+  ModuleKind,
   ModulesConfigResponse,
   PeerHashMap,
   ServerStatus,
@@ -181,10 +182,10 @@ class BaseGuardianApi
 enum SetupRpc {
   setPassword = 'set_password',
   setConfigGenConnections = 'set_config_gen_connections',
-  getDefaultConfigGenParams = 'get_default_config_gen_params',
-  getConsensusConfigGenParams = 'get_consensus_config_gen_params',
+  getDefaultConfigGenParams = 'default_config_gen_params',
+  getConsensusConfigGenParams = 'consensus_config_gen_params',
   setConfigGenParams = 'set_config_gen_params',
-  getVerifyConfigHash = 'get_verify_config_hash',
+  getVerifyConfigHash = 'verify_config_hash',
   runDkg = 'run_dkg',
   verifiedConfigs = 'verified_configs',
   startConsensus = 'start_consensus',
@@ -208,10 +209,10 @@ export interface SetupApiInterface extends SharedApiInterface {
 // Running RPC methods (only exist after run_consensus)
 enum AdminRpc {
   version = 'version',
-  fetchBlockCount = 'fetch_block_count',
-  federationStatus = 'consensus_status',
+  fetchBlockCount = 'block_count',
+  federationStatus = 'status',
   inviteCode = 'invite_code',
-  config = 'config',
+  config = 'client_config', // is this right?
   modulesConfig = 'modules_config_json',
   module = 'module',
   audit = 'audit',
@@ -221,13 +222,17 @@ export enum LightningModuleRpc {
   listGateways = 'list_gateways',
 }
 
-type ModuleRpc = LightningModuleRpc;
+export enum WalletModuleRpc {
+  blockCount = 'block_count',
+}
+
+type ModuleRpc = WalletModuleRpc | LightningModuleRpc;
 
 export interface AdminApiInterface extends SharedApiInterface {
   version: () => Promise<Versions>;
-  fetchBlockCount: () => Promise<number>;
+  fetchBlockCount: (config: ClientConfig) => Promise<number>;
   inviteCode: () => Promise<string>;
-  config: (connection: string) => Promise<ConfigResponse>;
+  config: () => Promise<ClientConfig>;
   audit: () => Promise<AuditSummary>;
   modulesConfig: () => Promise<ModulesConfigResponse>;
   moduleApiCall: <T>(moduleId: number, rpc: ModuleRpc) => Promise<T>;
@@ -366,8 +371,20 @@ export class GuardianApi
     return this.base.call(AdminRpc.version);
   };
 
-  fetchBlockCount = (): Promise<number> => {
-    return this.base.call(AdminRpc.fetchBlockCount);
+  fetchBlockCount = (config: ClientConfig): Promise<number> => {
+    const walletModuleId = config
+      ? Object.entries(config.modules).find(
+          (m) => m[1].kind === ModuleKind.Wallet
+        )?.[0]
+      : undefined;
+
+    if (!walletModuleId) {
+      throw new Error('No wallet module found');
+    }
+    return this.moduleApiCall(
+      Number(walletModuleId),
+      WalletModuleRpc.blockCount
+    );
   };
 
   federationStatus = (): Promise<FederationStatus> => {
@@ -378,16 +395,16 @@ export class GuardianApi
     return this.base.call(AdminRpc.inviteCode);
   };
 
-  config = (connection: string): Promise<ConfigResponse> => {
-    return this.base.call<ConfigResponse>(AdminRpc.config, connection);
+  config = (): Promise<ClientConfig> => {
+    return this.base.call(AdminRpc.config);
   };
 
   audit = (): Promise<AuditSummary> => {
-    return this.base.call<AuditSummary>(AdminRpc.audit);
+    return this.base.call(AdminRpc.audit);
   };
 
-  modulesConfig = () => {
-    return this.base.call<ModulesConfigResponse>(AdminRpc.modulesConfig);
+  modulesConfig = (): Promise<ModulesConfigResponse> => {
+    return this.base.call(AdminRpc.modulesConfig);
   };
 
   moduleApiCall = <T>(moduleId: number, rpc: ModuleRpc): Promise<T> => {
