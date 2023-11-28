@@ -29,19 +29,33 @@
       "cache": false,
       "persistent": true
     },
-    "@fedimint/utils#dev": {
+    "@fedimint/types#dev": {
+      "cache": false,
       "dependsOn": ["^build"]
     },
+    "@fedimint/utils#dev": {
+      "cache": false,
+      "dependsOn": ["@fedimint/types#build"]
+    },
     "@fedimint/ui#dev": {
-      "dependsOn": ["^build"]
+      "cache": false,
+      "dependsOn": ["@fedimint/types#build", "@fedimint/utils#build"]
     },
     "@fedimint/guardian-ui#dev": {
       "cache": false,
-      "dependsOn": ["@fedimint/utils#build", "@fedimint/ui#build"]
+      "dependsOn": [
+        "@fedimint/types#build",
+        "@fedimint/utils#build",
+        "@fedimint/ui#build"
+      ]
     },
     "@fedimint/gateway-ui#dev": {
       "cache": false,
-      "dependsOn": ["@fedimint/utils#build", "@fedimint/ui#build"]
+      "dependsOn": [
+        "@fedimint/types#build",
+        "@fedimint/utils#build",
+        "@fedimint/ui#build"
+      ]
     },
     "clean": {
       "cache": false

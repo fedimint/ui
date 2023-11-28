@@ -2,15 +2,15 @@ import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import {
   AuditSummary,
   ConfigResponse,
+  ConfigGenParams,
+  ConsensusState,
   FederationStatus,
+  ModulesConfigResponse,
+  PeerHashMap,
   ServerStatus,
   StatusResponse,
   Versions,
-  ConfigGenParams,
-  ConsensusState,
-  PeerHashMap,
-  ModulesConfigResponse,
-} from './types';
+} from '@fedimint/types';
 import { getEnv } from './utils/env';
 
 export interface SocketAndAuthInterface {

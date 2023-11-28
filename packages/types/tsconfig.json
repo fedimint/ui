@@ -1,0 +1,5 @@
+{
+  "extends": "@fedimint/tsconfig/ts-library.json",
+  "exclude": ["dist", "node_modules"],
+  "include": ["src"]
+}

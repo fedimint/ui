@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Flex, Box, Heading } from '@chakra-ui/react';
-import { useAdminContext } from '../hooks';
 import {
   ConfigResponse,
   ModulesConfigResponse,
   StatusResponse,
-} from '../types';
+} from '@fedimint/types';
+import { useAdminContext } from '../hooks';
 import { GatewaysCard } from '../components/GatewaysCard';
 import { GuardiansCard } from '../components/GuardiansCard';
 import { FederationInfoCard } from '../components/FederationInfoCard';

@@ -1,35 +1,4 @@
-interface Fees {
-  base_msat: number;
-  proportional_millionths: number;
-}
-
-export enum ModuleKind {
-  Ln = 'ln',
-  Mint = 'mint',
-  Wallet = 'wallet',
-}
-
-interface FedimintModule {
-  config: string;
-  kind: ModuleKind;
-  version: number;
-}
-
-interface ApiEndpoint {
-  name: string;
-  url: string;
-}
-
-export type MetaConfig = { federation_name?: string };
-
-export interface ClientConfig {
-  consensus_version: number;
-  epoch_pk: string;
-  federation_id: string;
-  api_endpoints: Record<number, ApiEndpoint>;
-  modules: Record<number, FedimintModule>;
-  meta: MetaConfig;
-}
+import { ClientConfig, Network, Fees } from '@fedimint/types';
 
 export interface Federation {
   federation_id: string;
@@ -45,13 +14,3 @@ export interface GatewayInfo {
   version_hash: string;
   network?: Network;
 }
-
-// Type adaptation from https://docs.rs/bitcoin/latest/bitcoin/network/enum.Network.html
-export enum Network {
-  Bitcoin = 'main',
-  Testnet = 'test',
-  Signet = 'signet',
-  Regtest = 'regtest',
-}
-
-export type TransactionId = string;

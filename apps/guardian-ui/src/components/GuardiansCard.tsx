@@ -1,8 +1,12 @@
+import React, { useMemo } from 'react';
 import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
+import {
+  ConfigResponse,
+  PeerConnectionStatus,
+  StatusResponse,
+} from '@fedimint/types';
 import { StatusIndicator, Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
-import React, { useMemo } from 'react';
-import { ConfigResponse, PeerConnectionStatus, StatusResponse } from '../types';
 
 type TableKey = 'name' | 'status' | 'health' | 'lastContribution';
 

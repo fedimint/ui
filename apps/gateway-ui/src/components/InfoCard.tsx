@@ -7,11 +7,11 @@ import {
   Box,
   useClipboard,
 } from '@chakra-ui/react';
+import { Network } from '@fedimint/types';
 import { formatEllipsized, useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '.';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
-import { Network } from '../types';
 
 interface InfoCardProps {
   nodeId: string;

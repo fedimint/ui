@@ -7,13 +7,12 @@ import React, {
   useReducer,
   useState,
 } from 'react';
+import { ConfigGenParams, ServerStatus } from '@fedimint/types';
 import {
   SetupState,
   SetupAction,
   SETUP_ACTION_TYPE,
   SetupProgress,
-  ConfigGenParams,
-  ServerStatus,
 } from '../types';
 import { GuardianApi } from '../GuardianApi';
 import { isConsensusparams } from '../utils/validators';
