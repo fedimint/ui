@@ -6,7 +6,7 @@ import {
   ModulesConfigResponse,
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { KeyValues } from '@fedimint/ui';
+import { KeyValues, getNetworkIndicator } from '@fedimint/ui';
 
 interface Props {
   modulesConfigs: ModulesConfigResponse | undefined;
@@ -39,7 +39,10 @@ export const BitcoinNodeCard: React.FC<Props> = ({ modulesConfigs }) => {
         key: 'network',
         label: t('federation-dashboard.bitcoin-node.network-label'),
         value: walletConfig ? (
-          walletConfig.network
+          getNetworkIndicator(
+            walletConfig.network,
+            walletConfig.client_default_bitcoin_rpc?.url
+          )
         ) : (
           <Skeleton height='24px' width='100px' />
         ),
