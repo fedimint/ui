@@ -6,8 +6,8 @@ export type MSats = BitcoinUnit<number, 'MSats'>;
 
 // Type adaptation from https://docs.rs/bitcoin/latest/bitcoin/network/enum.Network.html
 export enum Network {
-  Bitcoin = 'main',
-  Testnet = 'test',
+  Bitcoin = 'bitcoin',
+  Testnet = 'testnet',
   Signet = 'signet',
   Regtest = 'regtest',
 }
