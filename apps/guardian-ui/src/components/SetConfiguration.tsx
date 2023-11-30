@@ -36,7 +36,7 @@ import {
 import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
 import { MetaFieldFormControl } from './MetaFieldFormControl';
-import { getNetworkIndicator } from '@fedimint/ui';
+import { NetworkIndicator } from '@fedimint/ui';
 interface Props {
   next: () => void;
 }
@@ -287,7 +287,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           title={
             <>
               <span>{t('set-config.bitcoin-settings') + ': '}</span>
-              {getNetworkIndicator(network, bitcoinRpc.url)}
+              <NetworkIndicator
+                network={network}
+                bitcoinRpcUrl={bitcoinRpc.url}
+              />
             </>
           }
           isOpen={false}

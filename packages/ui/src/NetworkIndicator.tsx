@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export const getNetworkIndicator = (network: string, bitcoinRpcUrl: string) => {
+interface NetworkIndicatorProps {
+  network: string;
+  bitcoinRpcUrl: string;
+}
+
+export const NetworkIndicator: FC<NetworkIndicatorProps> = ({
+  network,
+  bitcoinRpcUrl,
+}) => {
   let color: string;
   let name: string;
 
   switch (network) {
     case 'bitcoin':
-      color = 'orange';
+      color = '#FF9900';
       name = 'Mainnet';
       break;
     case 'testnet':
-      color = 'limegreen';
+      color = '#6BED33';
       name = 'Testnet';
       break;
     case 'signet':
@@ -23,7 +31,7 @@ export const getNetworkIndicator = (network: string, bitcoinRpcUrl: string) => {
       }
       break;
     case 'regtest':
-      color = 'skyblue';
+      color = '#33C6EC';
       name = 'Regtest';
       break;
     default:
