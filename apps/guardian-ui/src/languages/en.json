@@ -71,6 +71,10 @@
     "follower": {
       "label": "Follower",
       "description": "Once a Setup Leader sets the configurations, other Guardians choose this option to approve the settings and create the Federation."
+    },
+    "solo": {
+      "label": "Solo",
+      "description": "Operate Fedimint as a Solo Guardian without consensus, fault tolerance, federated backups, or other resilience benefits of Fedimint. Proceed with caution, not intended for production use."
     }
   },
   "run-dkg": {
@@ -125,7 +129,9 @@
       },
       "set-config": {
         "title": "We need to set some configurations for your Federation",
+        "title-solo": "We need to set some configurations for your Solo Federation",
         "subtitle-leader": "Your Federation Followers will confirm this information on their end.",
+        "subtitle-solo": "Running a Solo Federation loses many of the benefits of Fedimint. You will not have fault tolerance consensus to a guardian being offline and not be able to do federated backups. Proceed with caution, not recommended for production use or use with mainnet Bitcoin.",
         "subtitle-follower": "Your Federation Leader will be setting up main Federation details. You’ll confirm them soon.",
         "step": "Federation details"
       },

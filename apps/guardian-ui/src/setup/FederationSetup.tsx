@@ -32,6 +32,7 @@ export const FederationSetup: React.FC = () => {
   const [needsTosAgreement, setNeedsTosAgreement] = useState(!!getEnv().TOS);
 
   const isHost = role === GuardianRole.Host;
+  const isSolo = role === GuardianRole.Solo;
   const progressIdx = PROGRESS_ORDER.indexOf(progress);
   const prevProgress: SetupProgress | undefined =
     PROGRESS_ORDER[progressIdx - 1];
@@ -67,9 +68,13 @@ export const FederationSetup: React.FC = () => {
       }
       break;
     case SetupProgress.SetConfiguration:
-      title = t('setup.progress.set-config.title');
+      title = isSolo
+        ? t('setup.progress.set-config.title-solo')
+        : t('setup.progress.set-config.title');
       subtitle = isHost
         ? t('setup.progress.set-config.subtitle-leader')
+        : isSolo
+        ? t('setup.progress.set-config.subtitle-solo')
         : t('setup.progress.set-config.subtitle-follower');
       content = <SetConfiguration next={handleNext} />;
       canGoBack = true;

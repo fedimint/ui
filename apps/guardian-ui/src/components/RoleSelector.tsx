@@ -16,6 +16,7 @@ import { ReactComponent as CheckIcon } from '../assets/svgs/check.svg';
 import { ReactComponent as StarsIcon } from '../assets/svgs/stars.svg';
 import { ReactComponent as IntersectSquareIcon } from '../assets/svgs/intersect-square.svg';
 import { ReactComponent as WarningIcon } from '../assets/svgs/warning.svg';
+import { ReactComponent as SoloIcon } from '../assets/svgs/solo.svg';
 import { useSetupContext } from '../hooks';
 import { useTranslation } from '@fedimint/utils';
 
@@ -42,6 +43,12 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
         label: t('role-selector.follower.label'),
         description: t('role-selector.follower.description'),
         icon: IntersectSquareIcon,
+      },
+      {
+        value: GuardianRole.Solo,
+        label: t('role-selector.solo.label'),
+        description: t('role-selector.solo.description'),
+        icon: SoloIcon,
       },
     ],
     [t]

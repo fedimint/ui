@@ -41,6 +41,7 @@ export type AppAction =
 export enum GuardianRole {
   Host = 'Host',
   Follower = 'Follower',
+  Solo = 'Solo',
 }
 
 export enum SetupProgress {

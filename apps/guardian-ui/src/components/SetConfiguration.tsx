@@ -56,13 +56,14 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   } = useSetupContext();
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
+  const isSolo = role === GuardianRole.Solo;
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [numPeers, setNumPeers] = useState(
-    stateNumPeers ? stateNumPeers.toString() : '4'
+    stateNumPeers ? stateNumPeers.toString() : isSolo ? '1' : '4'
   );
   const [federationName, setFederationName] = useState('');
   const [metaFields, setMetaFields] = useState<[string, string][]>([['', '']]);
@@ -129,7 +130,19 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           isValidMeta(metaFields) &&
           network
       )
-    : Boolean(myName && password && hostServerUrl);
+    : isSolo
+    ? Boolean(
+        myName &&
+          password &&
+          password === confirmPassword &&
+          federationName &&
+          isValidNumber(blockConfirmations, 1, 200) &&
+          isValidMeta(metaFields) &&
+          network
+      )
+    : Boolean(
+        myName && password && password === confirmPassword && hostServerUrl
+      );
 
   const handleChangeFederationName = (
     ev: React.ChangeEvent<HTMLInputElement>
@@ -169,7 +182,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           local: { bitcoin_rpc: bitcoinRpc },
         },
       });
-      if (isHost) {
+      if (isHost || isSolo) {
         // Hosts set their own connection name
         // - They should submit both their local and the consensus config gen params.
         await submitConfiguration({
@@ -243,7 +256,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               t('set-config.error-password-mismatch')}
           </FormErrorMessage>
         </FormControl>
-        {!isHost && (
+        {!isHost && !isSolo && (
           <FormControl>
             <FormLabel>{t('set-config.join-federation')}</FormLabel>
             <Input
@@ -258,7 +271,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         )}
       </FormGroup>
       <>
-        {isHost && (
+        {(isHost || isSolo) && (
           <FormGroup
             icon={FedimintLogo}
             title={`${t('set-config.federation-settings')}`}
@@ -271,15 +284,17 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
                 onChange={handleChangeFederationName}
               />
             </FormControl>
-            <NumberFormControl
-              labelText={t('set-config.guardian-number')}
-              helperText={t('set-config.guardian-number-help')}
-              min={4}
-              value={numPeers}
-              onChange={(value) => {
-                setNumPeers(value);
-              }}
-            />
+            {isHost && (
+              <NumberFormControl
+                labelText={t('set-config.guardian-number')}
+                helperText={t('set-config.guardian-number-help')}
+                min={4}
+                value={numPeers}
+                onChange={(value) => {
+                  setNumPeers(value);
+                }}
+              />
+            )}
           </FormGroup>
         )}
         <FormGroup
@@ -295,22 +310,23 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           }
           isOpen={false}
         >
-          {isHost && (
-            <>
-              <NumberFormControl
-                labelText={t('set-config.block-confirmations')}
-                helperText={t('set-config.block-confirmations-help')}
-                warningText={t('set-config.block-confirmations-warning')}
-                recommendedMin={6}
-                min={1}
-                max={200}
-                value={blockConfirmations}
-                onChange={(value) => {
-                  setBlockConfirmations(value);
-                }}
-              />
-            </>
-          )}
+          {isHost ||
+            (isSolo && (
+              <>
+                <NumberFormControl
+                  labelText={t('set-config.block-confirmations')}
+                  helperText={t('set-config.block-confirmations-help')}
+                  warningText={t('set-config.block-confirmations-warning')}
+                  recommendedMin={6}
+                  min={1}
+                  max={200}
+                  value={blockConfirmations}
+                  onChange={(value) => {
+                    setBlockConfirmations(value);
+                  }}
+                />
+              </>
+            ))}
           <FormControl>
             <FormLabel>{t('set-config.bitcoin-network')}</FormLabel>
             <Select
@@ -339,7 +355,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             <FormHelperText>{t('set-config.set-rpc-help')}</FormHelperText>
           </FormControl>
         </FormGroup>
-        {isHost && (
+        {(isHost || isSolo) && (
           <FormGroup
             icon={ModulesIcon}
             title={t('set-config.meta-fields')}
