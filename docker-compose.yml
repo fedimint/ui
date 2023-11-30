@@ -15,7 +15,7 @@ services:
     ports:
       - '18174:18174'
     volumes:
-      - ./fm_1/data:/data
+      - ./fm_data/1/data:/data
     depends_on:
       - bitcoind
 
@@ -41,7 +41,7 @@ services:
       # LND macaroon file path
       - FM_LND_MACAROON=/lnd_data/admin.macaroon
     volumes:
-      - ./fm_1/gateway_data:/gateway_data
+      - ./fm_data/gw:/gateway_data
       - ./misc/test/data/data:/lnd_data
     ports:
       - '8175:8175'
@@ -73,7 +73,7 @@ services:
     ports:
       - '18184:18184'
     volumes:
-      - ./fm_2/data:/data
+      - ./fm_data/2/data:/data
     depends_on:
       - bitcoind
 
@@ -97,7 +97,7 @@ services:
     ports:
       - '18185:18185'
     volumes:
-      - ./fm_3/data:/data
+      - ./fm_data/3/data:/data
     depends_on:
       - bitcoind
 
@@ -115,7 +115,7 @@ services:
     ports:
       - '18186:18186'
     volumes:
-      - ./fm_4/data:/data
+      - ./fm_data/4/data:/data
     depends_on:
       - bitcoind
 
@@ -143,7 +143,7 @@ services:
       - '43782:43782'
       - '39388:39388'
     volumes:
-      - 'bitcoin_datadir:/data'
+      - './fm_data/bitcoin:/data'
 
   # Uncomment me to test out Dockerfile.guardian-ui locally
   # guardian_ui:
@@ -165,12 +165,9 @@ services:
   #     dockerfile: Dockerfile.gateway-ui
   #   environment:
   #     - PORT=3002
-  #     - REACT_APP_FM_GATEWAY_API=ws://localhost:8175
+  #     - REACT_APP_FM_GATEWAY_API=http://127.0.0.1:8175
   #     - REACT_APP_FM_GATEWAY_PASSWORD=thereisnosecondbest
   #   expose:
   #     - '3002'
   #   ports:
   #     - '3002:3002'
-
-volumes:
-  bitcoin_datadir:
