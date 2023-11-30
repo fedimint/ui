@@ -170,7 +170,7 @@ From root repo directory:
 1. Ensure Docker and yarn/nodejs are installed.
 1. Run `docker compose up` - runs 4 fedimintd servers and a gatewayd server, plus associated services. See [compose file for details](./docker-compose.yml)
 1. `yarn install` (first time only)
-1. Run gurdian-ui in development environment
+1. Run guardian-ui in development environment
 
    ```bash
      # first guardian
