@@ -193,7 +193,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       gap={10}
     >
       {content}
-      {!!peerTableRows.length && (
+      {peerTableRows.length > 1 && (
         <Table
           title={t('connect-guardians.table-title')}
           description={t('connect-guardians.table-description')}
