@@ -12,12 +12,16 @@ export const NetworkIndicator: FC<NetworkIndicatorProps> = ({
   let color: string;
   let name: string;
 
+  console.log({ network, bitcoinRpcUrl });
+
   switch (network) {
     case 'bitcoin':
+    case 'main':
       color = '#FF9900';
       name = 'Mainnet';
       break;
     case 'testnet':
+    case 'test':
       color = '#6BED33';
       name = 'Testnet';
       break;
