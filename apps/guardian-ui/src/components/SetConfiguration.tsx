@@ -63,7 +63,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [numPeers, setNumPeers] = useState(
-    stateNumPeers ? stateNumPeers.toString() : isSolo ? '1' : '4'
+    isSolo ? '1' : stateNumPeers ? stateNumPeers.toString() : '4'
   );
   const [federationName, setFederationName] = useState('');
   const [metaFields, setMetaFields] = useState<[string, string][]>([['', '']]);
