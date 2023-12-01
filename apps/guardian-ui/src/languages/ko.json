@@ -28,7 +28,7 @@
     "fed-info": {
       "api-version-label": "API 버전",
       "consensus-version-label": "합의 버전",
-      "block-count-label": "블록 수",
+      "block-count-label": "합의 블록 높이",
       "label": "연맹 정보",
       "your-status-label": "상태"
     },

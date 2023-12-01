@@ -24,7 +24,7 @@
     "fed-info": {
       "label": "Federation Info",
       "your-status-label": "Status",
-      "block-count-label": "Block count",
+      "block-count-label": "Consensus Block Height",
       "api-version-label": "API version",
       "consensus-version-label": "Consensus version"
     },

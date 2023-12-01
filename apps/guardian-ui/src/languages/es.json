@@ -28,7 +28,7 @@
     "fed-info": {
       "api-version-label": "Versión API",
       "consensus-version-label": "Versión de consenso",
-      "block-count-label": "Recuento de bloques",
+      "block-count-label": "Altura del bloque de consenso",
       "label": "Información de la Federación",
       "your-status-label": "Estado"
     },
