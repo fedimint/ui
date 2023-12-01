@@ -98,17 +98,16 @@
         "nixpkgs-unstable": "nixpkgs-unstable_2"
       },
       "locked": {
-        "lastModified": 1701251322,
-        "narHash": "sha256-og7C8Q19KsHf4HCsgiI1CbNEWk4kUcArtiitWteTXpw=",
+        "lastModified": 1701451267,
+        "narHash": "sha256-J1aZhHFBIB04c185bwqCF23j1e3ts45d3m+YDMhjB6E=",
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "bbe587845935517df8a36b9b2a6b98fa4bc1e19e",
+        "rev": "369aacdc479030a45f6212e05da06baebbdc1237",
         "type": "github"
       },
       "original": {
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "bbe587845935517df8a36b9b2a6b98fa4bc1e19e",
         "type": "github"
       }
     },

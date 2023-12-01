@@ -2,19 +2,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils";
-    fedimint = {
-      url = "github:fedimint/fedimint?rev=bbe587845935517df8a36b9b2a6b98fa4bc1e19e";
-    };
+    fedimint = { url = "github:fedimint/fedimint?branch=releases/0.2"; };
   };
   outputs = { self, nixpkgs, flake-utils, fedimint }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
+        pkgs = import nixpkgs { inherit system; };
         fmLib = fedimint.lib.${system};
-      in
-      {
+      in {
         devShells = fmLib.devShells // {
           default = fmLib.devShells.default.overrideAttrs (prev: {
             nativeBuildInputs = [
