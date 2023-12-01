@@ -7,19 +7,19 @@ import {
 } from './modules';
 
 export enum ServerStatus {
-  AwaitingPassword = 'AwaitingPassword',
-  SharingConfigGenParams = 'SharingConfigGenParams',
-  ReadyForConfigGen = 'ReadyForConfigGen',
-  ConfigGenFailed = 'ConfigGenFailed',
-  VerifyingConfigs = 'VerifyingConfigs',
-  VerifiedConfigs = 'VerifiedConfigs',
-  Upgrading = 'Upgrading',
-  ConsensusRunning = 'ConsensusRunning',
+  AwaitingPassword = 'awaiting_password',
+  SharingConfigGenParams = 'sharing_config_gen_params',
+  ReadyForConfigGen = 'ready_for_config_gen',
+  ConfigGenFailed = 'config_gen_failed',
+  VerifyingConfigs = 'verifying_configs',
+  VerifiedConfigs = 'verified_configs',
+  Upgrading = 'upgrading',
+  ConsensusRunning = 'consensus_running',
 }
 
 export enum PeerConnectionStatus {
-  Connected = 'Connected',
-  Disconnected = 'Disconnected',
+  Connected = 'connected',
+  Disconnected = 'disconnected',
 }
 
 export interface PeerStatus {
