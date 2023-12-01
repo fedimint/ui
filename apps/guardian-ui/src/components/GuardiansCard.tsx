@@ -82,7 +82,7 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
     return peerDataArray;
   }, [status, config, t]);
 
-  if (!Object.keys(status?.federation?.status_by_peer || {}).length) {
+  if (config && !rows.length) {
     return null;
   }
 
