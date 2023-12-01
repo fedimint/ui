@@ -5,43 +5,39 @@ interface NetworkIndicatorProps {
   bitcoinRpcUrl: string;
 }
 
+const getNetworkDetails = (network: string, isMutinynet: boolean) => {
+  const networkDetails: { [key: string]: { color: string; name: string } } = {
+    bitcoin: { color: '#FF9900', name: 'Mainnet' },
+    main: { color: '#FF9900', name: 'Mainnet' },
+    testnet: { color: '#6BED33', name: 'Testnet' },
+    test: { color: '#6BED33', name: 'Testnet' },
+    signet: isMutinynet
+      ? { color: 'red', name: 'Mutinynet' }
+      : { color: 'purple', name: 'Signet' },
+    regtest: { color: '#33C6EC', name: 'Regtest' },
+    default: { color: 'gray', name: 'Unknown' },
+  };
+
+  return networkDetails[network] || networkDetails['default'];
+};
+
+const isMutinynet = (bitcoinRpcUrl: string) => {
+  try {
+    const url = new URL(bitcoinRpcUrl);
+    return url.host === 'mutinynet.com' && url.pathname === '/api';
+  } catch (e) {
+    return false;
+  }
+};
+
 export const NetworkIndicator: FC<NetworkIndicatorProps> = ({
   network,
   bitcoinRpcUrl,
 }) => {
-  let color: string;
-  let name: string;
-
-  console.log({ network, bitcoinRpcUrl });
-
-  switch (network) {
-    case 'bitcoin':
-    case 'main':
-      color = '#FF9900';
-      name = 'Mainnet';
-      break;
-    case 'testnet':
-    case 'test':
-      color = '#6BED33';
-      name = 'Testnet';
-      break;
-    case 'signet':
-      if (bitcoinRpcUrl === 'https://mutinynet.com/api') {
-        color = 'red';
-        name = 'Mutinynet';
-      } else {
-        color = 'purple';
-        name = 'Signet';
-      }
-      break;
-    case 'regtest':
-      color = '#33C6EC';
-      name = 'Regtest';
-      break;
-    default:
-      color = 'gray';
-      name = 'Unknown';
-  }
+  const { color, name } = getNetworkDetails(
+    network,
+    isMutinynet(bitcoinRpcUrl)
+  );
 
   return <span style={{ color }}>{name}</span>;
 };
