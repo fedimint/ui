@@ -8,13 +8,16 @@ import { useTranslation } from '@fedimint/utils';
 interface FederationCardProps {
   federation: Federation;
   network?: Network;
+  lightning_pub_key: string;
 }
 
 export const FederationCard: React.FC<FederationCardProps> = ({
   federation,
   network,
+  lightning_pub_key,
 }) => {
   const { federation_id, balance_msat, config } = federation;
+
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -35,7 +38,7 @@ export const FederationCard: React.FC<FederationCardProps> = ({
             balance_msat={balance_msat}
             federationName={config.meta.federation_name || federation_id}
           />
-          <InfoCard nodeId={federation_id} network={network} />
+          <InfoCard nodeId={lightning_pub_key} network={network} />
         </Flex>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <DepositCard federationId={federation_id} network={network} />
