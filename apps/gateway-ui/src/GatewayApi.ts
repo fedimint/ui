@@ -85,7 +85,7 @@ export class GatewayApi {
       });
 
       if (res.ok) {
-        const address: string = (await res.text()).replace(/"/g, '').trim();
+        const address: string = await res.json();
         return Promise.resolve(address);
       }
 
@@ -128,7 +128,7 @@ export class GatewayApi {
       });
 
       if (res.ok) {
-        const txid: string = await res.text();
+        const txid: string = await res.json();
         console.log('txid', txid);
         return Promise.resolve(txid);
       }
