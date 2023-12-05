@@ -140,8 +140,8 @@ export const App = React.memo(function Admin(): JSX.Element {
               <FederationCard
                 key={federation.federation_id}
                 federation={federation}
-                network={gatewayInfo?.network}
-                pubkey={gatewayInfo?.lightning_pub_key}
+                network={gatewayInfo.network}
+                lightning_pub_key={gatewayInfo.lightning_pub_key}
               />
             );
           })}
