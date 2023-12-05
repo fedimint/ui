@@ -98,17 +98,17 @@
         "nixpkgs-unstable": "nixpkgs-unstable_2"
       },
       "locked": {
-        "lastModified": 1701251322,
-        "narHash": "sha256-og7C8Q19KsHf4HCsgiI1CbNEWk4kUcArtiitWteTXpw=",
+        "lastModified": 1701787679,
+        "narHash": "sha256-s8yXBMiaT75022xyyvHNp3U2c9rwYLBzZEm0wIJx8r0=",
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "bbe587845935517df8a36b9b2a6b98fa4bc1e19e",
+        "rev": "24113a64b270bf2ecb49b8f4554ba975025711db",
         "type": "github"
       },
       "original": {
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "bbe587845935517df8a36b9b2a6b98fa4bc1e19e",
+        "rev": "24113a64b270bf2ecb49b8f4554ba975025711db",
         "type": "github"
       }
     },
@@ -198,11 +198,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1694529238,
-        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
+        "lastModified": 1701680307,
+        "narHash": "sha256-kAuep2h5ajznlPMD9rnQyffWG8EM/C73lejGofXvdM8=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
+        "rev": "4022d587cbbfd70fe950c1e2083a02621806a725",
         "type": "github"
       },
       "original": {
@@ -318,11 +318,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1701053011,
-        "narHash": "sha256-8QQ7rFbKFqgKgLoaXVJRh7Ik5LtI3pyBBCfOnNOGkF0=",
+        "lastModified": 1701540982,
+        "narHash": "sha256-5ajSy6ODgGmAbmymRdHnjfVnuVrACjI8wXoGVvrtvww=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5b528f99f73c4fad127118a8c1126b5e003b01a9",
+        "rev": "6386d8aafc28b3a7ed03880a57bdc6eb4465491d",
         "type": "github"
       },
       "original": {
