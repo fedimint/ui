@@ -24,7 +24,7 @@ const getNetworkDetails = (network: string, isMutinynet: boolean) => {
 const isMutinynet = (bitcoinRpcUrl: string) => {
   try {
     const url = new URL(bitcoinRpcUrl);
-    return url.host === 'mutinynet.com' && url.pathname === '/api';
+    return url.host === 'mutinynet.com';
   } catch (e) {
     return false;
   }
