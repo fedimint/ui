@@ -117,13 +117,13 @@ export class GatewayApi {
 
   requestWithdrawal = async (
     federationId: string,
-    amountSat: number,
+    msatAmountOrAll: number | string, // you can pass msat amount or 'all'
     address: string
   ): Promise<string> => {
     try {
       const res: Response = await this.post('withdraw', {
         federation_id: federationId,
-        amount: amountSat,
+        amount: msatAmountOrAll,
         address,
       });
 

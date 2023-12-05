@@ -82,7 +82,7 @@
     "total_bitcoin": "총 비트코인:",
     "view": "보다",
     "withdraw": "철회하다",
-    "withdraw_all": "모두 철회",
+    "withdraw-all": "모두 철회",
     "withdrawal-created": "출금이 생성되었습니다.",
     "withdrawal-created-description": "거래 내역을 확인해주세요",
     "withdrawal-history": "출금 내역",
