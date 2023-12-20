@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   FormControl,
@@ -62,7 +63,7 @@ export const MetaFieldFormControl: React.FC<Props> = ({
         {metaFields.map(([key, value], idx) => {
           const isDerived = derivedMetaKeys.includes(key);
           return (
-            <Flex gap={3} key={idx}>
+            <Flex gap={2} key={idx} align='center'>
               <Input
                 placeholder={t('set-config.meta-fields-key')}
                 value={key}
@@ -79,10 +80,10 @@ export const MetaFieldFormControl: React.FC<Props> = ({
                   handleChangeMetaField(key, ev.target.value, idx)
                 }
               />
-              {!isDerived && (
+              {isDerived ? (
+                <Box width={'58px'} height={'42px'} opacity={0} /> // Invisible placeholder
+              ) : (
                 <IconButton
-                  position='absolute'
-                  left='100%'
                   variant='ghost'
                   size='xs'
                   width={'42px'}
