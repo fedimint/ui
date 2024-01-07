@@ -3,7 +3,7 @@ version: '3'
 services:
   fedimintd_1:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:24113a64b270bf2ecb49b8f4554ba975025711db
+    image: fedimint/fedimintd:v0.2.1
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
@@ -21,7 +21,7 @@ services:
 
   gatewayd_1:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/gatewayd:24113a64b270bf2ecb49b8f4554ba975025711db
+    image: fedimint/gatewayd:v0.2.1
     command: gatewayd lnd
     environment:
       # Path to folder containing gateway config and data files
@@ -49,7 +49,7 @@ services:
       - lnd_1
 
   lnd_1:
-    image: lightninglabs/lnd:v0.14.1-beta
+    image: lightninglabs/lnd:v0.17.3-beta
     ports:
       - '11009:11009'
     volumes:
@@ -61,7 +61,7 @@ services:
 
   fedimintd_2:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:24113a64b270bf2ecb49b8f4554ba975025711db
+    image: fedimint/fedimintd:v0.2.1
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
@@ -85,7 +85,7 @@ services:
 
   fedimintd_3:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:24113a64b270bf2ecb49b8f4554ba975025711db
+    image: fedimint/fedimintd:v0.2.1
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18174
@@ -103,7 +103,7 @@ services:
 
   fedimintd_4:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:24113a64b270bf2ecb49b8f4554ba975025711db
+    image: fedimint/fedimintd:v0.2.1
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18175
@@ -120,7 +120,7 @@ services:
       - bitcoind
 
   bitcoind:
-    image: btcpayserver/bitcoin:24.1
+    image: btcpayserver/bitcoin:26.0
     environment:
       BITCOIN_NETWORK: regtest
       BITCOIN_EXTRA_ARGS: |
@@ -144,7 +144,6 @@ services:
       - '39388:39388'
     volumes:
       - './fm_data/bitcoin:/data'
-
   # Uncomment me to test out Dockerfile.guardian-ui locally
   # guardian_ui:
   #   build:
