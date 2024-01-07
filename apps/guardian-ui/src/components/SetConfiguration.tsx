@@ -310,23 +310,22 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           }
           isOpen={false}
         >
-          {isHost ||
-            (isSolo && (
-              <>
-                <NumberFormControl
-                  labelText={t('set-config.block-confirmations')}
-                  helperText={t('set-config.block-confirmations-help')}
-                  warningText={t('set-config.block-confirmations-warning')}
-                  recommendedMin={6}
-                  min={1}
-                  max={200}
-                  value={blockConfirmations}
-                  onChange={(value) => {
-                    setBlockConfirmations(value);
-                  }}
-                />
-              </>
-            ))}
+          {(isHost || isSolo) && (
+            <>
+              <NumberFormControl
+                labelText={t('set-config.block-confirmations')}
+                helperText={t('set-config.block-confirmations-help')}
+                warningText={t('set-config.block-confirmations-warning')}
+                recommendedMin={6}
+                min={1}
+                max={200}
+                value={blockConfirmations}
+                onChange={(value) => {
+                  setBlockConfirmations(value);
+                }}
+              />
+            </>
+          )}
           <FormControl>
             <FormLabel>{t('set-config.bitcoin-network')}</FormLabel>
             <Select
