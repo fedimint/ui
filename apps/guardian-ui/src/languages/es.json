@@ -91,7 +91,6 @@
     "admin-password": "Contraseña de administrador",
     "admin-password-help": "Utilice una contraseña segura y haga una copia de seguridad. ¡No puedes recuperar esta contraseña!",
     "confirm-password": "Confirmar contraseña",
-    "confirm-password-help": "Utilice una contraseña segura y haga una copia de seguridad. ¡No puedes recuperar esta contraseña!",
     "error-password-mismatch": "Las contraseñas no coinciden",
     "bitcoin-settings": "Configuración de Bitcoin",
     "bitcoin-network": "Red de Bitcoin",

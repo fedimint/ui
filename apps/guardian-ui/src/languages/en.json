@@ -90,7 +90,6 @@
     "admin-password": "Admin password",
     "admin-password-help": "Use a strong password & back it up! You cannot recover this password!",
     "confirm-password": "Confirm password",
-    "confirm-password-help": "Use a strong password & back it up! You cannot recover this password!",
     "error-password-mismatch": "Passwords don't match",
     "join-federation": "Join Federation link",
     "join-federation-help": "Ask the person who created the Federation for a link, and paste it here.",
