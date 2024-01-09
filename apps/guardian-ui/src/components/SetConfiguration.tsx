@@ -239,7 +239,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             onChange={(ev) => setPassword(ev.currentTarget.value)}
             isDisabled={!!statePassword}
           />
-          <FormHelperText>{t('set-config.admin-password-help')}</FormHelperText>
+          <FormHelperText>
+            <Text color={theme.colors.yellow[500]}>
+              {t('set-config.admin-password-help')}
+            </Text>
+          </FormHelperText>
         </FormControl>
         <FormControl
           isInvalid={password !== confirmPassword && password.length > 0}
