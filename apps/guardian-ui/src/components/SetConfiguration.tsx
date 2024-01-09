@@ -240,7 +240,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             isDisabled={!!statePassword}
           />
           <FormHelperText>
-            <Text color={theme.colors.yellow[400]}>
+            <Text color={theme.colors.yellow[500]}>
               {t('set-config.admin-password-help')}
             </Text>
           </FormHelperText>
