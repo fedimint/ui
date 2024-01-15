@@ -35,6 +35,7 @@ export const FormGroup: React.FC<Props> = ({
             ? String.fromCharCode(0x25b4)
             : String.fromCharCode(0x25be) + ' Show Fields'
         }
+        tabIndex={1}
       />
       <Collapse in={open}>
         <Stack spacing={4}>{children}</Stack>
