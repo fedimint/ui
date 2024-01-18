@@ -12,14 +12,15 @@ interface Props {
   icon?: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
   title: React.ReactNode;
   onClick?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
   chevronIcon?: string;
-  tabIndex: number;
 }
 
 export const FormGroupHeading: React.FC<Props> = ({
   icon,
   title,
   onClick,
+  onKeyDown,
   chevronIcon,
 }) => {
   const theme = useTheme();
@@ -32,7 +33,10 @@ export const FormGroupHeading: React.FC<Props> = ({
       p={2}
       borderRadius={8}
       w='100%'
-      tabIndex={1}
+      tabIndex={0}
+      role='button'
+      onClick={onClick}
+      onKeyDown={onKeyDown}
       cursor='pointer'
     >
       {icon && <Icon width='20px' height='20px' mr={2} as={icon} />}
@@ -40,7 +44,7 @@ export const FormGroupHeading: React.FC<Props> = ({
         {title}
       </Heading>
       <Spacer />
-      <Button onClick={onClick} tabIndex={1} variant='ghost' color='black'>
+      <Button variant='ghost' color='black' fontSize='sm' p={2}>
         {chevronIcon}
       </Button>
     </Flex>
