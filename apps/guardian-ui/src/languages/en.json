@@ -117,6 +117,10 @@
     "meta-fields-add-another": "Add another"
   },
   "setup": {
+    "common": {
+      "restart-setup": "Restart setup",
+      "restart-setup-alert": "A peer has requested to restart the setup process. This will reset any configurations you already selected for your Fedimint node"
+    },
     "progress": {
       "tos": {
         "title": "Terms of service"

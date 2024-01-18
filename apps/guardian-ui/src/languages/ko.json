@@ -114,6 +114,10 @@
     "set-rpc-help": "로컬로 구성된 비트코인 RPC 주소"
   },
   "setup": {
+    "common": {
+      "restart-setup": "설정 다시 시작",
+      "restart-setup-alert": "피어가 설정 프로세스를 다시 시작하도록 요청했습니다. 이렇게 하면 Fedimint 노드에 대해 이미 선택한 모든 구성이 재설정됩니다"
+    },
     "auth": {},
     "progress": {
       "connect-guardians": {
