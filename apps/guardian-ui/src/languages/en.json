@@ -118,8 +118,10 @@
   },
   "setup": {
     "common": {
-      "restart-setup": "Restart setup",
-      "restart-setup-alert": "A peer has requested to restart the setup process. This will reset any configurations you already selected for your Fedimint node"
+      "restart-setup": "Restart Setup",
+      "restart-setup-alert": "The Setup Leader has restarted the Setup Ceremony. Please click \"Restart\" below to continue.",
+      "confirm-restart-setup": "Are you sure you want to restart the Setup Ceremony?",
+      "confirm-restart-setup-alert": "Clicking \"Restart\" will restart the ceremony for all Guardians."
     },
     "progress": {
       "tos": {

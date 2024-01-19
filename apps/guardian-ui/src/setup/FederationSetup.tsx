@@ -8,11 +8,11 @@ import {
   Flex,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { useSetupContext } from '../hooks';
@@ -48,6 +48,7 @@ export const FederationSetup: React.FC = () => {
     api,
   } = useSetupContext();
   const [needsTosAgreement, setNeedsTosAgreement] = useState(!!getEnv().TOS);
+  const [confirmRestart, setConfirmRestart] = useState(false);
 
   const isHost = role === GuardianRole.Host;
   const isSolo = role === GuardianRole.Solo;
@@ -179,11 +180,11 @@ export const FederationSetup: React.FC = () => {
               {t('common.back')}
             </Button>
           )}
-          {canRestart && (
+          {canRestart && isHost && (
             <Button
               variant='link'
               colorScheme='red'
-              onClick={handleRestart}
+              onClick={() => setConfirmRestart(true)}
               rightIcon={<Icon as={CancelIcon} />}
             >
               {t('setup.common.restart-setup')}
@@ -208,10 +209,28 @@ export const FederationSetup: React.FC = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{t('setup.common.restart-setup')}</ModalHeader>
-          <ModalCloseButton />
           <ModalBody>{t('setup.common.restart-setup-alert')}</ModalBody>
           <ModalFooter>
             <Button mr={3} onClick={handleRestart}>
+              {t('setup.common.restart-setup')}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      <Modal isOpen={confirmRestart} onClose={() => setConfirmRestart(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalHeader>{t('setup.common.confirm-restart-setup')}</ModalHeader>
+          <ModalBody>{t('setup.common.confirm-restart-setup-alert')}</ModalBody>
+          <ModalFooter>
+            <Button
+              mr={3}
+              onClick={() => {
+                setConfirmRestart(false);
+                handleRestart();
+              }}
+            >
               {t('setup.common.restart-setup')}
             </Button>
           </ModalFooter>
