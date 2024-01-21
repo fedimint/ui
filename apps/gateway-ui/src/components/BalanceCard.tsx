@@ -19,6 +19,7 @@ export const BalanceCard = React.memo(function BalanceCard(
     <FedNameCard
       title={t('federation-card.default-federation-name')}
       federationName={props.federationName}
+      balanceMsat={balance_msat}
     >
       <Text variant='secondary' size='sm'>
         {t('balance-card.your-balance')}

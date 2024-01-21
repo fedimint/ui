@@ -138,18 +138,15 @@ export class GatewayApi {
     }
   };
 
-  leaveFederation = async (federationId: string): Promise<Federation> => {
+  leaveFederation = async (federationId: string): Promise<void> => {
     try {
       const res: Response = await this.post('leave-fed', {
         federation_id: federationId,
       });
 
-      if (res.ok) {
-        const federation: Federation = await res.json();
-        return Promise.resolve(federation);
+      if (!res.ok) {
+        throw responseToError(res);
       }
-
-      throw responseToError(res);
     } catch (error) {
       return Promise.reject({ message: 'Error leaving federation', error });
     }
