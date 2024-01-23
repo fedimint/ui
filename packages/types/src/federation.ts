@@ -14,6 +14,7 @@ export enum ServerStatus {
   VerifyingConfigs = 'verifying_configs',
   VerifiedConfigs = 'verified_configs',
   Upgrading = 'upgrading',
+  SetupRestarted = 'setup_restarted',
   ConsensusRunning = 'consensus_running',
 }
 

@@ -47,23 +47,25 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const {
     api,
     state: { role, numPeers, peers, ourCurrentId },
+    toggleConsensusPolling,
   } = useSetupContext();
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
   const [myHash, setMyHash] = useState('');
   const [peersWithHash, setPeersWithHash] = useState<PeerWithHash[]>();
   const [enteredHashes, setEnteredHashes] = useState<string[]>([]);
+  const [verifiedConfigs, setVerifiedConfigs] = useState<boolean>(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
 
-  const verifiedConfigs: boolean = peers.every(
-    (peer) => peer.status === ServerStatus.VerifiedConfigs
-  );
-
   // Poll for peers and configGenParams while on this page.
-  useConsensusPolling(!verifiedConfigs);
+  useConsensusPolling();
 
   useEffect(() => {
+    if (peers.every((peer) => peer.status === ServerStatus.VerifiedConfigs)) {
+      setVerifiedConfigs(true);
+    }
+
     async function assembleHashInfo() {
       if (peers.length === 0) {
         return setError(t('verify-guardians.error'));
@@ -123,8 +125,17 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       api.verifiedConfigs().catch((err) => {
         setError(formatApiErrorMessage(err));
       });
+      toggleConsensusPolling(false);
     }
-  }, [api, peersWithHash, enteredHashes, verifiedConfigs, numPeers, next]);
+  }, [
+    api,
+    peersWithHash,
+    enteredHashes,
+    verifiedConfigs,
+    numPeers,
+    next,
+    toggleConsensusPolling,
+  ]);
 
   const handleNext = useCallback(async () => {
     setIsStarting(true);

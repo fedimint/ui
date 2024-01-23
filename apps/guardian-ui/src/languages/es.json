@@ -114,6 +114,10 @@
     "set-rpc-help": "Dirección RPC de Bitcoin configurada localmente"
   },
   "setup": {
+    "common": {
+      "restart-setup": "Reiniciar configuración",
+      "restart-setup-alert": "Un par ha solicitado reiniciar el proceso de configuración. Esto restablecerá cualquier configuración que ya haya seleccionado para su nodo Fedimint"
+    },
     "progress": {
       "connect-guardians": {
         "step-follower": "Confirmar información",

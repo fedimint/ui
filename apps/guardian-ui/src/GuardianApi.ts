@@ -189,6 +189,7 @@ enum SetupRpc {
   runDkg = 'run_dkg',
   verifiedConfigs = 'verified_configs',
   startConsensus = 'start_consensus',
+  restartSetup = 'restart_federation_setup',
 }
 
 export interface SetupApiInterface extends SharedApiInterface {
@@ -204,6 +205,7 @@ export interface SetupApiInterface extends SharedApiInterface {
   runDkg: () => Promise<void>;
   verifiedConfigs: () => Promise<void>;
   startConsensus: () => Promise<void>;
+  restartSetup: () => Promise<void>;
 }
 
 // Running RPC methods (only exist after run_consensus)
@@ -363,6 +365,10 @@ export class GuardianApi
     };
 
     return attemptConfirmConsensusRunning();
+  };
+
+  restartSetup: () => Promise<void> = () => {
+    return this.base.call(SetupRpc.restartSetup);
   };
 
   /*** Running RPC methods */

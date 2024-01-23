@@ -117,6 +117,12 @@
     "meta-fields-add-another": "Add another"
   },
   "setup": {
+    "common": {
+      "restart-setup": "Restart Setup",
+      "restart-setup-alert": "The Setup Leader has restarted the Setup Ceremony. Please click \"Restart\" below to continue.",
+      "confirm-restart-setup": "Are you sure you want to restart the Setup Ceremony?",
+      "confirm-restart-setup-alert": "Clicking \"Restart\" will restart the ceremony for all Guardians."
+    },
     "progress": {
       "tos": {
         "title": "Terms of service"
