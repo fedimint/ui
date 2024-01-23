@@ -124,3 +124,39 @@ export type SetupAction =
       type: SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID;
       payload: number;
     };
+
+// Setup RPC methods (only exist during setup)
+export enum SetupRpc {
+  setPassword = 'set_password',
+  setConfigGenConnections = 'set_config_gen_connections',
+  getDefaultConfigGenParams = 'default_config_gen_params',
+  getConsensusConfigGenParams = 'consensus_config_gen_params',
+  setConfigGenParams = 'set_config_gen_params',
+  runDkg = 'run_dkg',
+  verifiedConfigs = 'verified_configs',
+  startConsensus = 'start_consensus',
+  restartSetup = 'restart_federation_setup',
+}
+
+// Admin RPC methods (only exist after run_consensus)
+export enum AdminRpc {
+  version = 'version',
+  fetchBlockCount = 'block_count',
+  federationStatus = 'status',
+  inviteCode = 'invite_code',
+  config = 'client_config',
+  modulesConfig = 'modules_config_json',
+  moduleApiCall = 'module',
+  audit = 'audit',
+}
+
+export enum SharedRpc {
+  auth = 'auth',
+  status = 'status',
+  getVerifyConfigHash = 'verify_config_hash',
+}
+
+export enum ModuleRpc {
+  listGateways = 'list_gateways',
+  blockCount = 'block_count',
+}
