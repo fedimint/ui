@@ -1,3 +1,5 @@
+import { Network } from './bitcoin';
+
 export interface Gateway {
   api: string;
   fees: Fees;
@@ -9,7 +11,7 @@ export interface Gateway {
   valid_until: Validity;
 }
 
-interface RouteHint {
+export interface RouteHint {
   base_msat: number;
   proportional_millionths: number;
   cltv_expiry_delta: number;
@@ -27,4 +29,21 @@ export interface Fees {
 interface Validity {
   nanos_since_epoch: number;
   secs_since_epoch: number;
+}
+
+export interface Federation {
+  federation_id: string;
+  balance_msat: number;
+}
+
+export interface GatewayInfo {
+  federations: Federation[];
+  fees: Fees;
+  gateway_id: string;
+  gateway_state: string;
+  lightning_alias: string;
+  lightning_pub_key: string;
+  network?: Network;
+  route_hints: RouteHint[];
+  version_hash: string;
 }
