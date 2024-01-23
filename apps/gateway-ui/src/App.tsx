@@ -8,10 +8,10 @@ import {
   CircularProgress,
   CircularProgressLabel,
 } from '@chakra-ui/react';
+import { GatewayInfo, Federation } from '@fedimint/types';
 import { FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
-import { GatewayInfo, Federation } from './types';
 import { Wrapper, Login } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 
@@ -24,8 +24,11 @@ export const App = React.memo(function Admin(): JSX.Element {
       base_msat: 0,
       proportional_millionths: 0,
     },
+    gateway_id: '',
+    gateway_state: '',
     lightning_alias: '',
     lightning_pub_key: '',
+    route_hints: [],
     version_hash: '',
   });
   const [authenticated, setAuthenticated] = useState<boolean>(false);

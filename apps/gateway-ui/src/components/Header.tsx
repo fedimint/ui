@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Spacer, Button } from '@chakra-ui/react';
-import { GatewayInfo } from '../types';
+import { GatewayInfo } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 
 export type HeaderProps = {

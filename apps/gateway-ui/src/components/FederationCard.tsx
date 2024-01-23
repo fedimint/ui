@@ -1,7 +1,6 @@
 import React from 'react';
 import { Flex, Stack, useTheme, Heading } from '@chakra-ui/react';
-import { Network } from '@fedimint/types';
-import { Federation } from '../types';
+import { Network, Federation } from '@fedimint/types';
 import { InfoCard, DepositCard, BalanceCard, WithdrawCard } from '.';
 import { useTranslation } from '@fedimint/utils';
 
@@ -16,7 +15,7 @@ export const FederationCard: React.FC<FederationCardProps> = ({
   network,
   lightning_pub_key,
 }) => {
-  const { federation_id, balance_msat, config } = federation;
+  const { federation_id, balance_msat } = federation;
 
   const theme = useTheme();
   const { t } = useTranslation();
@@ -36,7 +35,7 @@ export const FederationCard: React.FC<FederationCardProps> = ({
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <BalanceCard
             balance_msat={balance_msat}
-            federationName={config.meta.federation_name || federation_id}
+            federationName={federation_id}
           />
           <InfoCard nodeId={lightning_pub_key} network={network} />
         </Flex>
