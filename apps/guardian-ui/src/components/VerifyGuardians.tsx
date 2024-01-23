@@ -122,10 +122,15 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       peersWithHash.every(({ hash }, idx) => hash === enteredHashes[idx]);
 
     if (isAllValid && !verifiedConfigs) {
-      api.verifiedConfigs().catch((err) => {
-        setError(formatApiErrorMessage(err));
-      });
-      toggleConsensusPolling(false);
+      api
+        .verifiedConfigs()
+        .then(() => {
+          setVerifiedConfigs(true);
+          toggleConsensusPolling(false);
+        })
+        .catch((err) => {
+          setError(formatApiErrorMessage(err));
+        });
     }
   }, [
     api,
