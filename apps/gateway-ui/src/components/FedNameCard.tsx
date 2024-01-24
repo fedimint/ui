@@ -14,6 +14,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { ApiContext } from '../ApiProvider';
+import { useTranslation } from '@fedimint/utils';
 
 export interface FedNameCardProps {
   title: string;
@@ -30,13 +31,14 @@ export const FedNameCard = React.memo(function FedNameCard({
   balanceMsat,
   children,
 }: FedNameCardProps) {
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
   const { gateway } = React.useContext(ApiContext);
 
   const handleDisconnectFederation = async () => {
-    console.log('disconnecting from federation: ', federationId);
     try {
       if (federationId) {
         await gateway.leaveFederation(federationId);
@@ -52,9 +54,7 @@ export const FedNameCard = React.memo(function FedNameCard({
 
   const handleConfirmLeaveFed = () => {
     if (balanceMsat && balanceMsat > 0) {
-      setErrorMessage(
-        'Cannot leave federation with sats in your balance. Please withdraw your sats first.'
-      );
+      setErrorMessage(t('federation-card.leave-fed-error'));
       setTimeout(() => setErrorMessage(null), 3000);
     } else {
       setIsOpen(true);
@@ -87,9 +87,14 @@ export const FedNameCard = React.memo(function FedNameCard({
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Disconnect from Federation</ModalHeader>
+            <ModalHeader>
+              {t('federation-card.leave-fed-modal-title')}
+            </ModalHeader>
             <ModalBody>
-              Are you sure you want to disconnect from {federationName}?
+              {t('federation-card.leave-fed-modal-text') +
+                ' ' +
+                federationName +
+                '?'}
             </ModalBody>
             <ModalFooter>
               <Button

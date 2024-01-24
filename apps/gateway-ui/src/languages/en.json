@@ -45,7 +45,10 @@
   },
   "federation-card": {
     "default-federation-name": "Your connected federation: ",
-    "view-link-on": "View on {{host}}"
+    "view-link-on": "View on {{host}}",
+    "leave-fed-error": "Cannot leave federation with sats in your balance. Please withdraw your sats first.",
+    "leave-fed-modal-title": "Leave Federation",
+    "leave-fed-modal-text": "Are you sure you want to disconnect from"
   },
   "footer": {
     "blog-link-text": "Blog",
