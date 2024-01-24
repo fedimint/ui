@@ -13,7 +13,6 @@ import {
   Text,
   Flex,
 } from '@chakra-ui/react';
-import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
 import { ApiContext } from '../ApiProvider';
 
 export interface FedNameCardProps {
@@ -37,6 +36,7 @@ export const FedNameCard = React.memo(function FedNameCard({
   const { gateway } = React.useContext(ApiContext);
 
   const handleDisconnectFederation = async () => {
+    console.log('disconnecting from federation: ', federationId);
     try {
       if (federationId) {
         await gateway.leaveFederation(federationId);
@@ -72,14 +72,15 @@ export const FedNameCard = React.memo(function FedNameCard({
             <Text size='xl' fontWeight='600'>
               {federationName}
             </Text>
-            <Button
-              variant='link'
+            <Text
+              as='span'
+              textDecoration='underline'
               colorScheme='red'
               onClick={handleConfirmLeaveFed}
-              rightIcon={<CancelIcon />}
+              cursor='pointer'
             >
-              Leave Fed
-            </Button>
+              Leave
+            </Text>
           </Flex>
         )}
         {errorMessage && <Text color='red.500'>{errorMessage}</Text>}
