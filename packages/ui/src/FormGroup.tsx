@@ -30,7 +30,6 @@ export const FormGroup: React.FC<Props> = ({
         icon={icon}
         title={title}
         onClick={() => setOpen(!open)}
-        onKeyDown={(e) => (e.key === 'Enter' ? setOpen(!open) : setOpen(open))}
         chevronIcon={
           open
             ? String.fromCharCode(0x25b4)
