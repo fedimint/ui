@@ -1,4 +1,4 @@
-import { GatewayInfo, Federation } from './types';
+import { GatewayInfo, Federation } from '@fedimint/types';
 
 const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
@@ -63,9 +63,32 @@ export class GatewayApi {
     });
   };
 
+  private get = async (api: string): Promise<Response> => {
+    if (this.baseUrl === undefined) {
+      throw new Error(
+        'Misconfigured Gateway API. Make sure FM_GATEWAY_API is configured appropriately'
+      );
+    }
+
+    const password = this.getPassword();
+    if (!password) {
+      throw new Error(
+        'Misconfigured Gateway API. Make sure gateway password is configured appropriately'
+      );
+    }
+
+    return fetch(`${this.baseUrl}/${api}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${password}`,
+      },
+    });
+  };
+
   fetchInfo = async (): Promise<GatewayInfo> => {
     try {
-      const res: Response = await this.post('info', null);
+      const res: Response = await this.get('info');
 
       if (res.ok) {
         const info: GatewayInfo = await res.json();

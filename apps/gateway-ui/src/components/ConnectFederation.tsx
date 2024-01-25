@@ -15,9 +15,9 @@ import {
   CircularProgressLabel,
   CircularProgress,
 } from '@chakra-ui/react';
-import { ApiContext } from '../ApiProvider';
-import { Federation } from '../types';
+import { Federation } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
+import { ApiContext } from '../ApiProvider';
 import { InformationBar } from './InformationBar';
 import { ReactComponent as InfoSolidIcon } from '../assets/svgs/info-solid.svg';
 
