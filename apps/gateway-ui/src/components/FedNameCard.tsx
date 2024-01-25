@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Button,
   Card,
@@ -31,12 +31,10 @@ export const FedNameCard = React.memo(function FedNameCard({
   balanceMsat,
   children,
 }: FedNameCardProps) {
+  const [confirmLeaveFed, setConfirmLeaveFed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { t } = useTranslation();
-
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
-
-  const { gateway } = React.useContext(ApiContext);
+  const { gateway } = useContext(ApiContext);
 
   const handleDisconnectFederation = async () => {
     try {
@@ -46,8 +44,8 @@ export const FedNameCard = React.memo(function FedNameCard({
       } else {
         throw new Error('Federation ID is null');
       }
-    } catch (error: any) {
-      setErrorMessage(error.message);
+    } catch (error) {
+      setErrorMessage((error as Error).message);
       setTimeout(() => setErrorMessage(null), 3000);
     }
   };
@@ -57,7 +55,7 @@ export const FedNameCard = React.memo(function FedNameCard({
       setErrorMessage(t('federation-card.leave-fed-error'));
       setTimeout(() => setErrorMessage(null), 3000);
     } else {
-      setIsOpen(true);
+      setConfirmLeaveFed(true);
     }
   };
 
@@ -84,7 +82,10 @@ export const FedNameCard = React.memo(function FedNameCard({
           </Flex>
         )}
         {errorMessage && <Text color='red.500'>{errorMessage}</Text>}
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <Modal
+          isOpen={confirmLeaveFed}
+          onClose={() => setConfirmLeaveFed(false)}
+        >
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>
@@ -100,7 +101,7 @@ export const FedNameCard = React.memo(function FedNameCard({
               <Button
                 mr={3}
                 onClick={() => {
-                  setIsOpen(false);
+                  setConfirmLeaveFed(false);
                   handleDisconnectFederation();
                 }}
               >
