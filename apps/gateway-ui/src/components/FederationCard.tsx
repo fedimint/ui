@@ -35,7 +35,7 @@ export const FederationCard: React.FC<FederationCardProps> = ({
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <BalanceCard
             balance_msat={balance_msat}
-            federationName={federation_id}
+            federationId={federation_id}
           />
           <InfoCard nodeId={lightning_pub_key} network={network} />
         </Flex>

@@ -37,7 +37,10 @@
     "transaction-id": "거래 ID"
   },
   "federation-card": {
-    "default-federation-name": "귀하의 연맹"
+    "default-federation-name": "귀하의 연맹",
+    "leave-fed-error": "잔액에 sats가 있는 상태에서 연맹을 떠날 수 없습니다. 먼저 sats를 인출해 주세요.",
+    "leave-fed-modal-title": "연맹 떠나기",
+    "leave-fed-modal-text": "연결을 끊으시겠습니까"
   },
   "footer": {
     "blog-link-text": "블로그",

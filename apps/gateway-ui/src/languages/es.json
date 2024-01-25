@@ -37,7 +37,10 @@
     "transaction-id": "ID de transacción"
   },
   "federation-card": {
-    "default-federation-name": "Tu federación"
+    "default-federation-name": "Tu federación",
+    "leave-fed-error": "No puede abandonar la federación con sats en su saldo. Por favor, retire sus sats primero.",
+    "leave-fed-modal-title": "Abandonar Federación",
+    "leave-fed-modal-text": "¿Está seguro de que desea desconectarse de"
   },
   "footer": {
     "blog-link-text": "Blog",
