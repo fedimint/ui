@@ -53,6 +53,9 @@
       "view-on-site": "View on {{site}}",
       "no-gateways-info-title": "No connected gateways yet!",
       "no-gateways-info-description": "Lightning node operators can connect to your federation to provide Lightning Network interoperability. Once connected, they will appear here."
+    },
+    "config": {
+      "label": "Federation Config"
     }
   },
   "login": {
