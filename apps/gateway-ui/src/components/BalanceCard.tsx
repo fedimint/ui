@@ -5,7 +5,7 @@ import { FedNameCard } from './FedNameCard';
 
 interface BalanceCardProps {
   balance_msat: number;
-  federationId?: string;
+  federationId: string;
 }
 
 export const BalanceCard = React.memo(function BalanceCard(
