@@ -312,7 +312,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               />
             </>
           }
-          isOpen={false}
+          isOpen={true}
         >
           {(isHost || isSolo) && (
             <>
@@ -362,7 +362,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           <FormGroup
             icon={ModulesIcon}
             title={t('set-config.meta-fields')}
-            isOpen={false}
+            isOpen={true}
           >
             <MetaFieldFormControl
               metaFields={metaFields}
