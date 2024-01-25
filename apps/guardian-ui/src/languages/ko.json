@@ -48,6 +48,9 @@
       "name-label": "이름",
       "status-label": "연결 상태"
     },
+    "config": {
+      "label": "연합 설정"
+    },
     "invite-members": "회원 초대",
     "invite-members-prompt": "이 내용을 공유하여 회원을 연맹에 가입하도록 초대하세요."
   },
