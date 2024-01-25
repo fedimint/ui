@@ -19,7 +19,6 @@ import { useTranslation } from '@fedimint/utils';
 export interface FedNameCardProps {
   title: string;
   federationId?: string;
-  federationName?: string;
   balanceMsat?: number;
   children: React.ReactNode;
 }
@@ -27,7 +26,6 @@ export interface FedNameCardProps {
 export const FedNameCard = React.memo(function FedNameCard({
   title,
   federationId,
-  federationName,
   balanceMsat,
   children,
 }: FedNameCardProps) {
@@ -65,10 +63,10 @@ export const FedNameCard = React.memo(function FedNameCard({
         <Text variant='secondary' size='sm'>
           {title}
         </Text>
-        {federationName && (
+        {federationId && (
           <Flex justifyContent='space-between' alignItems='center'>
             <Text size='xl' fontWeight='600'>
-              {federationName}
+              {federationId.slice(0, 6) + '...' + federationId.slice(-6)}
             </Text>
             <Text
               as='span'
@@ -92,10 +90,13 @@ export const FedNameCard = React.memo(function FedNameCard({
               {t('federation-card.leave-fed-modal-title')}
             </ModalHeader>
             <ModalBody>
-              {t('federation-card.leave-fed-modal-text') +
-                ' ' +
-                federationName +
-                '?'}
+              {federationId &&
+                t('federation-card.leave-fed-modal-text') +
+                  ' ' +
+                  federationId.slice(0, 6) +
+                  '...' +
+                  federationId.slice(-6) +
+                  '?'}
             </ModalBody>
             <ModalFooter>
               <Button

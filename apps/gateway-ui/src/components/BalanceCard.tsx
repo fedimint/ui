@@ -5,7 +5,6 @@ import { FedNameCard } from './FedNameCard';
 
 interface BalanceCardProps {
   balance_msat: number;
-  federationName: string;
   federationId?: string;
 }
 
@@ -19,7 +18,6 @@ export const BalanceCard = React.memo(function BalanceCard(
   return (
     <FedNameCard
       title={t('federation-card.default-federation-name')}
-      federationName={props.federationName}
       federationId={props.federationId}
       balanceMsat={balance_msat}
     >
