@@ -12,6 +12,7 @@ import { FederationInfoCard } from '../components/FederationInfoCard';
 import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
 import { BalanceCard } from '../components/BalanceCard';
 import { InviteCode } from '../components/InviteCode';
+import { MetaViewer } from '../components/MetaViewer';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
@@ -59,6 +60,7 @@ export const FederationAdmin: React.FC = () => {
         </Flex>
         <GuardiansCard status={status} config={config} />
         <GatewaysCard config={config} />
+        <MetaViewer config={config} />
       </Flex>
     </Flex>
   );
