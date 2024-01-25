@@ -5,9 +5,6 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
-  Card,
-  CardBody,
-  CardHeader,
   Flex,
   Link,
   Text,
@@ -22,11 +19,11 @@ import { ReactComponent as InfoIcon } from '../assets/svgs/info.svg';
 
 type TableKey = 'nodeId' | 'gatewayId' | 'fee';
 
-interface GatewaysCardProps {
+interface GatewaysTableProps {
   config: ClientConfig | undefined;
 }
 
-export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
+export const GatewaysTable: React.FC<GatewaysTableProps> = ({ config }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { api } = useAdminContext();
@@ -106,34 +103,21 @@ export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
     [gateways, t, theme]
   );
 
-  return (
-    <Card>
-      <CardHeader>
-        <Text size='lg' fontWeight='600'>
-          {t('federation-dashboard.gateways.label')}
-        </Text>
-      </CardHeader>
-      <CardBody>
-        {gateways.length === 0 ? (
-          <Flex justifyContent='center'>
-            <Alert status='info'>
-              <AlertIcon as={InfoIcon} />
-              <Box>
-                <AlertTitle>
-                  {t('federation-dashboard.gateways.no-gateways-info-title')}
-                </AlertTitle>
-                <AlertDescription>
-                  {t(
-                    'federation-dashboard.gateways.no-gateways-info-description'
-                  )}
-                </AlertDescription>
-              </Box>
-            </Alert>
-          </Flex>
-        ) : (
-          <Table columns={columns} rows={rows} />
-        )}
-      </CardBody>
-    </Card>
+  return gateways.length === 0 ? (
+    <Flex justifyContent='center'>
+      <Alert status='info'>
+        <AlertIcon as={InfoIcon} />
+        <Box>
+          <AlertTitle>
+            {t('federation-dashboard.gateways.no-gateways-info-title')}
+          </AlertTitle>
+          <AlertDescription>
+            {t('federation-dashboard.gateways.no-gateways-info-description')}
+          </AlertDescription>
+        </Box>
+      </Alert>
+    </Flex>
+  ) : (
+    <Table columns={columns} rows={rows} />
   );
 };

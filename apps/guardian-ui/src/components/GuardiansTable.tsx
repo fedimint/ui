@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
 import {
   ClientConfig,
   PeerConnectionStatus,
@@ -15,7 +14,7 @@ interface Props {
   config: ClientConfig | undefined;
 }
 
-export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
+export const GuardiansTable: React.FC<Props> = ({ status, config }) => {
   const { t } = useTranslation();
 
   const columns: TableColumn<TableKey>[] = useMemo(
@@ -86,16 +85,5 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
     return null;
   }
 
-  return (
-    <Card flex='1'>
-      <CardHeader>
-        <Text size='lg' fontWeight='600'>
-          {t('federation-dashboard.guardians.label')}
-        </Text>
-      </CardHeader>
-      <CardBody>
-        <Table columns={columns} rows={rows} />
-      </CardBody>
-    </Card>
-  );
+  return <Table columns={columns} rows={rows} />;
 };

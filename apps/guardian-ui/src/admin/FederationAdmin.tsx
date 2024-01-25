@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Box, Heading, Skeleton } from '@chakra-ui/react';
+import { Box, Flex, Heading, Skeleton } from '@chakra-ui/react';
 import {
   ClientConfig,
   ModulesConfigResponse,
   StatusResponse,
 } from '@fedimint/types';
 import { useAdminContext } from '../hooks';
-import { GatewaysCard } from '../components/GatewaysCard';
-import { GuardiansCard } from '../components/GuardiansCard';
-import { FederationInfoCard } from '../components/FederationInfoCard';
-import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
-import { BalanceCard } from '../components/BalanceCard';
+import { TabsCard } from '../components/TabsCard';
 import { InviteCode } from '../components/InviteCode';
 
 export const FederationAdmin: React.FC = () => {
@@ -46,19 +42,11 @@ export const FederationAdmin: React.FC = () => {
           </Heading>
           <InviteCode inviteCode={inviteCode} />
         </Box>
-        <Flex
-          gap={6}
-          alignItems='flex-start'
-          flexDir={{ base: 'column', sm: 'column', md: 'row' }}
-        >
-          <FederationInfoCard status={status} config={config} />
-          <Flex w='100%' direction='column' gap={5}>
-            <BalanceCard />
-            <BitcoinNodeCard modulesConfigs={modulesConfigs} />
-          </Flex>
-        </Flex>
-        <GuardiansCard status={status} config={config} />
-        <GatewaysCard config={config} />
+        <TabsCard
+          status={status}
+          config={config}
+          modulesConfigs={modulesConfigs}
+        />
       </Flex>
     </Flex>
   );
