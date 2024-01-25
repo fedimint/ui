@@ -16,8 +16,8 @@ import {
 import { ClientConfig, Gateway, ModuleKind } from '@fedimint/types';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation, formatEllipsized } from '@fedimint/utils';
+import { ModuleRpc } from '../types';
 import { useAdminContext } from '../hooks';
-import { LightningModuleRpc } from '../GuardianApi';
 import { ReactComponent as InfoIcon } from '../assets/svgs/info.svg';
 
 type TableKey = 'nodeId' | 'gatewayId' | 'fee';
@@ -44,7 +44,7 @@ export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
     api
       .moduleApiCall<{ info: Gateway }[]>(
         Number(lnModuleId),
-        LightningModuleRpc.listGateways
+        ModuleRpc.listGateways
       )
       .then((gateways) => setGateways(gateways.map((g) => g.info)))
       .catch(console.error);
