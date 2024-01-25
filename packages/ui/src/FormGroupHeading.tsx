@@ -26,12 +26,11 @@ export const FormGroupHeading: React.FC<Props> = ({
   return (
     <Button
       mb={3}
+      variant='ghost'
+      bg={theme.colors.gray[100]}
       color={theme.colors.white[100]}
       p={2}
       borderRadius={8}
-      w='100%'
-      tabIndex={0}
-      role='button'
       onClick={onClick}
       cursor='pointer'
     >
