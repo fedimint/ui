@@ -44,6 +44,7 @@ function makeInitialState(loadFromStorage = true): SetupState {
     numPeers: 0,
     peers: [],
     ourCurrentId: null,
+    canRestart: false,
     ...storageState,
   };
 
@@ -82,6 +83,8 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
       return { ...state, peers: action.payload };
     case SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID:
       return { ...state, ourCurrentId: action.payload };
+    case SETUP_ACTION_TYPE.SET_CAN_RESTART:
+      return { ...state, canRestart: action.payload };
     default:
       return state;
   }
@@ -218,13 +221,21 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   // Fetch consensus state, dispatch updates with it.
   const fetchConsensusState = useCallback(async () => {
     const consensusState = await api.getConsensusConfigGenParams();
+    const peers = Object.values(consensusState.consensus.peers);
+
+    if (peers.some((peer) => peer.status === ServerStatus.ConsensusRunning)) {
+      dispatch({
+        type: SETUP_ACTION_TYPE.SET_CAN_RESTART,
+        payload: false,
+      });
+    }
     dispatch({
       type: SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID,
       payload: consensusState.our_current_id,
     });
     dispatch({
       type: SETUP_ACTION_TYPE.SET_PEERS,
-      payload: Object.values(consensusState.consensus.peers),
+      payload: peers,
     });
     dispatch({
       type: SETUP_ACTION_TYPE.SET_CONFIG_GEN_PARAMS,

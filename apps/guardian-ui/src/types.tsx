@@ -68,6 +68,7 @@ export interface SetupState {
   configGenParams: ConfigGenParams | null;
   numPeers: number;
   peers: Peer[];
+  canRestart: boolean;
 }
 
 export enum SETUP_ACTION_TYPE {
@@ -81,6 +82,7 @@ export enum SETUP_ACTION_TYPE {
   SET_PEERS = 'SET_PEERS',
   SET_IS_SETUP_COMPLETE = 'SET_IS_SETUP_COMPLETE',
   SET_OUR_CURRENT_ID = 'SET_OUR_CURRENT_ID',
+  SET_CAN_RESTART = 'SET_CAN_RESTART',
 }
 
 export type SetupAction =
@@ -123,6 +125,10 @@ export type SetupAction =
   | {
       type: SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID;
       payload: number;
+    }
+  | {
+      type: SETUP_ACTION_TYPE.SET_CAN_RESTART;
+      payload: boolean;
     };
 
 // Setup RPC methods (only exist during setup)

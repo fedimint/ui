@@ -43,7 +43,7 @@ const PROGRESS_ORDER: SetupProgress[] = [
 export const FederationSetup: React.FC = () => {
   const { t } = useTranslation();
   const {
-    state: { progress, role, peers },
+    state: { progress, role, peers, canRestart },
     dispatch,
     api,
   } = useSetupContext();
@@ -85,7 +85,6 @@ export const FederationSetup: React.FC = () => {
   let title: React.ReactNode;
   let subtitle: React.ReactNode;
   let canGoBack = false;
-  let canRestart = false;
   let content: React.ReactNode;
 
   switch (progress) {
@@ -120,19 +119,20 @@ export const FederationSetup: React.FC = () => {
         : t('setup.progress.connect-guardians.subtitle-follower');
       content = <ConnectGuardians next={handleNext} />;
       canGoBack = true;
-      canRestart = true;
+      dispatch({
+        type: SETUP_ACTION_TYPE.SET_CAN_RESTART,
+        payload: true,
+      });
       break;
     case SetupProgress.RunDKG:
       title = t('setup.progress.run-dkg.title');
       subtitle = t('setup.progress.run-dkg.subtitle');
       content = <RunDKG next={handleNext} />;
-      canRestart = true;
       break;
     case SetupProgress.VerifyGuardians:
       title = t('setup.progress.verify-guardians.title');
       subtitle = t('setup.progress.verify-guardians.subtitle');
       content = <VerifyGuardians next={handleNext} />;
-      canRestart = true;
       break;
     case SetupProgress.SetupComplete:
       content = <SetupComplete />;
