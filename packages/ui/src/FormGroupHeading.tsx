@@ -1,10 +1,18 @@
 import React from 'react';
-import { Flex, Icon, Heading, Spacer, useTheme } from '@chakra-ui/react';
+import {
+  Flex,
+  Icon,
+  Heading,
+  Spacer,
+  useTheme,
+  Button,
+} from '@chakra-ui/react';
 
 interface Props {
   icon?: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
   title: React.ReactNode;
   onClick?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
   chevronIcon?: string;
 }
 
@@ -16,15 +24,15 @@ export const FormGroupHeading: React.FC<Props> = ({
 }) => {
   const theme = useTheme();
   return (
-    <Flex
-      align='center'
-      justify='start'
+    <Button
       mb={3}
+      variant='ghost'
       bg={theme.colors.gray[100]}
+      color={theme.colors.gray[700]}
       p={2}
       borderRadius={8}
-      w='100%'
       onClick={onClick}
+      cursor='pointer'
     >
       {icon && <Icon width='20px' height='20px' mr={2} as={icon} />}
       <Heading fontSize='md' lineHeight='20px' fontWeight='700'>
@@ -32,6 +40,6 @@ export const FormGroupHeading: React.FC<Props> = ({
       </Heading>
       <Spacer />
       {chevronIcon}
-    </Flex>
+    </Button>
   );
 };
