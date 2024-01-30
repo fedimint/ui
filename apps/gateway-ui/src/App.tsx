@@ -31,6 +31,7 @@ export const App = React.memo(function Admin(): JSX.Element {
     route_hints: [],
     version_hash: '',
   });
+  const [federationId, setFederationId] = useState<string | null>(null);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -58,6 +59,11 @@ export const App = React.memo(function Admin(): JSX.Element {
           .fetchInfo()
           .then((gatewayInfo) => {
             setGatewayInfo(gatewayInfo);
+            setFederationId(
+              federationId
+                ? federationId
+                : gatewayInfo.federations[0].federation_id
+            );
           })
           .catch(({ message, error }) => {
             console.error(error);
@@ -70,7 +76,7 @@ export const App = React.memo(function Admin(): JSX.Element {
       const interval = setInterval(fetchInfo, 5000);
       return () => clearInterval(interval);
     }
-  }, [gateway, authenticated]);
+  }, [gateway, authenticated, federationId]);
 
   const content = useMemo(() => {
     if (loading) {
@@ -138,20 +144,33 @@ export const App = React.memo(function Admin(): JSX.Element {
           </>
         )}
         <Flex direction='column' gap={8}>
-          {gatewayInfo.federations.map((federation: Federation) => {
-            return (
-              <FederationCard
-                key={federation.federation_id}
-                federation={federation}
-                network={gatewayInfo.network}
-                lightning_pub_key={gatewayInfo.lightning_pub_key}
-              />
-            );
-          })}
+          {federationId && (
+            <FederationCard
+              key={federationId}
+              federation={
+                gatewayInfo.federations.find(
+                  (fed) => fed.federation_id === federationId
+                ) as Federation
+              }
+              setFederationId={setFederationId}
+              federations={gatewayInfo.federations}
+              network={gatewayInfo.network}
+              lightning_pub_key={gatewayInfo.lightning_pub_key}
+            />
+          )}
         </Flex>
       </Box>
     );
-  }, [gateway, loading, authenticated, error, gatewayInfo, theme, t]);
+  }, [
+    gateway,
+    loading,
+    authenticated,
+    error,
+    gatewayInfo,
+    theme,
+    t,
+    federationId,
+  ]);
 
   return (
     <ApiProvider props={{ gateway }}>

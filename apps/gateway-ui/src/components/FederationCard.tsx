@@ -6,12 +6,16 @@ import { useTranslation } from '@fedimint/utils';
 
 interface FederationCardProps {
   federation: Federation;
+  setFederationId: (federation: string) => void;
+  federations: Federation[];
   network?: Network;
   lightning_pub_key: string;
 }
 
 export const FederationCard: React.FC<FederationCardProps> = ({
   federation,
+  setFederationId,
+  federations,
   network,
   lightning_pub_key,
 }) => {
@@ -36,6 +40,8 @@ export const FederationCard: React.FC<FederationCardProps> = ({
           <BalanceCard
             balance_msat={balance_msat}
             federationId={federation_id}
+            setFederationId={setFederationId}
+            federations={federations}
           />
           <InfoCard nodeId={lightning_pub_key} network={network} />
         </Flex>

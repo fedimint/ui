@@ -12,13 +12,17 @@ import {
   ModalOverlay,
   Text,
   Flex,
+  Select,
 } from '@chakra-ui/react';
 import { ApiContext } from '../ApiProvider';
 import { useTranslation } from '@fedimint/utils';
+import { Federation } from '@fedimint/types';
 
 export interface FedNameCardProps {
   title: string;
   federationId: string;
+  setFederationId: (federationId: string) => void;
+  federations: Federation[];
   balanceMsat?: number;
   children: React.ReactNode;
 }
@@ -26,6 +30,8 @@ export interface FedNameCardProps {
 export const FedNameCard = React.memo(function FedNameCard({
   title,
   federationId,
+  setFederationId,
+  federations,
   balanceMsat,
   children,
 }: FedNameCardProps) {
@@ -65,9 +71,23 @@ export const FedNameCard = React.memo(function FedNameCard({
         </Text>
         {federationId && (
           <Flex justifyContent='space-between' alignItems='center'>
-            <Text size='xl' fontWeight='600'>
-              {federationId.slice(0, 6) + '...' + federationId.slice(-6)}
-            </Text>
+            <Select
+              maxWidth='75%'
+              fontWeight='600'
+              value={federationId}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setFederationId(e.target.value);
+              }}
+            >
+              {federations.map((fed) => (
+                <option key={fed.federation_id} value={fed.federation_id}>
+                  {fed.federation_id.slice(0, 6) +
+                    '...' +
+                    fed.federation_id.slice(-6)}
+                </option>
+              ))}
+            </Select>
             <Text
               as='span'
               textDecoration='underline'
@@ -79,6 +99,7 @@ export const FedNameCard = React.memo(function FedNameCard({
             </Text>
           </Flex>
         )}
+
         {errorMessage && <Text color='red.500'>{errorMessage}</Text>}
         <Modal
           isOpen={confirmLeaveFed}

@@ -48,6 +48,9 @@
       "name-label": "Nombre",
       "status-label": "Estado de conexión"
     },
+    "config": {
+      "label": "Configuración de la Federación"
+    },
     "invite-members": "Invitar a los miembros",
     "invite-members-prompt": "Comparte esto para invitar a miembros a unirse a la federación."
   },
