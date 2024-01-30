@@ -30,14 +30,12 @@ export class GuardianApi {
     if (this.connectPromise) {
       return await this.connectPromise;
     }
+    const websocketUrl = (await getEnv()).fm_config_api;
+    if (!websocketUrl) {
+      throw new Error('fm_config_api not found in config.json');
+    }
 
     this.connectPromise = new Promise((resolve, reject) => {
-      const websocketUrl = getEnv().FM_CONFIG_API;
-
-      if (!websocketUrl) {
-        throw new Error('REACT_APP_FM_CONFIG_API not set');
-      }
-
       const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
         websocketUrl,

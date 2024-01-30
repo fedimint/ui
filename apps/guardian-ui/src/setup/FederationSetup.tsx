@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -47,8 +47,16 @@ export const FederationSetup: React.FC = () => {
     dispatch,
     api,
   } = useSetupContext();
-  const [needsTosAgreement, setNeedsTosAgreement] = useState(!!getEnv().TOS);
+  const [needsTosAgreement, setNeedsTosAgreement] = useState(true);
   const [confirmRestart, setConfirmRestart] = useState(false);
+
+  useEffect(() => {
+    async function getTos() {
+      const tosPresent = !!(await getEnv()).tos;
+      setNeedsTosAgreement(tosPresent);
+    }
+    getTos();
+  }, []);
 
   const isHost = role === GuardianRole.Host;
   const isSolo = role === GuardianRole.Solo;
