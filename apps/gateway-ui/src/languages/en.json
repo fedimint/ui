@@ -44,7 +44,7 @@
     "transaction-id": "Transaction ID"
   },
   "federation-card": {
-    "default-federation-name": "Your connected federation: ",
+    "default-federation-name": "Federation: ",
     "view-link-on": "View on {{host}}",
     "leave-fed-error": "Cannot leave federation with sats in your balance. Please withdraw your sats first.",
     "leave-fed-modal-title": "Leave Federation",
