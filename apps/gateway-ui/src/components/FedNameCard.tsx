@@ -69,7 +69,7 @@ export const FedNameCard = React.memo(function FedNameCard({
         <Text variant='secondary' size='sm'>
           {title}
         </Text>
-        {federationId && (
+        {federations.length > 1 ? (
           <Flex justifyContent='space-between' alignItems='center'>
             <Select
               maxWidth='75%'
@@ -98,8 +98,22 @@ export const FedNameCard = React.memo(function FedNameCard({
               Leave
             </Text>
           </Flex>
+        ) : (
+          <Flex justifyContent='space-between' alignItems='center'>
+            <Text maxWidth='75%' fontWeight='600'>
+              {federationId.slice(0, 6) + '...' + federationId.slice(-6)}
+            </Text>
+            <Text
+              as='span'
+              textDecoration='underline'
+              colorScheme='red'
+              onClick={handleConfirmLeaveFed}
+              cursor='pointer'
+            >
+              Leave
+            </Text>
+          </Flex>
         )}
-
         {errorMessage && <Text color='red.500'>{errorMessage}</Text>}
         <Modal
           isOpen={confirmLeaveFed}
