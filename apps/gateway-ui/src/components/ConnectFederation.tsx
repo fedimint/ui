@@ -75,9 +75,9 @@ export type ConnectFederationProps = {
   renderConnectedFedCallback: (federation: Federation) => void;
 };
 
-export const ConnectFederation = ({
+export const ConnectFederation = React.memo(function ConnectFederation({
   renderConnectedFedCallback,
-}: ConnectFederationProps) => {
+}: ConnectFederationProps) {
   const { t } = useTranslation();
   const { gateway } = React.useContext(ApiContext);
   const [errorMsg, setErrorMsg] = useState<string>('');
@@ -150,4 +150,4 @@ export const ConnectFederation = ({
       <ConnectFedModal isOpen={loading} onClose={() => !loading} />
     </>
   );
-};
+});

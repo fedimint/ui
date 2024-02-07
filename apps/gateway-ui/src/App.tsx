@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   Box,
+  Button,
   Heading,
   Text,
   Flex,
   useTheme,
   CircularProgress,
   CircularProgressLabel,
+  Collapse,
 } from '@chakra-ui/react';
 import { GatewayInfo, Federation } from '@fedimint/types';
 import { FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
-import { Wrapper, Login } from '@fedimint/ui';
+import { Wrapper, Login, HeaderProps } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 
 export const App = React.memo(function Admin(): JSX.Element {
@@ -34,6 +36,7 @@ export const App = React.memo(function Admin(): JSX.Element {
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
+  const [showConnectFed, setShowConnectFed] = useState(false);
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -125,14 +128,27 @@ export const App = React.memo(function Admin(): JSX.Element {
 
     return (
       <Box>
-        <ConnectFederation
-          renderConnectedFedCallback={(federation: Federation) => {
-            setGatewayInfo({
-              ...gatewayInfo,
-              federations: [...gatewayInfo.federations, federation],
-            });
-          }}
-        />
+        <Heading
+          fontWeight='500'
+          fontSize='24px'
+          size='xs'
+          color={theme.colors.gray[900]}
+          fontFamily={theme.fonts.heading}
+          mb={8}
+        >
+          {t('header.title')}
+        </Heading>
+        <Collapse in={showConnectFed}>
+          <ConnectFederation
+            renderConnectedFedCallback={(federation: Federation) => {
+              setGatewayInfo({
+                ...gatewayInfo,
+                federations: [...gatewayInfo.federations, federation],
+              });
+              setShowConnectFed(false);
+            }}
+          />
+        </Collapse>
         <Flex flexDirection={'column'} gap={8}>
           {gatewayInfo.federations.map((federation: Federation) => {
             return (
@@ -147,11 +163,32 @@ export const App = React.memo(function Admin(): JSX.Element {
         </Flex>
       </Box>
     );
-  }, [gateway, loading, authenticated, error, gatewayInfo, theme, t]);
+  }, [
+    gateway,
+    loading,
+    authenticated,
+    showConnectFed,
+    error,
+    gatewayInfo,
+    theme,
+    t,
+  ]);
+
+  const headerProps = useMemo((): HeaderProps => {
+    return {
+      endChildrenSlot: (
+        <Button onClick={() => setShowConnectFed(!showConnectFed)}>
+          {t('connect-federation.connect-federation-button')}
+        </Button>
+      ),
+    };
+  }, [showConnectFed, t]);
 
   return (
     <ApiProvider props={{ gateway }}>
-      <Wrapper size='lg'>{content}</Wrapper>
+      <Wrapper size='lg' headerProps={headerProps}>
+        {content}
+      </Wrapper>
     </ApiProvider>
   );
 });

@@ -10,3 +10,4 @@ export * from './SharedChakraProvider';
 export * from './Wrapper';
 export * from './Login';
 export * from './NetworkIndicator';
+export * from './Header';
