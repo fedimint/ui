@@ -128,16 +128,26 @@ export const App = React.memo(function Admin(): JSX.Element {
 
     return (
       <Box>
-        <Heading
-          fontWeight='500'
-          fontSize='24px'
-          size='xs'
-          color={theme.colors.gray[900]}
-          fontFamily={theme.fonts.heading}
-          mb={8}
+        <Flex
+          flexFlow={['column', 'row']}
+          justifyContent={['center', 'space-between']}
+          alignItems={['flex-start', 'center']}
+          gap='2'
+          mb='8'
         >
-          {t('header.title')}
-        </Heading>
+          <Heading
+            fontWeight='500'
+            fontSize='24px'
+            size='xs'
+            color={theme.colors.gray[900]}
+            fontFamily={theme.fonts.heading}
+          >
+            {t('header.title')}
+          </Heading>
+          <Button onClick={() => setShowConnectFed(!showConnectFed)}>
+            {t('connect-federation.connect-federation-button')}
+          </Button>
+        </Flex>
         <Collapse in={showConnectFed}>
           <ConnectFederation
             renderConnectedFedCallback={(federation: Federation) => {
@@ -174,21 +184,9 @@ export const App = React.memo(function Admin(): JSX.Element {
     t,
   ]);
 
-  const headerProps = useMemo((): HeaderProps => {
-    return {
-      endChildrenSlot: (
-        <Button onClick={() => setShowConnectFed(!showConnectFed)}>
-          {t('connect-federation.connect-federation-button')}
-        </Button>
-      ),
-    };
-  }, [showConnectFed, t]);
-
   return (
     <ApiProvider props={{ gateway }}>
-      <Wrapper size='lg' headerProps={headerProps}>
-        {content}
-      </Wrapper>
+      <Wrapper size='lg'>{content}</Wrapper>
     </ApiProvider>
   );
 });
