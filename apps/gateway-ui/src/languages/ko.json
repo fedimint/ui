@@ -18,7 +18,7 @@
   },
   "connect-federation": {
     "connect": "연결하기 🚀",
-    "connect-federation-button": "페더레이션 연결",
+    "connect-federation-button": "연합 추가",
     "connection-string-placeholder": "연합 연결 문자열을 입력하세요",
     "heading": "초대 코드를 사용하여 페더레이션에 연결",
     "information-bar-text": "연결할 수 있는 연방 수는 하나로 제한됩니다. 여러 페더레이션에 연결하는 기능이 곧 지원될 예정입니다.",
@@ -37,7 +37,7 @@
     "transaction-id": "거래 ID"
   },
   "federation-card": {
-    "default-federation-name": "귀하의 연맹",
+    "default-federation-name": "연맹",
     "leave-fed-error": "잔액에 sats가 있는 상태에서 연맹을 떠날 수 없습니다. 먼저 sats를 인출해 주세요.",
     "leave-fed-modal-title": "연맹 떠나기",
     "leave-fed-modal-text": "연결을 끊으시겠습니까"

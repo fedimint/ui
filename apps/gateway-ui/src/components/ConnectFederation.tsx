@@ -18,8 +18,6 @@ import {
 import { Federation } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { ApiContext } from '../ApiProvider';
-import { InformationBar } from './InformationBar';
-import { ReactComponent as InfoSolidIcon } from '../assets/svgs/info-solid.svg';
 
 export interface ConnectFedModalProps {
   isOpen: boolean;
@@ -77,9 +75,9 @@ export type ConnectFederationProps = {
   renderConnectedFedCallback: (federation: Federation) => void;
 };
 
-export const ConnectFederation = ({
+export const ConnectFederation = React.memo(function ConnectFederation({
   renderConnectedFedCallback,
-}: ConnectFederationProps) => {
+}: ConnectFederationProps) {
   const { t } = useTranslation();
   const { gateway } = React.useContext(ApiContext);
   const [errorMsg, setErrorMsg] = useState<string>('');
@@ -124,18 +122,6 @@ export const ConnectFederation = ({
             {t('connect-federation.sub-heading')}
           </Text>
         </Box>
-        <InformationBar
-          icon={<InfoSolidIcon color={theme.colors.blue[600]} />}
-          backgroundColor={theme.colors.blue[50]}
-        >
-          <Text
-            fontSize='sm'
-            fontWeight='medium'
-            color={theme.colors.blue[600]}
-          >
-            {t('connect-federation.information-bar-text')}
-          </Text>
-        </InformationBar>
         <Textarea
           placeholder={t('connect-federation.connection-string-placeholder')}
           _placeholder={{
@@ -143,8 +129,7 @@ export const ConnectFederation = ({
             color: `${theme.colors.gray[500]}`,
             fontFamily: `${theme.fonts.body}`,
           }}
-          h='120px'
-          maxW='460px'
+          h='60px'
           p='14px'
           boxShadow={theme.shadows.xs}
           border={`1px solid ${theme.colors.gray[300]}`}
@@ -165,4 +150,4 @@ export const ConnectFederation = ({
       <ConnectFedModal isOpen={loading} onClose={() => !loading} />
     </>
   );
-};
+});

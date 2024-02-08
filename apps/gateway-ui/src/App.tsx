@@ -1,18 +1,26 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   Box,
+  Button,
   Heading,
   Text,
   Flex,
   useTheme,
   CircularProgress,
   CircularProgressLabel,
+  Collapse,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
 } from '@chakra-ui/react';
 import { GatewayInfo, Federation } from '@fedimint/types';
 import { FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
-import { Wrapper, Login } from '@fedimint/ui';
+import { Wrapper, Login, HeaderProps } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 
 export const App = React.memo(function Admin(): JSX.Element {
@@ -34,6 +42,7 @@ export const App = React.memo(function Admin(): JSX.Element {
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
+  const [showConnectFed, setShowConnectFed] = useState(false);
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -125,19 +134,45 @@ export const App = React.memo(function Admin(): JSX.Element {
 
     return (
       <Box>
-        {gatewayInfo.federations.length === 0 && (
-          <>
-            <ConnectFederation
-              renderConnectedFedCallback={(federation: Federation) => {
-                setGatewayInfo({
-                  ...gatewayInfo,
-                  federations: [...gatewayInfo.federations, federation],
-                });
-              }}
-            />
-          </>
-        )}
-        <Flex direction='column' gap={8}>
+        <Flex
+          flexFlow={['column', 'row']}
+          justifyContent={['center', 'space-between']}
+          alignItems={['flex-start', 'center']}
+          gap='2'
+          mb='8'
+        >
+          <Heading
+            fontWeight='500'
+            fontSize='24px'
+            size='xs'
+            color={theme.colors.gray[900]}
+            fontFamily={theme.fonts.heading}
+          >
+            {t('header.title')}
+          </Heading>
+          <Button onClick={() => setShowConnectFed(!showConnectFed)}>
+            {t('connect-federation.connect-federation-button')}
+          </Button>
+        </Flex>
+        <Modal isOpen={showConnectFed} onClose={() => setShowConnectFed(false)}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalCloseButton />
+            <br />
+            <ModalBody>
+              <ConnectFederation
+                renderConnectedFedCallback={(federation: Federation) => {
+                  setGatewayInfo({
+                    ...gatewayInfo,
+                    federations: [...gatewayInfo.federations, federation],
+                  });
+                  setShowConnectFed(false);
+                }}
+              />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+        <Flex flexDirection={'column'} gap={8}>
           {gatewayInfo.federations.map((federation: Federation) => {
             return (
               <FederationCard
@@ -151,7 +186,16 @@ export const App = React.memo(function Admin(): JSX.Element {
         </Flex>
       </Box>
     );
-  }, [gateway, loading, authenticated, error, gatewayInfo, theme, t]);
+  }, [
+    gateway,
+    loading,
+    authenticated,
+    showConnectFed,
+    error,
+    gatewayInfo,
+    theme,
+    t,
+  ]);
 
   return (
     <ApiProvider props={{ gateway }}>

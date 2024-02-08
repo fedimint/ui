@@ -1,9 +1,7 @@
 export { GatewayCard } from './GatewayCard';
 export { WithdrawCard } from './WithdrawCard';
 export { FederationCard } from './FederationCard';
-export { Header } from './Header';
 export { ConnectFederation } from './ConnectFederation';
-export { TabHeader } from './TabHeader';
 export { InfoCard } from './InfoCard';
 export { DepositCard } from './DepositCard';
 export { BalanceCard } from './BalanceCard';

@@ -18,7 +18,7 @@
   },
   "connect-federation": {
     "connect": "Conectar 🚀",
-    "connect-federation-button": "Conectar Federación",
+    "connect-federation-button": "Añadir Federación",
     "connection-string-placeholder": "Ingrese la cadena de conexión de la federación",
     "heading": "Conéctese a una federación usando un código de invitación",
     "information-bar-text": "La cantidad de federaciones a las que puede conectarse está limitada a una. Pronto se admitirá la conexión a varias federaciones.",
@@ -37,7 +37,7 @@
     "transaction-id": "ID de transacción"
   },
   "federation-card": {
-    "default-federation-name": "Tu federación",
+    "default-federation-name": "Federación",
     "leave-fed-error": "No puede abandonar la federación con sats en su saldo. Por favor, retire sus sats primero.",
     "leave-fed-modal-title": "Abandonar Federación",
     "leave-fed-modal-text": "¿Está seguro de que desea desconectarse de"

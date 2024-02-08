@@ -1,5 +1,12 @@
 import React from 'react';
-import { Flex, Stack, useTheme, Heading } from '@chakra-ui/react';
+import {
+  Flex,
+  Stack,
+  useTheme,
+  Heading,
+  Card,
+  CardBody,
+} from '@chakra-ui/react';
 import { Network, Federation } from '@fedimint/types';
 import { InfoCard, DepositCard, BalanceCard, WithdrawCard } from '.';
 import { useTranslation } from '@fedimint/utils';
@@ -21,24 +28,16 @@ export const FederationCard: React.FC<FederationCardProps> = ({
   const { t } = useTranslation();
 
   return (
-    <>
-      <Stack spacing='24px'>
-        <Heading
-          fontWeight='500'
-          fontSize='24px'
-          size='xs'
-          color={theme.colors.gray[900]}
-          fontFamily={theme.fonts.heading}
-        >
-          {t('header.title')}
-        </Heading>
+    <Card w='100%' maxWidth='100%'>
+      <CardBody>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <BalanceCard
-            balance_msat={balance_msat}
+            balanceMsat={balance_msat}
             federationId={federation_id}
           />
           <InfoCard nodeId={lightning_pub_key} network={network} />
         </Flex>
+        <br />
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <DepositCard federationId={federation_id} network={network} />
           <WithdrawCard
@@ -46,7 +45,7 @@ export const FederationCard: React.FC<FederationCardProps> = ({
             balanceMsat={balance_msat}
           />
         </Flex>
-      </Stack>
-    </>
+      </CardBody>
+    </Card>
   );
 };

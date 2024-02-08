@@ -25,7 +25,7 @@
   },
   "connect-federation": {
     "connect": "Connect 🚀",
-    "connect-federation-button": "Connect Federation",
+    "connect-federation-button": "Add Federation",
     "connection-string-placeholder": "Paste federation invite code",
     "heading": "Connect to a federation using an invite code",
     "information-bar-text": "The number of federations you can connect to is limited to one. Connecting to multiple federations will be supported soon.",
@@ -44,7 +44,7 @@
     "transaction-id": "Transaction ID"
   },
   "federation-card": {
-    "default-federation-name": "Your connected federation: ",
+    "default-federation-name": "Federation: ",
     "view-link-on": "View on {{host}}",
     "leave-fed-error": "Cannot leave federation with sats in your balance. Please withdraw your sats first.",
     "leave-fed-modal-title": "Leave Federation",
