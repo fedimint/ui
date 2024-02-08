@@ -97,6 +97,9 @@ Replace `-p 3000:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` wi
 
 ## Development
 
+The development password for the gateway is `thereisnosecondbest`.
+The development password for the guardians when using the `nix-gateway` or `mprocs` development environments is `pass`.
+
 ### Option 1 - Running with Nix (preferred)
 
 1. Install Nix
