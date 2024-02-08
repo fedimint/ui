@@ -9,6 +9,12 @@ import {
   CircularProgress,
   CircularProgressLabel,
   Collapse,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
 } from '@chakra-ui/react';
 import { GatewayInfo, Federation } from '@fedimint/types';
 import { FederationCard, ConnectFederation } from './components';
@@ -148,17 +154,24 @@ export const App = React.memo(function Admin(): JSX.Element {
             {t('connect-federation.connect-federation-button')}
           </Button>
         </Flex>
-        <Collapse in={showConnectFed}>
-          <ConnectFederation
-            renderConnectedFedCallback={(federation: Federation) => {
-              setGatewayInfo({
-                ...gatewayInfo,
-                federations: [...gatewayInfo.federations, federation],
-              });
-              setShowConnectFed(false);
-            }}
-          />
-        </Collapse>
+        <Modal isOpen={showConnectFed} onClose={() => setShowConnectFed(false)}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalCloseButton />
+            <br />
+            <ModalBody>
+              <ConnectFederation
+                renderConnectedFedCallback={(federation: Federation) => {
+                  setGatewayInfo({
+                    ...gatewayInfo,
+                    federations: [...gatewayInfo.federations, federation],
+                  });
+                  setShowConnectFed(false);
+                }}
+              />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
         <Flex flexDirection={'column'} gap={8}>
           {gatewayInfo.federations.map((federation: Federation) => {
             return (

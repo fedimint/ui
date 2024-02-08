@@ -25,7 +25,7 @@
   },
   "connect-federation": {
     "connect": "Connect 🚀",
-    "connect-federation-button": "Connect Federation",
+    "connect-federation-button": "Add Federation",
     "connection-string-placeholder": "Paste federation invite code",
     "heading": "Connect to a federation using an invite code",
     "information-bar-text": "The number of federations you can connect to is limited to one. Connecting to multiple federations will be supported soon.",

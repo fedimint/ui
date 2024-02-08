@@ -18,7 +18,7 @@
   },
   "connect-federation": {
     "connect": "연결하기 🚀",
-    "connect-federation-button": "페더레이션 연결",
+    "connect-federation-button": "연합 추가",
     "connection-string-placeholder": "연합 연결 문자열을 입력하세요",
     "heading": "초대 코드를 사용하여 페더레이션에 연결",
     "information-bar-text": "연결할 수 있는 연방 수는 하나로 제한됩니다. 여러 페더레이션에 연결하는 기능이 곧 지원될 예정입니다.",
