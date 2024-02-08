@@ -6,12 +6,9 @@ const SESSION_STORAGE_KEY = 'gateway-ui-key';
 export class GatewayApi {
   private baseUrl: string | undefined = process.env.REACT_APP_FM_GATEWAY_API;
 
-  // Tests a provided password, or the one in the environment config, or the one in session storage
+  // Tests a provided password or the one in session storage
   testPassword = async (password?: string): Promise<boolean> => {
-    const tempPassword =
-      password ||
-      this.getPassword() ||
-      process.env.REACT_APP_FM_GATEWAY_PASSWORD;
+    const tempPassword = password || this.getPassword();
 
     if (!tempPassword) {
       return false;
