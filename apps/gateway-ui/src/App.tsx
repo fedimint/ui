@@ -8,11 +8,9 @@ import {
   useTheme,
   CircularProgress,
   CircularProgressLabel,
-  Collapse,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalCloseButton,
   ModalBody,
 } from '@chakra-ui/react';
@@ -20,7 +18,7 @@ import { GatewayInfo, Federation } from '@fedimint/types';
 import { FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
-import { Wrapper, Login, HeaderProps } from '@fedimint/ui';
+import { Wrapper, Login } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 
 export const App = React.memo(function Admin(): JSX.Element {
