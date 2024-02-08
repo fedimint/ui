@@ -37,6 +37,7 @@ export const FederationCard: React.FC<FederationCardProps> = ({
           />
           <InfoCard nodeId={lightning_pub_key} network={network} />
         </Flex>
+        <br />
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <DepositCard federationId={federation_id} network={network} />
           <WithdrawCard
