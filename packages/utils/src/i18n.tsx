@@ -16,9 +16,15 @@ export const i18nProvider = (namespace: Language[]) => {
     {}
   );
 
-  i18n.use(LanguageDetector).use(initReactI18next).init({
-    debug: true,
-    resources,
-    fallbackLng: 'en-US',
-  });
+  i18n
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+      debug: true,
+      resources,
+      fallbackLng: 'en-US',
+      detection: {
+        caches: [],
+      },
+    });
 };
