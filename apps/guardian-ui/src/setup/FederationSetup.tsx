@@ -47,13 +47,13 @@ export const FederationSetup: React.FC = () => {
     dispatch,
     api,
   } = useSetupContext();
-  const [needsTosAgreement, setNeedsTosAgreement] = useState(true);
+  const [showTosAgreement, setShowTosAgreement] = useState(false);
   const [confirmRestart, setConfirmRestart] = useState(false);
 
   useEffect(() => {
     async function getTos() {
       const tosPresent = !!(await getEnv()).tos;
-      setNeedsTosAgreement(tosPresent);
+      setShowTosAgreement(tosPresent);
     }
     getTos();
   }, []);
@@ -98,9 +98,9 @@ export const FederationSetup: React.FC = () => {
 
   switch (progress) {
     case SetupProgress.Start:
-      if (needsTosAgreement) {
+      if (showTosAgreement) {
         title = t('setup.progress.tos.title');
-        content = <TermsOfService next={() => setNeedsTosAgreement(false)} />;
+        content = <TermsOfService next={() => setShowTosAgreement(false)} />;
       } else {
         title = t('setup.progress.start.title');
         subtitle = t('setup.progress.start.subtitle');
