@@ -4,7 +4,8 @@
     "bitcoin": "bitcóin",
     "error": "Algo salió mal.",
     "next": "Siguiente",
-    "unknown": "Desconocido"
+    "unknown": "Desconocido",
+    "remove": "Eliminar"
   },
   "connect-guardians": {
     "approve": "Aprobar",
@@ -14,7 +15,8 @@
     "not-joined": "No unido",
     "pending": "Pendiente",
     "table-description": "Los guardianes se confirmarán aquí una vez que confirmen la configuración de la Federación.",
-    "table-title": "Guardianes de la Federación"
+    "table-title": "Guardianes de la Federación",
+    "meta-field-key": "Campo meta: {{clave}}"
   },
   "federation-dashboard": {
     "balance": {
@@ -37,7 +39,9 @@
       "gateway-id-label": "ID de puerta de enlace",
       "label": "Puertas de enlace relámpago",
       "node-id-label": "ID de nodo",
-      "view-on-site": "Ver en {{site}}"
+      "view-on-site": "Ver en {{site}}",
+      "no-gateways-info-title": "¡Aún no hay puertas de enlace conectadas!",
+      "no-gateways-info-description": "Los operadores de nodos Lightning pueden conectarse a su federación para proporcionar interoperabilidad de Lightning Network. Una vez conectados, aparecerán aquí."
     },
     "guardians": {
       "health-good": "Bien",
@@ -81,6 +85,10 @@
     "follower": {
       "label": "Seguidor",
       "description": "Una vez que un Líder de Configuración establece las configuraciones, otros Guardianes eligen esta opción para aprobar los ajustes y crear la Federación."
+    },
+    "solo": {
+      "label": "Solo",
+      "description": "Opere Fedimint como Solo Guardian sin consenso, tolerancia a fallas, copias de seguridad federadas u otros beneficios de resiliencia de Fedimint. Proceda con precaución, no está destinado a uso en producción."
     }
   },
   "run-dkg": {
@@ -114,12 +122,20 @@
     "join-federation": "Enlace de unión a la Federación",
     "join-federation-help": "Pide el enlace a la persona que creó la Federación y pégalo aquí.",
     "select-network": "Selecciona una red",
-    "set-rpc-help": "Dirección RPC de Bitcoin configurada localmente"
+    "set-rpc-help": "Dirección RPC de Bitcoin configurada localmente",
+    "block-confirmations-warning": "¡Ejecutar Fedimint con menos de 6 confirmaciones de bloques es extremadamente arriesgado!",
+    "meta-fields": "Metacampos",
+    "meta-fields-description": "Configuración adicional enviada a clientes fedimint. Consulte la <docs>documentación</docs> para obtener más información.",
+    "meta-fields-key": "Meta clave",
+    "meta-fields-value": "Valor",
+    "meta-fields-add-another": "Agrega otro"
   },
   "setup": {
     "common": {
       "restart-setup": "Reiniciar configuración",
-      "restart-setup-alert": "Un par ha solicitado reiniciar el proceso de configuración. Esto restablecerá cualquier configuración que ya haya seleccionado para su nodo Fedimint"
+      "restart-setup-alert": "Un par ha solicitado reiniciar el proceso de configuración. Esto restablecerá cualquier configuración que ya haya seleccionado para su nodo Fedimint",
+      "confirm-restart-setup": "¿Está seguro de que desea reiniciar la ceremonia de configuración?",
+      "confirm-restart-setup-alert": "Al hacer clic en \"Reiniciar\" se reiniciará la ceremonia para todos los Guardianes."
     },
     "progress": {
       "connect-guardians": {
@@ -142,7 +158,9 @@
         "step": "Detalles de la federación",
         "subtitle-follower": "El líder de tu Federación configurará los detalles principales de la Federación. Pronto los confirmarás.",
         "subtitle-leader": "Los seguidores de tu Federación confirmarán esta información en su lado.",
-        "title": "Necesitamos establecer algunas configuraciones para su Federación"
+        "title": "Necesitamos establecer algunas configuraciones para su Federación",
+        "title-solo": "Necesitamos establecer algunas configuraciones para su Federación Solo",
+        "subtitle-solo": "Al administrar una Federación en solitario se pierden muchos de los beneficios de Fedimint. No tendrá un consenso de tolerancia a fallas si un tutor está desconectado y no podrá realizar copias de seguridad federadas. Proceda con precaución, no se recomienda para uso en producción o con Bitcoin en la red principal."
       },
       "setup-complete": {
         "step": "¡Hecho!"
@@ -156,6 +174,9 @@
         "step": "Verificar tutores",
         "subtitle": "Pide a cada Guardián su código de verificación y pégalo a continuación para comprobar su validez. ¡Casi hemos terminado!",
         "title": "Verifica tus Guardianes"
+      },
+      "tos": {
+        "title": "Términos de servicio"
       }
     }
   },
@@ -180,5 +201,8 @@
     "verified": "Verificado",
     "verified-placeholder": "Ingresa el código aquí",
     "wait-all-guardians-verification": "Esperando a que todos los guardianes verifiquen sus códigos"
+  },
+  "terms-of-service": {
+    "agree-and-continue": "Aceptar y continuar"
   }
 }

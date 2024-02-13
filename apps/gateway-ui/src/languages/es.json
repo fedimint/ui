@@ -14,7 +14,8 @@
   },
   "balance-card": {
     "card_header": "saldo de efectivo electrónico",
-    "sentence": "Denominado en Sats"
+    "sentence": "Denominado en Sats",
+    "your-balance": "Su saldo de eCash en esta federación:"
   },
   "connect-federation": {
     "connect": "Conectar 🚀",
@@ -40,7 +41,8 @@
     "default-federation-name": "Federación",
     "leave-fed-error": "No puede abandonar la federación con sats en su saldo. Por favor, retire sus sats primero.",
     "leave-fed-modal-title": "Abandonar Federación",
-    "leave-fed-modal-text": "¿Está seguro de que desea desconectarse de"
+    "leave-fed-modal-text": "¿Está seguro de que desea desconectarse de",
+    "view-link-on": "Ver en {{host}}"
   },
   "footer": {
     "blog-link-text": "Blog",
@@ -62,7 +64,8 @@
     "date-created": "Fecha de Creación",
     "descending": "Descendente",
     "filter": "Filtrar",
-    "sort": "Ordenar"
+    "sort": "Ordenar",
+    "title": "Panel de puerta de enlace Lightning"
   },
   "info-card": {
     "card_header": "ID de nodo"
@@ -89,6 +92,14 @@
     "withdrawal-created": "Retiro creado.",
     "withdrawal-created-description": "Por favor verifique su historial de transacciones",
     "withdrawal-history": "Historial de retiros",
-    "your-transaction": "Su ID de transacción:"
+    "your-transaction": "Su ID de transacción:",
+    "transaction-sent": "¡Transacción enviada!",
+    "view-it-on": "Verlo en"
+  },
+  "login": {
+    "title": "¡Bienvenido de nuevo!",
+    "subtitle": "Por favor ingrese su contraseña de puerta de enlace.",
+    "password": "Contraseña",
+    "submit": "Entregar"
   }
 }

@@ -14,7 +14,8 @@
   },
   "balance-card": {
     "card_header": "eCash 잔액",
-    "sentence": "Sats로 표기"
+    "sentence": "Sats로 표기",
+    "your-balance": "이 연합의 eCash 잔액:"
   },
   "connect-federation": {
     "connect": "연결하기 🚀",
@@ -40,7 +41,8 @@
     "default-federation-name": "연맹",
     "leave-fed-error": "잔액에 sats가 있는 상태에서 연맹을 떠날 수 없습니다. 먼저 sats를 인출해 주세요.",
     "leave-fed-modal-title": "연맹 떠나기",
-    "leave-fed-modal-text": "연결을 끊으시겠습니까"
+    "leave-fed-modal-text": "연결을 끊으시겠습니까",
+    "view-link-on": "{{호스트}}에서 보기"
   },
   "footer": {
     "blog-link-text": "블로그",
@@ -62,7 +64,8 @@
     "date-created": "생성일",
     "descending": "내림차순",
     "filter": "필터",
-    "sort": "정렬"
+    "sort": "정렬",
+    "title": "Lightning 게이트웨이 대시보드"
   },
   "info-card": {
     "card_header": "노드 ID"
@@ -89,6 +92,14 @@
     "withdrawal-created": "출금이 생성되었습니다.",
     "withdrawal-created-description": "거래 내역을 확인해주세요",
     "withdrawal-history": "출금 내역",
-    "your-transaction": "귀하의 거래 ID:"
+    "your-transaction": "귀하의 거래 ID:",
+    "transaction-sent": "거래가 전송되었습니다!",
+    "view-it-on": "보기"
+  },
+  "login": {
+    "title": "돌아온 것을 환영합니다!",
+    "subtitle": "게이트웨이 비밀번호를 입력하세요.",
+    "password": "비밀번호",
+    "submit": "제출하다"
   }
 }

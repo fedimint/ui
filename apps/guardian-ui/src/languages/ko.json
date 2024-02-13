@@ -4,7 +4,8 @@
     "bitcoin": "비트코인",
     "error": "문제가 발생했습니다.",
     "next": "다음",
-    "unknown": "알려지지 않은"
+    "unknown": "알려지지 않은",
+    "remove": "제거하다"
   },
   "connect-guardians": {
     "approve": "승인",
@@ -14,7 +15,8 @@
     "not-joined": "참여하지 않음",
     "pending": "대기 중",
     "table-description": "보호자는 페더레이션 설정을 확인하면 여기에서 확인됩니다.",
-    "table-title": "페더레이션 가디언"
+    "table-title": "페더레이션 가디언",
+    "meta-field-key": "메타 필드 - {{key}}"
   },
   "federation-dashboard": {
     "balance": {
@@ -37,7 +39,9 @@
       "gateway-id-label": "게이트웨이 ID",
       "label": "라이트닝 게이트웨이",
       "node-id-label": "노드 ID",
-      "view-on-site": "{{site}}에서 보기"
+      "view-on-site": "{{site}}에서 보기",
+      "no-gateways-info-title": "아직 연결된 게이트웨이가 없습니다.",
+      "no-gateways-info-description": "라이트닝 노드 운영자는 연합에 연결하여 라이트닝 네트워크 상호 운용성을 제공할 수 있습니다. 연결되면 여기에 표시됩니다."
     },
     "guardians": {
       "health-good": "좋은",
@@ -81,6 +85,10 @@
     "leader": {
       "description": "다른 보호자가 승인한 구성 설정을 입력하세요. 한 명의 보호자가 설정 리더 역할을 합니다.",
       "label": "구성 리더"
+    },
+    "solo": {
+      "label": "독주",
+      "description": "합의, 내결함성, 통합 백업 또는 Fedimint의 기타 탄력성 이점 없이 Fedimint를 Solo Guardian으로 운영하십시오. 프로덕션 용도로 사용할 수 없으므로 주의해서 진행하세요."
     }
   },
   "run-dkg": {
@@ -114,12 +122,20 @@
     "join-federation": "연합 가입 링크",
     "join-federation-help": "연합을 생성한 사람에게 링크를 요청하고 여기에 붙여넣으세요.",
     "select-network": "네트워크 선택",
-    "set-rpc-help": "로컬로 구성된 비트코인 RPC 주소"
+    "set-rpc-help": "로컬로 구성된 비트코인 RPC 주소",
+    "block-confirmations-warning": "6개 미만의 블록 확인으로 Fedimint를 실행하는 것은 매우 위험합니다!",
+    "meta-fields": "메타 필드",
+    "meta-fields-description": "Fedimint 클라이언트에 추가 구성이 전송되었습니다. 자세한 내용은 <docs>문서</docs>를 참조하세요.",
+    "meta-fields-key": "메타 키",
+    "meta-fields-value": "값",
+    "meta-fields-add-another": "다른 것을 추가하세요"
   },
   "setup": {
     "common": {
       "restart-setup": "설정 다시 시작",
-      "restart-setup-alert": "피어가 설정 프로세스를 다시 시작하도록 요청했습니다. 이렇게 하면 Fedimint 노드에 대해 이미 선택한 모든 구성이 재설정됩니다"
+      "restart-setup-alert": "피어가 설정 프로세스를 다시 시작하도록 요청했습니다. 이렇게 하면 Fedimint 노드에 대해 이미 선택한 모든 구성이 재설정됩니다",
+      "confirm-restart-setup": "설치 행사를 다시 시작하시겠습니까?",
+      "confirm-restart-setup-alert": "\"다시 시작\"을 클릭하면 모든 수호자의 의식이 다시 시작됩니다."
     },
     "auth": {},
     "progress": {
@@ -143,7 +159,9 @@
         "step": "제휴 세부정보",
         "subtitle-follower": "리더 가디언은 연합의 주요 정보를 설정할 것입니다. 곧 이 정보를 확인하게 됩니다.",
         "subtitle-leader": "팔로워 가디언들은 이 정보를 확인하게 됩니다.",
-        "title": "페더레이션에 대한 몇 가지 구성을 설정해야 합니다"
+        "title": "페더레이션에 대한 몇 가지 구성을 설정해야 합니다",
+        "title-solo": "솔로 페더레이션을 위한 몇 가지 구성을 설정해야 합니다.",
+        "subtitle-solo": "Solo Federation을 운영하면 Fedimint의 많은 이점이 사라집니다. 오프라인 상태인 보호자에 대한 내결함성 합의가 없으며 통합 백업을 수행할 수 없습니다. 주의해서 진행하세요. 프로덕션 용도나 메인넷 비트코인과 함께 사용하는 것은 권장되지 않습니다."
       },
       "setup-complete": {
         "step": "완료!"
@@ -157,6 +175,9 @@
         "step": "보호자 확인",
         "subtitle": "각 가디언으로부터 검증 코드를 요청하고 아래에 붙여넣어 유효성을 확인하세요. 거의 끝났습니다!",
         "title": "가디언 확인"
+      },
+      "tos": {
+        "title": "서비스 약관"
       }
     }
   },
@@ -181,5 +202,8 @@
     "verified": "확인됨",
     "verified-placeholder": "여기에 코드를 입력하세요",
     "wait-all-guardians-verification": "모든 보호자가 코드를 확인하기를 기다리는 중"
+  },
+  "terms-of-service": {
+    "agree-and-continue": "동의하고 계속하세요"
   }
 }
