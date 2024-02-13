@@ -12,14 +12,37 @@ import {
   StatusResponse,
   Versions,
 } from '@fedimint/types';
-import { getEnv } from './utils/env';
 import { AdminRpc, ModuleRpc, SetupRpc, SharedRpc } from './types';
 
 const SESSION_STORAGE_KEY = 'guardian-ui-key';
 
+type GuardianConfig = {
+  fm_config_api?: string;
+  tos?: string;
+};
+
 export class GuardianApi {
   private websocket: JsonRpcWebsocket | null = null;
   private connectPromise: Promise<JsonRpcWebsocket> | null = null;
+  private guardianConfig: GuardianConfig | null = null;
+
+  public getGuardianConfig = async (): Promise<GuardianConfig> => {
+    if (this.guardianConfig === null) {
+      const response = await fetch('config.json');
+      if (!response.ok) {
+        throw new Error('Could not find config.json');
+      }
+      const config: GuardianConfig = await response.json();
+      if (
+        config.fm_config_api === 'config api not set' ||
+        !config.fm_config_api
+      ) {
+        throw new Error('Config API not set in config.json');
+      }
+      this.guardianConfig = config;
+    }
+    return this.guardianConfig;
+  };
 
   /*** WebSocket methods ***/
 
@@ -30,7 +53,7 @@ export class GuardianApi {
     if (this.connectPromise) {
       return await this.connectPromise;
     }
-    const websocketUrl = (await getEnv()).fm_config_api;
+    const websocketUrl = (await this.getGuardianConfig()).fm_config_api;
     if (!websocketUrl) {
       throw new Error('fm_config_api not found in config.json');
     }
