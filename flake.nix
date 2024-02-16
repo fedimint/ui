@@ -1,10 +1,10 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
       url =
-        "github:fedimint/fedimint?rev=9ec5418ee002134188d4584cc645fe1b5ffba4f1";
+        "github:fedimint/fedimint?ref=refs/tags/v0.2.2";
     };
   };
   outputs = { self, nixpkgs, flake-utils, fedimint }:
