@@ -49,6 +49,8 @@ PORT=3000 REACT_APP_FM_CONFIG_API="[app-address-here]" yarn build && yarn start
 
 Replace `PORT` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
 
+> **NOTE**: The Guardian UI references a `config.json` specified at the root of where the UI is served from. The Dockerfile writes this file from ENV VARs but a static site deployment will want to customize this file.
+
 #### Gateway UI
 
 ```bash
