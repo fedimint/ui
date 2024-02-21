@@ -163,6 +163,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         throw new Error(
           'Cannot submit before fetching default config gen parameters'
         );
+      // Fedimint finality delay is 1 less than the number of block confirmations input by the UI
+      const finalityDelay = parseInt(blockConfirmations, 10) - 1;
       const moduleConfigs = applyConfigGenModuleParams(defaultParams.modules, {
         [ModuleKind.Mint]: {
           consensus: { mint_amounts: mintAmounts },
@@ -170,7 +172,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         },
         [ModuleKind.Wallet]: {
           consensus: {
-            finality_delay: parseInt(blockConfirmations, 10),
+            finality_delay: finalityDelay,
             network: network as Network,
           },
           local: {
