@@ -13,7 +13,7 @@ function write_config(filePath) {
     tos: process.env.REACT_APP_TOS,
   };
 
-  fs.writeFileSync(filePath, config, 'utf8');
+  fs.writeFileSync(filePath + '/config.json', JSON.stringify(config), 'utf8');
 }
 
 try {

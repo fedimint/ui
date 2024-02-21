@@ -34,4 +34,4 @@ COPY --from=installer /app/apps/guardian-ui/build build
 COPY scripts/replace-react-env.js scripts/replace-react-env.js
 COPY scripts/write-config-from-env.js scripts/write-config-from-env.js
 RUN yarn global add serve
-CMD node scripts/write-config-from-env.js && serve -s build
+CMD node scripts/write-config-from-env.js build && serve -s build
