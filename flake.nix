@@ -2,9 +2,8 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
-      # temporarily switched to https://github.com/fedimint/fedimint/pull/4349
       url =
-        "github:dpc/fedimint?rev=678d456a1e242fb952b92514f0e6a83083a9704d";
+        "github:dpc/fedimint?rev=a9e807e4e0325ce8d93d4af212309a183e87d89a";
     };
   };
   outputs = { self, flake-utils, fedimint }:
