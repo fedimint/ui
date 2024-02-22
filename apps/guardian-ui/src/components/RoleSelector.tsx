@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Button,
   Icon,
@@ -30,6 +30,26 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
   const { t } = useTranslation();
   const { dispatch } = useSetupContext();
   const [role, setRole] = useState<GuardianRole>();
+
+  // If role in query params, set it
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const role = urlParams.get('role')?.toLowerCase();
+    if (role) {
+      switch (role) {
+        case 'host':
+          setRole(GuardianRole.Host);
+          break;
+        case 'follower':
+          setRole(GuardianRole.Follower);
+          break;
+        case 'solo':
+          setRole(GuardianRole.Solo);
+          break;
+      }
+    }
+  }, []);
+
   const options: RadioButtonOption<GuardianRole>[] = useMemo(
     () => [
       {
