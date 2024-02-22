@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-  Flex,
-  Stack,
-  useTheme,
-  Heading,
-  Card,
-  CardBody,
-} from '@chakra-ui/react';
+import { Flex, useTheme, Card, CardBody } from '@chakra-ui/react';
 import { Network, Federation } from '@fedimint/types';
 import { InfoCard, DepositCard, BalanceCard, WithdrawCard } from '.';
-import { useTranslation } from '@fedimint/utils';
 
 interface FederationCardProps {
   federation: Federation;
@@ -23,9 +15,6 @@ export const FederationCard: React.FC<FederationCardProps> = ({
   lightning_pub_key,
 }) => {
   const { federation_id, balance_msat } = federation;
-
-  const theme = useTheme();
-  const { t } = useTranslation();
 
   return (
     <Card w='100%' maxWidth='100%'>
