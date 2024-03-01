@@ -41,6 +41,8 @@ interface Props {
   next: () => void;
 }
 
+const MIN_BFT_NUM_PEERS = '4';
+
 export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const { t } = useTranslation();
   const {
@@ -62,9 +64,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
-  const [numPeers, setNumPeers] = useState(
-    isSolo ? '1' : stateNumPeers ? stateNumPeers.toString() : '4'
-  );
   const [federationName, setFederationName] = useState('');
   const [metaFields, setMetaFields] = useState<[string, string][]>([['', '']]);
   const [blockConfirmations, setBlockConfirmations] = useState('');
@@ -75,6 +74,9 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   });
   const [mintAmounts, setMintAmounts] = useState<number[]>([]);
   const [error, setError] = useState<string>();
+  const [numPeers, setNumPeers] = useState(
+    stateNumPeers ? stateNumPeers.toString() : isSolo ? '1' : MIN_BFT_NUM_PEERS
+  );
 
   useEffect(() => {
     const initStateFromParams = (params: ConfigGenParams) => {
