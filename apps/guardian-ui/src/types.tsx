@@ -148,6 +148,7 @@ export enum AdminRpc {
   modulesConfig = 'modules_config_json',
   moduleApiCall = 'module',
   audit = 'audit',
+  downloadGuardianBackup = 'download_guardian_backup',
 }
 
 export enum SharedRpc {
