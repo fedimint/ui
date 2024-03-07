@@ -59,7 +59,7 @@
       "downloadBackup": {
         "button": "Download Backup",
         "warningTitle": "Warning",
-        "warningText": "The backup contains private keys and secret material for the federation guardian and must be kept secure.\n Recovery using this backup requires your admin password!",
+        "warningText": "The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!",
         "cancelButton": "Cancel",
         "acknowledgeButton": "Acknowledge & Download"
       }
