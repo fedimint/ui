@@ -82,16 +82,22 @@ export const GuardianAuthenticationCode: React.FC<
                     'federation-dashboard.danger-zone.guardian-warning-message'
                   )}
                 </Text>
-                <Flex justifyContent='center' gap={4}>
+                <Flex
+                  justifyContent='center'
+                  gap={4}
+                  direction={['column', 'row']}
+                >
                   <Button
                     colorScheme='blue'
                     mr={3}
+                    size={['sm', 'md']}
                     onClick={() => setIsOpen(false)}
                   >
                     {t('federation-dashboard.danger-zone.cancel')}
                   </Button>
                   <Button
                     variant='ghost'
+                    size={['sm', 'md']}
                     onClick={() => {
                       handleAcknowledge();
                     }}
