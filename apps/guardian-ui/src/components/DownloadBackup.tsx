@@ -9,12 +9,14 @@ import {
   ModalBody,
   ModalFooter,
   Flex,
+  useTheme,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
 import { hexToBlob } from '../utils/api';
 
 export const DownloadBackup: React.FC = () => {
+  const theme = useTheme();
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const { api } = useAdminContext();
   const { t } = useTranslation();
@@ -35,8 +37,12 @@ export const DownloadBackup: React.FC = () => {
   return (
     <>
       <Flex justifyContent='center'>
-        <Button colorScheme='blue' onClick={() => setIsWarningModalOpen(true)}>
-          {t('federation-dashboard.config.downloadBackup.button')}
+        <Button
+          bg={theme.colors.red[500]}
+          _hover={{ bg: theme.colors.red[600] }}
+          onClick={() => setIsWarningModalOpen(true)}
+        >
+          {t('federation-dashboard.danger-zone.downloadBackup.button')}
         </Button>
       </Flex>
       <Modal
@@ -46,11 +52,11 @@ export const DownloadBackup: React.FC = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            {t('federation-dashboard.config.downloadBackup.warningTitle')}
+            {t('federation-dashboard.danger-zone.downloadBackup.warningTitle')}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {t('federation-dashboard.config.downloadBackup.warningText')}
+            {t('federation-dashboard.danger-zone.downloadBackup.warningText')}
           </ModalBody>
           <ModalFooter>
             <Button
@@ -58,7 +64,7 @@ export const DownloadBackup: React.FC = () => {
               mr={3}
               onClick={() => setIsWarningModalOpen(false)}
             >
-              {t('federation-dashboard.config.downloadBackup.cancelButton')}
+              {t('federation-dashboard.danger-zone.cancel')}
             </Button>
             <Button
               variant='ghost'
@@ -68,9 +74,7 @@ export const DownloadBackup: React.FC = () => {
                 );
               }}
             >
-              {t(
-                'federation-dashboard.config.downloadBackup.acknowledgeButton'
-              )}
+              {t('federation-dashboard.danger-zone.acknowledge-and-download')}
             </Button>
           </ModalFooter>
         </ModalContent>
