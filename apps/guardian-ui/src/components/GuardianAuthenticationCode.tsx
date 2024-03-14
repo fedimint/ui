@@ -57,6 +57,7 @@ export const GuardianAuthenticationCode: React.FC<
     <>
       <Button
         onClick={handleOpen}
+        size={['sm', 'md']}
         bg={theme.colors.red[500]}
         _hover={{ bg: theme.colors.red[600] }}
       >
