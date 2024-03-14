@@ -105,6 +105,10 @@ export interface AuditSummary {
   module_summaries: Record<number, ModuleSummary>;
 }
 
+export type DownloadGuardianBackupResponse = {
+  tar_archive_bytes: string;
+};
+
 export type ModulesConfigResponse = Record<string, ModuleConfig>;
 
 export type ConfigGenParams = {

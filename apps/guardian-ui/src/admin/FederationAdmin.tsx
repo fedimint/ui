@@ -13,6 +13,7 @@ import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
 import { BalanceCard } from '../components/BalanceCard';
 import { InviteCode } from '../components/InviteCode';
 import { ConfigViewer } from '../components/ConfigViewer';
+import { DownloadBackup } from '../components/DownloadBackup';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
@@ -61,6 +62,7 @@ export const FederationAdmin: React.FC = () => {
         <GuardiansCard status={status} config={config} />
         <GatewaysCard config={config} />
         <ConfigViewer config={config} />
+        <DownloadBackup />
       </Flex>
     </Flex>
   );

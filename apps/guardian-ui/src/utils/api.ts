@@ -95,3 +95,15 @@ export function formatApiErrorMessage(err: unknown) {
   }
   return (err as object).toString();
 }
+
+/**
+ * Converts a hex encoded string to a Blob.
+ */
+export function hexToBlob(hexData: string, mimeType: string): Blob {
+  const byteCharacters = hexData.match(/.{1,2}/g);
+  if (!byteCharacters) {
+    throw new Error('Invalid hex data');
+  }
+  const byteArray = new Uint8Array(byteCharacters.map((x) => parseInt(x, 16)));
+  return new Blob([byteArray], { type: mimeType });
+}

@@ -55,7 +55,14 @@
       "no-gateways-info-description": "Lightning node operators can connect to your federation to provide Lightning Network interoperability. Once connected, they will appear here."
     },
     "config": {
-      "label": "Federation Config"
+      "label": "Federation Config",
+      "downloadBackup": {
+        "button": "Download Backup",
+        "warningTitle": "Warning",
+        "warningText": "The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!",
+        "cancelButton": "Cancel",
+        "acknowledgeButton": "Acknowledge & Download"
+      }
     }
   },
   "login": {

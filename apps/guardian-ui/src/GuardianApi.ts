@@ -4,6 +4,7 @@ import {
   ClientConfig,
   ConfigGenParams,
   ConsensusState,
+  DownloadGuardianBackupResponse,
   FederationStatus,
   ModuleKind,
   ModulesConfigResponse,
@@ -243,6 +244,12 @@ export class GuardianApi {
   public audit = (): Promise<AuditSummary> => {
     return this.call(AdminRpc.audit);
   };
+
+  // Returns the .tar bytes backup of the guardian config as a base64 encoded string
+  public downloadGuardianBackup =
+    (): Promise<DownloadGuardianBackupResponse> => {
+      return this.call(AdminRpc.downloadGuardianBackup);
+    };
 
   public modulesConfig = (): Promise<ModulesConfigResponse> => {
     return this.call(AdminRpc.modulesConfig);
