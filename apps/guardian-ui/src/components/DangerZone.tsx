@@ -14,7 +14,7 @@ export const DangerZone: React.FC<DangerZoneProps> = ({ config, ourPeer }) => {
   const { t } = useTranslation();
 
   return (
-    <Box mt={['12px']} bg='red.50' p={2} borderRadius='md' maxW='640px'>
+    <Box mt={['12px']} bg='red.50' p={2} borderRadius='md' overflowX='auto'>
       <Text
         mb='6px'
         fontSize='14px'
@@ -23,7 +23,7 @@ export const DangerZone: React.FC<DangerZoneProps> = ({ config, ourPeer }) => {
       >
         {t('federation-dashboard.danger-zone.danger-zone-label')}
       </Text>
-      <Flex direction='row' alignItems='center' gap='6px'>
+      <Flex direction={['column', 'row']} alignItems='center' gap='6px'>
         {config && ourPeer !== undefined && (
           <GuardianAuthenticationCode
             ourPeer={ourPeer}

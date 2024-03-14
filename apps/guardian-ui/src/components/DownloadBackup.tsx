@@ -39,6 +39,7 @@ export const DownloadBackup: React.FC = () => {
       <Flex justifyContent='center'>
         <Button
           bg={theme.colors.red[500]}
+          size={['sm', 'md']}
           _hover={{ bg: theme.colors.red[600] }}
           onClick={() => setIsWarningModalOpen(true)}
         >
