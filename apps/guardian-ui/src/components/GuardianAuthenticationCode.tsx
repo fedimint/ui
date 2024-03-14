@@ -16,16 +16,9 @@ import QRCode from 'qrcode.react';
 
 const QR_CODE_SIZE = 256;
 
-type GuardianAuthCode = {
-  federationId: string;
-  peerId: number;
-  guardianName: string;
-  password: string;
-};
-
 interface GuardianAuthenticationCodeProps {
   federationId: string;
-  ourPeer: { id: number; name: string } | undefined;
+  ourPeer: { id: number; name: string };
 }
 
 export const GuardianAuthenticationCode: React.FC<
@@ -39,14 +32,14 @@ export const GuardianAuthenticationCode: React.FC<
 
   const calculateGuardianAuthenticationCode = () => {
     const password = sessionStorage.getItem('guardian-ui-key');
-    const guardianAuthCode = {
-      federationId,
-      peerId: ourPeer?.id,
+    const params = new URLSearchParams({
+      federationId: federationId,
+      peerId: ourPeer?.id.toString(),
       guardianName: ourPeer?.name,
-      password,
-    } as GuardianAuthCode;
+      password: password || '',
+    }).toString();
 
-    return `guardian:authenticate?${JSON.stringify(guardianAuthCode)}`;
+    return `guardian:authenticate?${params}`;
   };
 
   const handleOpen = () => {
