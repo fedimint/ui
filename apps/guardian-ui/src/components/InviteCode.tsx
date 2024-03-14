@@ -17,7 +17,7 @@ import { CopyInput } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as QrIcon } from '../assets/svgs/qr.svg';
-import QRCode from 'qrcode.react'; // import the QRCode component
+import QRCode from 'qrcode.react';
 
 const QR_CODE_SIZE = 256;
 
@@ -28,8 +28,7 @@ interface InviteCodeProps {
 export const InviteCode: React.FC<InviteCodeProps> = ({ inviteCode }) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false); // state to control the modal
-
+  const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
@@ -64,11 +63,15 @@ export const InviteCode: React.FC<InviteCodeProps> = ({ inviteCode }) => {
         <ModalOverlay />
         <ModalContent minH='0'>
           <ModalHeader alignSelf='center'>
-            Scan to Connect a Client!
+            {t('federation-dashboard.modal.client-connect')}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <Flex justifyContent='center' alignItems='center'>
+            <Flex
+              justifyContent='center'
+              alignItems='center'
+              direction='column'
+            >
               <QRCode
                 value={inviteCode}
                 size={QR_CODE_SIZE}

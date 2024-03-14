@@ -119,9 +119,19 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1709646111,
         "narHash": "sha256-vod5AEhfFv0kMpBGY5hCEdoEKIRdmY/pB76azqEILeQ=",
         "owner": "fedimint",
+||||||| parent of 2f95f917 (feat: danger zone authenticate as guardian)
+        "lastModified": 1708534232,
+        "narHash": "sha256-t1mUD9NTMSClgLGLddhuEHdK2tDFScnjhkXyVZ84fXo=",
+        "owner": "dpc",
+=======
+        "lastModified": 1708534232,
+        "narHash": "sha256-t1mUD9NTMSClgLGLddhuEHdK2tDFScnjhkXyVZ84fXo=",
+        "owner": "fedimint",
+>>>>>>> 2f95f917 (feat: danger zone authenticate as guardian)
         "repo": "fedimint",
         "rev": "af123aafd333198cfefa0ce1ed154d3bd7961e07",
         "type": "github"
