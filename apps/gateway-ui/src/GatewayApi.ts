@@ -1,6 +1,6 @@
 import { GatewayInfo, Federation } from '@fedimint/types';
 
-const SESSION_STORAGE_KEY = 'gateway-ui-key';
+export const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
 // GatewayApi is an implementation of the ApiInterface
 export class GatewayApi {

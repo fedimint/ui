@@ -16,7 +16,7 @@ import {
 import { getEnv } from './utils/env';
 import { AdminRpc, ModuleRpc, SetupRpc, SharedRpc } from './types';
 
-const SESSION_STORAGE_KEY = 'guardian-ui-key';
+export const SESSION_STORAGE_KEY = 'guardian-ui-key';
 
 export class GuardianApi {
   private websocket: JsonRpcWebsocket | null = null;

@@ -122,6 +122,15 @@
         "lastModified": 1711405975,
         "narHash": "sha256-I8uUhpqN5oGDkT+sN4jztzun/wD/mN/CtzCxlV3pdjY=",
         "owner": "fedimint",
+||||||| parent of 2f95f917 (feat: danger zone authenticate as guardian)
+        "lastModified": 1708534232,
+        "narHash": "sha256-t1mUD9NTMSClgLGLddhuEHdK2tDFScnjhkXyVZ84fXo=",
+        "owner": "dpc",
+=======
+        "lastModified": 1708534232,
+        "narHash": "sha256-t1mUD9NTMSClgLGLddhuEHdK2tDFScnjhkXyVZ84fXo=",
+        "owner": "fedimint",
+>>>>>>> 2f95f917 (feat: danger zone authenticate as guardian)
         "repo": "fedimint",
         "rev": "c32bbe8ed8d95ae420b5879e92dda6ce48f5c914",
         "type": "github"

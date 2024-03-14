@@ -20,8 +20,13 @@
     "meta-field-key": "Meta field - {{key}}"
   },
   "federation-dashboard": {
-    "invite-members": "Invite members",
+    "invite-members": "Invite members or authenticate as a guardian",
     "invite-members-prompt": "Share this to invite members to join the federation",
+    "modal": {
+      "client-connect": "Connect a Client",
+      "guardian-authenticate": "Authenticate as a Guardian",
+      "guardian-connect-warning": "DO NOT SHARE THIS"
+    },
     "fed-info": {
       "label": "Federation Info",
       "your-status-label": "Status",
@@ -64,6 +69,12 @@
         "cancelButton": "Cancel",
         "acknowledgeButton": "Acknowledge & Download"
       }
+    },
+    "danger-zone": {
+      "danger-zone-label": "Danger Zone",
+      "danger-zone-description": "Use with caution!",
+      "guardian-warning-message": "WARNING: Do not share this code with anyone. Anyone with this code can authenticate as a Guardian. Ensure you are in a private location and no one is watching your screen.",
+      "guardian-acknowledge": "Acknowledge and Reveal Code"
     }
   },
   "login": {
