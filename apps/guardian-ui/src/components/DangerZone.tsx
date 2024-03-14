@@ -24,9 +24,9 @@ export const DangerZone: React.FC<DangerZoneProps> = ({ config, ourPeer }) => {
         {t('federation-dashboard.danger-zone.danger-zone-label')}
       </Text>
       <Flex direction='row' alignItems='center' gap='6px'>
-        {config && ourPeer?.id !== null && (
+        {config && ourPeer !== undefined && (
           <GuardianAuthenticationCode
-            ourPeerId={ourPeer?.id ?? -1}
+            ourPeer={ourPeer}
             federationId={config?.meta.federation_id ?? ''}
           />
         )}
