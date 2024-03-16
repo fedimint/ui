@@ -20,7 +20,7 @@ import {
   Network,
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { FormGroup } from '@fedimint/ui';
+import { FormGroup, NetworkIndicator } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
 import { GuardianRole } from '../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
@@ -35,8 +35,7 @@ import {
 } from '../utils/api';
 import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
-import { MetaFieldFormControl } from './MetaFieldFormControl';
-import { NetworkIndicator } from '@fedimint/ui';
+import { EditMetaField } from './meta/EditMetaField';
 interface Props {
   next: () => void;
 }
@@ -384,7 +383,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             title={t('set-config.meta-fields')}
             isOpen={true}
           >
-            <MetaFieldFormControl
+            <EditMetaField
               metaFields={metaFields}
               onChangeMetaFields={setMetaFields}
             />

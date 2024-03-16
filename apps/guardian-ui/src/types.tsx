@@ -170,6 +170,12 @@ export enum SharedRpc {
 }
 
 export enum ModuleRpc {
+  // Lightning Module
   listGateways = 'list_gateways',
   blockCount = 'block_count',
+  // Meta Module
+  submitMeta = 'submit',
+  getConsensus = 'get_consensus',
+  getConsensusRev = 'get_consensus_rev',
+  getSubmissions = 'get_submission',
 }

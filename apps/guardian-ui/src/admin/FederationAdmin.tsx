@@ -12,8 +12,8 @@ import { FederationInfoCard } from '../components/FederationInfoCard';
 import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
 import { BalanceCard } from '../components/BalanceCard';
 import { InviteCode } from '../components/InviteCode';
-import { ConfigViewer } from '../components/ConfigViewer';
-import { DangerZone } from '../components/DangerZone';
+import { FederationConfigCard } from '../components/FederationConfigCard';
+import { DownloadBackup } from '../components/DownloadBackup';
 import { BftInfo } from '../components/BftInfo';
 
 export const FederationAdmin: React.FC = () => {
@@ -87,10 +87,8 @@ export const FederationAdmin: React.FC = () => {
         </Flex>
         <GuardiansCard status={status} config={config} />
         <GatewaysCard config={config} />
-        <ConfigViewer config={config} />
-        {config && ourPeer !== null && (
-          <DangerZone config={config} ourPeer={ourPeer} />
-        )}
+        <FederationConfigCard config={config} />
+        <DownloadBackup />
       </Flex>
     </Flex>
   );
