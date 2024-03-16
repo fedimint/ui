@@ -280,9 +280,13 @@ export class GuardianApi {
     return this.call(AdminRpc.modulesConfig);
   };
 
-  public moduleApiCall = <T>(moduleId: number, rpc: ModuleRpc): Promise<T> => {
+  public moduleApiCall = <T>(
+    moduleId: number,
+    rpc: ModuleRpc,
+    params: unknown = null
+  ): Promise<T> => {
     const method = `${AdminRpc.moduleApiCall}_${moduleId}_${rpc}`;
-    return this.call_any_method<T>(method);
+    return this.call_any_method<T>(method, params);
   };
 
   private call = async <T>(
