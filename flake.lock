@@ -119,17 +119,17 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1709646111,
-        "narHash": "sha256-vod5AEhfFv0kMpBGY5hCEdoEKIRdmY/pB76azqEILeQ=",
+        "lastModified": 1710534977,
+        "narHash": "sha256-RWzV+/NZkV87JnydefwRMwJ9tDkwDCg6m3pCxsVlKeY=",
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "af123aafd333198cfefa0ce1ed154d3bd7961e07",
+        "rev": "9d552fdf82f4af429165a1fd409615809ada4058",
         "type": "github"
       },
       "original": {
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "af123aafd333198cfefa0ce1ed154d3bd7961e07",
+        "rev": "9d552fdf82f4af429165a1fd409615809ada4058",
         "type": "github"
       }
     },
@@ -262,17 +262,17 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1709090272,
-        "narHash": "sha256-hYzcnKPnH3+ecGEYwly0TGBECITV3eNINtDNwFCnUOk=",
+        "lastModified": 1709623646,
+        "narHash": "sha256-kqN+O/D+s2SKYfDdJUrmh1/tpc476gn+JU7JjjnkSik=",
         "owner": "dpc",
         "repo": "flakebox",
-        "rev": "49117df15209701f3e13ba2bcf514b550955e7b4",
+        "rev": "27ecbf8f2b252dd843d0f58d45658eb56bb5e223",
         "type": "github"
       },
       "original": {
         "owner": "dpc",
         "repo": "flakebox",
-        "rev": "49117df15209701f3e13ba2bcf514b550955e7b4",
+        "rev": "27ecbf8f2b252dd843d0f58d45658eb56bb5e223",
         "type": "github"
       }
     },
