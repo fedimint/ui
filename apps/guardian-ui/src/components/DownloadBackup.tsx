@@ -42,7 +42,7 @@ export const DownloadBackup: React.FC = () => {
         _hover={{ bg: theme.colors.red[600] }}
         onClick={() => setIsWarningModalOpen(true)}
       >
-        {t('federation-dashboard.danger-zone.downloadBackup.button')}
+        {t('federation-dashboard.danger-zone.downloadBackup.title')}
       </Button>
       <Modal
         isOpen={isWarningModalOpen}
@@ -50,8 +50,8 @@ export const DownloadBackup: React.FC = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            {t('federation-dashboard.danger-zone.downloadBackup.warningTitle')}
+          <ModalHeader alignSelf='center'>
+            {t('federation-dashboard.danger-zone.downloadBackup.title')}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

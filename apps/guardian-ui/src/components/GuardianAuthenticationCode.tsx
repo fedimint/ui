@@ -67,7 +67,7 @@ export const GuardianAuthenticationCode: React.FC<
         <ModalOverlay />
         <ModalContent minH='0'>
           <ModalHeader alignSelf='center'>
-            {t('federation-dashboard.modal.guardian-authenticate')}
+            {t('federation-dashboard.danger-zone.guardian-authenticate')}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
@@ -123,6 +123,11 @@ export const GuardianAuthenticationCode: React.FC<
                     maxWidth: QR_CODE_SIZE,
                   }}
                 />
+                <Text fontWeight={'bold'} color={'red'} mt={4}>
+                  {t(
+                    'federation-dashboard.danger-zone.guardian-connect-warning'
+                  )}
+                </Text>
               </Flex>
             )}
           </ModalBody>

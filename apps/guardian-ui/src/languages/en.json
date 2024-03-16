@@ -22,11 +22,6 @@
   "federation-dashboard": {
     "invite-members": "Invite members or authenticate as a guardian",
     "invite-members-prompt": "Share this to invite members to join the federation",
-    "modal": {
-      "client-connect": "Connect a Client",
-      "guardian-authenticate": "Authenticate as a Guardian",
-      "guardian-connect-warning": "DO NOT SHARE THIS"
-    },
     "fed-info": {
       "label": "Federation Info",
       "your-status-label": "Status",
@@ -63,6 +58,9 @@
     "config": {
       "label": "Federation Config"
     },
+    "modal": {
+      "client-connect": "Connect a Client"
+    },
     "danger-zone": {
       "danger-zone-label": "Danger Zone",
       "cancel": "Cancel",
@@ -70,10 +68,11 @@
       "guardian-warning-message": "WARNING: Do not share this code with anyone. Anyone with this code can authenticate as a Guardian. Ensure you are in a private location and no one is watching your screen.",
       "guardian-acknowledge": "Acknowledge and Reveal Code",
       "acknowledge-and-download": "Acknowledge & Download",
+      "guardian-authenticate": "Authenticate as a Guardian",
+      "guardian-connect-warning": "DO NOT SHARE THIS",
       "downloadBackup": {
-        "button": "Download Backup",
-        "warningTitle": "Warning",
-        "warningText": "The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!"
+        "title": "Download Backup",
+        "warningText": "WARNING: The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!"
       }
     }
   },
