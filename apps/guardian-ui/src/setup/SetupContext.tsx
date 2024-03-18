@@ -23,19 +23,7 @@ const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
  * Creates the initial state using loaded state from local storage.
  */
 function makeInitialState(loadFromStorage = true): SetupState {
-  let storageState: Partial<SetupState> = {};
-  if (loadFromStorage) {
-    try {
-      const storageJson = localStorage.getItem(LOCAL_STORAGE_SETUP_KEY);
-      if (storageJson) {
-        storageState = JSON.parse(storageJson);
-      }
-    } catch (err) {
-      console.warn('Encountered error while fetching storage state', err);
-    }
-  }
-
-  const initialState = {
+  let state: SetupState = {
     role: null,
     progress: SetupProgress.Start,
     myName: '',
@@ -44,20 +32,29 @@ function makeInitialState(loadFromStorage = true): SetupState {
     numPeers: 0,
     peers: [],
     ourCurrentId: null,
-    ...storageState,
   };
-
-  if (
-    initialState.progress !== SetupProgress.Start &&
-    initialState.configGenParams !== null &&
-    isConsensusparams(initialState.configGenParams)
-  ) {
-    const peers = Object.values(initialState.configGenParams.peers);
-    initialState.peers = peers;
-    initialState.numPeers = peers.length;
+  if (loadFromStorage) {
+    try {
+      const storageJson = localStorage.getItem(LOCAL_STORAGE_SETUP_KEY);
+      if (storageJson) {
+        state = JSON.parse(storageJson) as SetupState;
+      }
+    } catch (err) {
+      console.warn('Encountered error while fetching storage state', err);
+    }
   }
 
-  return initialState;
+  if (
+    state.progress !== SetupProgress.Start &&
+    state.configGenParams !== null &&
+    isConsensusparams(state.configGenParams)
+  ) {
+    const peers = Object.values(state.configGenParams.peers);
+    state.peers = peers;
+    state.numPeers = state.numPeers ? state.numPeers : peers.length;
+  }
+
+  return state;
 }
 
 const initialState = makeInitialState();
