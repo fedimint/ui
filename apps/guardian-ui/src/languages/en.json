@@ -87,9 +87,13 @@
         "edit-consensus-meta-button": "Edit Consensus Meta",
         "submit-meta-edits-button": "Submit Meta Edits"
       },
-      "downloadBackup": {
-        "title": "Download Backup",
-        "warningText": "WARNING: The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!"
+      "backup": {
+        "label": "Backup",
+        "download-backup-button": "Download Backup",
+        "warningTitle": "Warning",
+        "warningText": "The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!",
+        "cancelButton": "Cancel",
+        "acknowledgeButton": "Acknowledge & Download"
       }
     }
   },

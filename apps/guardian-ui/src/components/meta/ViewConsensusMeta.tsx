@@ -72,10 +72,11 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
           {consensusMeta.value.map(([key, value], idx) => (
             <Flex gap={2} key={idx} align='center'>
               <Input
+                isDisabled={true}
                 placeholder={t('set-config.meta-fields-key')}
                 value={key}
               />
-              <Input value={value} />
+              <Input isDisabled={true} value={value} />
             </Flex>
           ))}
         </Flex>

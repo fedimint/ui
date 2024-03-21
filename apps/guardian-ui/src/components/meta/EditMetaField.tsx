@@ -70,7 +70,7 @@ export const EditMetaField: React.FC<Props> = ({
               <Input
                 placeholder={t('set-config.meta-fields-key')}
                 value={key}
-                disabled={isDerived && protectDerivedMeta}
+                isDisabled={isDerived && protectDerivedMeta}
                 onChange={(ev) =>
                   handleChangeMetaField(ev.target.value, value, idx)
                 }
@@ -78,7 +78,7 @@ export const EditMetaField: React.FC<Props> = ({
               <Input
                 placeholder={isDerived ? '' : t('set-config.meta-fields-value')}
                 value={value}
-                disabled={isDerived && protectDerivedMeta}
+                isDisabled={isDerived && protectDerivedMeta}
                 onChange={(ev) =>
                   handleChangeMetaField(key, ev.target.value, idx)
                 }
