@@ -97,10 +97,11 @@ export const ReviewMetaField = React.memo(function MetaFieldForm({
               return (
                 <Flex gap={2} key={idx} align='center'>
                   <Input
+                    isDisabled={true}
                     placeholder={t('set-config.meta-fields-key')}
                     value={key}
                   />
-                  <Input value={value} />
+                  <Input isDisabled={true} value={value} />
                 </Flex>
               );
             })}
