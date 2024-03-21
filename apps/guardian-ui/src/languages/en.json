@@ -98,7 +98,7 @@
     "guardian-name": "Guardian name",
     "guardian-name-help": "This name will be shown to other Guardians",
     "admin-password": "Admin password",
-    "admin-password-help": "Use a strong password & back it up! You cannot recover this password!",
+    "admin-password-help": "Please back up your password! Password recovery is not available!",
     "confirm-password": "Confirm password",
     "error-password-mismatch": "Passwords don't match",
     "join-federation": "Join Federation link",
