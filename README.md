@@ -196,7 +196,7 @@ From root repo directory:
 
 ## Referencing Fedimint
 
-The docker containers and devimint are for specific releases or commits of `fedimint/fedimint`. At present, the reference commit-hash is `9ec5418ee002134188d4584cc645fe1b5ffba4f1`
+The docker containers and devimint are for specific releases or commits of `fedimint/fedimint`. At present, the reference commit-hash is `c51ea0c85576008dcbf9d94e2fe994dfa34bca61`
 
 ### Running with local Fedimint
 
@@ -212,7 +212,7 @@ This will put binaries in `fedimint/target/debug` at the front of your `$PATH`. 
 You can officially bump the referenced version of Fedimint using the following steps:
 
 1. Locate a desired hash from [Fedimint](https://github.com/fedimint/fedimint/commits/master)
-2. Find and replace all instances of the current reference commit hash: `9ec5418ee002134188d4584cc645fe1b5ffba4f1`
+2. Find and replace all instances of the current reference commit hash: `c51ea0c85576008dcbf9d94e2fe994dfa34bca61`
 
 3. Run `nix flake update` at the root of the repo
 4. Restart your nix shell and validate the reference, then commit to complete bump
