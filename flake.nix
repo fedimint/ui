@@ -3,7 +3,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
       url =
-        "github:fedimint/fedimint?rev=9d552fdf82f4af429165a1fd409615809ada4058";
+        "github:fedimint/fedimint?rev=45c945d6307f440fd18d1fde3331fc681e0b5d1c";
     };
   };
   outputs = { self, flake-utils, fedimint }:
