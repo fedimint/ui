@@ -1,4 +1,5 @@
 import { Network } from './bitcoin';
+import { ClientConfig } from './federation';
 
 export interface Gateway {
   api: string;
@@ -34,6 +35,8 @@ interface Validity {
 export interface Federation {
   federation_id: string;
   balance_msat: number;
+  channel_id: number;
+  config: ClientConfig;
 }
 
 export interface GatewayInfo {

@@ -18,11 +18,13 @@ import { ApiContext } from '../ApiProvider';
 import { useTranslation } from '@fedimint/utils';
 
 export interface BalanceCardProps {
+  federationName?: string;
   federationId: string;
   balanceMsat: number;
 }
 
 export const BalanceCard = React.memo(function BalanceCard({
+  federationName,
   federationId,
   balanceMsat,
 }: BalanceCardProps) {
@@ -63,7 +65,8 @@ export const BalanceCard = React.memo(function BalanceCard({
         </Text>
         <Flex justifyContent='space-between' alignItems='center'>
           <Text maxWidth='75%' fontWeight='600'>
-            {federationId.slice(0, 6) + '...' + federationId.slice(-6)}
+            {federationName ||
+              federationId.slice(0, 6) + '...' + federationId.slice(-6)}
           </Text>
           <Text
             as='span'
