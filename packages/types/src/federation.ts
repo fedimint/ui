@@ -88,8 +88,6 @@ export type ModuleApiVersion = MajorAndMinorVersions;
 
 export interface ClientConfig {
   consensus_version: CoreConsensusVersion;
-  epoch_pk: string;
-  federation_id: string;
   api_endpoints: Record<number, ApiEndpoint>;
   modules: Record<number, FedimintModule>;
   meta: MetaConfig;
