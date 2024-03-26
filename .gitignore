@@ -35,8 +35,10 @@ yarn-error.log*
 .turbo
 
 /target/
+/target-nix/
 # in case it's a symlink
 /target
+/target-nix
 
 /result
 .idea

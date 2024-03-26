@@ -203,9 +203,9 @@ The docker containers and devimint are for specific releases or commits of `fedi
 If you would like to run the UIs against a particular version of fedimint, or using changes you have made locally to fedimint itself:
 
 1. Run `cargo build` in fedimint
-2. Run `env DEVIMINT_BIN=$(realpath ../fedimint/target/debug) yarn nix-guardian` (assuming that you have `ui` and `fedimint` repos checked out in the same directory)
+2. Run `env DEVIMINT_BIN=$(realpath ../fedimint/target-nix/debug) yarn nix-guardian` (assuming that you have `ui` and `fedimint` repos checked out in the same directory)
 
-This will put binaries in `fedimint/target/debug` at the front of your `$PATH`. Devimint will use these binaries instead of the ones installed via Nix.
+This will put binaries in `fedimint/target-nix/debug` at the front of your `$PATH`. Devimint will use these binaries instead of the ones installed via Nix.
 
 ### Bumping referenced Fedimint
 
