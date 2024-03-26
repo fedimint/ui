@@ -149,6 +149,7 @@ export enum AdminRpc {
   moduleApiCall = 'module',
   audit = 'audit',
   downloadGuardianBackup = 'download_guardian_backup',
+  federationId = 'federation_id',
 }
 
 export enum SharedRpc {

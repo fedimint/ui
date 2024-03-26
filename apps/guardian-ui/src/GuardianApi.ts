@@ -233,6 +233,10 @@ export class GuardianApi {
     return this.call(AdminRpc.federationStatus);
   };
 
+  public federationId = (): Promise<string> => {
+    return this.call(AdminRpc.federationId);
+  };
+
   public inviteCode = (): Promise<string> => {
     return this.call(AdminRpc.inviteCode);
   };
