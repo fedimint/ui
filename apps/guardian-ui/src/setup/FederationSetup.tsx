@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -25,7 +25,6 @@ import { VerifyGuardians } from '../components/VerifyGuardians';
 import { SetupComplete } from '../components/SetupComplete';
 import { SetupProgress as SetupStepper } from '../components/SetupProgress';
 import { TermsOfService } from '../components/TermsOfService';
-import { getEnv } from '../utils/env';
 
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
@@ -47,8 +46,19 @@ export const FederationSetup: React.FC = () => {
     dispatch,
     api,
   } = useSetupContext();
-  const [needsTosAgreement, setNeedsTosAgreement] = useState(!!getEnv().TOS);
+  const [tosConfig, setTosConfig] = useState<{
+    showTos: boolean;
+    tos: string | undefined;
+  }>({ showTos: false, tos: undefined });
   const [confirmRestart, setConfirmRestart] = useState(false);
+
+  useEffect(() => {
+    async function getTos() {
+      const tos = (await api.getGuardianConfig()).tos;
+      setTosConfig({ showTos: !!tos, tos });
+    }
+    getTos();
+  }, [api]);
 
   const isHost = role === GuardianRole.Host;
   const isSolo = role === GuardianRole.Solo;
@@ -90,9 +100,14 @@ export const FederationSetup: React.FC = () => {
 
   switch (progress) {
     case SetupProgress.Start:
-      if (needsTosAgreement) {
+      if (tosConfig.showTos) {
         title = t('setup.progress.tos.title');
-        content = <TermsOfService next={() => setNeedsTosAgreement(false)} />;
+        content = (
+          <TermsOfService
+            next={() => setTosConfig({ showTos: false, tos: tosConfig.tos })}
+            tos={tosConfig.tos}
+          />
+        );
       } else {
         title = t('setup.progress.start.title');
         subtitle = t('setup.progress.start.subtitle');

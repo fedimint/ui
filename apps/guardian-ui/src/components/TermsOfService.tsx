@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import { Button, Flex, Textarea } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { getEnv } from '../utils/env';
 
 interface Props {
   next(): void;
+  tos?: string;
 }
 
-export const TermsOfService: React.FC<Props> = ({ next }) => {
+export const TermsOfService: React.FC<Props> = ({ next, tos }) => {
   const { t } = useTranslation();
-  const tos = getEnv().TOS;
 
   // If this was mistakenly rendered with no ToS, just instantly agree and continue.
   useEffect(() => {

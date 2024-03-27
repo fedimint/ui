@@ -24,10 +24,7 @@ RUN yarn install
 COPY --from=builder /app/out/full/ .
 # TODO: Remove this copy once https://github.com/vercel/turbo/issues/3758 is fixed
 COPY ./turbo.json .
-RUN REACT_APP_FM_CONFIG_API="{{REACT_APP_FM_CONFIG_API}}" \
-  REACT_APP_TOS="{{REACT_APP_TOS}}" \
-  yarn build:guardian-ui
-
+RUN yarn build:guardian-ui
 
 # Run the built app with a minimal image
 FROM base AS runner
@@ -35,5 +32,6 @@ WORKDIR /app
 
 COPY --from=installer /app/apps/guardian-ui/build build
 COPY scripts/replace-react-env.js scripts/replace-react-env.js
+COPY scripts/write-config-from-env.js scripts/write-config-from-env.js
 RUN yarn global add serve
-CMD node scripts/replace-react-env.js build && serve -s build
+CMD node scripts/write-config-from-env.js build && serve -s build
