@@ -43,6 +43,8 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
   const rows: TableRow<TableKey>[] = useMemo(() => {
     if (!status?.federation || !config) return [];
     const peerDataArray = [];
+    console.log('status', status);
+    console.log('config', config);
     for (const [id, federationStatus] of Object.entries(
       status.federation.status_by_peer
     )) {
