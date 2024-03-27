@@ -32,38 +32,27 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
   type TableKey = 'metaKey' | 'value';
 
   useEffect(() => {
-    let pollConsensusMetaTimeout: ReturnType<typeof setTimeout>;
-    const pollConsensusMeta = async () => {
-      api
-        .moduleApiCall<ConsensusMeta>(
+    const pollConsensusMeta = setInterval(async () => {
+      try {
+        const meta = await api.moduleApiCall<ConsensusMeta>(
           Number(metaModuleId),
           ModuleRpc.getConsensus,
           metaKey
-        )
-        .then((meta) => {
-          if (meta) {
-            const consensusMeta: ConsensusMetaFields = {
-              revision: meta.revision,
-              value: metaToFields(hexToMeta(meta.value)),
-            };
-            updateConsensusMeta(consensusMeta);
-          }
-        })
-        .catch((err) => {
-          console.warn('Failed to poll for consensus meta', err);
-        })
-        .finally(() => {
-          pollConsensusMetaTimeout = setTimeout(pollConsensusMeta, pollTimeout);
-        });
-    };
-
-    pollConsensusMeta();
-
+        );
+        if (!meta) return;
+        const consensusMeta: ConsensusMetaFields = {
+          revision: meta.revision,
+          value: metaToFields(hexToMeta(meta.value)),
+        };
+        updateConsensusMeta(consensusMeta);
+      } catch (err) {
+        console.warn('Failed to poll for consensus meta', err);
+      }
+    }, pollTimeout);
     return () => {
-      clearTimeout(pollConsensusMetaTimeout);
+      clearInterval(pollConsensusMeta);
     };
   }, [api, metaModuleId, metaKey, pollTimeout, updateConsensusMeta]);
-
 
   const columns: TableColumn<TableKey>[] = useMemo(
     () => [
