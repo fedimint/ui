@@ -287,6 +287,11 @@ export const theme = extendTheme(
           },
         },
         sizes: inputSizes,
+        field: {
+          _disabled: {
+            cursor: 'text',
+          },
+        },
         variants: {
           outline: {
             field: {
