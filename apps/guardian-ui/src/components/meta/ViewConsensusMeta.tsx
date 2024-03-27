@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { Box, Flex, Input, Text } from '@chakra-ui/react';
+import React, { useEffect, useMemo } from 'react';
+import { Flex, Text } from '@chakra-ui/react';
 import { useTranslation, hexToMeta, metaToFields } from '@fedimint/utils';
 import { ConsensusMeta, MetaFields } from '@fedimint/types';
 import { useAdminContext } from '../../hooks';
 import { ModuleRpc } from '../../types';
+import { Table, TableColumn, TableRow } from '@fedimint/ui';
 
 interface ViewConsensusMetaProps {
   metaKey: number;
@@ -27,6 +28,8 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
 }: ViewConsensusMetaProps): JSX.Element {
   const { t } = useTranslation();
   const { api } = useAdminContext();
+
+  type TableKey = 'metaKey' | 'value';
 
   useEffect(() => {
     let pollConsensusMetaTimeout: ReturnType<typeof setTimeout>;
@@ -61,25 +64,44 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
     };
   }, [api, metaModuleId, metaKey, pollTimeout, updateConsensusMeta]);
 
+
+  const columns: TableColumn<TableKey>[] = useMemo(
+    () => [
+      {
+        key: 'metaKey',
+        heading: t('set-config.meta-fields-key'),
+      },
+      {
+        key: 'value',
+        heading: t('set-config.meta-fields-value'),
+      },
+    ],
+    [t]
+  );
+
+  const rows: TableRow<TableKey>[] = useMemo(() => {
+    if (!consensusMeta) return [] as TableRow<TableKey>[];
+    return consensusMeta?.value.map(([key, value], idx) => {
+      return {
+        key: idx,
+        metaKey: <Text size={'md'}>{key}</Text>,
+        value: <Text size={'md'}>{value}</Text>,
+      };
+    });
+  }, [consensusMeta]);
+
   return (
-    <Box>
-      <Text fontSize='lg'>
-        {t('federation-dashboard.config.manage-meta.consensus-meta-label')}
-      </Text>
+    <Flex flexDir='column' gap='3'>
+      <Flex flexDir='column'>
+        <Text fontSize='lg'>
+          {t('federation-dashboard.config.manage-meta.consensus-meta-label')}
+        </Text>
+        <Text fontSize='sm' fontStyle='italic'>
+          revision: {consensusMeta?.revision}
+        </Text>
+      </Flex>
       {consensusMeta ? (
-        <Flex direction='column' gap={2} pt={2} pb={2}>
-          <Text px={2}>{'revision ' + consensusMeta.revision}</Text>
-          {consensusMeta.value.map(([key, value], idx) => (
-            <Flex gap={2} key={idx} align='center'>
-              <Input
-                isDisabled={true}
-                placeholder={t('set-config.meta-fields-key')}
-                value={key}
-              />
-              <Input isDisabled={true} value={value} />
-            </Flex>
-          ))}
-        </Flex>
+        <Table columns={columns} rows={rows} />
       ) : (
         <Text fontSize='sm'>
           {t(
@@ -87,6 +109,6 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
           )}
         </Text>
       )}
-    </Box>
+    </Flex>
   );
 });
