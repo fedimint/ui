@@ -14,13 +14,14 @@ export const FederationCard: React.FC<FederationCardProps> = ({
   network,
   lightning_pub_key,
 }) => {
-  const { federation_id, balance_msat } = federation;
+  const { federation_id, balance_msat, config } = federation;
 
   return (
     <Card w='100%' maxWidth='100%'>
       <CardBody>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <BalanceCard
+            federationName={config.meta.federation_name}
             balanceMsat={balance_msat}
             federationId={federation_id}
           />
