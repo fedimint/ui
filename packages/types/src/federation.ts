@@ -5,6 +5,7 @@ import {
   ModuleConfig,
   ModuleKind,
 } from './modules';
+import { MetaConfig } from './meta';
 
 export enum ServerStatus {
   AwaitingPassword = 'awaiting_password',
@@ -71,11 +72,6 @@ interface ApiEndpoint {
   name: string;
   url: string;
 }
-
-export type MetaConfig = { federation_name?: string } & Record<
-  string,
-  string | undefined
->;
 
 type MajorAndMinorVersions = {
   major: number;

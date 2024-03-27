@@ -5,8 +5,12 @@ interface NetworkIndicatorProps {
   bitcoinRpcUrl: string;
 }
 
+interface NetworkDetails {
+  [key: string]: { color: string; name: string };
+}
+
 const getNetworkDetails = (network: string, isMutinynet: boolean) => {
-  const networkDetails: { [key: string]: { color: string; name: string } } = {
+  const networkDetails: NetworkDetails = {
     bitcoin: { color: '#FF9900', name: 'Mainnet' },
     main: { color: '#FF9900', name: 'Mainnet' },
     testnet: { color: '#6BED33', name: 'Testnet' },

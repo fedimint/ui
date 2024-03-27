@@ -5,7 +5,9 @@
     "back": "Back",
     "error": "Something went wrong.",
     "unknown": "Unknown",
-    "remove": "Remove"
+    "remove": "Remove",
+    "cancel": "Cancel",
+    "review": "Review"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -56,8 +58,21 @@
     },
     "config": {
       "label": "Federation Config",
-      "downloadBackup": {
-        "button": "Download Backup",
+      "view-config": "View Config",
+      "missing-meta-module": "Editing meta is not possible. The meta module is not available for this federation.",
+      "manage-meta": {
+        "tab-label": "Manage Meta",
+        "consensus-meta-label": "Current meta in consensus",
+        "no-consensus-meta-message": "there are no meta in consensus",
+        "submitted-meta-label": "Review meta edits submitted",
+        "no-submitted-meta-message": "there are no meta edits to review",
+        "edit-meta-label": "Edit meta",
+        "edit-consensus-meta-button": "Edit Consensus Meta",
+        "submit-meta-edits-button": "Submit Meta Edits"
+      },
+      "backup": {
+        "label": "Backup",
+        "download-backup-button": "Download Backup",
         "warningTitle": "Warning",
         "warningText": "The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!",
         "cancelButton": "Cancel",

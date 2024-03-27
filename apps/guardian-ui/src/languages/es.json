@@ -53,7 +53,23 @@
       "status-label": "Estado de conexión"
     },
     "config": {
-      "label": "Configuración de la Federación"
+      "label": "Configuración de la Federación",
+      "view-config": "Ver Configuración",
+      "missing-meta-module": "",
+      "manage-meta": {
+        "tab-label": "",
+        "consensus-meta-label": "",
+        "submitted-meta-label": "",
+        "edit-meta-label": "",
+        "submit-meta-edits-button": ""
+      },
+      "downloadBackup": {
+        "button": "",
+        "warningTitle": "",
+        "warningText": "",
+        "cancelButton": "",
+        "acknowledgeButton": ""
+      }
     },
     "invite-members": "Invitar a los miembros",
     "invite-members-prompt": "Comparte esto para invitar a miembros a unirse a la federación."

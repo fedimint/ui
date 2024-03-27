@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, useTheme, Card, CardBody } from '@chakra-ui/react';
+import { Flex, Card, CardBody } from '@chakra-ui/react';
 import { Network, Federation } from '@fedimint/types';
 import { InfoCard, DepositCard, BalanceCard, WithdrawCard } from '.';
 

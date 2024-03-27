@@ -53,7 +53,23 @@
       "status-label": "연결 상태"
     },
     "config": {
-      "label": "연합 설정"
+      "label": "연합 설정",
+      "view-config": "보기",
+      "missing-meta-module": "",
+      "manage-meta": {
+        "tab-label": "",
+        "consensus-meta-label": "",
+        "submitted-meta-label": "",
+        "edit-meta-label": "",
+        "submit-meta-edits-button": ""
+      },
+      "downloadBackup": {
+        "button": "",
+        "warningTitle": "",
+        "warningText": "",
+        "cancelButton": "",
+        "acknowledgeButton": ""
+      }
     },
     "invite-members": "회원 초대",
     "invite-members-prompt": "이 내용을 공유하여 회원을 연맹에 가입하도록 초대하세요."

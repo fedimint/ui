@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.5",
+    "@codemirror/basic-setup": "^0.20.0",
     "@codemirror/lang-json": "^6.0.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
@@ -21,6 +22,7 @@
     "@fedimint/utils": "*",
     "@uiw/codemirror-theme-github": "^4.21.21",
     "@uiw/react-codemirror": "^4.21.21",
+    "diff": "^5.2.0",
     "framer-motion": "^6",
     "jsonrpc-client-websocket": "^1.5.2",
     "node": "^20.1.0",
@@ -37,6 +39,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/diff": "^5.0.9",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.14",
     "@types/react": "^18.2.0",

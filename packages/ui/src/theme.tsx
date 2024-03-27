@@ -281,6 +281,11 @@ export const theme = extendTheme(
         defaultProps: {
           size: 'md',
         },
+        baseStyle: {
+          _disabled: {
+            pointerEvents: 'none',
+          },
+        },
         sizes: inputSizes,
         variants: {
           outline: {

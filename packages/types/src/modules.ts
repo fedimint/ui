@@ -4,6 +4,7 @@ export enum ModuleKind {
   Ln = 'ln',
   Mint = 'mint',
   Wallet = 'wallet',
+  Meta = 'meta',
 }
 
 // FIXME: why doesn't this have API versions? seems like it should ...
@@ -43,6 +44,9 @@ interface ModuleConfigs {
     peer_peg_in_keys: Record<number, { key: string }>;
     peg_in_descriptor: number;
   };
+  [ModuleKind.Meta]: {
+    federation_name: string;
+  };
 }
 
 export interface BitcoinRpc {
@@ -79,6 +83,13 @@ export type WalletModuleParams = [
     local?: {
       bitcoin_rpc: BitcoinRpc;
     };
+  }
+];
+export type MetaModuleParams = [
+  ModuleKind.Meta,
+  {
+    consensus?: object;
+    local?: object;
   }
 ];
 export type OtherModuleParams = [
