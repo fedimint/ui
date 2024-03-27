@@ -29,36 +29,23 @@ export const ReviewMetaField = React.memo(function MetaFieldForm({
   );
 
   useEffect(() => {
-    let pollMetaSubmissionsTimeout: ReturnType<typeof setTimeout>;
-    const pollMetaSubmissions = () => {
-      api
-        .moduleApiCall<MetaSubmissions>(
+    const pollSubmissionInterval = setInterval(async () => {
+      try {
+        const submissions = await api.moduleApiCall<MetaSubmissions>(
           Number(metaModuleId),
           ModuleRpc.getSubmissions,
           0
-        )
-        .then((submissions) => {
-          const metaSubmissions: MetaSubmissionFields = Object.entries(
-            submissions
-          ).map(([key, value]) => [key, metaToFields(hexToMeta(value))]);
-
-          setMetaSubmissions(metaSubmissions);
-        })
-        .catch((err) => {
-          console.warn('Failed to poll for meta submissions', err);
-        })
-        .finally(() => {
-          pollMetaSubmissionsTimeout = setTimeout(
-            pollMetaSubmissions,
-            pollTimeout
-          );
-        });
-    };
-
-    pollMetaSubmissions();
-
+        );
+        const metaSubmissions: MetaSubmissionFields = Object.entries(
+          submissions
+        ).map(([key, value]) => [key, metaToFields(hexToMeta(value))]);
+        setMetaSubmissions(metaSubmissions);
+      } catch (err) {
+        console.warn('Failed to poll for meta submissions', err);
+      }
+    }, 1000); // poll once per second
     return () => {
-      clearTimeout(pollMetaSubmissionsTimeout);
+      clearInterval(pollSubmissionInterval);
     };
   }, [api, metaModuleId, pollTimeout]);
 
