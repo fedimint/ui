@@ -76,7 +76,7 @@
       "guardian-connect-warning": "DO NOT SHARE THIS",
       "label": "Federation Config",
       "view-config": "View Config",
-      "missing-meta-module": "Editing meta is not possible. The meta module is not available for this federation.",
+      "missing-meta-module": "Editing Meta fields is not possible. The Meta module is not available for this federation.",
       "manage-meta": {
         "tab-label": "Manage Meta",
         "consensus-meta-label": "Current meta in consensus",
@@ -85,7 +85,8 @@
         "no-submitted-meta-message": "there are no meta edits to review",
         "edit-meta-label": "Edit meta",
         "edit-consensus-meta-button": "Edit Consensus Meta",
-        "submit-meta-edits-button": "Submit Meta Edits"
+        "submit-meta-edits-button": "Submit Meta Edits",
+        "peer-reviews": "Peers"
       },
       "backup": {
         "label": "Backup",
