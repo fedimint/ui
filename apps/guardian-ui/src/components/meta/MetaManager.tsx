@@ -5,8 +5,8 @@ import { MetaConfig, MetaFields } from '@fedimint/types';
 import { ModuleRpc } from '../../types';
 import { useAdminContext } from '../../hooks';
 import { EditMetaField } from './EditMetaField';
-import { ReviewMetaField } from './ReviewMetaField';
 import { ViewConsensusMeta, ConsensusMetaFields } from './ViewConsensusMeta';
+import { UpdateMetaFields } from './UpdateMetaFields';
 
 const DEFAULT_META_KEY = 0;
 const POLL_TIMEOUT_MS = 2000;
@@ -36,6 +36,12 @@ export const MetaManager = React.memo(function MetaManager({
       return;
     }
 
+    if (editedMetaFields === consensusMeta?.value) {
+      console.log('Meta fields proposed are already in consensus');
+      setEditedMetaFields([]);
+      return;
+    }
+
     api
       .moduleApiCall<{ metaValue: string }[]>(
         Number(metaModuleId),
@@ -47,7 +53,7 @@ export const MetaManager = React.memo(function MetaManager({
       )
       .then(() => setEditedMetaFields([]))
       .catch(console.error);
-  }, [api, metaModuleId, editedMetaFields]);
+  }, [api, metaModuleId, editedMetaFields, consensusMeta]);
 
   return metaModuleId ? (
     <Flex direction='column' gap={6}>
@@ -60,7 +66,7 @@ export const MetaManager = React.memo(function MetaManager({
         }
         pollTimeout={POLL_TIMEOUT_MS}
       />
-      <ReviewMetaField
+      <UpdateMetaFields
         metaModuleId={metaModuleId}
         updateEditedMetaFields={(fields: MetaFields) => {
           setEditedMetaFields([...editedMetaFields, ...fields]);

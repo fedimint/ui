@@ -19,6 +19,8 @@ export interface ConsensusMetaFields {
   value: MetaFields;
 }
 
+type TableKey = 'metaKey' | 'value';
+
 export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
   consensusMeta,
   metaModuleId,
@@ -28,8 +30,6 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
 }: ViewConsensusMetaProps): JSX.Element {
   const { t } = useTranslation();
   const { api } = useAdminContext();
-
-  type TableKey = 'metaKey' | 'value';
 
   useEffect(() => {
     const pollConsensusMeta = setInterval(async () => {
