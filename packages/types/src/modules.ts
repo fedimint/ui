@@ -57,34 +57,31 @@ export type ModuleConfig<T extends ModuleKind = ModuleKind> = {
 export type LnModuleParams = [
   ModuleKind.Ln,
   {
-    consensus?: object;
-    local?: object;
+    consensus: object;
+    local: object;
   }
 ];
 export type MintModuleParams = [
   ModuleKind.Mint,
   {
-    consensus?: { mint_amounts: number[] };
-    local?: object;
+    consensus: { mint_amounts: number[] };
+    local: object;
   }
 ];
 export type WalletModuleParams = [
   ModuleKind.Wallet,
   {
-    consensus?: {
+    consensus: {
       finality_delay: number;
       network: Network;
       client_default_bitcoin_rpc: BitcoinRpc;
     };
-    local?: {
+    local: {
       bitcoin_rpc: BitcoinRpc;
     };
   }
 ];
-export type OtherModuleParams = [
-  string,
-  { consensus?: object; local?: object }
-];
+export type OtherModuleParams = [string, { consensus: object; local: object }];
 export type AnyModuleParams =
   | LnModuleParams
   | MintModuleParams

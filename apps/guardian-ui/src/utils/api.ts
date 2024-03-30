@@ -47,19 +47,6 @@ export function applyConfigGenModuleParams(
 }
 
 /**
- * Filter out consensus module config gen params to only have local ones.
- */
-export function removeConfigGenModuleConsensusParams(
-  moduleParams: ConfigGenParams['modules']
-): ConfigGenParams['modules'] {
-  const newParams = { ...moduleParams };
-  Object.values(newParams).forEach((module) => {
-    module[1] = { local: module[1].local };
-  });
-  return newParams;
-}
-
-/**
  * Given a config, filter out all non-default modules
  */
 export function getOtherModuleParamsFromConfig(
