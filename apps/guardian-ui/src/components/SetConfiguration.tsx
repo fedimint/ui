@@ -31,7 +31,6 @@ import {
   formatApiErrorMessage,
   getModuleParamsFromConfig,
   applyConfigGenModuleParams,
-  removeConfigGenModuleConsensusParams,
 } from '../utils/api';
 import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
@@ -210,7 +209,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           configs: {
             hostServerUrl,
             meta: {},
-            modules: removeConfigGenModuleConsensusParams(moduleConfigs),
+            modules: moduleConfigs,
           },
         });
       }
@@ -250,7 +249,9 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           </FormHelperText>
         </FormControl>
         <FormControl
-          isInvalid={password !== confirmPassword && password.length > 0}
+          isInvalid={
+            !!password && password !== confirmPassword && password.length > 0
+          }
         >
           <FormLabel>{t('set-config.confirm-password')}</FormLabel>
           <Input
@@ -259,7 +260,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             onChange={(ev) => setConfirmPassword(ev.currentTarget.value)}
           />
           <FormErrorMessage>
-            {password !== confirmPassword &&
+            {!!password &&
+              password !== confirmPassword &&
               password.length > 0 &&
               t('set-config.error-password-mismatch')}
           </FormErrorMessage>
