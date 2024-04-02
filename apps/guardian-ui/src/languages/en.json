@@ -98,7 +98,7 @@
     "guardian-name": "Guardian name",
     "guardian-name-help": "This name will be shown to other Guardians",
     "admin-password": "Admin password",
-    "admin-password-help": "Please back up your password! Password recovery is not available!",
+    "admin-password-help": "By checking this box, you acknowledge that you have copied and securely saved the password in a location only accessible to you. This ensures the safety and confidentiality of your Federation.",
     "confirm-password": "Confirm password",
     "error-password-mismatch": "Passwords don't match",
     "join-federation": "Join Federation link",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  useClipboard,
+  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -11,6 +11,7 @@ import {
   Button,
   Text,
   useTheme,
+  useClipboard,
 } from '@chakra-ui/react';
 import {
   BitcoinRpc,
@@ -60,6 +61,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const isSolo = role === GuardianRole.Solo;
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
+  const [passwordCheck, setPasswordCheck] = useState(Boolean);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [federationName, setFederationName] = useState('');
@@ -124,6 +126,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     ? Boolean(
         myName &&
           password &&
+          passwordCheck &&
           federationName &&
           isValidNumber(numPeers, 4) &&
           isValidNumber(blockConfirmations, 1, 200) &&
@@ -134,6 +137,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     ? Boolean(
         myName &&
           password &&
+          passwordCheck &&
           federationName &&
           isValidNumber(blockConfirmations, 1, 200) &&
           isValidMeta(metaFields) &&
@@ -251,25 +255,33 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         </FormControl>
         <FormControl>
           <FormLabel>{t('set-config.admin-password')}</FormLabel>
-          <Button onClick={generatePassword} mb={2} w='100%'>
-            Generate Password
-          </Button>
           <Flex gap={2}>
             <Input
               type='text'
               value={password}
               readOnly
-              w='75%'
+              w='80%'
               placeholder='Password'
             />
-            <Button onClick={onCopy} w='22%'>
+            <Button onClick={onCopy} w='20%'>
               {hasCopied ? 'Copied!' : 'Copy'}
             </Button>
           </Flex>
-          <FormHelperText>
-            <Text color={theme.colors.yellow[500]}>
-              {t('set-config.admin-password-help')}
-            </Text>
+          <FormControl>
+            <Button onClick={generatePassword} mt={2} w='100%'>
+              Generate Password
+            </Button>
+          </FormControl>
+          <FormHelperText style={{ marginTop: '16px', marginBottom: '16px' }}>
+            <Checkbox
+              isRequired
+              spacing='10px'
+              onChange={(e) => setPasswordCheck(e.target.checked)}
+            >
+              <Text color={theme.colors.yellow[500]}>
+                {t('set-config.admin-password-help')}
+              </Text>
+            </Checkbox>
           </FormHelperText>
         </FormControl>
         {!isHost && !isSolo && (
