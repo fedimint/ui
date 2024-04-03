@@ -96,7 +96,8 @@
   },
   "set-config": {
     "guardian-name": "Guardian name",
-    "guardian-name-help": "This name will be shown to other Guardians",
+    "guardian-name-help": "This random name will be shown to other Guardians",
+    "generate-random-name": "Generate random guardian name",
     "admin-password": "Admin password",
     "admin-password-help": "Use a strong password & back it up! You cannot recover this password!",
     "confirm-password": "Confirm password",
