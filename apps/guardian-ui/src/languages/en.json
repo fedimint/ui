@@ -14,6 +14,7 @@
     "approved": "Approved",
     "pending": "Pending",
     "not-joined": "Not joined",
+    "waiting-for-guardian": "Waiting for guardian",
     "table-title": "Federation Guardians",
     "table-description": "Guardians will be confirmed here once they confirm Federation settings.",
     "meta-field-key": "Meta field - {{key}}"
