@@ -174,7 +174,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
           }
         : {
             key: i,
-            name: `Guardian ${i + 1}`,
+            name: t('connect-guardians.waiting-for-guardian') + ` ${i + 1}...`,
             status: (
               <Tag colorScheme='gray'>{t('connect-guardians.not-joined')}</Tag>
             ),
