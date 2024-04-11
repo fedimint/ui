@@ -3,7 +3,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
       url =
-        "github:fedimint/fedimint?rev=c32bbe8ed8d95ae420b5879e92dda6ce48f5c914";
+        "github:fedimint/fedimint?rev=446f967f3f4c4ce9fba3d439c3544f80379d376e";
     };
   };
   outputs = { self, flake-utils, fedimint }:
@@ -15,8 +15,7 @@
           overlays = fedimint.overlays.fedimint;
         };
         fmLib = fedimint.lib.${system};
-      in
-      {
+      in {
         devShells = fmLib.devShells // {
           default = fmLib.devShells.default.overrideAttrs (prev: {
             nativeBuildInputs = [
