@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -10,7 +11,7 @@ import {
   Button,
   Text,
   useTheme,
-  FormErrorMessage,
+  useClipboard,
 } from '@chakra-ui/react';
 import {
   BitcoinRpc,
@@ -60,7 +61,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const isSolo = role === GuardianRole.Solo;
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState(Boolean);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [federationName, setFederationName] = useState('');
@@ -73,6 +74,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   });
   const [mintAmounts, setMintAmounts] = useState<number[]>([]);
   const [error, setError] = useState<string>();
+  const { onCopy, hasCopied } = useClipboard(password);
   const [numPeers, setNumPeers] = useState(
     stateNumPeers ? stateNumPeers.toString() : isSolo ? '1' : MIN_BFT_NUM_PEERS
   );
@@ -124,7 +126,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     ? Boolean(
         myName &&
           password &&
-          password === confirmPassword &&
+          passwordCheck &&
           federationName &&
           isValidNumber(numPeers, 4) &&
           isValidNumber(blockConfirmations, 1, 200) &&
@@ -135,15 +137,13 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     ? Boolean(
         myName &&
           password &&
-          password === confirmPassword &&
+          passwordCheck &&
           federationName &&
           isValidNumber(blockConfirmations, 1, 200) &&
           isValidMeta(metaFields) &&
           network
       )
-    : Boolean(
-        myName && password && password === confirmPassword && hostServerUrl
-      );
+    : Boolean(myName && password && hostServerUrl);
 
   const handleChangeFederationName = (
     ev: React.ChangeEvent<HTMLInputElement>
@@ -219,6 +219,25 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     }
   };
 
+  const generatePassword = () => {
+    const getRandomInt = (max: number) => {
+      const randomBuffer = new Uint8Array(1);
+      window.crypto.getRandomValues(randomBuffer);
+      return Math.floor((randomBuffer[0] / 255) * max);
+    };
+
+    const passwordLength = 16;
+    const charSet = 'abcdefghjkmnpqrstuvwxyz0123456789';
+
+    let adminPassword = '';
+    for (let i = 0; i < passwordLength; i++) {
+      const randomIndex = getRandomInt(charSet.length);
+      adminPassword += charSet.charAt(randomIndex);
+    }
+
+    setPassword(adminPassword);
+  };
+
   return (
     <Flex direction='column' gap={['2', '6']} justify='start' align='start'>
       <FormGroup
@@ -236,35 +255,34 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         </FormControl>
         <FormControl>
           <FormLabel>{t('set-config.admin-password')}</FormLabel>
-          <Input
-            type='password'
-            value={password}
-            onChange={(ev) => setPassword(ev.currentTarget.value)}
-            isDisabled={!!statePassword}
-          />
-          <FormHelperText>
-            <Text color={theme.colors.yellow[500]}>
-              {t('set-config.admin-password-help')}
-            </Text>
+          <Flex gap={2}>
+            <Input
+              type='text'
+              value={password}
+              readOnly
+              w='80%'
+              placeholder='Password'
+            />
+            <Button onClick={onCopy} w='20%'>
+              {hasCopied ? 'Copied!' : 'Copy'}
+            </Button>
+          </Flex>
+          <FormControl>
+            <Button onClick={generatePassword} mt={2} w='100%'>
+              Generate Password
+            </Button>
+          </FormControl>
+          <FormHelperText style={{ marginTop: '16px', marginBottom: '16px' }}>
+            <Checkbox
+              isRequired
+              spacing='10px'
+              onChange={(e) => setPasswordCheck(e.target.checked)}
+            >
+              <Text color={theme.colors.yellow[500]}>
+                {t('set-config.admin-password-help')}
+              </Text>
+            </Checkbox>
           </FormHelperText>
-        </FormControl>
-        <FormControl
-          isInvalid={
-            !!password && password !== confirmPassword && password.length > 0
-          }
-        >
-          <FormLabel>{t('set-config.confirm-password')}</FormLabel>
-          <Input
-            type='password'
-            value={confirmPassword}
-            onChange={(ev) => setConfirmPassword(ev.currentTarget.value)}
-          />
-          <FormErrorMessage>
-            {!!password &&
-              password !== confirmPassword &&
-              password.length > 0 &&
-              t('set-config.error-password-mismatch')}
-          </FormErrorMessage>
         </FormControl>
         {!isHost && !isSolo && (
           <FormControl>
