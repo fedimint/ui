@@ -319,7 +319,6 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
           // Followers set their own connection name, and hosts server URL to connect to.
           await api.setConfigGenConnections(myName, configs.hostServerUrl);
 
-          console.log('configs', configs);
           // Followers submit ONLY their local config gen params.
           await api.setConfigGenParams(configs);
 

@@ -48,7 +48,6 @@ export const FederationAdmin: React.FC = () => {
     api.inviteCode().then(setInviteCode).catch(console.error);
     api.config().then(setConfig).catch(console.error);
     const fetchStatus = () => {
-      console.log('fetching status');
       api.status().then(setStatus).catch(console.error);
     };
     fetchStatus();

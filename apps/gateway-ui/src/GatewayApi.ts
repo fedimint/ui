@@ -163,7 +163,6 @@ export class GatewayApi {
 
       if (res.ok) {
         const txid: string = await res.json();
-        console.log('txid', txid);
         return Promise.resolve(txid);
       }
 
