@@ -31,15 +31,18 @@ export const GuardianAuthenticationCode: React.FC<
   const [isAcknowledged, setIsAcknowledged] = useState(false);
 
   const calculateGuardianAuthenticationCode = () => {
-    const password = sessionStorage.getItem('guardian-ui-key');
     const params = new URLSearchParams({
       federationId: federationId,
       peerId: ourPeer?.id.toString(),
       guardianName: ourPeer?.name,
-      password: password || '',
-    }).toString();
+    });
 
-    return `guardian:authenticate?${params}`;
+    const password = sessionStorage.getItem('guardian-ui-key');
+    if (password) {
+      params.append('password', password);
+    }
+
+    return `guardian:authenticate?${params.toString()}`;
   };
 
   const handleOpen = () => {
