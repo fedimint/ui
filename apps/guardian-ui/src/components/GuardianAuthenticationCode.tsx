@@ -64,7 +64,7 @@ export const GuardianAuthenticationCode: React.FC<
         bg={theme.colors.red[500]}
         _hover={{ bg: theme.colors.red[600] }}
       >
-        Authenticate as Guardian
+        {t('federation-dashboard.danger-zone.guardian-authenticate')}
       </Button>
       <Modal isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />
