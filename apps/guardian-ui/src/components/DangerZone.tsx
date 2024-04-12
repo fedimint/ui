@@ -27,7 +27,7 @@ export const DangerZone: React.FC<DangerZoneProps> = ({ config, ourPeer }) => {
         {config && ourPeer !== undefined && (
           <GuardianAuthenticationCode
             ourPeer={ourPeer}
-            federationId={config?.meta.federation_id ?? ''}
+            federationId={config.meta.federation_id ?? ''}
           />
         )}
         <DownloadBackup />
