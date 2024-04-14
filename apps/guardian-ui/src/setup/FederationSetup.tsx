@@ -16,7 +16,12 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { useSetupContext } from '../hooks';
-import { GuardianRole, SetupProgress, SETUP_ACTION_TYPE } from '../types';
+import {
+  GuardianRole,
+  SetupProgress,
+  SETUP_ACTION_TYPE,
+  tosConfigState,
+} from '../types';
 import { RoleSelector } from '../components/RoleSelector';
 import { SetConfiguration } from '../components/SetConfiguration';
 import { ConnectGuardians } from '../components/ConnectGuardians';
@@ -42,15 +47,18 @@ const PROGRESS_ORDER: SetupProgress[] = [
 export const FederationSetup: React.FC = () => {
   const { t } = useTranslation();
   const {
-    state: { progress, role, peers },
+    state: { progress, role, peers, tosConfig },
     dispatch,
     api,
   } = useSetupContext();
-  const [tosConfig, setTosConfig] = useState<{
-    showTos: boolean;
-    tos: string | undefined;
-  }>({ showTos: false, tos: undefined });
   const [confirmRestart, setConfirmRestart] = useState(false);
+
+  const setTosConfig = useCallback(
+    (payload: tosConfigState) => {
+      dispatch({ type: SETUP_ACTION_TYPE.SET_TOS_CONFIG, payload });
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     async function getTos() {
@@ -58,7 +66,7 @@ export const FederationSetup: React.FC = () => {
       setTosConfig({ showTos: !!tos, tos });
     }
     getTos();
-  }, [api]);
+  }, [api, setTosConfig]);
 
   const isHost = role === GuardianRole.Host;
   const isSolo = role === GuardianRole.Solo;

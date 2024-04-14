@@ -59,6 +59,11 @@ export enum StepState {
   Completed = 'Completed',
 }
 
+export interface tosConfigState {
+  showTos: boolean;
+  tos: string | undefined;
+}
+
 export interface SetupState {
   role: GuardianRole | null;
   progress: SetupProgress;
@@ -68,6 +73,7 @@ export interface SetupState {
   configGenParams: ConfigGenParams | null;
   numPeers: number;
   peers: Peer[];
+  tosConfig: tosConfigState;
 }
 
 export enum SETUP_ACTION_TYPE {
@@ -81,6 +87,7 @@ export enum SETUP_ACTION_TYPE {
   SET_PEERS = 'SET_PEERS',
   SET_IS_SETUP_COMPLETE = 'SET_IS_SETUP_COMPLETE',
   SET_OUR_CURRENT_ID = 'SET_OUR_CURRENT_ID',
+  SET_TOS_CONFIG = 'SET_TOS_CONFIG',
 }
 
 export type SetupAction =
@@ -119,6 +126,10 @@ export type SetupAction =
   | {
       type: SETUP_ACTION_TYPE.SET_IS_SETUP_COMPLETE;
       payload: boolean;
+    }
+  | {
+      type: SETUP_ACTION_TYPE.SET_TOS_CONFIG;
+      payload: tosConfigState;
     }
   | {
       type: SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID;

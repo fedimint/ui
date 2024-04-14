@@ -16,7 +16,7 @@ import { AdminRpc, ModuleRpc, SetupRpc, SharedRpc } from './types';
 
 const SESSION_STORAGE_KEY = 'guardian-ui-key';
 
-type GuardianConfig = {
+export type GuardianConfig = {
   fm_config_api?: string;
   tos?: string;
 };
