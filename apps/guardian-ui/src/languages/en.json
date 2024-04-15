@@ -20,7 +20,7 @@
     "meta-field-key": "Meta field - {{key}}"
   },
   "federation-dashboard": {
-    "invite-members": "Invite members",
+    "invite-members": "Invite members or authenticate as a guardian",
     "invite-members-prompt": "Share this to invite members to join the federation",
     "fed-info": {
       "label": "Federation Info",
@@ -56,13 +56,23 @@
       "no-gateways-info-description": "Lightning node operators can connect to your federation to provide Lightning Network interoperability. Once connected, they will appear here."
     },
     "config": {
-      "label": "Federation Config",
+      "label": "Federation Config"
+    },
+    "modal": {
+      "client-connect": "Connect a Client"
+    },
+    "danger-zone": {
+      "danger-zone-label": "Danger Zone",
+      "cancel": "Cancel",
+      "danger-zone-description": "Use with caution!",
+      "guardian-warning-message": "WARNING: Do not share this code with anyone. Anyone with this code can authenticate as a Guardian. Ensure you are in a private location and no one is watching your screen.",
+      "guardian-acknowledge": "Acknowledge and Reveal Code",
+      "acknowledge-and-download": "Acknowledge & Download",
+      "guardian-authenticate": "Authenticate as Guardian",
+      "guardian-connect-warning": "DO NOT SHARE THIS",
       "downloadBackup": {
-        "button": "Download Backup",
-        "warningTitle": "Warning",
-        "warningText": "The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!",
-        "cancelButton": "Cancel",
-        "acknowledgeButton": "Acknowledge & Download"
+        "title": "Download Backup",
+        "warningText": "WARNING: The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!"
       }
     }
   },
@@ -99,7 +109,7 @@
     "guardian-name": "Guardian name",
     "guardian-name-help": "This random name will be shown to other Guardians",
     "admin-password": "Admin password",
-    "admin-password-help": "By checking this box, you acknowledge that you have copied and securely saved the password in a location only accessible to you. This ensures the safety and confidentiality of your Federation.",
+    "admin-password-help": "Use a strong password & back it up! You cannot recover this password!",
     "confirm-password": "Confirm password",
     "error-password-mismatch": "Passwords don't match",
     "join-federation": "Join Federation link",

@@ -13,21 +13,41 @@ import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
 import { BalanceCard } from '../components/BalanceCard';
 import { InviteCode } from '../components/InviteCode';
 import { ConfigViewer } from '../components/ConfigViewer';
-import { DownloadBackup } from '../components/DownloadBackup';
+import { DangerZone } from '../components/DangerZone';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
   const [status, setStatus] = useState<StatusResponse>();
   const [inviteCode, setInviteCode] = useState<string>('');
   const [config, setConfig] = useState<ClientConfig>();
+  const [ourPeer, setOurPeer] = useState<{ id: number; name: string }>();
   const [modulesConfigs, setModulesConfigs] = useState<ModulesConfigResponse>();
+
+  // Extracting our peer ID and name from intersection of config and status
+  useEffect(() => {
+    if (config && status?.federation) {
+      const peerIds = Object.keys(status.federation.status_by_peer).map((id) =>
+        parseInt(id, 10)
+      );
+      const configPeerIds = Object.keys(config.api_endpoints).map((id) =>
+        parseInt(id, 10)
+      );
+      // Finding our peer ID as the one present in config but not in status
+      const ourPeerId = configPeerIds.find((id) => !peerIds.includes(id));
+      if (ourPeerId !== undefined) {
+        setOurPeer({
+          id: ourPeerId,
+          name: config.api_endpoints[ourPeerId].name,
+        });
+      }
+    }
+  }, [config, status]);
 
   useEffect(() => {
     api.modulesConfig().then(setModulesConfigs).catch(console.error);
     api.inviteCode().then(setInviteCode).catch(console.error);
     api.config().then(setConfig).catch(console.error);
     const fetchStatus = () => {
-      console.log('fetching status');
       api.status().then(setStatus).catch(console.error);
     };
     fetchStatus();
@@ -62,7 +82,9 @@ export const FederationAdmin: React.FC = () => {
         <GuardiansCard status={status} config={config} />
         <GatewaysCard config={config} />
         <ConfigViewer config={config} />
-        <DownloadBackup />
+        {config && ourPeer !== null && (
+          <DangerZone config={config} ourPeer={ourPeer} />
+        )}
       </Flex>
     </Flex>
   );

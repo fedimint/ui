@@ -1,6 +1,6 @@
 import { GatewayInfo, Federation } from '@fedimint/types';
 
-const SESSION_STORAGE_KEY = 'gateway-ui-key';
+export const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
 // GatewayApi is an implementation of the ApiInterface
 export class GatewayApi {
@@ -163,7 +163,6 @@ export class GatewayApi {
 
       if (res.ok) {
         const txid: string = await res.json();
-        console.log('txid', txid);
         return Promise.resolve(txid);
       }
 

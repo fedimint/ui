@@ -7,14 +7,16 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
+  Text,
   Flex,
+  useTheme,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
 import { hexToBlob } from '../utils/api';
 
 export const DownloadBackup: React.FC = () => {
+  const theme = useTheme();
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const { api } = useAdminContext();
   const { t } = useTranslation();
@@ -34,45 +36,50 @@ export const DownloadBackup: React.FC = () => {
 
   return (
     <>
-      <Flex justifyContent='center'>
-        <Button colorScheme='blue' onClick={() => setIsWarningModalOpen(true)}>
-          {t('federation-dashboard.config.downloadBackup.button')}
-        </Button>
-      </Flex>
+      <Button
+        size={['sm', 'md']}
+        bg={theme.colors.red[500]}
+        _hover={{ bg: theme.colors.red[600] }}
+        onClick={() => setIsWarningModalOpen(true)}
+      >
+        {t('federation-dashboard.danger-zone.downloadBackup.title')}
+      </Button>
       <Modal
         isOpen={isWarningModalOpen}
         onClose={() => setIsWarningModalOpen(false)}
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            {t('federation-dashboard.config.downloadBackup.warningTitle')}
+          <ModalHeader alignSelf='center'>
+            {t('federation-dashboard.danger-zone.downloadBackup.title')}
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            {t('federation-dashboard.config.downloadBackup.warningText')}
+          <ModalBody pb={6}>
+            <Text mb={4}>
+              {t('federation-dashboard.danger-zone.downloadBackup.warningText')}
+            </Text>
+            <Flex justifyContent='center' gap={4} direction={['column', 'row']}>
+              <Button
+                colorScheme='blue'
+                mr={3}
+                size={['sm', 'md']}
+                onClick={() => setIsWarningModalOpen(false)}
+              >
+                {t('federation-dashboard.danger-zone.cancel')}
+              </Button>
+              <Button
+                variant='ghost'
+                size={['sm', 'md']}
+                onClick={() => {
+                  handleConfirmDownload().finally(() =>
+                    setIsWarningModalOpen(false)
+                  );
+                }}
+              >
+                {t('federation-dashboard.danger-zone.acknowledge-and-download')}
+              </Button>
+            </Flex>
           </ModalBody>
-          <ModalFooter>
-            <Button
-              colorScheme='blue'
-              mr={3}
-              onClick={() => setIsWarningModalOpen(false)}
-            >
-              {t('federation-dashboard.config.downloadBackup.cancelButton')}
-            </Button>
-            <Button
-              variant='ghost'
-              onClick={() => {
-                handleConfirmDownload().finally(() =>
-                  setIsWarningModalOpen(false)
-                );
-              }}
-            >
-              {t(
-                'federation-dashboard.config.downloadBackup.acknowledgeButton'
-              )}
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
