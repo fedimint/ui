@@ -108,7 +108,7 @@ export const FederationSetup: React.FC = () => {
 
   switch (progress) {
     case SetupProgress.Start:
-      if (tosConfig.showTos) {
+      if (tosConfig?.showTos) {
         title = t('setup.progress.tos.title');
         content = (
           <TermsOfService
