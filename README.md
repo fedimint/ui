@@ -143,6 +143,7 @@ nix-guardian spins up these instances
 ### Option 2 - Running with mprocs
 
 1. Install [mprocs](https://github.com/pvolok/mprocs)
+1. In terminal `cd` to the fedimint-ui repo root directory and run `yarn install`
 1. Run `yarn mprocs`
 
 After running this command, you'll be present with the mprocs display. Along the left side are the list of processes currently available by mprocs. Along the bottom are hotkeys for navigating/interacting with mprocs. The main pane shows the shell output for the currently selected process.
