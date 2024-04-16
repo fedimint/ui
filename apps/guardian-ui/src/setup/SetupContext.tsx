@@ -65,6 +65,7 @@ function makeInitialState(loadFromStorage = true): SetupState {
     password: '',
     numPeers: 0,
     peers: [],
+    tosConfig: { showTos: false, tos: undefined },
     ourCurrentId: null,
   };
   if (loadFromStorage) {
@@ -113,6 +114,8 @@ const reducer = (state: SetupState, action: SetupAction): SetupState => {
       return { ...state, peers: action.payload };
     case SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID:
       return { ...state, ourCurrentId: action.payload };
+    case SETUP_ACTION_TYPE.SET_TOS_CONFIG:
+      return { ...state, tosConfig: action.payload };
     default:
       return state;
   }
