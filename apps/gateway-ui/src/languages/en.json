@@ -5,9 +5,10 @@
     "bitcoin": "Bitcoin",
     "btc": "BTC",
     "confirm": "Confirm",
-    "copied": "Copied",
     "error": "Error",
-    "sats": "sats"
+    "sats": "sats",
+    "copy": "Copy",
+    "copied": "Copied!"
   },
   "admin": {
     "fetch-info-modal-text": "Checking federation details..."
