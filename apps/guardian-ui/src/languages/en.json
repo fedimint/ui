@@ -69,7 +69,7 @@
       "danger-zone-description": "Use with caution!",
       "guardian-warning-message": "WARNING: Do not share this code with anyone. Anyone with this code can authenticate as a Guardian. Ensure you are in a private location and no one is watching your screen.",
       "guardian-acknowledge": "Acknowledge and Reveal Code",
-      "acknowledge-and-download": "Acknowledge & Download",
+      "acknowledge-and-download": "Acknowledge & Proceed",
       "guardian-authenticate": "Authenticate as Guardian",
       "guardian-connect-warning": "DO NOT SHARE THIS",
       "downloadBackup": {

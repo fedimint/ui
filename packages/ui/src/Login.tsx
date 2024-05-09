@@ -8,7 +8,10 @@ import {
   FormErrorMessage,
   Heading,
   Text,
+  InputRightElement,
+  InputGroup,
 } from '@chakra-ui/react';
+import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import { useTranslation } from '@fedimint/utils';
 
 interface LoginProps {
@@ -23,6 +26,7 @@ export const Login: React.FC<LoginProps> = ({
   parseError,
 }) => {
   const { t } = useTranslation();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>();
 
@@ -57,11 +61,17 @@ export const Login: React.FC<LoginProps> = ({
         </Flex>
         <FormControl isInvalid={!!error}>
           <FormLabel>{t('login.password')}</FormLabel>
-          <Input
-            type='password'
-            value={password}
-            onChange={(ev) => setPassword(ev.currentTarget.value)}
-          />
+          <InputGroup size='md'>
+            <Input
+              pr='4.5rem'
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(ev) => setPassword(ev.currentTarget.value)}
+            />
+            <InputRightElement onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+            </InputRightElement>
+          </InputGroup>
           {error && <FormErrorMessage>{error}</FormErrorMessage>}
         </FormControl>
         <Button type='submit'>{t('login.submit')}</Button>
