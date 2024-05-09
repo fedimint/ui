@@ -255,33 +255,29 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         </FormControl>
         <FormControl>
           <FormLabel>{t('set-config.admin-password')}</FormLabel>
-          <Flex gap={2}>
-            <Input
-              type='text'
-              value={password}
-              readOnly
-              w='80%'
-              placeholder='Password'
-            />
-            <Button onClick={onCopy} w='20%'>
-              {hasCopied ? 'Copied!' : 'Copy'}
+          {password ? (
+            <Flex gap={2}>
+              <Input
+                type='text'
+                value={password}
+                w='80%'
+                placeholder='Password'
+              />
+              <Button onClick={onCopy} w='20%'>
+                {hasCopied ? t('common.copied') : t('common.copy')}
+              </Button>
+            </Flex>
+          ) : (
+            <Button onClick={generatePassword} w='100%'>
+              {t('set-config.admin-password-generate')}
             </Button>
-          </Flex>
-          <FormControl>
-            <Button onClick={generatePassword} mt={2} w='100%'>
-              Generate Password
-            </Button>
-          </FormControl>
+          )}
           <FormHelperText style={{ marginTop: '16px', marginBottom: '16px' }}>
-            <Checkbox
-              isRequired
-              spacing='10px'
-              onChange={(e) => setPasswordCheck(e.target.checked)}
-            >
-              <Text color={theme.colors.yellow[500]}>
-                {t('set-config.admin-password-help')}
-              </Text>
-            </Checkbox>
+            <Text color={theme.colors.yellow[500]}>
+              {password
+                ? t('set-config.admin-password-help')
+                : t('set-config.admin-password-set')}
+            </Text>
           </FormHelperText>
         </FormControl>
         {!isHost && !isSolo && (
@@ -400,19 +396,28 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           </Text>
         )}
         <Flex
-          direction='row'
+          direction='column'
           justify='space-between'
           alignSelf='center'
           width={['100%', '100%', '60%']}
         >
+          <Checkbox
+            isRequired
+            spacing='10px'
+            alignSelf='flex-start'
+            onChange={(e) => setPasswordCheck(e.target.checked)}
+          >
+            <Text color={theme.colors.yellow[500]}>
+              {t('set-config.admin-password-backup')}
+            </Text>
+          </Checkbox>
           <Button
             isDisabled={!isValid}
             onClick={isValid ? handleNext : undefined}
             leftIcon={<Icon as={ArrowRightIcon} />}
-            justifySelf='center'
-            alignSelf='center'
             mt={['2', '4']}
-            width={['100%', 'auto']}
+            width={['25%', 'auto']}
+            alignSelf='flex-start'
           >
             {t('common.next')}
           </Button>
