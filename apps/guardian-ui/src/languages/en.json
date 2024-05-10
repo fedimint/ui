@@ -40,7 +40,7 @@
       "network-label": "Network"
     },
     "guardians": {
-      "label": "Guardians",
+      "label": "Other Guardians",
       "name-label": "Name",
       "status-label": "Connection Status",
       "health-label": "Health",
