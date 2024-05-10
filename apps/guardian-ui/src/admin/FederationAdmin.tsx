@@ -14,6 +14,7 @@ import { BalanceCard } from '../components/BalanceCard';
 import { InviteCode } from '../components/InviteCode';
 import { ConfigViewer } from '../components/ConfigViewer';
 import { DangerZone } from '../components/DangerZone';
+import BftInfo from '../components/BftInfo';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
@@ -58,16 +59,21 @@ export const FederationAdmin: React.FC = () => {
   return (
     <Flex gap='32px' flexDirection='row'>
       <Flex gap={6} flexDirection='column' w='100%'>
-        <Box maxWidth='440px'>
-          <Heading size='xs' mt='12px'>
-            {config ? (
-              config.meta.federation_name
-            ) : (
-              <Skeleton height='32px' width='180px' />
-            )}
-          </Heading>
-          <InviteCode inviteCode={inviteCode} />
-        </Box>
+        <Heading size='xs' mt='12px'>
+          {config ? (
+            config.meta.federation_name
+          ) : (
+            <Skeleton height='32px' width='180px' />
+          )}
+        </Heading>
+        <Flex flexDirection='row' justifyContent='space-between'>
+          <Box maxWidth='480px'>
+            <InviteCode inviteCode={inviteCode} />
+          </Box>
+          {config ? (
+            <BftInfo numPeers={Object.keys(config.api_endpoints).length} />
+          ) : null}
+        </Flex>
         <Flex
           gap={6}
           alignItems='flex-start'
