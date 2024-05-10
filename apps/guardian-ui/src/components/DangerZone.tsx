@@ -14,7 +14,7 @@ export const DangerZone: React.FC<DangerZoneProps> = ({ config, ourPeer }) => {
   const { t } = useTranslation();
 
   return (
-    <Box mt={['12px']} bg='red.50' p={2} borderRadius='md'>
+    <Box mt='12px' bg='red.50' p={2} borderRadius='md' maxW='480px'>
       <Text
         mb='6px'
         fontSize='14px'

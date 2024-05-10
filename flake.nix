@@ -3,7 +3,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
       url =
-        "github:fedimint/fedimint?rev=446f967f3f4c4ce9fba3d439c3544f80379d376e";
+        "github:fedimint/fedimint?rev=dbabb5f44de5401d24ca9414534a36a22e89c6df"; # v0.3.1
     };
   };
   outputs = { self, flake-utils, fedimint }:
@@ -43,25 +43,25 @@
           src = ./.;
 
           nativeBuildInputs = with pkgs; [
-           nodejs
-           yarn
-           yarn2nix-moretea.fixup_yarn_lock
+            nodejs
+            yarn
+            yarn2nix-moretea.fixup_yarn_lock
           ];
 
           configurePhase = ''
-           export HOME=$(mktemp -d)
+            export HOME=$(mktemp -d)
           '';
 
           buildPhase = ''
-           yarn config --offline set yarn-offline-mirror ${yarnOfflineCache}
-           fixup_yarn_lock yarn.lock
+            yarn config --offline set yarn-offline-mirror ${yarnOfflineCache}
+            fixup_yarn_lock yarn.lock
 
-           yarn install --offline \
-             --frozen-lockfile \
-             --ignore-engines --ignore-scripts
-           patchShebangs .
+            yarn install --offline \
+              --frozen-lockfile \
+              --ignore-engines --ignore-scripts
+            patchShebangs .
 
-           yarn build:guardian-ui
+            yarn build:guardian-ui
           '';
 
           installPhase = ''

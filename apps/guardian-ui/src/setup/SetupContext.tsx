@@ -16,6 +16,7 @@ import {
 } from '../types';
 import { GuardianApi } from '../GuardianApi';
 import { isConsensusparams } from '../utils/validators';
+import { randomNames } from './randomNames';
 
 const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
 
@@ -23,40 +24,11 @@ const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
  * Creates the initial state using loaded state from local storage.
  */
 function makeInitialState(loadFromStorage = true): SetupState {
-  const randomNames = [
-    'Alice',
-    'Bob',
-    'Charlie',
-    'David',
-    'Eve',
-    'Frank',
-    'Grace',
-    'Harry',
-    'Iris',
-    'Jack',
-    'John',
-    'Kim',
-    'Lisa',
-    'Maggie',
-    'Mike',
-    'Naomi',
-    'Olivia',
-    'Paul',
-    'Queen',
-    'Robert',
-    'Sarah',
-    'Taylor',
-    'Victoria',
-    'William',
-    'Xavier',
-    'Yvonne',
-    'Zoe',
-  ];
   const randomName =
     randomNames[Math.floor(Math.random() * randomNames.length)] +
-    Math.floor(Math.random() * 100)
+    Math.floor(Math.random() * 10000)
       .toString()
-      .padStart(2, '0');
+      .padStart(4, '0');
   let state: SetupState = {
     role: null,
     progress: SetupProgress.Start,

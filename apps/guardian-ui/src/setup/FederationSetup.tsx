@@ -167,6 +167,7 @@ export const FederationSetup: React.FC = () => {
 
   const isPeerRestarted =
     canRestart &&
+    peers &&
     peers.some((peer) => peer.status === ServerStatus.SetupRestarted);
 
   return (

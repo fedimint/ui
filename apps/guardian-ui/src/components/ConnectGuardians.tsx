@@ -21,6 +21,7 @@ import { useConsensusPolling, useSetupContext } from '../hooks';
 import { GuardianRole } from '../types';
 import { getModuleParamsFromConfig } from '../utils/api';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
+import { BftInfo } from './BftInfo';
 
 interface Props {
   next(): void;
@@ -59,17 +60,20 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
     content = <Spinner />;
   } else if (role === GuardianRole.Host) {
     content = (
-      <FormControl maxWidth={400} bg='blue.50' p={2} borderRadius='md'>
-        <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
-        <CopyInput
-          value={guardianLink}
-          size='sm'
-          buttonLeftIcon={<Icon as={CopyIcon} />}
-        />
-        <FormHelperText>
-          {t('connect-guardians.invite-guardians-help')}
-        </FormHelperText>
-      </FormControl>
+      <Flex direction={['column', 'row']} gap={4} align='start'>
+        <FormControl maxW={400} bg='blue.50' p={2} borderRadius='md'>
+          <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
+          <CopyInput
+            value={guardianLink}
+            size='sm'
+            buttonLeftIcon={<Icon as={CopyIcon} />}
+          />
+          <FormHelperText>
+            {t('connect-guardians.invite-guardians-help')}
+          </FormHelperText>
+        </FormControl>
+        <BftInfo numPeers={numPeers} />
+      </Flex>
     );
   } else {
     // TODO: Consider making this more dynamic, work with unknown modules etc.
@@ -190,7 +194,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       width='100%'
       justify='start'
       align='start'
-      gap={10}
+      gap={[8, 4]}
     >
       {content}
       {peerTableRows.length > 1 && (
