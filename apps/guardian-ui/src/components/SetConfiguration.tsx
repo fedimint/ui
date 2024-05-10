@@ -309,15 +309,17 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               />
             </FormControl>
             {isHost && (
-              <NumberFormControl
-                labelText={t('set-config.guardian-number')}
-                helperText={t('set-config.guardian-number-help')}
-                min={4}
-                value={numPeers}
-                onChange={(value) => {
-                  setNumPeers(value);
-                }}
-              />
+              <>
+                <NumberFormControl
+                  labelText={t('set-config.guardian-number')}
+                  helperText={t('set-config.guardian-number-help')}
+                  min={4}
+                  value={numPeers}
+                  onChange={(value) => {
+                    setNumPeers(value);
+                  }}
+                />
+              </>
             )}
           </FormGroup>
         )}

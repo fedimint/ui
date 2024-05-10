@@ -108,6 +108,9 @@
     "generating-header": "Generating codes..."
   },
   "set-config": {
+    "bft-explanation-title": "Byzantine Fault Tolerance of Your Federation",
+    "bft-explanation": "A {{total}} Guardian Federation creates a {{honest}}/{{total}} Threshold.",
+    "bft-faulty": "Your Federation will be able to tolerate {{faulty}} faulty, offline, or malicious Guardians without impacting the Federation's operations.",
     "guardian-name": "Guardian name",
     "guardian-name-help": "This random name will be shown to other Guardians",
     "admin-password": "Admin password",

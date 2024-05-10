@@ -13,6 +13,9 @@ import {
   Td,
   Tag,
   Icon,
+  Box,
+  Text,
+  theme,
 } from '@chakra-ui/react';
 import { CopyInput, Table, TableRow } from '@fedimint/ui';
 import { ModuleKind, ServerStatus } from '@fedimint/types';
@@ -21,6 +24,7 @@ import { useConsensusPolling, useSetupContext } from '../hooks';
 import { GuardianRole } from '../types';
 import { getModuleParamsFromConfig } from '../utils/api';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
+import { bftFaulty, bftHonest } from '../utils';
 
 interface Props {
   next(): void;
@@ -59,17 +63,43 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
     content = <Spinner />;
   } else if (role === GuardianRole.Host) {
     content = (
-      <FormControl maxWidth={400} bg='blue.50' p={2} borderRadius='md'>
-        <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
-        <CopyInput
-          value={guardianLink}
-          size='sm'
-          buttonLeftIcon={<Icon as={CopyIcon} />}
-        />
-        <FormHelperText>
-          {t('connect-guardians.invite-guardians-help')}
-        </FormHelperText>
-      </FormControl>
+      <>
+        <FormControl maxWidth={400} bg='blue.50' p={2} borderRadius='md'>
+          <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
+          <CopyInput
+            value={guardianLink}
+            size='sm'
+            buttonLeftIcon={<Icon as={CopyIcon} />}
+          />
+          <FormHelperText>
+            {t('connect-guardians.invite-guardians-help')}
+          </FormHelperText>
+        </FormControl>
+        <Box mt={['12px', '24px', '36px']} bg='blue.50' p={2} borderRadius='md'>
+          <Text
+            mb='6px'
+            fontSize='16px'
+            fontWeight='500'
+            color={theme.colors.gray[700]}
+          >
+            {t('set-config.bft-explanation-title', { total: numPeers })}
+          </Text>
+          <Flex direction='column' gap='6px'>
+            <Text fontSize='sm'>
+              {t('set-config.bft-explanation', {
+                total: numPeers,
+                honest: bftHonest(numPeers),
+                faulty: bftFaulty(numPeers),
+              })}
+            </Text>
+            <Text fontSize='sm'>
+              {t('set-config.bft-faulty', {
+                faulty: bftFaulty(numPeers),
+              })}
+            </Text>
+          </Flex>
+        </Box>
+      </>
     );
   } else {
     // TODO: Consider making this more dynamic, work with unknown modules etc.
@@ -190,7 +220,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       width='100%'
       justify='start'
       align='start'
-      gap={10}
+      gap={[8, 4]}
     >
       {content}
       {peerTableRows.length > 1 && (
