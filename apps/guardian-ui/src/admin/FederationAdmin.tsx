@@ -14,7 +14,7 @@ import { BalanceCard } from '../components/BalanceCard';
 import { InviteCode } from '../components/InviteCode';
 import { ConfigViewer } from '../components/ConfigViewer';
 import { DangerZone } from '../components/DangerZone';
-import BftInfo from '../components/BftInfo';
+import { BftInfo } from '../components/BftInfo';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();

@@ -1,10 +1,7 @@
 export function bftHonest(totalGuardians: number): number {
-  const faultyNodes = Math.floor((totalGuardians - 1) / 3);
-  const honestNodes = totalGuardians - faultyNodes;
-  return honestNodes;
+  return totalGuardians - bftFaulty(totalGuardians);
 }
 
 export function bftFaulty(totalGuardians: number): number {
-  const faultyNodes = Math.floor((totalGuardians - 1) / 3);
-  return faultyNodes;
+  return Math.floor((totalGuardians - 1) / 3);
 }

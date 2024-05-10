@@ -7,7 +7,7 @@ interface BftInfoProps {
   numPeers: number;
 }
 
-const BftInfo: React.FC<BftInfoProps> = ({ numPeers }) => {
+export const BftInfo: React.FC<BftInfoProps> = ({ numPeers }) => {
   const { t } = useTranslation();
 
   return (
@@ -37,5 +37,3 @@ const BftInfo: React.FC<BftInfoProps> = ({ numPeers }) => {
     </Box>
   );
 };
-
-export default BftInfo;

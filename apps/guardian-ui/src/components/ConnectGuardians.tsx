@@ -21,7 +21,7 @@ import { useConsensusPolling, useSetupContext } from '../hooks';
 import { GuardianRole } from '../types';
 import { getModuleParamsFromConfig } from '../utils/api';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
-import BftInfo from './BftInfo';
+import { BftInfo } from './BftInfo';
 
 interface Props {
   next(): void;
