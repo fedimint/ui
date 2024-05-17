@@ -60,20 +60,6 @@
       "no-gateways-info-description": "Lightning node operators can connect to your federation to provide Lightning Network interoperability. Once connected, they will appear here."
     },
     "config": {
-      "label": "Federation Config"
-    },
-    "modal": {
-      "client-connect": "Connect a Client"
-    },
-    "danger-zone": {
-      "danger-zone-label": "Danger Zone",
-      "cancel": "Cancel",
-      "danger-zone-description": "Use with caution!",
-      "guardian-warning-message": "WARNING: Do not share this code with anyone. Anyone with this code can authenticate as a Guardian. Ensure you are in a private location and no one is watching your screen.",
-      "guardian-acknowledge": "Acknowledge and Reveal Code",
-      "acknowledge-and-download": "Acknowledge & Proceed",
-      "guardian-authenticate": "Authenticate as Guardian",
-      "guardian-connect-warning": "DO NOT SHARE THIS",
       "label": "Federation Config",
       "view-config": "View Config",
       "missing-meta-module": "Editing Meta fields is not possible. The Meta module is not available for this federation.",
@@ -87,7 +73,20 @@
         "edit-consensus-meta-button": "Edit Consensus Meta",
         "submit-meta-edits-button": "Submit Meta Edits",
         "peer-reviews": "Peers"
-      },
+      }
+    },
+    "modal": {
+      "client-connect": "Connect a Client"
+    },
+    "danger-zone": {
+      "danger-zone-label": "Danger Zone",
+      "cancel": "Cancel",
+      "danger-zone-description": "Use with caution!",
+      "guardian-warning-message": "WARNING: Do not share this code with anyone. Anyone with this code can authenticate as a Guardian. Ensure you are in a private location and no one is watching your screen.",
+      "guardian-acknowledge": "Acknowledge and Reveal Code",
+      "acknowledge-and-download": "Acknowledge & Proceed",
+      "guardian-authenticate": "Authenticate as Guardian",
+      "guardian-connect-warning": "DO NOT SHARE THIS",
       "backup": {
         "label": "Backup",
         "title": "Download Backup",
