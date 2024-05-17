@@ -45,16 +45,8 @@ interface ModuleConfigs {
     peer_peg_in_keys: Record<number, { key: string }>;
     peg_in_descriptor: number;
   };
-  [ModuleKind.Meta]: {
-    meta_consensus: {
-      meta_consensus_version: number;
-    };
-  };
-  [ModuleKind.Unknown]: {
-    unknown_consensus: {
-      unknown_consensus_version: number;
-    };
-  };
+  [ModuleKind.Meta]: Record<string, never>;
+  [ModuleKind.Unknown]: Record<string, never>;
 }
 
 export interface BitcoinRpc {
