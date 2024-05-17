@@ -275,6 +275,13 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               {t('set-config.admin-password-generate')}
             </Button>
           )}
+          <FormHelperText style={{ marginTop: '16px', marginBottom: '16px' }}>
+            <Text color={theme.colors.yellow[500]}>
+              {password
+                ? t('set-config.admin-password-help')
+                : t('set-config.admin-password-set')}
+            </Text>
+          </FormHelperText>
           {password && (
             <FormControl>
               <FormLabel>{t('set-config.confirm-password')}</FormLabel>
@@ -286,18 +293,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
               />
               {password !== confirmPassword && (
                 <FormHelperText color='red'>
-                  {t('set-config.passwords-must-match')}
+                  {t('set-config.error-password-mismatch')}
                 </FormHelperText>
               )}
             </FormControl>
           )}
-          <FormHelperText style={{ marginTop: '16px', marginBottom: '16px' }}>
-            <Text color={theme.colors.yellow[500]}>
-              {password
-                ? t('set-config.admin-password-help')
-                : t('set-config.admin-password-set')}
-            </Text>
-          </FormHelperText>
         </FormControl>
         {!isHost && !isSolo && (
           <FormControl>
