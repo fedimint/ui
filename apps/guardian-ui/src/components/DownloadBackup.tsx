@@ -18,7 +18,7 @@ import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
 import { hexToBlob } from '../utils/api';
 
-export const DownloadBackupCard: React.FC = () => {
+export const DownloadBackup: React.FC = () => {
   const theme = useTheme();
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const { api } = useAdminContext();

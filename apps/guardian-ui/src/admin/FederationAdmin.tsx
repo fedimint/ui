@@ -14,7 +14,7 @@ import { BalanceCard } from '../components/BalanceCard';
 import { InviteCode } from '../components/InviteCode';
 import { FederationConfigCard } from '../components/FederationConfigCard';
 import { BftInfo } from '../components/BftInfo';
-import { DownloadBackupCard } from '../components/DownloadBackupCard';
+import { DangerZone } from '../components/DangerZone';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
@@ -88,7 +88,7 @@ export const FederationAdmin: React.FC = () => {
         <GuardiansCard status={status} config={config} />
         <GatewaysCard config={config} />
         <FederationConfigCard config={config} />
-        <DownloadBackupCard />
+        <DangerZone config={config} ourPeer={ourPeer} />
       </Flex>
     </Flex>
   );
