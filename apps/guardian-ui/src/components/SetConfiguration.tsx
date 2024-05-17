@@ -61,6 +61,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const isSolo = role === GuardianRole.Solo;
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState(Boolean);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
@@ -126,6 +127,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     ? Boolean(
         myName &&
           password &&
+          confirmPassword &&
           passwordCheck &&
           federationName &&
           isValidNumber(numPeers, 4) &&
@@ -137,6 +139,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     ? Boolean(
         myName &&
           password &&
+          confirmPassword &&
           passwordCheck &&
           federationName &&
           isValidNumber(blockConfirmations, 1, 200) &&
@@ -271,6 +274,22 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             <Button onClick={generatePassword} w='100%'>
               {t('set-config.admin-password-generate')}
             </Button>
+          )}
+          {password && (
+            <FormControl>
+              <FormLabel>{t('set-config.confirm-password')}</FormLabel>
+              <Input
+                type='password'
+                value={confirmPassword}
+                onChange={(ev) => setConfirmPassword(ev.currentTarget.value)}
+                placeholder='Confirm Password'
+              />
+              {password !== confirmPassword && (
+                <FormHelperText color='red'>
+                  {t('set-config.passwords-must-match')}
+                </FormHelperText>
+              )}
+            </FormControl>
           )}
           <FormHelperText style={{ marginTop: '16px', marginBottom: '16px' }}>
             <Text color={theme.colors.yellow[500]}>
