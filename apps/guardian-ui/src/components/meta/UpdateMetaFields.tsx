@@ -110,35 +110,14 @@ export const UpdateMetaFields = React.memo(function UpdateMetaFields({
 
   return (
     <Box>
-      <Text fontSize='lg'>
-        {t('federation-dashboard.config.manage-meta.submitted-meta-label')}
-      </Text>
       {metaSubmissions?.length ? (
         <>
-          {/* <Flex justify='end' align='center'>
-            <IconButton
-              variant='ghost'
-              size='xs'
-              width={'42px'}
-              height={'42px'}
-              fontSize={12}
-              aria-label={t('common.review')}
-              colorScheme='blue'
-              color={theme.colors.gray[300]}
-              _hover={{ color: theme.colors.blue[500] }}
-              icon={<CheckIcon height={20} />}
-              onClick={() => updateEditedMetaFields([])}
-            />
-          </Flex> */}
+          <Text fontSize='lg'>
+            {t('federation-dashboard.config.manage-meta.submitted-meta-label')}
+          </Text>
           {getMetaTable()}
         </>
-      ) : (
-        <Text fontSize='sm'>
-          {t(
-            'federation-dashboard.config.manage-meta.no-submitted-meta-message'
-          )}
-        </Text>
-      )}
+      ) : null}
     </Box>
   );
 });
