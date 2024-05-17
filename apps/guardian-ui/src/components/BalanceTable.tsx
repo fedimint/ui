@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Tbody, Td, Th, Thead, Tr, Icon } from '@chakra-ui/react';
 import { ReactComponent as CheckIcon } from '../assets/svgs/check-circle.svg';
 import { ReactComponent as CloseIcon } from '../assets/svgs/x-circle.svg';
-import { AuditSummary, MSats } from '@fedimint/types';
+import { AuditSummary, ModuleKind, MSats } from '@fedimint/types';
 import { formatMsatsToBtc } from '@fedimint/utils';
 
 interface BalanceTableProps {
@@ -10,7 +10,9 @@ interface BalanceTableProps {
 }
 
 const BalanceTable: React.FC<BalanceTableProps> = ({ auditSummary }) => {
-  const moduleSummaries = Object.entries(auditSummary.module_summaries);
+  const moduleSummaries = Object.entries(auditSummary.module_summaries).filter(
+    ([, module]) => module.kind !== ModuleKind.Unknown
+  );
 
   const totalAssets = moduleSummaries.reduce((sum, [, module]) => {
     return sum + (module.net_assets > 0 ? module.net_assets : 0);

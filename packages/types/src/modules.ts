@@ -5,6 +5,7 @@ export enum ModuleKind {
   Mint = 'mint',
   Wallet = 'wallet',
   Meta = 'meta',
+  Unknown = 'unknown',
 }
 
 // FIXME: why doesn't this have API versions? seems like it should ...
@@ -45,7 +46,14 @@ interface ModuleConfigs {
     peg_in_descriptor: number;
   };
   [ModuleKind.Meta]: {
-    federation_name: string;
+    meta_consensus: {
+      meta_consensus_version: number;
+    };
+  };
+  [ModuleKind.Unknown]: {
+    unknown_consensus: {
+      unknown_consensus_version: number;
+    };
   };
 }
 
