@@ -79,11 +79,11 @@ export const FederationAdmin: React.FC = () => {
           alignItems='flex-start'
           flexDir={{ base: 'column', sm: 'column', md: 'row' }}
         >
-          <FederationInfoCard status={status} config={config} />
           <Flex w='100%' direction='column' gap={5}>
-            <BalanceCard />
+            <FederationInfoCard status={status} config={config} />
             <BitcoinNodeCard modulesConfigs={modulesConfigs} />
           </Flex>
+          <BalanceCard />
         </Flex>
         <GuardiansCard status={status} config={config} />
         <GatewaysCard config={config} />
