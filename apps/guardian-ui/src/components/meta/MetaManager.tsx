@@ -8,16 +8,18 @@ import { EditMetaField } from './EditMetaField';
 import { ViewConsensusMeta, ConsensusMetaFields } from './ViewConsensusMeta';
 import { UpdateMetaFields } from './UpdateMetaFields';
 
-const DEFAULT_META_KEY = 0;
+export const DEFAULT_META_KEY = 0;
 const POLL_TIMEOUT_MS = 2000;
 
 interface MetaManagerProps {
   metaModuleId?: string;
   metaConfig: MetaConfig;
+  ourPeer: { id: number; name: string };
 }
 
 export const MetaManager = React.memo(function MetaManager({
   metaModuleId,
+  ourPeer,
 }: MetaManagerProps): JSX.Element {
   const { t } = useTranslation();
   const { api } = useAdminContext();
@@ -67,6 +69,7 @@ export const MetaManager = React.memo(function MetaManager({
         pollTimeout={POLL_TIMEOUT_MS}
       />
       <UpdateMetaFields
+        ourPeer={ourPeer}
         metaModuleId={metaModuleId}
         updateEditedMetaFields={(fields: MetaFields) => {
           setEditedMetaFields([...editedMetaFields, ...fields]);

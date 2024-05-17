@@ -87,7 +87,9 @@ export const FederationAdmin: React.FC = () => {
         </Flex>
         <GuardiansCard status={status} config={config} />
         <GatewaysCard config={config} />
-        <FederationConfigCard config={config} />
+        {ourPeer ? (
+          <FederationConfigCard config={config} ourPeer={ourPeer} />
+        ) : null}
         <DangerZone config={config} ourPeer={ourPeer} />
       </Flex>
     </Flex>

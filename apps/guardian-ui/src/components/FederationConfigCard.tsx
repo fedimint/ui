@@ -20,10 +20,12 @@ import { MetaManager } from './meta/MetaManager';
 
 interface FederationConfigCardProps {
   config: ClientConfig | undefined;
+  ourPeer: { id: number; name: string };
 }
 
 export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
   config,
+  ourPeer,
 }) => {
   const { t } = useTranslation();
   const [metaModuleId, setMetaModuleId] = useState<string | undefined>(
@@ -72,6 +74,7 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
               <MetaManager
                 metaModuleId={metaModuleId}
                 metaConfig={config.meta}
+                ourPeer={ourPeer}
               />
             </TabPanel>
           </TabPanels>

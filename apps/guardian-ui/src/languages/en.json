@@ -67,12 +67,13 @@
         "tab-label": "Manage Meta",
         "consensus-meta-label": "Current meta in consensus",
         "no-consensus-meta-message": "there are no meta in consensus",
-        "submitted-meta-label": "Review meta edits submitted",
+        "proposed-meta-label": "Proposed Meta Edits",
         "no-submitted-meta-message": "there are no meta edits to review",
         "edit-meta-label": "Edit meta",
         "edit-consensus-meta-button": "Edit Consensus Meta",
         "submit-meta-edits-button": "Submit Meta Edits",
-        "peer-reviews": "Peers"
+        "peer-approvals": "Peer Approvals",
+        "actions": "Actions"
       }
     },
     "modal": {
