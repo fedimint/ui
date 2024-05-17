@@ -10,9 +10,6 @@ import {
   Text,
   Flex,
   useTheme,
-  Card,
-  CardHeader,
-  CardBody,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../hooks';
@@ -45,23 +42,8 @@ export const DownloadBackup: React.FC = () => {
         _hover={{ bg: theme.colors.red[600] }}
         onClick={() => setIsWarningModalOpen(true)}
       >
-        {t('federation-dashboard.danger-zone.downloadBackup.title')}
+        {t('federation-dashboard.danger-zone.backup.title')}
       </Button>
-      <Card flex='1'>
-        <CardHeader>
-          <Text size='lg' fontWeight='600'>
-            {t('federation-dashboard.config.backup.label')}
-          </Text>
-        </CardHeader>
-        <CardBody>
-          <Button
-            colorScheme='blue'
-            onClick={() => setIsWarningModalOpen(true)}
-          >
-            {t('federation-dashboard.config.backup.download-backup-button')}
-          </Button>
-        </CardBody>
-      </Card>
       <Modal
         isOpen={isWarningModalOpen}
         onClose={() => setIsWarningModalOpen(false)}
@@ -69,12 +51,12 @@ export const DownloadBackup: React.FC = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader alignSelf='center'>
-            {t('federation-dashboard.danger-zone.downloadBackup.title')}
+            {t('federation-dashboard.danger-zone.backup.title')}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <Text mb={4}>
-              {t('federation-dashboard.danger-zone.downloadBackup.warningText')}
+              {t('federation-dashboard.danger-zone.backup.warning-text')}
             </Text>
             <Flex justifyContent='center' gap={4} direction={['column', 'row']}>
               <Button
