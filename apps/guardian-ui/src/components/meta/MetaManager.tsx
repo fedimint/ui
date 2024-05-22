@@ -27,7 +27,11 @@ export const MetaManager = React.memo(function MetaManager({
   const { t } = useTranslation();
 
   return metaModuleId ? (
-    <Flex direction='row' gap={6} width='100%'>
+    <Flex
+      flexDir={{ base: 'column', sm: 'column', md: 'row' }}
+      gap={6}
+      width='100%'
+    >
       <ViewConsensusMeta
         metaKey={DEFAULT_META_KEY}
         metaModuleId={metaModuleId}
