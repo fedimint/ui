@@ -80,7 +80,7 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
   }, [consensusMeta]);
 
   return (
-    <Flex flexDir='column' gap='3'>
+    <Flex flexDir='column' width='100%'>
       <Flex flexDir='column'>
         <Text fontSize='lg'>
           {t('federation-dashboard.config.manage-meta.consensus-meta-label')}

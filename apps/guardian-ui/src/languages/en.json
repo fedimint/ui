@@ -65,13 +65,15 @@
       "missing-meta-module": "Editing Meta fields is not possible. The Meta module is not available for this federation.",
       "manage-meta": {
         "tab-label": "Manage Meta",
+        "cancel-button": "Cancel",
         "consensus-meta-label": "Current meta in consensus",
         "no-consensus-meta-message": "there are no meta in consensus",
         "proposed-meta-label": "Proposed Meta Edits",
+        "propose-new-meta-button": "Propose New Meta",
         "no-submitted-meta-message": "there are no meta edits to review",
         "edit-meta-label": "Edit meta",
         "edit-consensus-meta-button": "Edit Consensus Meta",
-        "submit-meta-edits-button": "Submit Meta Edits",
+        "submit-meta-proposal": "Submit Meta Proposal",
         "peer-approvals": "Peer Approvals",
         "actions": "Actions"
       }
