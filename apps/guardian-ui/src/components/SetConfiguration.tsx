@@ -33,7 +33,6 @@ import { useSetupContext } from '../hooks';
 import { GuardianRole } from '../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
-import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
 import { ReactComponent as LightbulbLogo } from '../assets/svgs/lightbulb.svg';
 import {
@@ -43,7 +42,6 @@ import {
 } from '../utils/api';
 import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
-import { EditMetaField } from './meta/EditMetaField';
 interface Props {
   next: () => void;
 }
@@ -396,18 +394,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             <FormHelperText>{t('set-config.set-rpc-help')}</FormHelperText>
           </FormControl>
         </FormGroup>
-        {(isHost || isSolo) && (
-          <FormGroup
-            icon={ModulesIcon}
-            title={t('set-config.meta-fields')}
-            isOpen={true}
-          >
-            <EditMetaField
-              metaFields={metaFields}
-              onChangeMetaFields={setMetaFields}
-            />
-          </FormGroup>
-        )}
         {error && (
           <Text color={theme.colors.red[500]} mt={4}>
             {error}
