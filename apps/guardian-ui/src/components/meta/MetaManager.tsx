@@ -12,6 +12,7 @@ import {
   useDisclosure,
   ModalFooter,
   useTheme,
+  Divider,
 } from '@chakra-ui/react';
 import { fieldsToMeta, metaToHex, useTranslation } from '@fedimint/utils';
 import { MetaFields } from '@fedimint/types';
@@ -131,6 +132,50 @@ export const MetaManager = React.memo(function MetaManager({
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Text fontSize='md' fontWeight='bold'>
+              Proposing Updates to Federation Meta
+            </Text>
+            <Text fontSize='sm'>
+              Fedimint allows you to propose updates to the meta fields, which
+              are key-value pairs containing arbitrary information you might
+              want to share with clients. These meta fields are consensus
+              relevant, meaning they must be consistent across all federation
+              members to ensure reliability.
+            </Text>
+            <Text fontSize='sm'>
+              As a Fedimint guardian, you can propose updates to the meta
+              fields. These updates will be reviewed and accepted by other
+              guardians. Once a threshold of guardians accepts the update, it
+              will become the new consensus meta for the federation.
+            </Text>
+            <Text fontSize='sm' mt={2}>
+              The following meta fields are part of the core Fedimint protocol
+              and are useful for your federation&apos;s meta:
+            </Text>
+            <Flex flexDir='column' pl={4} mt={2}>
+              <Text fontSize='sm'>
+                - <b>federation_expiry_timestamp</b>: A timestamp after which
+                the federation will shut down. This is a Unix timestamp in
+                seconds.
+              </Text>
+              <Text fontSize='sm'>
+                - <b>federation_name</b>: The human-readable name of the
+                federation.
+              </Text>
+              <Text fontSize='sm'>
+                - <b>federation_icon_url</b>: A URL to a logo icon for the
+                federation.
+              </Text>
+              <Text fontSize='sm'>
+                - <b>welcome_message</b>: A welcome message for new users
+                joining the federation.
+              </Text>
+              <Text fontSize='sm'>
+                - <b>vetted_gateways</b>: A list of gateway identifiers vetted
+                by the federation.
+              </Text>
+            </Flex>
+            <Divider mt={4} />
             <EditMetaField
               metaFields={editedMetaFields}
               onChangeMetaFields={setEditedMetaFields}
@@ -138,12 +183,10 @@ export const MetaManager = React.memo(function MetaManager({
             />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={proposeMetaEdits}>
-              {t(
-                'federation-dashboard.config.manage-meta.submit-meta-proposal'
-              )}
+            <Button colorScheme='blue' mr={3} onClick={proposeMetaEdits}>
+              {t('federation-dashboard.config.manage-meta.propose-meta')}
             </Button>
-            <Button onClick={onClose} ml={3} variant='ghost'>
+            <Button variant='ghost' onClick={onClose}>
               {t('common.cancel')}
             </Button>
           </ModalFooter>

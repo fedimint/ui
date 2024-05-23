@@ -48,6 +48,9 @@ export const EditMetaField: React.FC<Props> = ({
   return (
     <FormControl>
       <Flex direction='column' gap={3}>
+        <Box as='h2' fontSize='xl' m={2}>
+          {t('set-config.meta-fields-title')}
+        </Box>
         <FormHelperText mt={0} mb={2}>
           <Trans
             i18nKey='set-config.meta-fields-description'

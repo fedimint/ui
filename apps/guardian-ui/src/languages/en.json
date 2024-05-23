@@ -70,6 +70,7 @@
         "revoke-button": "Revoke",
         "no-consensus-meta-message": "there are no meta in consensus",
         "proposed-meta-label": "Meta Proposals",
+        "propose-meta": "Propose Meta",
         "propose-new-meta-button": "Propose New Meta",
         "proposal-approved": "You have approved this proposal",
         "no-submitted-meta-message": "there are no meta edits to review",
@@ -164,11 +165,12 @@
     "error-valid-max": "Please input a number of at most {{max}}.",
     "error-valid-min-max": "Please input a number between {{min}} and {{max}}.",
     "meta-fields": "Meta fields",
-    "meta-fields-description": "Additional configuration sent to fedimint clients. See <docs>documentation</docs> for more information.",
+    "meta-fields-description": "See <docs>documentation</docs> for more information.",
     "meta-fields-key": "Meta key",
     "meta-fields-value": "Value",
     "meta-fields-effect": "Effect",
-    "meta-fields-add-another": "Add another"
+    "meta-fields-add-another": "Add another",
+    "meta-fields-title": "Your Meta Proposal:"
   },
   "setup": {
     "common": {

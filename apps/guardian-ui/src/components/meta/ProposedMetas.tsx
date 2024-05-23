@@ -183,9 +183,11 @@ export const ProposedMetas = React.memo(function ProposedMetas({
 
   return (
     <Flex flexDir='column' width='100%'>
-      <Text fontSize='lg' mb={4}>
-        {t('Proposed Meta Edits')}
-      </Text>
+      {metaSubmissions && Object.keys(metaSubmissions).length > 0 ? (
+        <Text fontSize='lg' mb={4}>
+          {t('Proposed Meta Edits')}
+        </Text>
+      ) : null}
       {metaSubmissions &&
         Object.entries(metaSubmissions).map(([key, submission]) => {
           // Create a set of keys in the submission
