@@ -173,7 +173,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
   const getEffect = (key: string, value: string): JSX.Element => {
     console.log('consensusMeta', consensusMeta);
     if (consensusMeta[key] === undefined) {
-      return <Text color='green.500'>+ Add</Text>;
+      return <Text color='green.500'>+ New</Text>;
     } else if (String(consensusMeta[key]) !== value) {
       return <Text color='yellow.500'>Modify</Text>;
     } else {
@@ -191,14 +191,16 @@ export const ProposedMetas = React.memo(function ProposedMetas({
           // Create a set of keys in the submission
           const submissionKeys = new Set(submission.meta.map(([key]) => key));
 
-          // Create rows for the table
+          // Create rows for the table, filtering out unchanged ones
           const rows = [
-            ...submission.meta.map(([key, value]) => ({
-              key: `${key}-${value}`,
-              metaKey: <Text>{key}</Text>,
-              value: <Text>{value}</Text>,
-              effect: getEffect(key, value),
-            })),
+            ...submission.meta
+              .map(([key, value]) => ({
+                key: `${key}-${value}`,
+                metaKey: <Text>{key}</Text>,
+                value: <Text>{value}</Text>,
+                effect: getEffect(key, value),
+              }))
+              .filter((row) => row.effect.props.color !== 'gray.500'), // Filter out unchanged rows
             ...Object.entries(consensusMeta)
               .filter(([key]) => !submissionKeys.has(key))
               .map(([key, value]) => ({
