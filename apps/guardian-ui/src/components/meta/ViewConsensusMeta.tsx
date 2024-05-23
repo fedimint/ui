@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, useTheme } from '@chakra-ui/react';
 import { useTranslation, hexToMeta, metaToFields } from '@fedimint/utils';
 import { ConsensusMeta, MetaFields } from '@fedimint/types';
 import { useAdminContext } from '../../hooks';
@@ -30,6 +30,7 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
 }: ViewConsensusMetaProps): JSX.Element {
   const { t } = useTranslation();
   const { api } = useAdminContext();
+  const theme = useTheme();
 
   useEffect(() => {
     const pollConsensusMeta = setInterval(async () => {
@@ -80,8 +81,13 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
   }, [consensusMeta]);
 
   return (
-    <Flex flexDir='column' width='100%'>
-      <Flex flexDir='column'>
+    <Flex
+      flexDir='column'
+      width='100%'
+      pl={4}
+      borderLeft={`1px solid ${theme.colors.border.input}`}
+    >
+      <Flex flexDir='column' gap={2} mb={4}>
         <Text fontSize='lg'>
           {t('federation-dashboard.config.manage-meta.consensus-meta-label')}
         </Text>

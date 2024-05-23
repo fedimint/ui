@@ -11,6 +11,7 @@ import {
   Modal,
   useDisclosure,
   ModalFooter,
+  useTheme,
 } from '@chakra-ui/react';
 import { fieldsToMeta, metaToHex, useTranslation } from '@fedimint/utils';
 import { MetaFields } from '@fedimint/types';
@@ -22,6 +23,15 @@ import { ModuleRpc } from '../../types';
 
 export const DEFAULT_META_KEY = 0;
 const POLL_TIMEOUT_MS = 2000;
+
+const metaArrayToObject = (
+  metaArray: [string, string][]
+): Record<string, string> => {
+  return metaArray.reduce((acc, [key, value]) => {
+    acc[key] = value;
+    return acc;
+  }, {} as Record<string, string>);
+};
 
 interface MetaManagerProps {
   metaModuleId?: string;
@@ -45,6 +55,7 @@ export const MetaManager = React.memo(function MetaManager({
   const { t } = useTranslation();
   const { api } = useAdminContext();
   const { isOpen, onOpen: originalOnOpen, onClose } = useDisclosure();
+  const theme = useTheme();
 
   const onOpen = useCallback(() => {
     if (consensusMeta) {
@@ -89,11 +100,19 @@ export const MetaManager = React.memo(function MetaManager({
         }
         pollTimeout={POLL_TIMEOUT_MS}
       />
-      <Flex flexDir='column' width='100%'>
+      <Flex
+        flexDir='column'
+        width='100%'
+        borderLeft={`1px solid ${theme.colors.border.input}`}
+        pl={4}
+      >
         <ProposedMetas
           ourPeer={ourPeer}
           peers={peers}
           metaModuleId={metaModuleId}
+          consensusMeta={
+            consensusMeta ? metaArrayToObject(consensusMeta.value) : {}
+          }
           updateEditedMetaFields={(fields: MetaFields) => {
             setEditedMetaFields([...fields]);
           }}
