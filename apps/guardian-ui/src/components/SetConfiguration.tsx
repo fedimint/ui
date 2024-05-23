@@ -12,6 +12,14 @@ import {
   Text,
   useTheme,
   useClipboard,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import {
   BitcoinRpc,
@@ -37,6 +45,7 @@ import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
 import { MetaFieldFormControl } from './MetaFieldFormControl';
 import { NetworkIndicator } from '@fedimint/ui';
+
 interface Props {
   next: () => void;
 }
@@ -61,6 +70,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const isSolo = role === GuardianRole.Solo;
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState(Boolean);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
@@ -78,6 +88,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [numPeers, setNumPeers] = useState(
     stateNumPeers ? stateNumPeers.toString() : isSolo ? '1' : MIN_BFT_NUM_PEERS
   );
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const initStateFromParams = (params: ConfigGenParams) => {
@@ -157,7 +169,15 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     );
   };
 
-  const handleNext = async () => {
+  const handleNext = () => {
+    if (password !== confirmPassword) {
+      onOpen();
+    } else {
+      submitConfig();
+    }
+  };
+
+  const submitConfig = async () => {
     setError(undefined);
     try {
       if (!defaultParams)
@@ -423,6 +443,49 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           </Button>
         </Flex>
       </>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{t('set-config.confirm-password')}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl>
+              <FormLabel>{t('set-config.confirm-password')}</FormLabel>
+              <Input
+                type='password'
+                value={confirmPassword}
+                onChange={(ev) => setConfirmPassword(ev.currentTarget.value)}
+                placeholder='Confirm Password'
+              />
+              {password !== confirmPassword && (
+                <FormHelperText color='red'>
+                  {t('set-config.error-password-mismatch')}
+                </FormHelperText>
+              )}
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Flex justifyContent='flex-start' width='100%'>
+              <Button
+                colorScheme='blue'
+                mr={3}
+                onClick={() => {
+                  if (password === confirmPassword) {
+                    onClose();
+                    submitConfig();
+                  }
+                }}
+                isDisabled={password !== confirmPassword}
+              >
+                {t('common.next')}
+              </Button>
+              <Button variant='ghost' onClick={onClose}>
+                {t('common.back')}
+              </Button>
+            </Flex>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 };
