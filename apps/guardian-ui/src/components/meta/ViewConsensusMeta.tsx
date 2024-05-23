@@ -105,47 +105,42 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
       ) : (
         <Flex flexDir='column' gap={2}>
           <Text fontSize='md' fontWeight='bold'>
-            Setting up a Meta for your Federation
+            {t('federation-dashboard.config.manage-meta.setup-meta-title')}
           </Text>
           <Text fontSize='sm'>
-            Fedimint can supply additional information to clients in the form of
-            meta fields: key-values pairs with arbitrary information you might
-            want to share with clients. While these meta fields are not
-            interpreted by Fedimint, they are consensus relevant, i.e. they
-            cannot differ between federation members. This way clients can rely
-            on their correctness.
+            {t(
+              'federation-dashboard.config.manage-meta.setup-meta-description'
+            )}
           </Text>
           <Text fontSize='sm'>
-            As a fedimint guardian, you can propose updates to the meta which
-            will be accepted by the other guardians. Once the update is accepted
-            by a threshold of guardians, it will be adopted as the new consensus
-            meta for the federation.
+            {t('federation-dashboard.config.manage-meta.propose-updates')}
           </Text>
           <Text fontSize='sm' mt={2}>
-            The following meta fields have been defined as part of the core
-            Fedimint protocol and are useful to include for your
-            federation&apos;s meta:
+            {t('federation-dashboard.config.manage-meta.core-meta-fields')}
           </Text>
           <Flex flexDir='column' pl={4} mt={2}>
             <Text fontSize='sm'>
-              - <b>federation_expiry_timestamp</b>: A timestamp after which the
-              federation will shut down. This is a unix timestamp in seconds.
+              - <b>federation_expiry_timestamp</b>:{' '}
+              {t('federation-dashboard.config.manage-meta.meta-field-expiry')}
             </Text>
             <Text fontSize='sm'>
-              - <b>federation_name</b>: The human-readable name of the
-              federation
+              - <b>federation_name</b>:{' '}
+              {t('federation-dashboard.config.manage-meta.meta-field-name')}
             </Text>
             <Text fontSize='sm'>
-              - <b>federation_icon_url</b>: A URL to a logo icon for the
-              federation
+              - <b>federation_icon_url</b>:{' '}
+              {t('federation-dashboard.config.manage-meta.meta-field-icon')}
             </Text>
             <Text fontSize='sm'>
-              - <b>welcome_message</b>: A welcome message for new users joining
-              the federation
+              - <b>welcome_message</b>:{' '}
+              {t('federation-dashboard.config.manage-meta.meta-field-welcome')}
             </Text>
             <Text fontSize='sm'>
-              - <b>vetted_gateways</b>: A list of gateway identifiers vetted by
-              the federation
+              - <b>vetted_gateways</b>:{' '}
+              {t('federation-dashboard.config.manage-meta.meta-field-gateways')}
+            </Text>
+            <Text fontSize='sm' mt={2}>
+              {t('federation-dashboard.config.manage-meta.your-own-fields')}
             </Text>
           </Flex>
         </Flex>
