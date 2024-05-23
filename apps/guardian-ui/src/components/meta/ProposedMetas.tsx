@@ -222,7 +222,8 @@ export const ProposedMetas = React.memo(function ProposedMetas({
                 <Table columns={columns} rows={rows} />
               </CardBody>
               <CardFooter flexDir='row' justifyContent='space-between'>
-                <Flex alignItems='justify-left' flexDir='column'>
+                <Flex alignItems='justify-left' flexDir='column' gap={2}>
+                  <Text fontWeight='semibold'>Approvals:</Text>
                   {submission.peers.map((peerId) => (
                     <Flex key={peerId} alignItems='center' mr={2}>
                       <Icon
