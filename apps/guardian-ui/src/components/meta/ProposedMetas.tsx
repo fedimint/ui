@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Flex, IconButton, Text, Box } from '@chakra-ui/react';
-import { ReactComponent as CheckIcon } from '../../assets/svgs/check.svg';
+import { Flex, Text, Box, Button } from '@chakra-ui/react';
 import {
   useTranslation,
   hexToMeta,
@@ -19,17 +18,21 @@ type MetaSubmissionFields = [string, string, string[]][];
 
 interface ProposedMetasProps {
   ourPeer: { id: number; name: string };
+  peers: { id: number; name: string }[];
   metaModuleId: string;
   updateEditedMetaFields: (fields: MetaFields) => void;
   pollTimeout: number;
+  onOpen: () => void;
 }
 
 type TableKey = 'metaKey' | 'value';
 
 export const ProposedMetas = React.memo(function ProposedMetas({
   ourPeer,
+  peers,
   metaModuleId,
   pollTimeout,
+  onOpen,
 }: ProposedMetasProps): JSX.Element {
   const { t } = useTranslation();
   const { api } = useAdminContext();
@@ -37,6 +40,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
   const [metaSubmissions, setMetaSubmissions] = useState<MetaSubmissionFields>(
     []
   );
+  const [hasVoted, setHasVoted] = useState(false);
 
   useEffect(() => {
     const pollSubmissionInterval = setInterval(async () => {
@@ -49,31 +53,36 @@ export const ProposedMetas = React.memo(function ProposedMetas({
 
         const metaMap: MetaSubmissionMap = {};
 
-        Object.entries(submissions).map(([peer, submission]) => {
+        Object.entries(submissions).forEach(([peer, submission]) => {
           const meta = hexToMeta(submission);
-          Object.entries(meta).map(([key, value]) => {
+          Object.entries(meta).forEach(([key, value]) => {
             if (value) {
-              if (metaMap[key]) {
-                if (metaMap[key][value]) {
-                  metaMap[key][value].push(peer);
-                } else {
-                  metaMap[key][value] = [peer];
-                }
-              } else {
-                metaMap[key] = { [value]: [peer] };
+              if (!metaMap[key]) {
+                metaMap[key] = {};
               }
+              if (!metaMap[key][value]) {
+                metaMap[key][value] = [];
+              }
+              metaMap[key][value].push(peer);
             }
           });
         });
 
-        const transformed = Object.entries(metaMap).reduce((acc, [k, v]) => {
-          Object.entries(v).map(([a, b]) => {
-            acc.push([k, a, b]);
-          });
-          return acc;
-        }, [] as MetaSubmissionFields);
+        const transformed: MetaSubmissionFields = Object.entries(
+          metaMap
+        ).flatMap(([k, v]) =>
+          Object.entries(v).map(
+            ([a, b]) => [k, a, b] as [string, string, string[]]
+          )
+        );
 
         setMetaSubmissions(transformed);
+
+        // Update hasVoted state
+        const voted = transformed.some(([, , peers]) =>
+          peers.includes(ourPeer.id.toString())
+        );
+        setHasVoted(voted);
       } catch (err) {
         console.warn('Failed to poll for meta submissions', err);
       }
@@ -81,7 +90,41 @@ export const ProposedMetas = React.memo(function ProposedMetas({
     return () => {
       clearInterval(pollSubmissionInterval);
     };
-  }, [api, metaModuleId, pollTimeout]);
+  }, [api, metaModuleId, pollTimeout, ourPeer.id]);
+
+  const handleClear = useCallback(async () => {
+    try {
+      // Clear the submission if already approved
+      await api.moduleApiCall<{ metaValue: string }[]>(
+        Number(metaModuleId),
+        ModuleRpc.submitMeta,
+        {
+          key: DEFAULT_META_KEY,
+          value: metaToHex(fieldsToMeta([])), // Empty submission
+        }
+      );
+
+      console.log('Cleared meta edits');
+
+      // Update the state to reflect the clearing
+      setMetaSubmissions((prev) =>
+        prev.map((submission) =>
+          submission[2].includes(ourPeer.id.toString())
+            ? [
+                submission[0],
+                submission[1],
+                submission[2].filter(
+                  (peerId) => peerId !== ourPeer.id.toString()
+                ),
+              ]
+            : submission
+        )
+      );
+      setHasVoted(false);
+    } catch (err) {
+      console.error('Failed to clear meta edits', err);
+    }
+  }, [api, metaModuleId, ourPeer.id]);
 
   const handleApprove = useCallback(
     async (submissions: { key: string; value: string; peers: string[] }[]) => {
@@ -90,71 +133,36 @@ export const ProposedMetas = React.memo(function ProposedMetas({
           ({ key, value }) => [key, value] as [string, string]
         );
 
-        const hasVoted = submissions.some((submission) =>
-          submission.peers.includes(ourPeer.id.toString())
+        // Submit the meta fields for the guardian
+        await api.moduleApiCall<{ metaValue: string }[]>(
+          Number(metaModuleId),
+          ModuleRpc.submitMeta,
+          {
+            key: DEFAULT_META_KEY,
+            value: metaToHex(fieldsToMeta(metaFields)),
+          }
         );
 
-        if (hasVoted) {
-          // Clear the submission if already approved
-          await api.moduleApiCall<{ metaValue: string }[]>(
-            Number(metaModuleId),
-            ModuleRpc.submitMeta,
-            {
-              key: DEFAULT_META_KEY,
-              value: metaToHex(fieldsToMeta([])), // Empty submission
-            }
-          );
+        console.log(
+          `Approved and submitted meta edits: ${JSON.stringify(metaFields)}`
+        );
 
-          console.log(`Cleared meta edits for: ${JSON.stringify(metaFields)}`);
-
-          // Update the state to reflect the clearing
-          setMetaSubmissions((prev) =>
-            prev.map((submission) =>
-              metaFields.some(
-                ([key, value]) =>
-                  submission[0] === key && submission[1] === value
-              )
-                ? [
-                    submission[0],
-                    submission[1],
-                    submission[2].filter(
-                      (peerId) => peerId !== ourPeer.id.toString()
-                    ),
-                  ]
-                : submission
+        // Update the state to reflect the approval
+        setMetaSubmissions((prev) =>
+          prev.map((submission) =>
+            metaFields.some(
+              ([key, value]) => submission[0] === key && submission[1] === value
             )
-          );
-        } else {
-          // Submit the meta fields for the guardian
-          await api.moduleApiCall<{ metaValue: string }[]>(
-            Number(metaModuleId),
-            ModuleRpc.submitMeta,
-            {
-              key: DEFAULT_META_KEY,
-              value: metaToHex(fieldsToMeta(metaFields)),
-            }
-          );
+              ? [
+                  submission[0],
+                  submission[1],
+                  [...submission[2], ourPeer.id.toString()],
+                ]
+              : submission
+          )
+        );
 
-          console.log(
-            `Approved and submitted meta edits: ${JSON.stringify(metaFields)}`
-          );
-
-          // Update the state to reflect the approval
-          setMetaSubmissions((prev) =>
-            prev.map((submission) =>
-              metaFields.some(
-                ([key, value]) =>
-                  submission[0] === key && submission[1] === value
-              )
-                ? [
-                    submission[0],
-                    submission[1],
-                    [...submission[2], ourPeer.id.toString()],
-                  ]
-                : submission
-            )
-          );
-        }
+        setHasVoted(true);
       } catch (err) {
         console.error('Failed to submit meta edits', err);
       }
@@ -188,9 +196,6 @@ export const ProposedMetas = React.memo(function ProposedMetas({
   const renderTable = (
     submissions: { key: string; value: string; peers: string[] }[]
   ) => {
-    const hasVoted = submissions.some((submission) =>
-      submission.peers.includes(ourPeer.id.toString())
-    );
     const rows: TableRow<TableKey>[] = submissions.map(({ key, value }) => ({
       key: `${key}-${value}`,
       metaKey: <Text>{key}</Text>,
@@ -199,41 +204,65 @@ export const ProposedMetas = React.memo(function ProposedMetas({
 
     const peerNames = submissions[0].peers
       .map((peerId) => {
-        const peer =
-          ourPeer.id === Number(peerId) ? ourPeer.name : `Peer ${peerId}`;
-        return peer;
+        if (ourPeer.id === Number(peerId)) {
+          return 'Your';
+        }
+        const peer = peers.find((p) => p.id === Number(peerId));
+        return peer?.name;
       })
-      .join(', ');
+      .filter(Boolean); // Remove undefined values
+
+    let formattedPeerNames;
+    if (peerNames.length === 1) {
+      formattedPeerNames = peerNames[0];
+    } else if (peerNames.length === 2) {
+      formattedPeerNames = `${peerNames[0]} and ${peerNames[1]}`;
+    } else {
+      formattedPeerNames = `${peerNames.slice(0, -1).join(', ')}, and ${
+        peerNames[peerNames.length - 1]
+      }`;
+    }
 
     return (
       <Box key={submissions[0].peers.join(',')} mb={4}>
         <Flex justifyContent='space-between' alignItems='center'>
-          <Text fontSize='lg'>{peerNames}&apos;s Proposal</Text>
-          <Flex>
-            <IconButton
-              aria-label='Approve'
-              icon={<CheckIcon width={20} height={20} />}
+          <Text fontSize='lg'>{formattedPeerNames} Proposal</Text>
+          {hasVoted ? null : (
+            <Button
               onClick={() => handleApprove(submissions)}
-              color='green.500'
-              variant={hasVoted ? 'solid' : 'outline'}
+              colorScheme='green'
+              variant={'outline'}
               mr={2}
               mb={2}
-            />
-          </Flex>
+            >
+              {'Approve'}
+            </Button>
+          )}
         </Flex>
         <Table columns={columns} rows={rows} />
       </Box>
     );
   };
 
-  if (metaSubmissions.length !== 0) {
-    return (
-      <Flex flexDir='column' width='100%'>
+  return (
+    <>
+      <Flex flexDir='row' justifyContent='space-between' alignItems='center'>
         <Text fontSize='lg'>{t('Proposed Meta Edits')}</Text>
-        {Object.values(groupedSubmissions).map(renderTable)}
+        {hasVoted ? (
+          <Button onClick={handleClear} variant='outline' colorScheme='red'>
+            {t(
+              'federation-dashboard.config.manage-meta.clear-approvals-button'
+            )}
+          </Button>
+        ) : (
+          <Button onClick={onOpen} variant='solid' colorScheme='green'>
+            {t(
+              'federation-dashboard.config.manage-meta.propose-new-meta-button'
+            )}
+          </Button>
+        )}
       </Flex>
-    );
-  } else {
-    return <></>;
-  }
+      {Object.values(groupedSubmissions).map(renderTable)}
+    </>
+  );
 });
