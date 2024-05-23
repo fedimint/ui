@@ -69,25 +69,14 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
           <Flex direction='column' gap='4'>
             <Flex justify='space-between' align='center'>
               <TabList>
-                <Tab>{t('federation-dashboard.config.view-config')}</Tab>
                 <Tab>
                   {t('federation-dashboard.config.manage-meta.tab-label')}
                 </Tab>
+                <Tab>{t('federation-dashboard.config.view-config')}</Tab>
               </TabList>
             </Flex>
           </Flex>
           <TabPanels>
-            <TabPanel>
-              <CodeMirror
-                value={JSON.stringify(config, null, 2)}
-                theme={githubLight}
-                extensions={[json()]}
-                basicSetup={{ autocompletion: true }}
-                minWidth={'500px'}
-                minHeight={'500px'}
-                readOnly
-              />
-            </TabPanel>
             <TabPanel>
               <MetaManager
                 metaModuleId={metaModuleId}
@@ -97,6 +86,17 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
                 setEditedMetaFields={setEditedMetaFields}
                 ourPeer={ourPeer}
                 peers={peers}
+              />
+            </TabPanel>
+            <TabPanel>
+              <CodeMirror
+                value={JSON.stringify(config, null, 2)}
+                theme={githubLight}
+                extensions={[json()]}
+                basicSetup={{ autocompletion: true }}
+                minWidth={'500px'}
+                minHeight={'500px'}
+                readOnly
               />
             </TabPanel>
           </TabPanels>

@@ -173,7 +173,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
   const getEffect = (key: string, value: string): JSX.Element => {
     console.log('consensusMeta', consensusMeta);
     if (consensusMeta[key] === undefined) {
-      return <Text color='green.500'>+ New</Text>;
+      return <Text color='green.500'>New</Text>;
     } else if (String(consensusMeta[key]) !== value) {
       return <Text color='yellow.500'>Modify</Text>;
     } else {
@@ -207,7 +207,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
                 key: `${key}-${value}`,
                 metaKey: <Text as='del'>{key}</Text>,
                 value: <Text as='del'>{value}</Text>,
-                effect: <Text color='red.500'>- Remove</Text>,
+                effect: <Text color='red.500'>Remove</Text>,
               })),
           ];
 
