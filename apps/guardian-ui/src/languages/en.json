@@ -9,7 +9,9 @@
     "copy": "Copy",
     "copied": "Copied!",
     "cancel": "Cancel",
-    "review": "Review"
+    "review": "Review",
+    "approvals": "Approvals",
+    "approve": "Approve"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -89,7 +91,10 @@
         "meta-field-icon": "A URL to a logo icon for the federation",
         "meta-field-welcome": "A welcome message for new users joining the federation",
         "meta-field-gateways": "A list of gateway identifiers vetted by the federation",
-        "your-own-fields": "You can also add your own arbitrary meta fields to the proposal. These will be added to the meta of all clients that connect to your federation and can be used for any purpose you like."
+        "your-own-fields": "You can also add your own arbitrary meta fields to the proposal. These will be added to the meta of all clients that connect to your federation and can be used for any purpose you like.",
+        "meta-effect-add": "Add",
+        "meta-effect-modify": "Modify",
+        "meta-effect-unchanged": "Unchanged"
       }
     },
     "modal": {

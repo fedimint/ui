@@ -113,7 +113,6 @@ export const ProposedMetas = React.memo(function ProposedMetas({
 
   const handleClear = useCallback(async () => {
     try {
-      // Clear the submission if already approved
       await api.moduleApiCall<{ metaValue: string }[]>(
         Number(metaModuleId),
         ModuleRpc.submitMeta,
@@ -122,8 +121,6 @@ export const ProposedMetas = React.memo(function ProposedMetas({
           value: metaToHex(fieldsToMeta([])), // Empty submission
         }
       );
-
-      console.log('Cleared meta edits');
       setHasVoted(false);
     } catch (err) {
       console.error('Failed to clear meta edits', err);
@@ -173,11 +170,23 @@ export const ProposedMetas = React.memo(function ProposedMetas({
   const getEffect = (key: string, value: string): JSX.Element => {
     console.log('consensusMeta', consensusMeta);
     if (consensusMeta[key] === undefined) {
-      return <Text color='green.500'>Add</Text>;
+      return (
+        <Text color='green.500'>
+          {t('federation-dashboard.config.manage-meta.meta-effect-add')}
+        </Text>
+      );
     } else if (String(consensusMeta[key]) !== value) {
-      return <Text color='yellow.500'>Modify</Text>;
+      return (
+        <Text color='yellow.500'>
+          {t('federation-dashboard.config.manage-meta.meta-effect-modify')}
+        </Text>
+      );
     } else {
-      return <Text color='gray.500'>Unchanged</Text>;
+      return (
+        <Text color='gray.500'>
+          {t('federation-dashboard.config.manage-meta.meta-effect-unchanged')}
+        </Text>
+      );
     }
   };
 
@@ -227,7 +236,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
               </CardBody>
               <CardFooter flexDir='row' justifyContent='space-between'>
                 <Flex alignItems='justify-left' flexDir='column' gap={2}>
-                  <Text fontWeight='semibold'>Approvals:</Text>
+                  <Text fontWeight='semibold'>{t('common.approvals')}:</Text>
                   {submission.peers.map((peerId) => (
                     <Flex key={peerId} alignItems='center' mr={2}>
                       <Icon
@@ -263,7 +272,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
                     variant={'outline'}
                     ml={4}
                   >
-                    {'Approve'}
+                    {t('common.approve')}
                   </Button>
                 )}
               </CardFooter>
