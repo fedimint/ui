@@ -73,12 +73,11 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
     if (!consensusMeta) return [] as TableRow<TableKey>[];
     return consensusMeta?.value.map(([key, value], idx) => {
       return {
-        key: idx,
+        key: `${key}-${value}`,
         metaKey: <Text size={'md'}>{key}</Text>,
         value: <Text size={'md'}>{value}</Text>,
       };
     });
-  }, [consensusMeta]);
 
   return (
     <Flex
