@@ -60,7 +60,7 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
   return config ? (
     <Card flex='1'>
       <CardHeader>
-        <Text size='lg' fontWeight='600'>
+        <Text fontSize='md' fontWeight={'semibold'}>
           {t('federation-dashboard.config.label')}
         </Text>
       </CardHeader>

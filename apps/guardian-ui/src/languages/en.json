@@ -11,7 +11,8 @@
     "cancel": "Cancel",
     "review": "Review",
     "approvals": "Approvals",
-    "approve": "Approve"
+    "approve": "Approve",
+    "threshold": "Threshold"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -94,7 +95,8 @@
         "your-own-fields": "You can also add your own arbitrary meta fields to the proposal. These will be added to the meta of all clients that connect to your federation and can be used for any purpose you like.",
         "meta-effect-add": "Add",
         "meta-effect-modify": "Modify",
-        "meta-effect-unchanged": "Unchanged"
+        "meta-effect-unchanged": "Unchanged",
+        "proposals": "Proposals"
       }
     },
     "modal": {

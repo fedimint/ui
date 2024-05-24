@@ -8,6 +8,13 @@ import {
   CardBody,
   CardFooter,
   Icon,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from '@chakra-ui/react';
 import { ReactComponent as CheckIcon } from '../../assets/svgs/check.svg';
 import {
@@ -22,16 +29,8 @@ import { useAdminContext } from '../../hooks';
 import { ModuleRpc } from '../../types';
 import { Table, TableColumn } from '@fedimint/ui';
 import { DEFAULT_META_KEY } from './MetaManager';
+import { bftHonest, generateSimpleHash } from '../../utils';
 
-const generateSimpleHash = (str: string) => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return Math.abs(hash).toString(16).slice(0, 6); // Convert to hex and take the first 6 characters
-};
 type MetaSubmissionMap = {
   [key: string]: {
     peers: number[];
@@ -61,9 +60,13 @@ export const ProposedMetas = React.memo(function ProposedMetas({
 }: ProposedMetasProps): JSX.Element {
   const { t } = useTranslation();
   const { api } = useAdminContext();
-
+  const { isOpen, onOpen: openModal, onClose } = useDisclosure();
   const [metaSubmissions, setMetaSubmissions] = useState<MetaSubmissionMap>();
   const [hasVoted, setHasVoted] = useState(false);
+  const [selectedMeta, setSelectedMeta] = useState<MetaFields | null>(null);
+
+  const totalGuardians = peers.length;
+  const threshold = bftHonest(totalGuardians);
 
   useEffect(() => {
     const pollSubmissionInterval = setInterval(async () => {
@@ -190,28 +193,52 @@ export const ProposedMetas = React.memo(function ProposedMetas({
     }
   };
 
+  const handleApproveWithWarning = (
+    meta: MetaFields,
+    currentApprovals: number
+  ) => {
+    if (currentApprovals + 1 >= threshold) {
+      setSelectedMeta(meta);
+      openModal();
+    } else {
+      handleApprove(meta);
+    }
+  };
+
+  const confirmApproval = async () => {
+    if (selectedMeta) {
+      await handleApprove(selectedMeta);
+      onClose();
+    }
+  };
+
   return (
     <Flex flexDir='column' width='100%'>
       {metaSubmissions && Object.keys(metaSubmissions).length > 0 ? (
-        <Text fontSize='lg' mb={4}>
-          {t('Proposed Meta Edits')}
-        </Text>
+        <Flex
+          flexDir='row'
+          justifyContent='space-between'
+          alignItems='center'
+          mb={4}
+        >
+          <Text fontSize='lg' fontWeight='semibold'>
+            {t('federation-dashboard.config.manage-meta.proposals')}
+          </Text>
+          <Text fontSize='md'>
+            {t('common.threshold')}: {threshold} / {totalGuardians}
+          </Text>
+        </Flex>
       ) : null}
       {metaSubmissions &&
         Object.entries(metaSubmissions).map(([key, submission]) => {
-          // Create a set of keys in the submission
           const submissionKeys = new Set(submission.meta.map(([key]) => key));
-
-          // Create rows for the table, filtering out unchanged ones
           const rows = [
-            ...submission.meta
-              .map(([key, value]) => ({
-                key: `${key}-${value}`,
-                metaKey: <Text>{key}</Text>,
-                value: <Text>{value}</Text>,
-                effect: getEffect(key, value),
-              }))
-              .filter((row) => row.effect.props.color !== 'gray.500'), // Filter out unchanged rows
+            ...submission.meta.map(([key, value]) => ({
+              key: `${key}-${value}`,
+              metaKey: <Text>{key}</Text>,
+              value: <Text>{value}</Text>,
+              effect: getEffect(key, value),
+            })),
             ...Object.entries(consensusMeta)
               .filter(([key]) => !submissionKeys.has(key))
               .map(([key, value]) => ({
@@ -221,6 +248,9 @@ export const ProposedMetas = React.memo(function ProposedMetas({
                 effect: <Text color='red.500'>Remove</Text>,
               })),
           ];
+
+          const totalGuardians = peers.length;
+          const currentApprovals = submission.peers.length;
 
           return (
             <Card key={key} mb={4}>
@@ -236,7 +266,10 @@ export const ProposedMetas = React.memo(function ProposedMetas({
               </CardBody>
               <CardFooter flexDir='row' justifyContent='space-between'>
                 <Flex alignItems='justify-left' flexDir='column' gap={2}>
-                  <Text fontWeight='semibold'>{t('common.approvals')}:</Text>
+                  <Text fontWeight='semibold'>
+                    {t('common.approvals')}: ( {currentApprovals} /
+                    {totalGuardians} )
+                  </Text>
                   {submission.peers.map((peerId) => (
                     <Flex key={peerId} alignItems='center' mr={2}>
                       <Icon
@@ -267,7 +300,12 @@ export const ProposedMetas = React.memo(function ProposedMetas({
                   </Button>
                 ) : (
                   <Button
-                    onClick={() => handleApprove(submission.meta)}
+                    onClick={() =>
+                      handleApproveWithWarning(
+                        submission.meta,
+                        currentApprovals
+                      )
+                    }
                     colorScheme='green'
                     variant={'outline'}
                     ml={4}
@@ -284,6 +322,39 @@ export const ProposedMetas = React.memo(function ProposedMetas({
           {t('federation-dashboard.config.manage-meta.propose-new-meta-button')}
         </Button>
       )}
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{t('Approval Confirmation')}</ModalHeader>
+          <ModalBody>
+            <Text mb={4}>
+              {t(
+                'Your approval will reach the threshold to adopt this meta change. Your new meta will look like:'
+              )}
+            </Text>
+            {selectedMeta && (
+              <Table
+                columns={columns}
+                rows={selectedMeta.map(([key, value]) => ({
+                  key: `${key}-${value}`,
+                  metaKey: <Text>{key}</Text>,
+                  value: <Text>{value}</Text>,
+                  effect: getEffect(key, value),
+                }))}
+              />
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button variant='ghost' onClick={onClose}>
+              {t('Cancel')}
+            </Button>
+            <Button colorScheme='green' ml={3} onClick={confirmApproval}>
+              {t('Confirm')}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 });
