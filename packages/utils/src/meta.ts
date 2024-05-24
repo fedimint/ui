@@ -12,7 +12,7 @@ export const metaToHex = (meta: MetaConfig): string => {
   const str = JSON.stringify(meta);
   let hex = '';
   for (let i = 0; i < str.length; i++) {
-    hex += '' + str.charCodeAt(i).toString(16);
+    hex += `${str.charCodeAt(i).toString(16)}`;
   }
   return hex;
 };
@@ -20,7 +20,7 @@ export const metaToHex = (meta: MetaConfig): string => {
 export const hexToMeta = (hex: string): MetaConfig => {
   let str = '';
   for (let i = 0; i < hex.length; i += 2) {
-    str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    str += String.fromCharCode(Number.parseInt(hex.substr(i, 2), 16));
   }
   return JSON.parse(str);
 };
