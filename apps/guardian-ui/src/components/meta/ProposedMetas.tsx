@@ -141,10 +141,6 @@ export const ProposedMetas = React.memo(function ProposedMetas({
             value: metaToHex(fieldsToMeta(meta)),
           }
         );
-
-        console.log(
-          `Approved and submitted meta edits: ${JSON.stringify(meta)}`
-        );
       } catch (err) {
         console.error('Failed to submit meta edits', err);
       }
