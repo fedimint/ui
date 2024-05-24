@@ -83,7 +83,10 @@ export const MetaManager = React.memo(function MetaManager({
         setEditedMetaFields([]);
         onClose();
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error(error);
+        alert('Failed to propose meta edits. Please try again.');
+      });
   }, [api, metaModuleId, editedMetaFields, onClose, setEditedMetaFields]);
 
   return metaModuleId ? (
