@@ -40,7 +40,7 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
     if (config) {
       const peers = Object.entries(config.api_endpoints).map(
         ([id, endpoint]) => ({
-          id: parseInt(id, 10),
+          id: Number.parseInt(id, 10),
           name: endpoint.name,
         })
       );
