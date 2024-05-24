@@ -124,7 +124,6 @@ export const ProposedMetas = React.memo(function ProposedMetas({
           value: metaToHex(fieldsToMeta([])), // Empty submission
         }
       );
-      setHasVoted(false);
     } catch (err) {
       console.error('Failed to clear meta edits', err);
     }
@@ -146,8 +145,6 @@ export const ProposedMetas = React.memo(function ProposedMetas({
         console.log(
           `Approved and submitted meta edits: ${JSON.stringify(meta)}`
         );
-
-        setHasVoted(true);
       } catch (err) {
         console.error('Failed to submit meta edits', err);
       }
