@@ -28,7 +28,7 @@ import {
   Network,
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { FormGroup } from '@fedimint/ui';
+import { FormGroup, NetworkIndicator } from '@fedimint/ui';
 import { useSetupContext } from '../hooks';
 import { GuardianRole } from '../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';

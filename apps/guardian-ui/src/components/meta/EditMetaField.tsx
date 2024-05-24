@@ -10,18 +10,21 @@ import {
   useTheme,
 } from '@chakra-ui/react';
 import React from 'react';
-import { ReactComponent as TrashIcon } from '../assets/svgs/trash.svg';
-import { ReactComponent as PlusIcon } from '../assets/svgs/plus.svg';
+import { MetaFields } from '@fedimint/types';
 import { useTranslation, Trans } from '@fedimint/utils';
+import { ReactComponent as TrashIcon } from '../../assets/svgs/trash.svg';
+import { ReactComponent as PlusIcon } from '../../assets/svgs/plus.svg';
 
 interface Props {
-  metaFields: [string, string][];
-  onChangeMetaFields: (value: [string, string][]) => void;
+  metaFields: MetaFields;
+  onChangeMetaFields: (value: MetaFields) => void;
+  protectDerivedMeta?: boolean;
 }
 
-export const MetaFieldFormControl: React.FC<Props> = ({
+export const EditMetaField: React.FC<Props> = ({
   metaFields,
   onChangeMetaFields,
+  protectDerivedMeta = true,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -45,6 +48,9 @@ export const MetaFieldFormControl: React.FC<Props> = ({
   return (
     <FormControl>
       <Flex direction='column' gap={3}>
+        <Box as='h2' fontSize='xl' m={2}>
+          {t('set-config.meta-fields-title')}
+        </Box>
         <FormHelperText mt={0} mb={2}>
           <Trans
             i18nKey='set-config.meta-fields-description'
@@ -67,7 +73,7 @@ export const MetaFieldFormControl: React.FC<Props> = ({
               <Input
                 placeholder={t('set-config.meta-fields-key')}
                 value={key}
-                disabled={isDerived}
+                isDisabled={isDerived ? protectDerivedMeta : false}
                 onChange={(ev) =>
                   handleChangeMetaField(ev.target.value, value, idx)
                 }
@@ -75,12 +81,12 @@ export const MetaFieldFormControl: React.FC<Props> = ({
               <Input
                 placeholder={isDerived ? '' : t('set-config.meta-fields-value')}
                 value={value}
-                disabled={isDerived}
+                isDisabled={isDerived && protectDerivedMeta}
                 onChange={(ev) =>
                   handleChangeMetaField(key, ev.target.value, idx)
                 }
               />
-              {isDerived ? (
+              {isDerived && protectDerivedMeta ? (
                 <Box width={'58px'} height={'42px'} opacity={0} /> // Invisible placeholder
               ) : (
                 <IconButton
