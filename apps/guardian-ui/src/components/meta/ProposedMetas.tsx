@@ -171,7 +171,8 @@ export const ProposedMetas = React.memo(function ProposedMetas({
           {t('federation-dashboard.config.manage-meta.meta-effect-add')}
         </Text>
       );
-    } else if (String(consensusMeta[key]) !== value) {
+    }
+    if (String(consensusMeta[key]) !== value) {
       return (
         <Text color='yellow.500'>
           {t('federation-dashboard.config.manage-meta.meta-effect-modify')}
