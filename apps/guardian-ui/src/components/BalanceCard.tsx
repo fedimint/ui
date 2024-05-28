@@ -35,7 +35,7 @@ export const BalanceCard: React.FC = () => {
           <Text size='lg' fontWeight='600'>
             {t('federation-dashboard.balance.label')}
           </Text>
-          <ButtonGroup isAttached size='xs'>
+          <ButtonGroup size='xs' borderRadius='md'>
             <Button
               onClick={() => setUnit('msats')}
               variant={unit === 'msats' ? 'solid' : 'ghost'}
