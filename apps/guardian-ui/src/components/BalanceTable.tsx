@@ -64,7 +64,7 @@ export const BalanceTable: React.FC<BalanceTableProps> = ({
                 ? formatValue(Math.abs(module.net_assets) as MSats)
                 : '0'}
             </Td>
-            <Td isNumeric>0</Td> {/* Set equity to 0 for individual rows */}
+            <Td isNumeric></Td> {/* Set equity to 0 for individual rows */}
             <Td></Td> {/* Empty cell for alignment */}
           </Tr>
         ))}
