@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Text, SimpleGrid } from '@chakra-ui/react';
 import { ClientConfig, StatusResponse, Versions } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues } from '@fedimint/ui';
@@ -73,7 +73,9 @@ export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
         </Text>
       </CardHeader>
       <CardBody>
-        <KeyValues keyValues={keyValues} />
+        <SimpleGrid minChildWidth='200px' spacing={4}>
+          <KeyValues keyValues={keyValues} />
+        </SimpleGrid>
       </CardBody>
     </Card>
   );

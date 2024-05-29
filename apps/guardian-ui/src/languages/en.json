@@ -37,7 +37,7 @@
       "consensus-version-label": "Consensus version"
     },
     "balance": {
-      "label": "Balance"
+      "label": "Balance Sheet"
     },
     "bitcoin-node": {
       "label": "Bitcoin Node",
