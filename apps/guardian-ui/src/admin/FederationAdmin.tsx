@@ -79,7 +79,7 @@ export const FederationAdmin: React.FC = () => {
           alignItems='flex-start'
           flexDir={{ base: 'column', sm: 'column', md: 'row' }}
         >
-          <Flex w='100%' direction='column' gap={5}>
+          <Flex w='40%' direction='column' gap={5}>
             <FederationInfoCard status={status} config={config} />
             <BitcoinNodeCard modulesConfigs={modulesConfigs} />
           </Flex>

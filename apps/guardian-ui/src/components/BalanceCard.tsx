@@ -29,7 +29,7 @@ export const BalanceCard: React.FC = () => {
   }, [api]);
 
   return (
-    <Card w='100%'>
+    <Card w='60%'>
       <CardHeader>
         <Flex justifyContent='space-between' alignItems='center'>
           <Text size='lg' fontWeight='600'>
