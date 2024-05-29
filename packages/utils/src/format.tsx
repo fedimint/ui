@@ -22,3 +22,16 @@ export function formatMsatsToBtc(msats: MSats): string {
     minimumFractionDigits: 8,
   }).format(msats / 1_00_000_000_000);
 }
+
+export const formatValue = (value: MSats, unit: 'msats' | 'sats' | 'btc') => {
+  switch (unit) {
+    case 'msats':
+      return value.toString();
+    case 'sats':
+      return (value / 1000).toFixed(0);
+    case 'btc':
+      return formatMsatsToBtc(value);
+    default:
+      return value.toString();
+  }
+};
