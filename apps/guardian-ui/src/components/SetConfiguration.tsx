@@ -43,8 +43,7 @@ import {
 } from '../utils/api';
 import { isValidMeta, isValidNumber } from '../utils/validators';
 import { NumberFormControl } from './NumberFormControl';
-import { MetaFieldFormControl } from './MetaFieldFormControl';
-import { NetworkIndicator } from '@fedimint/ui';
+import { EditMetaField } from './meta/EditMetaField';
 
 interface Props {
   next: () => void;
@@ -404,7 +403,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
             title={t('set-config.meta-fields')}
             isOpen={true}
           >
-            <MetaFieldFormControl
+            <EditMetaField
               metaFields={metaFields}
               onChangeMetaFields={setMetaFields}
             />
