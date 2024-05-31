@@ -93,7 +93,7 @@ export const FederationAdmin: React.FC = () => {
         {ourPeer ? (
           <FederationConfigCard config={config} ourPeer={ourPeer} />
         ) : null}
-        <DangerZone config={config} ourPeer={ourPeer} />
+        <DangerZone inviteCode={inviteCode} ourPeer={ourPeer} />
       </Flex>
     </Flex>
   );

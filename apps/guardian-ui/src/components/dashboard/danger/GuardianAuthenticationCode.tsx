@@ -17,13 +17,13 @@ import QRCode from 'qrcode.react';
 const QR_CODE_SIZE = 256;
 
 interface GuardianAuthenticationCodeProps {
-  federationId: string;
+  inviteCode: string;
   ourPeer: { id: number; name: string };
 }
 
 export const GuardianAuthenticationCode: React.FC<
   GuardianAuthenticationCodeProps
-> = ({ federationId, ourPeer }) => {
+> = ({ inviteCode, ourPeer }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -32,17 +32,17 @@ export const GuardianAuthenticationCode: React.FC<
 
   const calculateGuardianAuthenticationCode = () => {
     const params = new URLSearchParams({
-      federationId: federationId,
+      inviteCode: inviteCode,
       peerId: ourPeer?.id.toString(),
-      guardianName: ourPeer?.name,
+      name: ourPeer?.name,
     });
 
     const password = sessionStorage.getItem('guardian-ui-key');
     if (password) {
       params.append('password', password);
     }
-
-    return `guardian:authenticate?${params.toString()}`;
+    console.log(`fedimint:guardian?${params.toString()}`);
+    return `fedimint:guardian?${params.toString()}`;
   };
 
   const handleOpen = () => {

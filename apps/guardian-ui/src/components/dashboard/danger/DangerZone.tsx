@@ -1,16 +1,18 @@
 import React from 'react';
 import { Box, Text, Flex, theme } from '@chakra-ui/react';
-import { ClientConfig } from '@fedimint/types';
 import { GuardianAuthenticationCode } from './GuardianAuthenticationCode';
 import { DownloadBackup } from './DownloadBackup';
 import { useTranslation } from '@fedimint/utils';
 
 interface DangerZoneProps {
-  config: ClientConfig | undefined;
   ourPeer: { id: number; name: string } | undefined;
+  inviteCode: string;
 }
 
-export const DangerZone: React.FC<DangerZoneProps> = ({ config, ourPeer }) => {
+export const DangerZone: React.FC<DangerZoneProps> = ({
+  ourPeer,
+  inviteCode,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -24,10 +26,10 @@ export const DangerZone: React.FC<DangerZoneProps> = ({ config, ourPeer }) => {
         {t('federation-dashboard.danger-zone.danger-zone-label')}
       </Text>
       <Flex direction={['column', 'row']} alignItems='center' gap='6px'>
-        {config && ourPeer !== undefined && (
+        {ourPeer !== undefined && (
           <GuardianAuthenticationCode
             ourPeer={ourPeer}
-            federationId={config.meta.federation_id ?? ''}
+            inviteCode={inviteCode}
           />
         )}
         <DownloadBackup />
