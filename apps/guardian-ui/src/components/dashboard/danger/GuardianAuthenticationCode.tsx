@@ -15,6 +15,7 @@ import { useTranslation } from '@fedimint/utils';
 import QRCode from 'qrcode.react';
 
 const QR_CODE_SIZE = 256;
+const FEDIMINT_GUARDIAN_PREFIX = 'fedimint:guardian:';
 
 type GuardianAuth = {
   inviteCode: string;
@@ -48,8 +49,7 @@ export const GuardianAuthenticationCode: React.FC<
     if (password) {
       params.password = password;
     }
-    console.log(`fedimint:guardian:${JSON.stringify(params)}`);
-    return `fedimint:guardian:${JSON.stringify(params)}`;
+    return `${FEDIMINT_GUARDIAN_PREFIX}${JSON.stringify(params)}`;
   };
 
   const handleOpen = () => {
@@ -89,7 +89,7 @@ export const GuardianAuthenticationCode: React.FC<
               >
                 <Text mb={4}>
                   {t(
-                    'federation-dashboard.danger-zone.guardian-warning-message'
+                    'federation-dashboard.danger-zone.guardian-warning-message',
                   )}
                 </Text>
                 <Flex
@@ -113,7 +113,7 @@ export const GuardianAuthenticationCode: React.FC<
                     }}
                   >
                     {t(
-                      'federation-dashboard.danger-zone.acknowledge-and-download'
+                      'federation-dashboard.danger-zone.acknowledge-and-download',
                     )}
                   </Button>
                 </Flex>
@@ -135,7 +135,7 @@ export const GuardianAuthenticationCode: React.FC<
                 />
                 <Text fontWeight={'bold'} color={'red'} mt={4}>
                   {t(
-                    'federation-dashboard.danger-zone.guardian-connect-warning'
+                    'federation-dashboard.danger-zone.guardian-connect-warning',
                   )}
                 </Text>
               </Flex>
