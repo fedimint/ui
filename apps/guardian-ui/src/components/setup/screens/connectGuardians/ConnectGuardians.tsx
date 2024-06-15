@@ -13,12 +13,6 @@ import {
   Td,
   Tag,
   Icon,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
 } from '@chakra-ui/react';
 import { CopyInput, Table, TableRow } from '@fedimint/ui';
 import { ModuleKind, ServerStatus } from '@fedimint/types';
@@ -29,8 +23,7 @@ import { getModuleParamsFromConfig } from '../../../../utils/api';
 import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
 import { ReactComponent as QrIcon } from '../../../../assets/svgs/qr.svg';
 import { BftInfo } from '../../../BftInfo';
-import QRCode from 'qrcode.react';
-import { QR_CODE_SIZE } from '../../../../utils';
+import { QrModal } from '../../../QrModal';
 
 interface Props {
   next(): void;
@@ -228,32 +221,12 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
           rows={peerTableRows}
         />
       )}
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <ModalOverlay />
-        <ModalContent minH='0'>
-          <ModalHeader alignSelf='center'>
-            {t('connect-guardians.invite-guardians-help')}
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <Flex
-              justifyContent='center'
-              alignItems='center'
-              direction='column'
-            >
-              <QRCode
-                value={guardianLink}
-                size={QR_CODE_SIZE}
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  maxWidth: QR_CODE_SIZE,
-                }}
-              />
-            </Flex>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <QrModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        content={guardianLink}
+        header={t('connect-guardians.invite-guardians')}
+      />
     </Flex>
   );
 };
