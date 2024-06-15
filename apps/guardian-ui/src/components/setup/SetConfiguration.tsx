@@ -29,8 +29,8 @@ import {
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup, NetworkIndicator } from '@fedimint/ui';
-import { useSetupContext } from '../hooks';
-import { GuardianRole } from '../types';
+import { useSetupContext } from '../../hooks';
+import { GuardianRole } from '../../types';
 import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
 import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
 import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
@@ -40,10 +40,10 @@ import {
   formatApiErrorMessage,
   getModuleParamsFromConfig,
   applyConfigGenModuleParams,
-} from '../utils/api';
-import { isValidMeta, isValidNumber } from '../utils/validators';
-import { NumberFormControl } from './NumberFormControl';
-import { EditMetaField } from './meta/EditMetaField';
+} from '../../utils/api';
+import { isValidMeta, isValidNumber } from '../../utils/validators';
+import { NumberFormControl } from '../NumberFormControl';
+import { EditMetaField } from '../dashboard/tabs/meta/EditMetaField';
 
 interface Props {
   next: () => void;

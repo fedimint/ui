@@ -19,8 +19,8 @@ import { MetaFields } from '@fedimint/types';
 import { ViewConsensusMeta, ConsensusMetaFields } from './ViewConsensusMeta';
 import { ProposedMetas } from './ProposedMetas';
 import { EditMetaField } from './EditMetaField';
-import { useAdminContext } from '../../hooks';
-import { ModuleRpc } from '../../types';
+import { useAdminContext } from '../../../../hooks';
+import { ModuleRpc } from '../../../../types';
 
 export const DEFAULT_META_KEY = 0;
 const POLL_TIMEOUT_MS = 2000;

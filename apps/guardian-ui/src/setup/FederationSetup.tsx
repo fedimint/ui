@@ -22,13 +22,13 @@ import {
   SETUP_ACTION_TYPE,
   tosConfigState,
 } from '../types';
-import { RoleSelector } from '../components/RoleSelector';
-import { SetConfiguration } from '../components/SetConfiguration';
-import { ConnectGuardians } from '../components/ConnectGuardians';
-import { RunDKG } from '../components/RunDKG';
-import { VerifyGuardians } from '../components/VerifyGuardians';
-import { SetupComplete } from '../components/SetupComplete';
-import { SetupProgress as SetupStepper } from '../components/SetupProgress';
+import { RoleSelector } from '../components/setup/RoleSelector';
+import { SetConfiguration } from '../components/setup/SetConfiguration';
+import { ConnectGuardians } from '../components/setup/ConnectGuardians';
+import { RunDKG } from '../components/setup/RunDKG';
+import { VerifyGuardians } from '../components/setup/VerifyGuardians';
+import { SetupComplete } from '../components/setup/SetupComplete';
+import { SetupProgress as SetupStepper } from '../components/setup/SetupProgress';
 import { TermsOfService } from '../components/TermsOfService';
 
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';

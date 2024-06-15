@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader, Text, SimpleGrid } from '@chakra-ui/react';
 import { ClientConfig, StatusResponse, Versions } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues } from '@fedimint/ui';
-import { useAdminContext } from '../hooks';
+import { useAdminContext } from '../../../hooks';
 
 interface Props {
   status: StatusResponse | undefined;
