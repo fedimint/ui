@@ -21,7 +21,6 @@ import {
   ModalCloseButton,
   useDisclosure,
   InputGroup,
-  InputRightElement,
 } from '@chakra-ui/react';
 import {
   BitcoinRpc,
@@ -96,6 +95,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
 
   const handleQrScan = (data: string) => {
     setHostServerUrl(data);
+    setQrModalOpen(false);
   };
 
   useEffect(() => {
@@ -310,17 +310,20 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         {!isHost && !isSolo && (
           <FormControl>
             <FormLabel>{t('set-config.join-federation')}</FormLabel>
-            <InputGroup>
+            <InputGroup gap={2}>
               <Input
                 value={hostServerUrl}
                 onChange={(ev) => setHostServerUrl(ev.currentTarget.value)}
                 placeholder='ws://...'
               />
-              <InputRightElement>
-                <Button size='sm' onClick={() => setQrModalOpen(true)}>
-                  <Icon as={ScanIcon} />
-                </Button>
-              </InputRightElement>
+              <Button
+                size='md'
+                onClick={() => setQrModalOpen(true)}
+                variant='outline'
+                padding={0}
+              >
+                <Icon as={ScanIcon} />
+              </Button>
             </InputGroup>
             <FormHelperText>
               {t('set-config.join-federation-help')}
