@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Flex, theme } from '@chakra-ui/react';
 import { ClientConfig } from '@fedimint/types';
-import { GuardianAuthenticationCode } from '../../GuardianAuthenticationCode';
+import { GuardianAuthenticationCode } from './GuardianAuthenticationCode';
 import { DownloadBackup } from './DownloadBackup';
 import { useTranslation } from '@fedimint/utils';
 

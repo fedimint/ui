@@ -7,11 +7,11 @@ import {
 } from '@fedimint/types';
 import { useAdminContext } from '../hooks';
 import { GatewaysCard } from '../components/dashboard/gateways/GatewaysCard';
-import { GuardiansCard } from '../components/GuardiansCard';
-import { FederationInfoCard } from '../components/dashboard/top/FederationInfoCard';
-import { BitcoinNodeCard } from '../components/dashboard/top/BitcoinNodeCard';
-import { BalanceCard } from '../components/dashboard/top/BalanceCard';
-import { InviteCode } from '../components/InviteCode';
+import { GuardiansCard } from '../components/dashboard/guardians/GuardiansCard';
+import { FederationInfoCard } from '../components/dashboard/admin/FederationInfoCard';
+import { BitcoinNodeCard } from '../components/dashboard/admin/BitcoinNodeCard';
+import { BalanceCard } from '../components/dashboard/admin/BalanceCard';
+import { InviteCode } from '../components/dashboard/admin/InviteCode';
 import { FederationConfigCard } from '../components/dashboard/tabs/FederationConfigCard';
 import { BftInfo } from '../components/BftInfo';
 import { DangerZone } from '../components/dashboard/danger/DangerZone';

@@ -11,7 +11,7 @@ import {
 import { AuditSummary } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { useAdminContext } from '../../../hooks';
-import { BalanceTable } from '../BalanceTable';
+import { BalanceTable } from './BalanceTable';
 
 export const BalanceCard: React.FC = () => {
   const { t } = useTranslation();
