@@ -32,8 +32,10 @@ import { formatApiErrorMessage } from '../../../../utils/api';
 import { ReactComponent as CheckCircleIcon } from '../../../../assets/svgs/check-circle.svg';
 import { ReactComponent as XCircleIcon } from '../../../../assets/svgs/x-circle.svg';
 import { ReactComponent as QrIcon } from '../../../../assets/svgs/qr.svg';
+import { ReactComponent as ScanIcon } from '../../../../assets/svgs/scan.svg';
 import { QrModal } from '../../../QrModal';
 import { ConfirmFollowersConnected } from './ConfirmFollowersConnected';
+import { QrScannerModal } from '../../../QrScannerModal';
 
 interface PeerWithHash {
   id: string;
@@ -61,6 +63,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
   const [isOpen, setIsOpen] = useState(false);
+  const [isQrModalOpen, setQrModalOpen] = useState(false);
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -197,6 +200,15 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     });
   }, []);
 
+  const handleScanHash = useCallback(
+    (data: string) => {
+      // parse out index:value from the data string
+      const [index, value] = data.split(':');
+      handleChangeHash(value, parseInt(index, 10));
+    },
+    [handleChangeHash]
+  );
+
   const tableRows = useMemo(() => {
     if (!peersWithHash) return [];
     return peersWithHash.map(({ peer, hash }, idx) => {
@@ -224,6 +236,14 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
               onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
               readOnly={isValid}
             />
+            <Button
+              size='md'
+              onClick={() => setQrModalOpen(true)}
+              variant='outline'
+              padding={0}
+            >
+              <Icon as={ScanIcon} />
+            </Button>
           </FormControl>
         ),
       };
@@ -368,8 +388,13 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         <QrModal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          content={myHash}
+          content={`${ourCurrentId}:${myHash}`}
           header={t('verify-guardians.verification-code')}
+        />
+        <QrScannerModal
+          isOpen={isQrModalOpen}
+          onClose={() => setQrModalOpen(false)}
+          onScan={handleScanHash}
         />
       </Flex>
     );

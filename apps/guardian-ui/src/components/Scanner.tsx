@@ -56,6 +56,7 @@ export const Scanner: React.FC<ScannerProps> = ({
         scannerRef.current.setInversionMode('both');
         await scannerRef.current.start();
       } else if (scannerRef.current) {
+        scannerRef.current.stop();
         scannerRef.current.destroy();
         res.current = null;
         err.current = null;
