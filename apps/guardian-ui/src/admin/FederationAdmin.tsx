@@ -6,15 +6,15 @@ import {
   StatusResponse,
 } from '@fedimint/types';
 import { useAdminContext } from '../hooks';
-import { GatewaysCard } from '../components/GatewaysCard';
-import { GuardiansCard } from '../components/GuardiansCard';
-import { FederationInfoCard } from '../components/FederationInfoCard';
-import { BitcoinNodeCard } from '../components/BitcoinNodeCard';
-import { BalanceCard } from '../components/BalanceCard';
-import { InviteCode } from '../components/InviteCode';
-import { FederationConfigCard } from '../components/FederationConfigCard';
+import { GatewaysCard } from '../components/dashboard/gateways/GatewaysCard';
+import { GuardiansCard } from '../components/dashboard/guardians/GuardiansCard';
+import { FederationInfoCard } from '../components/dashboard/admin/FederationInfoCard';
+import { BitcoinNodeCard } from '../components/dashboard/admin/BitcoinNodeCard';
+import { BalanceCard } from '../components/dashboard/admin/BalanceCard';
+import { InviteCode } from '../components/dashboard/admin/InviteCode';
+import { FederationConfigCard } from '../components/dashboard/tabs/FederationConfigCard';
 import { BftInfo } from '../components/BftInfo';
-import { DangerZone } from '../components/DangerZone';
+import { DangerZone } from '../components/dashboard/danger/DangerZone';
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();

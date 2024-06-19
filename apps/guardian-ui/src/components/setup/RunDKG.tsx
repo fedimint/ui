@@ -9,8 +9,8 @@ import {
 } from '@chakra-ui/react';
 import { ServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { useConsensusPolling, useSetupContext } from '../hooks';
-import { formatApiErrorMessage } from '../utils/api';
+import { useConsensusPolling, useSetupContext } from '../../hooks';
+import { formatApiErrorMessage } from '../../utils/api';
 
 interface Props {
   next(): void;

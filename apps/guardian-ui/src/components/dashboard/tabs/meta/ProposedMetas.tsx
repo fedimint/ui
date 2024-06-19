@@ -25,11 +25,11 @@ import {
 } from '@fedimint/utils';
 import { MetaFields, MetaSubmissions } from '@fedimint/types';
 
-import { useAdminContext } from '../../hooks';
-import { ModuleRpc } from '../../types';
+import { useAdminContext } from '../../../../hooks';
+import { ModuleRpc } from '../../../../types';
 import { Table, TableColumn } from '@fedimint/ui';
 import { DEFAULT_META_KEY } from './MetaManager';
-import { bftHonest, generateSimpleHash } from '../../utils';
+import { bftHonest, generateSimpleHash } from '../../../../utils';
 
 type MetaSubmissionMap = {
   [key: string]: {

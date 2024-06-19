@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { AuditSummary } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { useAdminContext } from '../hooks';
+import { useAdminContext } from '../../../hooks';
 import { BalanceTable } from './BalanceTable';
 
 export const BalanceCard: React.FC = () => {

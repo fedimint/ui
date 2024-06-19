@@ -2,8 +2,8 @@ import React, { useEffect, useMemo } from 'react';
 import { Flex, Text, useTheme } from '@chakra-ui/react';
 import { useTranslation, hexToMeta, metaToFields } from '@fedimint/utils';
 import { ConsensusMeta, MetaFields } from '@fedimint/types';
-import { useAdminContext } from '../../hooks';
-import { ModuleRpc } from '../../types';
+import { useAdminContext } from '../../../../hooks';
+import { ModuleRpc } from '../../../../types';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 
 interface ViewConsensusMetaProps {

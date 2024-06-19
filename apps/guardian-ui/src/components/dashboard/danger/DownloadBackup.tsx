@@ -12,8 +12,8 @@ import {
   useTheme,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { useAdminContext } from '../hooks';
-import { hexToBlob } from '../utils/api';
+import { useAdminContext } from '../../../hooks';
+import { hexToBlob } from '../../../utils/api';
 
 export const DownloadBackup: React.FC = () => {
   const theme = useTheme();
