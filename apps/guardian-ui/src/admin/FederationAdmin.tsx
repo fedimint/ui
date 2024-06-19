@@ -66,7 +66,10 @@ export const FederationAdmin: React.FC = () => {
             <Skeleton height='32px' width='180px' />
           )}
         </Heading>
-        <Flex flexDirection='row' justifyContent='space-between'>
+        <Flex
+          flexDirection={{ base: 'column', md: 'row' }}
+          justifyContent='space-between'
+        >
           <Box maxWidth='480px'>
             <InviteCode inviteCode={inviteCode} />
           </Box>
