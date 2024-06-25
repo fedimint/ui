@@ -12,6 +12,7 @@ import {
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup } from '@fedimint/ui';
 import { ReactComponent as LightbulbLogo } from '../../../../assets/svgs/lightbulb.svg';
+import { generatePassword } from '../../../../utils';
 
 interface BasicSettingsFormProps {
   myName: string;
@@ -38,25 +39,6 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
-
-  const generateAndSetPassword = () => {
-    const getRandomInt = (max: number) => {
-      const randomBuffer = new Uint8Array(1);
-      window.crypto.getRandomValues(randomBuffer);
-      return Math.floor((randomBuffer[0] / 255) * max);
-    };
-
-    const passwordLength = 16;
-    const charSet = 'abcdefghjkmnpqrstuvwxyz0123456789';
-
-    let adminPassword = '';
-    for (let i = 0; i < passwordLength; i++) {
-      const randomIndex = getRandomInt(charSet.length);
-      adminPassword += charSet.charAt(randomIndex);
-    }
-
-    setPassword(adminPassword);
-  };
 
   return (
     <FormGroup
@@ -88,7 +70,7 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
             </Button>
           </Flex>
         ) : (
-          <Button onClick={generateAndSetPassword} w='100%'>
+          <Button onClick={() => setPassword(generatePassword())} w='100%'>
             {t('set-config.admin-password-generate')}
           </Button>
         )}
