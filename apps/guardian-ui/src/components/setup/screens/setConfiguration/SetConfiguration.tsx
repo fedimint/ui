@@ -121,28 +121,34 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     setPassword(statePassword);
   }, [statePassword]);
 
+  const hostCriteria = [
+    myName,
+    password,
+    passwordCheck,
+    federationName,
+    isValidNumber(numPeers, 4),
+    isValidNumber(blockConfirmations, 1, 200),
+    isValidMeta(metaFields),
+    network,
+  ];
+
+  const soloCriteria = [
+    myName,
+    password,
+    passwordCheck,
+    federationName,
+    isValidNumber(blockConfirmations, 1, 200),
+    isValidMeta(metaFields),
+    network,
+  ];
+
+  const followerCriteria = [myName, password, hostServerUrl];
+
   const isValid: boolean = isHost
-    ? Boolean(
-        myName &&
-          password &&
-          passwordCheck &&
-          federationName &&
-          isValidNumber(numPeers, 4) &&
-          isValidNumber(blockConfirmations, 1, 200) &&
-          isValidMeta(metaFields) &&
-          network
-      )
+    ? hostCriteria.every(Boolean)
     : isSolo
-    ? Boolean(
-        myName &&
-          password &&
-          passwordCheck &&
-          federationName &&
-          isValidNumber(blockConfirmations, 1, 200) &&
-          isValidMeta(metaFields) &&
-          network
-      )
-    : Boolean(myName && password && hostServerUrl);
+    ? soloCriteria.every(Boolean)
+    : followerCriteria.every(Boolean);
 
   const handleChangeFederationName = (
     ev: React.ChangeEvent<HTMLInputElement>
