@@ -235,6 +235,9 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         setPassword={setPassword}
         hasCopied={hasCopied}
         onCopy={onCopy}
+        isFollower={!isHost && !isSolo}
+        hostServerUrl={hostServerUrl}
+        setHostServerUrl={setHostServerUrl}
       />
       <BitcoinSettingsForm
         network={network as Network}
