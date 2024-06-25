@@ -368,7 +368,15 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           <ModalOverlay />
           <ModalContent>
             <ModalCloseButton />
-            <ModalBody>{t('verify-guardians.leader-confirm-done')}</ModalBody>
+            <ModalBody p={6}>
+              <Heading size='md' mb={4}>
+                {t('common.confirm')}
+              </Heading>
+              <Text mb={4}>{t('verify-guardians.leader-confirm-done')}</Text>
+              <Text fontWeight='bold' textDecoration='underline'>
+                {t('verify-guardians.leader-confirm-done-emphasis')}
+              </Text>
+            </ModalBody>
             <ModalFooter>
               <Button
                 colorScheme='blue'
