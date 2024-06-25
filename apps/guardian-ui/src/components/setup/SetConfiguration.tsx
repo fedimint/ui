@@ -31,11 +31,11 @@ import { useTranslation } from '@fedimint/utils';
 import { FormGroup, NetworkIndicator } from '@fedimint/ui';
 import { useSetupContext } from '../../hooks';
 import { GuardianRole } from '../../types';
-import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
-import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
-import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
-import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
-import { ReactComponent as LightbulbLogo } from '../assets/svgs/lightbulb.svg';
+import { ReactComponent as FedimintLogo } from '../../assets/svgs/fedimint.svg';
+import { ReactComponent as BitcoinLogo } from '../../assets/svgs/bitcoin.svg';
+import { ReactComponent as ModulesIcon } from '../../assets/svgs/modules.svg';
+import { ReactComponent as ArrowRightIcon } from '../../assets/svgs/arrow-right.svg';
+import { ReactComponent as LightbulbLogo } from '../../assets/svgs/lightbulb.svg';
 import {
   formatApiErrorMessage,
   getModuleParamsFromConfig,

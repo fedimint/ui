@@ -9,7 +9,7 @@ import {
   Text,
   useTheme,
 } from '@chakra-ui/react';
-import { ReactComponent as CheckIcon } from '../assets/svgs/white-check.svg';
+import { ReactComponent as CheckIcon } from '../../assets/svgs/white-check.svg';
 import { useTranslation } from '@fedimint/utils';
 import { StepState } from '../../types';
 
