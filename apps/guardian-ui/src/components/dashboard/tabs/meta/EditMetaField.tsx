@@ -12,8 +12,8 @@ import {
 import React from 'react';
 import { MetaFields } from '@fedimint/types';
 import { useTranslation, Trans } from '@fedimint/utils';
-import { ReactComponent as TrashIcon } from '../../assets/svgs/trash.svg';
-import { ReactComponent as PlusIcon } from '../../assets/svgs/plus.svg';
+import { ReactComponent as TrashIcon } from '../../../../assets/svgs/trash.svg';
+import { ReactComponent as PlusIcon } from '../../../../assets/svgs/plus.svg';
 
 interface Props {
   metaFields: MetaFields;

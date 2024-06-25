@@ -16,7 +16,7 @@ import {
   ModalBody,
   ModalFooter,
 } from '@chakra-ui/react';
-import { ReactComponent as CheckIcon } from '../../assets/svgs/check.svg';
+import { ReactComponent as CheckIcon } from '../../../../assets/svgs/check.svg';
 import {
   useTranslation,
   hexToMeta,
