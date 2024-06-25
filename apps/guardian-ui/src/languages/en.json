@@ -244,7 +244,8 @@
   "setup-complete": {
     "header": "🎉 🎉 🎉",
     "congratulations": "Congratulations",
-    "sentence-one": "All Guardians’ verification codes have been verified.",
+    "leader-message": "All Guardians’ verification codes have been verified.",
+    "follower-message": "You're all done! Click continue and let the other Guardians know you're running!",
     "continue": "Continue"
   },
   "terms-of-service": {
