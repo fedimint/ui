@@ -158,7 +158,7 @@ export const FederationSetup: React.FC = () => {
       canRestart = true;
       break;
     case SetupProgress.SetupComplete:
-      content = <SetupComplete />;
+      content = <SetupComplete role={role ?? GuardianRole.Follower} />;
       break;
     default:
       title = t('setup.progress.error.title');
