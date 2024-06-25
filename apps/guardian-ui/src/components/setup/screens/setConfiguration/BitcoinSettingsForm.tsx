@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup, NetworkIndicator } from '@fedimint/ui';
-import { ReactComponent as BitcoinLogo } from '../assets/svgs/bitcoin.svg';
+import { ReactComponent as BitcoinLogo } from '../../../../assets/svgs/bitcoin.svg';
 import { Network, BitcoinRpc } from '@fedimint/types';
 import { NumberFormControl } from '../../../NumberFormControl';
 

@@ -20,7 +20,7 @@ import { useTranslation } from '@fedimint/utils';
 import { useConsensusPolling, useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
 import { getModuleParamsFromConfig } from '../../../../utils/api';
-import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
+import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
 import { BftInfo } from '../../../BftInfo';
 
 interface Props {

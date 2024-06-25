@@ -8,11 +8,10 @@ import {
   Button,
   Text,
   useTheme,
-  useClipboard,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup } from '@fedimint/ui';
-import { ReactComponent as LightbulbLogo } from '../assets/svgs/lightbulb.svg';
+import { ReactComponent as LightbulbLogo } from '../../../../assets/svgs/lightbulb.svg';
 
 interface BasicSettingsFormProps {
   myName: string;

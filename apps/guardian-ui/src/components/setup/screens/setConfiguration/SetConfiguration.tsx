@@ -18,8 +18,8 @@ import {
 import { useTranslation } from '@fedimint/utils';
 import { useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
-import { ReactComponent as ModulesIcon } from '../assets/svgs/modules.svg';
-import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
+import { ReactComponent as ModulesIcon } from '../../../../assets/svgs/modules.svg';
+import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
 import {
   formatApiErrorMessage,
   getModuleParamsFromConfig,

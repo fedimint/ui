@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Heading, Text, Button, Icon } from '@chakra-ui/react';
-import { ReactComponent as ArrowRightIcon } from '../assets/svgs/arrow-right.svg';
+import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
 import { useAppContext } from '../../../../hooks';
 import { useTranslation } from '@fedimint/utils';
 import { APP_ACTION_TYPE, GuardianRole, Status } from '../../../../types';

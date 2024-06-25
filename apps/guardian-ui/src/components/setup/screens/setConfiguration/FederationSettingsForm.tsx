@@ -2,7 +2,7 @@ import React from 'react';
 import { FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup } from '@fedimint/ui';
-import { ReactComponent as FedimintLogo } from '../assets/svgs/fedimint.svg';
+import { ReactComponent as FedimintLogo } from '../../../../assets/svgs/fedimint.svg';
 import { NumberFormControl } from '../../../NumberFormControl';
 
 interface FederationSettingsFormProps {
