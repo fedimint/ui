@@ -3,9 +3,13 @@ import { Flex, Heading, Text, Button, Icon } from '@chakra-ui/react';
 import { ReactComponent as ArrowRightIcon } from '../../assets/svgs/arrow-right.svg';
 import { useAppContext } from '../../hooks';
 import { useTranslation } from '@fedimint/utils';
-import { APP_ACTION_TYPE, Status } from '../../types';
+import { APP_ACTION_TYPE, GuardianRole, Status } from '../../types';
 
-export const SetupComplete: React.FC = () => {
+interface SetupCompleteProps {
+  role: GuardianRole;
+}
+
+export const SetupComplete: React.FC<SetupCompleteProps> = ({ role }) => {
   const { t } = useTranslation();
   const { dispatch } = useAppContext();
 
@@ -28,7 +32,9 @@ export const SetupComplete: React.FC = () => {
         {t('setup-complete.congratulations')}
       </Heading>
       <Text mb={16} fontWeight='medium'>
-        {t('setup-complete.sentence-one')}
+        {role === GuardianRole.Follower
+          ? t(`setup-complete.follower-message`)
+          : t(`setup-complete.leader-message`)}
       </Text>
       <Button leftIcon={<Icon as={ArrowRightIcon} />} onClick={handleContinue}>
         {t('setup-complete.continue')}

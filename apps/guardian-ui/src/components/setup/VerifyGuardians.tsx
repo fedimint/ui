@@ -20,6 +20,12 @@ import {
   useBreakpointValue,
   Stack,
   StackDirection,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import { ServerStatus, Peer } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
@@ -57,6 +63,8 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [verifiedConfigs, setVerifiedConfigs] = useState<boolean>(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
+  const [isOpen, setIsOpen] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -143,6 +151,20 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   ]);
 
   const handleNext = useCallback(async () => {
+    if (role === GuardianRole.Host) {
+      setIsOpen(true);
+      // Wait for confirmation from the leader modal
+      const waitForConfirmation = new Promise<void>((resolve) => {
+        const interval = setInterval(() => {
+          if (confirmed) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 100);
+      });
+
+      await waitForConfirmation;
+    }
     setIsStarting(true);
     try {
       await api.startConsensus();
@@ -151,7 +173,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       setError(formatApiErrorMessage(err));
     }
     setIsStarting(false);
-  }, [api, next]);
+  }, [api, next, role, confirmed]);
 
   // Host of one immediately skips this step.
   useEffect(() => {
@@ -334,7 +356,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           <Button
             isDisabled={!verifiedConfigs}
             isLoading={isStarting}
-            onClick={verifiedConfigs ? handleNext : undefined}
+            onClick={handleNext}
             leftIcon={<Icon as={ArrowRightIcon} />}
             width={{ base: 'full', sm: 'auto' }}
           >
@@ -342,6 +364,37 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           </Button>
           <WaitingForVerification verifiedConfigs={verifiedConfigs} />
         </Stack>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalCloseButton />
+            <ModalBody p={6}>
+              <Heading size='md' mb={4}>
+                {t('common.confirm')}
+              </Heading>
+              <Text mb={4}>
+                {t('setup.progress.verify-guardians.leader-confirm-done')}
+              </Text>
+              <Text fontWeight='bold' textDecoration='underline'>
+                {t(
+                  'setup.progress.verify-guardians.leader-confirm-done-emphasis'
+                )}
+              </Text>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                colorScheme='blue'
+                mr={3}
+                onClick={() => {
+                  setConfirmed(true);
+                  setIsOpen(false);
+                }}
+              >
+                {t('common.confirm')}
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Flex>
     );
   }

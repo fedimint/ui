@@ -12,7 +12,8 @@
     "review": "Review",
     "approvals": "Approvals",
     "approve": "Approve",
-    "threshold": "Threshold"
+    "threshold": "Threshold",
+    "confirm": "Confirm"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -229,7 +230,9 @@
       "verify-guardians": {
         "title": "Verify your Guardians",
         "subtitle": "Ask each Guardian for their verification code, and paste them below to check validity. We’re almost done!",
-        "step": "Verify guardians"
+        "step": "Verify guardians",
+        "leader-confirm-done": "Confirm that all the follower Guardians have clicked \"Next\" and see their guardian dashboards before continuing.",
+        "leader-confirm-done-emphasis": "Clicking \"Continue\" will complete the setup ceremony."
       },
       "setup-complete": {
         "step": "Done!"
@@ -243,7 +246,8 @@
   "setup-complete": {
     "header": "🎉 🎉 🎉",
     "congratulations": "Congratulations",
-    "sentence-one": "All Guardians’ verification codes have been verified.",
+    "leader-message": "All Guardians’ verification codes have been verified.",
+    "follower-message": "You're all done! Click continue and let the other Guardians know you're running!",
     "continue": "Continue"
   },
   "terms-of-service": {
