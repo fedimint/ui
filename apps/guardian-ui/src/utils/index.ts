@@ -24,7 +24,8 @@ export const generatePassword = () => {
   };
 
   const passwordLength = 16;
-  const charSet = 'abcdefghjkmnpqrstuvwxyz0123456789';
+  const charSet =
+    'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ0123456789!@#$%^&*()';
 
   let adminPassword = '';
   for (let i = 0; i < passwordLength; i++) {
