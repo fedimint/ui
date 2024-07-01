@@ -22,12 +22,12 @@ import {
   SETUP_ACTION_TYPE,
   tosConfigState,
 } from '../types';
-import { RoleSelector } from '../components/setup/RoleSelector';
-import { SetConfiguration } from '../components/setup/SetConfiguration';
-import { ConnectGuardians } from '../components/setup/ConnectGuardians';
+import { RoleSelector } from '../components/setup/screens/roleSelector/RoleSelector';
+import { SetConfiguration } from '../components/setup/screens/setConfiguration/SetConfiguration';
+import { ConnectGuardians } from '../components/setup/screens/connectGuardians/ConnectGuardians';
 import { RunDKG } from '../components/setup/RunDKG';
-import { VerifyGuardians } from '../components/setup/VerifyGuardians';
-import { SetupComplete } from '../components/setup/SetupComplete';
+import { VerifyGuardians } from '../components/setup/screens/verifyGuardians/VerifyGuardians';
+import { SetupComplete } from '../components/setup/screens/setupComplete/SetupComplete';
 import { SetupProgress as SetupStepper } from '../components/setup/SetupProgress';
 import { TermsOfService } from '../components/TermsOfService';
 

@@ -15,3 +15,22 @@ export const generateSimpleHash = (str: string) => {
   }
   return Math.abs(hash).toString(16).slice(0, 6); // Convert to hex and take the first 6 characters
 };
+
+export const generatePassword = () => {
+  const getRandomInt = (max: number) => {
+    const randomBuffer = new Uint8Array(1);
+    window.crypto.getRandomValues(randomBuffer);
+    return Math.floor((randomBuffer[0] / 255) * max);
+  };
+
+  const passwordLength = 16;
+  const charSet = 'abcdefghjkmnpqrstuvwxyz0123456789';
+
+  let adminPassword = '';
+  for (let i = 0; i < passwordLength; i++) {
+    const randomIndex = getRandomInt(charSet.length);
+    adminPassword += charSet.charAt(randomIndex);
+  }
+
+  return adminPassword;
+};
