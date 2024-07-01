@@ -23,7 +23,7 @@ import { getModuleParamsFromConfig } from '../../../../utils/api';
 import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
 import { ReactComponent as QrIcon } from '../../../../assets/svgs/qr.svg';
 import { BftInfo } from '../../../BftInfo';
-import { QrModal } from '../../../QrModal';
+import { QrModal } from '../../qr/QrModal';
 
 interface Props {
   next(): void;

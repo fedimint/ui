@@ -33,9 +33,9 @@ import { ReactComponent as CheckCircleIcon } from '../../../../assets/svgs/check
 import { ReactComponent as XCircleIcon } from '../../../../assets/svgs/x-circle.svg';
 import { ReactComponent as QrIcon } from '../../../../assets/svgs/qr.svg';
 import { ReactComponent as ScanIcon } from '../../../../assets/svgs/scan.svg';
-import { QrModal } from '../../../QrModal';
+import { QrModal } from '../../qr/QrModal';
 import { ConfirmFollowersConnected } from './ConfirmFollowersConnected';
-import { QrScannerModal } from '../../../QrScannerModal';
+import { QrScannerModal } from '../../qr/QrScannerModal';
 
 interface PeerWithHash {
   id: string;
