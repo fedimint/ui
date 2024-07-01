@@ -15,15 +15,23 @@ import { useTranslation } from '@fedimint/utils';
 import QRCode from 'qrcode.react';
 
 const QR_CODE_SIZE = 256;
+const FEDIMINT_GUARDIAN_PREFIX = 'fedimint:guardian:';
+
+type GuardianAuth = {
+  inviteCode: string;
+  peerId: number;
+  name: string;
+  password?: string;
+};
 
 interface GuardianAuthenticationCodeProps {
-  federationId: string;
+  inviteCode: string;
   ourPeer: { id: number; name: string };
 }
 
 export const GuardianAuthenticationCode: React.FC<
   GuardianAuthenticationCodeProps
-> = ({ federationId, ourPeer }) => {
+> = ({ inviteCode, ourPeer }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -31,18 +39,17 @@ export const GuardianAuthenticationCode: React.FC<
   const [isAcknowledged, setIsAcknowledged] = useState(false);
 
   const calculateGuardianAuthenticationCode = () => {
-    const params = new URLSearchParams({
-      federationId: federationId,
-      peerId: ourPeer?.id.toString(),
-      guardianName: ourPeer?.name,
-    });
+    const params: GuardianAuth = {
+      inviteCode: inviteCode,
+      peerId: ourPeer?.id,
+      name: ourPeer?.name,
+    };
 
     const password = sessionStorage.getItem('guardian-ui-key');
     if (password) {
-      params.append('password', password);
+      params.password = password;
     }
-
-    return `guardian:authenticate?${params.toString()}`;
+    return `${FEDIMINT_GUARDIAN_PREFIX}${JSON.stringify(params)}`;
   };
 
   const handleOpen = () => {
@@ -82,7 +89,7 @@ export const GuardianAuthenticationCode: React.FC<
               >
                 <Text mb={4}>
                   {t(
-                    'federation-dashboard.danger-zone.guardian-warning-message'
+                    'federation-dashboard.danger-zone.guardian-warning-message',
                   )}
                 </Text>
                 <Flex
@@ -106,7 +113,7 @@ export const GuardianAuthenticationCode: React.FC<
                     }}
                   >
                     {t(
-                      'federation-dashboard.danger-zone.acknowledge-and-download'
+                      'federation-dashboard.danger-zone.acknowledge-and-download',
                     )}
                   </Button>
                 </Flex>
@@ -128,7 +135,7 @@ export const GuardianAuthenticationCode: React.FC<
                 />
                 <Text fontWeight={'bold'} color={'red'} mt={4}>
                   {t(
-                    'federation-dashboard.danger-zone.guardian-connect-warning'
+                    'federation-dashboard.danger-zone.guardian-connect-warning',
                   )}
                 </Text>
               </Flex>
