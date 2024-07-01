@@ -18,7 +18,6 @@ import {
 import { useTranslation } from '@fedimint/utils';
 import { useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
-import { ReactComponent as ModulesIcon } from '../../../../assets/svgs/modules.svg';
 import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
 import {
   formatApiErrorMessage,
@@ -26,11 +25,9 @@ import {
   applyConfigGenModuleParams,
 } from '../../../../utils/api';
 import { isValidMeta, isValidNumber } from '../../../../utils/validators';
-import { EditMetaField } from '../../../dashboard/tabs/meta/EditMetaField';
 import { BasicSettingsForm } from './BasicSettingsForm';
 import { FederationSettingsForm } from './FederationSettingsForm';
 import { BitcoinSettingsForm } from './BitcoinSettingsForm';
-import { FormGroup } from '@fedimint/ui';
 import { ConfirmPasswordModal } from './ConfirmPasswordModal';
 
 interface Props {
@@ -262,18 +259,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           setNumPeers={setNumPeers}
           isHost={isHost}
         />
-      )}
-      {(isHost || isSolo) && (
-        <FormGroup
-          icon={ModulesIcon}
-          title={t('set-config.meta-fields')}
-          isOpen={true}
-        >
-          <EditMetaField
-            metaFields={metaFields}
-            onChangeMetaFields={setMetaFields}
-          />
-        </FormGroup>
       )}
       {error && (
         <Text color={theme.colors.red[500]} mt={4}>
