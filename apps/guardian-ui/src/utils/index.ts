@@ -1,3 +1,5 @@
+export const QR_CODE_SIZE = 256;
+
 export function bftHonest(totalGuardians: number): number {
   return totalGuardians - bftFaulty(totalGuardians);
 }

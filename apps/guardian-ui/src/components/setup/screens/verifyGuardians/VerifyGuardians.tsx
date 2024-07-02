@@ -20,12 +20,6 @@ import {
   useBreakpointValue,
   Stack,
   StackDirection,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
 } from '@chakra-ui/react';
 import { ServerStatus, Peer } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
@@ -37,6 +31,11 @@ import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../../../../utils/api';
 import { ReactComponent as CheckCircleIcon } from '../../../../assets/svgs/check-circle.svg';
 import { ReactComponent as XCircleIcon } from '../../../../assets/svgs/x-circle.svg';
+import { ReactComponent as QrIcon } from '../../../../assets/svgs/qr.svg';
+import { ReactComponent as ScanIcon } from '../../../../assets/svgs/scan.svg';
+import { QrModal } from '../../qr/QrModal';
+import { ConfirmFollowersConnected } from './ConfirmFollowersConnected';
+import { QrScannerModal } from '../../qr/QrScannerModal';
 
 interface PeerWithHash {
   id: string;
@@ -65,6 +64,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [error, setError] = useState<string>();
   const [isOpen, setIsOpen] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [isQrModalOpen, setQrModalOpen] = useState(false);
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -215,6 +215,15 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     });
   }, []);
 
+  const handleScanHash = useCallback(
+    (data: string) => {
+      // parse out index:value from the data string
+      const [index, value] = data.split(':');
+      handleChangeHash(value, parseInt(index, 10));
+    },
+    [handleChangeHash]
+  );
+
   const tableRows = useMemo(() => {
     if (!peersWithHash) return [];
     return peersWithHash.map(({ peer, hash }, idx) => {
@@ -242,6 +251,14 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
               onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
               readOnly={isValid}
             />
+            <Button
+              size='md'
+              onClick={() => setQrModalOpen(true)}
+              variant='outline'
+              padding={0}
+            >
+              <Icon as={ScanIcon} />
+            </Button>
           </FormControl>
         ),
       };
@@ -278,11 +295,23 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           maxW='md'
         >
           <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
-          <CopyInput
-            value={myHash}
-            buttonLeftIcon={<Icon as={CopyIcon} />}
-            size='sm'
-          />
+          <Flex direction='row' alignItems='center' gap='6px'>
+            <CopyInput
+              value={myHash}
+              buttonLeftIcon={<Icon as={CopyIcon} />}
+              size='sm'
+            />
+            <Icon
+              as={QrIcon}
+              cursor='pointer'
+              onClick={() => setIsOpen(true)}
+              bg='white'
+              boxSize='40px'
+              borderRadius='10%'
+              border='1px solid lightgray'
+              _hover={{ bg: 'gray.100' }}
+            />
+          </Flex>
           <FormHelperText>
             {t('verify-guardians.verification-code-help')}
           </FormHelperText>
@@ -364,37 +393,22 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           </Button>
           <WaitingForVerification verifiedConfigs={verifiedConfigs} />
         </Stack>
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalCloseButton />
-            <ModalBody p={6}>
-              <Heading size='md' mb={4}>
-                {t('common.confirm')}
-              </Heading>
-              <Text mb={4}>
-                {t('setup.progress.verify-guardians.leader-confirm-done')}
-              </Text>
-              <Text fontWeight='bold' textDecoration='underline'>
-                {t(
-                  'setup.progress.verify-guardians.leader-confirm-done-emphasis'
-                )}
-              </Text>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                colorScheme='blue'
-                mr={3}
-                onClick={() => {
-                  setConfirmed(true);
-                  setIsOpen(false);
-                }}
-              >
-                {t('common.confirm')}
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        <ConfirmFollowersConnected
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          setConfirmed={setConfirmed}
+        />
+        <QrModal
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          content={`${ourCurrentId}:${myHash}`}
+          header={t('verify-guardians.verification-code')}
+        />
+        <QrScannerModal
+          isOpen={isQrModalOpen}
+          onClose={() => setQrModalOpen(false)}
+          onScan={handleScanHash}
+        />
       </Flex>
     );
   }
