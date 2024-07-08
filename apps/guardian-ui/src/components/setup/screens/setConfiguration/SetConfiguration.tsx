@@ -55,7 +55,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState(Boolean);
+  const [passwordCheck, setPasswordCheck] = useState(false);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [federationName, setFederationName] = useState('');
@@ -139,7 +139,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     network,
   ];
 
-  const followerCriteria = [myName, password, hostServerUrl];
+  const followerCriteria = [myName, password, hostServerUrl, passwordCheck];
 
   const isValid: boolean = isHost
     ? hostCriteria.every(Boolean)
