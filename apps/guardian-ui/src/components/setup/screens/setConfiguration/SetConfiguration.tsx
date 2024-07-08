@@ -271,16 +271,18 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         alignSelf='center'
         width={['100%', '100%', '60%']}
       >
-        <Checkbox
-          isRequired
-          spacing='10px'
-          alignSelf='flex-start'
-          onChange={(e) => setPasswordCheck(e.target.checked)}
-        >
-          <Text color={theme.colors.yellow[500]}>
-            {t('set-config.admin-password-backup')}
-          </Text>
-        </Checkbox>
+        {password !== '' && (
+          <Checkbox
+            isRequired
+            spacing='10px'
+            alignSelf='flex-start'
+            onChange={(e) => setPasswordCheck(e.target.checked)}
+          >
+            <Text color={theme.colors.yellow[500]}>
+              {t('set-config.admin-password-backup')}
+            </Text>
+          </Checkbox>
+        )}
         <Button
           isDisabled={!isValid}
           onClick={isValid ? handleNext : undefined}
