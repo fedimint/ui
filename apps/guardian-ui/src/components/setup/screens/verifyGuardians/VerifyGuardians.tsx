@@ -20,6 +20,7 @@ import {
   useBreakpointValue,
   Stack,
   StackDirection,
+  InputRightElement,
 } from '@chakra-ui/react';
 import { ServerStatus, Peer } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
@@ -229,21 +230,25 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         ),
         hashInput: (
           <FormControl isInvalid={isError}>
-            <Input
-              variant='filled'
-              value={value}
-              placeholder={`${t('verify-guardians.verified-placeholder')}`}
-              onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
-              readOnly={isValid}
-            />
-            <Button
-              size='md'
-              onClick={() => setQrModalOpen(true)}
-              variant='outline'
-              padding={0}
-            >
-              <Icon as={ScanIcon} />
-            </Button>
+            <InputGroup size='md'>
+              <Input
+                variant='filled'
+                value={value}
+                placeholder={`${t('verify-guardians.verified-placeholder')}`}
+                onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
+                readOnly={isValid}
+              />
+              <InputRightElement>
+                <Icon
+                  as={ScanIcon}
+                  cursor='pointer'
+                  onClick={() => setQrModalOpen(true)}
+                  boxSize='1.5rem'
+                  color='gray.500'
+                  _hover={{ color: 'blue.500' }}
+                />
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
         ),
       };
