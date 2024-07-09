@@ -88,7 +88,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
           ?.consensus?.network,
       },
       {
-        label: 'Block confirmations',
+        label: 'Additional Block Confirmations',
         value: getModuleParamsFromConfig(configGenParams, ModuleKind.Wallet)
           ?.consensus?.finality_delay,
       },
