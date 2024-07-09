@@ -306,7 +306,8 @@
     "table-column-hash-input": "Paste verification code",
     "wait-all-guardians-verification": "Waiting for all Guardians to verify their codes",
     "all-guardians-verified": "All Guardians have verified their codes",
-    "starting-consensus": "Starting consensus..."
+    "starting-consensus": "Starting consensus...",
+    "scanning-guardian": "Scan QR for {{guardian}}"
   },
   "footer": {
     "docs-section-header": "Docs",

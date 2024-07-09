@@ -65,6 +65,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [error, setError] = useState<string>();
   const [isOpen, setIsOpen] = useState(false);
   const [isQrModalOpen, setQrModalOpen] = useState(false);
+  const [scanningGuardian, setScanningGuardian] = useState<string>();
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -242,7 +243,10 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
                 <Icon
                   as={ScanIcon}
                   cursor='pointer'
-                  onClick={() => setQrModalOpen(true)}
+                  onClick={() => {
+                    setQrModalOpen(true);
+                    setScanningGuardian(peersWithHash[idx].peer.name);
+                  }}
                   boxSize='1.5rem'
                   color='gray.500'
                   _hover={{ color: 'blue.500' }}
@@ -394,12 +398,15 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           content={`${ourCurrentId}:${myHash}`}
-          header={t('verify-guardians.verification-code')}
+          header={t('setup.verify-guardians.verification-code')}
         />
         <QrScannerModal
           isOpen={isQrModalOpen}
           onClose={() => setQrModalOpen(false)}
           onScan={handleScanHash}
+          title={t('verify-guardians.scanning-guardian', {
+            guardian: scanningGuardian,
+          })}
         />
       </Flex>
     );
