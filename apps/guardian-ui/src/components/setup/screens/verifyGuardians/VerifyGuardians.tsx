@@ -64,7 +64,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
   const [isOpen, setIsOpen] = useState(false);
-  const [confirmed, setConfirmed] = useState(false);
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -151,20 +150,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   ]);
 
   const handleNext = useCallback(async () => {
-    if (role === GuardianRole.Host) {
-      setIsOpen(true);
-      // Wait for confirmation from the leader modal
-      const waitForConfirmation = new Promise<void>((resolve) => {
-        const interval = setInterval(() => {
-          if (confirmed) {
-            clearInterval(interval);
-            resolve();
-          }
-        }, 100);
-      });
-
-      await waitForConfirmation;
-    }
     setIsStarting(true);
     try {
       await api.startConsensus();
@@ -173,7 +158,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       setError(formatApiErrorMessage(err));
     }
     setIsStarting(false);
-  }, [api, next, role, confirmed]);
+  }, [api, next]);
 
   // Host of one immediately skips this step.
   useEffect(() => {
@@ -356,7 +341,9 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           <Button
             isDisabled={!verifiedConfigs}
             isLoading={isStarting}
-            onClick={handleNext}
+            onClick={
+              role === GuardianRole.Host ? () => setIsOpen(true) : handleNext
+            }
             leftIcon={<Icon as={ArrowRightIcon} />}
             width={{ base: 'full', sm: 'auto' }}
           >
@@ -386,8 +373,8 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
                 colorScheme='blue'
                 mr={3}
                 onClick={() => {
-                  setConfirmed(true);
                   setIsOpen(false);
+                  handleNext();
                 }}
               >
                 {t('common.confirm')}
