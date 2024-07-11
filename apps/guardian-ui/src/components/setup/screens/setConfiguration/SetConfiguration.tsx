@@ -124,7 +124,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     passwordCheck,
     federationName,
     isValidNumber(numPeers, 4),
-    isValidNumber(blockConfirmations, 1, 200),
+    isValidNumber(blockConfirmations, 0, 200),
     isValidMeta(metaFields),
     network,
   ];
@@ -134,7 +134,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     password,
     passwordCheck,
     federationName,
-    isValidNumber(blockConfirmations, 1, 200),
+    isValidNumber(blockConfirmations, 0, 200),
     isValidMeta(metaFields),
     network,
   ];
@@ -175,7 +175,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           'Cannot submit before fetching default config gen parameters'
         );
       // Fedimint finality delay is 1 less than the number of block confirmations input by the UI
-      const finalityDelay = parseInt(blockConfirmations, 10) - 1;
+      const finalityDelay = parseInt(blockConfirmations, 10);
       const moduleConfigs = applyConfigGenModuleParams(defaultParams.modules, {
         [ModuleKind.Mint]: {
           consensus: { mint_amounts: mintAmounts },

@@ -49,8 +49,8 @@ export const BitcoinSettingsForm: React.FC<BitcoinSettingsFormProps> = ({
           labelText={t('set-config.block-confirmations')}
           helperText={t('set-config.block-confirmations-help')}
           warningText={t('set-config.block-confirmations-warning')}
-          recommendedMin={6}
-          min={1}
+          recommendedMin={5}
+          min={0}
           max={200}
           value={blockConfirmations}
           onChange={(value) => {
