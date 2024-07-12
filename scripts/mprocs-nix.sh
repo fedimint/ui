@@ -8,7 +8,7 @@ fi
 DEVIMINT_COMMAND=$1
 MPROCS_PATH=$2
 
-export FM_TEST_DIR="$TMP/fm-$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 4 || true)"
+export FM_TEST_DIR="${TMP:-/tmp}/fm-$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 4 || true)"
 export FM_FED_SIZE=4
 export FM_PID_FILE="$FM_TEST_DIR/.pid"
 export FM_LOGS_DIR="$FM_TEST_DIR/logs"
