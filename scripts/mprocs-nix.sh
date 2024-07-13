@@ -19,19 +19,18 @@ touch $FM_PID_FILE
 
 # Flag to have devimint use binaries in specific folder, e.g. "../fedimint/target-nix/debug"
 if [ -n DEVIMINT_BIN ]; then
+  echo "DEVIMINT_BIN: $DEVIMINT_BIN"
   export PATH=$DEVIMINT_BIN:$PATH
 fi
 
 devimint $DEVIMINT_COMMAND 2>/dev/null &
-echo $! >> $FM_PID_FILE
-
+echo $! >>$FM_PID_FILE
 
 # Function for killing processes stored in FM_PID_FILE in reverse-order they were created in
 function kill_fedimint_processes {
   echo "Killing fedimint processes"
   PIDS=$(cat $FM_PID_FILE | sed '1!G;h;$!d') # sed reverses order
-  if [ -n "$PIDS" ]
-  then
+  if [ -n "$PIDS" ]; then
     kill $PIDS 2>/dev/null
   fi
   rm -f $FM_PID_FILE
