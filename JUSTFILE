@@ -4,7 +4,7 @@ mprocs:
     mprocs -c mprocs.yml
 restart:
     docker compose down && echo 'Removing fm dirs' && sudo rm -rf fm_* && echo 'Done' && mprocs -c mprocs.yml
-gate:
+gateway:
     yarn nix-gateway
-guard:
+guardian:
     yarn nix-guardian
