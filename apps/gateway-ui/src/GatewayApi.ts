@@ -1,4 +1,4 @@
-import { GatewayInfo, Federation } from '@fedimint/types';
+import { GatewayInfo, FederationInfo } from '@fedimint/types';
 
 export const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
@@ -118,14 +118,14 @@ export class GatewayApi {
     }
   };
 
-  connectFederation = async (inviteCode: string): Promise<Federation> => {
+  connectFederation = async (inviteCode: string): Promise<FederationInfo> => {
     try {
       const res: Response = await this.post('connect-fed', {
         invite_code: inviteCode,
       });
 
       if (res.ok) {
-        const federation: Federation = await res.json();
+        const federation: FederationInfo = await res.json();
         return Promise.resolve(federation);
       }
 

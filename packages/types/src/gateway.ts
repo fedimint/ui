@@ -1,5 +1,5 @@
 import { Network } from './bitcoin';
-import { ClientConfig } from './federation';
+import { GatewayClientConfig } from './federation';
 
 export interface Gateway {
   api: string;
@@ -32,15 +32,19 @@ interface Validity {
   secs_since_epoch: number;
 }
 
-export interface Federation {
+export interface FederationInfo {
   federation_id: string;
   balance_msat: number;
   channel_id: number;
-  config: ClientConfig;
+  config: GatewayClientConfig;
+  routing_fees: {
+    base_msat: number;
+    proportional_millionths: number;
+  };
 }
 
 export interface GatewayInfo {
-  federations: Federation[];
+  federations: FederationInfo[];
   fees: Fees;
   gateway_id: string;
   gateway_state: string;

@@ -1,10 +1,5 @@
-import type { MSats, Network } from './bitcoin';
-import {
-  AnyModuleParams,
-  BitcoinRpc,
-  ModuleConfigs,
-  ModuleKind,
-} from './modules';
+import type { MSats } from './bitcoin';
+import { AnyModuleParams, ModuleConfigs, ModuleKind } from './modules';
 import { MetaConfig } from './meta';
 
 export enum ServerStatus {
@@ -90,6 +85,16 @@ export interface ClientConfig {
     meta: {
       federation_name: string;
     };
+  };
+  modules: ModuleConfigs;
+}
+
+export interface GatewayClientConfig {
+  api_endpoints: Record<number, ApiEndpoint>;
+  broadcast_public_keys: Record<number, string>;
+  consensus_version: CoreConsensusVersion;
+  meta: {
+    federation_name: string;
   };
   modules: ModuleConfigs;
 }
