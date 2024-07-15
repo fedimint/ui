@@ -199,7 +199,7 @@ From root repo directory:
 
 ## Referencing Fedimint
 
-The docker containers and devimint are for specific releases or commits of `fedimint/fedimint`. At present, the reference commit-hash is `c32bbe8ed8d95ae420b5879e92dda6ce48f5c914`
+The docker containers and devimint are for specific releases or commits of `fedimint/fedimint`. At present, the reference commit-hash is `819df733ce330e5ac77e32011f11e2b192a48948`
 
 ### Running with local Fedimint
 
