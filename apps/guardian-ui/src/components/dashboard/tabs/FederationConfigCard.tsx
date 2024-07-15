@@ -38,7 +38,7 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
 
   useEffect(() => {
     if (config) {
-      const peers = Object.entries(config.api_endpoints).map(
+      const peers = Object.entries(config.global.api_endpoints).map(
         ([id, endpoint]) => ({
           id: Number.parseInt(id, 10),
           name: endpoint.name,

@@ -47,7 +47,7 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
       status.federation.status_by_peer
     )) {
       const numericId = parseInt(id, 10);
-      const endpoint = config.api_endpoints[numericId];
+      const endpoint = config.global.api_endpoints[numericId];
       if (endpoint) {
         peerDataArray.push({
           key: id,
