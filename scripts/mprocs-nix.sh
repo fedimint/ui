@@ -18,7 +18,7 @@ mkdir $FM_LOGS_DIR
 touch $FM_PID_FILE
 
 # Flag to have devimint use binaries in specific folder, e.g. "../fedimint/target-nix/debug"
-if [ -n DEVIMINT_BIN ]; then
+if [ -n "$DEVIMINT_BIN" ]; then
   echo "DEVIMINT_BIN: $DEVIMINT_BIN"
   export PATH=$DEVIMINT_BIN:$PATH
 fi
