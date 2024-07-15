@@ -1,8 +1,8 @@
-import type { MSats } from './bitcoin';
+import type { MSats, Network } from './bitcoin';
 import {
   AnyModuleParams,
-  FedimintModule,
-  ModuleConfig,
+  BitcoinRpc,
+  ModuleConfigs,
   ModuleKind,
 } from './modules';
 import { MetaConfig } from './meta';
@@ -83,10 +83,15 @@ export type ModuleConsensusVersion = MajorAndMinorVersions;
 export type ModuleApiVersion = MajorAndMinorVersions;
 
 export interface ClientConfig {
-  consensus_version: CoreConsensusVersion;
-  api_endpoints: Record<number, ApiEndpoint>;
-  modules: Record<number, FedimintModule>;
-  meta: MetaConfig;
+  global: {
+    api_endpoints: Record<number, ApiEndpoint>;
+    broadcast_public_keys: Record<number, string>;
+    consensus_version: CoreConsensusVersion;
+    meta: {
+      federation_name: string;
+    };
+  };
+  modules: ModuleConfigs;
 }
 
 export interface ModuleSummary {
@@ -102,8 +107,6 @@ export interface AuditSummary {
 export type DownloadGuardianBackupResponse = {
   tar_archive_bytes: string;
 };
-
-export type ModulesConfigResponse = Record<string, ModuleConfig>;
 
 export type ConfigGenParams = {
   meta: MetaConfig;

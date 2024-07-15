@@ -13,7 +13,8 @@
     "approvals": "Approvals",
     "approve": "Approve",
     "threshold": "Threshold",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "you": "You"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -70,6 +71,10 @@
       "manage-meta": {
         "tab-label": "Manage Meta",
         "cancel-button": "Cancel",
+        "confirm-modal": {
+          "title": "Confirm Approval",
+          "description": "Your approval will reach the threshold to adopt this meta change. Your new meta will look like:"
+        },
         "consensus-meta-label": "Current meta in consensus",
         "revoke-button": "Revoke",
         "no-consensus-meta-message": "there are no meta in consensus",

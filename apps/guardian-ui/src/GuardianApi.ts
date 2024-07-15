@@ -7,7 +7,6 @@ import {
   DownloadGuardianBackupResponse,
   FederationStatus,
   ModuleKind,
-  ModulesConfigResponse,
   PeerHashMap,
   ServerStatus,
   StatusResponse,
@@ -276,10 +275,6 @@ export class GuardianApi {
       return this.call(AdminRpc.downloadGuardianBackup);
     };
 
-  public modulesConfig = (): Promise<ModulesConfigResponse> => {
-    return this.call(AdminRpc.modulesConfig);
-  };
-
   public moduleApiCall = <T>(
     moduleId: number,
     rpc: ModuleRpc,
@@ -302,20 +297,21 @@ export class GuardianApi {
   ): Promise<T> => {
     try {
       const websocket = await this.connect();
-
+      console.log('method', method);
       const response = await websocket.call(method, [
         {
           auth: this.getPassword() || null,
           params,
         },
       ]);
+      console.log('response', response);
 
       if (response.error) {
         throw response.error;
       }
 
       const result = response.result as T;
-      console.log(`${method} rpc result:`, result);
+      // console.log(`${method} rpc result:`, result); // NOTE: uncomment for debugging
 
       return result;
     } catch (error: unknown) {

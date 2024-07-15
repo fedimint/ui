@@ -239,7 +239,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
                 key: `${key}-${value}`,
                 metaKey: <Text as='del'>{key}</Text>,
                 value: <Text as='del'>{value}</Text>,
-                effect: <Text color='red.500'>Remove</Text>,
+                effect: <Text color='red.500'>{t('common.remove')}</Text>,
               })),
           ];
 
@@ -278,7 +278,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
                       />
                       <Text ml={1}>
                         {ourPeer.id === Number(peerId)
-                          ? 'You'
+                          ? t('common.you')
                           : peers.find((p) => p.id === Number(peerId))?.name}
                       </Text>
                     </Flex>
@@ -320,11 +320,13 @@ export const ProposedMetas = React.memo(function ProposedMetas({
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{t('Approval Confirmation')}</ModalHeader>
+          <ModalHeader>
+            {t('federation-dashboard.config.manage-meta.confirm-modal.title')}
+          </ModalHeader>
           <ModalBody>
             <Text mb={4}>
               {t(
-                'Your approval will reach the threshold to adopt this meta change. Your new meta will look like:'
+                'federation-dashboard.config.manage-meta.confirm-modal.description'
               )}
             </Text>
             {selectedMeta && (
@@ -341,10 +343,10 @@ export const ProposedMetas = React.memo(function ProposedMetas({
           </ModalBody>
           <ModalFooter>
             <Button variant='ghost' onClick={onClose}>
-              {t('Cancel')}
+              {t('common.cancel')}
             </Button>
             <Button colorScheme='green' ml={3} onClick={confirmApproval}>
-              {t('Confirm')}
+              {t('common.confirm')}
             </Button>
           </ModalFooter>
         </ModalContent>
