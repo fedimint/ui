@@ -21,7 +21,7 @@ export const FederationCard: React.FC<FederationCardProps> = ({
       <CardBody>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <BalanceCard
-            federationName={config.meta.federation_name}
+            federationName={config.global.meta.federation_name}
             balanceMsat={balance_msat}
             federationId={federation_id}
           />
