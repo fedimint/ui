@@ -42,7 +42,8 @@
     "receiving-address": "Receiving Addr",
     "required": "required",
     "sentence-one": "Deposit to the address or scan the QR code",
-    "transaction-id": "Transaction ID"
+    "transaction-id": "Transaction ID",
+    "create-pegin-address": "Create Peg-in Address"
   },
   "federation-card": {
     "default-federation-name": "Federation: ",
