@@ -5,15 +5,18 @@ import { DownloadBackup } from './DownloadBackup';
 import { useTranslation } from '@fedimint/utils';
 import { ReactComponent as ChevronDownIcon } from '../../../assets/svgs/chevron-down.svg';
 import { ReactComponent as ChevronUpIcon } from '../../../assets/svgs/chevron-up.svg';
+import { ScheduleShutdown } from './ScheduleShutdown';
 
 interface DangerZoneProps {
   ourPeer: { id: number; name: string } | undefined;
   inviteCode: string;
+  latestSession: number | undefined;
 }
 
 export const DangerZone: React.FC<DangerZoneProps> = ({
   ourPeer,
   inviteCode,
+  latestSession,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +29,6 @@ export const DangerZone: React.FC<DangerZoneProps> = ({
       bg='red.50'
       p={4}
       borderRadius='md'
-      maxW='480px'
       border='1px'
       borderColor='red.200'
     >
@@ -60,6 +62,7 @@ export const DangerZone: React.FC<DangerZoneProps> = ({
             />
           )}
           <DownloadBackup />
+          {latestSession && <ScheduleShutdown latestSession={latestSession} />}
         </Flex>
       </Collapse>
       <Text mt='6px' fontSize='14px' color={theme.colors.gray[600]}>

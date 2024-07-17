@@ -113,6 +113,15 @@ export type DownloadGuardianBackupResponse = {
   tar_archive_bytes: string;
 };
 
+export interface ApiAnnouncement {
+  api_url: string;
+  nonce: number;
+}
+export interface SignedApiAnnouncement {
+  api_announcement: ApiAnnouncement;
+  signature: string;
+}
+
 export type ConfigGenParams = {
   meta: MetaConfig;
   modules: Record<number, AnyModuleParams>;

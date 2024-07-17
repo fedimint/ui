@@ -1,5 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Card, CardBody, CardHeader, Text, SimpleGrid } from '@chakra-ui/react';
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Text,
+  SimpleGrid,
+  Box,
+} from '@chakra-ui/react';
 import { ClientConfig, StatusResponse, Versions } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues } from '@fedimint/ui';
@@ -8,9 +15,14 @@ import { useAdminContext } from '../../../hooks';
 interface Props {
   status: StatusResponse | undefined;
   config: ClientConfig | undefined;
+  latestSession: number | undefined;
 }
 
-export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
+export const FederationInfoCard: React.FC<Props> = ({
+  status,
+  config,
+  latestSession,
+}) => {
   const { t } = useTranslation();
   const { api } = useAdminContext();
   const [versions, setVersions] = useState<Versions>();
@@ -39,7 +51,7 @@ export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
     return () => clearInterval(interval);
   }, [api, config]);
 
-  const keyValues = useMemo(
+  const federationInfoKeyValues = useMemo(
     () => [
       {
         key: 'status',
@@ -65,6 +77,17 @@ export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
     [t, serverStatus, blockCount, apiVersion, consensusVersion]
   );
 
+  const sessionInfoKeyValues = useMemo(
+    () => [
+      {
+        key: 'latestSession',
+        label: t('federation-dashboard.fed-info.session-info.session-height'),
+        value: latestSession ?? 0,
+      },
+    ],
+    [t, latestSession]
+  );
+
   return (
     <Card w='100%'>
       <CardHeader>
@@ -73,8 +96,13 @@ export const FederationInfoCard: React.FC<Props> = ({ status, config }) => {
         </Text>
       </CardHeader>
       <CardBody>
-        <SimpleGrid minChildWidth='200px' spacing={4}>
-          <KeyValues keyValues={keyValues} />
+        <SimpleGrid columns={2} spacing={4}>
+          <Box>
+            <KeyValues keyValues={federationInfoKeyValues} />
+          </Box>
+          <Box>
+            <KeyValues keyValues={sessionInfoKeyValues} />
+          </Box>
         </SimpleGrid>
       </CardBody>
     </Card>

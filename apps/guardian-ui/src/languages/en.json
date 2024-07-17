@@ -36,7 +36,11 @@
       "your-status-label": "Status",
       "block-count-label": "Consensus Block Height",
       "api-version-label": "API version",
-      "consensus-version-label": "Consensus version"
+      "consensus-version-label": "Consensus version",
+      "session-info": {
+        "session-height": "Session Height",
+        "latest-session": "Latest Session"
+      }
     },
     "balance": {
       "label": "Balance Sheet"
@@ -67,6 +71,7 @@
     "config": {
       "label": "Federation Config",
       "view-config": "View Config",
+      "api-announcements": "API Announcements",
       "missing-meta-module": "Editing Meta fields is not possible. The Meta module is not available for this federation.",
       "manage-meta": {
         "tab-label": "Manage Meta",
@@ -124,6 +129,14 @@
         "warning-text": "The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!",
         "cancelButton": "Cancel",
         "acknowledgeButton": "Acknowledge & Download"
+      },
+      "schedule-shutdown": {
+        "label": "Schedule Shutdown",
+        "title": "Schedule Shutdown",
+        "description": "Schedule your guardian node to shutdown after a specific session height for a coordinated upgrade of your fedimintd binaries.",
+        "current-session": "Current Session",
+        "session-to-shutdown": "Session to Shutdown at",
+        "confirm-shutdown": "Confirm Shutdown"
       }
     }
   },

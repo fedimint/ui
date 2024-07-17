@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Flex, Box, Heading, Skeleton } from '@chakra-ui/react';
-import { ClientConfig, StatusResponse } from '@fedimint/types';
+import {
+  ClientConfig,
+  SignedApiAnnouncement,
+  StatusResponse,
+} from '@fedimint/types';
 import { useAdminContext } from '../hooks';
 import { GatewaysCard } from '../components/dashboard/gateways/GatewaysCard';
 import { GuardiansCard } from '../components/dashboard/guardians/GuardiansCard';
@@ -8,7 +12,7 @@ import { FederationInfoCard } from '../components/dashboard/admin/FederationInfo
 import { BitcoinNodeCard } from '../components/dashboard/admin/BitcoinNodeCard';
 import { BalanceCard } from '../components/dashboard/admin/BalanceCard';
 import { InviteCode } from '../components/dashboard/admin/InviteCode';
-import { FederationConfigCard } from '../components/dashboard/tabs/FederationConfigCard';
+import { FederationTabsCard } from '../components/dashboard/tabs/FederationTabsCard';
 import { BftInfo } from '../components/BftInfo';
 import { DangerZone } from '../components/dashboard/danger/DangerZone';
 
@@ -17,7 +21,11 @@ export const FederationAdmin: React.FC = () => {
   const [status, setStatus] = useState<StatusResponse>();
   const [inviteCode, setInviteCode] = useState<string>('');
   const [config, setConfig] = useState<ClientConfig>();
+  const [signedApiAnnouncements, setSignedApiAnnouncements] = useState<
+    Record<string, SignedApiAnnouncement>
+  >({});
   const [ourPeer, setOurPeer] = useState<{ id: number; name: string }>();
+  const [latestSession, setLatestSession] = useState<number>();
 
   // Extracting our peer ID and name from intersection of config and status
   useEffect(() => {
@@ -36,6 +44,8 @@ export const FederationAdmin: React.FC = () => {
           name: config.global.api_endpoints[ourPeerId].name,
         });
       }
+      const latestSession = status?.federation?.session_count;
+      setLatestSession(latestSession);
     }
   }, [config, status]);
 
@@ -45,6 +55,7 @@ export const FederationAdmin: React.FC = () => {
     const fetchStatus = () => {
       api.status().then(setStatus).catch(console.error);
     };
+    api.apiAnnouncements().then(setSignedApiAnnouncements).catch(console.error);
     fetchStatus();
     const interval = setInterval(fetchStatus, 5000);
     return () => clearInterval(interval);
@@ -79,7 +90,11 @@ export const FederationAdmin: React.FC = () => {
           flexDir={{ base: 'column', sm: 'column', md: 'row' }}
         >
           <Flex w='100%' direction='column' gap={5}>
-            <FederationInfoCard status={status} config={config} />
+            <FederationInfoCard
+              status={status}
+              config={config}
+              latestSession={latestSession}
+            />
             <BitcoinNodeCard modulesConfigs={config?.modules} />
           </Flex>
           <BalanceCard />
@@ -87,9 +102,17 @@ export const FederationAdmin: React.FC = () => {
         <GuardiansCard status={status} config={config} />
         <GatewaysCard config={config} />
         {ourPeer ? (
-          <FederationConfigCard config={config} ourPeer={ourPeer} />
+          <FederationTabsCard
+            config={config}
+            ourPeer={ourPeer}
+            signedApiAnnouncements={signedApiAnnouncements}
+          />
         ) : null}
-        <DangerZone inviteCode={inviteCode} ourPeer={ourPeer} />
+        <DangerZone
+          inviteCode={inviteCode}
+          ourPeer={ourPeer}
+          latestSession={latestSession}
+        />
       </Flex>
     </Flex>
   );

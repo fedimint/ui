@@ -28,31 +28,9 @@ procs:
     env:
       PORT: '3004'
       BROWSER: none
-  guardian-ui:
-    shell: bash --init-file scripts/mprocs-nix-guardian.sh
-    stop: SIGKILL
+  guardian-ui-1:
+    shell: yarn dev:guardian-ui
     env:
       PORT: '3000'
-      FM_SERVER: '1'
+      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18138
       BROWSER: none
-  # guardian-ui-1:
-  #   shell: bash --init-file scripts/mprocs-nix-guardian.sh
-  #   stop: SIGKILL
-  #   env:
-  #     PORT: '3001'
-  #     FM_SERVER: '3'
-  #     BROWSER: none
-  # guardian-ui-2:
-  #   shell: bash --init-file scripts/mprocs-nix-guardian.sh
-  #   stop: SIGKILL
-  #   env:
-  #     PORT: '3002'
-  #     FM_SERVER: '5'
-  #     BROWSER: none
-  # guardian-ui-3:
-  #   shell: bash --init-file scripts/mprocs-nix-guardian.sh
-  #   stop: SIGKILL
-  #   env:
-  #     PORT: '3003'
-  #     FM_SERVER: '7'
-  #     BROWSER: none

@@ -9,24 +9,30 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Text,
 } from '@chakra-ui/react';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
-import { ClientConfig, MetaFields, ModuleKind } from '@fedimint/types';
+import {
+  ClientConfig,
+  MetaFields,
+  ModuleKind,
+  SignedApiAnnouncement,
+} from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { MetaManager } from './meta/MetaManager';
 import { ConsensusMetaFields } from './meta/ViewConsensusMeta';
 
-interface FederationConfigCardProps {
+interface FederationTabsCardProps {
   config: ClientConfig | undefined;
   ourPeer: { id: number; name: string };
+  signedApiAnnouncements: Record<string, SignedApiAnnouncement>;
 }
 
-export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
+export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
   config,
   ourPeer,
+  signedApiAnnouncements,
 }) => {
   const { t } = useTranslation();
   const [metaModuleId, setMetaModuleId] = useState<string | undefined>(
@@ -59,23 +65,21 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
 
   return config ? (
     <Card flex='1'>
-      <CardHeader>
-        <Text fontSize='md' fontWeight={'semibold'}>
-          {t('federation-dashboard.config.label')}
-        </Text>
-      </CardHeader>
-      <CardBody>
-        <Tabs variant='soft-rounded' colorScheme='blue'>
+      <Tabs variant='soft-rounded' colorScheme='blue'>
+        <CardHeader>
           <Flex direction='column' gap='4'>
             <Flex justify='space-between' align='center'>
               <TabList>
                 <Tab>
                   {t('federation-dashboard.config.manage-meta.tab-label')}
                 </Tab>
+                <Tab>{t('federation-dashboard.config.api-announcements')}</Tab>
                 <Tab>{t('federation-dashboard.config.view-config')}</Tab>
               </TabList>
             </Flex>
           </Flex>
+        </CardHeader>
+        <CardBody>
           <TabPanels>
             <TabPanel>
               <MetaManager
@@ -99,9 +103,20 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
                 readOnly
               />
             </TabPanel>
+            <TabPanel>
+              <CodeMirror
+                value={JSON.stringify(signedApiAnnouncements, null, 2)}
+                theme={githubLight}
+                extensions={[json()]}
+                basicSetup={{ autocompletion: true }}
+                minWidth={'500px'}
+                minHeight={'500px'}
+                readOnly
+              />
+            </TabPanel>
           </TabPanels>
-        </Tabs>
-      </CardBody>
+        </CardBody>
+      </Tabs>
     </Card>
   ) : null;
 };

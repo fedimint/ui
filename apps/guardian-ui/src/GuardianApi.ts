@@ -9,6 +9,7 @@ import {
   ModuleKind,
   PeerHashMap,
   ServerStatus,
+  SignedApiAnnouncement,
   StatusResponse,
   Versions,
 } from '@fedimint/types';
@@ -275,6 +276,18 @@ export class GuardianApi {
       return this.call(AdminRpc.downloadGuardianBackup);
     };
 
+  public apiAnnouncements = async (): Promise<
+    Record<string, SignedApiAnnouncement>
+  > => {
+    return this.call(AdminRpc.apiAnnouncements);
+  };
+
+  public signApiAnnouncement = async (
+    newUrl: string
+  ): Promise<SignedApiAnnouncement> => {
+    return this.call(AdminRpc.signApiAnnouncement, { new_url: newUrl });
+  };
+
   public moduleApiCall = <T>(
     moduleId: number,
     rpc: ModuleRpc,
@@ -311,7 +324,6 @@ export class GuardianApi {
       }
 
       const result = response.result as T;
-      // console.log(`${method} rpc result:`, result); // NOTE: uncomment for debugging
 
       return result;
     } catch (error: unknown) {

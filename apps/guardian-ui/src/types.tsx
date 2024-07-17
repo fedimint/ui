@@ -160,6 +160,8 @@ export enum AdminRpc {
   audit = 'audit',
   downloadGuardianBackup = 'download_guardian_backup',
   federationId = 'federation_id',
+  apiAnnouncements = 'api_announcements',
+  signApiAnnouncement = 'sign_api_announcement',
 }
 
 export enum SharedRpc {
