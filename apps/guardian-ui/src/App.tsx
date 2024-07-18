@@ -25,9 +25,18 @@ export const App = React.memo(function App() {
   const content = useMemo(() => {
     if (state.appError) {
       return (
-        <Flex direction='column' gap={6}>
-          <Heading size='md'>{t('common.error')}</Heading>
-          <Text>{state.appError}</Text>
+        <Flex
+          direction='column'
+          align='center'
+          width='100%'
+          paddingTop='10vh'
+          paddingX='4'
+          textAlign='center'
+        >
+          <Heading size='lg' marginBottom='4'>
+            {t('common.error')}
+          </Heading>
+          <Text fontSize='md'>{state.appError}</Text>
         </Flex>
       );
     }

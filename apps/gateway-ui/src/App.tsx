@@ -111,9 +111,18 @@ export const App = React.memo(function Admin(): JSX.Element {
 
     if (error) {
       return (
-        <Flex gap={6}>
-          <Heading size='md'>{t('common.error')}</Heading>
-          <Text>{error}</Text>
+        <Flex
+          direction='column'
+          align='center'
+          width='100%'
+          paddingTop='10vh'
+          paddingX='4'
+          textAlign='center'
+        >
+          <Heading size='lg' marginBottom='4'>
+            {t('common.error')}
+          </Heading>
+          <Text fontSize='md'>{error}</Text>
         </Flex>
       );
     }
