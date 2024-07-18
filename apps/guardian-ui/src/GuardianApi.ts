@@ -89,7 +89,7 @@ export class GuardianApi {
     return this.connectPromise;
   };
 
-  private shutdown = async (): Promise<boolean> => {
+  private shutdown_internal = async (): Promise<boolean> => {
     if (this.connectPromise) {
       this.connectPromise = null;
     }
@@ -202,7 +202,7 @@ export class GuardianApi {
     const attemptConfirmConsensusRunning = async (): Promise<void> => {
       try {
         await this.connect();
-        await this.shutdown();
+        await this.shutdown_internal();
         const status = await this.status();
         if (status.server === ServerStatus.ConsensusRunning) {
           return;
@@ -286,6 +286,10 @@ export class GuardianApi {
     newUrl: string
   ): Promise<SignedApiAnnouncement> => {
     return this.call(AdminRpc.signApiAnnouncement, { new_url: newUrl });
+  };
+
+  public shutdown = async (session?: number): Promise<void> => {
+    return this.call(AdminRpc.shutdown, session);
   };
 
   public moduleApiCall = <T>(

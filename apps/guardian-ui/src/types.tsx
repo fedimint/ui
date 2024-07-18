@@ -162,6 +162,7 @@ export enum AdminRpc {
   federationId = 'federation_id',
   apiAnnouncements = 'api_announcements',
   signApiAnnouncement = 'sign_api_announcement',
+  shutdown = 'shutdown',
 }
 
 export enum SharedRpc {
