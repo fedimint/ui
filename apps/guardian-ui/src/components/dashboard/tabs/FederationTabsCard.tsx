@@ -94,7 +94,7 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
             </TabPanel>
             <TabPanel>
               <CodeMirror
-                value={JSON.stringify(config, null, 2)}
+                value={JSON.stringify(signedApiAnnouncements, null, 2)}
                 theme={githubLight}
                 extensions={[json()]}
                 basicSetup={{ autocompletion: true }}
@@ -105,7 +105,7 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
             </TabPanel>
             <TabPanel>
               <CodeMirror
-                value={JSON.stringify(signedApiAnnouncements, null, 2)}
+                value={JSON.stringify(config, null, 2)}
                 theme={githubLight}
                 extensions={[json()]}
                 basicSetup={{ autocompletion: true }}

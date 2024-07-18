@@ -67,7 +67,7 @@ export class GuardianApi {
         (error: JsonRpcError) => {
           console.error('failed to create websocket', error);
           reject(error);
-          this.shutdown();
+          this.shutdown_internal();
         }
       );
       websocket
