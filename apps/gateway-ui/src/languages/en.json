@@ -38,6 +38,7 @@
     "bitcoin-deposit": "Bitcoin Deposit",
     "card_header": "Deposit Bitcoin",
     "confirmations": "Confirmations:",
+    "deposit-address": "Deposit Address",
     "header": "Bitcoin Deposit to Federation",
     "receiving-address": "Receiving Addr",
     "required": "required",

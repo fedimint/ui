@@ -160,7 +160,7 @@
         "current-session": "Current Session",
         "session-to-shutdown": "Session to Shutdown at",
         "confirm-shutdown": "Confirm Shutdown",
-        "session-to-shutdown-helper": "Enter the session height at which you want to shutdown your guardian node."
+        "session-to-shutdown-helper": "."
       }
     }
   },
