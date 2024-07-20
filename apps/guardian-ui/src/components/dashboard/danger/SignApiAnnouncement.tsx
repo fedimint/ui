@@ -21,6 +21,7 @@ import { useTranslation } from '@fedimint/utils';
 import { SignedApiAnnouncement } from '@fedimint/types';
 import { normalizeUrl } from '../../../utils';
 import { FiCheckCircle, FiAlertTriangle } from 'react-icons/fi';
+import { useAdminContext } from '../../../hooks';
 
 interface SignApiAnnouncementProps {
   ourPeer: { id: number; name: string };
@@ -31,9 +32,10 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
   ourPeer,
   signedApiAnnouncements,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { api } = useAdminContext();
   const { t } = useTranslation();
   const theme = useTheme();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSigningNew, setIsSigningNew] = useState(false);
 
   const currentApiUrl = process.env.REACT_APP_FM_CONFIG_API || '';
@@ -50,11 +52,10 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
 
   const handleSignNewAnnouncement = () => {
     setIsSigningNew(true);
-    // Implement actual signing logic here
-    setTimeout(() => {
+    api.signApiAnnouncement(currentApiUrl).then(() => {
       setIsSigningNew(false);
       onClose();
-    }, 2000);
+    });
   };
 
   return (
@@ -131,7 +132,7 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
                   onClick={handleSignNewAnnouncement}
                   isLoading={isSigningNew}
                   loadingText={t(
-                    'federation-dashboard.danger-zone.sign-api-announcement.signing'
+                    'federation-dashboard.danger-zone.sign-api-announcement.signing-in-progress'
                   )}
                 >
                   {t(
