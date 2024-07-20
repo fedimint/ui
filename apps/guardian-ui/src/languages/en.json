@@ -139,7 +139,8 @@
         "announced-api-url": "API URL from Federation Announcements",
         "urls-match": "Your current API URL matches your announced API URL.",
         "urls-mismatch": "You've changed the API URL in your local config and need to broadcast a new API announcement.",
-        "sign-button": "Sign new API announcement"
+        "sign-button": "Sign new API announcement",
+        "signing-in-progress": "Signing in progress..."
       },
       "schedule-shutdown": {
         "label": "Schedule Shutdown",
@@ -147,7 +148,8 @@
         "description": "Schedule your guardian node to shutdown after a specific session height for a coordinated upgrade of your fedimintd binaries.",
         "current-session": "Current Session",
         "session-to-shutdown": "Session to Shutdown at",
-        "confirm-shutdown": "Confirm Shutdown"
+        "confirm-shutdown": "Confirm Shutdown",
+        "session-to-shutdown-helper": "Enter the session height at which you want to shutdown your guardian node."
       }
     }
   },
