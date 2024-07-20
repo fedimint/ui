@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@fedimint/types": "*",
-    "@fedimint/utils": "*"
+    "@fedimint/utils": "*",
+    "qr-scanner": "^1.4.2",
+    "qrloop": "^1.4.1"
   },
   "devDependencies": {
     "@chakra-ui/react": "^2.4.5",

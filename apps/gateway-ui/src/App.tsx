@@ -1,20 +1,24 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import {
-  Box,
-  Button,
-  Heading,
-  Text,
-  Flex,
-  useTheme,
-  CircularProgress,
-  CircularProgressLabel,
-} from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo } from '@fedimint/types';
-import { FederationCard, ConnectFederationModal } from './components';
+import { ConnectFederationModal, LightningCard } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { Wrapper, Login } from '@fedimint/ui';
-import { useTranslation } from '@fedimint/utils';
+import { FederationsTable } from './components/federations/FederationsTable';
+import { Loading } from './components/Loading';
+import { Error } from './components/Error';
+import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
+import { WalletCard } from './components/walletCard/WalletCard';
+import {
+  WalletModal,
+  WalletModalAction,
+  WalletModalState,
+  WalletModalType,
+} from './components/walletModal/WalletModal';
+
+export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
+export type Unit = (typeof UNIT_OPTIONS)[number];
 
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
@@ -31,13 +35,19 @@ export const App = React.memo(function Admin(): JSX.Element {
     lightning_pub_key: '',
     route_hints: [],
     version_hash: '',
+    network: undefined,
   });
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
   const [showConnectFed, setShowConnectFed] = useState(false);
-  const theme = useTheme();
-  const { t } = useTranslation();
+  const [unit, setUnit] = useState<Unit>('sats');
+  const [walletModalState, setWalletModalState] = useState<WalletModalState>({
+    isOpen: false,
+    action: WalletModalAction.Receive,
+    type: WalletModalType.Onchain,
+    selectedFederation: null,
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -75,87 +85,36 @@ export const App = React.memo(function Admin(): JSX.Element {
   }, [gateway, authenticated]);
 
   const content = useMemo(() => {
-    if (loading) {
-      return (
-        <Flex
-          bgColor={theme.colors.white}
-          justifyContent='center'
-          alignItems='center'
-        >
-          <CircularProgress
-            isIndeterminate={true}
-            color={theme.colors.blue[600]}
-            size='240px'
-            thickness='8px'
-            capIsRound={true}
-          >
-            <CircularProgressLabel
-              fontSize='md'
-              fontWeight='500'
-              color={theme.colors.gray[600]}
-              fontFamily={theme.fonts.body}
-              textAlign='center'
-              width='150px'
-            >
-              {t('admin.fetch-info-modal-text')}
-            </CircularProgressLabel>
-          </CircularProgress>
-        </Flex>
-      );
-    }
-
-    if (error) {
-      return (
-        <Flex
-          direction='column'
-          align='center'
-          width='100%'
-          paddingTop='10vh'
-          paddingX='4'
-          textAlign='center'
-        >
-          <Heading size='lg' marginBottom='4'>
-            {t('common.error')}
-          </Heading>
-          <Text fontSize='md'>{error}</Text>
-        </Flex>
-      );
-    }
-
+    if (loading) return <Loading />;
+    if (error) return <Error error={error} />;
     if (!authenticated) {
       return (
         <Login
           checkAuth={gateway.testPassword}
           setAuthenticated={() => setAuthenticated(true)}
-          parseError={(err) => {
-            return (err as Error).message;
-          }}
+          parseError={(err) => (err as Error).message}
         />
       );
     }
 
     return (
-      <Box>
-        <Flex
-          flexFlow={['column', 'row']}
-          justifyContent={['center', 'space-between']}
-          alignItems={['flex-start', 'center']}
-          gap='2'
-          mb='8'
-        >
-          <Heading
-            fontWeight='500'
-            fontSize='24px'
-            size='xs'
-            color={theme.colors.gray[900]}
-            fontFamily={theme.fonts.heading}
-          >
-            {t('header.title')}
-          </Heading>
-          <Button onClick={() => setShowConnectFed(!showConnectFed)}>
-            {t('connect-federation.connect-federation-button')}
-          </Button>
-        </Flex>
+      <Flex direction='column' gap={4}>
+        <HeaderWithUnitSelector setUnit={setUnit} />
+        <WalletCard
+          unit={unit}
+          federations={gatewayInfo.federations}
+          setWalletModalState={setWalletModalState}
+        />
+        <LightningCard
+          nodeId={gatewayInfo.gateway_id}
+          network={gatewayInfo.network}
+        />
+        <FederationsTable
+          unit={unit}
+          federations={gatewayInfo.federations}
+          onConnectFederation={() => setShowConnectFed(true)}
+          setWalletModalState={setWalletModalState}
+        />
         <ConnectFederationModal
           isOpen={showConnectFed}
           onClose={() => setShowConnectFed(false)}
@@ -167,19 +126,12 @@ export const App = React.memo(function Admin(): JSX.Element {
             setShowConnectFed(false);
           }}
         />
-        <Flex flexDirection={'column'} gap={8}>
-          {gatewayInfo.federations.map((federation: FederationInfo) => {
-            return (
-              <FederationCard
-                key={federation.federation_id}
-                federation={federation}
-                network={gatewayInfo.network}
-                lightning_pub_key={gatewayInfo.lightning_pub_key}
-              />
-            );
-          })}
-        </Flex>
-      </Box>
+        <WalletModal
+          federations={gatewayInfo.federations}
+          walletModalState={walletModalState}
+          setWalletModalState={setWalletModalState}
+        />
+      </Flex>
     );
   }, [
     gateway,
@@ -188,8 +140,8 @@ export const App = React.memo(function Admin(): JSX.Element {
     showConnectFed,
     error,
     gatewayInfo,
-    theme,
-    t,
+    unit,
+    walletModalState,
   ]);
 
   return (

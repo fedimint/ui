@@ -7,8 +7,12 @@
     "confirm": "Confirm",
     "error": "Error",
     "sats": "sats",
+    "msats": "msats",
     "copy": "Copy",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "uri": "URI",
+    "view-on-mempool": "View on Mempool",
+    "ecash": "Ecash"
   },
   "admin": {
     "fetch-info-modal-text": "Checking federation details..."
@@ -34,23 +38,67 @@
     "progress-modal-text": "Connecting to federation...",
     "sub-heading": "The invite code is a long string that begins with ‘fed1’"
   },
-  "deposit-card": {
-    "bitcoin-deposit": "Bitcoin Deposit",
-    "card_header": "Deposit Bitcoin",
-    "confirmations": "Confirmations:",
-    "header": "Bitcoin Deposit to Federation",
-    "receiving-address": "Receiving Addr",
-    "required": "required",
-    "sentence-one": "Deposit to the address or scan the QR code",
-    "transaction-id": "Transaction ID",
-    "create-pegin-address": "Create Peg-in Address"
+  "wallet": {
+    "title": "Wallet",
+    "ecash": "Ecash",
+    "lightning": "Lightning",
+    "onchain": "Onchain",
+    "total": "Total",
+    "balance": "Balance",
+    "address": "Address",
+    "invoice": "Invoice",
+    "receive": "Receive",
+    "send": "Send",
+    "create-address": "Create Address",
+    "to-federation": "To Federation",
+    "from-federation": "From Federation",
+    "sent": "Sent",
+    "sent-amount": "Sent {{amount}}",
+    "to-address": "To Address",
+    "txid": "Transaction ID",
+    "claimed-note": "Claimed Note",
+    "claimed-amount": "Claimed Amount"
+  },
+  "wallet-modal": {
+    "title": "Wallet Actions",
+    "receive": {
+      "ecash-instructions": "Paste your ecash note here",
+      "paste-ecash-placeholder": "Paste ecash note here",
+      "redeem": "Redeem",
+      "paste-invoice": "Paste invoice here",
+      "enter-amount": "Enter amount in {{unit}}",
+      "lightning-instructions": "Enter an amount in sats to create a Lightning invoice for",
+      "create-peg-in-address": "Create Peg-in Address",
+      "create-lightning-invoice": "Create Lightning invoice",
+      "paste-ecash-button": "Paste ecash note",
+      "peg-in-instructions": "Send Bitcoin to this address to peg into your {{federationName}} Ecash Balance",
+      "ecash-claimed-success": "Ecash claimed successfully!"
+    },
+    "send": {
+      "submit": "Submit",
+      "to-onchain-address": "To Onchain Address",
+      "address-placeholder": "bc1p...",
+      "peg-out-to-onchain": "Peg Out Ecash to Onchain",
+      "peg-out-success": "Peg Out TX Sent!",
+      "create-ecash": "Create Ecash Note",
+      "ecash-created": "Pulled a {{amount}} ecash note from your {{federationName}} balance. Send it to the recipient to claim."
+    }
   },
   "federation-card": {
+    "table-title": "Federations",
+    "id": "ID",
+    "name": "Name",
+    "balance": "Balance",
+    "actions": "Actions",
+    "receive": "Receive",
+    "send": "Send",
     "default-federation-name": "Federation: ",
     "view-link-on": "View on {{host}}",
     "leave-fed-error": "Cannot leave federation with sats in your balance. Please withdraw your sats first.",
     "leave-fed-modal-title": "Leave Federation",
-    "leave-fed-modal-text": "Are you sure you want to disconnect from"
+    "leave-fed-modal-text": "Are you sure you want to disconnect from",
+    "view-config": "View Config",
+    "config-for": "Config for {{federationId}}"
   },
   "footer": {
     "blog-link-text": "Blog",
