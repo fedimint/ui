@@ -74,15 +74,19 @@ export const FederationAdmin: React.FC = () => {
         <Flex
           flexDirection={{ base: 'column', md: 'row' }}
           justifyContent='space-between'
+          alignItems={{ base: 'stretch', md: 'center' }}
+          gap={{ base: 4, md: 6 }}
         >
-          <Box maxWidth='480px'>
+          <Box width={{ base: '100%', md: 'auto' }}>
             <InviteCode inviteCode={inviteCode} />
           </Box>
-          {config ? (
-            <BftInfo
-              numPeers={Object.keys(config.global.api_endpoints).length}
-            />
-          ) : null}
+          {config && (
+            <Box width={{ base: '100%', md: 'auto' }}>
+              <BftInfo
+                numPeers={Object.keys(config.global.api_endpoints).length}
+              />
+            </Box>
+          )}
         </Flex>
         <Flex
           gap={6}
@@ -99,19 +103,20 @@ export const FederationAdmin: React.FC = () => {
           </Flex>
           <BalanceCard />
         </Flex>
-        <GuardiansCard status={status} config={config} />
+        <GuardiansCard
+          status={status}
+          config={config}
+          signedApiAnnouncements={signedApiAnnouncements}
+        />
         <GatewaysCard config={config} />
         {ourPeer ? (
-          <FederationTabsCard
-            config={config}
-            ourPeer={ourPeer}
-            signedApiAnnouncements={signedApiAnnouncements}
-          />
+          <FederationTabsCard config={config} ourPeer={ourPeer} />
         ) : null}
         <DangerZone
           inviteCode={inviteCode}
           ourPeer={ourPeer}
           latestSession={latestSession}
+          signedApiAnnouncements={signedApiAnnouncements}
         />
       </Flex>
     </Flex>

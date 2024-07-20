@@ -94,8 +94,7 @@ export const BalanceTable: React.FC<BalanceTableProps> = ({
             </GridItem>
             <GridItem colSpan={2} textAlign='center'>
               <Text fontWeight='bold'>
-                = {formatValue((totalAssets - totalLiabilities) as MSats, unit)}{' '}
-                Collected Guardian Fees
+                = {formatValue((totalAssets - totalLiabilities) as MSats, unit)}
               </Text>
             </GridItem>
           </Grid>

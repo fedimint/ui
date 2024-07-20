@@ -14,7 +14,8 @@
     "approve": "Approve",
     "threshold": "Threshold",
     "confirm": "Confirm",
-    "you": "You"
+    "you": "You",
+    "close": "Close"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -57,7 +58,8 @@
       "health-label": "Health",
       "health-issue": "Issue",
       "health-good": "Good",
-      "last-contribution-label": "Last contribution block"
+      "last-contribution-label": "Last contribution block",
+      "api-url-label": "API URL"
     },
     "gateways": {
       "label": "Lightning Gateways",
@@ -71,7 +73,6 @@
     "config": {
       "label": "Federation Config",
       "view-config": "View Config",
-      "api-announcements": "API Announcements",
       "missing-meta-module": "Editing Meta fields is not possible. The Meta module is not available for this federation.",
       "manage-meta": {
         "tab-label": "Manage Meta",
@@ -130,6 +131,16 @@
         "cancelButton": "Cancel",
         "acknowledgeButton": "Acknowledge & Download"
       },
+      "sign-api-announcement": {
+        "label": "Sign API Announcement",
+        "title": "Sign API Announcement",
+        "description": "Sign a new API announcement.",
+        "current-api-url": "API URL from Local Config",
+        "announced-api-url": "API URL from Federation Announcements",
+        "urls-match": "Your current API URL matches your announced API URL.",
+        "urls-mismatch": "You've changed the API URL in your local config and need to broadcast a new API announcement.",
+        "sign-button": "Sign new API announcement"
+      },
       "schedule-shutdown": {
         "label": "Schedule Shutdown",
         "title": "Schedule Shutdown",
@@ -151,7 +162,7 @@
     "disclaimer-text": "You are using a very early version of Fedimint. Please use with caution & report issues to the Fedimint developers on Github.",
     "leader": {
       "label": "Setup Leader",
-      "description": "Input configuration settings that other Guardians approve. One Guardian acts as Setup Leader. "
+      "description": "Enter configuration settings that other Guardians approve. One Guardian acts as Setup Leader. "
     },
     "follower": {
       "label": "Follower",
@@ -174,7 +185,7 @@
     "bft-explanation": "A {{total}} Guardian Federation creates a {{honest}}/{{total}} Threshold.",
     "bft-faulty": "Your Federation will be able to tolerate {{faulty}} faulty, offline, or malicious Guardians without impacting the Federation's operations.",
     "guardian-name": "Guardian name",
-    "guardian-name-help": "This random name will be shown to other Guardians",
+    "guardian-name-help": "This random name will be shown to other Guardians during setup",
     "admin-password": "Admin password",
     "admin-password-generate": "Generate",
     "admin-password-set": "Click 'Generate' to create a secure password. You can modify it, but this password must be secure and backed up!",

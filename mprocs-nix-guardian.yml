@@ -47,4 +47,5 @@ procs:
     stop: SIGKILL
     env:
       PORT: '3004'
+      REACT_APP_FM_GATEWAY_PASSWORD: 'thereisnosecondbest'
       BROWSER: none

@@ -11,7 +11,7 @@ export const BftInfo: React.FC<BftInfoProps> = ({ numPeers }) => {
   const { t } = useTranslation();
 
   return (
-    <Box bg='blue.50' p={4} borderRadius='md' w={['100%', '50%']}>
+    <Box bg='blue.50' p={4} borderRadius='md' w={['100%']} maxW='500px'>
       <Text
         mb='6px'
         fontSize='16px'

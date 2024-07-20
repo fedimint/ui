@@ -33,5 +33,4 @@ procs:
     stop: SIGKILL
     env:
       PORT: '3000'
-      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18138
       BROWSER: none
