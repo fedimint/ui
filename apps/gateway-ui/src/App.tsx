@@ -14,7 +14,7 @@ import {
   ModalCloseButton,
   ModalBody,
 } from '@chakra-ui/react';
-import { GatewayInfo, Federation } from '@fedimint/types';
+import { GatewayInfo, FederationInfo } from '@fedimint/types';
 import { FederationCard, ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
@@ -111,9 +111,18 @@ export const App = React.memo(function Admin(): JSX.Element {
 
     if (error) {
       return (
-        <Flex gap={6}>
-          <Heading size='md'>{t('common.error')}</Heading>
-          <Text>{error}</Text>
+        <Flex
+          direction='column'
+          align='center'
+          width='100%'
+          paddingTop='10vh'
+          paddingX='4'
+          textAlign='center'
+        >
+          <Heading size='lg' marginBottom='4'>
+            {t('common.error')}
+          </Heading>
+          <Text fontSize='md'>{error}</Text>
         </Flex>
       );
     }
@@ -159,7 +168,7 @@ export const App = React.memo(function Admin(): JSX.Element {
             <br />
             <ModalBody>
               <ConnectFederation
-                renderConnectedFedCallback={(federation: Federation) => {
+                renderConnectedFedCallback={(federation: FederationInfo) => {
                   setGatewayInfo({
                     ...gatewayInfo,
                     federations: [...gatewayInfo.federations, federation],
@@ -171,7 +180,7 @@ export const App = React.memo(function Admin(): JSX.Element {
           </ModalContent>
         </Modal>
         <Flex flexDirection={'column'} gap={8}>
-          {gatewayInfo.federations.map((federation: Federation) => {
+          {gatewayInfo.federations.map((federation: FederationInfo) => {
             return (
               <FederationCard
                 key={federation.federation_id}

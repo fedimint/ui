@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   Text,
   Flex,
@@ -20,6 +20,12 @@ export interface DepositCardProps {
   federationId: string;
   network?: Network;
 }
+import {
+  Button,
+  InputGroup,
+  NumberInput,
+  NumberInputField,
+} from '@chakra-ui/react';
 
 export const DepositCard = React.memo(function DepositCard({
   federationId,
@@ -28,28 +34,47 @@ export const DepositCard = React.memo(function DepositCard({
   const { t } = useTranslation();
   const { gateway } = React.useContext(ApiContext);
   const [address, setAddress] = useState<string>('');
+  const [amount, setAmount] = useState<number>(0);
   const [error, setError] = useState<string>('');
   const theme = useTheme();
   const { onCopy, hasCopied } = useClipboard(address);
 
-  useEffect(() => {
-    !address &&
-      gateway
-        .fetchAddress(federationId)
-        .then((newAddress) => {
-          setAddress(newAddress);
-          setError('');
-        })
-        .catch(({ message, error }) => {
-          console.error(error);
-          setError(message);
-        });
-  }, [address, federationId, gateway]);
+  const createDepositAddress = useCallback(() => {
+    gateway
+      .fetchAddress(federationId)
+      .then((newAddress) => {
+        const bip21Uri = `bitcoin:${newAddress}${
+          amount > 0 ? `?amount=${amount / 100000000}` : ''
+        }`;
+        setAddress(bip21Uri);
+        setError('');
+      })
+      .catch(({ message, error }) => {
+        console.error(error);
+        setError(message);
+      });
+  }, [federationId, gateway, amount]);
 
-  const url = useMemo(
-    () => getAddressUrl(address, network),
-    [address, network]
+  const getAddressUrl = useCallback(
+    (address: string): URL => {
+      const baseAddress = address.split(':')[1]?.split('?')[0] || '';
+      switch (network) {
+        case Network.Signet:
+          return new URL(`https://mutinynet.com/address/${baseAddress}`);
+        case Network.Testnet:
+          return new URL(
+            `https://mempool.space/testnet/address/${baseAddress}`
+          );
+        case Network.Bitcoin:
+        case Network.Regtest:
+        default:
+          return new URL(`https://mempool.space/address/${baseAddress}`);
+      }
+    },
+    [network]
   );
+
+  const url = useMemo(() => getAddressUrl(address), [address, getAddressUrl]);
 
   return (
     <GatewayCard
@@ -57,8 +82,44 @@ export const DepositCard = React.memo(function DepositCard({
       description={t('deposit-card.sentence-one')}
     >
       <Stack spacing='24px'>
-        <Flex gap='4px' alignItems='flex-start'>
-          {address ? (
+        <InputGroup flexDir='column'>
+          <Text
+            fontSize='sm'
+            fontWeight='500'
+            color={theme.colors.gray[700]}
+            fontFamily={theme.fonts.body}
+            pb='6px'
+          >
+            {`${t('common.amount')} ${t('common.sats')}`}
+          </Text>
+          <NumberInput
+            min={0}
+            value={amount}
+            onChange={(value) => setAmount(parseInt(value) || 0)}
+          >
+            <NumberInputField
+              height='44px'
+              p='14px'
+              border={`1px solid ${theme.colors.gray[300]}`}
+              bgColor={theme.colors.white}
+              boxShadow={theme.shadows.xs}
+              borderRadius='8px'
+              w='100%'
+            />
+          </NumberInput>
+        </InputGroup>
+
+        <Button
+          borderRadius='8px'
+          maxW='200px'
+          fontSize='sm'
+          onClick={createDepositAddress}
+        >
+          {t('deposit-card.create-pegin-address')}
+        </Button>
+
+        {address && (
+          <Flex gap='4px' alignItems='flex-start'>
             <Text
               fontSize='md'
               color={theme.colors.gray[900]}
@@ -70,78 +131,68 @@ export const DepositCard = React.memo(function DepositCard({
             >
               {address}
             </Text>
-          ) : (
-            <Text
-              fontSize='md'
-              color={theme.colors.red}
-              fontFamily={theme.fonts.body}
-            >
-              {error}
-            </Text>
-          )}
+            <Box>
+              {hasCopied ? (
+                <Text
+                  fontSize='xs'
+                  fontWeight='semibold'
+                  color={theme.colors.gray[900]}
+                  bgColor={theme.colors.gray[25]}
+                  fontFamily={theme.fonts.body}
+                  onClick={onCopy}
+                  p='4px 12px'
+                  borderRadius='16px'
+                  border={`1px solid ${theme.colors.gray[400]}`}
+                >
+                  {t('common.copied')}
+                </Text>
+              ) : (
+                <CopyIcon
+                  color={theme.colors.gray[900]}
+                  height='20px'
+                  width='20px'
+                  onClick={onCopy}
+                  cursor='pointer'
+                />
+              )}
+            </Box>
+          </Flex>
+        )}
+
+        {error && (
+          <Text
+            fontSize='md'
+            color={theme.colors.red}
+            fontFamily={theme.fonts.body}
+          >
+            {error}
+          </Text>
+        )}
+
+        {address && (
           <Box>
-            {hasCopied ? (
-              <Text
-                fontSize='xs'
-                fontWeight='semibold'
-                color={theme.colors.gray[900]}
-                bgColor={theme.colors.gray[25]}
-                fontFamily={theme.fonts.body}
-                onClick={onCopy}
-                p='4px 12px'
-                borderRadius='16px'
-                border={`1px solid ${theme.colors.gray[400]}`}
-              >
-                {t('common.copied')}
-              </Text>
-            ) : (
-              <CopyIcon
-                color={theme.colors.gray[900]}
-                height='20px'
-                width='20px'
-                onClick={onCopy}
-                cursor='pointer'
-              />
-            )}
-          </Box>
-        </Flex>
-        <Box>
-          {address && (
             <QRCodeSVG height='200px' width='200px' value={address} />
-          )}
-        </Box>
+          </Box>
+        )}
       </Stack>
-      <Flex gap='4px'>
-        <Link
-          fontSize='md'
-          color={theme.colors.blue[600]}
-          fontFamily={theme.fonts.body}
-          _hover={{ textDecoration: 'underline' }}
-          transition={`text-decoration 1s ease-in-out`}
-          href={url.toString()}
-          target='_blank'
-          rel='noreferrer'
-          w='fit-content'
-        >
-          {t('federation-card.view-link-on', { host: url.host })}
-        </Link>
-        <LinkIcon color={theme.colors.blue[600]} />
-      </Flex>
+      {address && (
+        <Flex gap='4px'>
+          <Link
+            fontSize='md'
+            color={theme.colors.blue[600]}
+            fontFamily={theme.fonts.body}
+            _hover={{ textDecoration: 'underline' }}
+            transition={`text-decoration 1s ease-in-out`}
+            href={url.toString()}
+            target='_blank'
+            rel='noreferrer'
+            w='fit-content'
+          >
+            {t('federation-card.view-link-on', { host: url.host })}
+          </Link>
+          <LinkIcon color={theme.colors.blue[600]} />
+        </Flex>
+      )}
     </GatewayCard>
   );
 });
-
-const getAddressUrl = (
-  address: string,
-  network: Network = Network.Bitcoin
-): URL => {
-  switch (network) {
-    case Network.Signet:
-      return new URL(`https://mutinynet.com/address/${address}`);
-    case Network.Testnet:
-      return new URL(`https://mempool.space/testnet/address/${address}`);
-    case Network.Bitcoin:
-    case Network.Regtest:
-      return new URL(`https://mempool.space/address/${address}`);
-  }
-};

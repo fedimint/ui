@@ -9,7 +9,6 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Text,
 } from '@chakra-ui/react';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { json } from '@codemirror/lang-json';
@@ -19,12 +18,12 @@ import { useTranslation } from '@fedimint/utils';
 import { MetaManager } from './meta/MetaManager';
 import { ConsensusMetaFields } from './meta/ViewConsensusMeta';
 
-interface FederationConfigCardProps {
+interface FederationTabsCardProps {
   config: ClientConfig | undefined;
   ourPeer: { id: number; name: string };
 }
 
-export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
+export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
   config,
   ourPeer,
 }) => {
@@ -38,7 +37,7 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
 
   useEffect(() => {
     if (config) {
-      const peers = Object.entries(config.api_endpoints).map(
+      const peers = Object.entries(config.global.api_endpoints).map(
         ([id, endpoint]) => ({
           id: Number.parseInt(id, 10),
           name: endpoint.name,
@@ -59,13 +58,8 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
 
   return config ? (
     <Card flex='1'>
-      <CardHeader>
-        <Text fontSize='md' fontWeight={'semibold'}>
-          {t('federation-dashboard.config.label')}
-        </Text>
-      </CardHeader>
-      <CardBody>
-        <Tabs variant='soft-rounded' colorScheme='blue'>
+      <Tabs variant='soft-rounded' colorScheme='blue'>
+        <CardHeader>
           <Flex direction='column' gap='4'>
             <Flex justify='space-between' align='center'>
               <TabList>
@@ -76,6 +70,8 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
               </TabList>
             </Flex>
           </Flex>
+        </CardHeader>
+        <CardBody>
           <TabPanels>
             <TabPanel>
               <MetaManager
@@ -100,8 +96,8 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
               />
             </TabPanel>
           </TabPanels>
-        </Tabs>
-      </CardBody>
+        </CardBody>
+      </Tabs>
     </Card>
   ) : null;
 };

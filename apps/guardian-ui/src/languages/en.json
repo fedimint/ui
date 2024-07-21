@@ -13,7 +13,9 @@
     "approvals": "Approvals",
     "approve": "Approve",
     "threshold": "Threshold",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "you": "You",
+    "close": "Close"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -35,7 +37,11 @@
       "your-status-label": "Status",
       "block-count-label": "Consensus Block Height",
       "api-version-label": "API version",
-      "consensus-version-label": "Consensus version"
+      "consensus-version-label": "Consensus version",
+      "session-info": {
+        "session-height": "Session Height",
+        "latest-session": "Latest Session"
+      }
     },
     "balance": {
       "label": "Balance Sheet"
@@ -52,7 +58,8 @@
       "health-label": "Health",
       "health-issue": "Issue",
       "health-good": "Good",
-      "last-contribution-label": "Last contribution block"
+      "last-contribution-label": "Last contribution block",
+      "api-url-label": "API URL"
     },
     "gateways": {
       "label": "Lightning Gateways",
@@ -70,6 +77,10 @@
       "manage-meta": {
         "tab-label": "Manage Meta",
         "cancel-button": "Cancel",
+        "confirm-modal": {
+          "title": "Confirm Approval",
+          "description": "Your approval will reach the threshold to adopt this meta change. Your new meta will look like:"
+        },
         "consensus-meta-label": "Current meta in consensus",
         "revoke-button": "Revoke",
         "no-consensus-meta-message": "there are no meta in consensus",
@@ -119,6 +130,26 @@
         "warning-text": "The backup contains private keys and secret material for the federation guardian and must be kept secure. Recovery using this backup requires your admin password!",
         "cancelButton": "Cancel",
         "acknowledgeButton": "Acknowledge & Download"
+      },
+      "sign-api-announcement": {
+        "label": "Sign API Announcement",
+        "title": "Sign API Announcement",
+        "description": "Sign a new API announcement.",
+        "current-api-url": "API URL from Local Config",
+        "announced-api-url": "API URL from Federation Announcements",
+        "urls-match": "Your current API URL matches your announced API URL.",
+        "urls-mismatch": "You've changed the API URL in your local config and need to broadcast a new API announcement.",
+        "sign-button": "Sign new API announcement",
+        "signing-in-progress": "Signing in progress..."
+      },
+      "schedule-shutdown": {
+        "label": "Schedule Shutdown",
+        "title": "Schedule Shutdown",
+        "description": "Schedule your guardian node to shutdown after a specific session height for a coordinated upgrade of your fedimintd binaries.",
+        "current-session": "Current Session",
+        "session-to-shutdown": "Session to Shutdown at",
+        "confirm-shutdown": "Confirm Shutdown",
+        "session-to-shutdown-helper": "Enter the session height at which you want to shutdown your guardian node."
       }
     }
   },
@@ -133,7 +164,7 @@
     "disclaimer-text": "You are using a very early version of Fedimint. Please use with caution & report issues to the Fedimint developers on Github.",
     "leader": {
       "label": "Setup Leader",
-      "description": "Input configuration settings that other Guardians approve. One Guardian acts as Setup Leader. "
+      "description": "Enter configuration settings that other Guardians approve. One Guardian acts as Setup Leader. "
     },
     "follower": {
       "label": "Follower",
@@ -156,7 +187,7 @@
     "bft-explanation": "A {{total}} Guardian Federation creates a {{honest}}/{{total}} Threshold.",
     "bft-faulty": "Your Federation will be able to tolerate {{faulty}} faulty, offline, or malicious Guardians without impacting the Federation's operations.",
     "guardian-name": "Guardian name",
-    "guardian-name-help": "This random name will be shown to other Guardians",
+    "guardian-name-help": "This random name will be shown to other Guardians during setup",
     "admin-password": "Admin password",
     "admin-password-generate": "Generate",
     "admin-password-set": "Click 'Generate' to create a secure password. You can modify it, but this password must be secure and backed up!",

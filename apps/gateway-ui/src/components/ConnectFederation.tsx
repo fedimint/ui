@@ -15,7 +15,7 @@ import {
   CircularProgressLabel,
   CircularProgress,
 } from '@chakra-ui/react';
-import { Federation } from '@fedimint/types';
+import { FederationInfo } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { ApiContext } from '../ApiProvider';
 
@@ -72,7 +72,7 @@ export const ConnectFedModal: FC<ConnectFedModalProps> = ({
 };
 
 export type ConnectFederationProps = {
-  renderConnectedFedCallback: (federation: Federation) => void;
+  renderConnectedFedCallback: (federation: FederationInfo) => void;
 };
 
 export const ConnectFederation = React.memo(function ConnectFederation({

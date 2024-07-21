@@ -3,19 +3,25 @@ import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
 import {
   ClientConfig,
   PeerConnectionStatus,
+  SignedApiAnnouncement,
   StatusResponse,
 } from '@fedimint/types';
 import { StatusIndicator, Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 
-type TableKey = 'name' | 'status' | 'health' | 'lastContribution';
+type TableKey = 'name' | 'status' | 'health' | 'lastContribution' | 'apiUrl';
 
 interface Props {
   status: StatusResponse | undefined;
   config: ClientConfig | undefined;
+  signedApiAnnouncements: Record<string, SignedApiAnnouncement>;
 }
 
-export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
+export const GuardiansCard: React.FC<Props> = ({
+  status,
+  config,
+  signedApiAnnouncements,
+}) => {
   const { t } = useTranslation();
 
   const columns: TableColumn<TableKey>[] = useMemo(
@@ -36,6 +42,10 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
         key: 'lastContribution',
         heading: t('federation-dashboard.guardians.last-contribution-label'),
       },
+      {
+        key: 'apiUrl',
+        heading: t('federation-dashboard.guardians.api-url-label'),
+      },
     ],
     [t]
   );
@@ -47,7 +57,8 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
       status.federation.status_by_peer
     )) {
       const numericId = parseInt(id, 10);
-      const endpoint = config.api_endpoints[numericId];
+      const endpoint = config.global.api_endpoints[numericId];
+      const apiAnnouncement = signedApiAnnouncements[id];
       if (endpoint) {
         peerDataArray.push({
           key: id,
@@ -76,11 +87,12 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
             </StatusIndicator>
           ),
           lastContribution: federationStatus.last_contribution,
+          apiUrl: apiAnnouncement?.api_announcement.api_url,
         });
       }
     }
     return peerDataArray;
-  }, [status, config, t]);
+  }, [status, config, signedApiAnnouncements, t]);
 
   if (config && !rows.length) {
     return null;

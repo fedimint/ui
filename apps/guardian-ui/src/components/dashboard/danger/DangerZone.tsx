@@ -5,15 +5,22 @@ import { DownloadBackup } from './DownloadBackup';
 import { useTranslation } from '@fedimint/utils';
 import { ReactComponent as ChevronDownIcon } from '../../../assets/svgs/chevron-down.svg';
 import { ReactComponent as ChevronUpIcon } from '../../../assets/svgs/chevron-up.svg';
+import { ScheduleShutdown } from './ScheduleShutdown';
+import { SignedApiAnnouncement } from '@fedimint/types';
+import { SignApiAnnouncement } from './SignApiAnnouncement';
 
 interface DangerZoneProps {
   ourPeer: { id: number; name: string } | undefined;
   inviteCode: string;
+  latestSession: number | undefined;
+  signedApiAnnouncements: Record<string, SignedApiAnnouncement>;
 }
 
 export const DangerZone: React.FC<DangerZoneProps> = ({
   ourPeer,
   inviteCode,
+  latestSession,
+  signedApiAnnouncements,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +33,6 @@ export const DangerZone: React.FC<DangerZoneProps> = ({
       bg='red.50'
       p={4}
       borderRadius='md'
-      maxW='480px'
       border='1px'
       borderColor='red.200'
     >
@@ -60,6 +66,13 @@ export const DangerZone: React.FC<DangerZoneProps> = ({
             />
           )}
           <DownloadBackup />
+          {ourPeer && (
+            <SignApiAnnouncement
+              ourPeer={ourPeer}
+              signedApiAnnouncements={signedApiAnnouncements}
+            />
+          )}
+          {latestSession && <ScheduleShutdown latestSession={latestSession} />}
         </Flex>
       </Collapse>
       <Text mt='6px' fontSize='14px' color={theme.colors.gray[600]}>

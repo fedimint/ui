@@ -1,10 +1,5 @@
 import type { MSats } from './bitcoin';
-import {
-  AnyModuleParams,
-  FedimintModule,
-  ModuleConfig,
-  ModuleKind,
-} from './modules';
+import { AnyModuleParams, ModuleConfigs, ModuleKind } from './modules';
 import { MetaConfig } from './meta';
 
 export enum ServerStatus {
@@ -83,10 +78,25 @@ export type ModuleConsensusVersion = MajorAndMinorVersions;
 export type ModuleApiVersion = MajorAndMinorVersions;
 
 export interface ClientConfig {
-  consensus_version: CoreConsensusVersion;
+  global: {
+    api_endpoints: Record<number, ApiEndpoint>;
+    broadcast_public_keys: Record<number, string>;
+    consensus_version: CoreConsensusVersion;
+    meta: {
+      federation_name: string;
+    };
+  };
+  modules: ModuleConfigs;
+}
+
+export interface GatewayClientConfig {
   api_endpoints: Record<number, ApiEndpoint>;
-  modules: Record<number, FedimintModule>;
-  meta: MetaConfig;
+  broadcast_public_keys: Record<number, string>;
+  consensus_version: CoreConsensusVersion;
+  meta: {
+    federation_name: string;
+  };
+  modules: ModuleConfigs;
 }
 
 export interface ModuleSummary {
@@ -103,7 +113,14 @@ export type DownloadGuardianBackupResponse = {
   tar_archive_bytes: string;
 };
 
-export type ModulesConfigResponse = Record<string, ModuleConfig>;
+export interface ApiAnnouncement {
+  api_url: string;
+  nonce: number;
+}
+export interface SignedApiAnnouncement {
+  api_announcement: ApiAnnouncement;
+  signature: string;
+}
 
 export type ConfigGenParams = {
   meta: MetaConfig;

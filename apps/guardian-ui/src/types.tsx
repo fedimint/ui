@@ -155,12 +155,14 @@ export enum AdminRpc {
   fetchBlockCount = 'block_count',
   federationStatus = 'status',
   inviteCode = 'invite_code',
-  config = 'client_config',
-  modulesConfig = 'modules_config_json',
+  config = 'client_config_json',
   moduleApiCall = 'module',
   audit = 'audit',
   downloadGuardianBackup = 'download_guardian_backup',
   federationId = 'federation_id',
+  apiAnnouncements = 'api_announcements',
+  signApiAnnouncement = 'sign_api_announcement',
+  shutdown = 'shutdown',
 }
 
 export enum SharedRpc {

@@ -2,30 +2,25 @@ import { Network } from './bitcoin';
 import { ModuleConsensusVersion } from './federation';
 export enum ModuleKind {
   Ln = 'ln',
+  LnV2 = 'lnv2',
   Mint = 'mint',
   Wallet = 'wallet',
   Meta = 'meta',
   Unknown = 'unknown',
 }
 
-// FIXME: why doesn't this have API versions? seems like it should ...
-export interface FedimintModule {
-  config: string;
-  kind: ModuleKind;
-  version: ModuleConsensusVersion;
-}
-
-// Consider sharing these types with types/setup.ts *ModuleParams? Need to
-// confirm that setup API returns identical types to the admin API.
-interface ModuleConfigs {
+export type ModuleConfigs = {
   [ModuleKind.Ln]: {
-    network: Network;
+    kind: ModuleKind.Ln;
     fee_consensus: {
       contract_input: number;
       contract_output: number;
     };
+    network: Network;
+    threshold_pub_key: string;
   };
   [ModuleKind.Mint]: {
+    kind: ModuleKind.Mint;
     fee_consensus: {
       note_issuance_abs: number;
       note_spend_abs: number;
@@ -34,29 +29,45 @@ interface ModuleConfigs {
     peer_tbs_pks: Record<number, Record<number, string>>;
   };
   [ModuleKind.Wallet]: {
-    client_default_bitcoin_rpc: BitcoinRpc;
-    default_fee: { sats_per_kvb: number };
+    kind: ModuleKind.Wallet;
+    default_bitcoin_rpc: BitcoinRpc;
     fee_consensus: {
       peg_in_abs: number;
       peg_out_abs: number;
     };
     finality_delay: number;
     network: Network;
-    peer_peg_in_keys: Record<number, { key: string }>;
-    peg_in_descriptor: number;
+    peg_in_descriptor: string;
   };
-  [ModuleKind.Meta]: Record<string, never>;
-  [ModuleKind.Unknown]: Record<string, never>;
+  [ModuleKind.LnV2]: {
+    kind: ModuleKind.LnV2;
+    fee_consensus: {
+      input: number;
+      output: number;
+    };
+    network: Network;
+    tpe_agg_pk: string;
+    tpe_pks: Record<number, string>;
+  };
+  [ModuleKind.Meta]: {
+    kind: ModuleKind.Meta;
+  };
+  [ModuleKind.Unknown]: {
+    kind: ModuleKind.Unknown;
+  };
+};
+
+// FIXME: why doesn't this have API versions? seems like it should ...
+export interface FedimintModule {
+  config: string;
+  kind: ModuleKind;
+  version: ModuleConsensusVersion;
 }
 
 export interface BitcoinRpc {
   kind: string;
   url: string;
 }
-
-export type ModuleConfig<T extends ModuleKind = ModuleKind> = {
-  kind: T;
-} & ModuleConfigs[T];
 
 export type LnModuleParams = [
   ModuleKind.Ln,

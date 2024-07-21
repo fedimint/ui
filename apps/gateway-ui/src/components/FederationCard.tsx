@@ -1,10 +1,10 @@
 import React from 'react';
 import { Flex, Card, CardBody } from '@chakra-ui/react';
-import { Network, Federation } from '@fedimint/types';
+import { Network, FederationInfo } from '@fedimint/types';
 import { InfoCard, DepositCard, BalanceCard, WithdrawCard } from '.';
 
 interface FederationCardProps {
-  federation: Federation;
+  federation: FederationInfo;
   network?: Network;
   lightning_pub_key: string;
 }
@@ -15,13 +15,14 @@ export const FederationCard: React.FC<FederationCardProps> = ({
   lightning_pub_key,
 }) => {
   const { federation_id, balance_msat, config } = federation;
-
+  // Add a default value for federation name
+  const federationName = config.meta.federation_name || '';
   return (
     <Card w='100%' maxWidth='100%'>
       <CardBody>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <BalanceCard
-            federationName={config.meta.federation_name}
+            federationName={federationName}
             balanceMsat={balance_msat}
             federationId={federation_id}
           />

@@ -1,15 +1,11 @@
 import React, { useMemo } from 'react';
 import { Card, CardBody, CardHeader, Skeleton, Text } from '@chakra-ui/react';
-import {
-  ModuleConfig,
-  ModuleKind,
-  ModulesConfigResponse,
-} from '@fedimint/types';
+import { ModuleConfigs, ModuleKind } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues, NetworkIndicator } from '@fedimint/ui';
 
 interface Props {
-  modulesConfigs: ModulesConfigResponse | undefined;
+  modulesConfigs: ModuleConfigs | undefined;
 }
 
 export const BitcoinNodeCard: React.FC<Props> = ({ modulesConfigs }) => {
@@ -17,7 +13,7 @@ export const BitcoinNodeCard: React.FC<Props> = ({ modulesConfigs }) => {
 
   const walletConfig = modulesConfigs
     ? Object.values(modulesConfigs).find(
-        (config): config is ModuleConfig<ModuleKind.Wallet> =>
+        (config): config is ModuleConfigs[ModuleKind.Wallet] =>
           config.kind === ModuleKind.Wallet
       )
     : undefined;
@@ -30,7 +26,7 @@ export const BitcoinNodeCard: React.FC<Props> = ({ modulesConfigs }) => {
         key: 'url',
         label: t('federation-dashboard.bitcoin-node.url-label'),
         value: walletConfig ? (
-          walletConfig.client_default_bitcoin_rpc?.url
+          walletConfig.default_bitcoin_rpc?.url
         ) : (
           <Skeleton height='24px' width='160px' />
         ),
@@ -39,10 +35,14 @@ export const BitcoinNodeCard: React.FC<Props> = ({ modulesConfigs }) => {
         key: 'network',
         label: t('federation-dashboard.bitcoin-node.network-label'),
         value: walletConfig ? (
-          <NetworkIndicator
-            network={walletConfig.network}
-            bitcoinRpcUrl={walletConfig.client_default_bitcoin_rpc?.url}
-          />
+          <Text as='span'>
+            {walletConfig.network && (
+              <NetworkIndicator
+                network={walletConfig.network}
+                bitcoinRpcUrl={walletConfig.default_bitcoin_rpc?.url}
+              />
+            )}
+          </Text>
         ) : (
           <Skeleton height='24px' width='100px' />
         ),

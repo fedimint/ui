@@ -7,9 +7,9 @@ import {
   DownloadGuardianBackupResponse,
   FederationStatus,
   ModuleKind,
-  ModulesConfigResponse,
   PeerHashMap,
   ServerStatus,
+  SignedApiAnnouncement,
   StatusResponse,
   Versions,
 } from '@fedimint/types';
@@ -67,7 +67,7 @@ export class GuardianApi {
         (error: JsonRpcError) => {
           console.error('failed to create websocket', error);
           reject(error);
-          this.shutdown();
+          this.shutdown_internal();
         }
       );
       websocket
@@ -89,7 +89,7 @@ export class GuardianApi {
     return this.connectPromise;
   };
 
-  private shutdown = async (): Promise<boolean> => {
+  private shutdown_internal = async (): Promise<boolean> => {
     if (this.connectPromise) {
       this.connectPromise = null;
     }
@@ -202,7 +202,7 @@ export class GuardianApi {
     const attemptConfirmConsensusRunning = async (): Promise<void> => {
       try {
         await this.connect();
-        await this.shutdown();
+        await this.shutdown_internal();
         const status = await this.status();
         if (status.server === ServerStatus.ConsensusRunning) {
           return;
@@ -276,8 +276,20 @@ export class GuardianApi {
       return this.call(AdminRpc.downloadGuardianBackup);
     };
 
-  public modulesConfig = (): Promise<ModulesConfigResponse> => {
-    return this.call(AdminRpc.modulesConfig);
+  public apiAnnouncements = async (): Promise<
+    Record<string, SignedApiAnnouncement>
+  > => {
+    return this.call(AdminRpc.apiAnnouncements);
+  };
+
+  public signApiAnnouncement = async (
+    newUrl: string
+  ): Promise<SignedApiAnnouncement> => {
+    return this.call(AdminRpc.signApiAnnouncement, { new_url: newUrl });
+  };
+
+  public shutdown = async (session?: number): Promise<void> => {
+    return this.call(AdminRpc.shutdown, session);
   };
 
   public moduleApiCall = <T>(
@@ -302,20 +314,20 @@ export class GuardianApi {
   ): Promise<T> => {
     try {
       const websocket = await this.connect();
-
+      console.log('method', method);
       const response = await websocket.call(method, [
         {
           auth: this.getPassword() || null,
           params,
         },
       ]);
+      console.log('response', response);
 
       if (response.error) {
         throw response.error;
       }
 
       const result = response.result as T;
-      console.log(`${method} rpc result:`, result);
 
       return result;
     } catch (error: unknown) {
