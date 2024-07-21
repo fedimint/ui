@@ -8,11 +8,11 @@ import {
   Box,
   useClipboard,
 } from '@chakra-ui/react';
-import { ApiContext } from '../../ApiProvider';
+import { ApiContext } from '../ApiProvider';
 import { QRCodeSVG } from 'qrcode.react';
 import { Network } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { GatewayCard } from '../GatewayCard';
+import { GatewayCard } from './GatewayCard';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
 
