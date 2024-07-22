@@ -14,38 +14,36 @@ restart_fedimintd() {
   docker-compose stop "$service_name"
 
   echo "Updating docker-compose.yml for $service_name with new port $new_port..."
-  # Update the ports mapping
-  sed -i "s/- '[0-9]\+:${new_port}'/- '${new_port}:${new_port}'/" docker-compose.yml
-  # Update FM_BIND_API
-  sed -i "s/FM_BIND_API=0.0.0.0:[0-9]\+/FM_BIND_API=0.0.0.0:${new_port}/" docker-compose.yml
-  # Update FM_API_URL
-  sed -i "s/FM_API_URL=ws:\/\/${service_name}:[0-9]\+/FM_API_URL=ws:\/\/${service_name}:${new_port}/" docker-compose.yml
+
+  # Update the docker-compose.yml file
+  awk -v service="$service_name" -v new_port="$new_port" '
+    $0 ~ service {in_service=1}
+    in_service && /ports:/ {print; getline; $0 = "      - '"'"'" new_port ":" new_port "'"'"'"; in_ports=1}
+    in_service && /FM_BIND_API=/ {sub(/:[0-9]+/, ":" new_port)}
+    in_service && /FM_API_URL=/ {sub(/:[0-9]+/, ":" new_port)}
+    {print}
+    /^  [^ ]/ {in_service=0; in_ports=0}
+  ' docker-compose.yml >docker-compose.yml.tmp && mv docker-compose.yml.tmp docker-compose.yml
 
   echo "Starting $service_name with new port $new_port..."
   docker-compose up -d "$service_name"
 
-  # Check if the service is running
-  if docker-compose ps "$service_name" | grep -q "Up"; then
+  echo "Waiting for service to start..."
+  sleep 10
+
+  if docker-compose ps | grep -q "${service_name}.*Up"; then
     echo "Service $service_name is running."
-
-    # Wait for a few seconds to allow the service to fully start
-    sleep 10
-
-    # Check if the service is listening on the new port
-    if docker-compose exec "$service_name" netstat -tuln | grep -q ":$new_port"; then
+    if docker-compose port "$service_name" "$new_port" >/dev/null 2>&1; then
       echo "Service $service_name is listening on port $new_port."
     else
       echo "Warning: Service $service_name is not listening on port $new_port."
     fi
-
-    # Display the logs of the restarted service
-    echo "Recent logs for $service_name:"
-    docker-compose logs --tail=20 "$service_name"
   else
-    echo "Error: Failed to restart $service_name."
-    echo "Docker compose status:"
-    docker-compose ps "$service_name"
+    echo "Error: Service $service_name failed to start."
   fi
+
+  echo "Recent logs for $service_name:"
+  docker-compose logs --tail=10 "$service_name"
 }
 
 # Main script
