@@ -5,7 +5,7 @@ procs:
   start-servers:
     shell: docker compose up
   stop-servers-clear-data:
-    shell: docker compose down && echo 'Removing fm dirs' && sudo rm -rf fm_* && echo 'Done'
+    shell: docker compose down -v && echo 'Removing fm dirs' && sudo rm -rf fm_* && echo 'Done'
     autostart: false
   stop-servers-retain-data:
     shell: docker compose down

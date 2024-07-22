@@ -18,8 +18,7 @@ restart_fedimintd() {
   # Update the docker-compose.yml file
   awk -v service="$service_name" -v new_port="$new_port" '
     $0 ~ service {in_service=1}
-    in_service && /ports:/ {print; getline; $0 = "      - '"'"'" new_port ":" new_port "'"'"'"; in_ports=1}
-    in_service && /FM_BIND_API=/ {sub(/:[0-9]+/, ":" new_port)}
+    in_service && /ports:/ {print; getline; print; print "      - '"'"'" new_port ":" new_port "'"'"'"; in_ports=1}
     in_service && /FM_API_URL=/ {sub(/:[0-9]+/, ":" new_port)}
     {print}
     /^  [^ ]/ {in_service=0; in_ports=0}
