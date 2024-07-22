@@ -2,7 +2,6 @@ version: '3'
 
 services:
   fedimintd_1:
-    # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
     image: fedimint/fedimintd:v0.4.0-rc.6
     environment:
       - FM_DATA_DIR=/data
@@ -20,7 +19,6 @@ services:
       - bitcoind
 
   gatewayd_1:
-    # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
     image: fedimint/gatewayd:v0.4.0-rc.6
     command: gatewayd lnd
     environment:
@@ -49,7 +47,7 @@ services:
       - lnd_1
 
   lnd_1:
-    image: lightninglabs/lnd:v0.17.3-beta
+    image: lightninglabs/lnd:v0.18.2-beta
     ports:
       - '11009:11009'
     volumes:
@@ -60,7 +58,6 @@ services:
       - fedimintd_1
 
   fedimintd_2:
-    # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
     image: fedimint/fedimintd:v0.4.0-rc.6
     environment:
       - FM_DATA_DIR=/data
@@ -84,7 +81,6 @@ services:
   #       ipv4_address: 10.5.0.8
 
   fedimintd_3:
-    # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
     image: fedimint/fedimintd:v0.4.0-rc.6
     environment:
       - FM_DATA_DIR=/data
@@ -102,7 +98,6 @@ services:
       - bitcoind
 
   fedimintd_4:
-    # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
     image: fedimint/fedimintd:v0.4.0-rc.6
     environment:
       - FM_DATA_DIR=/data
