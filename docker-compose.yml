@@ -9,8 +9,9 @@ services:
       - FM_P2P_URL=fedimint://fedimintd_1:18173
       - FM_BIND_API=0.0.0.0:18174
       - FM_API_URL=ws://fedimintd_1:18174
-      - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
-      - FM_BITCOIN_RPC_KIND=bitcoind
+      - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
+      - FM_REL_NOTES_ACK=0_4_xyz
     ports:
       - '18174:18174'
     volumes:
@@ -65,8 +66,9 @@ services:
       - FM_P2P_URL=fedimint://fedimintd_2:18173
       - FM_BIND_API=0.0.0.0:18184
       - FM_API_URL=ws://fedimintd_2:18184
-      - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
-      - FM_BITCOIN_RPC_KIND=bitcoind
+      - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
+      - FM_REL_NOTES_ACK=0_4_xyz
     ports:
       - '18184:18184'
     volumes:
@@ -88,8 +90,9 @@ services:
       - FM_P2P_URL=fedimint://fedimintd_3:18174
       - FM_BIND_API=0.0.0.0:18185
       - FM_API_URL=ws://fedimintd_3:18185
-      - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
-      - FM_BITCOIN_RPC_KIND=bitcoind
+      - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
+      - FM_REL_NOTES_ACK=0_4_xyz
     ports:
       - '18185:18185'
     volumes:
@@ -105,8 +108,9 @@ services:
       - FM_P2P_URL=fedimint://fedimintd_4:18175
       - FM_BIND_API=0.0.0.0:18186
       - FM_API_URL=ws://fedimintd_4:18186
-      - FM_BITCOIN_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
-      - FM_BITCOIN_RPC_KIND=bitcoind
+      - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+      - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
+      - FM_REL_NOTES_ACK=0_4_xyz
     ports:
       - '18186:18186'
     volumes:
