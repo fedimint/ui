@@ -2,6 +2,7 @@ import React from 'react';
 import { Flex, Card, CardBody } from '@chakra-ui/react';
 import { Network, FederationInfo } from '@fedimint/types';
 import { InfoCard, DepositCard, BalanceCard, WithdrawCard } from '.';
+import { WalletCard } from './wallet/WalletCard';
 
 interface FederationCardProps {
   federation: FederationInfo;
@@ -29,6 +30,13 @@ export const FederationCard: React.FC<FederationCardProps> = ({
           <InfoCard nodeId={lightning_pub_key} network={network} />
         </Flex>
         <br />
+        <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
+          <WalletCard
+            federationId={federation_id}
+            network={network}
+            balanceMsat={balance_msat}
+          />
+        </Flex>
         <Flex gap='24px' flexDir={{ base: 'column', sm: 'column', md: 'row' }}>
           <DepositCard federationId={federation_id} network={network} />
           <WithdrawCard
