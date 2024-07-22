@@ -11,29 +11,33 @@ procs:
     shell: docker compose down
     autostart: false
   guardian-ui-1:
-    shell: bash --init-file scripts/mprocs-nix-guardian-manual.sh 18174
+    shell: bash -c 'scripts/mprocs-rotate-guardian.sh 18174'
     stop: SIGKILL
     env:
       PORT: '3000'
       BROWSER: none
   guardian-ui-2:
-    shell: bash --init-file scripts/mprocs-nix-guardian-manual.sh 18184
+    shell: bash -c 'scripts/mprocs-rotate-guardian.sh 18184'
     stop: SIGKILL
     env:
       PORT: '3001'
       BROWSER: none
   guardian-ui-3:
-    shell: bash --init-file scripts/mprocs-nix-guardian-manual.sh 18185
+    shell: bash -c 'scripts/mprocs-rotate-guardian.sh 18185'
     stop: SIGKILL
     env:
       PORT: '3002'
       BROWSER: none
   guardian-ui-4:
-    shell: bash --init-file scripts/mprocs-nix-guardian-manual.sh 18186
+    shell: bash -c 'scripts/mprocs-rotate-guardian.sh 18186'
     stop: SIGKILL
     env:
       PORT: '3003'
       BROWSER: none
+  restart-fedimintd:
+    shell: bash --init-file scripts/mprocs-restart-guardian.sh
+    autostart: false
+    stop: SIGKILL
   gateway-ui:
     shell: yarn dev:gateway-ui
     env:

@@ -10,3 +10,5 @@ gateway:
     yarn nix-gateway
 guardian:
     yarn nix-guardian
+reset dc:
+    cp original-docker-compose.yml docker-compose.yml
