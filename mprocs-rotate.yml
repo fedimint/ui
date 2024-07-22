@@ -1,4 +1,7 @@
 procs:
+  user:
+    shell: bash
+    stop: SIGKILL
   start-servers:
     shell: docker compose up
   stop-servers-clear-data:
