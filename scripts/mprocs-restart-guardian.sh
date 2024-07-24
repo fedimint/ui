@@ -18,13 +18,21 @@ restart_fedimintd() {
   # Update the docker-compose.yml file
   awk -v service="$service_name" -v new_port="$new_port" '
     $0 ~ service {in_service=1}
-    in_service && /ports:/ {print; getline; print; print "      - '"'"'" new_port ":" new_port "'"'"'"; in_ports=1}
-    in_service && /FM_API_URL=/ {sub(/:[0-9]+/, ":" new_port)}
+    in_service && /ports:/ {
+      print
+      getline
+      sub(/:[0-9]+/, ":" new_port)
+      print
+      next
+    }
+    in_service && /FM_API_URL=/ {
+      sub(/:[0-9]+/, ":" new_port)
+    }
     {print}
-    /^  [^ ]/ {in_service=0; in_ports=0}
+    /^  [^ ]/ {in_service=0}
   ' docker-compose.yml >docker-compose.yml.tmp && mv docker-compose.yml.tmp docker-compose.yml
 
-  echo "Starting $service_name with new port $new_port..."
+  echo "Starting $service_name with new api_url $new_port..."
   docker-compose up -d "$service_name"
 
   echo "Waiting for service to start..."
