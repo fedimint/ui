@@ -13,13 +13,20 @@ import {
   ModalContent,
   ModalCloseButton,
   ModalBody,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
 } from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo } from '@fedimint/types';
-import { FederationCard, ConnectFederation } from './components';
+import { ConnectFederation } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { Wrapper, Login } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
+import { FederationsTable } from './components/fedsTable/FederationsTable';
 
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
@@ -36,6 +43,7 @@ export const App = React.memo(function Admin(): JSX.Element {
     lightning_pub_key: '',
     route_hints: [],
     version_hash: '',
+    network: undefined,
   });
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
@@ -78,6 +86,16 @@ export const App = React.memo(function Admin(): JSX.Element {
       return () => clearInterval(interval);
     }
   }, [gateway, authenticated]);
+
+  const handleDeposit = (federation: FederationInfo) => {
+    // Implement deposit logic here
+    console.log('Deposit for federation:', federation.federation_id);
+  };
+
+  const handleWithdraw = (federation: FederationInfo) => {
+    // Implement withdraw logic here
+    console.log('Withdraw from federation:', federation.federation_id);
+  };
 
   const content = useMemo(() => {
     if (loading) {
@@ -179,18 +197,11 @@ export const App = React.memo(function Admin(): JSX.Element {
             </ModalBody>
           </ModalContent>
         </Modal>
-        <Flex flexDirection={'column'} gap={8}>
-          {gatewayInfo.federations.map((federation: FederationInfo) => {
-            return (
-              <FederationCard
-                key={federation.federation_id}
-                federation={federation}
-                network={gatewayInfo.network}
-                lightning_pub_key={gatewayInfo.lightning_pub_key}
-              />
-            );
-          })}
-        </Flex>
+        <FederationsTable
+          federations={gatewayInfo.federations}
+          onDeposit={handleDeposit}
+          onWithdraw={handleWithdraw}
+        />
       </Box>
     );
   }, [
