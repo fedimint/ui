@@ -14,10 +14,11 @@ import {
   ModalContent,
   CircularProgressLabel,
   CircularProgress,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import { FederationInfo } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { ApiContext } from '../ApiProvider';
+import { ApiContext } from '../../ApiProvider';
 
 export interface ConnectFedModalProps {
   isOpen: boolean;
@@ -72,11 +73,15 @@ export const ConnectFedModal: FC<ConnectFedModalProps> = ({
 };
 
 export type ConnectFederationProps = {
+  isOpen: boolean;
+  onClose: () => void;
   renderConnectedFedCallback: (federation: FederationInfo) => void;
 };
 
 export const ConnectFederation = React.memo(function ConnectFederation({
   renderConnectedFedCallback,
+  isOpen,
+  onClose,
 }: ConnectFederationProps) {
   const { t } = useTranslation();
   const { gateway } = React.useContext(ApiContext);
@@ -107,47 +112,56 @@ export const ConnectFederation = React.memo(function ConnectFederation({
   };
 
   return (
-    <>
-      <Stack spacing='32px'>
-        <Box>
-          <Heading
-            fontSize='28px'
-            size='md'
-            fontWeight='medium'
-            color={theme.colors.gray[900]}
-          >
-            {t('connect-federation.heading')}
-          </Heading>
-          <Text size='md' fontWeight='medium' pt='4px'>
-            {t('connect-federation.sub-heading')}
-          </Text>
-        </Box>
-        <Textarea
-          placeholder={t('connect-federation.connection-string-placeholder')}
-          _placeholder={{
-            fontSize: 'md',
-            color: `${theme.colors.gray[500]}`,
-            fontFamily: `${theme.fonts.body}`,
-          }}
-          h='60px'
-          p='14px'
-          boxShadow={theme.shadows.xs}
-          border={`1px solid ${theme.colors.gray[300]}`}
-          bgColor={theme.colors.white}
-          value={connectInfo}
-          onChange={(event) => handleInputString(event)}
-        />
-        <Button
-          borderRadius='8px'
-          maxW='210px'
-          isDisabled={!connectInfo}
-          onClick={handleConnectFederation}
-        >
-          {t('connect-federation.connect-federation-button')}
-        </Button>
-        <Box color='red.500'>{errorMsg}</Box>
-      </Stack>
-      <ConnectFedModal isOpen={loading} onClose={() => !loading} />
-    </>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalCloseButton />
+        <br />
+        <ModalBody>
+          <Stack spacing='32px'>
+            <Box>
+              <Heading
+                fontSize='28px'
+                size='md'
+                fontWeight='medium'
+                color={theme.colors.gray[900]}
+              >
+                {t('connect-federation.heading')}
+              </Heading>
+              <Text size='md' fontWeight='medium' pt='4px'>
+                {t('connect-federation.sub-heading')}
+              </Text>
+            </Box>
+            <Textarea
+              placeholder={t(
+                'connect-federation.connection-string-placeholder'
+              )}
+              _placeholder={{
+                fontSize: 'md',
+                color: `${theme.colors.gray[500]}`,
+                fontFamily: `${theme.fonts.body}`,
+              }}
+              h='60px'
+              p='14px'
+              boxShadow={theme.shadows.xs}
+              border={`1px solid ${theme.colors.gray[300]}`}
+              bgColor={theme.colors.white}
+              value={connectInfo}
+              onChange={(event) => handleInputString(event)}
+            />
+            <Button
+              borderRadius='8px'
+              maxW='210px'
+              isDisabled={!connectInfo}
+              onClick={handleConnectFederation}
+            >
+              {t('connect-federation.connect-federation-button')}
+            </Button>
+            <Box color='red.500'>{errorMsg}</Box>
+          </Stack>
+          <ConnectFedModal isOpen={loading} onClose={() => !loading} />
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 });
