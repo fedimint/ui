@@ -1,21 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import {
-  Box,
-  Button,
-  Heading,
-  Text,
-  Flex,
-  useTheme,
-  CircularProgress,
-  CircularProgressLabel,
-} from '@chakra-ui/react';
+import { Box, Heading, Flex, useTheme } from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo } from '@fedimint/types';
 import { ConnectFederationModal } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { Wrapper, Login } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
-import { FederationsTable } from './components/fedsTable/FederationsTable';
+import { FederationsTable } from './components/federations/FederationsTable';
+import { Loading } from './components/Loading';
+import { Error } from './components/Error';
 
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
@@ -88,52 +81,11 @@ export const App = React.memo(function Admin(): JSX.Element {
 
   const content = useMemo(() => {
     if (loading) {
-      return (
-        <Flex
-          bgColor={theme.colors.white}
-          justifyContent='center'
-          alignItems='center'
-        >
-          <CircularProgress
-            isIndeterminate={true}
-            color={theme.colors.blue[600]}
-            size='240px'
-            thickness='8px'
-            capIsRound={true}
-          >
-            <CircularProgressLabel
-              fontSize='md'
-              fontWeight='500'
-              color={theme.colors.gray[600]}
-              fontFamily={theme.fonts.body}
-              textAlign='center'
-              width='150px'
-            >
-              {t('admin.fetch-info-modal-text')}
-            </CircularProgressLabel>
-          </CircularProgress>
-        </Flex>
-      );
+      return <Loading />;
     }
-
     if (error) {
-      return (
-        <Flex
-          direction='column'
-          align='center'
-          width='100%'
-          paddingTop='10vh'
-          paddingX='4'
-          textAlign='center'
-        >
-          <Heading size='lg' marginBottom='4'>
-            {t('common.error')}
-          </Heading>
-          <Text fontSize='md'>{error}</Text>
-        </Flex>
-      );
+      return <Error error={error} />;
     }
-
     if (!authenticated) {
       return (
         <Login
@@ -164,14 +116,12 @@ export const App = React.memo(function Admin(): JSX.Element {
           >
             {t('header.title')}
           </Heading>
-          <Button onClick={() => setShowConnectFed(!showConnectFed)}>
-            {t('connect-federation.connect-federation-button')}
-          </Button>
         </Flex>
         <FederationsTable
           federations={gatewayInfo.federations}
           onDeposit={handleDeposit}
           onWithdraw={handleWithdraw}
+          onConnectFederation={() => setShowConnectFed(true)}
         />
         <ConnectFederationModal
           isOpen={showConnectFed}

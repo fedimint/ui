@@ -7,6 +7,7 @@ import {
   Flex,
   Link,
   useTheme,
+  Button,
 } from '@chakra-ui/react';
 import { FederationInfo } from '@fedimint/types';
 import { useTranslation, formatEllipsized } from '@fedimint/utils';
@@ -16,12 +17,14 @@ interface FederationsTableProps {
   federations: FederationInfo[];
   onDeposit: (federation: FederationInfo) => void;
   onWithdraw: (federation: FederationInfo) => void;
+  onConnectFederation: () => void;
 }
 
 export const FederationsTable: React.FC<FederationsTableProps> = ({
   federations,
   onDeposit,
   onWithdraw,
+  onConnectFederation,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -74,9 +77,14 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
   return (
     <Card>
       <CardHeader>
-        <Text size='lg' fontWeight='600'>
-          {t('federation-card.table-title')}
-        </Text>
+        <Flex justifyContent='space-between' alignItems='center'>
+          <Text size='lg' fontWeight='600'>
+            {t('federation-card.table-title')}
+          </Text>
+          <Button onClick={onConnectFederation}>
+            {t('connect-federation.connect-federation-button')}
+          </Button>
+        </Flex>
       </CardHeader>
       <CardBody>
         <Table columns={columns} rows={rows} />
