@@ -116,7 +116,6 @@ export const WalletCard = React.memo(function WalletCard({
   }, [address, createDepositAddress, hasCopied, onCopy, t]);
 
   const handleWithdraw = useCallback(() => {
-    // ... (implement withdraw logic)
     setModalContent(
       <Box textAlign='center'>
         <Icon as={CheckCircleIcon} color='green.500' w={24} h={24} mb={4} />
