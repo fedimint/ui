@@ -13,8 +13,8 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import QRCode from 'qrcode.react';
+import { QR_CODE_SIZE } from '../../../utils/constants';
 
-const QR_CODE_SIZE = 256;
 const FEDIMINT_GUARDIAN_PREFIX = 'fedimint:guardian:';
 
 type GuardianAuth = {
@@ -89,7 +89,7 @@ export const GuardianAuthenticationCode: React.FC<
               >
                 <Text mb={4}>
                   {t(
-                    'federation-dashboard.danger-zone.guardian-warning-message',
+                    'federation-dashboard.danger-zone.guardian-warning-message'
                   )}
                 </Text>
                 <Flex
@@ -113,7 +113,7 @@ export const GuardianAuthenticationCode: React.FC<
                     }}
                   >
                     {t(
-                      'federation-dashboard.danger-zone.acknowledge-and-download',
+                      'federation-dashboard.danger-zone.acknowledge-and-download'
                     )}
                   </Button>
                 </Flex>
@@ -135,7 +135,7 @@ export const GuardianAuthenticationCode: React.FC<
                 />
                 <Text fontWeight={'bold'} color={'red'} mt={4}>
                   {t(
-                    'federation-dashboard.danger-zone.guardian-connect-warning',
+                    'federation-dashboard.danger-zone.guardian-connect-warning'
                   )}
                 </Text>
               </Flex>

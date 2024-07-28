@@ -13,7 +13,7 @@ export const Scanner: React.FC<ScannerProps> = ({
   onError,
   ...props
 }) => {
-  const res = React.useRef<string | null>(null);
+  const [res, setRes] = React.useState<string | null>(null);
   const err = React.useRef<string | null>(null);
   const ref = React.useRef<HTMLVideoElement>(null);
   const scannerRef = React.useRef<QrScanner | null>(null);
@@ -26,8 +26,8 @@ export const Scanner: React.FC<ScannerProps> = ({
         scannerRef.current = new QrScanner(
           ref.current,
           (result) => {
-            if (result && res.current !== result.data) {
-              res.current = result.data;
+            if (result && res !== result.data) {
+              setRes(result.data);
               onResult(result.data);
               if (scannerRef.current) {
                 scannerRef.current.stop();
@@ -58,12 +58,12 @@ export const Scanner: React.FC<ScannerProps> = ({
       } else if (scannerRef.current) {
         scannerRef.current.stop();
         scannerRef.current.destroy();
-        res.current = null;
+        setRes(null);
         err.current = null;
         scannerRef.current = null;
       }
     })();
-  }, [scanning, ref, onError, onResult]);
+  }, [scanning, ref, onError, onResult, setRes, res]);
 
   return (
     <video
