@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Box, Heading, Flex, useTheme } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Flex,
+  useTheme,
+  Tabs,
+  TabList,
+  Tab,
+} from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo } from '@fedimint/types';
 import { ConnectFederation, InfoCard } from './components';
 import { GatewayApi } from './GatewayApi';
@@ -9,6 +17,9 @@ import { useTranslation } from '@fedimint/utils';
 import { FederationsTable } from './components/federations/FederationsTable';
 import { Loading } from './components/Loading';
 import { Error } from './components/Error';
+
+export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
+export type Unit = (typeof UNIT_OPTIONS)[number];
 
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
@@ -33,6 +44,7 @@ export const App = React.memo(function Admin(): JSX.Element {
   const [showConnectFed, setShowConnectFed] = useState(false);
   const theme = useTheme();
   const { t } = useTranslation();
+  const [unit, setUnit] = useState<Unit>('sats');
 
   useEffect(() => {
     setLoading(true);
@@ -80,20 +92,14 @@ export const App = React.memo(function Admin(): JSX.Element {
   };
 
   const content = useMemo(() => {
-    if (loading) {
-      return <Loading />;
-    }
-    if (error) {
-      return <Error error={error} />;
-    }
+    if (loading) return <Loading />;
+    if (error) return <Error error={error} />;
     if (!authenticated) {
       return (
         <Login
           checkAuth={gateway.testPassword}
           setAuthenticated={() => setAuthenticated(true)}
-          parseError={(err) => {
-            return (err as Error).message;
-          }}
+          parseError={(err) => (err as Error).message}
         />
       );
     }
@@ -101,23 +107,54 @@ export const App = React.memo(function Admin(): JSX.Element {
     return (
       <Box>
         <Flex
-          flexFlow={['column', 'row']}
-          justifyContent={['center', 'space-between']}
+          direction={['column', 'row']}
+          justifyContent='space-between'
           alignItems={['flex-start', 'center']}
-          gap='2'
           mb='8'
         >
           <Heading
+            as='h1'
+            fontSize={['xl', '2xl']}
             fontWeight='500'
-            fontSize='24px'
-            size='xs'
             color={theme.colors.gray[900]}
-            fontFamily={theme.fonts.heading}
+            mb={[4, 0]}
           >
             {t('header.title')}
           </Heading>
+          <Tabs
+            size='sm'
+            variant='soft-rounded'
+            defaultIndex={1}
+            onChange={(index) => setUnit(UNIT_OPTIONS[index])}
+          >
+            <TabList>
+              {UNIT_OPTIONS.map((option) => (
+                <Tab
+                  key={option}
+                  _selected={{
+                    bg: theme.colors.blue[500],
+                    color: 'white',
+                  }}
+                >
+                  {option.toUpperCase()}
+                </Tab>
+              ))}
+            </TabList>
+          </Tabs>
         </Flex>
-        <InfoCard nodeId={gatewayInfo.gateway_id} />
+        <InfoCard
+          nodeId={gatewayInfo.gateway_id}
+          network={gatewayInfo.network}
+        />
+        <Box mt='8'>
+          <FederationsTable
+            unit={unit}
+            federations={gatewayInfo.federations}
+            onDeposit={handleDeposit}
+            onWithdraw={handleWithdraw}
+            onConnectFederation={() => setShowConnectFed(true)}
+          />
+        </Box>
         <ConnectFederation
           isOpen={showConnectFed}
           onClose={() => setShowConnectFed(false)}
@@ -128,12 +165,6 @@ export const App = React.memo(function Admin(): JSX.Element {
             });
             setShowConnectFed(false);
           }}
-        />
-        <FederationsTable
-          federations={gatewayInfo.federations}
-          onDeposit={handleDeposit}
-          onWithdraw={handleWithdraw}
-          onConnectFederation={() => setShowConnectFed(true)}
         />
       </Box>
     );
@@ -146,6 +177,7 @@ export const App = React.memo(function Admin(): JSX.Element {
     gatewayInfo,
     theme,
     t,
+    unit,
   ]);
 
   return (
