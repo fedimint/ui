@@ -63,6 +63,10 @@ export const Scanner: React.FC<ScannerProps> = ({
         scannerRef.current = null;
       }
     })();
+
+    return () => {
+      scannerRef.current?.destroy();
+    };
   }, [scanning, ref, onError, onResult, setRes, res]);
 
   return (
