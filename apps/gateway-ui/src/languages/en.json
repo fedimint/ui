@@ -67,7 +67,8 @@
     "leave-fed-error": "Cannot leave federation with sats in your balance. Please withdraw your sats first.",
     "leave-fed-modal-title": "Leave Federation",
     "leave-fed-modal-text": "Are you sure you want to disconnect from",
-    "view-details": "View Details"
+    "view-config": "View Config",
+    "config-for": "Config for {{federationId}}"
   },
   "footer": {
     "blog-link-text": "Blog",

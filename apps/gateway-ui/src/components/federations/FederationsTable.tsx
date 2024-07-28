@@ -9,15 +9,18 @@ import {
   useTheme,
   Button,
 } from '@chakra-ui/react';
-import { FederationInfo } from '@fedimint/types';
-import { useTranslation, formatEllipsized } from '@fedimint/utils';
+import { FederationInfo, MSats } from '@fedimint/types';
+import { useTranslation, formatEllipsized, formatValue } from '@fedimint/utils';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
+import { ViewConfigModal } from './ViewConfig';
+import { Unit } from '../../App';
 
 interface FederationsTableProps {
   federations: FederationInfo[];
   onDeposit: (federation: FederationInfo) => void;
   onWithdraw: (federation: FederationInfo) => void;
   onConnectFederation: () => void;
+  unit: Unit;
 }
 
 export const FederationsTable: React.FC<FederationsTableProps> = ({
@@ -25,37 +28,43 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
   onDeposit,
   onWithdraw,
   onConnectFederation,
+  unit,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  const columns: TableColumn<'id' | 'name' | 'balance' | 'actions'>[] = [
-    { key: 'id', heading: t('federation-card.id') },
+  const columns: TableColumn<'name' | 'id' | 'balance' | 'actions'>[] = [
     { key: 'name', heading: t('federation-card.name') },
+    { key: 'id', heading: t('federation-card.id') },
     { key: 'balance', heading: t('federation-card.balance') },
     { key: 'actions', heading: t('federation-card.actions') },
   ];
 
-  const rows: TableRow<'id' | 'name' | 'balance' | 'actions'>[] =
+  const rows: TableRow<'name' | 'id' | 'balance' | 'actions'>[] =
     federations.map((federation) => ({
       key: federation.federation_id,
+      name: federation.config.meta.federation_name,
       id: (
-        <Flex direction='column' gap='4px'>
-          <Text>{formatEllipsized(federation.federation_id)}</Text>
-          <Text size='xs'>
-            <Link
-              color={theme.colors.blue[600]}
-              href={`#${federation.federation_id}`}
-              target='_blank'
-              rel='noreferrer'
-            >
-              {t('federation-card.view-details')}
-            </Link>
+        <Flex direction='column' alignItems='flex-start'>
+          <Text fontSize='sm' fontWeight='medium'>
+            {formatEllipsized(federation.federation_id)}
           </Text>
+          <Button
+            as={ViewConfigModal}
+            federationId={federation.federation_id}
+            config={federation.config}
+            variant='link'
+            size='sm'
+            colorScheme='blue'
+            fontWeight='normal'
+            padding='0'
+            height='auto'
+          >
+            {t('federation-card.view-config')}
+          </Button>
         </Flex>
       ),
-      name: federation.config.meta.federation_name,
-      balance: `${federation.balance_msat / 1000} sats`,
+      balance: formatValue(federation.balance_msat as MSats, unit, true),
       actions: (
         <Flex gap='8px'>
           <Link
@@ -81,9 +90,11 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
           <Text size='lg' fontWeight='600'>
             {t('federation-card.table-title')}
           </Text>
-          <Button onClick={onConnectFederation}>
-            {t('connect-federation.connect-federation-button')}
-          </Button>
+          <Flex alignItems='center'>
+            <Button onClick={onConnectFederation} ml={4}>
+              {t('connect-federation.connect-federation-button')}
+            </Button>
+          </Flex>
         </Flex>
       </CardHeader>
       <CardBody>
