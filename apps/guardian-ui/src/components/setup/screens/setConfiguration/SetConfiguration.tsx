@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Checkbox,
   Flex,
   Icon,
   Button,
@@ -55,7 +54,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState(false);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [federationName, setFederationName] = useState('');
@@ -121,7 +119,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const hostCriteria = [
     myName,
     password,
-    passwordCheck,
     federationName,
     isValidNumber(numPeers, 4),
     isValidNumber(blockConfirmations, 0, 200),
@@ -132,14 +129,13 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const soloCriteria = [
     myName,
     password,
-    passwordCheck,
     federationName,
     isValidNumber(blockConfirmations, 0, 200),
     isValidMeta(metaFields),
     network,
   ];
 
-  const followerCriteria = [myName, password, hostServerUrl, passwordCheck];
+  const followerCriteria = [myName, password, hostServerUrl];
 
   const isValid: boolean = isHost
     ? hostCriteria.every(Boolean)
@@ -231,17 +227,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
 
   return (
     <Flex direction='column' gap={['2', '6']} justify='start' align='start'>
-      <BasicSettingsForm
-        myName={myName}
-        setMyName={setMyName}
-        password={password}
-        setPassword={setPassword}
-        hasCopied={hasCopied}
-        onCopy={onCopy}
-        isFollower={!isHost && !isSolo}
-        hostServerUrl={hostServerUrl}
-        setHostServerUrl={setHostServerUrl}
-      />
       <BitcoinSettingsForm
         network={network as Network}
         setNetwork={setNetwork}
@@ -260,40 +245,32 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           isHost={isHost}
         />
       )}
+      <BasicSettingsForm
+        myName={myName}
+        setMyName={setMyName}
+        password={password}
+        setPassword={setPassword}
+        hasCopied={hasCopied}
+        onCopy={onCopy}
+        isFollower={!isHost && !isSolo}
+        hostServerUrl={hostServerUrl}
+        setHostServerUrl={setHostServerUrl}
+      />
       {error && (
         <Text color={theme.colors.red[500]} mt={4}>
           {error}
         </Text>
       )}
-      <Flex
-        direction='column'
-        justify='space-between'
-        alignSelf='center'
-        width={['100%', '100%', '60%']}
+      <Button
+        isDisabled={!isValid}
+        onClick={isValid ? handleNext : undefined}
+        leftIcon={<Icon as={ArrowRightIcon} />}
+        mt={['2', '4']}
+        width={['25%', 'auto']}
+        alignSelf='flex-start'
       >
-        {password !== '' && (
-          <Checkbox
-            isRequired
-            spacing='10px'
-            alignSelf='flex-start'
-            onChange={(e) => setPasswordCheck(e.target.checked)}
-          >
-            <Text color={theme.colors.yellow[500]}>
-              {t('set-config.admin-password-backup')}
-            </Text>
-          </Checkbox>
-        )}
-        <Button
-          isDisabled={!isValid}
-          onClick={isValid ? handleNext : undefined}
-          leftIcon={<Icon as={ArrowRightIcon} />}
-          mt={['2', '4']}
-          width={['25%', 'auto']}
-          alignSelf='flex-start'
-        >
-          {t('common.next')}
-        </Button>
-      </Flex>
+        {t('common.next')}
+      </Button>
       <ConfirmPasswordModal
         password={password}
         confirmPassword={confirmPassword}
