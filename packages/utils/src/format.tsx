@@ -23,14 +23,22 @@ export function formatMsatsToBtc(msats: MSats): string {
   }).format(msats / 1_00_000_000_000);
 }
 
-export const formatValue = (value: MSats, unit: 'msats' | 'sats' | 'btc') => {
+export const formatValue = (
+  value: MSats,
+  unit: 'msats' | 'sats' | 'btc',
+  withUnit = false
+) => {
   switch (unit) {
     case 'msats':
-      return value.toString();
+      return withUnit ? `${value.toString()} msats` : value.toString();
     case 'sats':
-      return (value / 1000).toFixed(0);
+      return withUnit
+        ? `${(value / 1000).toFixed(0)} sats`
+        : (value / 1000).toFixed(0);
     case 'btc':
-      return formatMsatsToBtc(value);
+      return withUnit
+        ? `${formatMsatsToBtc(value)} BTC`
+        : formatMsatsToBtc(value);
     default:
       return value.toString();
   }
