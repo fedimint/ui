@@ -7,6 +7,8 @@ import {
   ModalCloseButton,
   ModalBody,
   useToast,
+  Button,
+  Flex,
 } from '@chakra-ui/react';
 import { Scanner } from './Scanner';
 
@@ -28,6 +30,21 @@ export const QrScannerModal: React.FC<QrScannerModalProps> = ({
   const handleScan = (data: string) => {
     onScan(data);
     onClose();
+  };
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      handleScan(text);
+    } catch (error) {
+      console.error('Failed to read clipboard contents: ', error);
+      toast({
+        title: 'Paste Error',
+        description: 'Failed to read clipboard contents. Please try again.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleError = (error: string) => {
@@ -56,12 +73,15 @@ export const QrScannerModal: React.FC<QrScannerModalProps> = ({
           alignItems='center'
           pb={8}
         >
-          <Scanner
-            scanning={isOpen}
-            onResult={handleScan}
-            onError={(e) => handleError(e.toString())}
-            style={{ width: '100%', height: 'auto' }}
-          />
+          <Flex direction='column' width='100%' alignItems='center' gap={4}>
+            <Scanner
+              scanning={isOpen}
+              onResult={handleScan}
+              onError={(e) => handleError(e.toString())}
+              style={{ width: '100%', height: 'auto' }}
+            />
+            <Button onClick={handlePaste}>Paste</Button>
+          </Flex>
         </ModalBody>
       </ModalContent>
     </ChakraModal>
