@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Heading, Flex, useTheme } from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo } from '@fedimint/types';
-import { ConnectFederation } from './components';
+import { ConnectFederation, InfoCard } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { Wrapper, Login } from '@fedimint/ui';
@@ -117,6 +117,7 @@ export const App = React.memo(function Admin(): JSX.Element {
             {t('header.title')}
           </Heading>
         </Flex>
+        <InfoCard nodeId={gatewayInfo.gateway_id} />
         <ConnectFederation
           isOpen={showConnectFed}
           onClose={() => setShowConnectFed(false)}
