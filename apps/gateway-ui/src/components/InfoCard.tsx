@@ -8,7 +8,7 @@ import {
   useClipboard,
 } from '@chakra-ui/react';
 import { Network } from '@fedimint/types';
-import { formatEllipsized, useTranslation } from '@fedimint/utils';
+import { formatEllipsized, getNodeUrl, useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '.';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
@@ -81,18 +81,3 @@ export const InfoCard = React.memo(function InfoCard({
     </GatewayCard>
   );
 });
-
-const getNodeUrl = (
-  nodeId: string,
-  network: Network = Network.Bitcoin
-): URL => {
-  switch (network) {
-    case Network.Signet:
-      return new URL(`https://mutinynet.com/lightning/node/${nodeId}`);
-    case Network.Testnet:
-      return new URL(`https://mempool.space/testnet/lightning/node/${nodeId}`);
-    case Network.Bitcoin:
-    case Network.Regtest:
-      return new URL(`https://mempool.space/lightning/node/${nodeId}`);
-  }
-};
