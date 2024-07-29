@@ -12,7 +12,6 @@ restart_fedimintd() {
 
   echo "Stopping $service_name..."
   docker-compose stop "$service_name"
-
   echo "Updating docker-compose.yml for $service_name with new port $new_port..."
 
   # Update the docker-compose.yml file
@@ -21,11 +20,14 @@ restart_fedimintd() {
     in_service && /ports:/ {
       print
       getline
-      sub(/:[0-9]+/, ":" new_port)
+      sub(/[0-9]+:[0-9]+/, new_port ":" new_port)
       print
       next
     }
     in_service && /FM_API_URL=/ {
+      sub(/:[0-9]+/, ":" new_port)
+    }
+    in_service && /FM_BIND_API=/ {
       sub(/:[0-9]+/, ":" new_port)
     }
     {print}
