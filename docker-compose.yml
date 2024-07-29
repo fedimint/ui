@@ -2,13 +2,7 @@ version: '3'
 
 services:
   fedimintd_1:
-<<<<<<< HEAD
     image: fedimint/fedimintd:v0.4.0-rc.6
-||||||| parent of 62ef635e (fix: hold)
-    image: fedimint/fedimintd:v0.4.0-rc.2
-=======
-    image: fedimint/fedimintd:v0.4.0-rc.5
->>>>>>> 62ef635e (fix: hold)
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
@@ -26,13 +20,7 @@ services:
       - bitcoind
 
   gatewayd_1:
-<<<<<<< HEAD
     image: fedimint/gatewayd:v0.4.0-rc.6
-||||||| parent of 62ef635e (fix: hold)
-    image: fedimint/gatewayd:v0.4.0-rc.2
-=======
-    image: fedimint/gatewayd:v0.4.0-rc.5
->>>>>>> 62ef635e (fix: hold)
     command: gatewayd lnd
     environment:
       # Path to folder containing gateway config and data files
@@ -71,13 +59,7 @@ services:
       - fedimintd_1
 
   fedimintd_2:
-<<<<<<< HEAD
     image: fedimint/fedimintd:v0.4.0-rc.6
-||||||| parent of 62ef635e (fix: hold)
-    image: fedimint/fedimintd:v0.4.0-rc.2
-=======
-    image: fedimint/fedimintd:v0.4.0-rc.5
->>>>>>> 62ef635e (fix: hold)
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
@@ -101,13 +83,7 @@ services:
   #       ipv4_address: 10.5.0.8
 
   fedimintd_3:
-<<<<<<< HEAD
     image: fedimint/fedimintd:v0.4.0-rc.6
-||||||| parent of 62ef635e (fix: hold)
-    image: fedimint/fedimintd:v0.4.0-rc.2
-=======
-    image: fedimint/fedimintd:v0.4.0-rc.5
->>>>>>> 62ef635e (fix: hold)
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18174
@@ -125,15 +101,7 @@ services:
       - bitcoind
 
   fedimintd_4:
-<<<<<<< HEAD
     image: fedimint/fedimintd:v0.4.0-rc.6
-||||||| parent of 62ef635e (fix: hold)
-    # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:v0.4.0-rc.2
-=======
-    # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:v0.4.0-rc.5
->>>>>>> 62ef635e (fix: hold)
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18175
