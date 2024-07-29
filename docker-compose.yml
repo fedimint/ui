@@ -3,7 +3,7 @@ version: '3'
 services:
   fedimintd_1:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:v0.3.0
+    image: fedimint/fedimintd:v0.4.0-rc.6
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
@@ -21,7 +21,7 @@ services:
 
   gatewayd_1:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/gatewayd:v0.3.0
+    image: fedimint/gatewayd:v0.4.0-rc.6
     command: gatewayd lnd
     environment:
       # Path to folder containing gateway config and data files
@@ -61,7 +61,7 @@ services:
 
   fedimintd_2:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:v0.3.0
+    image: fedimint/fedimintd:v0.4.0-rc.6
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
@@ -85,7 +85,7 @@ services:
 
   fedimintd_3:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:v0.3.0
+    image: fedimint/fedimintd:v0.4.0-rc.6
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18174
@@ -103,7 +103,7 @@ services:
 
   fedimintd_4:
     # Snapshot of Fedimint after AlephBFT was merged: https://github.com/fedimint/fedimint/pull/3313
-    image: fedimint/fedimintd:v0.3.0
+    image: fedimint/fedimintd:v0.4.0-rc.6
     environment:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18175
