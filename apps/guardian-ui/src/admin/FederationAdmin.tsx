@@ -59,6 +59,10 @@ export const FederationAdmin: React.FC = () => {
   const [announcementNeeded, setAnnouncementNeeded] = useState(false);
   const checkAnnouncementRef = useRef(false);
 
+  if (announcementNeeded) {
+    onOpen();
+  }
+
   // Extracting our peer ID and name from intersection of config and status
   useEffect(() => {
     if (config && status?.federation && !checkAnnouncementRef.current) {
@@ -169,12 +173,13 @@ export const FederationAdmin: React.FC = () => {
           onApiAnnouncementOpen={onOpen}
         />
       </Flex>
-      {announcementNeeded && ourPeer && (
+      {ourPeer && (
         <SignApiAnnouncement
           isOpen={isOpen}
           onClose={onClose}
           ourPeer={ourPeer}
           signedApiAnnouncements={signedApiAnnouncements}
+          currentApiUrl={process.env.REACT_APP_FM_CONFIG_API || ''}
         />
       )}
     </Flex>

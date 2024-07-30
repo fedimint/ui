@@ -64,13 +64,13 @@ services:
       - FM_DATA_DIR=/data
       - FM_BIND_P2P=0.0.0.0:18173
       - FM_P2P_URL=fedimint://fedimintd_2:18173
-      - FM_BIND_API=0.0.0.0:18184
-      - FM_API_URL=ws://fedimintd_2:18184
+      - FM_BIND_API=0.0.0.0:13335
+      - FM_API_URL=ws://fedimintd_2:13335
       - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
       - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
       - FM_REL_NOTES_ACK=0_4_xyz
     ports:
-      - '18184:18184'
+      - '13335:13335'
     volumes:
       - ./fm_data/2/data:/data
     depends_on:

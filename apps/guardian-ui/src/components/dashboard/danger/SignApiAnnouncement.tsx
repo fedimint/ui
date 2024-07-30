@@ -14,11 +14,12 @@ import {
   Icon,
   Tooltip,
   Divider,
+  Input,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { SignedApiAnnouncement } from '@fedimint/types';
 import { normalizeUrl } from '../../../utils';
-import { FiCheckCircle, FiAlertTriangle } from 'react-icons/fi';
+import { FiCheckCircle, FiAlertTriangle, FiEdit2 } from 'react-icons/fi';
 import { useAdminContext } from '../../../hooks';
 
 interface SignApiAnnouncementProps {
@@ -26,6 +27,7 @@ interface SignApiAnnouncementProps {
   onClose: () => void;
   ourPeer: { id: number; name: string };
   signedApiAnnouncements: Record<string, SignedApiAnnouncement>;
+  currentApiUrl: string;
 }
 
 export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
@@ -33,33 +35,47 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
   onClose,
   ourPeer,
   signedApiAnnouncements,
+  currentApiUrl,
 }) => {
   const { api } = useAdminContext();
   const { t } = useTranslation();
   const [isSigningNew, setIsSigningNew] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [apiUrl, setApiUrl] = useState(currentApiUrl);
 
-  const currentApiUrl = process.env.REACT_APP_FM_CONFIG_API || '';
   const currentAnnouncement = ourPeer
     ? signedApiAnnouncements[ourPeer.id.toString()].api_announcement
     : undefined;
 
   const announcementMatches = useMemo(() => {
     if (!currentAnnouncement) return false;
-    return (
-      normalizeUrl(currentAnnouncement.api_url) === normalizeUrl(currentApiUrl)
-    );
-  }, [currentAnnouncement, currentApiUrl]);
+    return normalizeUrl(currentAnnouncement.api_url) === normalizeUrl(apiUrl);
+  }, [currentAnnouncement, apiUrl]);
+
+  const handleClose = () => {
+    setApiUrl(currentApiUrl);
+    setIsEditing(false);
+    onClose();
+  };
+
+  const handleEditApiUrl = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveApiUrl = () => {
+    setIsEditing(false);
+  };
 
   const handleSignNewAnnouncement = () => {
     setIsSigningNew(true);
-    api.signApiAnnouncement(currentApiUrl).then(() => {
+    api.signApiAnnouncement(apiUrl).then(() => {
       setIsSigningNew(false);
       onClose();
     });
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='lg'>
+    <Modal isOpen={isOpen} onClose={handleClose} size='lg'>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader bg='blue.50' borderTopRadius='md'>
@@ -74,7 +90,27 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
                   'federation-dashboard.danger-zone.sign-api-announcement.current-api-url'
                 )}
               </Text>
-              <Text fontFamily='mono'>{currentApiUrl}</Text>
+              {isEditing ? (
+                <Input
+                  value={apiUrl}
+                  onChange={(e) => setApiUrl(e.target.value)}
+                  onBlur={handleSaveApiUrl}
+                  fontFamily='mono'
+                />
+              ) : (
+                <Flex align='center'>
+                  <Text fontFamily='mono' flex={1}>
+                    {apiUrl}
+                  </Text>
+                  <Icon
+                    as={FiEdit2}
+                    color='blue.500'
+                    boxSize={4}
+                    cursor='pointer'
+                    onClick={handleEditApiUrl}
+                  />
+                </Flex>
+              )}
             </Box>
             <Box borderWidth={1} borderRadius='md' p={4} bg='gray.50'>
               <Text fontWeight='bold' mb={2}>
@@ -82,8 +118,12 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
                   'federation-dashboard.danger-zone.sign-api-announcement.announced-api-url'
                 )}
               </Text>
-              <Text fontFamily='mono'>
-                {currentAnnouncement?.api_url || t('common.unknown')}
+              <Text fontFamily='mono' flex={1}>
+                {signedApiAnnouncements[ourPeer.id.toString()]?.api_announcement
+                  ?.api_url ||
+                  t(
+                    'federation-dashboard.danger-zone.sign-api-announcement.no-announcement'
+                  )}
               </Text>
             </Box>
             <Divider my={2} />
@@ -131,7 +171,7 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
               </Button>
             </Tooltip>
           )}
-          <Button variant='ghost' onClick={onClose}>
+          <Button variant='ghost' onClick={handleClose}>
             {t('common.close')}
           </Button>
         </ModalFooter>

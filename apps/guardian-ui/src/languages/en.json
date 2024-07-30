@@ -15,7 +15,8 @@
     "threshold": "Threshold",
     "confirm": "Confirm",
     "you": "You",
-    "close": "Close"
+    "close": "Close",
+    "save": "Save"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -141,8 +142,8 @@
         "label": "Sign API Announcement",
         "title": "Sign API Announcement",
         "description": "Sign a new API announcement.",
-        "current-api-url": "API URL from Local Config",
-        "announced-api-url": "API URL from Federation Announcements",
+        "current-api-url": "Your API URL from Local Config",
+        "announced-api-url": "Your API URL from Federation Announcements",
         "urls-match": "Your current API URL matches your announced API URL.",
         "urls-mismatch": "You've changed the API URL in your local config and need to broadcast a new API announcement.",
         "sign-button": "Sign new API announcement",
