@@ -67,7 +67,7 @@ export const DangerZone: React.FC<DangerZoneProps> = ({
       </Flex>
       <Collapse in={isOpen} animateOpacity>
         <Flex direction={['column', 'row']} alignItems='center' gap='6px'>
-          {ourPeer !== undefined && (
+          {ourPeer && (
             <GuardianAuthenticationCode
               ourPeer={ourPeer}
               inviteCode={inviteCode}

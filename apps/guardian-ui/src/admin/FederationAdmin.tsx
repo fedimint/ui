@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Flex, Box, Heading, Skeleton, useDisclosure } from '@chakra-ui/react';
 import {
   ClientConfig,
@@ -57,24 +57,15 @@ export const FederationAdmin: React.FC = () => {
   // API announcement modal
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [announcementNeeded, setAnnouncementNeeded] = useState(false);
+  const checkAnnouncementRef = useRef(false);
 
   // Extracting our peer ID and name from intersection of config and status
   useEffect(() => {
-    if (config && status?.federation && ourPeer) {
-      const currentApiUrl = process.env.REACT_APP_FM_CONFIG_API || '';
-      const currentAnnouncement =
-        signedApiAnnouncements[ourPeer.id.toString()]?.api_announcement;
-
-      checkAnnouncementNeeded(
-        currentApiUrl,
-        currentAnnouncement,
-        setAnnouncementNeeded,
-        onOpen
-      );
-
+    if (config && status?.federation && !checkAnnouncementRef.current) {
       const statusPeerIds = Object.keys(status.federation.status_by_peer).map(
         (id) => parseInt(id, 10)
       );
+
       const configPeerIds = Object.keys(config.global.api_endpoints).map((id) =>
         parseInt(id, 10)
       );
@@ -85,12 +76,23 @@ export const FederationAdmin: React.FC = () => {
           id: ourPeerId,
           name: config.global.api_endpoints[ourPeerId].name,
         });
+        const currentApiUrl = process.env.REACT_APP_FM_CONFIG_API || '';
+        const currentAnnouncement =
+          signedApiAnnouncements[ourPeerId.toString()]?.api_announcement;
+
+        checkAnnouncementNeeded(
+          currentApiUrl,
+          currentAnnouncement,
+          setAnnouncementNeeded,
+          onOpen
+        );
+        checkAnnouncementRef.current = true;
       }
 
       const latestSession = status?.federation?.session_count;
       setLatestSession(latestSession);
     }
-  }, [config, status, ourPeer, signedApiAnnouncements, onOpen]);
+  }, [config, status, signedApiAnnouncements, onOpen]);
 
   useEffect(() => {
     api.inviteCode().then(setInviteCode).catch(console.error);
@@ -152,9 +154,13 @@ export const FederationAdmin: React.FC = () => {
           signedApiAnnouncements={signedApiAnnouncements}
         />
         <GatewaysCard config={config} />
-        {ourPeer ? (
-          <FederationTabsCard config={config} ourPeer={ourPeer} />
-        ) : null}
+        {ourPeer && (
+          <FederationTabsCard
+            config={config}
+            ourPeer={ourPeer}
+            signedApiAnnouncements={signedApiAnnouncements}
+          />
+        )}
         <DangerZone
           inviteCode={inviteCode}
           ourPeer={ourPeer}

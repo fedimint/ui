@@ -35,14 +35,10 @@ export const BitcoinNodeCard: React.FC<Props> = ({ modulesConfigs }) => {
         key: 'network',
         label: t('federation-dashboard.bitcoin-node.network-label'),
         value: walletConfig ? (
-          <Text as='span'>
-            {walletConfig.network && (
-              <NetworkIndicator
-                network={walletConfig.network}
-                bitcoinRpcUrl={walletConfig.default_bitcoin_rpc?.url}
-              />
-            )}
-          </Text>
+          <NetworkIndicator
+            network={walletConfig.network}
+            bitcoinRpcUrl={walletConfig.default_bitcoin_rpc?.url}
+          />
         ) : (
           <Skeleton height='24px' width='100px' />
         ),

@@ -20,15 +20,17 @@ export const ApiAnnouncements: React.FC<Props> = ({
     () => [
       {
         key: 'guardian',
-        heading: t('federation-dashboard.api-announcements.guardian-label'),
+        heading: t('federation-dashboard.api-announcements.guardian'),
+        width: '20%',
       },
       {
         key: 'revision',
-        heading: t('federation-dashboard.api-announcements.revision-label'),
+        heading: t('federation-dashboard.api-announcements.revision'),
+        width: '10%',
       },
       {
         key: 'apiUrl',
-        heading: t('federation-dashboard.api-announcements.api-url-label'),
+        heading: t('federation-dashboard.api-announcements.api-url'),
       },
     ],
     [t]
