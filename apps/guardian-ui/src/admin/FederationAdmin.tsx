@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Flex, Box, Heading, Skeleton, useDisclosure } from '@chakra-ui/react';
 import {
   ClientConfig,
@@ -59,17 +59,36 @@ export const FederationAdmin: React.FC = () => {
   const [announcementNeeded, setAnnouncementNeeded] = useState(false);
   const checkAnnouncementRef = useRef(false);
 
-  if (announcementNeeded) {
-    onOpen();
-  }
+  useEffect(() => {
+    if (announcementNeeded) {
+      onOpen();
+    }
+  }, [announcementNeeded, onOpen]);
 
-  // Extracting our peer ID and name from intersection of config and status
+  const fetchData = useCallback(() => {
+    api.inviteCode().then(setInviteCode).catch(console.error);
+    api.config().then(setConfig).catch(console.error);
+    api.apiAnnouncements().then(setSignedApiAnnouncements).catch(console.error);
+    api
+      .status()
+      .then((statusData) => {
+        setStatus(statusData);
+        setLatestSession(statusData?.federation?.session_count);
+      })
+      .catch(console.error);
+  }, [api]);
+
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(fetchData, 5000);
+    return () => clearInterval(interval);
+  }, [fetchData]);
+
   useEffect(() => {
     if (config && status?.federation && !checkAnnouncementRef.current) {
       const statusPeerIds = Object.keys(status.federation.status_by_peer).map(
         (id) => parseInt(id, 10)
       );
-
       const configPeerIds = Object.keys(config.global.api_endpoints).map((id) =>
         parseInt(id, 10)
       );
@@ -92,23 +111,8 @@ export const FederationAdmin: React.FC = () => {
         );
         checkAnnouncementRef.current = true;
       }
-
-      const latestSession = status?.federation?.session_count;
-      setLatestSession(latestSession);
     }
   }, [config, status, signedApiAnnouncements, onOpen]);
-
-  useEffect(() => {
-    api.inviteCode().then(setInviteCode).catch(console.error);
-    api.config().then(setConfig).catch(console.error);
-    const fetchStatus = () => {
-      api.status().then(setStatus).catch(console.error);
-    };
-    api.apiAnnouncements().then(setSignedApiAnnouncements).catch(console.error);
-    fetchStatus();
-    const interval = setInterval(fetchStatus, 5000);
-    return () => clearInterval(interval);
-  }, [api]);
 
   return (
     <Flex gap='32px' flexDirection='row'>

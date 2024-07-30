@@ -44,7 +44,7 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
   const [apiUrl, setApiUrl] = useState(currentApiUrl);
 
   const currentAnnouncement = ourPeer
-    ? signedApiAnnouncements[ourPeer.id.toString()].api_announcement
+    ? signedApiAnnouncements[ourPeer.id.toString()]?.api_announcement
     : undefined;
 
   const announcementMatches = useMemo(() => {
