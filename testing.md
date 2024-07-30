@@ -63,3 +63,4 @@ We test this with docker so we can restart services on different ports, simulati
 
 8. Confirm the updated API announcement reflects on the other guardians
 9. Refresh the gateway UI and confirm that it updates to open a ws with the guardian on its new port from the new api announcement
+10. Before committing anything, run `just reset dc` to reset the docker-compose that was modified during the api rotation testing by the scripts
