@@ -24,16 +24,21 @@ const checkAnnouncementNeeded = (
   setAnnouncementNeeded: React.Dispatch<React.SetStateAction<boolean>>,
   onOpen: () => void
 ) => {
-  if (currentAnnouncement) {
-    const announcementMatches =
-      normalizeUrl(currentAnnouncement.api_url) === normalizeUrl(currentApiUrl);
-    setAnnouncementNeeded(!announcementMatches);
-    if (!announcementMatches) {
+  try {
+    if (currentAnnouncement) {
+      const announcementMatches =
+        normalizeUrl(currentAnnouncement.api_url) ===
+        normalizeUrl(currentApiUrl);
+      setAnnouncementNeeded(!announcementMatches);
+      if (!announcementMatches) {
+        onOpen();
+      }
+    } else {
+      setAnnouncementNeeded(true);
       onOpen();
     }
-  } else {
-    setAnnouncementNeeded(true);
-    onOpen();
+  } catch (error) {
+    console.error('Error checking announcement:', error);
   }
 };
 

@@ -68,10 +68,16 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
 
   const handleSignNewAnnouncement = () => {
     setIsSigningNew(true);
-    api.signApiAnnouncement(apiUrl).then(() => {
-      setIsSigningNew(false);
-      onClose();
-    });
+    api
+      .signApiAnnouncement(apiUrl)
+      .then(() => {
+        setIsSigningNew(false);
+        onClose();
+      })
+      .catch((error) => {
+        setIsSigningNew(false);
+        console.error('Failed to sign API announcement:', error);
+      });
   };
 
   return (

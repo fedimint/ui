@@ -52,12 +52,14 @@ export const normalizeUrl = (url: string): string => {
       : `${parsedUrl.protocol}:`;
 
     // Extract only the port for IP addresses, localhost, or Docker-style hostnames
-    const host =
-      ['localhost', '127.0.0.1'].includes(parsedUrl.hostname) ||
-      /^\d+\.\d+\.\d+\.\d+$/.test(parsedUrl.hostname) ||
-      /^[\w-]+$/.test(parsedUrl.hostname)
-        ? `:${parsedUrl.port}`
-        : parsedUrl.host;
+    const isLocalOrIpOrDockerStyle = (hostname: string) =>
+      ['localhost', '127.0.0.1'].includes(hostname) ||
+      /^\d+\.\d+\.\d+\.\d+$/.test(hostname) ||
+      /^[\w-]+$/.test(hostname);
+
+    const host = isLocalOrIpOrDockerStyle(parsedUrl.hostname)
+      ? `:${parsedUrl.port}`
+      : parsedUrl.host;
 
     // Combine parts
     let normalizedUrl = `${protocol}//${host}`;
@@ -70,7 +72,8 @@ export const normalizeUrl = (url: string): string => {
     return normalizedUrl;
   } catch (error) {
     // If URL parsing fails, return the original string
-    console.warn(`Failed to normalize URL: ${url}`, error);
+    console.error(`Failed to normalize URL: ${url}`, error);
+    console.warn(`Returning original URL: ${url}`);
     return url;
   }
 };
