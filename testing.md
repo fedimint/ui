@@ -31,7 +31,7 @@ In your nix dev-shell
 - From the gateway, start a withdraw to that address
 - Mine some coins with `bitcoin-cli generatetoaddress 100 $(bitcoin-cli getnewaddress)`
 - Confirm the coins are out of the gateway-ui wallet
-- Confirm the coins are off of the guardian-ui balance sheet
+- Confirm the coins are off the guardian-ui balance sheet
 
 8. Coordinate a shutdown
 
