@@ -240,17 +240,19 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
                 readOnly={isValid}
               />
               <InputRightElement>
-                <Icon
-                  as={ScanIcon}
-                  cursor='pointer'
-                  onClick={() => {
-                    setQrModalOpen(true);
-                    setScanningGuardian(peersWithHash[idx].peer.name);
-                  }}
-                  boxSize='1.5rem'
-                  color='gray.500'
-                  _hover={{ color: 'blue.500' }}
-                />
+                {!isValid && (
+                  <Icon
+                    as={ScanIcon}
+                    cursor='pointer'
+                    onClick={() => {
+                      setQrModalOpen(true);
+                      setScanningGuardian(peersWithHash[idx].peer.name);
+                    }}
+                    boxSize='1.5rem'
+                    color='gray.500'
+                    _hover={{ color: 'blue.500' }}
+                  />
+                )}
               </InputRightElement>
             </InputGroup>
           </FormControl>
