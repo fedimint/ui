@@ -1,6 +1,6 @@
 ### Testing Instructions
 
-#### Fedimint Guardian & Gateway UI End to End Testing Instructions
+#### Fedimint Guardian & Gateway UI End-to-End Testing Instructions
 
 In your nix dev-shell
 
