@@ -63,8 +63,9 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [verifiedConfigs, setVerifiedConfigs] = useState<boolean>(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isQrModalOpen, setQrModalOpen] = useState(false);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [scanningGuardian, setScanningGuardian] = useState<string>();
 
   // Poll for peers and configGenParams while on this page.
@@ -245,7 +246,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
                     as={ScanIcon}
                     cursor='pointer'
                     onClick={() => {
-                      setQrModalOpen(true);
+                      setIsScannerOpen(true);
                       setScanningGuardian(peersWithHash[idx].peer.name);
                     }}
                     boxSize='1.5rem'
@@ -300,7 +301,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             <Icon
               as={QrIcon}
               cursor='pointer'
-              onClick={() => setIsOpen(true)}
+              onClick={() => setQrModalOpen(true)}
               bg='white'
               boxSize='40px'
               borderRadius='10%'
@@ -382,7 +383,9 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             isDisabled={!verifiedConfigs}
             isLoading={isStarting}
             onClick={
-              role === GuardianRole.Host ? () => setIsOpen(true) : handleNext
+              role === GuardianRole.Host
+                ? () => setIsConfirmOpen(true)
+                : handleNext
             }
             leftIcon={<Icon as={ArrowRightIcon} />}
             width={{ base: 'full', sm: 'auto' }}
@@ -392,19 +395,19 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           <WaitingForVerification verifiedConfigs={verifiedConfigs} />
         </Stack>
         <ConfirmFollowersConnected
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
+          isOpen={isConfirmOpen}
+          setIsOpen={setIsConfirmOpen}
           handleNext={handleNext}
         />
         <QrModal
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          content={`${ourCurrentId}:${myHash}`}
-          header={t('setup.verify-guardians.verification-code')}
-        />
-        <QrScannerModal
           isOpen={isQrModalOpen}
           onClose={() => setQrModalOpen(false)}
+          content={`${ourCurrentId}:${myHash}`}
+          header={t('verify-guardians.verification-code')}
+        />
+        <QrScannerModal
+          isOpen={isScannerOpen}
+          onClose={() => setIsScannerOpen(false)}
           onScan={handleScanHash}
           title={t('verify-guardians.scanning-guardian', {
             guardian: scanningGuardian,
