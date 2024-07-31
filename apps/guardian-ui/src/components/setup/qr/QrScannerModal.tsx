@@ -73,12 +73,17 @@ export const QrScannerModal: React.FC<QrScannerModalProps> = ({
           alignItems='center'
           pb={8}
         >
-          <Flex direction='column' width='100%' alignItems='center' gap={4}>
+          <Flex
+            direction='column'
+            width='100%'
+            alignItems='center'
+            gap={4}
+            minHeight='300px'
+          >
             <Scanner
               scanning={isOpen}
               onResult={handleScan}
               onError={(e) => handleError(e.toString())}
-              style={{ width: '100%', height: 'auto' }}
             />
             <Button onClick={handlePaste}>Paste</Button>
           </Flex>

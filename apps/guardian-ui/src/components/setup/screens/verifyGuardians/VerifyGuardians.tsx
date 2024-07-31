@@ -20,7 +20,6 @@ import {
   useBreakpointValue,
   Stack,
   StackDirection,
-  InputRightElement,
 } from '@chakra-ui/react';
 import { ServerStatus, Peer } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
@@ -36,7 +35,7 @@ import { ReactComponent as QrIcon } from '../../../../assets/svgs/qr.svg';
 import { ReactComponent as ScanIcon } from '../../../../assets/svgs/scan.svg';
 import { QrModal } from '../../qr/QrModal';
 import { ConfirmFollowersConnected } from './ConfirmFollowersConnected';
-import { QrScannerModal } from '../../qr/QrScannerModal';
+import { VerifyGuardiansScanner } from '../../qr/VerifyGuardiansScanner';
 
 interface PeerWithHash {
   id: string;
@@ -65,8 +64,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [error, setError] = useState<string>();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isQrModalOpen, setQrModalOpen] = useState(false);
-  const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const [scanningGuardian, setScanningGuardian] = useState<string>();
+  const [isScannerActive, setIsScannerActive] = useState(false);
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -203,15 +201,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     });
   }, []);
 
-  const handleScanHash = useCallback(
-    (data: string) => {
-      // parse out index:value from the data string
-      const [index, value] = data.split(':');
-      handleChangeHash(value, parseInt(index, 10));
-    },
-    [handleChangeHash]
-  );
-
   const tableRows = useMemo(() => {
     if (!peersWithHash) return [];
     return peersWithHash.map(({ peer, hash }, idx) => {
@@ -232,30 +221,13 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         ),
         hashInput: (
           <FormControl isInvalid={isError}>
-            <InputGroup size='md'>
-              <Input
-                variant='filled'
-                value={value}
-                placeholder={`${t('verify-guardians.verified-placeholder')}`}
-                onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
-                readOnly={isValid}
-              />
-              <InputRightElement>
-                {!isValid && (
-                  <Icon
-                    as={ScanIcon}
-                    cursor='pointer'
-                    onClick={() => {
-                      setIsScannerOpen(true);
-                      setScanningGuardian(peersWithHash[idx].peer.name);
-                    }}
-                    boxSize='1.5rem'
-                    color='gray.500'
-                    _hover={{ color: 'blue.500' }}
-                  />
-                )}
-              </InputRightElement>
-            </InputGroup>
+            <Input
+              variant='filled'
+              value={value}
+              placeholder={`${t('verify-guardians.verified-placeholder')}`}
+              onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
+              readOnly={isValid}
+            />
           </FormControl>
         ),
       };
@@ -308,11 +280,34 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
               border='1px solid lightgray'
               _hover={{ bg: 'gray.100' }}
             />
+            <Button
+              onClick={() => setIsScannerActive(!isScannerActive)}
+              leftIcon={<Icon as={ScanIcon} />}
+              size='sm'
+              variant='outline'
+              bg='white'
+              borderColor='gray.200'
+              _hover={{ bg: 'gray.100' }}
+              color='black.700'
+            >
+              {isScannerActive
+                ? t('verify-guardians.stop-scan')
+                : t('verify-guardians.start-scan')}
+            </Button>
           </Flex>
           <FormHelperText>
             {t('verify-guardians.verification-code-help')}
           </FormHelperText>
         </FormControl>
+        {isScannerActive && (
+          <VerifyGuardiansScanner
+            onScan={(data) => {
+              const [index, hash] = data.split(':');
+              handleChangeHash(hash, parseInt(index, 10));
+            }}
+            scannedGuardians={peersWithHash.map(({ peer }) => peer.name)}
+          />
+        )}
         <Hide below='sm'>
           <Table
             title={t('verify-guardians.table-title')}
@@ -404,14 +399,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           onClose={() => setQrModalOpen(false)}
           content={`${ourCurrentId}:${myHash}`}
           header={t('verify-guardians.verification-code')}
-        />
-        <QrScannerModal
-          isOpen={isScannerOpen}
-          onClose={() => setIsScannerOpen(false)}
-          onScan={handleScanHash}
-          title={t('verify-guardians.scanning-guardian', {
-            guardian: scanningGuardian,
-          })}
         />
       </Flex>
     );

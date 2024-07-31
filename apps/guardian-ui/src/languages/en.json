@@ -307,7 +307,9 @@
     "wait-all-guardians-verification": "Waiting for all Guardians to verify their codes",
     "all-guardians-verified": "All Guardians have verified their codes",
     "starting-consensus": "Starting consensus...",
-    "scanning-guardian": "Scan QR for {{guardian}}"
+    "scanning-guardian": "Scan QR for {{guardian}}",
+    "stop-scan": "Stop Scan",
+    "start-scan": "Start Scan"
   },
   "footer": {
     "docs-section-header": "Docs",

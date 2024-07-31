@@ -73,7 +73,7 @@ export const Scanner: React.FC<ScannerProps> = ({
     <video
       ref={ref}
       {...props}
-      style={{ display: scanning ? 'block' : 'hidden' }}
+      style={{ display: scanning ? 'block' : 'hidden', minHeight: '300px' }}
     />
   );
 };
