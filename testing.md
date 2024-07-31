@@ -15,7 +15,7 @@ In your nix dev-shell
 - From 1 guardian, propose a new meta with some key/values
 - Confirm on the other guardians, once a threshold is met it will set it as the new meta
 - Modify the meta from another guardian and propose the modifications
-- Confirm the meta modifications on the other guardians, once a threshold is met it will set it as the new meta
+- Confirm the meta modifications on the other guardians, once a threshold is met, it will set it as the new meta
 
 6. Peg in some bitcoin to the federation.
 
