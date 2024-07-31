@@ -35,7 +35,7 @@ import { ReactComponent as QrIcon } from '../../../../assets/svgs/qr.svg';
 import { ReactComponent as ScanIcon } from '../../../../assets/svgs/scan.svg';
 import { QrModal } from '../../qr/QrModal';
 import { ConfirmFollowersConnected } from './ConfirmFollowersConnected';
-import { VerifyGuardiansScanner } from '../../qr/VerifyGuardiansScanner';
+import { Scanner } from '../../qr/Scanner';
 
 interface PeerWithHash {
   id: string;
@@ -300,12 +300,13 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           </FormHelperText>
         </FormControl>
         {isScannerActive && (
-          <VerifyGuardiansScanner
-            onScan={(data) => {
+          <Scanner
+            scanning={true}
+            onResult={(data) => {
               const [index, hash] = data.split(':');
               handleChangeHash(hash, parseInt(index, 10));
             }}
-            scannedGuardians={peersWithHash.map(({ peer }) => peer.name)}
+            onError={(error) => console.error(error)}
           />
         )}
         <Hide below='sm'>
