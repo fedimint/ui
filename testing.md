@@ -36,7 +36,7 @@ In your nix dev-shell
 8. Coordinate a shutdown
 
 - From each of the guardian UIs, go to Danger Zone and use the Coordinate Shutdown button to set a session height to shutdown at. Give it ~10 sessions from the current session height
-- just send some coins back and forth on the gateway to keep the sessions coming until they shutdown
+- just send some coins back and forth on the gateway to keep the sessions coming until they shut down
 - confirm in the logs that the guardians all shut down at the same session height
 
 #### Test Guardian API Rotation
