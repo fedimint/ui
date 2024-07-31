@@ -7,7 +7,7 @@ In your nix dev-shell
 1. Run `just guardian` to spin up 4x guardians and UIs on ports :3000, :3001, :3002, :3003
 2. Walk through the setup process
 
-- PLEASE open issues for anything you run into here, this is the most important part to get right and seamless and we're always looking to streamline this setup process
+- PLEASE open issues for anything you run into here, this is the most important part to get right and seamless, and we're always looking to streamline this setup process
 
 3. After setup, connect the gateway with UI running on port :3004
 4. Set up a meta for the federation
