@@ -1,41 +1,22 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-  Button,
-  FormControl,
-  FormLabel,
-  FormHelperText,
   Flex,
-  Icon,
   Heading,
   Text,
   Spinner,
-  Input,
-  Tag,
   useTheme,
   CircularProgress,
-  Hide,
-  Show,
-  Box,
-  InputGroup,
-  useBreakpointValue,
-  Stack,
-  StackDirection,
 } from '@chakra-ui/react';
 import { ServerStatus, Peer } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { CopyInput, Table } from '@fedimint/ui';
 import { useConsensusPolling, useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
-import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
-import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../../../../utils/api';
-import { ReactComponent as CheckCircleIcon } from '../../../../assets/svgs/check-circle.svg';
-import { ReactComponent as XCircleIcon } from '../../../../assets/svgs/x-circle.svg';
-import { ReactComponent as QrIcon } from '../../../../assets/svgs/qr.svg';
-import { ReactComponent as ScanIcon } from '../../../../assets/svgs/scan.svg';
 import { QrModal } from '../../qr/QrModal';
-import { ConfirmFollowersConnected } from './ConfirmFollowersConnected';
 import { Scanner } from '../../qr/Scanner';
+import { VerificationCodeInput } from './VerificationCodeInput';
+import { VerificationButton } from './VerificationButton';
+import { PeerVerificationTable } from './PeerVerificationTable';
 
 interface PeerWithHash {
   id: string;
@@ -62,7 +43,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [verifiedConfigs, setVerifiedConfigs] = useState<boolean>(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isQrModalOpen, setQrModalOpen] = useState(false);
   const [isScannerActive, setIsScannerActive] = useState(false);
 
@@ -150,7 +130,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     toggleConsensusPolling,
   ]);
 
-  const handleNext = useCallback(async () => {
+  const handleNext = useCallback(async (): Promise<void> => {
     setIsStarting(true);
     try {
       await api.startConsensus();
@@ -168,31 +148,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     }
   }, [handleNext, numPeers, isHost]);
 
-  const tableColumns = useMemo(
-    () => [
-      {
-        key: 'name',
-        heading: t('verify-guardians.table-column-name'),
-        width: '200px',
-      },
-      {
-        key: 'status',
-        heading: t('verify-guardians.table-column-status'),
-        width: '160px',
-      },
-      {
-        key: 'hashInput',
-        heading: t('verify-guardians.table-column-hash-input'),
-      },
-    ],
-    [t]
-  );
-
-  const direction = useBreakpointValue({
-    base: 'column-reverse',
-    sm: 'row',
-  }) as StackDirection | undefined;
-
   const handleChangeHash = useCallback((value: string, index: number) => {
     setEnteredHashes((hashes) => {
       const newHashes = [...hashes];
@@ -200,39 +155,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       return newHashes;
     });
   }, []);
-
-  const tableRows = useMemo(() => {
-    if (!peersWithHash) return [];
-    return peersWithHash.map(({ peer, hash }, idx) => {
-      const value = enteredHashes[idx] || '';
-      const isValid = Boolean(value && value === hash);
-      const isError = Boolean(value && !isValid);
-      return {
-        key: peer.cert,
-        name: (
-          <Text maxWidth={200} isTruncated>
-            {peer.name}
-          </Text>
-        ),
-        status: isValid ? (
-          <Tag colorScheme='green'>{t('verify-guardians.verified')}</Tag>
-        ) : (
-          ''
-        ),
-        hashInput: (
-          <FormControl isInvalid={isError}>
-            <Input
-              variant='filled'
-              value={value}
-              placeholder={`${t('verify-guardians.verified-placeholder')}`}
-              onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
-              readOnly={isValid}
-            />
-          </FormControl>
-        ),
-      };
-    });
-  }, [peersWithHash, enteredHashes, handleChangeHash, t]);
 
   if (error) {
     return (
@@ -257,48 +179,12 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   } else {
     return (
       <Flex direction='column' gap={10} justify='start' align='start'>
-        <FormControl
-          bg={theme.colors.blue[50]}
-          p={4}
-          borderRadius='md'
-          maxW='md'
-        >
-          <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
-          <Flex direction='row' alignItems='center' gap='6px'>
-            <CopyInput
-              value={myHash}
-              buttonLeftIcon={<Icon as={CopyIcon} />}
-              size='sm'
-            />
-            <Icon
-              as={QrIcon}
-              cursor='pointer'
-              onClick={() => setQrModalOpen(true)}
-              bg='white'
-              boxSize='40px'
-              borderRadius='10%'
-              border='1px solid lightgray'
-              _hover={{ bg: 'gray.100' }}
-            />
-            <Button
-              onClick={() => setIsScannerActive(!isScannerActive)}
-              leftIcon={<Icon as={ScanIcon} />}
-              size='sm'
-              variant='outline'
-              bg='white'
-              borderColor='gray.200'
-              _hover={{ bg: 'gray.100' }}
-              color='black.700'
-            >
-              {isScannerActive
-                ? t('verify-guardians.stop-scan')
-                : t('verify-guardians.start-scan')}
-            </Button>
-          </Flex>
-          <FormHelperText>
-            {t('verify-guardians.verification-code-help')}
-          </FormHelperText>
-        </FormControl>
+        <VerificationCodeInput
+          myHash={myHash}
+          setQrModalOpen={setQrModalOpen}
+          isScannerActive={isScannerActive}
+          setIsScannerActive={setIsScannerActive}
+        />
         {isScannerActive && (
           <Scanner
             scanning={true}
@@ -309,90 +195,17 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             onError={(error) => console.error(error)}
           />
         )}
-        <Hide below='sm'>
-          <Table
-            title={t('verify-guardians.table-title')}
-            description={t('verify-guardians.table-description')}
-            columns={tableColumns}
-            rows={tableRows}
+        {peersWithHash && (
+          <PeerVerificationTable
+            peersWithHash={peersWithHash}
+            enteredHashes={enteredHashes}
+            handleChangeHash={handleChangeHash}
           />
-        </Hide>
-        <Show below='sm'>
-          <Flex direction='column' width='full' gap={4}>
-            {peersWithHash.map(({ peer, hash }, idx) => {
-              const value = enteredHashes[idx] || '';
-              const isValid = value === hash;
-              const isError = value && !isValid;
-
-              return (
-                <Box key={peer.cert}>
-                  <Flex align='center' mb={2}>
-                    <Text fontWeight='bold' isTruncated>
-                      {peer.name}
-                    </Text>
-                    {isValid ? (
-                      <CheckCircleIcon
-                        color='green'
-                        style={{
-                          marginLeft: '8px',
-                          height: '1em',
-                          width: '1em',
-                        }}
-                      />
-                    ) : isError ? (
-                      <XCircleIcon
-                        color='red'
-                        style={{
-                          marginLeft: '8px',
-                          height: '1em',
-                          width: '1em',
-                        }}
-                      />
-                    ) : null}
-                  </Flex>
-
-                  <Flex direction='row' align='center' justify='start'>
-                    <FormControl>
-                      <InputGroup>
-                        <Input
-                          variant='filled'
-                          borderColor={'gray.100'}
-                          value={value}
-                          placeholder={`${t(
-                            'verify-guardians.verified-placeholder'
-                          )}`}
-                          onChange={(ev) =>
-                            handleChangeHash(ev.currentTarget.value, idx)
-                          }
-                          readOnly={isValid}
-                        />
-                      </InputGroup>
-                    </FormControl>
-                  </Flex>
-                </Box>
-              );
-            })}
-          </Flex>
-        </Show>
-        <Stack direction={direction} gap={4} width='full' align='center'>
-          <Button
-            isDisabled={!verifiedConfigs}
-            isLoading={isStarting}
-            onClick={
-              role === GuardianRole.Host
-                ? () => setIsConfirmOpen(true)
-                : handleNext
-            }
-            leftIcon={<Icon as={ArrowRightIcon} />}
-            width={{ base: 'full', sm: 'auto' }}
-          >
-            {t('common.next')}
-          </Button>
-          <WaitingForVerification verifiedConfigs={verifiedConfigs} />
-        </Stack>
-        <ConfirmFollowersConnected
-          isOpen={isConfirmOpen}
-          setIsOpen={setIsConfirmOpen}
+        )}
+        <VerificationButton
+          role={role as GuardianRole}
+          verifiedConfigs={verifiedConfigs}
+          isStarting={isStarting}
           handleNext={handleNext}
         />
         <QrModal
@@ -404,23 +217,4 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       </Flex>
     );
   }
-};
-
-const WaitingForVerification: React.FC<{ verifiedConfigs: boolean }> = ({
-  verifiedConfigs,
-}) => {
-  const { t } = useTranslation();
-
-  return (
-    <Flex direction='row' height='100%' my={'auto'} gap={4} align='center'>
-      {verifiedConfigs ? (
-        <Text>{t('verify-guardians.all-guardians-verified')}</Text>
-      ) : (
-        <>
-          <Spinner />
-          <Text>{t('verify-guardians.wait-all-guardians-verification')}</Text>
-        </>
-      )}
-    </Flex>
-  );
 };
