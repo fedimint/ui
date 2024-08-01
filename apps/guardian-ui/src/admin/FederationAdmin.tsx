@@ -26,6 +26,8 @@ const checkAnnouncementNeeded = (
 ) => {
   try {
     if (currentAnnouncement) {
+      console.log('currentAnnouncement', currentAnnouncement.api_url);
+      console.log('currentApiUrl', currentApiUrl);
       const announcementMatches =
         normalizeUrl(currentAnnouncement.api_url) ===
         normalizeUrl(currentApiUrl);
@@ -33,9 +35,6 @@ const checkAnnouncementNeeded = (
       if (!announcementMatches) {
         onOpen();
       }
-    } else {
-      setAnnouncementNeeded(true);
-      onOpen();
     }
   } catch (error) {
     console.error('Error checking announcement:', error);

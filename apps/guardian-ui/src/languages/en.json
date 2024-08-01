@@ -144,6 +144,7 @@
         "description": "Sign a new API announcement.",
         "current-api-url": "Your API URL from Local Config",
         "announced-api-url": "Your API URL from Federation Announcements",
+        "no-announcement": "No announcement found",
         "urls-match": "Your current API URL matches your announced API URL.",
         "urls-mismatch": "You've changed the API URL in your local config and need to broadcast a new API announcement.",
         "sign-button": "Sign new API announcement",
