@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   AlertDescription,
@@ -6,6 +6,7 @@ import {
   AlertTitle,
   Box,
   Button,
+  Checkbox,
   Flex,
   FormControl,
   FormHelperText,
@@ -40,6 +41,7 @@ export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
   onClose,
 }) => {
   const { t } = useTranslation();
+  const [isBackupConfirmed, setIsBackupConfirmed] = useState(false);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -74,6 +76,13 @@ export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
                 </AlertDescription>
               </Box>
             </Alert>
+            <Checkbox
+              mt={4}
+              isChecked={isBackupConfirmed}
+              onChange={(e) => setIsBackupConfirmed(e.target.checked)}
+            >
+              {t('set-config.admin-password-backup')}
+            </Checkbox>
           </FormControl>
         </ModalBody>
         <ModalFooter>
