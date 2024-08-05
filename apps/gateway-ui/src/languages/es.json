@@ -23,7 +23,7 @@
     "submit": "Enviar"
   },
   "balance-card": {
-    "card_header": "saldo de eCash",
+    "card_header": "Saldo de eCash",
     "sentence": "Denominado en Sats",
     "your-balance": "Tu saldo de eCash en esta federación:"
   },

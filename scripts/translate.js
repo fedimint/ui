@@ -95,7 +95,7 @@ async function translateWithOpenAI(text, targetLang) {
 
   if (
     response &&
-    response.choices &&
+    response?.choices &&
     response.choices.length > 0 &&
     response.choices[0].message
   ) {
