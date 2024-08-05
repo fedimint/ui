@@ -142,7 +142,7 @@ export const FederationSetup: React.FC = () => {
         ? t('setup.progress.connect-guardians.subtitle-leader')
         : t('setup.progress.connect-guardians.subtitle-follower');
       content = <ConnectGuardians next={handleNext} />;
-      canGoBack = true;
+      canGoBack = false;
       canRestart = true;
       break;
     case SetupProgress.RunDKG:
