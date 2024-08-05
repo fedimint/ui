@@ -9,13 +9,7 @@ import {
 import { StatusIndicator, Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 
-type TableKey =
-  | 'peerId'
-  | 'name'
-  | 'status'
-  | 'health'
-  | 'lastContribution'
-  | 'apiUrl';
+type TableKey = 'idName' | 'status' | 'health' | 'lastContribution' | 'apiUrl';
 
 interface Props {
   status: StatusResponse | undefined;
@@ -35,8 +29,8 @@ export const GuardiansCard: React.FC<Props> = ({
   const columns: TableColumn<TableKey>[] = useMemo(
     () => [
       {
-        key: 'name',
-        heading: t('federation-dashboard.guardians.name-label'),
+        key: 'idName',
+        heading: t('federation-dashboard.guardians.id-name-label'),
       },
       {
         key: 'status',
@@ -54,10 +48,6 @@ export const GuardiansCard: React.FC<Props> = ({
         key: 'apiUrl',
         heading: t('federation-dashboard.guardians.api-url-label'),
       },
-      {
-        key: 'peerId',
-        heading: t('federation-dashboard.guardians.peer-id-label'),
-      },
     ],
     [t]
   );
@@ -74,8 +64,10 @@ export const GuardiansCard: React.FC<Props> = ({
       if (endpoint) {
         peerDataArray.push({
           key: id,
-          peerId: ourPeer?.id === numericId ? `${numericId} (You)` : numericId,
-          name: endpoint.name,
+          idName:
+            ourPeer?.id === numericId
+              ? `${numericId}: ${ourPeer.name} (You)`
+              : numericId,
           status: (
             <StatusIndicator
               status={
