@@ -55,14 +55,13 @@
     },
     "guardians": {
       "label": "Other Guardians",
-      "name-label": "Name",
+      "id-name-label": "ID: Name",
       "status-label": "Connection Status",
       "health-label": "Health",
       "health-issue": "Issue",
       "health-good": "Good",
       "last-contribution-label": "Last contribution block",
-      "api-url-label": "API URL",
-      "peer-id-label": "Peer ID"
+      "api-url-label": "API URL"
     },
     "gateways": {
       "label": "Lightning Gateways",

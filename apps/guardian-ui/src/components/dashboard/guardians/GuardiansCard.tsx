@@ -15,14 +15,12 @@ interface Props {
   status: StatusResponse | undefined;
   config: ClientConfig | undefined;
   signedApiAnnouncements: Record<string, SignedApiAnnouncement>;
-  ourPeer: { id: number; name: string } | undefined;
 }
 
 export const GuardiansCard: React.FC<Props> = ({
   status,
   config,
   signedApiAnnouncements,
-  ourPeer,
 }) => {
   const { t } = useTranslation();
 
@@ -64,10 +62,7 @@ export const GuardiansCard: React.FC<Props> = ({
       if (endpoint) {
         peerDataArray.push({
           key: id,
-          idName:
-            ourPeer?.id === numericId
-              ? `${numericId}: ${ourPeer.name} (You)`
-              : numericId,
+          idName: `${numericId}: ${endpoint.name}`,
           status: (
             <StatusIndicator
               status={
@@ -97,7 +92,7 @@ export const GuardiansCard: React.FC<Props> = ({
       }
     }
     return peerDataArray;
-  }, [status, config, signedApiAnnouncements, t, ourPeer]);
+  }, [status, config, signedApiAnnouncements, t]);
 
   if (config && !rows.length) {
     return null;
