@@ -226,7 +226,23 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   };
 
   return (
-    <Flex direction='column' gap={['2', '6']} justify='start' align='start'>
+    <Flex
+      direction='column'
+      gap={['2', '6']}
+      justify='flex-start'
+      align='flex-start'
+      width='auto'
+    >
+      <FederationSettingsForm
+        federationName={federationName}
+        handleChangeFederationName={handleChangeFederationName}
+        numPeers={numPeers}
+        setNumPeers={setNumPeers}
+        isHost={isHost}
+        isFollower={!isHost && !isSolo}
+        hostServerUrl={hostServerUrl}
+        setHostServerUrl={setHostServerUrl}
+      />
       <BitcoinSettingsForm
         network={network as Network}
         setNetwork={setNetwork}
@@ -236,15 +252,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         setBlockConfirmations={setBlockConfirmations}
         isHostOrSolo={isHost || isSolo}
       />
-      {(isHost || isSolo) && (
-        <FederationSettingsForm
-          federationName={federationName}
-          handleChangeFederationName={handleChangeFederationName}
-          numPeers={numPeers}
-          setNumPeers={setNumPeers}
-          isHost={isHost}
-        />
-      )}
       <BasicSettingsForm
         myName={myName}
         setMyName={setMyName}
@@ -252,25 +259,22 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         setPassword={setPassword}
         hasCopied={hasCopied}
         onCopy={onCopy}
-        isFollower={!isHost && !isSolo}
-        hostServerUrl={hostServerUrl}
-        setHostServerUrl={setHostServerUrl}
       />
-      {error && (
-        <Text color={theme.colors.red[500]} mt={4}>
-          {error}
-        </Text>
-      )}
       <Button
         isDisabled={!isValid}
         onClick={isValid ? handleNext : undefined}
         leftIcon={<Icon as={ArrowRightIcon} />}
         mt={['2', '4']}
-        width={['25%', 'auto']}
-        alignSelf='flex-start'
+        width='60%'
+        alignSelf='center'
       >
         {t('common.next')}
       </Button>
+      {error && (
+        <Text color={theme.colors.red[500]} mt={4}>
+          {error}
+        </Text>
+      )}
       <ConfirmPasswordModal
         password={password}
         confirmPassword={confirmPassword}

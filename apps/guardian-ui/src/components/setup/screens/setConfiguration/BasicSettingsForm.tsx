@@ -21,9 +21,6 @@ interface BasicSettingsFormProps {
   setPassword: (password: string) => void;
   hasCopied: boolean;
   onCopy: () => void;
-  isFollower: boolean;
-  hostServerUrl: string;
-  setHostServerUrl: (url: string) => void;
 }
 
 export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
@@ -33,9 +30,6 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
   setPassword,
   hasCopied,
   onCopy,
-  isFollower,
-  hostServerUrl,
-  setHostServerUrl,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -82,19 +76,6 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
           </Text>
         </FormHelperText>
       </FormControl>
-      {isFollower && (
-        <FormControl>
-          <FormLabel>{t('set-config.join-federation')}</FormLabel>
-          <Input
-            value={hostServerUrl}
-            onChange={(ev) => setHostServerUrl(ev.currentTarget.value)}
-            placeholder='ws://...'
-          />
-          <FormHelperText>
-            {t('set-config.join-federation-help')}
-          </FormHelperText>
-        </FormControl>
-      )}
     </FormGroup>
   );
 };
