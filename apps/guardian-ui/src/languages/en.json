@@ -39,6 +39,7 @@
       "block-count-label": "Consensus Block Height",
       "api-version-label": "API version",
       "consensus-version-label": "Consensus version",
+      "peer-id-label": "Peer ID",
       "session-info": {
         "session-height": "Session Height",
         "latest-session": "Latest Session"
@@ -54,7 +55,7 @@
     },
     "guardians": {
       "label": "Other Guardians",
-      "name-label": "Name",
+      "id-name-label": "ID: Name",
       "status-label": "Connection Status",
       "health-label": "Health",
       "health-issue": "Issue",

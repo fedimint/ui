@@ -9,7 +9,7 @@ import {
 import { StatusIndicator, Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 
-type TableKey = 'name' | 'status' | 'health' | 'lastContribution' | 'apiUrl';
+type TableKey = 'idName' | 'status' | 'health' | 'lastContribution' | 'apiUrl';
 
 interface Props {
   status: StatusResponse | undefined;
@@ -27,8 +27,8 @@ export const GuardiansCard: React.FC<Props> = ({
   const columns: TableColumn<TableKey>[] = useMemo(
     () => [
       {
-        key: 'name',
-        heading: t('federation-dashboard.guardians.name-label'),
+        key: 'idName',
+        heading: t('federation-dashboard.guardians.id-name-label'),
       },
       {
         key: 'status',
@@ -62,7 +62,7 @@ export const GuardiansCard: React.FC<Props> = ({
       if (endpoint) {
         peerDataArray.push({
           key: id,
-          name: endpoint.name,
+          idName: `${numericId}: ${endpoint.name}`,
           status: (
             <StatusIndicator
               status={
