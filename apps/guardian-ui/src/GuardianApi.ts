@@ -308,6 +308,7 @@ export class GuardianApi {
     return this.call_any_method(method, params);
   };
 
+  // NOTE: Uncomment the console.logs for debugging all fedimint rpc calls
   private call_any_method = async <T>(
     method: string,
     params: unknown = null

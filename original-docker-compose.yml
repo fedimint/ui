@@ -76,6 +76,7 @@ services:
     depends_on:
       - bitcoind
 
+  # Uncomment me for a second gateway
   # gatewayd_2:
   #   image: fedimint/gatewayd:master
   #   networks:
