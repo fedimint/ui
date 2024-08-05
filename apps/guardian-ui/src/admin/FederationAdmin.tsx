@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Flex, Box, Heading, Skeleton } from '@chakra-ui/react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Flex, Box, Heading, Skeleton, useDisclosure } from '@chakra-ui/react';
 import {
   ClientConfig,
   SignedApiAnnouncement,
@@ -15,6 +15,39 @@ import { InviteCode } from '../components/dashboard/admin/InviteCode';
 import { FederationTabsCard } from '../components/dashboard/tabs/FederationTabsCard';
 import { BftInfo } from '../components/BftInfo';
 import { DangerZone } from '../components/dashboard/danger/DangerZone';
+import { SignApiAnnouncement } from '../components/dashboard/danger/SignApiAnnouncement';
+import { normalizeUrl } from '../utils';
+
+const checkAnnouncementNeeded = (
+  currentApiUrl: string,
+  currentAnnouncement: SignedApiAnnouncement['api_announcement'] | undefined,
+  setAnnouncementNeeded: React.Dispatch<React.SetStateAction<boolean>>,
+  onOpen: () => void
+) => {
+  try {
+    if (currentAnnouncement) {
+      const announcementMatches =
+        normalizeUrl(currentAnnouncement.api_url) ===
+        normalizeUrl(currentApiUrl);
+      setAnnouncementNeeded(!announcementMatches);
+      if (!announcementMatches) {
+        onOpen();
+      }
+    } else {
+      setAnnouncementNeeded(true);
+      onOpen();
+    }
+  } catch (error) {
+    console.error('Error checking announcement:', error);
+  }
+};
+
+const findOurPeerId = (
+  configPeerIds: number[],
+  statusPeerIds: number[]
+): number | undefined => {
+  return configPeerIds.find((id) => !statusPeerIds.includes(id));
+};
 
 export const FederationAdmin: React.FC = () => {
   const { api } = useAdminContext();
@@ -26,40 +59,65 @@ export const FederationAdmin: React.FC = () => {
   >({});
   const [ourPeer, setOurPeer] = useState<{ id: number; name: string }>();
   const [latestSession, setLatestSession] = useState<number>();
+  // API announcement modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [announcementNeeded, setAnnouncementNeeded] = useState(false);
+  const checkAnnouncementRef = useRef(false);
 
-  // Extracting our peer ID and name from intersection of config and status
   useEffect(() => {
-    if (config && status?.federation) {
-      const peerIds = Object.keys(status.federation.status_by_peer).map((id) =>
-        parseInt(id, 10)
+    if (announcementNeeded) {
+      onOpen();
+    }
+  }, [announcementNeeded, onOpen]);
+
+  const fetchData = useCallback(() => {
+    api.inviteCode().then(setInviteCode).catch(console.error);
+    api.config().then(setConfig).catch(console.error);
+    api.apiAnnouncements().then(setSignedApiAnnouncements).catch(console.error);
+    api
+      .status()
+      .then((statusData) => {
+        setStatus(statusData);
+        setLatestSession(statusData?.federation?.session_count);
+      })
+      .catch(console.error);
+  }, [api]);
+
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(fetchData, 5000);
+    return () => clearInterval(interval);
+  }, [fetchData]);
+
+  useEffect(() => {
+    if (config && status?.federation && !checkAnnouncementRef.current) {
+      const statusPeerIds = Object.keys(status.federation.status_by_peer).map(
+        (id) => parseInt(id, 10)
       );
       const configPeerIds = Object.keys(config.global.api_endpoints).map((id) =>
         parseInt(id, 10)
       );
-      // Finding our peer ID as the one present in config but not in status
-      const ourPeerId = configPeerIds.find((id) => !peerIds.includes(id));
+
+      const ourPeerId = findOurPeerId(configPeerIds, statusPeerIds);
       if (ourPeerId !== undefined) {
         setOurPeer({
           id: ourPeerId,
           name: config.global.api_endpoints[ourPeerId].name,
         });
-      }
-      const latestSession = status?.federation?.session_count;
-      setLatestSession(latestSession);
-    }
-  }, [config, status]);
+        const currentApiUrl = process.env.REACT_APP_FM_CONFIG_API || '';
+        const currentAnnouncement =
+          signedApiAnnouncements[ourPeerId.toString()]?.api_announcement;
 
-  useEffect(() => {
-    api.inviteCode().then(setInviteCode).catch(console.error);
-    api.config().then(setConfig).catch(console.error);
-    const fetchStatus = () => {
-      api.status().then(setStatus).catch(console.error);
-    };
-    api.apiAnnouncements().then(setSignedApiAnnouncements).catch(console.error);
-    fetchStatus();
-    const interval = setInterval(fetchStatus, 5000);
-    return () => clearInterval(interval);
-  }, [api]);
+        checkAnnouncementNeeded(
+          currentApiUrl,
+          currentAnnouncement,
+          setAnnouncementNeeded,
+          onOpen
+        );
+        checkAnnouncementRef.current = true;
+      }
+    }
+  }, [config, status, signedApiAnnouncements, onOpen]);
 
   return (
     <Flex gap='32px' flexDirection='row'>
@@ -109,16 +167,30 @@ export const FederationAdmin: React.FC = () => {
           signedApiAnnouncements={signedApiAnnouncements}
         />
         <GatewaysCard config={config} />
-        {ourPeer ? (
-          <FederationTabsCard config={config} ourPeer={ourPeer} />
-        ) : null}
+        {ourPeer && (
+          <FederationTabsCard
+            config={config}
+            ourPeer={ourPeer}
+            signedApiAnnouncements={signedApiAnnouncements}
+          />
+        )}
         <DangerZone
           inviteCode={inviteCode}
           ourPeer={ourPeer}
           latestSession={latestSession}
           signedApiAnnouncements={signedApiAnnouncements}
+          onApiAnnouncementOpen={onOpen}
         />
       </Flex>
+      {ourPeer && (
+        <SignApiAnnouncement
+          isOpen={isOpen}
+          onClose={onClose}
+          ourPeer={ourPeer}
+          signedApiAnnouncements={signedApiAnnouncements}
+          currentApiUrl={process.env.REACT_APP_FM_CONFIG_API || ''}
+        />
+      )}
     </Flex>
   );
 };

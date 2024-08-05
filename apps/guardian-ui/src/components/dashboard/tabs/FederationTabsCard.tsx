@@ -13,19 +13,27 @@ import {
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
-import { ClientConfig, MetaFields, ModuleKind } from '@fedimint/types';
+import {
+  ClientConfig,
+  MetaFields,
+  ModuleKind,
+  SignedApiAnnouncement,
+} from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { MetaManager } from './meta/MetaManager';
 import { ConsensusMetaFields } from './meta/ViewConsensusMeta';
+import { ApiAnnouncements } from './ApiAnnouncements';
 
 interface FederationTabsCardProps {
   config: ClientConfig | undefined;
   ourPeer: { id: number; name: string };
+  signedApiAnnouncements: Record<string, SignedApiAnnouncement>;
 }
 
 export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
   config,
   ourPeer,
+  signedApiAnnouncements,
 }) => {
   const { t } = useTranslation();
   const [metaModuleId, setMetaModuleId] = useState<string | undefined>(
@@ -63,10 +71,9 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
           <Flex direction='column' gap='4'>
             <Flex justify='space-between' align='center'>
               <TabList>
-                <Tab>
-                  {t('federation-dashboard.config.manage-meta.tab-label')}
-                </Tab>
+                <Tab>{t('federation-dashboard.config.manage-meta.label')}</Tab>
                 <Tab>{t('federation-dashboard.config.view-config')}</Tab>
+                <Tab>{t('federation-dashboard.api-announcements.label')}</Tab>
               </TabList>
             </Flex>
           </Flex>
@@ -93,6 +100,12 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
                 minWidth={'500px'}
                 minHeight={'500px'}
                 readOnly
+              />
+            </TabPanel>
+            <TabPanel>
+              <ApiAnnouncements
+                signedApiAnnouncements={signedApiAnnouncements}
+                config={config}
               />
             </TabPanel>
           </TabPanels>

@@ -15,7 +15,8 @@
     "threshold": "Threshold",
     "confirm": "Confirm",
     "you": "You",
-    "close": "Close"
+    "close": "Close",
+    "save": "Save"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -70,12 +71,18 @@
       "no-gateways-info-title": "No connected gateways yet!",
       "no-gateways-info-description": "Lightning node operators can connect to your federation to provide Lightning Network interoperability. Once connected, they will appear here."
     },
+    "api-announcements": {
+      "label": "API Announcements",
+      "guardian": "Guardian",
+      "api-url": "API URL",
+      "revision": "Revision"
+    },
     "config": {
       "label": "Federation Config",
       "view-config": "View Config",
       "missing-meta-module": "Editing Meta fields is not possible. The Meta module is not available for this federation.",
       "manage-meta": {
-        "tab-label": "Manage Meta",
+        "label": "Manage Meta",
         "cancel-button": "Cancel",
         "confirm-modal": {
           "title": "Confirm Approval",
@@ -135,12 +142,13 @@
         "label": "Sign API Announcement",
         "title": "Sign API Announcement",
         "description": "Sign a new API announcement.",
-        "current-api-url": "API URL from Local Config",
-        "announced-api-url": "API URL from Federation Announcements",
+        "current-api-url": "Your API URL from Local Config",
+        "announced-api-url": "Your API URL from Federation Announcements",
         "urls-match": "Your current API URL matches your announced API URL.",
         "urls-mismatch": "You've changed the API URL in your local config and need to broadcast a new API announcement.",
         "sign-button": "Sign new API announcement",
-        "signing-in-progress": "Signing in progress..."
+        "signing-in-progress": "Signing in progress...",
+        "sign-tooltip": "Sign the API announcement to announce your API URL to the federation."
       },
       "schedule-shutdown": {
         "label": "Schedule Shutdown",

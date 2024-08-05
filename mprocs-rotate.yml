@@ -1,0 +1,55 @@
+procs:
+  user:
+    shell: bash
+    stop: SIGKILL
+  start-servers:
+    shell: docker compose up
+  stop-servers-clear-data:
+    shell: docker compose down -v && echo 'Removing fm dirs' && sudo rm -rf fm_* && echo 'Done'
+    autostart: false
+  stop-servers-retain-data:
+    shell: docker compose down
+    autostart: false
+  guardian-ui-1:
+    shell: bash -c 'scripts/mprocs-rotate-guardian.sh 18174'
+    stop: SIGKILL
+    env:
+      PORT: '3000'
+      BROWSER: none
+  guardian-ui-2:
+    shell: bash -c 'scripts/mprocs-rotate-guardian.sh 18184'
+    stop: SIGKILL
+    env:
+      PORT: '3001'
+      BROWSER: none
+  guardian-ui-3:
+    shell: bash -c 'scripts/mprocs-rotate-guardian.sh 18185'
+    stop: SIGKILL
+    env:
+      PORT: '3002'
+      BROWSER: none
+  guardian-ui-4:
+    shell: bash -c 'scripts/mprocs-rotate-guardian.sh 18186'
+    stop: SIGKILL
+    env:
+      PORT: '3003'
+      BROWSER: none
+  restart-fedimintd:
+    shell: bash --init-file scripts/mprocs-restart-guardian.sh
+    autostart: false
+    stop: SIGKILL
+  gateway-ui:
+    shell: yarn dev:gateway-ui
+    env:
+      PORT: '3004'
+      REACT_APP_FM_GATEWAY_API: 'http://127.0.0.1:8175'
+      REACT_APP_FM_GATEWAY_PASSWORD: 'thereisnosecondbest'
+      BROWSER: none
+  fedimintd_1-logs:
+    shell: sleep 3 && docker logs -f fedimint-ui-fedimintd_1-1
+  fedimintd_2-logs:
+    shell: sleep 3 && docker logs -f fedimint-ui-fedimintd_2-1
+  fedimintd_3-logs:
+    shell: sleep 3 && docker logs -f fedimint-ui-fedimintd_3-1
+  fedimintd_4-logs:
+    shell: sleep 3 && docker logs -f fedimint-ui-fedimintd_4-1

@@ -37,6 +37,12 @@ export const generatePassword = () => {
 
 export const normalizeUrl = (url: string): string => {
   try {
+    // Check if the URL is in Docker-style format (e.g., fedimintd_2:18184)
+    const dockerStyleRegex = /^[\w-]+:\d+$/;
+    if (dockerStyleRegex.test(url)) {
+      return url; // Return as-is for Docker-style URLs
+    }
+
     // Parse the URL
     const parsedUrl = new URL(url);
 
@@ -45,24 +51,29 @@ export const normalizeUrl = (url: string): string => {
       ? parsedUrl.protocol
       : `${parsedUrl.protocol}:`;
 
-    // Combine parts, ensuring no double slashes between protocol and host
-    let normalizedUrl = `${protocol}//${parsedUrl.host}${parsedUrl.pathname}`;
+    // Extract only the port for IP addresses, localhost, or Docker-style hostnames
+    const isLocalOrIpOrDockerStyle = (hostname: string) =>
+      ['localhost', '127.0.0.1'].includes(hostname) ||
+      /^\d+\.\d+\.\d+\.\d+$/.test(hostname) ||
+      /^[\w-]+$/.test(hostname);
 
-    // Remove trailing slash if present, unless it's the only character in the path
-    if (
-      normalizedUrl.endsWith('/') &&
-      normalizedUrl.length > protocol.length + 2
-    ) {
+    const host = isLocalOrIpOrDockerStyle(parsedUrl.hostname)
+      ? `:${parsedUrl.port}`
+      : parsedUrl.host;
+
+    // Combine parts
+    let normalizedUrl = `${protocol}//${host}`;
+
+    // Remove trailing slash if present
+    if (normalizedUrl.endsWith('/')) {
       normalizedUrl = normalizedUrl.slice(0, -1);
     }
-
-    // Preserve query parameters and hash
-    normalizedUrl += parsedUrl.search + parsedUrl.hash;
 
     return normalizedUrl;
   } catch (error) {
     // If URL parsing fails, return the original string
-    console.warn(`Failed to normalize URL: ${url}`, error);
+    console.error(`Failed to normalize URL: ${url}`, error);
+    console.warn(`Returning original URL: ${url}`);
     return url;
   }
 };

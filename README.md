@@ -21,6 +21,10 @@ This project includes the following apps / packages:
 - `eslint-config`: Shared `eslint` configurations (includes `eslint-plugin-react` and `eslint-config-prettier`)
 - `tsconfig`: Shared `tsconfig.json`s used throughout Fedimint UI apps
 
+## Testing
+
+For detailed testing instructions, please refer to the [testing.md](./testing.md) file in this repository. It contains comprehensive information on how to set up and run local tests for the Fedimint UI projects.
+
 ## Version Policy
 
 Fedimint UI releases use semantic versioning (`major.minor.patch`)
