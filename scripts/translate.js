@@ -1,20 +1,31 @@
 const fs = require('fs/promises');
-const { OpenAI } = require('openai');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const srcPaths = [
   'apps/gateway-ui/src/languages',
   'apps/guardian-ui/src/languages',
 ];
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 // Get languages from command line arguments, excluding the first two default arguments (node path and script path)
 const languages = process.argv.slice(2)[0].split(' ');
 
+async function installOpenAI() {
+  console.log('Installing OpenAI package...');
+  execSync('yarn add openai', { stdio: 'inherit' });
+}
+
+async function uninstallOpenAI() {
+  console.log('Uninstalling OpenAI package...');
+  execSync('yarn remove openai', { stdio: 'inherit' });
+}
+
 async function translateAndFill() {
+  const { OpenAI } = require('openai');
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
   try {
     for (const srcPath of srcPaths) {
       const srcFile = `${srcPath}/en.json`;
@@ -117,4 +128,13 @@ async function retryWithExponentialBackoff(
   }
 }
 
-translateAndFill();
+async function main() {
+  try {
+    await installOpenAI();
+    await translateAndFill();
+  } finally {
+    await uninstallOpenAI();
+  }
+}
+
+main();
