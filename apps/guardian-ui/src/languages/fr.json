@@ -229,7 +229,9 @@
     "meta-fields-value": "Valeur",
     "meta-fields-effect": "Effet",
     "meta-fields-add-another": "Ajouter un autre",
-    "meta-fields-title": "Votre proposition Meta :"
+    "meta-fields-title": "Votre proposition Meta :",
+    "password-warning": "Vous devez faire une sauvegarde de votre mot de passe et le conserver en sécurité. Ce mot de passe est nécessaire pour accéder à votre tableau de bord de gardien. Vous ne pouvez pas le récupérer si vous le perdez !",
+    "password-warning-title": "Faites une sauvegarde de votre mot de passe !"
   },
   "setup": {
     "common": {

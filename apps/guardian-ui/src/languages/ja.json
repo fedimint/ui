@@ -229,7 +229,9 @@
     "meta-fields-value": "価値",
     "meta-fields-effect": "効果",
     "meta-fields-add-another": "もう一つ追加する",
-    "meta-fields-title": "あなたのメタ提案："
+    "meta-fields-title": "あなたのメタ提案：",
+    "password-warning": "パスワードをバックアップして、安全に保管してください。このパスワードは復元できません！",
+    "password-warning-title": "パスワードのバックアップをしてください！"
   },
   "setup": {
     "common": {

@@ -229,7 +229,9 @@
     "meta-fields-value": "Wert",
     "meta-fields-effect": "Effekt",
     "meta-fields-add-another": "Füge einen weiteren hinzu",
-    "meta-fields-title": "Ihr Meta-Vorschlag:"
+    "meta-fields-title": "Ihr Meta-Vorschlag:",
+    "password-warning": "Sie müssen eine Sicherung Ihres Passworts machen und es sicher aufbewahren. Dieses Passwort ist erforderlich, um auf Ihren Wächter-Dashboard zuzugreifen. Sie können es nicht wiederherstellen, wenn Sie es verlieren!",
+    "password-warning-title": "Sichern Sie Ihr Passwort!"
   },
   "setup": {
     "common": {

@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
   Button,
+  Checkbox,
   Flex,
   FormControl,
   FormHelperText,
@@ -15,6 +21,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
+import { ReactComponent as WarningIcon } from '../../../../assets/svgs/warning.svg';
 
 interface ConfirmPasswordModalProps {
   password: string;
@@ -34,6 +41,7 @@ export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
   onClose,
 }) => {
   const { t } = useTranslation();
+  const [isBackupConfirmed, setIsBackupConfirmed] = useState(false);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -55,6 +63,26 @@ export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
                 {t('set-config.error-password-mismatch')}
               </FormHelperText>
             )}
+            <Alert status='warning' mt={4}>
+              <AlertIcon>
+                <WarningIcon />
+              </AlertIcon>
+              <Box>
+                <AlertTitle>
+                  {t('set-config.password-warning-title')}
+                </AlertTitle>
+                <AlertDescription>
+                  {t('set-config.password-warning')}
+                </AlertDescription>
+              </Box>
+            </Alert>
+            <Checkbox
+              mt={4}
+              isChecked={isBackupConfirmed}
+              onChange={(e) => setIsBackupConfirmed(e.target.checked)}
+            >
+              {t('set-config.admin-password-backup')}
+            </Checkbox>
           </FormControl>
         </ModalBody>
         <ModalFooter>

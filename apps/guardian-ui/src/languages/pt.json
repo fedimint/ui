@@ -229,7 +229,9 @@
     "meta-fields-value": "Valor",
     "meta-fields-effect": "Efeito",
     "meta-fields-add-another": "Adicionar outro",
-    "meta-fields-title": "Sua Proposta Meta:"
+    "meta-fields-title": "Sua Proposta Meta:",
+    "password-warning": "Você deve fazer um backup da sua senha e mantê-la segura. Esta senha é necessária para acessar seu painel de guardião. Você não pode recuperá-la se perder!",
+    "password-warning-title": "Faça um backup da sua senha!"
   },
   "setup": {
     "common": {

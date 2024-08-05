@@ -251,7 +251,9 @@
     "admin-password-set": "생성'을 클릭하여 안전한 비밀번호를 만드세요. 수정할 수 있지만, 이 비밀번호는 안전하고 백업되어야 합니다!",
     "admin-password-backup": "나는 강력한 비밀번호를 사용하고 있으며 백업해 두었습니다. (이 비밀번호는 복구할 수 없습니다!)",
     "meta-fields-effect": "효과",
-    "meta-fields-title": "귀하의 메타 제안:"
+    "meta-fields-title": "귀하의 메타 제안:",
+    "password-warning": "비밀번호를 백업하고 안전하게 보관하세요. 이 비밀번호는 복구할 수 없습니다!",
+    "password-warning-title": "비밀번호 백업!"
   },
   "setup": {
     "common": {

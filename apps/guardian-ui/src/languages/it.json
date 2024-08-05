@@ -229,7 +229,9 @@
     "meta-fields-value": "Valor",
     "meta-fields-effect": "Efecto",
     "meta-fields-add-another": "Fügen Sie einen weiteren hinzu",
-    "meta-fields-title": "Ваше предложение Meta:"
+    "meta-fields-title": "Ваше предложение Meta:",
+    "password-warning": "Devi fare una copia di backup della tua password e conservarla in un luogo sicuro. Questa password è necessaria per accedere alla tua dashboard dei guardiani. Non puoi recuperarla se la perdi!",
+    "password-warning-title": "Fai una copia di backup della tua password!"
   },
   "setup": {
     "common": {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Checkbox,
   Flex,
   Icon,
   Button,
@@ -55,7 +54,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState(false);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [federationName, setFederationName] = useState('');
@@ -121,7 +119,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const hostCriteria = [
     myName,
     password,
-    passwordCheck,
     federationName,
     isValidNumber(numPeers, 4),
     isValidNumber(blockConfirmations, 0, 200),
@@ -132,14 +129,13 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const soloCriteria = [
     myName,
     password,
-    passwordCheck,
     federationName,
     isValidNumber(blockConfirmations, 0, 200),
     isValidMeta(metaFields),
     network,
   ];
 
-  const followerCriteria = [myName, password, hostServerUrl, passwordCheck];
+  const followerCriteria = [myName, password, hostServerUrl];
 
   const isValid: boolean = isHost
     ? hostCriteria.every(Boolean)
@@ -230,14 +226,19 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   };
 
   return (
-    <Flex direction='column' gap={['2', '6']} justify='start' align='start'>
-      <BasicSettingsForm
-        myName={myName}
-        setMyName={setMyName}
-        password={password}
-        setPassword={setPassword}
-        hasCopied={hasCopied}
-        onCopy={onCopy}
+    <Flex
+      direction='column'
+      gap={['2', '6']}
+      justify='flex-start'
+      align='flex-start'
+      width='auto'
+    >
+      <FederationSettingsForm
+        federationName={federationName}
+        handleChangeFederationName={handleChangeFederationName}
+        numPeers={numPeers}
+        setNumPeers={setNumPeers}
+        isHost={isHost}
         isFollower={!isHost && !isSolo}
         hostServerUrl={hostServerUrl}
         setHostServerUrl={setHostServerUrl}
@@ -251,49 +252,28 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         setBlockConfirmations={setBlockConfirmations}
         isHostOrSolo={isHost || isSolo}
       />
-      {(isHost || isSolo) && (
-        <FederationSettingsForm
-          federationName={federationName}
-          handleChangeFederationName={handleChangeFederationName}
-          numPeers={numPeers}
-          setNumPeers={setNumPeers}
-          isHost={isHost}
-        />
-      )}
+      <BasicSettingsForm
+        myName={myName}
+        setMyName={setMyName}
+        password={password}
+        setPassword={setPassword}
+        hasCopied={hasCopied}
+        onCopy={onCopy}
+      />
+      <Button
+        isDisabled={!isValid}
+        onClick={isValid ? handleNext : undefined}
+        leftIcon={<Icon as={ArrowRightIcon} />}
+        width='60%'
+        alignSelf='center'
+      >
+        {t('common.next')}
+      </Button>
       {error && (
         <Text color={theme.colors.red[500]} mt={4}>
           {error}
         </Text>
       )}
-      <Flex
-        direction='column'
-        justify='space-between'
-        alignSelf='center'
-        width={['100%', '100%', '60%']}
-      >
-        {password !== '' && (
-          <Checkbox
-            isRequired
-            spacing='10px'
-            alignSelf='flex-start'
-            onChange={(e) => setPasswordCheck(e.target.checked)}
-          >
-            <Text color={theme.colors.yellow[500]}>
-              {t('set-config.admin-password-backup')}
-            </Text>
-          </Checkbox>
-        )}
-        <Button
-          isDisabled={!isValid}
-          onClick={isValid ? handleNext : undefined}
-          leftIcon={<Icon as={ArrowRightIcon} />}
-          mt={['2', '4']}
-          width={['25%', 'auto']}
-          alignSelf='flex-start'
-        >
-          {t('common.next')}
-        </Button>
-      </Flex>
       <ConfirmPasswordModal
         password={password}
         confirmPassword={confirmPassword}

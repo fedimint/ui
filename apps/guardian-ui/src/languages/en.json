@@ -229,7 +229,9 @@
     "meta-fields-value": "Value",
     "meta-fields-effect": "Effect",
     "meta-fields-add-another": "Add another",
-    "meta-fields-title": "Your Meta Proposal:"
+    "meta-fields-title": "Your Meta Proposal:",
+    "password-warning-title": "Backup your Password!",
+    "password-warning": "You MUST back up your password and keep it safe. This password is required to access your guardian dashboard. You CANNOT recover it if you lose it!"
   },
   "setup": {
     "common": {
