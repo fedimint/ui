@@ -4,6 +4,7 @@ import { useTranslation } from '@fedimint/utils';
 import { FormGroup } from '@fedimint/ui';
 import { ReactComponent as FedimintLogo } from '../../../../assets/svgs/fedimint.svg';
 import { BftInfo } from '../../../BftInfo';
+import { BFT_NUMBERS } from '../../../../utils/constants';
 
 interface FederationSettingsFormProps {
   federationName: string;
@@ -24,8 +25,6 @@ export const FederationSettingsForm: React.FC<FederationSettingsFormProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const bftNumbers = [4, 7, 10, 13, 16, 19];
-
   return (
     <FormGroup
       icon={FedimintLogo}
@@ -43,7 +42,7 @@ export const FederationSettingsForm: React.FC<FederationSettingsFormProps> = ({
             value={numPeers}
             onChange={(e) => setNumPeers(e.target.value)}
           >
-            {bftNumbers.map((num) => (
+            {BFT_NUMBERS.map((num) => (
               <option key={num} value={num.toString()}>
                 {num}
               </option>
