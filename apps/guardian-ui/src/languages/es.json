@@ -232,7 +232,9 @@
     "meta-fields-value": "Valor",
     "meta-fields-effect": "Efecto",
     "meta-fields-add-another": "Agregar otro",
-    "meta-fields-title": "Tu Propuesta Meta:"
+    "meta-fields-title": "Tu Propuesta Meta:",
+    "password-warning": "Debes hacer una copia de seguridad de tu contraseña y guardarla en un lugar seguro. Esta contraseña es necesaria para acceder a tu tablero de guardianes. ¡No puedes recuperarla si la pierdes!",
+    "password-warning-title": "¡Haz una copia de seguridad de tu contraseña!"
   },
   "setup": {
     "common": {

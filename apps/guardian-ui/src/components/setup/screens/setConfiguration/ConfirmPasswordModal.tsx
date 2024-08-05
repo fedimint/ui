@@ -1,5 +1,10 @@
 import React from 'react';
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
   Button,
   Flex,
   FormControl,
@@ -15,6 +20,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
+import { ReactComponent as WarningIcon } from '../../../../assets/svgs/warning.svg';
 
 interface ConfirmPasswordModalProps {
   password: string;
@@ -55,6 +61,19 @@ export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
                 {t('set-config.error-password-mismatch')}
               </FormHelperText>
             )}
+            <Alert status='warning' mt={4}>
+              <AlertIcon>
+                <WarningIcon />
+              </AlertIcon>
+              <Box>
+                <AlertTitle>
+                  {t('set-config.password-warning-title')}
+                </AlertTitle>
+                <AlertDescription>
+                  {t('set-config.password-warning')}
+                </AlertDescription>
+              </Box>
+            </Alert>
           </FormControl>
         </ModalBody>
         <ModalFooter>

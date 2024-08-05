@@ -229,7 +229,9 @@
     "meta-fields-value": "Érték",
     "meta-fields-effect": "Hatás",
     "meta-fields-add-another": "Adj hozzá egy másikat",
-    "meta-fields-title": "A te Meta Javaslatod:"
+    "meta-fields-title": "A te Meta Javaslatod:",
+    "password-warning": "Meg kell őrizned a jelszavadat, és biztonságos helyen kell tárolnod. Ez a jelszó szükséges a Őrző irányítópultjának eléréséhez. Nem tudod visszaállítani, ha elveszíted!",
+    "password-warning-title": "Jelszó biztonsági mentése!"
   },
   "setup": {
     "common": {

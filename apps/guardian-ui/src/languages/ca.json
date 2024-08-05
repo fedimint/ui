@@ -229,7 +229,9 @@
     "meta-fields-value": "Valor",
     "meta-fields-effect": "Efecte",
     "meta-fields-add-another": "Afegeix un altre",
-    "meta-fields-title": "La teva proposta Meta:"
+    "meta-fields-title": "La teva proposta Meta:",
+    "password-warning": "Has de fer una còpia de seguretat de la teva contrasenya i guardar-la en un lloc segur. Aquesta contrasenya és necessària per accedir al teu tauler de guardians. No pots recuperar-la si la perds!",
+    "password-warning-title": "Fes una còpia de seguretat de la teva contrasenya!"
   },
   "setup": {
     "common": {

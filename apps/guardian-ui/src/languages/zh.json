@@ -229,7 +229,9 @@
     "meta-fields-value": "价值",
     "meta-fields-effect": "效果",
     "meta-fields-add-another": "再添加一个",
-    "meta-fields-title": "您的元提案："
+    "meta-fields-title": "您的元提案：",
+    "password-warning": "您必须备份您的密码并将其安全保存。此密码是访问您的守护者仪表板的必要条件。如果您丢失了它，您将无法恢复它！",
+    "password-warning-title": "备份您的密码！"
   },
   "setup": {
     "common": {
