@@ -18,8 +18,7 @@ import { useTranslation } from '@fedimint/utils';
 import { ReactComponent as CopyIcon } from '../../../assets/svgs/copy.svg';
 import { ReactComponent as QrIcon } from '../../../assets/svgs/qr.svg';
 import QRCode from 'qrcode.react';
-
-const QR_CODE_SIZE = 256;
+import { QR_CODE_SIZE } from '../../../utils/constants';
 
 interface InviteCodeProps {
   inviteCode: string;

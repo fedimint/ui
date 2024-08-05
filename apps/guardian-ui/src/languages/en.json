@@ -144,6 +144,7 @@
         "description": "Sign a new API announcement.",
         "current-api-url": "Your API URL from Local Config",
         "announced-api-url": "Your API URL from Federation Announcements",
+        "no-announcement": "No announcement found",
         "urls-match": "Your current API URL matches your announced API URL.",
         "urls-mismatch": "You've changed the API URL in your local config and need to broadcast a new API announcement.",
         "sign-button": "Sign new API announcement",
@@ -306,7 +307,10 @@
     "table-column-hash-input": "Paste verification code",
     "wait-all-guardians-verification": "Waiting for all Guardians to verify their codes",
     "all-guardians-verified": "All Guardians have verified their codes",
-    "starting-consensus": "Starting consensus..."
+    "starting-consensus": "Starting consensus...",
+    "scanning-guardian": "Scan QR for {{guardian}}",
+    "stop-scan": "Stop Scan",
+    "start-scan": "Start Scan"
   },
   "footer": {
     "docs-section-header": "Docs",

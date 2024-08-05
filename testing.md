@@ -1,13 +1,13 @@
 ### Testing Instructions
 
-#### Fedimint Guardian & Gateway UI End to End Testing Instructions
+#### Fedimint Guardian & Gateway UI End-to-End Testing Instructions
 
 In your nix dev-shell
 
 1. Run `just guardian` to spin up 4x guardians and UIs on ports :3000, :3001, :3002, :3003
 2. Walk through the setup process
 
-- PLEASE open issues for anything you run into here, this is the most important part to get right and seamless and we're always looking to streamline this setup process
+- PLEASE open issues for anything you run into here, this is the most important part to get right and seamless, and we're always looking to streamline this setup process
 
 3. After setup, connect the gateway with UI running on port :3004
 4. Set up a meta for the federation
@@ -15,7 +15,7 @@ In your nix dev-shell
 - From 1 guardian, propose a new meta with some key/values
 - Confirm on the other guardians, once a threshold is met it will set it as the new meta
 - Modify the meta from another guardian and propose the modifications
-- Confirm the meta modifications on the other guardians, once a threshold is met it will set it as the new meta
+- Confirm the meta modifications on the other guardians, once a threshold is met, it will set it as the new meta
 
 6. Peg in some bitcoin to the federation.
 
@@ -31,12 +31,12 @@ In your nix dev-shell
 - From the gateway, start a withdraw to that address
 - Mine some coins with `bitcoin-cli generatetoaddress 100 $(bitcoin-cli getnewaddress)`
 - Confirm the coins are out of the gateway-ui wallet
-- Confirm the coins are off of the guardian-ui balance sheet
+- Confirm the coins are off the guardian-ui balance sheet
 
 8. Coordinate a shutdown
 
 - From each of the guardian UIs, go to Danger Zone and use the Coordinate Shutdown button to set a session height to shutdown at. Give it ~10 sessions from the current session height
-- just send some coins back and forth on the gateway to keep the sessions coming until they shutdown
+- just send some coins back and forth on the gateway to keep the sessions coming until they shut down
 - confirm in the logs that the guardians all shut down at the same session height
 
 #### Test Guardian API Rotation

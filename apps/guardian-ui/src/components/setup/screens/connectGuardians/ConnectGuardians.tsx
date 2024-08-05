@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -21,7 +21,9 @@ import { useConsensusPolling, useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
 import { getModuleParamsFromConfig } from '../../../../utils/api';
 import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
+import { ReactComponent as QrIcon } from '../../../../assets/svgs/qr.svg';
 import { BftInfo } from '../../../BftInfo';
+import { QrModal } from '../../qr/QrModal';
 
 interface Props {
   next(): void;
@@ -32,6 +34,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   const {
     state: { role, peers, numPeers, configGenParams, ourCurrentId },
   } = useSetupContext();
+  const [isOpen, setIsOpen] = useState(false);
 
   const guardianLink = ourCurrentId !== null ? peers[ourCurrentId].api_url : '';
 
@@ -63,11 +66,24 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       <Flex direction={['column', 'row']} gap={4} align='start'>
         <FormControl maxW={400} bg='blue.50' p={2} borderRadius='md'>
           <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
-          <CopyInput
-            value={guardianLink}
-            size='sm'
-            buttonLeftIcon={<Icon as={CopyIcon} />}
-          />
+          <Flex direction='row' alignItems='center' gap='6px'>
+            <CopyInput
+              value={guardianLink}
+              size='sm'
+              buttonLeftIcon={<Icon as={CopyIcon} />}
+            />
+            <Icon
+              as={QrIcon}
+              cursor='pointer'
+              onClick={() => setIsOpen(true)}
+              bg='white'
+              boxSize='40px'
+              borderRadius='10%'
+              border='1px solid lightgray'
+              _hover={{ bg: 'gray.100' }}
+            />
+          </Flex>
+
           <FormHelperText>
             {t('connect-guardians.invite-guardians-help')}
           </FormHelperText>
@@ -205,6 +221,12 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
           rows={peerTableRows}
         />
       )}
+      <QrModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        content={guardianLink}
+        header={t('connect-guardians.invite-guardians')}
+      />
     </Flex>
   );
 };

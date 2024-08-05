@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -8,11 +8,16 @@ import {
   Button,
   Text,
   useTheme,
+  Icon,
+  InputGroup,
+  InputRightElement,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup } from '@fedimint/ui';
 import { ReactComponent as LightbulbLogo } from '../../../../assets/svgs/lightbulb.svg';
+import { ReactComponent as ScanIcon } from '../../../../assets/svgs/scan.svg';
 import { generatePassword } from '../../../../utils';
+import { QrScannerModal } from '../../qr/QrScannerModal';
 
 interface BasicSettingsFormProps {
   myName: string;
@@ -39,6 +44,7 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const [isQrScannerOpen, setIsQrScannerOpen] = useState(false);
 
   return (
     <FormGroup
@@ -85,16 +91,34 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
       {isFollower && (
         <FormControl>
           <FormLabel>{t('set-config.join-federation')}</FormLabel>
-          <Input
-            value={hostServerUrl}
-            onChange={(ev) => setHostServerUrl(ev.currentTarget.value)}
-            placeholder='ws://...'
-          />
+          <InputGroup>
+            <Input
+              value={hostServerUrl}
+              onChange={(ev) => setHostServerUrl(ev.currentTarget.value)}
+              placeholder='ws://...'
+              pr='4.5rem'
+            />
+            <InputRightElement width='4.5rem'>
+              <Icon
+                as={ScanIcon}
+                cursor='pointer'
+                onClick={() => setIsQrScannerOpen(true)}
+                boxSize='1.5rem'
+                color='gray.500'
+                _hover={{ color: 'blue.500' }}
+              />
+            </InputRightElement>
+          </InputGroup>
           <FormHelperText>
             {t('set-config.join-federation-help')}
           </FormHelperText>
         </FormControl>
       )}
+      <QrScannerModal
+        isOpen={isQrScannerOpen}
+        onClose={() => setIsQrScannerOpen(false)}
+        onScan={(data) => setHostServerUrl(data)}
+      />
     </FormGroup>
   );
 };
