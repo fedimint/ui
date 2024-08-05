@@ -1,6 +1,6 @@
 const fs = require('fs/promises');
-const { translate } = require('@vitalets/google-translate-api');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const srcPaths = [
   'apps/gateway-ui/src/languages',
@@ -10,7 +10,22 @@ const srcPaths = [
 // Get languages from command line arguments, excluding the first two default arguments (node path and script path)
 const languages = process.argv.slice(2)[0].split(' ');
 
+async function installOpenAI() {
+  console.log('Installing OpenAI package...');
+  execSync('yarn add openai', { stdio: 'inherit' });
+}
+
+async function uninstallOpenAI() {
+  console.log('Uninstalling OpenAI package...');
+  execSync('yarn remove openai', { stdio: 'inherit' });
+}
+
 async function translateAndFill() {
+  const { OpenAI } = require('openai');
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
   try {
     for (const srcPath of srcPaths) {
       const srcFile = `${srcPath}/en.json`;
@@ -24,7 +39,12 @@ async function translateAndFill() {
         } catch (error) {
           console.log(`Creating new file for language: ${lang}`);
         }
-        await fillMissingKeys(srcData, targetData, lang, '', targetFile);
+        const updatedData = await fillMissingKeys(srcData, targetData, lang);
+        await fs.writeFile(
+          targetFile,
+          JSON.stringify(updatedData, null, 2),
+          'utf8'
+        );
         console.log(`Updated/created file for language: ${lang}`);
       }
     }
@@ -33,47 +53,88 @@ async function translateAndFill() {
   }
 }
 
-async function fillMissingKeys(srcObj, targetObj, lang, path = '', targetFile) {
+async function fillMissingKeys(srcObj, targetObj, lang, path = '') {
+  const updatedObj = { ...targetObj };
   for (const key in srcObj) {
     const newPath = path ? `${path}.${key}` : key;
 
     if (typeof srcObj[key] === 'object' && srcObj[key] !== null) {
-      targetObj[key] = targetObj[key] || {};
-      await fillMissingKeys(
-        srcObj[key],
-        targetObj[key],
-        lang,
-        newPath,
-        targetFile
-      );
-    } else if (targetObj[key] === undefined) {
-      console.log(`Translating and adding missing key: ${newPath}`);
-      try {
-        const translation = await translate(srcObj[key], { to: lang });
-        targetObj[key] = translation.text;
-        // Write the updated data back to the file after each translation
-        await fs.writeFile(
-          targetFile,
-          JSON.stringify(targetObj, null, 2),
-          'utf8'
-        );
-        // Introduce a delay between requests to avoid hitting the rate limit
-        await delay(1000);
-      } catch (error) {
-        console.error(`Error translating key: ${newPath}`, error);
-        if (error.message.includes('Too Many Requests')) {
-          console.log('Hit rate limit, delaying further requests...');
-          await delay(3000);
-        }
+      if (!updatedObj[key] || typeof updatedObj[key] !== 'object') {
+        updatedObj[key] = {};
       }
+      updatedObj[key] = await fillMissingKeys(
+        srcObj[key],
+        updatedObj[key],
+        lang,
+        newPath
+      );
+    } else if (updatedObj[key] === undefined) {
+      console.log(`Translating and adding missing key: ${newPath}`);
+      await retryWithExponentialBackoff(async () => {
+        const translation = await translateWithOpenAI(srcObj[key], lang);
+        updatedObj[key] = translation;
+      });
+    } else {
+      console.log(`Skipping key: ${newPath}`);
     }
   }
-  return targetObj;
+
+  return updatedObj;
 }
 
-// Utility function to introduce a delay
-function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+async function translateWithOpenAI(text, targetLang) {
+  const prompt = `Translate the following text to ${targetLang}. Return only the translated string, without any additional text or explanations:\n\n${text}`;
+
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o-mini',
+    messages: [{ role: 'user', content: prompt }],
+    temperature: 0.3,
+    max_tokens: 150,
+    stream: false,
+  });
+
+  if (
+    response &&
+    response?.choices &&
+    response.choices.length > 0 &&
+    response.choices[0].message
+  ) {
+    return response.choices[0].message.content
+      .trim()
+      .replace(/^["']|["']$/g, '');
+  } else {
+    throw new Error('Unexpected response format from OpenAI API');
+  }
 }
 
-translateAndFill();
+async function retryWithExponentialBackoff(
+  operation,
+  maxRetries = 100,
+  baseDelay = 1000
+) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      await operation();
+      return;
+    } catch (error) {
+      console.error(`Attempt ${attempt} failed:`, error.message);
+      if (attempt === maxRetries) {
+        throw error;
+      }
+      const delay = baseDelay * Math.pow(2, attempt - 1) + Math.random() * 1000;
+      console.log(`Retrying in ${Math.round(delay / 1000)} seconds...`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+}
+
+async function main() {
+  try {
+    await installOpenAI();
+    await translateAndFill();
+  } finally {
+    await uninstallOpenAI();
+  }
+}
+
+main();

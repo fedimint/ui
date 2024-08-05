@@ -1,0 +1,323 @@
+{
+  "common": {
+    "bitcoin": "Bitcoin",
+    "next": "Következő",
+    "back": "Vissza",
+    "error": "Valami hiba történt.",
+    "unknown": "Ismeretlen",
+    "remove": "Eltávolítás",
+    "copy": "Másolat",
+    "copied": "Másolt!",
+    "cancel": "Törlés",
+    "review": "Felülvizsgálat",
+    "approvals": "Jóváhagyások",
+    "approve": "Jóváhagyás",
+    "threshold": "Küszöb",
+    "confirm": "Megerősít",
+    "you": "Te",
+    "close": "Bezárás",
+    "save": "Mentés"
+  },
+  "connect-guardians": {
+    "invite-guardians": "Kövesd a követőket",
+    "invite-guardians-help": "Oszd meg ezt a linket a többi Őrzővel.",
+    "approve": "Jóváhagyás",
+    "approved": "Jóváhagyva",
+    "pending": "Függőben",
+    "not-joined": "Nem csatlakozott",
+    "waiting-for-guardian": "Várakozás a gyámra",
+    "table-title": "Szövetségi Őrzők",
+    "table-description": "A Őrzők itt lesznek megerősítve, amint megerősítik a Szövetség beállításait.",
+    "meta-field-key": "Meta mező - {{key}}"
+  },
+  "federation-dashboard": {
+    "invite-members": "Hívj meg tagokat vagy hitelesítsd magad mint őrző",
+    "invite-members-prompt": "Oszd meg ezt, hogy meghívj tagokat a szövetségbe való csatlakozásra.",
+    "fed-info": {
+      "label": "Szövetségi Információ",
+      "your-status-label": "Állapot",
+      "block-count-label": "Konszenzus Blokk Magasság",
+      "api-version-label": "API verzió",
+      "consensus-version-label": "Konszenzus verzió",
+      "peer-id-label": "Felhasználói azonosító",
+      "session-info": {
+        "session-height": "Ülés magasság",
+        "latest-session": "Legutóbbi ülés"
+      }
+    },
+    "balance": {
+      "label": "Mérleg"
+    },
+    "bitcoin-node": {
+      "label": "Bitcoin Csomópont",
+      "url-label": "URL",
+      "network-label": "Hálózat"
+    },
+    "guardians": {
+      "label": "Más Őrzők",
+      "id-name-label": "AZ: Név",
+      "status-label": "Kapcsolati állapot",
+      "health-label": "Egészség",
+      "health-issue": "Kérdés",
+      "health-good": "Jó",
+      "last-contribution-label": "Utolsó hozzájárulási blokk",
+      "api-url-label": "API URL"
+    },
+    "gateways": {
+      "label": "Villámkapuk",
+      "node-id-label": "Villámcsomópont azonosító",
+      "gateway-id-label": "Kapunyitó azonosító",
+      "fee-label": "Átjáró díj",
+      "view-on-site": "Nézd meg a {{site}} oldalon",
+      "no-gateways-info-title": "Még nincsenek csatlakoztatott átjárók!",
+      "no-gateways-info-description": "A Lightning csomópont üzemeltetők csatlakozhatnak a szövetségedhez, hogy biztosítsák a Lightning Network interoperabilitását. Miután csatlakoztak, itt fognak megjelenni."
+    },
+    "api-announcements": {
+      "label": "API Bejelentések",
+      "guardian": "Őrző",
+      "api-url": "API URL",
+      "revision": "Felülvizsgálat"
+    },
+    "config": {
+      "label": "Szövetségi beállítások",
+      "view-config": "Nézet beállítások",
+      "missing-meta-module": "A Meta mezők szerkesztése nem lehetséges. A Meta modul nem elérhető ehhez a szövetséghez.",
+      "manage-meta": {
+        "label": "Meta kezelése",
+        "cancel-button": "Törlés",
+        "confirm-modal": {
+          "title": "Jóváhagyás megerősítése",
+          "description": "A jóváhagyása eléri a küszöböt ennek a meta változásnak az elfogadásához. Az új meta így fog kinézni:"
+        },
+        "consensus-meta-label": "Jelenlegi meta a konszenzusban",
+        "revoke-button": "Visszavonás",
+        "no-consensus-meta-message": "nincs meta a konszenzusban",
+        "proposed-meta-label": "Meta Javaslatok",
+        "propose-meta": "Javasolj Meta",
+        "propose-new-meta-button": "Javasolj új metát",
+        "proposal-approved": "Jóváhagytad ezt a javaslatot.",
+        "no-submitted-meta-message": "nincsenek felülvizsgálatra váró meta módosítások",
+        "edit-meta-label": "Meta szerkesztése",
+        "edit-consensus-meta-button": "Szerkesztés Konszenzus Meta",
+        "submit-meta-proposal": "Meta Javaslat Beküldése",
+        "peer-approvals": "Társaik jóváhagyása",
+        "actions": "Cselekvések",
+        "revision": "Felülvizsgálat",
+        "setup-meta-title": "Meta beállítása a Szövetségedhez",
+        "setup-meta-description": "A Fedimint kiegészítő információkat tud szolgáltatni az ügyfeleknek meta mezők formájában: kulcs-érték párok tetszőleges információkkal, amelyeket meg szeretne osztani az ügyfelekkel. Bár ezeket a meta mezőket a Fedimint nem értelmezi, konszenzus szempontjából relevánsak, azaz nem térhetnek el a szövetségi tagok között. Így az ügyfelek támaszkodhatnak a helyességükre.",
+        "propose-updates": "Fedimint őrzőként javaslatot tehetsz a meta frissítésekre, amelyeket a többi őrző elfogad. Miután a frissítést egy küszöbnyi őrző elfogadta, az új konszenzus meta lesz a szövetség számára.",
+        "core-meta-fields": "A következő meta mezők a Fedimint protokoll részeként lettek definiálva, és hasznosak a szövetséged meta adatainak tartalmazásához:",
+        "meta-field-expiry": "Egy unix időbélyeg, amely után a szövetség leáll.",
+        "meta-field-name": "A szövetség emberi olvasásra alkalmas neve",
+        "meta-field-icon": "Egy URL a szövetség logó ikonjához",
+        "meta-field-welcome": "Üdvözlő üzenet az új felhasználók számára, akik csatlakoznak a szövetséghez.",
+        "meta-field-gateways": "A szövetség által ellenőrzött átjáróazonosítók listája",
+        "your-own-fields": "A javaslathoz saját tetszőleges meta mezőket is hozzáadhatsz. Ezeket hozzáadják az összes olyan kliens metaadataihoz, amely csatlakozik a szövetségedhez, és bármilyen célra felhasználhatók, amit szeretnél.",
+        "meta-effect-add": "Hozzáadás",
+        "meta-effect-modify": "Módosít",
+        "meta-effect-unchanged": "Változatlan",
+        "proposals": "Javaslatok"
+      }
+    },
+    "modal": {
+      "client-connect": "Kapcsolódj egy klienshez"
+    },
+    "danger-zone": {
+      "danger-zone-label": "Veszélyzóna",
+      "cancel": "Törlés",
+      "danger-zone-description": "Használja óvatosan!",
+      "guardian-warning-message": "FIGYELEM: Ne oszd meg ezt a kódot senkivel. Aki rendelkezik ezzel a kóddal, az az Őrzőként hitelesítheti magát. Győződj meg róla, hogy egy privát helyen vagy, és senki sem figyeli a képernyődet.",
+      "guardian-acknowledge": "Ismerje el és fedje fel a kódot",
+      "acknowledge-and-download": "Elismerés és folytatás",
+      "guardian-authenticate": "Hitelesítés Őrként",
+      "guardian-connect-warning": "NE OSZD MEG EZT",
+      "backup": {
+        "label": "Biztonsági másolat",
+        "title": "Biztonsági mentés letöltése",
+        "warning-title": "Figyelem",
+        "warning-text": "A biztonsági mentés tartalmazza a szövetségi őr privát kulcsait és titkos anyagait, és biztonságban kell tartani. A helyreállításhoz ezzel a biztonsági mentéssel szükség van az admin jelszavadra!",
+        "cancelButton": "Mégse",
+        "acknowledgeButton": "Elismerés és Letöltés"
+      },
+      "sign-api-announcement": {
+        "label": "Aláírás API Bejelentés",
+        "title": "Aláírás API Bejelentés",
+        "description": "Írj alá egy új API bejelentést.",
+        "current-api-url": "Az API URL-je a Helyi Beállításokból",
+        "announced-api-url": "Az API URL-je a Szövetségi Bejelentésekből",
+        "urls-match": "A jelenlegi API URL címed megegyezik a bejelentett API URL címmel.",
+        "urls-mismatch": "Megváltoztattad az API URL-t a helyi konfigurációdban, és új API bejelentést kell tenned.",
+        "sign-button": "Új API bejelentés aláírása",
+        "signing-in-progress": "Bejelentkezés folyamatban...",
+        "sign-tooltip": "Írd alá az API bejelentést, hogy bejelentsd az API URL-edet a szövetségnek."
+      },
+      "schedule-shutdown": {
+        "label": "Ütemezett leállítás",
+        "title": "Ütemezett leállítás",
+        "description": "Ütemezze a felügyelő csomópont leállítását egy adott session magasság után a fedimintd binárisok koordinált frissítése érdekében.",
+        "current-session": "Aktuális ülés",
+        "session-to-shutdown": "A munkamenet leállítása:",
+        "confirm-shutdown": "Leállítás megerősítése",
+        "session-to-shutdown-helper": "Írd be a session magasságát, amelynél le szeretnéd állítani a guardian node-odat."
+      }
+    }
+  },
+  "login": {
+    "title": "Üdvözöljük vissza!",
+    "subtitle": "Kérjük, adja meg a jelszavát.",
+    "password": "Jelszó",
+    "submit": "Benyújtás"
+  },
+  "role-selector": {
+    "disclaimer-title": "A Fedimint alfa szoftver.",
+    "disclaimer-text": "Nagyon korai verzióját használja a Fedimintnak. Kérjük, használja óvatosan, és jelentsen problémákat a Fedimint fejlesztőinek a Githubon.",
+    "leader": {
+      "label": "Beállító vezető",
+      "description": "Írja be a konfigurációs beállításokat, amelyeket más Őrzők jóváhagynak. Egy Őrző a Beállítási Vezető."
+    },
+    "follower": {
+      "label": "Követő",
+      "description": "Miután egy Beállítási Vezető beállította a konfigurációkat, a többi Őrző ezt az opciót választja a beállítások jóváhagyására és a Szövetség létrehozására."
+    },
+    "solo": {
+      "label": "Egyedül",
+      "description": "Működtesse a Fedimintot egyéni őrként konszenzus, hibatűrés, szövetségi biztonsági mentések vagy a Fedimint egyéb ellenállósági előnyei nélkül. Járjon el óvatosan, nem termelési használatra készült."
+    }
+  },
+  "run-dkg": {
+    "error-config": "Sikertelen a megosztott kulcsgenerálás futtatása. A szövetség beállítását újra kell indítani.",
+    "error-default": "Nem készen a DKG-ra, a jelenlegi státuszod",
+    "error-header": "Valami hiba történt.",
+    "waiting-header": "Várok a társakra...",
+    "generating-header": "Kódok generálása..."
+  },
+  "set-config": {
+    "bft-explanation-title": "A Te Szövetséged Bizánci Hiba Toleranciája",
+    "bft-explanation": "Egy {{total}} Őrző Szövetség létrehoz egy {{honest}}/{{total}} Küszöböt.",
+    "bft-faulty": "A Szövetséged képes lesz tolerálni a {{faulty}} hibás, offline vagy rosszindulatú Őrzőket anélkül, hogy ez hatással lenne a Szövetség működésére.",
+    "guardian-name": "Őrző neve",
+    "guardian-name-help": "Ez a véletlenszerű név megjelenik más Őrzőknek a beállítás során.",
+    "admin-password": "Admin jelszó",
+    "admin-password-generate": "Generálás",
+    "admin-password-set": "Kattints a 'Generálás' gombra egy biztonságos jelszó létrehozásához. Módosíthatod, de ennek a jelszónak biztonságosnak és mentettnek kell lennie!",
+    "admin-password-help": "Biztosítsd ezt a jelszót és tartsd biztonságban! Ezt a jelszót nem tudod visszaállítani!",
+    "admin-password-backup": "Erős jelszót használok, és elmentettem. (Ezt a jelszót nem tudod visszaállítani!)",
+    "confirm-password": "Jelszó megerősítése",
+    "error-password-mismatch": "A jelszavak nem egyeznek.",
+    "join-federation": "Csatlakozz a Szövetséghez link",
+    "join-federation-help": "Kérdezd meg azt a személyt, aki létrehozta a Szövetséget, hogy adjon egy linket, és másold be ide.",
+    "basic-settings": "Alapok",
+    "federation-settings": "Szövetségi beállítások",
+    "federation-name": "Szövetség neve",
+    "guardian-number": "Őrzők száma",
+    "guardian-number-help": "A szövetségekhez minimum 4 őrző szükséges. Ezen később nem lehet változtatni.",
+    "bitcoin-settings": "Bitcoin beállítások",
+    "block-confirmations": "További blokk megerősítések",
+    "block-confirmations-help": "A Fedimint őrzők több megerősítéssel követik a blokklánc csúcsát, hogy elkerüljék a blokkújraszervezéseket.",
+    "block-confirmations-warning": "A Fedimint futtatása kevesebb mint 5 további blokk megerősítéssel rendkívül kockázatos! A Fedimint NEM képes kezelni a blokklánc átszervezéseket.",
+    "bitcoin-network": "Bitcoin Hálózat",
+    "select-network": "Válasszon egy hálózatot",
+    "set-rpc-help": "Helyileg beállított Bitcoin RPC cím",
+    "bitcoin-rpc": "Bitcoin RPC",
+    "error-valid-number": "Kérjük, adjon meg egy érvényes számot.",
+    "error-valid-min": "Kérjük, adjon meg legalább {{min}} számot.",
+    "error-valid-max": "Kérjük, adjon meg legfeljebb {{max}} számot.",
+    "error-valid-min-max": "Kérjük, adjon meg egy számot {{min}} és {{max}} között.",
+    "meta-fields": "Meta mezők",
+    "meta-fields-description": "Lásd a <docs>dokumentációt</docs> a további információkért.",
+    "meta-fields-key": "Meta kulcs",
+    "meta-fields-value": "Érték",
+    "meta-fields-effect": "Hatás",
+    "meta-fields-add-another": "Adj hozzá egy másikat",
+    "meta-fields-title": "A te Meta Javaslatod:"
+  },
+  "setup": {
+    "common": {
+      "restart-setup": "Újraindítás beállításai",
+      "restart-setup-alert": "A Beállítási Vezető újraindította a Beállítási Ceremóniát. Kérjük, kattintson az alábbi \"Újraindítás\" gombra a folytatáshoz.",
+      "confirm-restart-setup": "Biztos benne, hogy újra szeretné indítani a Telepítési Ceremóniát?",
+      "confirm-restart-setup-alert": "A \"Újraindítás\" gombra kattintva újraindul a szertartás minden Őrző számára."
+    },
+    "progress": {
+      "tos": {
+        "title": "Szolgáltatási feltételek"
+      },
+      "start": {
+        "title": "Üdvözöljük, Őrző!",
+        "subtitle": "Állítsuk be a szövetségedet.",
+        "step": "Szövetségi adatok"
+      },
+      "set-config": {
+        "title": "Be kell állítanunk néhány konfigurációt a Szövetségedhez.",
+        "title-solo": "Néhány beállítást kell megadnunk a Solo Szövetségedhez.",
+        "subtitle-leader": "A Szövetséged Követői megerősítik ezt az információt a saját oldalukon.",
+        "subtitle-solo": "A Szóló Szövetség működtetése sok előnyét elveszíti a Fedimintnek. Nem lesz hibatűrő konszenzus egy őrző offline állapotára, és nem tudsz szövetségi biztonsági mentéseket végezni. Óvatosan járj el, nem ajánlott termelési használatra vagy a főhálózati Bitcoin használatára.",
+        "subtitle-follower": "A Szövetség vezetője beállítja a fő Szövetségi részleteket. Hamarosan megerősíted őket.",
+        "step": "Szövetségi adatok"
+      },
+      "connect-guardians": {
+        "title-leader": "Hívd meg a Őrzőidet",
+        "title-follower": "Erősítse meg a Szövetségi Információit",
+        "subtitle-leader": "Oszd meg a linket a többi Őrzővel, hogy mindenki egy oldalon legyen. Miután minden Őrző csatlakozik, automatikusan a következő lépésre lépsz.",
+        "subtitle-follower": "Győződjön meg róla, hogy az itt található információk helyesek, és hogy a Szövetség Őrzői pontosak. Kattintson az Engedélyezés gombra, amikor biztos benne, hogy jól néz ki.",
+        "step-leader": "Hívj meg Őrzőket",
+        "step-follower": "Információ megerősítése"
+      },
+      "run-dkg": {
+        "title": "Siker!",
+        "subtitle": "Minden Őrző érvényesítette a szövetségi beállítások részleteit. Számolok egy kicsit..."
+      },
+      "verify-guardians": {
+        "title": "Ellenőrizd a Őrzőidet",
+        "subtitle": "Kérd meg minden Őrt, hogy adja meg a hitelesítési kódját, és másold be őket alább a érvényesség ellenőrzéséhez. Már majdnem kész vagyunk!",
+        "step": "Ellenőrizze a gyámokat",
+        "leader-confirm-done": "Erősítse meg, hogy az összes követő Őrző rákattintott a \"Tovább\" gombra, és nézze meg az őrzői irányítópultjaikat, mielőtt folytatná.",
+        "leader-confirm-done-emphasis": "A \"Tovább\" gombra kattintva befejezi a beállítási ceremóniát."
+      },
+      "setup-complete": {
+        "step": "Kész!"
+      },
+      "error": {
+        "title": "Ismeretlen lépés",
+        "subtitle": "Hogy kerültél ide?!"
+      }
+    }
+  },
+  "setup-complete": {
+    "header": "🎉 🎉 🎉",
+    "congratulations": "Gratulálok",
+    "leader-message": "Minden Őr ellenőrző kódját ellenőrizték.",
+    "follower-message": "Minden kész! Kattints a folytatásra, és tudasd a többi Őrzővel, hogy futsz!",
+    "continue": "Folytatás"
+  },
+  "terms-of-service": {
+    "agree-and-continue": "Egyetértek és folytatom"
+  },
+  "verify-guardians": {
+    "verified": "Ellenőrzött",
+    "verified-placeholder": "Illessze be a kódot ide",
+    "error": "Valami hiba történt.",
+    "error-peer-id": "Nem tudjuk meghatározni, hogy melyik partner vagy. Kérlek, frissítsd az oldalt, és próbáld újra.",
+    "verification-code": "A megerősítő kódod",
+    "verification-code-help": "Oszd meg ezt a kódot más őrzőkkel.",
+    "table-title": "Őrzői ellenőrző kódok",
+    "table-description": "Írd be az egyes Őrzők ellenőrző kódjait az alábbiakba.",
+    "table-column-name": "Név",
+    "table-column-status": "Állapot",
+    "table-column-hash-input": "Illessze be a hitelesítési kódot",
+    "wait-all-guardians-verification": "Várakozás, amíg az összes Őrző megerősíti a kódját",
+    "all-guardians-verified": "Minden Őr ellenőrizte a kódját.",
+    "starting-consensus": "Kezdő konszenzus..."
+  },
+  "footer": {
+    "docs-section-header": "Dokumentumok",
+    "community-section-header": "Közösség",
+    "contribute-section-header": "Hozzájárulás",
+    "getting-started-link-text": "Kezdő lépések",
+    "faq-link-text": "Gyakran Ismételt Kérdések",
+    "blog-link-text": "Blog",
+    "discord-link-text": "Discord",
+    "twitter-link-text": "Twitter",
+    "github-link-text": "GitHub"
+  }
+}

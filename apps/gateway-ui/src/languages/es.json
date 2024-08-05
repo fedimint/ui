@@ -1,48 +1,59 @@
 {
+  "card_header": "saldo de eCash",
+  "sentence": "Denominado en Sats",
+  "your-balance": "Tu saldo de eCash en esta federación:",
   "common": {
     "address": "Dirección",
-    "amount": "Monto",
+    "amount": "Cantidad",
     "bitcoin": "Bitcoin",
-    "btc": "btc",
+    "btc": "BTC",
     "confirm": "Confirmar",
-    "copied": "Copiado",
     "error": "Error",
-    "sats": "sats"
+    "sats": "sats",
+    "copy": "Copia",
+    "copied": "¡Copiado!"
   },
   "admin": {
-    "fetch-info-modal-text": "Comprobando datos de la federación..."
+    "fetch-info-modal-text": "Verificando detalles de la federación..."
+  },
+  "login": {
+    "title": "¡Bienvenido de nuevo!",
+    "subtitle": "Por favor, introduce tu contraseña de Gateway.",
+    "password": "Contraseña",
+    "submit": "Enviar"
   },
   "balance-card": {
-    "card_header": "saldo de efectivo electrónico",
+    "card_header": "Saldo de eCash",
     "sentence": "Denominado en Sats",
-    "your-balance": "Su saldo de eCash en esta federación:"
+    "your-balance": "Tu saldo de eCash en esta federación:"
   },
   "connect-federation": {
     "connect": "Conectar 🚀",
-    "connect-federation-button": "Añadir Federación",
-    "connection-string-placeholder": "Ingrese la cadena de conexión de la federación",
-    "heading": "Conéctese a una federación usando un código de invitación",
-    "information-bar-text": "La cantidad de federaciones a las que puede conectarse está limitada a una. Pronto se admitirá la conexión a varias federaciones.",
-    "label": "Cadena de Conexión:",
-    "progress-modal-text": "Conectándose a la federación...",
-    "sub-heading": "El código de invitación es una cadena larga que comienza con \"fed1\""
+    "connect-federation-button": "Agregar Federación",
+    "connection-string-placeholder": "Pegar código de invitación de federación",
+    "heading": "Conéctate a una federación usando un código de invitación",
+    "information-bar-text": "El número de federaciones a las que puedes conectarte está limitado a una. La conexión a múltiples federaciones se admitirá pronto.",
+    "label": "Cadena de conexión:",
+    "progress-modal-text": "Conectando a la federación...",
+    "sub-heading": "El código de invitación es una cadena larga que comienza con 'fed1'"
   },
   "deposit-card": {
-    "bitcoin-deposit": "Depósito de bitcoins",
-    "card_header": "Depositar Bitcoins",
+    "bitcoin-deposit": "Depósito de Bitcoin",
+    "card_header": "Depositar Bitcoin",
     "confirmations": "Confirmaciones:",
     "header": "Depósito de Bitcoin a la Federación",
-    "receiving-address": "Dirección de recepción",
+    "receiving-address": "Dirección de Recepción",
     "required": "requerido",
-    "sentence-one": "Deposita a la dirección o escanea el código QR",
-    "transaction-id": "ID de transacción"
+    "sentence-one": "Deposita en la dirección o escanea el código QR",
+    "transaction-id": "ID de transacción",
+    "create-pegin-address": "Crear dirección Peg-in"
   },
   "federation-card": {
-    "default-federation-name": "Federación",
-    "leave-fed-error": "No puede abandonar la federación con sats en su saldo. Por favor, retire sus sats primero.",
-    "leave-fed-modal-title": "Abandonar Federación",
-    "leave-fed-modal-text": "¿Está seguro de que desea desconectarse de",
-    "view-link-on": "Ver en {{host}}"
+    "default-federation-name": "Federación: ",
+    "view-link-on": "Ver en {{host}}",
+    "leave-fed-error": "No se puede salir de la federación con sats en tu saldo. Por favor, retira tus sats primero.",
+    "leave-fed-modal-title": "Dejar la Federación",
+    "leave-fed-modal-text": "¿Estás seguro de que quieres desconectarte de"
   },
   "footer": {
     "blog-link-text": "Blog",
@@ -50,56 +61,50 @@
     "contribute-section-header": "Contribuir",
     "discord-link-text": "Discordia",
     "docs-section-header": "Documentos",
-    "faq-link-text": "Preguntas frecuentes",
-    "getting-started-link-text": "Empezando",
+    "faq-link-text": "Preguntas Frecuentes",
+    "getting-started-link-text": "Comenzando",
     "github-link-text": "GitHub",
-    "twitter-link-text": "Gorjeo"
+    "twitter-link-text": "Twitter"
   },
   "header": {
-    "active": "Activa",
+    "active": "Activo",
     "all": "Todo",
-    "archived": "Archivada",
+    "archived": "Archivado",
     "ascending": "Ascendente",
     "connect": "Conectar Federación",
-    "date-created": "Fecha de Creación",
-    "descending": "Descendente",
-    "filter": "Filtrar",
+    "date-created": "Fecha de creación",
+    "descending": "Descendiendo",
+    "filter": "Filtro",
     "sort": "Ordenar",
-    "title": "Panel de puerta de enlace Lightning"
+    "title": "Tablero de Lightning Gateway"
   },
   "info-card": {
-    "card_header": "ID de nodo"
+    "card_header": "ID de Nodo Lightning"
   },
   "withdraw-card": {
-    "address-label": "Su dirección:",
-    "address-placeholder": "Ingrese su dirección btc",
+    "address-label": "Tu dirección:",
+    "address-placeholder": "Ingresa tu dirección de btc",
     "amount-label": "Cantidad (sats):",
     "amount-placeholder": "Ingrese la cantidad en sats",
-    "card-header": "Retirar bitcoins",
-    "close": "Cerca",
+    "card-header": "Retirar Bitcoin",
+    "close": "Cerrar",
     "confirm-withdraw": "Confirmar Retiro",
     "error": "Error",
-    "error-address": "El monto o la dirección no pueden estar vacíos",
-    "error-amount": "La cantidad no puede estar vacía o ser igual a cero",
-    "error-request": "No se pudo solicitar el retiro",
+    "error-address": "La cantidad o la dirección no pueden estar vacías",
+    "error-amount": "La cantidad no puede estar vacía ni ser igual a cero",
+    "error-request": "Error al solicitar el retiro",
     "request-from": "Retiro solicitado de",
-    "requested-withdrawal": "Retiro solicitado",
-    "to": "a",
-    "total_bitcoin": "Bitcoins totales:",
-    "view": "Vista",
+    "requested-withdrawal": "Retiro Solicitado",
+    "to": "para",
+    "total_bitcoin": "Total Bitcoin:",
+    "transaction-sent": "¡Transacción Enviada!",
+    "view": "Ver",
+    "view-it-on": "Verlo en",
     "withdraw": "Retirar",
     "withdraw-all": "Retirar todo",
     "withdrawal-created": "Retiro creado.",
-    "withdrawal-created-description": "Por favor verifique su historial de transacciones",
-    "withdrawal-history": "Historial de retiros",
-    "your-transaction": "Su ID de transacción:",
-    "transaction-sent": "¡Transacción enviada!",
-    "view-it-on": "Verlo en"
-  },
-  "login": {
-    "title": "¡Bienvenido de nuevo!",
-    "subtitle": "Por favor ingrese su contraseña de puerta de enlace.",
-    "password": "Contraseña",
-    "submit": "Entregar"
+    "withdrawal-created-description": "Por favor, verifica tu historial de transacciones",
+    "withdrawal-history": "Historial de Retiros",
+    "your-transaction": "Tu ID de transacción:"
   }
 }

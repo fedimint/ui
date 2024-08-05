@@ -1,0 +1,131 @@
+{
+  "address-label": "Tu dirección:",
+  "address-placeholder": "Введите ваш btc-адрес",
+  "amount-label": "Montant (sats) :",
+  "amount-placeholder": "Ingresa la cantidad en sats",
+  "card-header": "Retirar Bitcoin",
+  "close": "Chiudi",
+  "confirm-withdraw": "Confirmar Retiro",
+  "error": "Erro",
+  "error-address": "L'importo o l'indirizzo non possono essere vuoti",
+  "error-amount": "El monto no puede estar vacío ni ser igual a cero",
+  "error-request": "Solicitud de retiro fallida",
+  "request-from": "Retiro Solicitado de",
+  "requested-withdrawal": "Retiro Solicitado",
+  "to": "à",
+  "total_bitcoin": "Total Bitcoin:",
+  "transaction-sent": "Transacción Enviada!",
+  "view": "Vista",
+  "view-it-on": "Véalo en",
+  "withdraw": "Retirar",
+  "withdraw-all": "Retirar todo",
+  "withdrawal-created": "Retiro creado.",
+  "withdrawal-created-description": "Si prega di controllare la cronologia delle transazioni",
+  "withdrawal-history": "Historique des retraits",
+  "your-transaction": "Tu ID de transacción:",
+  "common": {
+    "address": "Dirección",
+    "amount": "Montant",
+    "bitcoin": "Bitcoin",
+    "btc": "BTC",
+    "confirm": "Confirmer",
+    "error": "Errore",
+    "sats": "sats",
+    "copy": "Copiar",
+    "copied": "¡Copiado!"
+  },
+  "admin": {
+    "fetch-info-modal-text": "Verificando detalles de la federación..."
+  },
+  "login": {
+    "title": "¡Bienvenido de nuevo!",
+    "subtitle": "Por favor, ingrese su contraseña de Gateway.",
+    "password": "Contraseña",
+    "submit": "提交"
+  },
+  "balance-card": {
+    "card_header": "eCash saldo",
+    "sentence": "Denominado en Sats",
+    "your-balance": "Tu saldo de eCash en esta federación:"
+  },
+  "connect-federation": {
+    "connect": "Conectar 🚀",
+    "connect-federation-button": "Add Federation",
+    "connection-string-placeholder": "Colar código de convite da federação",
+    "heading": "Conéctate a una federación usando un código de invitación",
+    "information-bar-text": "El número de federaciones a las que puedes conectarte está limitado a una. La conexión a múltiples federaciones será compatible pronto.",
+    "label": "Stringa di connessione:",
+    "progress-modal-text": "Conectando a la federación...",
+    "sub-heading": "El código de invitación es una cadena larga que comienza con 'fed1'"
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Bitcoin Einzahlung",
+    "card_header": "Depositar Bitcoin",
+    "confirmations": "Confirmaciones:",
+    "header": "Bitcoin Einzahlung in die Föderation",
+    "receiving-address": "Dirección de Recepción",
+    "required": "requis",
+    "sentence-one": "Depósito a la dirección o escanea el código QR",
+    "transaction-id": "ID de transacción",
+    "create-pegin-address": "Crear dirección Peg-in"
+  },
+  "federation-card": {
+    "default-federation-name": "Федерация: ",
+    "view-link-on": "Vedi su {{host}}",
+    "leave-fed-error": "Non puoi lasciare la federazione con sats nel tuo saldo. Per favore, ritira prima i tuoi sats.",
+    "leave-fed-modal-title": "Verlassen Sie die Föderation",
+    "leave-fed-modal-text": "¿Estás seguro de que quieres desconectarte de"
+  },
+  "footer": {
+    "blog-link-text": "Блог",
+    "community-section-header": "Gemeinschaft",
+    "contribute-section-header": "Contribuir",
+    "discord-link-text": "Discord",
+    "docs-section-header": "Документы",
+    "faq-link-text": "Fragen, die häufig gestellt werden",
+    "getting-started-link-text": "Comenzando",
+    "github-link-text": "GitHub",
+    "twitter-link-text": "X"
+  },
+  "header": {
+    "active": "Activo",
+    "all": "Tout",
+    "archived": "Archiviato",
+    "ascending": "Ascendente",
+    "connect": "Conectar Federación",
+    "date-created": "Data di creazione",
+    "descending": "Descendente",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "title": "Lightning Gateway Dashboard"
+  },
+  "info-card": {
+    "card_header": "ID de Nodo Lightning"
+  },
+  "withdraw-card": {
+    "address-label": "Tu dirección:",
+    "address-placeholder": "Inserisci il tuo indirizzo BTC",
+    "amount-label": "Montant (sats) :",
+    "amount-placeholder": "Ingresa la cantidad en sats",
+    "card-header": "Retirar Bitcoin",
+    "close": "Chiudi",
+    "confirm-withdraw": "Confirmar Retiro",
+    "error": "Errore",
+    "error-address": "L'importo o l'indirizzo non possono essere vuoti",
+    "error-amount": "El monto no puede estar vacío ni ser igual a cero",
+    "error-request": "Solicitud de retiro fallida",
+    "request-from": "Retiro Solicitado de",
+    "requested-withdrawal": "Solicitud de Retiro",
+    "to": "à",
+    "total_bitcoin": "Total Bitcoin:",
+    "transaction-sent": "Transaction Sent!",
+    "view": "Vista",
+    "view-it-on": "Véalo en",
+    "withdraw": "Retirar",
+    "withdraw-all": "Retirar todo",
+    "withdrawal-created": "Retiro creado.",
+    "withdrawal-created-description": "Si prega di controllare la cronologia delle transazioni",
+    "withdrawal-history": "Historique des retraits",
+    "your-transaction": "Tu ID de transacción:"
+  }
+}

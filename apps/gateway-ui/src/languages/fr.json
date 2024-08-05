@@ -1,0 +1,107 @@
+{
+  "common": {
+    "address": "Adresse",
+    "amount": "Montant",
+    "bitcoin": "Bitcoin",
+    "btc": "BTC",
+    "confirm": "Confirmer",
+    "error": "Erreur",
+    "sats": "sats",
+    "copy": "Copier",
+    "copied": "Copié !"
+  },
+  "admin": {
+    "fetch-info-modal-text": "Vérification des détails de la fédération..."
+  },
+  "login": {
+    "title": "Bienvenue de nouveau !",
+    "subtitle": "Veuillez entrer votre mot de passe Gateway.",
+    "password": "Mot de passe",
+    "submit": "Soumettre"
+  },
+  "balance-card": {
+    "card_header": "solde eCash",
+    "sentence": "Dénommé en Sats",
+    "your-balance": "Votre solde eCash sur cette fédération :"
+  },
+  "connect-federation": {
+    "connect": "Connectez-vous 🚀",
+    "connect-federation-button": "Ajouter la Fédération",
+    "connection-string-placeholder": "Collez le code d'invitation de la fédération",
+    "heading": "Connectez-vous à une fédération en utilisant un code d'invitation.",
+    "information-bar-text": "Le nombre de fédérations auxquelles vous pouvez vous connecter est limité à une. La connexion à plusieurs fédérations sera bientôt prise en charge.",
+    "label": "Chaîne de connexion :",
+    "progress-modal-text": "Connexion à la fédération...",
+    "sub-heading": "Le code d'invitation est une longue chaîne qui commence par 'fed1"
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Dépôt Bitcoin",
+    "card_header": "Déposer des Bitcoin",
+    "confirmations": "Confirmations :",
+    "header": "Dépôt Bitcoin à la Fédération",
+    "receiving-address": "Adresse de réception",
+    "required": "exigé",
+    "sentence-one": "Déposez à l'adresse ou scannez le code QR",
+    "transaction-id": "ID de transaction",
+    "create-pegin-address": "Créer une adresse Peg-in"
+  },
+  "federation-card": {
+    "default-federation-name": "Fédération :",
+    "view-link-on": "Voir sur {{host}}",
+    "leave-fed-error": "Vous ne pouvez pas quitter la fédération avec des sats dans votre solde. Veuillez d'abord retirer vos sats.",
+    "leave-fed-modal-title": "Quitter la Fédération",
+    "leave-fed-modal-text": "Êtes-vous sûr de vouloir vous déconnecter de"
+  },
+  "footer": {
+    "blog-link-text": "Blog",
+    "community-section-header": "Communauté",
+    "contribute-section-header": "Contribuer",
+    "discord-link-text": "Discord",
+    "docs-section-header": "Docs",
+    "faq-link-text": "Questions Fréquemment Posées",
+    "getting-started-link-text": "Commencer",
+    "github-link-text": "GitHub",
+    "twitter-link-text": "Twitter"
+  },
+  "header": {
+    "active": "Actif",
+    "all": "Tout",
+    "archived": "Archivé",
+    "ascending": "Ascendant",
+    "connect": "Connect Fédération",
+    "date-created": "Date de création",
+    "descending": "Descendant",
+    "filter": "Filtre",
+    "sort": "Trier",
+    "title": "Tableau de bord de la passerelle Lightning"
+  },
+  "info-card": {
+    "card_header": "ID de nœud Lightning"
+  },
+  "withdraw-card": {
+    "address-label": "Votre adresse :",
+    "address-placeholder": "Entrez votre adresse btc",
+    "amount-label": "Montant (sats) :",
+    "amount-placeholder": "Entrez le montant en sats",
+    "card-header": "Retirer des Bitcoin",
+    "close": "Fermer",
+    "confirm-withdraw": "Confirmer le retrait",
+    "error": "Erreur",
+    "error-address": "Le montant ou l'adresse ne peut pas être vide.",
+    "error-amount": "Le montant ne peut pas être vide ou égal à zéro.",
+    "error-request": "Échec de la demande de retrait",
+    "request-from": "Retrait demandé de",
+    "requested-withdrawal": "Retrait demandé",
+    "to": "à",
+    "total_bitcoin": "Total Bitcoin :",
+    "transaction-sent": "Transaction envoyée !",
+    "view": "Vue",
+    "view-it-on": "Voir sur",
+    "withdraw": "Retirer",
+    "withdraw-all": "Retirer tout",
+    "withdrawal-created": "Retrait créé.",
+    "withdrawal-created-description": "Veuillez vérifier votre historique de transactions.",
+    "withdrawal-history": "Historique des retraits",
+    "your-transaction": "Votre identifiant de transaction :"
+  }
+}
