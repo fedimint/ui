@@ -264,7 +264,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         isDisabled={!isValid}
         onClick={isValid ? handleNext : undefined}
         leftIcon={<Icon as={ArrowRightIcon} />}
-        mt={['2', '4']}
         width='60%'
         alignSelf='center'
       >
