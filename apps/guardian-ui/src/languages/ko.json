@@ -5,7 +5,18 @@
     "error": "문제가 발생했습니다.",
     "next": "다음",
     "unknown": "알려지지 않은",
-    "remove": "제거하다"
+    "remove": "제거하다",
+    "copy": "복사",
+    "copied": "복사됨!",
+    "cancel": "취소",
+    "review": "리뷰",
+    "approvals": "승인",
+    "approve": "승인하다",
+    "threshold": "임계값",
+    "confirm": "확인",
+    "you": "당신",
+    "close": "닫기",
+    "save": "저장"
   },
   "connect-guardians": {
     "approve": "승인",
@@ -16,7 +27,8 @@
     "pending": "대기 중",
     "table-description": "보호자는 페더레이션 설정을 확인하면 여기에서 확인됩니다.",
     "table-title": "페더레이션 가디언",
-    "meta-field-key": "메타 필드 - {{key}}"
+    "meta-field-key": "메타 필드 - {{key}}",
+    "waiting-for-guardian": "보호자를 기다리는 중"
   },
   "federation-dashboard": {
     "balance": {
@@ -32,7 +44,12 @@
       "consensus-version-label": "합의 버전",
       "block-count-label": "합의 블록 높이",
       "label": "연맹 정보",
-      "your-status-label": "상태"
+      "your-status-label": "상태",
+      "peer-id-label": "피어 ID",
+      "session-info": {
+        "session-height": "세션 높이",
+        "latest-session": "최신 세션"
+      }
     },
     "gateways": {
       "fee-label": "게이트웨이 수수료",
@@ -50,7 +67,9 @@
       "label": "수호자",
       "last-contribution-label": "마지막 기여 블록",
       "name-label": "이름",
-      "status-label": "연결 상태"
+      "status-label": "연결 상태",
+      "id-name-label": "ID: 이름",
+      "api-url-label": "API URL"
     },
     "config": {
       "label": "연합 설정",
@@ -61,7 +80,39 @@
         "consensus-meta-label": "",
         "submitted-meta-label": "",
         "edit-meta-label": "",
-        "submit-meta-edits-button": ""
+        "submit-meta-edits-button": "",
+        "label": "메타 관리",
+        "cancel-button": "취소",
+        "confirm-modal": {
+          "title": "승인 확인",
+          "description": "귀하의 승인이 이 메타 변경을 채택하는 기준에 도달할 것입니다. 귀하의 새로운 메타는 다음과 같이 보일 것입니다:"
+        },
+        "revoke-button": "취소",
+        "no-consensus-meta-message": "합의에는 메타가 없다.",
+        "proposed-meta-label": "메타 제안",
+        "propose-meta": "메타 제안",
+        "propose-new-meta-button": "새로운 메타 제안",
+        "proposal-approved": "이 제안을 승인하셨습니다.",
+        "no-submitted-meta-message": "검토할 메타 편집이 없습니다.",
+        "edit-consensus-meta-button": "편집 합의 메타",
+        "submit-meta-proposal": "메타 제안 제출",
+        "peer-approvals": "동료 승인",
+        "actions": "행동",
+        "revision": "수정",
+        "setup-meta-title": "연합을 위한 메타 설정하기",
+        "setup-meta-description": "Fedimint는 클라이언트에게 메타 필드 형태로 추가 정보를 제공할 수 있습니다: 클라이언트와 공유하고자 하는 임의의 정보가 포함된 키-값 쌍입니다. 이러한 메타 필드는 Fedimint에 의해 해석되지 않지만, 합의와 관련이 있습니다. 즉, 연합 구성원 간에 다를 수 없습니다. 이렇게 함으로써 클라이언트는 그 정확성을 신뢰할 수 있습니다.",
+        "propose-updates": "페디민트 가디언으로서, 당신은 다른 가디언들이 수용할 메타 업데이트를 제안할 수 있습니다. 업데이트가 일정 수의 가디언들에 의해 수용되면, 그것은 연합의 새로운 합의 메타로 채택됩니다.",
+        "core-meta-fields": "다음 메타 필드는 핵심 페디민트 프로토콜의 일환으로 정의되었으며, 귀하의 연합 메타에 포함하는 것이 유용합니다:",
+        "meta-field-expiry": "연합이 종료될 유닉스 타임스탬프.",
+        "meta-field-name": "연합의 사람이 읽을 수 있는 이름",
+        "meta-field-icon": "연합의 로고 아이콘에 대한 URL",
+        "meta-field-welcome": "연합에 가입하는 신규 사용자에게 보내는 환영 메시지",
+        "meta-field-gateways": "연합에 의해 검증된 게이트웨이 식별자 목록",
+        "your-own-fields": "제안에 임의의 메타 필드를 추가할 수도 있습니다. 이러한 필드는 귀하의 연합에 연결되는 모든 클라이언트의 메타에 추가되며, 원하는 용도로 사용할 수 있습니다.",
+        "meta-effect-add": "추가하다",
+        "meta-effect-modify": "수정하다",
+        "meta-effect-unchanged": "변경되지 않음",
+        "proposals": "제안"
       },
       "downloadBackup": {
         "button": "",
@@ -72,7 +123,55 @@
       }
     },
     "invite-members": "회원 초대",
-    "invite-members-prompt": "이 내용을 공유하여 회원을 연맹에 가입하도록 초대하세요."
+    "invite-members-prompt": "이 내용을 공유하여 회원을 연맹에 가입하도록 초대하세요.",
+    "api-announcements": {
+      "label": "API 공지사항",
+      "guardian": "가디언",
+      "api-url": "API URL",
+      "revision": "수정"
+    },
+    "modal": {
+      "client-connect": "클라이언트 연결"
+    },
+    "danger-zone": {
+      "danger-zone-label": "위험 지역",
+      "cancel": "취소",
+      "danger-zone-description": "주의해서 사용하세요!",
+      "guardian-warning-message": "경고: 이 코드를 누구와도 공유하지 마십시오. 이 코드를 가진 사람은 누구나 Guardian으로 인증할 수 있습니다. 개인적인 장소에 있고 누군가 당신의 화면을 보고 있지 않은지 확인하십시오.",
+      "guardian-acknowledge": "코드를 인식하고 공개하다",
+      "acknowledge-and-download": "인정하고 진행하기",
+      "guardian-authenticate": "가디언으로 인증하기",
+      "guardian-connect-warning": "이것을 공유하지 마세요",
+      "backup": {
+        "label": "백업",
+        "title": "백업 다운로드",
+        "warning-title": "경고",
+        "warning-text": "백업에는 연합 수호자를 위한 개인 키와 비밀 자료가 포함되어 있으며 안전하게 보관해야 합니다. 이 백업을 사용한 복구는 귀하의 관리자 비밀번호가 필요합니다!",
+        "cancelButton": "취소",
+        "acknowledgeButton": "인정하고 다운로드"
+      },
+      "sign-api-announcement": {
+        "label": "서명 API 발표",
+        "title": "서명 API 발표",
+        "description": "새 API 발표에 서명하세요.",
+        "current-api-url": "로컬 구성의 API URL",
+        "announced-api-url": "연합 발표에서의 API URL",
+        "urls-match": "현재 API URL이 발표한 API URL과 일치합니다.",
+        "urls-mismatch": "로컬 구성에서 API URL을 변경했으며 새로운 API 공지를 전파해야 합니다.",
+        "sign-button": "새 API 발표 서명",
+        "signing-in-progress": "로그인 진행 중...",
+        "sign-tooltip": "API URL을 연합에 알리기 위해 API 발표에 서명하세요."
+      },
+      "schedule-shutdown": {
+        "label": "일정 종료",
+        "title": "예약 종료",
+        "description": "특정 세션 높이 이후에 가디언 노드가 종료되도록 예약하여 fedimintd 바이너리의 조정된 업그레이드를 진행하세요.",
+        "current-session": "현재 세션",
+        "session-to-shutdown": "세션 종료 시각",
+        "confirm-shutdown": "종료 확인",
+        "session-to-shutdown-helper": "가드리안 노드를 종료하려는 세션 높이를 입력하세요."
+      }
+    }
   },
   "footer": {
     "blog-link-text": "블로그",
@@ -144,14 +243,22 @@
     "meta-fields-description": "Fedimint 클라이언트에 추가 구성이 전송되었습니다. 자세한 내용은 <docs>문서</docs>를 참조하세요.",
     "meta-fields-key": "메타 키",
     "meta-fields-value": "값",
-    "meta-fields-add-another": "다른 것을 추가하세요"
+    "meta-fields-add-another": "다른 것을 추가하세요",
+    "bft-explanation-title": "귀하의 연합의 비잔틴 결함 허용성",
+    "bft-explanation": "A {{total}} 가디언 연합이 {{honest}}/{{total}} 임계값을 생성합니다.",
+    "bft-faulty": "귀하의 연합은 {{faulty}} 결함이 있는, 오프라인 상태이거나 악의적인 가디언을 연합의 운영에 영향을 주지 않고 견딜 수 있습니다.",
+    "admin-password-generate": "생성하다",
+    "admin-password-set": "생성'을 클릭하여 안전한 비밀번호를 만드세요. 수정할 수 있지만, 이 비밀번호는 안전하고 백업되어야 합니다!",
+    "admin-password-backup": "나는 강력한 비밀번호를 사용하고 있으며 백업해 두었습니다. (이 비밀번호는 복구할 수 없습니다!)",
+    "meta-fields-effect": "효과",
+    "meta-fields-title": "귀하의 메타 제안:"
   },
   "setup": {
     "common": {
       "restart-setup": "설정 다시 시작",
       "restart-setup-alert": "피어가 설정 프로세스를 다시 시작하도록 요청했습니다. 이렇게 하면 Fedimint 노드에 대해 이미 선택한 모든 구성이 재설정됩니다",
       "confirm-restart-setup": "설치 행사를 다시 시작하시겠습니까?",
-      "confirm-restart-setup-alert": "\"다시 시작\"을 클릭하면 모든 수호자의 의식이 다시 시작됩니다."
+      "confirm-restart-setup-alert": "다시 시작\"을 클릭하면 모든 수호자의 의식이 다시 시작됩니다."
     },
     "auth": {},
     "progress": {
@@ -190,7 +297,9 @@
       "verify-guardians": {
         "step": "보호자 확인",
         "subtitle": "각 가디언으로부터 검증 코드를 요청하고 아래에 붙여넣어 유효성을 확인하세요. 거의 끝났습니다!",
-        "title": "가디언 확인"
+        "title": "가디언 확인",
+        "leader-confirm-done": "모든 팔로워 가디언이 \"다음\"을 클릭하고 가디언 대시보드를 확인했는지 확인한 후 계속 진행하세요.",
+        "leader-confirm-done-emphasis": "계속\"을 클릭하면 설정 절차가 완료됩니다."
       },
       "tos": {
         "title": "서비스 약관"
@@ -201,7 +310,9 @@
     "congratulations": "축하합니다",
     "continue": "계속",
     "header": "🎉 🎉 🎉",
-    "sentence-one": "모든 가디언의 검증 코드가 확인되었습니다."
+    "sentence-one": "모든 가디언의 검증 코드가 확인되었습니다.",
+    "leader-message": "모든 수호자의 인증 코드가 확인되었습니다.",
+    "follower-message": "모두 완료되었습니다! 계속을 클릭하고 다른 가디언들에게 당신이 뛰고 있다고 알려주세요!"
   },
   "verify-guardians": {
     "all-guardians-verified": "모든 보호자가 코드를 확인했습니다",

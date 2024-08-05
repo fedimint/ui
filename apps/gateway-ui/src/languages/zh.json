@@ -1,0 +1,107 @@
+{
+  "common": {
+    "address": "地址",
+    "amount": "金额",
+    "bitcoin": "比特币",
+    "btc": "比特币",
+    "confirm": "确认",
+    "error": "错误",
+    "sats": "萨茨",
+    "copy": "复制",
+    "copied": "复制成功！"
+  },
+  "admin": {
+    "fetch-info-modal-text": "检查联邦详细信息..."
+  },
+  "login": {
+    "title": "欢迎回来！",
+    "subtitle": "请输入您的网关密码。",
+    "password": "密码",
+    "submit": "提交"
+  },
+  "balance-card": {
+    "card_header": "电子现金余额",
+    "sentence": "以萨托希计价",
+    "your-balance": "您在该联盟上的电子现金余额："
+  },
+  "connect-federation": {
+    "connect": "连接 🚀",
+    "connect-federation-button": "添加联邦",
+    "connection-string-placeholder": "粘贴联邦邀请代码",
+    "heading": "使用邀请代码连接到一个联邦",
+    "information-bar-text": "您可以连接的联邦数量限制为一个。很快将支持连接多个联邦。",
+    "label": "连接字符串：",
+    "progress-modal-text": "连接到联邦...",
+    "sub-heading": "邀请码是一个以“fed1”开头的长字符串。"
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "比特币存款",
+    "card_header": "存入比特币",
+    "confirmations": "确认：",
+    "header": "比特币存款到联邦",
+    "receiving-address": "接收地址",
+    "required": "必需的",
+    "sentence-one": "存款到该地址或扫描二维码",
+    "transaction-id": "交易ID",
+    "create-pegin-address": "创建 Peg-in 地址"
+  },
+  "federation-card": {
+    "default-federation-name": "联邦：",
+    "view-link-on": "在{{host}}上查看",
+    "leave-fed-error": "无法在余额中有sats的情况下退出联邦。请先提取您的sats。",
+    "leave-fed-modal-title": "离开联邦",
+    "leave-fed-modal-text": "您确定要断开与的连接吗"
+  },
+  "footer": {
+    "blog-link-text": "博客",
+    "community-section-header": "社区",
+    "contribute-section-header": "贡献",
+    "discord-link-text": "Discord",
+    "docs-section-header": "文档",
+    "faq-link-text": "常见问题解答",
+    "getting-started-link-text": "开始使用",
+    "github-link-text": "GitHub",
+    "twitter-link-text": "推特"
+  },
+  "header": {
+    "active": "活跃",
+    "all": "所有",
+    "archived": "归档",
+    "ascending": "上升",
+    "connect": "连接联邦",
+    "date-created": "创建日期",
+    "descending": "下降",
+    "filter": "过滤器",
+    "sort": "排序",
+    "title": "闪电网关仪表板"
+  },
+  "info-card": {
+    "card_header": "闪电节点 ID"
+  },
+  "withdraw-card": {
+    "address-label": "您的地址：",
+    "address-placeholder": "输入您的比特币地址",
+    "amount-label": "金额（聪）：",
+    "amount-placeholder": "输入金额（以萨托希为单位）",
+    "card-header": "提取比特币",
+    "close": "关闭",
+    "confirm-withdraw": "确认提现",
+    "error": "错误",
+    "error-address": "金额或地址不能为空",
+    "error-amount": "金额不能为空或等于零",
+    "error-request": "请求提现失败",
+    "request-from": "请求提款来自",
+    "requested-withdrawal": "请求提款",
+    "to": "到",
+    "total_bitcoin": "总比特币：",
+    "transaction-sent": "交易已发送！",
+    "view": "查看",
+    "view-it-on": "在上面查看",
+    "withdraw": "撤回",
+    "withdraw-all": "全部撤回",
+    "withdrawal-created": "提款已创建。",
+    "withdrawal-created-description": "请检查您的交易历史",
+    "withdrawal-history": "提款历史",
+    "your-transaction": "您的交易ID："
+  }
+}

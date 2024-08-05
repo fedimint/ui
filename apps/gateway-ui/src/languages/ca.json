@@ -1,0 +1,107 @@
+{
+  "common": {
+    "address": "Adreça",
+    "amount": "Quantitat",
+    "bitcoin": "Bitcoin",
+    "btc": "BTC",
+    "confirm": "Confirmar",
+    "error": "Error",
+    "sats": "sats",
+    "copy": "Copia",
+    "copied": "Copiat!"
+  },
+  "admin": {
+    "fetch-info-modal-text": "Comprovant detalls de la federació..."
+  },
+  "login": {
+    "title": "Benvingut de nou!",
+    "subtitle": "Si us plau, introdueix la teva contrasenya de Gateway.",
+    "password": "Contrasenya",
+    "submit": "Enviar"
+  },
+  "balance-card": {
+    "card_header": "saldo eCash",
+    "sentence": "Denominat en Sats",
+    "your-balance": "El teu saldo d'eCash en aquesta federació:"
+  },
+  "connect-federation": {
+    "connect": "Connecta 🚀",
+    "connect-federation-button": "Afegir Federació",
+    "connection-string-placeholder": "Enganxa el codi d'invitació de la federació",
+    "heading": "Connecta't a una federació mitjançant un codi d'invitació",
+    "information-bar-text": "El nombre de federacions a les quals pots connectar-te està limitat a una. La connexió a múltiples federacions serà suportada aviat.",
+    "label": "Cadença de connexió:",
+    "progress-modal-text": "Connectant a la federació...",
+    "sub-heading": "El codi d'invitació és una cadena llarga que comença amb 'fed1"
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Dipòsit de Bitcoin",
+    "card_header": "Dipòsit Bitcoin",
+    "confirmations": "Confirmacions:",
+    "header": "Dipòsit de Bitcoin a la Federació",
+    "receiving-address": "Adreça de recepció",
+    "required": "requerit",
+    "sentence-one": "Dipòsit a l'adreça o escaneja el codi QR",
+    "transaction-id": "ID de transacció",
+    "create-pegin-address": "Crea adreça Peg-in"
+  },
+  "federation-card": {
+    "default-federation-name": "Federació:",
+    "view-link-on": "Veure a {{host}}",
+    "leave-fed-error": "No es pot abandonar la federació amb satoshis al teu saldo. Si us plau, retira primer els teus satoshis.",
+    "leave-fed-modal-title": "Deixar la Federació",
+    "leave-fed-modal-text": "Estàs segur que vols desconnectar-te de"
+  },
+  "footer": {
+    "blog-link-text": "Bloc",
+    "community-section-header": "Comunitat",
+    "contribute-section-header": "Contribuïx",
+    "discord-link-text": "Discòrdia",
+    "docs-section-header": "Docs",
+    "faq-link-text": "Preguntes Freqüents",
+    "getting-started-link-text": "Començant",
+    "github-link-text": "GitHub",
+    "twitter-link-text": "Twitter"
+  },
+  "header": {
+    "active": "Actiu",
+    "all": "Tot",
+    "archived": "Arxivat",
+    "ascending": "Ascendent",
+    "connect": "Connect Federació",
+    "date-created": "Data creada",
+    "descending": "Descendent",
+    "filter": "Filtre",
+    "sort": "Ordena",
+    "title": "Tauler de control de Lightning Gateway"
+  },
+  "info-card": {
+    "card_header": "ID de Node Lightning"
+  },
+  "withdraw-card": {
+    "address-label": "La teva adreça:",
+    "address-placeholder": "Introdueix la teva adreça de btc",
+    "amount-label": "Quantitat (sats):",
+    "amount-placeholder": "Introdueix l'import en sats",
+    "card-header": "Retirar Bitcoin",
+    "close": "Tancar",
+    "confirm-withdraw": "Confirmar Retirada",
+    "error": "Error",
+    "error-address": "La quantitat o l'adreça no poden estar buides.",
+    "error-amount": "L'import no pot estar buit ni ser igual a zero.",
+    "error-request": "Error en sol·licitar el retirament",
+    "request-from": "Retirada Sol·licitada de",
+    "requested-withdrawal": "Retirada Sol·licitada",
+    "to": "a",
+    "total_bitcoin": "Total Bitcoin:",
+    "transaction-sent": "Transacció enviada!",
+    "view": "Veure",
+    "view-it-on": "Veure-ho a",
+    "withdraw": "Retirar",
+    "withdraw-all": "Retira-ho tot",
+    "withdrawal-created": "Retirada creada.",
+    "withdrawal-created-description": "Si us plau, comprova el teu historial de transaccions.",
+    "withdrawal-history": "Historial de retirades",
+    "your-transaction": "El teu ID de transacció:"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "common": {
+    "address": "Cím",
+    "amount": "Összeg",
+    "bitcoin": "Bitcoin",
+    "btc": "BTC",
+    "confirm": "Megerősít",
+    "error": "Hiba",
+    "sats": "sats",
+    "copy": "Másolat",
+    "copied": "Másolt!"
+  },
+  "admin": {
+    "fetch-info-modal-text": "Szövetségi adatok ellenőrzése..."
+  },
+  "login": {
+    "title": "Üdvözlöm újra!",
+    "subtitle": "Kérjük, adja meg a Gateway jelszavát.",
+    "password": "Jelszó",
+    "submit": "Beküldés"
+  },
+  "balance-card": {
+    "card_header": "eCash egyenleg",
+    "sentence": "Sats-ban denominálva",
+    "your-balance": "Az eCash egyenleged ezen a szövetségen:"
+  },
+  "connect-federation": {
+    "connect": "Csatlakozz 🚀",
+    "connect-federation-button": "Fedezet hozzáadása",
+    "connection-string-placeholder": "Illessze be a szövetségi meghívó kódot",
+    "heading": "Csatlakozás egy szövetséghez egy meghívó kód használatával",
+    "information-bar-text": "A csatlakoztatható szövetségek száma egyre korlátozódik. Több szövetséghez való csatlakozás hamarosan támogatott lesz.",
+    "label": "Kapcsolódási karakterlánc:",
+    "progress-modal-text": "Csatlakozás a szövetséghez...",
+    "sub-heading": "A meghívó kód egy hosszú karakterlánc, amely 'fed1'-el kezdődik."
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Bitcoin Betét",
+    "card_header": "Bitcoin betét",
+    "confirmations": "Megerősítések:",
+    "header": "Bitcoin befizetés a Szövetséghez",
+    "receiving-address": "Fogadó cím",
+    "required": "kötelező",
+    "sentence-one": "Fizess az címre, vagy olvasd be a QR kódot.",
+    "transaction-id": "Tranzakciós azonosító",
+    "create-pegin-address": "Hozzon létre Peg-in címet"
+  },
+  "federation-card": {
+    "default-federation-name": "Szövetség:",
+    "view-link-on": "Nézet a {{host}}-on",
+    "leave-fed-error": "Nem hagyhatja el a szövetséget, ha van egyenlege a sats-ban. Kérjük, először vonja vissza a sats-jait.",
+    "leave-fed-modal-title": "Hagyd el a Szövetséget",
+    "leave-fed-modal-text": "Biztos benne, hogy le szeretne kapcsolódni a következőről?"
+  },
+  "footer": {
+    "blog-link-text": "Blog",
+    "community-section-header": "Közösség",
+    "contribute-section-header": "Hozzájárulás",
+    "discord-link-text": "Discord",
+    "docs-section-header": "Dokumentumok",
+    "faq-link-text": "Gyakran Ismételt Kérdések",
+    "getting-started-link-text": "Kezdő lépések",
+    "github-link-text": "GitHub",
+    "twitter-link-text": "Twitter"
+  },
+  "header": {
+    "active": "Aktív",
+    "all": "Minden",
+    "archived": "Archívált",
+    "ascending": "Felfelé",
+    "connect": "Kapcsolódás Szövetség",
+    "date-created": "Létrehozás dátuma",
+    "descending": "Lezuhanás",
+    "filter": "Szűrő",
+    "sort": "Rendezés",
+    "title": "Villámkapu irányítópult"
+  },
+  "info-card": {
+    "card_header": "Villámcsomópont azonosító"
+  },
+  "withdraw-card": {
+    "address-label": "Az Ön címe:",
+    "address-placeholder": "Írd be a btc címedet",
+    "amount-label": "Összeg (sats):",
+    "amount-placeholder": "Írja be az összeget satoshikban",
+    "card-header": "Bitcoin kivonása",
+    "close": "Bezárás",
+    "confirm-withdraw": "Kivonás megerősítése",
+    "error": "Hiba",
+    "error-address": "Az összeg vagy a cím nem lehet üres.",
+    "error-amount": "Az összeg nem lehet üres vagy nulla.",
+    "error-request": "A kivonás kérésének sikertelensége",
+    "request-from": "Kért Kivonás innen",
+    "requested-withdrawal": "Kért Kivonás",
+    "to": "hoz",
+    "total_bitcoin": "Összes Bitcoin:",
+    "transaction-sent": "Tranzakció elküldve!",
+    "view": "Nézet",
+    "view-it-on": "Nézd meg itt",
+    "withdraw": "Visszavonás",
+    "withdraw-all": "Visszavonás mindent",
+    "withdrawal-created": "Kivonás létrehozva.",
+    "withdrawal-created-description": "Kérjük, ellenőrizze a tranzakciós előzményeit.",
+    "withdrawal-history": "Kivonási Történet",
+    "your-transaction": "A tranzakciós azonosítója:"
+  }
+}

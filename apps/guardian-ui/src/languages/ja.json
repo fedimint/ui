@@ -1,0 +1,323 @@
+{
+  "common": {
+    "bitcoin": "ビットコイン",
+    "next": "次へ",
+    "back": "戻る",
+    "error": "何かがうまくいきませんでした。",
+    "unknown": "不明",
+    "remove": "削除",
+    "copy": "コピー",
+    "copied": "コピーしました！",
+    "cancel": "キャンセル",
+    "review": "レビュー",
+    "approvals": "承認",
+    "approve": "承認する",
+    "threshold": "閾値",
+    "confirm": "確認する",
+    "you": "あなた",
+    "close": "閉じる",
+    "save": "保存"
+  },
+  "connect-guardians": {
+    "invite-guardians": "フォロワーを招待する",
+    "invite-guardians-help": "このリンクを他のガーディアンと共有してください。",
+    "approve": "承認する",
+    "approved": "承認済み",
+    "pending": "保留中",
+    "not-joined": "参加していない",
+    "waiting-for-guardian": "守護者を待っています",
+    "table-title": "連邦の守護者",
+    "table-description": "ガーディアンは、連邦設定を確認するとここで確認されます。",
+    "meta-field-key": "メタフィールド - {{key}}"
+  },
+  "federation-dashboard": {
+    "invite-members": "メンバーを招待するか、ガーディアンとして認証する",
+    "invite-members-prompt": "このリンクを共有して、メンバーを連邦に招待してください。",
+    "fed-info": {
+      "label": "連邦情報",
+      "your-status-label": "ステータス",
+      "block-count-label": "コンセンサスブロック高",
+      "api-version-label": "API バージョン",
+      "consensus-version-label": "コンセンサス版",
+      "peer-id-label": "ピアID",
+      "session-info": {
+        "session-height": "セッションの高さ",
+        "latest-session": "最新のセッション"
+      }
+    },
+    "balance": {
+      "label": "バランスシート"
+    },
+    "bitcoin-node": {
+      "label": "ビットコインノード",
+      "url-label": "URL",
+      "network-label": "ネットワーク"
+    },
+    "guardians": {
+      "label": "他の守護者",
+      "id-name-label": "ID: 名前",
+      "status-label": "接続状況",
+      "health-label": "健康",
+      "health-issue": "問題",
+      "health-good": "良い",
+      "last-contribution-label": "最後の寄付ブロック",
+      "api-url-label": "APIのURL"
+    },
+    "gateways": {
+      "label": "ライトニングゲートウェイ",
+      "node-id-label": "ライトニングノードID",
+      "gateway-id-label": "ゲートウェイID",
+      "fee-label": "ゲートウェイ手数料",
+      "view-on-site": "{{site}}で表示",
+      "no-gateways-info-title": "まだ接続されたゲートウェイはありません！",
+      "no-gateways-info-description": "ライトニングノードオペレーターは、ライトニングネットワークの相互運用性を提供するためにあなたのフェデレーションに接続できます。接続されると、ここに表示されます。"
+    },
+    "api-announcements": {
+      "label": "APIのお知らせ",
+      "guardian": "守護者",
+      "api-url": "APIのURL",
+      "revision": "改訂"
+    },
+    "config": {
+      "label": "連邦設定",
+      "view-config": "設定を表示",
+      "missing-meta-module": "メタフィールドの編集はできません。このフェデレーションではメタモジュールは利用できません。",
+      "manage-meta": {
+        "label": "メタを管理する",
+        "cancel-button": "キャンセル",
+        "confirm-modal": {
+          "title": "承認を確認する",
+          "description": "あなたの承認は、このメタ変更を採用するための閾値に達します。あなたの新しいメタは次のようになります："
+        },
+        "consensus-meta-label": "現在のコンセンサスにおけるメタ",
+        "revoke-button": "取り消す",
+        "no-consensus-meta-message": "コンセンサスにはメタがありません。",
+        "proposed-meta-label": "メタ提案",
+        "propose-meta": "メタを提案する",
+        "propose-new-meta-button": "新しいメタを提案する",
+        "proposal-approved": "あなたはこの提案を承認しました。",
+        "no-submitted-meta-message": "レビューするメタ編集はありません。",
+        "edit-meta-label": "メタを編集",
+        "edit-consensus-meta-button": "コンセンサスメタを編集する",
+        "submit-meta-proposal": "メタ提案を提出する",
+        "peer-approvals": "ピア承認",
+        "actions": "アクション",
+        "revision": "改訂",
+        "setup-meta-title": "連合のためのメタを設定する",
+        "setup-meta-description": "Fedimintは、クライアントにメタフィールドの形で追加情報を提供できます：クライアントと共有したい任意の情報を持つキー-バリューのペアです。これらのメタフィールドはFedimintによって解釈されることはありませんが、コンセンサスに関連しているため、連合メンバー間で異なることはできません。このようにして、クライアントはその正確性に依存できます。",
+        "propose-updates": "フェディミントのガーディアンとして、あなたは他のガーディアンによって受け入れられるメタの更新を提案することができます。更新が一定数のガーディアンによって受け入れられると、それは連合の新しいコンセンサスメタとして採用されます。",
+        "core-meta-fields": "次のメタフィールドは、コアFedimintプロトコルの一部として定義されており、あなたの連合のメタに含めると便利です：",
+        "meta-field-expiry": "フェデレーションがシャットダウンするUnixタイムスタンプ。",
+        "meta-field-name": "連合の人間が読み取れる名前",
+        "meta-field-icon": "連盟のロゴアイコンのURL",
+        "meta-field-welcome": "連邦に参加する新しいユーザーへの歓迎メッセージ",
+        "meta-field-gateways": "連合によって審査されたゲートウェイ識別子のリスト",
+        "your-own-fields": "提案に独自の任意のメタフィールドを追加することもできます。これらは、あなたのフェデレーションに接続するすべてのクライアントのメタに追加され、あなたの好きな目的に使用できます。",
+        "meta-effect-add": "追加",
+        "meta-effect-modify": "修正する",
+        "meta-effect-unchanged": "変更なし",
+        "proposals": "提案"
+      }
+    },
+    "modal": {
+      "client-connect": "クライアントを接続する"
+    },
+    "danger-zone": {
+      "danger-zone-label": "危険地帯",
+      "cancel": "キャンセル",
+      "danger-zone-description": "注意して使用してください！",
+      "guardian-warning-message": "警告：このコードを誰とも共有しないでください。このコードを持っている人は誰でもガーディアンとして認証できます。プライベートな場所にいることを確認し、誰もあなたの画面を見ていないことを確認してください。",
+      "guardian-acknowledge": "コードを認識して公開する",
+      "acknowledge-and-download": "承認して進む",
+      "guardian-authenticate": "ガーディアンとして認証する",
+      "guardian-connect-warning": "これを共有しないでください",
+      "backup": {
+        "label": "バックアップ",
+        "title": "バックアップをダウンロード",
+        "warning-title": "警告",
+        "warning-text": "バックアップには、連合ガーディアンのプライベートキーと秘密の資料が含まれており、安全に保管する必要があります。このバックアップを使用して復旧するには、管理者パスワードが必要です！",
+        "cancelButton": "キャンセル",
+        "acknowledgeButton": "承認してダウンロード"
+      },
+      "sign-api-announcement": {
+        "label": "サインAPI発表",
+        "title": "サインAPI発表",
+        "description": "新しいAPIの発表にサインしてください。",
+        "current-api-url": "ローカル設定からのAPI URL",
+        "announced-api-url": "連邦発表からのAPI URL",
+        "urls-match": "現在のAPI URLは、発表されたAPI URLと一致しています。",
+        "urls-mismatch": "ローカル設定でAPI URLを変更したため、新しいAPIのお知らせを配信する必要があります。",
+        "sign-button": "新しいAPI発表にサインする",
+        "signing-in-progress": "サインイン中...",
+        "sign-tooltip": "API URLを連合に通知するために、API発表にサインしてください。"
+      },
+      "schedule-shutdown": {
+        "label": "スケジュールシャットダウン",
+        "title": "スケジュールシャットダウン",
+        "description": "特定のセッションの高さの後にガーディアンノードをシャットダウンするようにスケジュールして、fedimintdバイナリの調整されたアップグレードを行ってください。",
+        "current-session": "現在のセッション",
+        "session-to-shutdown": "シャットダウンするセッションは",
+        "confirm-shutdown": "シャットダウンを確認する",
+        "session-to-shutdown-helper": "シャットダウンしたいガーディアンノードのセッションの高さを入力してください。"
+      }
+    }
+  },
+  "login": {
+    "title": "お帰りなさい！",
+    "subtitle": "パスワードを入力してください。",
+    "password": "パスワード",
+    "submit": "提出する"
+  },
+  "role-selector": {
+    "disclaimer-title": "Fedimintはアルファソフトウェアです。",
+    "disclaimer-text": "非常に初期のバージョンのFedimintを使用しています。注意して使用し、問題はGithubのFedimint開発者に報告してください。",
+    "leader": {
+      "label": "セットアップリーダー",
+      "description": "他のガーディアンが承認する設定を入力してください。1人のガーディアンがセットアップリーダーとして行動します。"
+    },
+    "follower": {
+      "label": "フォロワー",
+      "description": "セットアップリーダーが設定を行うと、他のガーディアンはこのオプションを選択して設定を承認し、連邦を作成します。"
+    },
+    "solo": {
+      "label": "ソロ",
+      "description": "Fedimintをコンセンサス、フォールトトレランス、連合バックアップ、またはFedimintのその他の耐障害性の利点なしでソロガーディアンとして操作します。注意して進めてください。生産用途には適していません。"
+    }
+  },
+  "run-dkg": {
+    "error-config": "分散鍵生成の実行に失敗しました。フェデレーションのセットアップを再起動する必要があります。",
+    "error-default": "DKGの準備ができていません。あなたの現在のステータスは",
+    "error-header": "何かがうまくいきませんでした。",
+    "waiting-header": "ピアを待っています...",
+    "generating-header": "コードを生成中..."
+  },
+  "set-config": {
+    "bft-explanation-title": "あなたの連合のビザンチン耐障害性",
+    "bft-explanation": "{{total}}のガーディアン連邦が{{honest}}/{{total}}のしきい値を作成します。",
+    "bft-faulty": "あなたの連邦は、連邦の運営に影響を与えることなく、{{faulty}} 不良、オフライン、または悪意のあるガーディアンを許容できるようになります。",
+    "guardian-name": "ガーディアン名",
+    "guardian-name-help": "このランダムな名前は、設定中に他のガーディアンに表示されます。",
+    "admin-password": "管理者パスワード",
+    "admin-password-generate": "生成する",
+    "admin-password-set": "「生成」をクリックして、安全なパスワードを作成してください。変更することはできますが、このパスワードは安全でバックアップされている必要があります！",
+    "admin-password-help": "このパスワードをバックアップして、安全に保管してください！このパスワードは復元できません！",
+    "admin-password-backup": "私は強力なパスワードを使用しており、それをバックアップしました。（このパスワードは復元できません！）",
+    "confirm-password": "パスワードを確認してください",
+    "error-password-mismatch": "パスワードが一致しません",
+    "join-federation": "連邦参加リンク",
+    "join-federation-help": "連邦を作成した人にリンクを尋ねて、ここに貼り付けてください。",
+    "basic-settings": "基本事項",
+    "federation-settings": "連邦設定",
+    "federation-name": "連邦名",
+    "guardian-number": "保護者の数",
+    "guardian-number-help": "連邦には最低4人の守護者が必要です。これは後で変更することはできません。",
+    "bitcoin-settings": "ビットコイン設定",
+    "block-confirmations": "追加ブロック確認",
+    "block-confirmations-help": "Fedimintガーディアンは、ブロック再編成を避けるために、いくつかの確認を経てブロックチェーンの先端を追跡します。",
+    "block-confirmations-warning": "5回未満の追加ブロック確認でFedimintを運用することは非常に危険です！Fedimintはブロックチェーンの再編成に対応できません。",
+    "bitcoin-network": "ビットコインネットワーク",
+    "select-network": "ネットワークを選択してください",
+    "set-rpc-help": "ローカルに設定されたBitcoin RPCアドレス",
+    "bitcoin-rpc": "ビットコインRPC",
+    "error-valid-number": "有効な番号を入力してください。",
+    "error-valid-min": "{{min}}以上の数字を入力してください。",
+    "error-valid-max": "{{max}}以下の数を入力してください。",
+    "error-valid-min-max": "{{min}}と{{max}}の間の数字を入力してください。",
+    "meta-fields": "メタフィールド",
+    "meta-fields-description": "詳細については<docs>ドキュメント</docs>をご覧ください。",
+    "meta-fields-key": "メタキー",
+    "meta-fields-value": "価値",
+    "meta-fields-effect": "効果",
+    "meta-fields-add-another": "もう一つ追加する",
+    "meta-fields-title": "あなたのメタ提案："
+  },
+  "setup": {
+    "common": {
+      "restart-setup": "再設定を再起動",
+      "restart-setup-alert": "セットアップリーダーがセットアップセレモニーを再起動しました。続行するには、下の「再起動」をクリックしてください。",
+      "confirm-restart-setup": "セットアップセレモニーを再起動してもよろしいですか？",
+      "confirm-restart-setup-alert": "「再起動」をクリックすると、すべてのガーディアンの儀式が再起動します。"
+    },
+    "progress": {
+      "tos": {
+        "title": "利用規約"
+      },
+      "start": {
+        "title": "ようこそ、ガーディアン！",
+        "subtitle": "あなたの連合を設定しましょう。",
+        "step": "連邦の詳細"
+      },
+      "set-config": {
+        "title": "あなたのフェデレーションのためにいくつかの設定を行う必要があります。",
+        "title-solo": "あなたのソロ連邦のためにいくつかの設定を行う必要があります。",
+        "subtitle-leader": "あなたの連邦フォロワーが彼らの側でこの情報を確認します。",
+        "subtitle-solo": "ソロフェデレーションを運営すると、Fedimintの多くの利点を失います。ガーディアンがオフラインの場合のフォールトトレランスコンセンサスがなく、フェデレーテッドバックアップもできません。注意して進めてください。プロダクション用途やメインネットビットコインとの使用は推奨されません。",
+        "subtitle-follower": "あなたの連邦のリーダーが主な連邦の詳細を設定します。すぐにそれを確認します。",
+        "step": "連邦の詳細"
+      },
+      "connect-guardians": {
+        "title-leader": "あなたのガーディアンを招待してください",
+        "title-follower": "連邦情報を確認してください",
+        "subtitle-leader": "他のガーディアンとリンクを共有して、全員が同じページにいるようにしましょう。すべてのガーディアンが参加すると、自動的に次のステップに進みます。",
+        "subtitle-follower": "ここの情報が正しいことを確認し、連邦ガーディアンが正しいことを確認してください。問題ないと思ったら、承認ボタンをクリックしてください。",
+        "step-leader": "ガーディアンを招待する",
+        "step-follower": "情報を確認する"
+      },
+      "run-dkg": {
+        "title": "成功！",
+        "subtitle": "すべてのガーディアンが連邦の設定詳細を確認しました。いくつかの数値を計算中です..."
+      },
+      "verify-guardians": {
+        "title": "ガーディアンを確認してください",
+        "subtitle": "各ガーディアンに確認コードを尋ね、それを下に貼り付けて有効性を確認してください。もう少しで完了です！",
+        "step": "保護者を確認する",
+        "leader-confirm-done": "すべてのフォロワーガーディアンが「次へ」をクリックし、続行する前に彼らのガーディアンダッシュボードを確認してください。",
+        "leader-confirm-done-emphasis": "「続ける」をクリックすると、セットアップの儀式が完了します。"
+      },
+      "setup-complete": {
+        "step": "完了！"
+      },
+      "error": {
+        "title": "未知のステップ",
+        "subtitle": "どうやってここに来たの？！"
+      }
+    }
+  },
+  "setup-complete": {
+    "header": "🎉 🎉 🎉",
+    "congratulations": "おめでとうございます",
+    "leader-message": "すべてのガーディアンの確認コードが確認されました。",
+    "follower-message": "すべて完了しました！続行をクリックして、他のガーディアンにあなたが走っていることを知らせてください！",
+    "continue": "続ける"
+  },
+  "terms-of-service": {
+    "agree-and-continue": "同意して続行"
+  },
+  "verify-guardians": {
+    "verified": "確認済み",
+    "verified-placeholder": "コードをここに貼り付けてください",
+    "error": "何かがうまくいかなかった。",
+    "error-peer-id": "どのピアであるかを特定できません。リフレッシュして再試行してください。",
+    "verification-code": "あなたの確認コード",
+    "verification-code-help": "このコードを他のガーディアンと共有してください",
+    "table-title": "ガーディアン認証コード",
+    "table-description": "各ガーディアンの確認コードを下に入力してください。",
+    "table-column-name": "名前",
+    "table-column-status": "ステータス",
+    "table-column-hash-input": "確認コードを貼り付けてください",
+    "wait-all-guardians-verification": "すべてのガーディアンがコードを確認するのを待っています",
+    "all-guardians-verified": "すべてのガーディアンがコードを確認しました",
+    "starting-consensus": "コンセンサスを開始しています..."
+  },
+  "footer": {
+    "docs-section-header": "ドキュメント",
+    "community-section-header": "コミュニティ",
+    "contribute-section-header": "貢献する",
+    "getting-started-link-text": "始めに",
+    "faq-link-text": "よくある質問",
+    "blog-link-text": "ブログ",
+    "discord-link-text": "ディスコード",
+    "twitter-link-text": "ツイッター",
+    "github-link-text": "ギットハブ"
+  }
+}
