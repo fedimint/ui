@@ -165,6 +165,7 @@ export const FederationAdmin: React.FC = () => {
           status={status}
           config={config}
           signedApiAnnouncements={signedApiAnnouncements}
+          ourPeer={ourPeer}
         />
         <GatewaysCard config={config} />
         {ourPeer && (

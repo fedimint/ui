@@ -39,6 +39,7 @@
       "block-count-label": "Consensus Block Height",
       "api-version-label": "API version",
       "consensus-version-label": "Consensus version",
+      "peer-id-label": "Peer ID",
       "session-info": {
         "session-height": "Session Height",
         "latest-session": "Latest Session"
@@ -60,7 +61,8 @@
       "health-issue": "Issue",
       "health-good": "Good",
       "last-contribution-label": "Last contribution block",
-      "api-url-label": "API URL"
+      "api-url-label": "API URL",
+      "peer-id-label": "Peer ID"
     },
     "gateways": {
       "label": "Lightning Gateways",
