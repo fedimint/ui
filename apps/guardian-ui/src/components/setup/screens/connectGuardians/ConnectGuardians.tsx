@@ -21,7 +21,6 @@ import { useConsensusPolling, useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
 import { getModuleParamsFromConfig } from '../../../../utils/api';
 import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
-import { BftInfo } from '../../../BftInfo';
 
 interface Props {
   next(): void;
@@ -72,7 +71,6 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
             {t('connect-guardians.invite-guardians-help')}
           </FormHelperText>
         </FormControl>
-        <BftInfo numPeers={numPeers} />
       </Flex>
     );
   } else {

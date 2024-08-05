@@ -1,9 +1,9 @@
 import React from 'react';
-import { FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, Select } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup } from '@fedimint/ui';
 import { ReactComponent as FedimintLogo } from '../../../../assets/svgs/fedimint.svg';
-import { NumberFormControl } from '../../../NumberFormControl';
+import { BftInfo } from '../../../BftInfo';
 
 interface FederationSettingsFormProps {
   federationName: string;
@@ -24,6 +24,8 @@ export const FederationSettingsForm: React.FC<FederationSettingsFormProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const bftNumbers = [4, 7, 10, 13, 16, 19];
+
   return (
     <FormGroup
       icon={FedimintLogo}
@@ -35,16 +37,21 @@ export const FederationSettingsForm: React.FC<FederationSettingsFormProps> = ({
         <Input value={federationName} onChange={handleChangeFederationName} />
       </FormControl>
       {isHost && (
-        <NumberFormControl
-          labelText={t('set-config.guardian-number')}
-          helperText={t('set-config.guardian-number-help')}
-          min={4}
-          value={numPeers}
-          onChange={(value) => {
-            setNumPeers(value);
-          }}
-        />
+        <FormControl>
+          <FormLabel>{t('set-config.guardian-number')}</FormLabel>
+          <Select
+            value={numPeers}
+            onChange={(e) => setNumPeers(e.target.value)}
+          >
+            {bftNumbers.map((num) => (
+              <option key={num} value={num.toString()}>
+                {num}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
       )}
+      <BftInfo numPeers={parseInt(numPeers)} />
     </FormGroup>
   );
 };
