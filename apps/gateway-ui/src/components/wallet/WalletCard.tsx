@@ -10,7 +10,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Tooltip,
   Square,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
