@@ -29,7 +29,7 @@ export const InfoCard = React.memo(function InfoCard({
 
   return (
     <GatewayCard title={t('info-card.card_header')}>
-      <Flex alignItems='center' mb='4'>
+      <Flex alignItems='center'>
         <Text
           fontSize='md'
           color={theme.colors.gray[900]}
