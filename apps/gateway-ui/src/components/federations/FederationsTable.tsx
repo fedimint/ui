@@ -13,7 +13,12 @@ import { FederationInfo, MSats } from '@fedimint/types';
 import { useTranslation, formatEllipsized, formatValue } from '@fedimint/utils';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { ViewConfigModal } from './ViewConfig';
-import { Unit, WalletModalState } from '../../App';
+import { Unit } from '../../App';
+import {
+  WalletModalAction,
+  WalletModalState,
+  WalletModalType,
+} from '../walletModal/WalletModal';
 
 interface FederationsTableProps {
   federations: FederationInfo[];
@@ -69,8 +74,8 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
             color={theme.colors.blue[600]}
             onClick={() =>
               setWalletModalState({
-                action: 'deposit',
-                type: 'onchain',
+                action: WalletModalAction.Deposit,
+                type: WalletModalType.Onchain,
                 selectedFederation: federation,
                 isOpen: true,
               })
@@ -82,8 +87,8 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
             color={theme.colors.blue[600]}
             onClick={() =>
               setWalletModalState({
-                action: 'withdraw',
-                type: 'onchain',
+                action: WalletModalAction.Withdraw,
+                type: WalletModalType.Onchain,
                 selectedFederation: federation,
                 isOpen: true,
               })
