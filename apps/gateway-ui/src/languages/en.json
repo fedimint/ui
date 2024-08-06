@@ -34,7 +34,7 @@
     "progress-modal-text": "Connecting to federation...",
     "sub-heading": "The invite code is a long string that begins with ‘fed1’"
   },
-  "wallet-card": {
+  "wallet": {
     "title": "Wallet",
     "ecash": "Ecash",
     "lightning": "Lightning",
@@ -45,6 +45,9 @@
     "deposit": "Deposit",
     "withdraw": "Withdraw",
     "create-address": "Create Address"
+  },
+  "wallet-modal": {
+    "title": "Wallet Actions"
   },
   "deposit-card": {
     "bitcoin-deposit": "Bitcoin Deposit",

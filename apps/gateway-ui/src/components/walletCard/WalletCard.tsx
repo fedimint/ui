@@ -5,7 +5,11 @@ import { GatewayCard } from '../GatewayCard';
 import { FederationInfo } from '@fedimint/types';
 import { PieChart } from 'react-minimal-pie-chart';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
-import { WalletModalState } from '../../App';
+import {
+  WalletModalAction,
+  WalletModalState,
+  WalletModalType,
+} from '../walletModal/WalletModal';
 
 interface WalletCardProps {
   federations: FederationInfo[];
@@ -28,12 +32,12 @@ export const WalletCard = React.memo(function WalletCard({
   const balanceData = useMemo(
     () => [
       {
-        title: t('wallet-card.ecash'),
+        title: t('wallet.ecash'),
         value: totalEcashBalance,
         color: '#FF6384',
       },
-      { title: t('wallet-card.lightning'), value: 500000000, color: '#36A2EB' },
-      { title: t('wallet-card.onchain'), value: 200000000, color: '#FFCE56' },
+      { title: t('wallet.lightning'), value: 500000000, color: '#36A2EB' },
+      { title: t('wallet.onchain'), value: 200000000, color: '#FFCE56' },
     ],
     [totalEcashBalance, t]
   );
@@ -43,7 +47,7 @@ export const WalletCard = React.memo(function WalletCard({
   }, [balanceData]);
 
   return (
-    <GatewayCard title={t('wallet-card.title')}>
+    <GatewayCard title={t('wallet.title')}>
       <Flex
         direction='row'
         justifyContent='space-between'
@@ -74,7 +78,7 @@ export const WalletCard = React.memo(function WalletCard({
           <Box borderTop='1px' borderColor='gray.200' mt={4} pt={2}>
             <Flex justify='space-between'>
               <Text fontSize='md' fontWeight='bold'>
-                {t('wallet-card.total')}:
+                {t('wallet.total')}:
               </Text>
               <Text fontSize='md' fontWeight='bold'>
                 {totalBalance} sats
@@ -103,15 +107,15 @@ export const WalletCard = React.memo(function WalletCard({
             mb={4}
             onClick={() => {
               setWalletModalState({
-                action: 'deposit',
-                type: 'onchain',
+                action: WalletModalAction.Deposit,
+                type: WalletModalType.Onchain,
                 selectedFederation: federations[0],
                 isOpen: true,
               });
             }}
             width='100%'
           >
-            {t('wallet-card.deposit')}
+            {t('wallet.deposit')}
           </Button>
           <Button
             leftIcon={<FaArrowUp />}
@@ -120,15 +124,15 @@ export const WalletCard = React.memo(function WalletCard({
             variant='outline'
             onClick={() => {
               setWalletModalState({
-                action: 'withdraw',
-                type: 'onchain',
+                action: WalletModalAction.Withdraw,
+                type: WalletModalType.Onchain,
                 selectedFederation: federations[0],
                 isOpen: true,
               });
             }}
             width='100%'
           >
-            {t('wallet-card.withdraw')}
+            {t('wallet.withdraw')}
           </Button>
         </Flex>
       </Flex>
