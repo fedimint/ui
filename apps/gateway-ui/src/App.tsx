@@ -1,22 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import {
-  Box,
-  Heading,
-  Flex,
-  useTheme,
-  Tabs,
-  TabList,
-  Tab,
-} from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo } from '@fedimint/types';
 import { ConnectFederationModal, InfoCard } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { Wrapper, Login } from '@fedimint/ui';
-import { useTranslation } from '@fedimint/utils';
 import { FederationsTable } from './components/federations/FederationsTable';
 import { Loading } from './components/Loading';
 import { Error } from './components/Error';
+import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
 
 export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
 export type Unit = (typeof UNIT_OPTIONS)[number];
@@ -42,8 +34,6 @@ export const App = React.memo(function Admin(): JSX.Element {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
   const [showConnectFed, setShowConnectFed] = useState(false);
-  const theme = useTheme();
-  const { t } = useTranslation();
   const [unit, setUnit] = useState<Unit>('sats');
 
   useEffect(() => {
@@ -105,43 +95,8 @@ export const App = React.memo(function Admin(): JSX.Element {
     }
 
     return (
-      <Box>
-        <Flex
-          direction={['column', 'row']}
-          justifyContent='space-between'
-          alignItems={['flex-start', 'center']}
-          mb='8'
-        >
-          <Heading
-            as='h1'
-            fontSize={['xl', '2xl']}
-            fontWeight='500'
-            color={theme.colors.gray[900]}
-            mb={[4, 0]}
-          >
-            {t('header.title')}
-          </Heading>
-          <Tabs
-            size='sm'
-            variant='soft-rounded'
-            defaultIndex={1}
-            onChange={(index) => setUnit(UNIT_OPTIONS[index])}
-          >
-            <TabList>
-              {UNIT_OPTIONS.map((option) => (
-                <Tab
-                  key={option}
-                  _selected={{
-                    bg: theme.colors.blue[500],
-                    color: 'white',
-                  }}
-                >
-                  {option.toUpperCase()}
-                </Tab>
-              ))}
-            </TabList>
-          </Tabs>
-        </Flex>
+      <Flex direction='column' gap={4}>
+        <HeaderWithUnitSelector setUnit={setUnit} />
         <InfoCard
           nodeId={gatewayInfo.gateway_id}
           network={gatewayInfo.network}
@@ -164,7 +119,7 @@ export const App = React.memo(function Admin(): JSX.Element {
             setShowConnectFed(false);
           }}
         />
-      </Box>
+      </Flex>
     );
   }, [
     gateway,
@@ -173,8 +128,6 @@ export const App = React.memo(function Admin(): JSX.Element {
     showConnectFed,
     error,
     gatewayInfo,
-    theme,
-    t,
     unit,
   ]);
 
