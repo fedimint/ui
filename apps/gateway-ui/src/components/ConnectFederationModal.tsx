@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -6,71 +6,16 @@ import {
   Stack,
   Text,
   useTheme,
-  Flex,
   Textarea,
   Modal,
   ModalBody,
   ModalOverlay,
   ModalContent,
-  CircularProgressLabel,
-  CircularProgress,
   ModalCloseButton,
 } from '@chakra-ui/react';
 import { FederationInfo } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { ApiContext } from '../ApiProvider';
-
-export interface ConnectFedModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export const ConnectFedModal: FC<ConnectFedModalProps> = ({
-  isOpen,
-  onClose,
-}) => {
-  const theme = useTheme();
-  const { t } = useTranslation();
-
-  return (
-    <div>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalBody>
-            <Flex
-              bgColor={theme.colors.white}
-              padding='48px'
-              justifyContent='center'
-              alignItems='center'
-              height='340px'
-              maxW='400px'
-            >
-              <CircularProgress
-                isIndeterminate={true}
-                color={theme.colors.blue[600]}
-                size='240px'
-                thickness='10px'
-                capIsRound={true}
-              >
-                <CircularProgressLabel
-                  fontSize='md'
-                  fontWeight='500'
-                  color={theme.colors.gray[600]}
-                  fontFamily={theme.fonts.body}
-                  textAlign='center'
-                  width='130px'
-                >
-                  {t('connect-federation.progress-modal-text')}
-                </CircularProgressLabel>
-              </CircularProgress>
-            </Flex>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </div>
-  );
-};
 
 export type ConnectFederationModalProps = {
   isOpen: boolean;
@@ -105,17 +50,26 @@ export const ConnectFederationModal = React.memo(
         .then((federation) => {
           renderConnectedFedCallback(federation);
           setConnectInfo('');
-          setLoading(false);
         })
         .catch(({ message, error }) => {
           console.error(error);
           setErrorMsg(message);
+        })
+        .finally(() => {
           setLoading(false);
         });
     };
 
     return (
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          // Don't allow closing the modal while loading.
+          if (!loading) {
+            onClose();
+          }
+        }}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
@@ -154,15 +108,15 @@ export const ConnectFederationModal = React.memo(
               />
               <Button
                 borderRadius='8px'
-                maxW='210px'
                 isDisabled={!connectInfo}
                 onClick={handleConnectFederation}
+                isLoading={loading}
+                loadingText={t('connect-federation.progress-modal-text')}
               >
                 {t('connect-federation.connect-federation-button')}
               </Button>
               <Box color='red.500'>{errorMsg}</Box>
             </Stack>
-            <ConnectFedModal isOpen={loading} onClose={() => !loading} />
           </ModalBody>
         </ModalContent>
       </Modal>
