@@ -74,27 +74,27 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
             color={theme.colors.blue[600]}
             onClick={() =>
               setWalletModalState({
-                action: WalletModalAction.Deposit,
+                action: WalletModalAction.Receive,
                 type: WalletModalType.Onchain,
                 selectedFederation: federation,
                 isOpen: true,
               })
             }
           >
-            {t('federation-card.deposit')}
+            {t('federation-card.receive')}
           </Link>
           <Link
             color={theme.colors.blue[600]}
             onClick={() =>
               setWalletModalState({
-                action: WalletModalAction.Withdraw,
+                action: WalletModalAction.Send,
                 type: WalletModalType.Onchain,
                 selectedFederation: federation,
                 isOpen: true,
               })
             }
           >
-            {t('federation-card.withdraw')}
+            {t('federation-card.send')}
           </Link>
         </Flex>
       ),

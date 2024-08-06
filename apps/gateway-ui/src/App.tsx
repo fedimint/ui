@@ -44,8 +44,8 @@ export const App = React.memo(function Admin(): JSX.Element {
   const [unit, setUnit] = useState<Unit>('sats');
   const [walletModalState, setWalletModalState] = useState<WalletModalState>({
     isOpen: false,
-    action: WalletModalAction.Deposit,
-    type: WalletModalType.Ecash,
+    action: WalletModalAction.Receive,
+    type: WalletModalType.Onchain,
     selectedFederation: null,
   });
 

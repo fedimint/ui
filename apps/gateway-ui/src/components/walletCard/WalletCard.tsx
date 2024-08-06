@@ -107,7 +107,7 @@ export const WalletCard = React.memo(function WalletCard({
             mb={4}
             onClick={() => {
               setWalletModalState({
-                action: WalletModalAction.Deposit,
+                action: WalletModalAction.Receive,
                 type: WalletModalType.Onchain,
                 selectedFederation: federations[0],
                 isOpen: true,
@@ -115,7 +115,7 @@ export const WalletCard = React.memo(function WalletCard({
             }}
             width='100%'
           >
-            {t('wallet.deposit')}
+            {t('wallet.receive')}
           </Button>
           <Button
             leftIcon={<FaArrowUp />}
@@ -124,7 +124,7 @@ export const WalletCard = React.memo(function WalletCard({
             variant='outline'
             onClick={() => {
               setWalletModalState({
-                action: WalletModalAction.Withdraw,
+                action: WalletModalAction.Send,
                 type: WalletModalType.Onchain,
                 selectedFederation: federations[0],
                 isOpen: true,
@@ -132,7 +132,7 @@ export const WalletCard = React.memo(function WalletCard({
             }}
             width='100%'
           >
-            {t('wallet.withdraw')}
+            {t('wallet.send')}
           </Button>
         </Flex>
       </Flex>
