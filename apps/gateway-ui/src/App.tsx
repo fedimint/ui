@@ -126,6 +126,7 @@ export const App = React.memo(function Admin(): JSX.Element {
           }}
         />
         <WalletModal
+          federations={gatewayInfo.federations}
           walletModalState={walletModalState}
           setWalletModalState={setWalletModalState}
         />
