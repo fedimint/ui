@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Flex } from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo } from '@fedimint/types';
-import { ConnectFederationModal, InfoCard } from './components';
+import { ConnectFederationModal, LightningCard } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { Wrapper, Login } from '@fedimint/ui';
@@ -99,7 +99,7 @@ export const App = React.memo(function Admin(): JSX.Element {
       <Flex direction='column' gap={4}>
         <HeaderWithUnitSelector setUnit={setUnit} />
         <WalletCard federations={gatewayInfo.federations} />
-        <InfoCard
+        <LightningCard
           nodeId={gatewayInfo.gateway_id}
           network={gatewayInfo.network}
         />
