@@ -9,6 +9,7 @@ import { FederationsTable } from './components/federations/FederationsTable';
 import { Loading } from './components/Loading';
 import { Error } from './components/Error';
 import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
+import { WalletCard } from './components/wallet/WalletCard';
 
 export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
 export type Unit = (typeof UNIT_OPTIONS)[number];
@@ -97,6 +98,7 @@ export const App = React.memo(function Admin(): JSX.Element {
     return (
       <Flex direction='column' gap={4}>
         <HeaderWithUnitSelector setUnit={setUnit} />
+        <WalletCard federations={gatewayInfo.federations} />
         <InfoCard
           nodeId={gatewayInfo.gateway_id}
           network={gatewayInfo.network}
