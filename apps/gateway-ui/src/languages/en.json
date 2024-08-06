@@ -36,6 +36,10 @@
   },
   "wallet-card": {
     "title": "Wallet",
+    "ecash": "Ecash",
+    "lightning": "Lightning",
+    "onchain": "Onchain",
+    "total": "Total",
     "balance": "Balance",
     "address": "Address",
     "deposit": "Deposit",
