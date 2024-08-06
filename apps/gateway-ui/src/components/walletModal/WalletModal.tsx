@@ -6,22 +6,21 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Button,
-  Flex,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FederationInfo } from '@fedimint/types';
 import { capitalizeFirstLetters } from '../../utils';
-import DepositEcash from './deposit/DepositEcash';
-import DepositLightning from './deposit/DepositLightning';
-import DepositOnchain from './deposit/DepositOnchain';
-import WithdrawEcash from './withdraw/WithdrawEcash';
-import WithdrawLightning from './withdraw/WithdrawLightning';
-import WithdrawOnchain from './withdraw/WithdrawOnchain';
+import ReceiveEcash from './receive/ReceiveEcash';
+import ReceiveLightning from './receive/ReceiveLightning';
+import ReceiveOnchain from './receive/ReceiveOnchain';
+import SendEcash from './send/SendEcash';
+import SendLightning from './send/SendLightning';
+import SendOnchain from './send/SendOnchain';
+import { WalletActionSelector } from './WalletActionSelector';
 
 export enum WalletModalAction {
-  Deposit = 'deposit',
-  Withdraw = 'withdraw',
+  Receive = 'receive',
+  Send = 'send',
 }
 export enum WalletModalType {
   Ecash = 'ecash',
@@ -37,11 +36,13 @@ export interface WalletModalState {
 }
 
 interface WalletModalProps {
+  federations: FederationInfo[];
   walletModalState: WalletModalState;
   setWalletModalState: (state: WalletModalState) => void;
 }
 
 export const WalletModal: React.FC<WalletModalProps> = ({
+  federations,
   walletModalState,
   setWalletModalState,
 }) => {
@@ -50,8 +51,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   const handleActionChange = (index: number) => {
     setWalletModalState({
       ...walletModalState,
-      action:
-        index === 0 ? WalletModalAction.Deposit : WalletModalAction.Withdraw,
+      action: index === 0 ? WalletModalAction.Receive : WalletModalAction.Send,
     });
   };
 
@@ -62,23 +62,29 @@ export const WalletModal: React.FC<WalletModalProps> = ({
     });
   };
 
-  const renderActionComponent = () => {
+  const renderActionComponent = (
+    federations: FederationInfo[],
+    walletModalState: WalletModalState,
+    setWalletModalState: (state: WalletModalState) => void
+  ) => {
     const components = {
-      [WalletModalAction.Deposit]: {
-        [WalletModalType.Ecash]: DepositEcash,
-        [WalletModalType.Lightning]: DepositLightning,
-        [WalletModalType.Onchain]: DepositOnchain,
+      [WalletModalAction.Receive]: {
+        [WalletModalType.Ecash]: ReceiveEcash,
+        [WalletModalType.Lightning]: ReceiveLightning,
+        [WalletModalType.Onchain]: ReceiveOnchain,
       },
-      [WalletModalAction.Withdraw]: {
-        [WalletModalType.Ecash]: WithdrawEcash,
-        [WalletModalType.Lightning]: WithdrawLightning,
-        [WalletModalType.Onchain]: WithdrawOnchain,
+      [WalletModalAction.Send]: {
+        [WalletModalType.Ecash]: SendEcash,
+        [WalletModalType.Lightning]: SendLightning,
+        [WalletModalType.Onchain]: SendOnchain,
       },
     };
 
     const Component =
       components[walletModalState.action][walletModalState.type];
-    return Component ? <Component /> : null;
+    return Component ? (
+      <Component {...{ federations, walletModalState, setWalletModalState }} />
+    ) : null;
   };
 
   return (
@@ -94,54 +100,12 @@ export const WalletModal: React.FC<WalletModalProps> = ({
         <ModalHeader>{t('wallet-modal.title')}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Flex gap={2} flexDir='column'>
-            <Flex justifyContent='space-between'>
-              <Button
-                variant={
-                  walletModalState.action === WalletModalAction.Deposit
-                    ? 'solid'
-                    : 'outline'
-                }
-                colorScheme='blue'
-                onClick={() => handleActionChange(0)}
-                flex={1}
-                mr={2}
-                borderRadius='full'
-              >
-                {t('wallet.deposit')}
-              </Button>
-              <Button
-                variant={
-                  walletModalState.action === WalletModalAction.Withdraw
-                    ? 'solid'
-                    : 'outline'
-                }
-                colorScheme='blue'
-                onClick={() => handleActionChange(1)}
-                flex={1}
-                ml={2}
-                borderRadius='full'
-              >
-                {t('wallet.withdraw')}
-              </Button>
-            </Flex>
-
-            <Flex justifyContent='space-between' flexWrap='wrap'>
-              {Object.values(WalletModalType).map((type, index) => (
-                <Button
-                  key={type}
-                  variant={walletModalState.type === type ? 'solid' : 'outline'}
-                  colorScheme={'blue'}
-                  onClick={() => handleTypeChange(index)}
-                  flex='1 0 30%'
-                  mx={1}
-                  borderRadius='full'
-                >
-                  {t(type)}
-                </Button>
-              ))}
-            </Flex>
-          </Flex>
+          <WalletActionSelector
+            action={walletModalState.action}
+            type={walletModalState.type}
+            onActionChange={handleActionChange}
+            onTypeChange={handleTypeChange}
+          />
           <ModalHeader fontSize='xl' fontWeight='bold' textAlign='center'>
             {capitalizeFirstLetters(
               t(`wallet.${walletModalState.action}`) +
@@ -149,7 +113,11 @@ export const WalletModal: React.FC<WalletModalProps> = ({
                 t(`wallet.${walletModalState.type}`)
             )}
           </ModalHeader>
-          {renderActionComponent()}
+          {renderActionComponent(
+            federations,
+            walletModalState,
+            setWalletModalState
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>
