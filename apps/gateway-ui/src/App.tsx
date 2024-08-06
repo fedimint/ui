@@ -10,16 +10,15 @@ import { Loading } from './components/Loading';
 import { Error } from './components/Error';
 import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
 import { WalletCard } from './components/walletCard/WalletCard';
+import {
+  WalletModal,
+  WalletModalAction,
+  WalletModalState,
+  WalletModalType,
+} from './components/walletModal/WalletModal';
 
 export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
 export type Unit = (typeof UNIT_OPTIONS)[number];
-
-export interface WalletModalState {
-  isOpen: boolean;
-  action: 'deposit' | 'withdraw';
-  type: 'ecash' | 'lightning' | 'onchain';
-  selectedFederation: FederationInfo | null;
-}
 
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
@@ -45,8 +44,8 @@ export const App = React.memo(function Admin(): JSX.Element {
   const [unit, setUnit] = useState<Unit>('sats');
   const [walletModalState, setWalletModalState] = useState<WalletModalState>({
     isOpen: false,
-    action: 'deposit',
-    type: 'ecash',
+    action: WalletModalAction.Deposit,
+    type: WalletModalType.Ecash,
     selectedFederation: null,
   });
 
@@ -84,16 +83,6 @@ export const App = React.memo(function Admin(): JSX.Element {
       return () => clearInterval(interval);
     }
   }, [gateway, authenticated]);
-
-  const handleDeposit = (federation: FederationInfo) => {
-    // Implement deposit logic here
-    console.log('Deposit for federation:', federation.federation_id);
-  };
-
-  const handleWithdraw = (federation: FederationInfo) => {
-    // Implement withdraw logic here
-    console.log('Withdraw from federation:', federation.federation_id);
-  };
 
   const content = useMemo(() => {
     if (loading) return <Loading />;
@@ -136,6 +125,10 @@ export const App = React.memo(function Admin(): JSX.Element {
             setShowConnectFed(false);
           }}
         />
+        <WalletModal
+          walletModalState={walletModalState}
+          setWalletModalState={setWalletModalState}
+        />
       </Flex>
     );
   }, [
@@ -146,6 +139,7 @@ export const App = React.memo(function Admin(): JSX.Element {
     error,
     gatewayInfo,
     unit,
+    walletModalState,
   ]);
 
   return (
