@@ -9,19 +9,19 @@ import {
 } from '@chakra-ui/react';
 import { Network } from '@fedimint/types';
 import { formatEllipsized, getNodeUrl, useTranslation } from '@fedimint/utils';
-import { GatewayCard } from '.';
+import { GatewayCard } from '..';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
 
-interface InfoCardProps {
+interface LightningCardProps {
   nodeId: string;
   network?: Network;
 }
 
-export const InfoCard = React.memo(function InfoCard({
+export const LightningCard = React.memo(function LightningCard({
   nodeId,
   network,
-}: InfoCardProps): JSX.Element {
+}: LightningCardProps): JSX.Element {
   const { t } = useTranslation();
   const theme = useTheme();
   const { onCopy, hasCopied } = useClipboard(nodeId);
