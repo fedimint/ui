@@ -1,34 +1,22 @@
-import React, { useMemo, useState } from 'react';
-import {
-  Box,
-  Button,
-  Flex,
-  Text,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  Square,
-} from '@chakra-ui/react';
+import React, { useMemo } from 'react';
+import { Box, Button, Flex, Text, Square } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '../GatewayCard';
 import { FederationInfo } from '@fedimint/types';
 import { PieChart } from 'react-minimal-pie-chart';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
+import { WalletModalState } from '../../App';
 
 interface WalletCardProps {
   federations: FederationInfo[];
+  setWalletModalState: (state: WalletModalState) => void;
 }
 
 export const WalletCard = React.memo(function WalletCard({
   federations,
+  setWalletModalState,
 }: WalletCardProps): JSX.Element {
   const { t } = useTranslation();
-
-  const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
-  const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
 
   const totalEcashBalance = useMemo(() => {
     return federations.reduce(
@@ -63,13 +51,14 @@ export const WalletCard = React.memo(function WalletCard({
         p={6}
       >
         {/* Balance section */}
-        <Flex direction='column' flex={1}>
+        <Flex direction='column'>
           {balanceData.map((item) => (
             <Flex
               key={item.title}
               justify='space-between'
               mb={2}
               align='center'
+              gap={8}
             >
               <Flex align='center'>
                 <Square size='12px' bg={item.color} mr={2} />
@@ -95,7 +84,7 @@ export const WalletCard = React.memo(function WalletCard({
         </Flex>
 
         {/* Pie chart section */}
-        <Box width='150px' height='150px' ml={8} position='relative'>
+        <Box width='150px' height='150px' position='relative'>
           <PieChart
             data={balanceData}
             lineWidth={40}
@@ -106,13 +95,20 @@ export const WalletCard = React.memo(function WalletCard({
         </Box>
 
         {/* Deposit/Withdraw section */}
-        <Flex direction='column' ml={8} width='150px'>
+        <Flex direction='column' width='150px'>
           <Button
             leftIcon={<FaArrowDown />}
             colorScheme='blue'
             size='md'
             mb={4}
-            onClick={() => setIsDepositModalOpen(true)}
+            onClick={() => {
+              setWalletModalState({
+                action: 'deposit',
+                type: 'onchain',
+                selectedFederation: federations[0],
+                isOpen: true,
+              });
+            }}
             width='100%'
           >
             {t('wallet-card.deposit')}
@@ -122,39 +118,20 @@ export const WalletCard = React.memo(function WalletCard({
             colorScheme='blue'
             size='md'
             variant='outline'
-            onClick={() => setIsWithdrawModalOpen(true)}
+            onClick={() => {
+              setWalletModalState({
+                action: 'withdraw',
+                type: 'onchain',
+                selectedFederation: federations[0],
+                isOpen: true,
+              });
+            }}
             width='100%'
           >
             {t('wallet-card.withdraw')}
           </Button>
         </Flex>
       </Flex>
-
-      <Modal
-        isOpen={isDepositModalOpen}
-        onClose={() => setIsDepositModalOpen(false)}
-        isCentered
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{t('deposit.title')}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>{/* Add deposit modal content here */}</ModalBody>
-        </ModalContent>
-      </Modal>
-
-      <Modal
-        isOpen={isWithdrawModalOpen}
-        onClose={() => setIsWithdrawModalOpen(false)}
-        isCentered
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{t('withdraw.title')}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>{/* Add withdraw modal content here */}</ModalBody>
-        </ModalContent>
-      </Modal>
     </GatewayCard>
   );
 });

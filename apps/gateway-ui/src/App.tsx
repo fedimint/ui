@@ -9,10 +9,17 @@ import { FederationsTable } from './components/federations/FederationsTable';
 import { Loading } from './components/Loading';
 import { Error } from './components/Error';
 import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
-import { WalletCard } from './components/wallet/WalletCard';
+import { WalletCard } from './components/walletCard/WalletCard';
 
 export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
 export type Unit = (typeof UNIT_OPTIONS)[number];
+
+export interface WalletModalState {
+  isOpen: boolean;
+  action: 'deposit' | 'withdraw';
+  type: 'ecash' | 'lightning' | 'onchain';
+  selectedFederation: FederationInfo | null;
+}
 
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
@@ -36,6 +43,12 @@ export const App = React.memo(function Admin(): JSX.Element {
   const [error, setError] = useState<string>('');
   const [showConnectFed, setShowConnectFed] = useState(false);
   const [unit, setUnit] = useState<Unit>('sats');
+  const [walletModalState, setWalletModalState] = useState<WalletModalState>({
+    isOpen: false,
+    action: 'deposit',
+    type: 'ecash',
+    selectedFederation: null,
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -98,7 +111,10 @@ export const App = React.memo(function Admin(): JSX.Element {
     return (
       <Flex direction='column' gap={4}>
         <HeaderWithUnitSelector setUnit={setUnit} />
-        <WalletCard federations={gatewayInfo.federations} />
+        <WalletCard
+          federations={gatewayInfo.federations}
+          setWalletModalState={setWalletModalState}
+        />
         <LightningCard
           nodeId={gatewayInfo.gateway_id}
           network={gatewayInfo.network}
@@ -106,9 +122,8 @@ export const App = React.memo(function Admin(): JSX.Element {
         <FederationsTable
           unit={unit}
           federations={gatewayInfo.federations}
-          onDeposit={handleDeposit}
-          onWithdraw={handleWithdraw}
           onConnectFederation={() => setShowConnectFed(true)}
+          setWalletModalState={setWalletModalState}
         />
         <ConnectFederationModal
           isOpen={showConnectFed}
