@@ -42,24 +42,23 @@
     "total": "Total",
     "balance": "Balance",
     "address": "Address",
-    "deposit": "Deposit",
-    "withdraw": "Withdraw",
+    "receive": "Receive",
+    "send": "Send",
     "create-address": "Create Address"
   },
   "wallet-modal": {
-    "title": "Wallet Actions"
-  },
-  "deposit-card": {
-    "bitcoin-deposit": "Bitcoin Deposit",
-    "card_header": "Deposit Bitcoin",
-    "confirmations": "Confirmations:",
-    "deposit-address": "Deposit Address",
-    "header": "Bitcoin Deposit to Federation",
-    "receiving-address": "Receiving Addr",
-    "required": "required",
-    "sentence-one": "Deposit to the address or scan the QR code",
-    "transaction-id": "Transaction ID",
-    "create-pegin-address": "Create Peg-in Address"
+    "title": "Wallet Actions",
+    "receive": {
+      "ecash-instructions": "Paste your ecash note here",
+      "paste-ecash-placeholder": "Paste ecash note here",
+      "redeem": "Redeem",
+      "paste-invoice": "Paste invoice here",
+      "enter-amount-sats": "Enter amount in sats",
+      "lightning-instructions": "Enter an amount in sats to create a Lightning invoice for"
+    },
+    "send": {
+      "submit": "Submit"
+    }
   },
   "federation-card": {
     "table-title": "Federations",
@@ -67,8 +66,8 @@
     "name": "Name",
     "balance": "Balance",
     "actions": "Actions",
-    "deposit": "Deposit",
-    "withdraw": "Withdraw",
+    "receive": "Receive",
+    "send": "Send",
     "default-federation-name": "Federation: ",
     "view-link-on": "View on {{host}}",
     "leave-fed-error": "Cannot leave federation with sats in your balance. Please withdraw your sats first.",
