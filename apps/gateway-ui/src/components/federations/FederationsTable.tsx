@@ -13,22 +13,20 @@ import { FederationInfo, MSats } from '@fedimint/types';
 import { useTranslation, formatEllipsized, formatValue } from '@fedimint/utils';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { ViewConfigModal } from './ViewConfig';
-import { Unit } from '../../App';
+import { Unit, WalletModalState } from '../../App';
 
 interface FederationsTableProps {
   federations: FederationInfo[];
-  onDeposit: (federation: FederationInfo) => void;
-  onWithdraw: (federation: FederationInfo) => void;
   onConnectFederation: () => void;
   unit: Unit;
+  setWalletModalState: (state: WalletModalState) => void;
 }
 
 export const FederationsTable: React.FC<FederationsTableProps> = ({
   federations,
-  onDeposit,
-  onWithdraw,
   onConnectFederation,
   unit,
+  setWalletModalState,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -69,13 +67,27 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
         <Flex gap='8px'>
           <Link
             color={theme.colors.blue[600]}
-            onClick={() => onDeposit(federation)}
+            onClick={() =>
+              setWalletModalState({
+                action: 'deposit',
+                type: 'onchain',
+                selectedFederation: federation,
+                isOpen: true,
+              })
+            }
           >
             {t('federation-card.deposit')}
           </Link>
           <Link
             color={theme.colors.blue[600]}
-            onClick={() => onWithdraw(federation)}
+            onClick={() =>
+              setWalletModalState({
+                action: 'withdraw',
+                type: 'onchain',
+                selectedFederation: federation,
+                isOpen: true,
+              })
+            }
           >
             {t('federation-card.withdraw')}
           </Link>

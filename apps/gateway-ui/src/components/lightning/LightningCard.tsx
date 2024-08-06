@@ -10,8 +10,8 @@ import {
 import { Network } from '@fedimint/types';
 import { formatEllipsized, getNodeUrl, useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '..';
-import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
-import { ReactComponent as LinkIcon } from '../assets/svgs/linkIcon.svg';
+import { ReactComponent as CopyIcon } from '../../assets/svgs/copy.svg';
+import { ReactComponent as LinkIcon } from '../../assets/svgs/linkIcon.svg';
 
 interface LightningCardProps {
   nodeId: string;
