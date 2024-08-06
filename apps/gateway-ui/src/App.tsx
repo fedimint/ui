@@ -25,17 +25,20 @@ export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
 
   const [gatewayInfo, setGatewayInfo] = useState<GatewayInfo>({
+    version_hash: '',
     federations: [],
+    lightning_pub_key: '',
+    lightning_alias: '',
     fees: {
       base_msat: 0,
       proportional_millionths: 0,
     },
+    route_hints: [],
     gateway_id: '',
     gateway_state: '',
-    lightning_alias: '',
-    lightning_pub_key: '',
-    route_hints: [],
-    version_hash: '',
+    network: undefined,
+    block_height: undefined,
+    synced_to_chain: false,
   });
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);

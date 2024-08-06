@@ -1,56 +1,53 @@
 import { Network } from './bitcoin';
 import { GatewayClientConfig } from './federation';
 
-export interface Gateway {
-  api: string;
-  fees: Fees;
-  gateway_id: string;
-  gateway_redeem_key: string;
+export interface LightningGateway {
   mint_channel_id: number;
+  gateway_redeem_key: string;
   node_pub_key: string;
+  lightning_alias: string;
+  api: string;
   route_hints: RouteHint[];
-  valid_until: Validity;
+  fees: RoutingFees;
+  gateway_id: string;
+  supports_private_payments: boolean;
 }
 
-export interface RouteHint {
+export type RouteHint = RouteHintHop[];
+
+export interface RouteHintHop {
+  src_node_id: string;
+  short_channel_id: string;
   base_msat: number;
   proportional_millionths: number;
   cltv_expiry_delta: number;
-  htlc_maximum_msat: number;
-  htlc_minimum_msat: number;
-  short_channel_id: string;
-  src_node_id: string;
+  htlc_minimum_msat?: number;
+  htlc_maximum_msat?: number;
 }
 
-export interface Fees {
+export interface RoutingFees {
   base_msat: number;
   proportional_millionths: number;
-}
-
-interface Validity {
-  nanos_since_epoch: number;
-  secs_since_epoch: number;
 }
 
 export interface FederationInfo {
   federation_id: string;
   balance_msat: number;
-  channel_id: number;
   config: GatewayClientConfig;
-  routing_fees: {
-    base_msat: number;
-    proportional_millionths: number;
-  };
+  channel_id?: number;
+  routing_fees?: RoutingFees;
 }
 
 export interface GatewayInfo {
+  version_hash: string;
   federations: FederationInfo[];
-  fees: Fees;
+  lightning_pub_key: string;
+  lightning_alias: string;
+  fees: RoutingFees;
+  route_hints: RouteHint[];
   gateway_id: string;
   gateway_state: string;
-  lightning_alias: string;
-  lightning_pub_key: string;
   network?: Network;
-  route_hints: RouteHint[];
-  version_hash: string;
+  block_height?: number;
+  synced_to_chain: boolean;
 }
