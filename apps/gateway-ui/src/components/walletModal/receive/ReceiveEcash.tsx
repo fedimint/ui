@@ -10,11 +10,7 @@ interface ReceiveEcashProps {
   setWalletModalState: (state: WalletModalState) => void;
 }
 
-const ReceiveEcash: React.FC<ReceiveEcashProps> = ({
-  federations,
-  walletModalState,
-  setWalletModalState,
-}) => {
+const ReceiveEcash: React.FC<ReceiveEcashProps> = () => {
   const { t } = useTranslation();
   const [ecashNote, setEcashNote] = useState('');
 
