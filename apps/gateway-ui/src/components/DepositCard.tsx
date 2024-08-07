@@ -10,7 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { ApiContext } from '../ApiProvider';
 import { QRCodeSVG } from 'qrcode.react';
-import { Network } from '@fedimint/types';
+import { MSats, Network } from '@fedimint/types';
+import { formatMsatsToBtc } from '@fedimint/utils';
 import { useTranslation } from '@fedimint/utils';
 import { GatewayCard } from './GatewayCard';
 import { ReactComponent as CopyIcon } from '../assets/svgs/copy.svg';
@@ -44,7 +45,9 @@ export const DepositCard = React.memo(function DepositCard({
       .fetchAddress(federationId)
       .then((newAddress) => {
         const bip21Uri = `bitcoin:${newAddress}${
-          amount > 0 ? `?amount=${amount / 100000000}` : ''
+          amount > 0
+            ? `?amount=${formatMsatsToBtc((amount * 1000) as MSats)}`
+            : ''
         }`;
         setAddress(bip21Uri);
         setError('');
