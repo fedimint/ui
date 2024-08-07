@@ -8,14 +8,9 @@ import {
   useTheme,
   CircularProgress,
   CircularProgressLabel,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
-  ModalBody,
 } from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo } from '@fedimint/types';
-import { FederationCard, ConnectFederation } from './components';
+import { FederationCard, ConnectFederationModal } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
 import { Wrapper, Login } from '@fedimint/ui';
@@ -161,24 +156,17 @@ export const App = React.memo(function Admin(): JSX.Element {
             {t('connect-federation.connect-federation-button')}
           </Button>
         </Flex>
-        <Modal isOpen={showConnectFed} onClose={() => setShowConnectFed(false)}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalCloseButton />
-            <br />
-            <ModalBody>
-              <ConnectFederation
-                renderConnectedFedCallback={(federation: FederationInfo) => {
-                  setGatewayInfo({
-                    ...gatewayInfo,
-                    federations: [...gatewayInfo.federations, federation],
-                  });
-                  setShowConnectFed(false);
-                }}
-              />
-            </ModalBody>
-          </ModalContent>
-        </Modal>
+        <ConnectFederationModal
+          isOpen={showConnectFed}
+          onClose={() => setShowConnectFed(false)}
+          renderConnectedFedCallback={(federation: FederationInfo) => {
+            setGatewayInfo({
+              ...gatewayInfo,
+              federations: [...gatewayInfo.federations, federation],
+            });
+            setShowConnectFed(false);
+          }}
+        />
         <Flex flexDirection={'column'} gap={8}>
           {gatewayInfo.federations.map((federation: FederationInfo) => {
             return (
