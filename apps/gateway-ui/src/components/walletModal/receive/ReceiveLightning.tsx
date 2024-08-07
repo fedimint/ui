@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Text,
-  NumberInput,
-  NumberInputField,
-  Button,
-} from '@chakra-ui/react';
+import { NumberInput, NumberInputField, Button, Flex } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FederationInfo } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
+import FederationSelector from '../FederationSelector';
 
 interface ReceiveLightningProps {
   federations: FederationInfo[];
@@ -30,8 +25,12 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
   };
 
   return (
-    <Box>
-      <Text mb={4}>{t('wallet-modal.receive.lightning-instructions')}</Text>
+    <Flex direction='column' gap={4}>
+      <FederationSelector
+        federations={federations}
+        walletModalState={walletModalState}
+        setWalletModalState={setWalletModalState}
+      />
       <NumberInput
         value={amount}
         onChange={(_, value) => setAmount(value)}
@@ -46,7 +45,7 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
       <Button onClick={handleCreateInvoice} size='lg' width='100%'>
         {t('wallet-modal.receive.create-invoice')}
       </Button>
-    </Box>
+    </Flex>
   );
 };
 
