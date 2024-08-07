@@ -44,7 +44,9 @@
     "address": "Address",
     "receive": "Receive",
     "send": "Send",
-    "create-address": "Create Address"
+    "create-address": "Create Address",
+    "to-federation": "To Federation",
+    "from-federation": "From Federation"
   },
   "wallet-modal": {
     "title": "Wallet Actions",
@@ -54,7 +56,8 @@
       "redeem": "Redeem",
       "paste-invoice": "Paste invoice here",
       "enter-amount-sats": "Enter amount in sats",
-      "lightning-instructions": "Enter an amount in sats to create a Lightning invoice for"
+      "lightning-instructions": "Enter an amount in sats to create a Lightning invoice for",
+      "create-deposit-address": "Create deposit address"
     },
     "send": {
       "submit": "Submit"
