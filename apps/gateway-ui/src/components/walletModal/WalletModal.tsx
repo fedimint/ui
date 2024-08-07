@@ -48,17 +48,17 @@ export const WalletModal: React.FC<WalletModalProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const handleActionChange = (index: number) => {
+  const handleActionChange = (action: WalletModalAction) => {
     setWalletModalState({
       ...walletModalState,
-      action: index === 0 ? WalletModalAction.Receive : WalletModalAction.Send,
+      action,
     });
   };
 
-  const handleTypeChange = (index: number) => {
+  const handleTypeChange = (type: WalletModalType) => {
     setWalletModalState({
       ...walletModalState,
-      type: Object.values(WalletModalType)[index],
+      type,
     });
   };
 

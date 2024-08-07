@@ -1,13 +1,14 @@
 import React from 'react';
-import { Button, Flex } from '@chakra-ui/react';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { WalletModalAction, WalletModalType } from './WalletModal';
+import { WalletTypeButtons } from './WalletTypeButtons';
 
 interface WalletActionSelectorProps {
   action: WalletModalAction;
   type: WalletModalType;
-  onActionChange: (index: number) => void;
-  onTypeChange: (index: number) => void;
+  onActionChange: (action: WalletModalAction) => void;
+  onTypeChange: (type: WalletModalType) => void;
 }
 
 export const WalletActionSelector: React.FC<WalletActionSelectorProps> = ({
@@ -19,45 +20,34 @@ export const WalletActionSelector: React.FC<WalletActionSelectorProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Flex gap={2} flexDir='column'>
-      <Flex justifyContent='space-between'>
-        <Button
-          variant={action === WalletModalAction.Receive ? 'solid' : 'outline'}
-          colorScheme='blue'
-          onClick={() => onActionChange(0)}
-          flex={1}
-          mr={2}
-          borderRadius='full'
-        >
-          {t('wallet.receive')}
-        </Button>
-        <Button
-          variant={action === WalletModalAction.Send ? 'solid' : 'outline'}
-          colorScheme='blue'
-          onClick={() => onActionChange(1)}
-          flex={1}
-          ml={2}
-          borderRadius='full'
-        >
-          {t('wallet.send')}
-        </Button>
-      </Flex>
-
-      <Flex justifyContent='space-between' flexWrap='wrap'>
-        {Object.values(WalletModalType).map((modalType, index) => (
-          <Button
-            key={modalType}
-            variant={type === modalType ? 'solid' : 'outline'}
-            colorScheme={'blue'}
-            onClick={() => onTypeChange(index)}
-            flex='1 0 30%'
-            mx={1}
-            borderRadius='full'
-          >
-            {t(`wallet.${modalType}`)}
-          </Button>
-        ))}
-      </Flex>
-    </Flex>
+    <Box>
+      <Tabs
+        index={action === WalletModalAction.Receive ? 0 : 1}
+        onChange={(index) =>
+          onActionChange(
+            index === 0 ? WalletModalAction.Receive : WalletModalAction.Send
+          )
+        }
+        isFitted
+        variant='enclosed-colored'
+      >
+        <TabList color='gray.500'>
+          <Tab fontWeight='bold' fontSize='lg'>
+            {t('wallet.receive')}
+          </Tab>
+          <Tab fontWeight='bold' fontSize='lg'>
+            {t('wallet.send')}
+          </Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <WalletTypeButtons type={type} onTypeChange={onTypeChange} />
+          </TabPanel>
+          <TabPanel>
+            <WalletTypeButtons type={type} onTypeChange={onTypeChange} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Box>
   );
 };
