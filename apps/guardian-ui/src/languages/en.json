@@ -314,7 +314,7 @@
     "verified-placeholder": "Paste code here",
     "error": "Something went wrong.",
     "error-peer-id": "Unable to determine which peer you are. Please refresh and try again.",
-    "verification-code": "Your verification code",
+    "verification-code": "Your ({{peerName}}) verification code",
     "verification-code-help": "Share this code with other guardians",
     "table-title": "Guardian verification codes",
     "table-description": "Enter each Guardian’s verification codes below.",
