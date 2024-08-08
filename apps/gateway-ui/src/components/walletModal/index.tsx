@@ -1,3 +1,4 @@
+// TODO: Shared components for receive and send, should move out into multiple components
 import React from 'react';
 import {
   NumberInput,
@@ -13,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FederationInfo, Sats } from '@fedimint/types';
-import { WalletModalState } from '../WalletModal';
+import { WalletModalState } from './WalletModal';
 import QRCode from 'qrcode.react';
 import { FiCopy } from 'react-icons/fi';
 

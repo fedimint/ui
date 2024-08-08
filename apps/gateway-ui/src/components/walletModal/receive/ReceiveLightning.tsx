@@ -5,7 +5,7 @@ import { FederationInfo, Sats } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
 import FederationSelector from '../FederationSelector';
 import { ApiContext } from '../../../ApiProvider';
-import { AmountInput, CreateButton, QRCodeTabs } from '.';
+import { AmountInput, CreateButton, QRCodeTabs } from '..';
 
 interface ReceiveLightningProps {
   federations: FederationInfo[];
