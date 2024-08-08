@@ -193,8 +193,8 @@
     "error-config": "Failed to run distributed key generation. Federation setup must be restarted.",
     "error-default": "Not ready for DKG, your current status is",
     "error-header": "Something went wrong.",
-    "waiting-header": "Waiting for peers...",
-    "generating-header": "Generating codes..."
+    "waiting-header": "Waiting for peers",
+    "generating-header": "Generating codes"
   },
   "set-config": {
     "bft-explanation-title": "Byzantine Fault Tolerance of Your Federation",
