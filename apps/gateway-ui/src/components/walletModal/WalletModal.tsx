@@ -97,22 +97,21 @@ export const WalletModal: React.FC<WalletModalProps> = ({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{t('wallet-modal.title')}</ModalHeader>
+        <ModalHeader>
+          {capitalizeFirstLetters(
+            t(`wallet.${walletModalState.action}`) +
+              ' ' +
+              t(`wallet.${walletModalState.type}`)
+          )}
+        </ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody pb={4}>
           <WalletActionSelector
             action={walletModalState.action}
             type={walletModalState.type}
             onActionChange={handleActionChange}
             onTypeChange={handleTypeChange}
           />
-          <ModalHeader fontSize='xl' fontWeight='bold' textAlign='center'>
-            {capitalizeFirstLetters(
-              t(`wallet.${walletModalState.action}`) +
-                ' ' +
-                t(`wallet.${walletModalState.type}`)
-            )}
-          </ModalHeader>
           {renderActionComponent(
             federations,
             walletModalState,
