@@ -62,7 +62,8 @@
       "health-issue": "Issue",
       "health-good": "Good",
       "last-contribution-label": "Last contribution block",
-      "api-url-label": "API URL"
+      "api-url-label": "API URL",
+      "fetching-announcement": "Fetching announcement..."
     },
     "gateways": {
       "label": "Lightning Gateways",
@@ -238,6 +239,7 @@
     "meta-fields-effect": "Effect",
     "meta-fields-add-another": "Add another",
     "meta-fields-title": "Your Meta Proposal:",
+    "network": "Network",
     "password-warning-title": "Backup your Password!",
     "password-warning": "You MUST back up your password and keep it safe. This password is required to access your guardian dashboard. You CANNOT recover it if you lose it!"
   },

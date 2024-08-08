@@ -77,16 +77,16 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
     // TODO: Consider making this more dynamic, work with unknown modules etc.
     const rows: { label: string; value: React.ReactNode }[] = [
       {
-        label: t('connect-guardians.federation-name'),
+        label: t('set-config.federation-name'),
         value: configGenParams.meta?.federation_name,
       },
       {
-        label: t('setup-config.network'),
+        label: t('set-config.network'),
         value: getModuleParamsFromConfig(configGenParams, ModuleKind.Wallet)
           ?.consensus?.network,
       },
       {
-        label: t('setup-config.additional-block-confirmations'),
+        label: t('set-config.block-confirmations'),
         value: getModuleParamsFromConfig(configGenParams, ModuleKind.Wallet)
           ?.consensus?.finality_delay,
       },
@@ -197,7 +197,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       gap={[8, 4]}
     >
       {content}
-      {peerTableRows.length > 1 && (
+      {role === GuardianRole.Host && peerTableRows.length > 1 && (
         <Table
           title={t('connect-guardians.table-title')}
           description={t('connect-guardians.table-description')}
