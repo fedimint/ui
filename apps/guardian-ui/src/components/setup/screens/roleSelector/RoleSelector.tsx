@@ -101,14 +101,18 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
           </AlertDescription>
         </Box>
       </Alert>
-      <Button
-        width={['100%', 'auto']}
-        leftIcon={<Icon as={ArrowRightIcon} />}
-        isDisabled={!role}
-        onClick={() => setIsModalOpen(true)}
-      >
-        {t('common.next')}
-      </Button>
+      <div>
+        <Button
+          width={['100%', 'auto']}
+          leftIcon={<Icon as={ArrowRightIcon} />}
+          isDisabled={!role}
+          onClick={() => {
+            role !== GuardianRole.Solo ? setIsModalOpen(true) : handleConfirm();
+          }}
+        >
+          {t('common.next')}
+        </Button>
+      </div>
       <WarningModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

@@ -16,7 +16,8 @@
     "confirm": "Confirm",
     "you": "You",
     "close": "Close",
-    "save": "Save"
+    "save": "Save",
+    "continue": "Continue"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -182,6 +183,10 @@
     "solo": {
       "label": "Solo",
       "description": "Operate Fedimint as a Solo Guardian without consensus, fault tolerance, federated backups, or other resilience benefits of Fedimint. Proceed with caution, not intended for production use."
+    },
+    "warning-modal": {
+      "title": "Is everyone ready?",
+      "description": "Exiting the setup ceremony may cause the setup to fail and require you to restart your guardian. Make sure everyone is ready to run the full setup before continuing!"
     }
   },
   "run-dkg": {

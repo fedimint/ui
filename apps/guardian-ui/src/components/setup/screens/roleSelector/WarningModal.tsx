@@ -33,7 +33,7 @@ export const WarningModal: React.FC<WarningModalProps> = ({
         <ModalBody>{t('role-selector.warning-modal.description')}</ModalBody>
         <ModalFooter>
           <Button colorScheme='blue' mr={3} onClick={onConfirm}>
-            {t('common.confirm')}
+            {t('common.continue')}
           </Button>
           <Button variant='ghost' onClick={onClose}>
             {t('common.cancel')}
