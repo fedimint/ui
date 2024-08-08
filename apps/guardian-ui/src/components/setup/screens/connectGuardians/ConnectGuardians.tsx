@@ -165,7 +165,9 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       const row = peers[i]
         ? {
             key: peers[i].cert,
-            name: peers[i].name + (ourCurrentId === i ? t('common.you') : ''),
+            name:
+              peers[i].name +
+              (ourCurrentId === i ? ` (${t('common.you')})` : ''),
             status:
               peers[i].status === ServerStatus.ReadyForConfigGen ||
               ourCurrentId === i ? (

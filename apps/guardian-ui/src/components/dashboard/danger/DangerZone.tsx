@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Text,
-  Flex,
-  theme,
-  Collapse,
-  IconButton,
-  Button,
-} from '@chakra-ui/react';
+import { Box, Text, Flex, theme, Collapse, IconButton } from '@chakra-ui/react';
 import { GuardianAuthenticationCode } from './GuardianAuthenticationCode';
 import { DownloadBackup } from './DownloadBackup';
 import { useTranslation } from '@fedimint/utils';
@@ -15,23 +7,25 @@ import { ReactComponent as ChevronDownIcon } from '../../../assets/svgs/chevron-
 import { ReactComponent as ChevronUpIcon } from '../../../assets/svgs/chevron-up.svg';
 import { ScheduleShutdown } from './ScheduleShutdown';
 import { SignedApiAnnouncement } from '@fedimint/types';
+import { SignApiAnnouncement } from './SignApiAnnouncement';
 
 interface DangerZoneProps {
   ourPeer: { id: number; name: string } | undefined;
   inviteCode: string;
   latestSession: number | undefined;
   signedApiAnnouncements: Record<string, SignedApiAnnouncement>;
-  onApiAnnouncementOpen: () => void;
 }
 
 export const DangerZone: React.FC<DangerZoneProps> = ({
   ourPeer,
   inviteCode,
   latestSession,
-  onApiAnnouncementOpen,
+  signedApiAnnouncements,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+
+  const currentApiUrl = process.env.REACT_APP_FM_CONFIG_API || '';
 
   const toggleCollapse = () => setIsOpen(!isOpen);
 
@@ -75,16 +69,11 @@ export const DangerZone: React.FC<DangerZoneProps> = ({
           )}
           <DownloadBackup />
           {ourPeer && (
-            <Button
-              size={['sm', 'md']}
-              bg={theme.colors.red[500]}
-              _hover={{ bg: theme.colors.red[600] }}
-              onClick={onApiAnnouncementOpen}
-            >
-              {t(
-                'federation-dashboard.danger-zone.sign-api-announcement.label'
-              )}
-            </Button>
+            <SignApiAnnouncement
+              ourPeer={ourPeer}
+              signedApiAnnouncements={signedApiAnnouncements}
+              currentApiUrl={currentApiUrl}
+            />
           )}
           {latestSession && <ScheduleShutdown latestSession={latestSession} />}
         </Flex>
