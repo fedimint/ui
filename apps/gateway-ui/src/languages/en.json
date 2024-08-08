@@ -8,7 +8,8 @@
     "error": "Error",
     "sats": "sats",
     "copy": "Copy",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "uri": "URI"
   },
   "admin": {
     "fetch-info-modal-text": "Checking federation details..."

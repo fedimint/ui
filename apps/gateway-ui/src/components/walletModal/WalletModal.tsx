@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -47,6 +47,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   setWalletModalState,
 }) => {
   const { t } = useTranslation();
+  const [showSelector, setShowSelector] = useState(true);
 
   const handleActionChange = (action: WalletModalAction) => {
     setWalletModalState({
@@ -83,16 +84,24 @@ export const WalletModal: React.FC<WalletModalProps> = ({
     const Component =
       components[walletModalState.action][walletModalState.type];
     return Component ? (
-      <Component {...{ federations, walletModalState, setWalletModalState }} />
+      <Component
+        {...{
+          federations,
+          walletModalState,
+          setWalletModalState,
+          setShowSelector,
+        }}
+      />
     ) : null;
   };
 
   return (
     <Modal
       isOpen={walletModalState.isOpen}
-      onClose={() =>
-        setWalletModalState({ ...walletModalState, isOpen: false })
-      }
+      onClose={() => {
+        setWalletModalState({ ...walletModalState, isOpen: false });
+        setShowSelector(true);
+      }}
       size='md'
     >
       <ModalOverlay />
@@ -106,12 +115,14 @@ export const WalletModal: React.FC<WalletModalProps> = ({
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={4}>
-          <WalletActionSelector
-            action={walletModalState.action}
-            type={walletModalState.type}
-            onActionChange={handleActionChange}
-            onTypeChange={handleTypeChange}
-          />
+          {showSelector && (
+            <WalletActionSelector
+              action={walletModalState.action}
+              type={walletModalState.type}
+              onActionChange={handleActionChange}
+              onTypeChange={handleTypeChange}
+            />
+          )}
           {renderActionComponent(
             federations,
             walletModalState,
