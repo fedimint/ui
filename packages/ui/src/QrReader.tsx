@@ -16,7 +16,6 @@ import {
   Alert,
   AlertIcon,
 } from '@chakra-ui/react';
-import { FiAlertCircle } from 'react-icons/fi';
 
 export type ScanResult = QrScanner.ScanResult;
 
@@ -28,7 +27,6 @@ interface Props {
 export const QRReader: React.FC<Props> = ({ processing, onScan }) => {
   const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
   const qrScannerRef = useRef<QrScanner | null>(null);
-  const [mediaError, setMediaError] = useState<string>();
   const [playError, setPlayError] = useState<string | null>(null);
   const [frames, setFrames] = useState<FrameState | null>(null);
   const [progress, setProgress] = useState(0);
@@ -150,22 +148,6 @@ export const QRReader: React.FC<Props> = ({ processing, onScan }) => {
             {Math.round(progress * 100)}%
           </Text>
         </Box>
-      )}
-      {mediaError && (
-        <Flex
-          position='absolute'
-          inset={0}
-          flexDirection='column'
-          alignItems='center'
-          justifyContent='center'
-          textAlign='center'
-          padding={5}
-          gap={2}
-          color='gray.600'
-        >
-          <FiAlertCircle />
-          <Text fontSize='sm'>{mediaError}</Text>
-        </Flex>
       )}
     </Box>
   );
