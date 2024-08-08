@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Flex, Button } from '@chakra-ui/react';
+import { Flex, Text, Button, useClipboard } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FederationInfo } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
-import { Scanner } from '@fedimint/ui';
+import { QRReader, ScanResult } from '@fedimint/ui';
 
 interface ReceiveEcashProps {
   federations: FederationInfo[];
@@ -14,20 +14,13 @@ interface ReceiveEcashProps {
 const ReceiveEcash: React.FC<ReceiveEcashProps> = () => {
   const { t } = useTranslation();
   const [ecashNote, setEcashNote] = useState('');
-  const [scanning, setScanning] = useState(true);
+  const [showEcashInfo, setShowEcashInfo] = useState(false);
+  const { onCopy: onCopyEcash, hasCopied } = useClipboard(ecashNote);
 
-  const handleScanResult = (result: string) => {
-    setEcashNote(result);
-    setScanning(false);
-  };
-
-  const handleScanError = (
-    error: string | React.SyntheticEvent<HTMLVideoElement, Event>
-  ) => {
-    if (typeof error === 'string') {
-      console.error('Scan error:', error);
-    } else {
-      console.error('Video error:', error);
+  const handleScanResult = (result: ScanResult) => {
+    if (result.data) {
+      setEcashNote(result.data);
+      setShowEcashInfo(true);
     }
   };
 
@@ -40,13 +33,36 @@ const ReceiveEcash: React.FC<ReceiveEcashProps> = () => {
     }
   };
 
+  const handleRedeem = () => {
+    console.log('Redeeming ecash note: ', ecashNote);
+  };
+
+  if (showEcashInfo) {
+    return (
+      <Flex direction='column' gap={4}>
+        <Text fontWeight='bold'>{t('common.ecash-note')}</Text>
+        <Text
+          borderWidth={1}
+          borderRadius='md'
+          p={2}
+          whiteSpace='pre-wrap'
+          wordBreak='break-all'
+        >
+          {ecashNote}
+        </Text>
+        <Button onClick={onCopyEcash}>
+          {hasCopied ? t('common.copied') : t('common.copy')}
+        </Button>
+        <Button onClick={handleRedeem}>
+          {t('wallet-modal.receive.redeem-ecash-button')}
+        </Button>
+      </Flex>
+    );
+  }
+
   return (
     <Flex direction='column' gap={4}>
-      <Scanner
-        scanning={scanning}
-        onResult={handleScanResult}
-        onError={handleScanError}
-      />
+      <QRReader onScan={handleScanResult} />
       <Button onClick={handlePaste}>
         {t('wallet-modal.receive.paste-ecash-button')}
       </Button>

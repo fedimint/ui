@@ -7,7 +7,15 @@ import {
   State as FrameState,
 } from 'qrloop';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Box, Flex, Text, Progress, CircularProgress } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Text,
+  Progress,
+  CircularProgress,
+  Alert,
+  AlertIcon,
+} from '@chakra-ui/react';
 import { FiAlertCircle } from 'react-icons/fi';
 
 export type ScanResult = QrScanner.ScanResult;
@@ -17,10 +25,11 @@ interface Props {
   onScan(result: ScanResult): void;
 }
 
-export const QRScanner: React.FC<Props> = ({ processing, onScan }) => {
+export const QRReader: React.FC<Props> = ({ processing, onScan }) => {
   const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
   const qrScannerRef = useRef<QrScanner | null>(null);
   const [mediaError, setMediaError] = useState<string>();
+  const [playError, setPlayError] = useState<string | null>(null);
   const [frames, setFrames] = useState<FrameState | null>(null);
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +49,7 @@ export const QRScanner: React.FC<Props> = ({ processing, onScan }) => {
         setFrames(newFrames);
         setProgress(progressOfFrames(newFrames));
       } catch (err) {
-        onScan(result);
+        console.debug('QR scan error:', err);
       }
     },
     [frames, onScan]
@@ -59,11 +68,17 @@ export const QRScanner: React.FC<Props> = ({ processing, onScan }) => {
       const qrScanner = new QrScanner(videoEl, (result) => handleScan(result), {
         returnDetailedScanResult: true,
         onDecodeError: () => null,
+        maxScansPerSecond: 5,
       });
-      await qrScanner.start();
+      try {
+        await qrScanner.start();
+        setPlayError(null);
+      } catch (playErr) {
+        console.debug('Camera access error:', playErr);
+      }
       qrScannerRef.current = qrScanner;
     } catch (err) {
-      setMediaError((err as Error).message || 'Unknown error');
+      console.debug('QR scanner setup error:', err);
     }
   }, [videoEl, handleScan]);
 
@@ -101,8 +116,14 @@ export const QRScanner: React.FC<Props> = ({ processing, onScan }) => {
           alignItems='center'
           justifyContent='center'
         >
-          <CircularProgress isIndeterminate size='xl' />
+          <CircularProgress isIndeterminate size='xs' />
         </Flex>
+      )}
+      {playError && (
+        <Alert status='error' position='absolute' bottom={4} left={4} right={4}>
+          <AlertIcon />
+          {playError}
+        </Alert>
       )}
       {processing && (
         <Flex
