@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Flex, Textarea, Button } from '@chakra-ui/react';
+import { Flex, Button } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FederationInfo } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
+import { Scanner } from '@fedimint/ui';
 
 interface ReceiveEcashProps {
   federations: FederationInfo[];
@@ -13,21 +14,41 @@ interface ReceiveEcashProps {
 const ReceiveEcash: React.FC<ReceiveEcashProps> = () => {
   const { t } = useTranslation();
   const [ecashNote, setEcashNote] = useState('');
+  const [scanning, setScanning] = useState(true);
 
-  const handleRedeem = () => {
-    // TODO: Implement redeem logic
-    console.log('Redeeming ecash:', ecashNote);
+  const handleScanResult = (result: string) => {
+    setEcashNote(result);
+    setScanning(false);
+  };
+
+  const handleScanError = (
+    error: string | React.SyntheticEvent<HTMLVideoElement, Event>
+  ) => {
+    if (typeof error === 'string') {
+      console.error('Scan error:', error);
+    } else {
+      console.error('Video error:', error);
+    }
+  };
+
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      setEcashNote(text);
+    } catch (err) {
+      console.error('Failed to read clipboard contents: ', err);
+    }
   };
 
   return (
     <Flex direction='column' gap={4}>
-      <Textarea
-        placeholder={t('wallet-modal.receive.paste-ecash-placeholder')}
-        value={ecashNote}
-        onChange={(e) => setEcashNote(e.target.value)}
+      <Scanner
+        scanning={scanning}
+        onResult={handleScanResult}
+        onError={handleScanError}
       />
-      <Button onClick={handleRedeem} isDisabled={!ecashNote}>
-        {t('wallet-modal.receive.redeem')}
+      <Button onClick={handlePaste}>
+        {t('wallet-modal.receive.paste-ecash-button')}
       </Button>
     </Flex>
   );
