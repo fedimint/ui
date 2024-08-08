@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, Text, Textarea, Button } from '@chakra-ui/react';
+import { Flex, Textarea, Button } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FederationInfo } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';

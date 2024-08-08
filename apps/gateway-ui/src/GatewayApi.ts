@@ -98,50 +98,6 @@ export class GatewayApi {
     }
   };
 
-  fetchAddress = async (federationId: string): Promise<string> => {
-    try {
-      const res: Response = await this.post('address', {
-        federation_id: federationId,
-      });
-
-      if (res.ok) {
-        const address: string = await res.json();
-        return Promise.resolve(address);
-      }
-
-      throw responseToError(res);
-    } catch (error) {
-      return Promise.reject({
-        message: 'Error fetching deposit address',
-        error,
-      });
-    }
-  };
-
-  fetchLightningInvoice = async (
-    federationId: string,
-    amount: number
-  ): Promise<string> => {
-    try {
-      const res: Response = await this.post('invoice', {
-        federation_id: federationId,
-        amount,
-      });
-
-      if (res.ok) {
-        const invoice: string = await res.json();
-        return Promise.resolve(invoice);
-      }
-
-      throw responseToError(res);
-    } catch (error) {
-      return Promise.reject({
-        message: 'Error fetching lightning invoice',
-        error,
-      });
-    }
-  };
-
   connectFederation = async (inviteCode: string): Promise<FederationInfo> => {
     try {
       const res: Response = await this.post('connect-fed', {
@@ -173,6 +129,26 @@ export class GatewayApi {
     }
   };
 
+  fetchAddress = async (federationId: string): Promise<string> => {
+    try {
+      const res: Response = await this.post('address', {
+        federation_id: federationId,
+      });
+
+      if (res.ok) {
+        const address: string = await res.json();
+        return Promise.resolve(address);
+      }
+
+      throw responseToError(res);
+    } catch (error) {
+      return Promise.reject({
+        message: 'Error fetching deposit address',
+        error,
+      });
+    }
+  };
+
   requestWithdrawal = async (
     federationId: string,
     msatAmountOrAll: number | string, // you can pass msat amount or 'all'
@@ -193,6 +169,68 @@ export class GatewayApi {
       throw responseToError(res);
     } catch (error) {
       return Promise.reject({ message: 'Error requesting withdrawal', error });
+    }
+  };
+
+  fetchLightningInvoice = async (
+    federationId: string,
+    amount: number
+  ): Promise<string> => {
+    try {
+      const res: Response = await this.post('invoice', {
+        federation_id: federationId,
+        amount,
+      });
+
+      if (res.ok) {
+        const invoice: string = await res.json();
+        return Promise.resolve(invoice);
+      }
+
+      throw responseToError(res);
+    } catch (error) {
+      return Promise.reject({
+        message: 'Error fetching lightning invoice',
+        error,
+      });
+    }
+  };
+
+  spendEcash = async (
+    federationId: string,
+    amount: number
+  ): Promise<string> => {
+    try {
+      const res: Response = await this.post('spend-ecash', {
+        federation_id: federationId,
+        amount,
+      });
+
+      if (res.ok) {
+        const ecash: string = await res.json();
+        return Promise.resolve(ecash);
+      }
+
+      throw responseToError(res);
+    } catch (error) {
+      return Promise.reject({ message: 'Error spending ecash', error });
+    }
+  };
+
+  receiveEcash = async (notes: string): Promise<string> => {
+    try {
+      const res: Response = await this.post('receive-ecash', {
+        notes,
+      });
+
+      if (res.ok) {
+        const ecash: string = await res.json();
+        return Promise.resolve(ecash);
+      }
+
+      throw responseToError(res);
+    } catch (error) {
+      return Promise.reject({ message: 'Error receiving ecash', error });
     }
   };
 }
