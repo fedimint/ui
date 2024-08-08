@@ -7,12 +7,14 @@ export interface WrapperProps {
   headerProps?: HeaderProps;
   children: React.ReactNode;
   size?: 'md' | 'lg';
+  warning?: React.FC;
 }
 
 export const Wrapper = memo(function Wrapper({
   headerProps,
   children,
   size = 'md',
+  warning,
 }: WrapperProps): JSX.Element {
   return (
     <Flex
@@ -31,7 +33,7 @@ export const Wrapper = memo(function Wrapper({
         width='100%'
         alignItems='center'
       >
-        <Header {...headerProps} />
+        <Header {...headerProps} Warning={warning} />
         {children}
       </Box>
       <Footer />

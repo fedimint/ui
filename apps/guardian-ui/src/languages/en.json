@@ -237,6 +237,10 @@
     "password-warning": "You MUST back up your password and keep it safe. This password is required to access your guardian dashboard. You CANNOT recover it if you lose it!"
   },
   "setup": {
+    "warning": {
+      "title": "Do not exit or refresh during setup!",
+      "description": "Exiting during setup may cause the setup to fail and you will have to do a fresh restart."
+    },
     "common": {
       "restart-setup": "Restart Setup",
       "restart-setup-alert": "The Setup Leader has restarted the Setup Ceremony. Please click \"Restart\" below to continue.",

@@ -17,6 +17,7 @@ import { useAppContext } from './hooks';
 import { useTranslation } from '@fedimint/utils';
 import { APP_ACTION_TYPE, Status } from './types';
 import { formatApiErrorMessage } from './utils/api';
+import { SetupWarning } from './components/SetupWarning';
 
 export const App = React.memo(function App() {
   const { t } = useTranslation();
@@ -61,7 +62,7 @@ export const App = React.memo(function App() {
           initServerStatus={state.initServerStatus}
           api={api}
         >
-          <Wrapper>
+          <Wrapper warning={SetupWarning}>
             <FederationSetup />
           </Wrapper>
         </SetupContextProvider>

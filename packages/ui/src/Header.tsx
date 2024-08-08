@@ -3,13 +3,15 @@ import { Flex } from '@chakra-ui/react';
 
 export interface HeaderProps {
   endChildrenSlot?: React.ReactNode;
+  Warning?: React.FC;
 }
 
 export const Header = React.memo(function Header({
   endChildrenSlot,
+  Warning,
 }: HeaderProps) {
   return (
-    <Flex width='100%' mb='32px' justifyContent={['center', 'space-between']}>
+    <Flex width='100%' justifyContent={['center', 'space-between']}>
       <Flex
         alignItems='center'
         justifyContent={['center', 'flex-start']}
@@ -51,6 +53,7 @@ export const Header = React.memo(function Header({
           </svg>
         </>
       </Flex>
+      {Warning && <Warning />}
       {endChildrenSlot}
     </Flex>
   );
