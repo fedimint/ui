@@ -10,7 +10,6 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-  Input,
   Box,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
@@ -20,6 +19,7 @@ import FederationSelector from '../FederationSelector';
 import { ApiContext } from '../../../ApiProvider';
 import QRCode from 'qrcode.react';
 import { FiCopy } from 'react-icons/fi';
+import { AmountInput, CreateButton, QRCodeTabs } from '.';
 
 interface ReceiveOnchainProps {
   federations: FederationInfo[];
@@ -59,10 +59,13 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
 
   if (showAddressInfo) {
     return (
-      <AddressInfo
-        bip21Uri={bip21Uri}
+      <QRCodeTabs
+        uriValue={bip21Uri?.toString() ?? ''}
+        addressValue={bip21Uri?.address ?? ''}
         onCopyUri={onCopyUri}
         onCopyAddress={onCopyAddress}
+        uriLabel={t('common.uri')}
+        addressLabel={t('common.address')}
       />
     );
   }
@@ -74,20 +77,11 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
         walletModalState={walletModalState}
         setWalletModalState={setWalletModalState}
       />
-      <NumberInput
-        value={amount}
-        onChange={(_, value) => setAmount(value as Sats)}
-        min={0}
-      >
-        <NumberInputField
-          placeholder={t('wallet-modal.receive.enter-amount-sats')}
-          height='60px'
-          fontSize='md'
-        />
-      </NumberInput>
-      <Button onClick={handleCreateDepositAddress} size='lg' width='100%'>
-        {t('wallet-modal.receive.create-deposit-address')}
-      </Button>
+      <AmountInput amount={amount} setAmount={setAmount} />
+      <CreateButton
+        onClick={handleCreateDepositAddress}
+        label={t('wallet-modal.receive.create-deposit-address')}
+      />
     </Flex>
   );
 };

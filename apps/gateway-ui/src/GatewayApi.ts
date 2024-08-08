@@ -118,6 +118,30 @@ export class GatewayApi {
     }
   };
 
+  fetchLightningInvoice = async (
+    federationId: string,
+    amount: number
+  ): Promise<string> => {
+    try {
+      const res: Response = await this.post('invoice', {
+        federation_id: federationId,
+        amount,
+      });
+
+      if (res.ok) {
+        const invoice: string = await res.json();
+        return Promise.resolve(invoice);
+      }
+
+      throw responseToError(res);
+    } catch (error) {
+      return Promise.reject({
+        message: 'Error fetching lightning invoice',
+        error,
+      });
+    }
+  };
+
   connectFederation = async (inviteCode: string): Promise<FederationInfo> => {
     try {
       const res: Response = await this.post('connect-fed', {

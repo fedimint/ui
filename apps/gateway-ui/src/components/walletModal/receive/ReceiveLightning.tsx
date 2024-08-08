@@ -1,28 +1,62 @@
-import React, { useState } from 'react';
-import { NumberInput, NumberInputField, Button, Flex } from '@chakra-ui/react';
+import React, { useCallback, useState } from 'react';
+import { Flex, useClipboard } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FederationInfo } from '@fedimint/types';
+import { FederationInfo, Sats } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
 import FederationSelector from '../FederationSelector';
+import { ApiContext } from '../../../ApiProvider';
+import { AmountInput, CreateButton, QRCodeTabs } from '.';
 
 interface ReceiveLightningProps {
   federations: FederationInfo[];
   walletModalState: WalletModalState;
   setWalletModalState: (state: WalletModalState) => void;
+  setShowSelector: (show: boolean) => void;
 }
 
 const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
   federations,
   walletModalState,
   setWalletModalState,
+  setShowSelector,
 }) => {
   const { t } = useTranslation();
-  const [amount, setAmount] = useState<number | ''>(0);
+  const { gateway } = React.useContext(ApiContext);
+  const [amount, setAmount] = useState<Sats>(0 as Sats);
+  const [invoice, setInvoice] = useState<string>();
+  const [showInvoiceInfo, setShowInvoiceInfo] = useState(false);
+  const { onCopy: onCopyInvoice } = useClipboard(invoice ?? '');
 
-  const handleCreateInvoice = () => {
-    // TODO: Implement invoice creation logic
-    console.log('Creating invoice for', amount, 'sats');
-  };
+  const handleCreateInvoice = useCallback(() => {
+    if (!walletModalState.selectedFederation) return;
+    gateway
+      .fetchLightningInvoice(
+        walletModalState.selectedFederation.federation_id,
+        amount
+      )
+      .then((newInvoice) => {
+        setInvoice(newInvoice);
+        setShowSelector(false);
+        setShowInvoiceInfo(true);
+      })
+      .catch(({ message, error }) => {
+        console.error(error, message);
+      });
+  }, [gateway, walletModalState.selectedFederation, amount, setShowSelector]);
+
+  if (showInvoiceInfo) {
+    const lightningUri = `lightning:${invoice}`;
+    return (
+      <QRCodeTabs
+        uriValue={lightningUri}
+        addressValue={invoice ?? ''}
+        onCopyUri={onCopyInvoice}
+        onCopyAddress={onCopyInvoice}
+        uriLabel={t('common.uri')}
+        addressLabel={t('common.invoice')}
+      />
+    );
+  }
 
   return (
     <Flex direction='column' gap={4}>
@@ -31,20 +65,11 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
         walletModalState={walletModalState}
         setWalletModalState={setWalletModalState}
       />
-      <NumberInput
-        value={amount}
-        onChange={(_, value) => setAmount(value)}
-        min={0}
-      >
-        <NumberInputField
-          placeholder={t('wallet-modal.receive.enter-amount-sats')}
-          height='60px'
-          fontSize='md'
-        />
-      </NumberInput>
-      <Button onClick={handleCreateInvoice} size='lg' width='100%'>
-        {t('wallet-modal.receive.create-invoice')}
-      </Button>
+      <AmountInput amount={amount} setAmount={setAmount} />
+      <CreateButton
+        onClick={handleCreateInvoice}
+        label={t('wallet-modal.receive.create-lightning-invoice')}
+      />
     </Flex>
   );
 };
