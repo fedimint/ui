@@ -68,7 +68,7 @@ export interface SetupState {
   role: GuardianRole | null;
   progress: SetupProgress;
   myName: string;
-  password: string;
+  password: string | null;
   ourCurrentId: number | null;
   configGenParams: ConfigGenParams | null;
   numPeers: number;

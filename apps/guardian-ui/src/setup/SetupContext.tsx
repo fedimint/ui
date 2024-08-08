@@ -34,7 +34,7 @@ function makeInitialState(loadFromStorage = true): SetupState {
     progress: SetupProgress.Start,
     myName: randomName,
     configGenParams: null,
-    password: '',
+    password: null,
     numPeers: 0,
     peers: [],
     tosConfig: { showTos: false, tos: undefined },

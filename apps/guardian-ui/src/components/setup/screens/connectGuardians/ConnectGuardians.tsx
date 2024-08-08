@@ -60,7 +60,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   } else if (role === GuardianRole.Host) {
     content = (
       <Flex direction={['column', 'row']} gap={4} align='start'>
-        <FormControl maxW={400} bg='blue.50' p={2} borderRadius='md'>
+        <FormControl minW={400} bg='blue.50' p={2} borderRadius='md'>
           <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
           <CopyInput
             value={guardianLink}
@@ -77,16 +77,16 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
     // TODO: Consider making this more dynamic, work with unknown modules etc.
     const rows: { label: string; value: React.ReactNode }[] = [
       {
-        label: 'Federation name',
+        label: t('connect-guardians.federation-name'),
         value: configGenParams.meta?.federation_name,
       },
       {
-        label: 'Network',
+        label: t('setup-config.network'),
         value: getModuleParamsFromConfig(configGenParams, ModuleKind.Wallet)
           ?.consensus?.network,
       },
       {
-        label: 'Additional Block Confirmations',
+        label: t('setup-config.additional-block-confirmations'),
         value: getModuleParamsFromConfig(configGenParams, ModuleKind.Wallet)
           ?.consensus?.finality_delay,
       },
@@ -165,7 +165,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
       const row = peers[i]
         ? {
             key: peers[i].cert,
-            name: peers[i].name,
+            name: peers[i].name + (ourCurrentId === i ? t('common.you') : ''),
             status:
               peers[i].status === ServerStatus.ReadyForConfigGen ||
               ourCurrentId === i ? (
