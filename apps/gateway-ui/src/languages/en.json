@@ -43,6 +43,7 @@
     "total": "Total",
     "balance": "Balance",
     "address": "Address",
+    "invoice": "Invoice",
     "receive": "Receive",
     "send": "Send",
     "create-address": "Create Address",
@@ -58,7 +59,8 @@
       "paste-invoice": "Paste invoice here",
       "enter-amount-sats": "Enter amount in sats",
       "lightning-instructions": "Enter an amount in sats to create a Lightning invoice for",
-      "create-deposit-address": "Create deposit address"
+      "create-deposit-address": "Create Deposit Address",
+      "create-lightning-invoice": "Create Lightning invoice"
     },
     "send": {
       "submit": "Submit"

@@ -21,7 +21,6 @@ const ReceiveEcash: React.FC<ReceiveEcashProps> = () => {
 
   return (
     <Flex direction='column' gap={4}>
-      <Text>{t('wallet-modal.receive.ecash-instructions')}</Text>
       <Textarea
         placeholder={t('wallet-modal.receive.paste-ecash-placeholder')}
         value={ecashNote}
