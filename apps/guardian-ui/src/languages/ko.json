@@ -16,7 +16,8 @@
     "confirm": "확인",
     "you": "당신",
     "close": "닫기",
-    "save": "저장"
+    "save": "저장",
+    "continue": "계속하다"
   },
   "connect-guardians": {
     "approve": "승인",
@@ -69,7 +70,8 @@
       "name-label": "이름",
       "status-label": "연결 상태",
       "id-name-label": "ID: 이름",
-      "api-url-label": "API URL"
+      "api-url-label": "API URL",
+      "fetching-announcement": "공지사항을 가져오는 중..."
     },
     "config": {
       "label": "연합 설정",
@@ -204,6 +206,10 @@
     "solo": {
       "label": "독주",
       "description": "합의, 내결함성, 통합 백업 또는 Fedimint의 기타 탄력성 이점 없이 Fedimint를 Solo Guardian으로 운영하십시오. 프로덕션 용도로 사용할 수 없으므로 주의해서 진행하세요."
+    },
+    "warning-modal": {
+      "title": "모두 준비됐나요?",
+      "description": "설정 의식을 종료하면 설정이 실패할 수 있으며 가디언을 다시 시작해야 할 수 있습니다. 계속 진행하기 전에 모든 사람이 전체 설정을 실행할 준비가 되었는지 확인하세요!"
     }
   },
   "run-dkg": {
@@ -253,7 +259,11 @@
     "meta-fields-effect": "효과",
     "meta-fields-title": "귀하의 메타 제안:",
     "password-warning": "비밀번호를 백업하고 안전하게 보관하세요. 이 비밀번호는 복구할 수 없습니다!",
-    "password-warning-title": "비밀번호 백업!"
+    "password-warning-title": "비밀번호 백업!",
+    "acknowledge-backed-up": "저는 {{guardianName}} (귀하의 보호자 이름)이며, 제 비밀번호를 백업하고 안전하게 보관했음을 약속합니다:",
+    "confirm-and-backup-password": "비밀번호 확인 및 백업",
+    "error-guardian-name-mismatch": "보호자 이름이 일치하지 않습니다.",
+    "network": "네트워크"
   },
   "setup": {
     "common": {
@@ -306,6 +316,10 @@
       "tos": {
         "title": "서비스 약관"
       }
+    },
+    "warning": {
+      "title": "설치 중에는 종료하거나 새로 고침하지 마세요!",
+      "description": "설치 중에 종료하면 설치가 실패할 수 있으며, 새로 시작해야 할 수 있습니다."
     }
   },
   "setup-complete": {

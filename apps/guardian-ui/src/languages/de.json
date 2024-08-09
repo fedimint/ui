@@ -16,7 +16,8 @@
     "confirm": "Bestätigen",
     "you": "Du",
     "close": "Schließen",
-    "save": "Speichern"
+    "save": "Speichern",
+    "continue": "Fortsetzen"
   },
   "connect-guardians": {
     "invite-guardians": "Follower einladen",
@@ -61,7 +62,8 @@
       "health-issue": "Problem",
       "health-good": "Gut",
       "last-contribution-label": "Letzter Beitragsblock",
-      "api-url-label": "API-URL"
+      "api-url-label": "API-URL",
+      "fetching-announcement": "Abrufen der Ankündigung..."
     },
     "gateways": {
       "label": "Blitz-Gateways",
@@ -182,6 +184,10 @@
     "solo": {
       "label": "Allein",
       "description": "Betreiben Sie Fedimint als Solo Guardian ohne Konsens, Fehlertoleranz, föderierte Backups oder andere Resilienzvorteile von Fedimint. Gehen Sie vorsichtig vor, nicht für den produktiven Einsatz gedacht."
+    },
+    "warning-modal": {
+      "title": "Ist jeder bereit?",
+      "description": "Das Verlassen der Einrichtungszeremonie kann dazu führen, dass die Einrichtung fehlschlägt und Sie Ihren Wächter neu starten müssen. Stellen Sie sicher, dass alle bereit sind, die vollständige Einrichtung durchzuführen, bevor Sie fortfahren!"
     }
   },
   "run-dkg": {
@@ -231,7 +237,11 @@
     "meta-fields-add-another": "Füge einen weiteren hinzu",
     "meta-fields-title": "Ihr Meta-Vorschlag:",
     "password-warning": "Sie müssen eine Sicherung Ihres Passworts machen und es sicher aufbewahren. Dieses Passwort ist erforderlich, um auf Ihren Wächter-Dashboard zuzugreifen. Sie können es nicht wiederherstellen, wenn Sie es verlieren!",
-    "password-warning-title": "Sichern Sie Ihr Passwort!"
+    "password-warning-title": "Sichern Sie Ihr Passwort!",
+    "acknowledge-backed-up": "Ich, {{guardianName}} (dein Wächtername), verspreche, dass ich mein Passwort gesichert und gesichert habe:",
+    "confirm-and-backup-password": "Passwort bestätigen und sichern",
+    "error-guardian-name-mismatch": "Der Name des Vormunds stimmt nicht überein.",
+    "network": "Netzwerk"
   },
   "setup": {
     "common": {
@@ -283,6 +293,10 @@
         "title": "Unbekannter Schritt",
         "subtitle": "Wie bist du hierher gekommen?!"
       }
+    },
+    "warning": {
+      "title": "Verlassen Sie nicht oder aktualisieren Sie während der Einrichtung!",
+      "description": "Ein Abbruch während der Einrichtung kann dazu führen, dass die Einrichtung fehlschlägt, und Sie müssen einen neuen Neustart durchführen."
     }
   },
   "setup-complete": {

@@ -16,7 +16,8 @@
     "confirm": "Confirmer",
     "you": "Vous",
     "close": "Fermer",
-    "save": "Sauvegarder"
+    "save": "Sauvegarder",
+    "continue": "Continuer"
   },
   "connect-guardians": {
     "invite-guardians": "Inviter des abonnés",
@@ -61,7 +62,8 @@
       "health-issue": "Problème",
       "health-good": "Bon",
       "last-contribution-label": "Dernier bloc de contribution",
-      "api-url-label": "URL de l'API"
+      "api-url-label": "URL de l'API",
+      "fetching-announcement": "Récupération de l'annonce..."
     },
     "gateways": {
       "label": "Passerelles Éclair",
@@ -182,6 +184,10 @@
     "solo": {
       "label": "Seul",
       "description": "Exécutez Fedimint en tant que Gardien Solo sans consensus, tolérance aux pannes, sauvegardes fédérées ou autres avantages de résilience de Fedimint. Procédez avec prudence, ce n'est pas destiné à un usage en production."
+    },
+    "warning-modal": {
+      "title": "Tout le monde est prêt ?",
+      "description": "Sortir de la cérémonie de configuration peut entraîner l'échec de la configuration et nécessiter que vous redémarriez votre gardien. Assurez-vous que tout le monde est prêt à exécuter la configuration complète avant de continuer !"
     }
   },
   "run-dkg": {
@@ -231,7 +237,11 @@
     "meta-fields-add-another": "Ajouter un autre",
     "meta-fields-title": "Votre proposition Meta :",
     "password-warning": "Vous devez faire une sauvegarde de votre mot de passe et le conserver en sécurité. Ce mot de passe est nécessaire pour accéder à votre tableau de bord de gardien. Vous ne pouvez pas le récupérer si vous le perdez !",
-    "password-warning-title": "Faites une sauvegarde de votre mot de passe !"
+    "password-warning-title": "Faites une sauvegarde de votre mot de passe !",
+    "acknowledge-backed-up": "Je, {{guardianName}} (votre nom de gardien), promets que j'ai sauvegardé et sécurisé mon mot de passe :",
+    "confirm-and-backup-password": "Confirmer et sauvegarder le mot de passe",
+    "error-guardian-name-mismatch": "Le nom du tuteur ne correspond pas.",
+    "network": "Réseau"
   },
   "setup": {
     "common": {
@@ -283,6 +293,10 @@
         "title": "Étape inconnue",
         "subtitle": "Comment es-tu arrivé ici ?!"
       }
+    },
+    "warning": {
+      "title": "Ne quittez pas et ne rafraîchissez pas pendant la configuration !",
+      "description": "Quitter pendant la configuration peut entraîner un échec de la configuration et vous devrez effectuer un redémarrage complet."
     }
   },
   "setup-complete": {

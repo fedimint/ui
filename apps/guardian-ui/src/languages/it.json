@@ -16,7 +16,8 @@
     "confirm": "Confirmer",
     "you": "Tu",
     "close": "Cerrar",
-    "save": "Guardar"
+    "save": "Guardar",
+    "continue": "Continuar"
   },
   "connect-guardians": {
     "invite-guardians": "Invitar seguidores",
@@ -61,7 +62,8 @@
       "health-issue": "Problema",
       "health-good": "Bien",
       "last-contribution-label": "Último bloque de contribución",
-      "api-url-label": "API URL"
+      "api-url-label": "API URL",
+      "fetching-announcement": "Fetching announcement..."
     },
     "gateways": {
       "label": "Lightning Gateways",
@@ -182,6 +184,10 @@
     "solo": {
       "label": "Sólo",
       "description": "Fedimint'i konsensüs, hata toleransı, federatif yedeklemeler veya Fedimint'in diğer dayanıklılık avantajları olmadan Tekil Koruyucu olarak çalıştırın. Dikkatli ilerleyin, üretim kullanımı için tasarlanmamıştır."
+    },
+    "warning-modal": {
+      "title": "¿Está todo el mundo listo?",
+      "description": "Salir de la ceremonia de configuración puede hacer que la configuración falle y requerir que reinicies tu guardián. ¡Asegúrate de que todos estén listos para ejecutar la configuración completa antes de continuar!"
     }
   },
   "run-dkg": {
@@ -231,7 +237,11 @@
     "meta-fields-add-another": "Fügen Sie einen weiteren hinzu",
     "meta-fields-title": "Ваше предложение Meta:",
     "password-warning": "Devi fare una copia di backup della tua password e conservarla in un luogo sicuro. Questa password è necessaria per accedere alla tua dashboard dei guardiani. Non puoi recuperarla se la perdi!",
-    "password-warning-title": "Fai una copia di backup della tua password!"
+    "password-warning-title": "Fai una copia di backup della tua password!",
+    "acknowledge-backed-up": "Yo, {{guardianName}} (tu nombre de guardián), prometo que he respaldado y asegurado mi contraseña:",
+    "confirm-and-backup-password": "Bestätigen und Sichern Sie das Passwort",
+    "error-guardian-name-mismatch": "El nombre del guardián no coincide.",
+    "network": "Redes"
   },
   "setup": {
     "common": {
@@ -283,6 +293,10 @@
         "title": "Unbekannter Schritt",
         "subtitle": "¿¡Cómo llegaste aquí!?"
       }
+    },
+    "warning": {
+      "title": "¡No salgas ni actualices durante la configuración!",
+      "description": "Salir durante la configuración puede hacer que la configuración falle y tendrás que reiniciar desde cero."
     }
   },
   "setup-complete": {
