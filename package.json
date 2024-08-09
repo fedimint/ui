@@ -14,7 +14,7 @@
     "nix-guardian": "./scripts/mprocs-nix.sh run-ui mprocs-nix-guardian.yml",
     "nix-gateway": "./scripts/mprocs-nix.sh dev-fed mprocs-nix-gateway.yml",
     "mprocs": "mprocs -c ./mprocs.yml",
-    "translate": "node scripts/translate.js"
+    "translate": "node scripts/translate.js $1"
   },
   "devDependencies": {
     "eslint": "^8.4.1",
@@ -29,6 +29,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@vitalets/google-translate-api": "^9.2.0"
+    "@vitalets/google-translate-api": "^9.2.0",
+    "openai": "^4.55.3"
   }
 }

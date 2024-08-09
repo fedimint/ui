@@ -12,3 +12,5 @@ guardian:
     yarn nix-guardian
 reset dc:
     cp original-docker-compose.yml docker-compose.yml && docker compose down -v && echo 'Removing fm dirs' && sudo rm -rf fm_* && echo 'Done'
+translate commitHash:
+    node scripts/translate.js {{commitHash}}

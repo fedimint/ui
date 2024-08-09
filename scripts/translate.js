@@ -1,35 +1,90 @@
 const fs = require('fs/promises');
 const path = require('path');
 const { execSync } = require('child_process');
+const readline = require('readline');
+const https = require('https');
 
 const srcPaths = [
   'apps/gateway-ui/src/languages',
   'apps/guardian-ui/src/languages',
 ];
 
-// Get languages from command line arguments, excluding the first two default arguments (node path and script path)
-const languages = process.argv.slice(2)[0].split(' ');
+// Create readline interface for user input
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 async function installOpenAI() {
   console.log('Installing OpenAI package...');
-  execSync('yarn add openai', { stdio: 'inherit' });
+  execSync('yarn add openai --ignore-workspace-root-check', {
+    stdio: 'inherit',
+  });
 }
 
 async function uninstallOpenAI() {
   console.log('Uninstalling OpenAI package...');
-  execSync('yarn remove openai', { stdio: 'inherit' });
+  execSync('yarn remove openai --ignore-workspace-root-check', {
+    stdio: 'inherit',
+  });
 }
 
-async function translateAndFill() {
+async function getLanguages(srcPath) {
+  const files = await fs.readdir(srcPath);
+  return files
+    .filter((file) => file.endsWith('.json') && file !== 'en.json')
+    .map((file) => path.basename(file, '.json'));
+}
+
+async function getChangedKeys(commitHash, srcFile) {
+  const diffOutput = execSync(`git diff ${commitHash} HEAD -- ${srcFile}`, {
+    encoding: 'utf8',
+  });
+  const changedKeys = new Set();
+  const diffLines = diffOutput.split('\n');
+
+  for (const line of diffLines) {
+    const match = line.match(/^\+(\s*"([^"]+)":)/);
+    if (match) {
+      const keyPath = match[2];
+      changedKeys.add(keyPath);
+    }
+  }
+
+  return changedKeys;
+}
+
+async function getUserConfirmation(message) {
+  return new Promise((resolve) => {
+    rl.question(message, (answer) => {
+      resolve(answer.toLowerCase() === 'y' || answer === '');
+    });
+  });
+}
+
+async function translateAndFill(commitHash) {
   const { OpenAI } = require('openai');
+
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
-
   try {
     for (const srcPath of srcPaths) {
       const srcFile = `${srcPath}/en.json`;
       const srcData = JSON.parse(await fs.readFile(srcFile, 'utf8'));
+      const changedKeys = await getChangedKeys(commitHash, srcFile);
+      const languages = await getLanguages(srcPath);
+
+      console.log(`\nChanged keys for ${srcPath}:`);
+      changedKeys.forEach((key) => console.log(`- ${key}`));
+
+      const confirmed = await getUserConfirmation(
+        '\nDo you want to proceed with translation? (Y/n): '
+      );
+      if (!confirmed) {
+        console.log('Translation cancelled.');
+        continue;
+      }
 
       for (const lang of languages) {
         const targetFile = path.join(srcPath, `${lang}.json`);
@@ -39,7 +94,14 @@ async function translateAndFill() {
         } catch (error) {
           console.log(`Creating new file for language: ${lang}`);
         }
-        const updatedData = await fillMissingKeys(srcData, targetData, lang);
+        const updatedData = await fillMissingKeys(
+          openai,
+          srcData,
+          targetData,
+          lang,
+          '',
+          changedKeys
+        );
         await fs.writeFile(
           targetFile,
           JSON.stringify(updatedData, null, 2),
@@ -53,7 +115,14 @@ async function translateAndFill() {
   }
 }
 
-async function fillMissingKeys(srcObj, targetObj, lang, path = '') {
+async function fillMissingKeys(
+  openai,
+  srcObj,
+  targetObj,
+  lang,
+  path = '',
+  changedKeys
+) {
   const updatedObj = { ...targetObj };
   for (const key in srcObj) {
     const newPath = path ? `${path}.${key}` : key;
@@ -66,9 +135,10 @@ async function fillMissingKeys(srcObj, targetObj, lang, path = '') {
         srcObj[key],
         updatedObj[key],
         lang,
-        newPath
+        newPath,
+        changedKeys
       );
-    } else if (updatedObj[key] === undefined) {
+    } else if (updatedObj[key] === undefined && changedKeys.has(newPath)) {
       console.log(`Translating and adding missing key: ${newPath}`);
       await retryWithExponentialBackoff(async () => {
         const translation = await translateWithOpenAI(srcObj[key], lang);
@@ -131,9 +201,14 @@ async function retryWithExponentialBackoff(
 async function main() {
   try {
     await installOpenAI();
-    await translateAndFill();
+    const commitHash = process.argv[2];
+    console.log(`Using commit hash from latest release: ${commitHash}`);
+    await translateAndFill(commitHash);
+  } catch (error) {
+    console.error('Error:', error.message);
   } finally {
     await uninstallOpenAI();
+    rl.close();
   }
 }
 
