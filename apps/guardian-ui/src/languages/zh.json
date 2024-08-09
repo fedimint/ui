@@ -16,7 +16,8 @@
     "confirm": "确认",
     "you": "你",
     "close": "关闭",
-    "save": "保存"
+    "save": "保存",
+    "continue": "继续"
   },
   "connect-guardians": {
     "invite-guardians": "邀请关注者",
@@ -61,7 +62,8 @@
       "health-issue": "问题",
       "health-good": "好",
       "last-contribution-label": "最后的贡献区块",
-      "api-url-label": "API网址"
+      "api-url-label": "API网址",
+      "fetching-announcement": "获取公告中..."
     },
     "gateways": {
       "label": "闪电网关",
@@ -182,6 +184,10 @@
     "solo": {
       "label": "独奏",
       "description": "以单独守护者身份操作 Fedimint，不使用共识、容错、联邦备份或其他 Fedimint 的弹性优势。请谨慎进行，不适合生产环境使用。"
+    },
+    "warning-modal": {
+      "title": "大家准备好了吗？",
+      "description": "退出设置仪式可能会导致设置失败，并需要您重新启动守护者。在继续之前，请确保每个人都准备好进行完整的设置！"
     }
   },
   "run-dkg": {
@@ -231,7 +237,11 @@
     "meta-fields-add-another": "再添加一个",
     "meta-fields-title": "您的元提案：",
     "password-warning": "您必须备份您的密码并将其安全保存。此密码是访问您的守护者仪表板的必要条件。如果您丢失了它，您将无法恢复它！",
-    "password-warning-title": "备份您的密码！"
+    "password-warning-title": "备份您的密码！",
+    "acknowledge-backed-up": "我，{{guardianName}}（你的监护人姓名），承诺我已经备份并保护了我的密码：",
+    "confirm-and-backup-password": "确认并备份密码",
+    "error-guardian-name-mismatch": "监护人姓名不匹配",
+    "network": "网络"
   },
   "setup": {
     "common": {
@@ -283,6 +293,10 @@
         "title": "未知步骤",
         "subtitle": "你是怎么到这里的？！"
       }
+    },
+    "warning": {
+      "title": "设置过程中请勿退出或刷新！",
+      "description": "在设置过程中退出可能会导致设置失败，您将不得不重新启动。"
     }
   },
   "setup-complete": {

@@ -19,7 +19,8 @@
     "confirm": "Confirmar",
     "you": "Tú",
     "close": "Cerrar",
-    "save": "Guardar"
+    "save": "Guardar",
+    "continue": "Continuar"
   },
   "connect-guardians": {
     "invite-guardians": "Invitar seguidores",
@@ -64,7 +65,8 @@
       "health-issue": "Problema",
       "health-good": "Bueno",
       "last-contribution-label": "Último bloque de contribución",
-      "api-url-label": "URL de la API"
+      "api-url-label": "URL de la API",
+      "fetching-announcement": "Obteniendo anuncio..."
     },
     "gateways": {
       "label": "Puertas Relámpago",
@@ -185,6 +187,10 @@
     "solo": {
       "label": "Solo",
       "description": "Opera Fedimint como un Guardián Solo sin consenso, tolerancia a fallos, copias de seguridad federadas u otros beneficios de resiliencia de Fedimint. Procede con precaución, no está destinado para uso en producción."
+    },
+    "warning-modal": {
+      "title": "¿Está todo el mundo listo?",
+      "description": "Salir de la ceremonia de configuración puede hacer que la configuración falle y requerir que reinicies tu guardián. ¡Asegúrate de que todos estén listos para ejecutar la configuración completa antes de continuar!"
     }
   },
   "run-dkg": {
@@ -234,7 +240,11 @@
     "meta-fields-add-another": "Agregar otro",
     "meta-fields-title": "Tu Propuesta Meta:",
     "password-warning": "Debes hacer una copia de seguridad de tu contraseña y guardarla en un lugar seguro. Esta contraseña es necesaria para acceder a tu tablero de guardianes. ¡No puedes recuperarla si la pierdes!",
-    "password-warning-title": "¡Haz una copia de seguridad de tu contraseña!"
+    "password-warning-title": "¡Haz una copia de seguridad de tu contraseña!",
+    "acknowledge-backed-up": "Yo, {{guardianName}} (tu nombre de guardián), prometo que he respaldado y asegurado mi contraseña:",
+    "confirm-and-backup-password": "Confirmar y respaldar contraseña",
+    "error-guardian-name-mismatch": "El nombre del guardián no coincide.",
+    "network": "Red"
   },
   "setup": {
     "common": {
@@ -286,6 +296,10 @@
         "title": "Paso desconocido",
         "subtitle": "¿Cómo llegaste aquí?!"
       }
+    },
+    "warning": {
+      "title": "¡No salgas ni actualices durante la configuración!",
+      "description": "Salir durante la configuración puede hacer que la configuración falle y tendrás que reiniciar desde cero."
     }
   },
   "setup-complete": {

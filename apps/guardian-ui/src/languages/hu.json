@@ -16,7 +16,8 @@
     "confirm": "Megerősít",
     "you": "Te",
     "close": "Bezárás",
-    "save": "Mentés"
+    "save": "Mentés",
+    "continue": "Folytatás"
   },
   "connect-guardians": {
     "invite-guardians": "Kövesd a követőket",
@@ -61,7 +62,8 @@
       "health-issue": "Kérdés",
       "health-good": "Jó",
       "last-contribution-label": "Utolsó hozzájárulási blokk",
-      "api-url-label": "API URL"
+      "api-url-label": "API URL",
+      "fetching-announcement": "Bejelentés lekérése..."
     },
     "gateways": {
       "label": "Villámkapuk",
@@ -182,6 +184,10 @@
     "solo": {
       "label": "Egyedül",
       "description": "Működtesse a Fedimintot egyéni őrként konszenzus, hibatűrés, szövetségi biztonsági mentések vagy a Fedimint egyéb ellenállósági előnyei nélkül. Járjon el óvatosan, nem termelési használatra készült."
+    },
+    "warning-modal": {
+      "title": "Mindenki készen áll?",
+      "description": "A beállítási ceremónia elhagyása a beállítás kudarcát okozhatja, és szükségessé teheti a védelmező újraindítását. Győződj meg róla, hogy mindenki készen áll a teljes beállítás futtatására, mielőtt folytatnád!"
     }
   },
   "run-dkg": {
@@ -231,7 +237,11 @@
     "meta-fields-add-another": "Adj hozzá egy másikat",
     "meta-fields-title": "A te Meta Javaslatod:",
     "password-warning": "Meg kell őrizned a jelszavadat, és biztonságos helyen kell tárolnod. Ez a jelszó szükséges a Őrző irányítópultjának eléréséhez. Nem tudod visszaállítani, ha elveszíted!",
-    "password-warning-title": "Jelszó biztonsági mentése!"
+    "password-warning-title": "Jelszó biztonsági mentése!",
+    "acknowledge-backed-up": "Én, {{guardianName}} (a te őrződ neve), ígérem, hogy biztonsági másolatot készítettem és megvédtem a jelszavamat:",
+    "confirm-and-backup-password": "Jelszó megerősítése és biztonsági mentés",
+    "error-guardian-name-mismatch": "A gondnok neve nem egyezik.",
+    "network": "Hálózat"
   },
   "setup": {
     "common": {
@@ -283,6 +293,10 @@
         "title": "Ismeretlen lépés",
         "subtitle": "Hogy kerültél ide?!"
       }
+    },
+    "warning": {
+      "title": "Ne lépj ki vagy frissíts a telepítés alatt!",
+      "description": "A telepítés közben való kilépés a telepítés kudarcát okozhatja, és friss újraindítást kell végeznie."
     }
   },
   "setup-complete": {

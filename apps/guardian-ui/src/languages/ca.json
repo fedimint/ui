@@ -16,7 +16,8 @@
     "confirm": "Confirmar",
     "you": "Tu",
     "close": "Tanca",
-    "save": "Desaureta"
+    "save": "Desaureta",
+    "continue": "Continuar"
   },
   "connect-guardians": {
     "invite-guardians": "Convida els seguidors",
@@ -61,7 +62,8 @@
       "health-issue": "Problema",
       "health-good": "Bé",
       "last-contribution-label": "Últim bloc de contribució",
-      "api-url-label": "URL de l'API"
+      "api-url-label": "URL de l'API",
+      "fetching-announcement": "Obtenció d'anunci..."
     },
     "gateways": {
       "label": "Portes de llum",
@@ -182,6 +184,10 @@
     "solo": {
       "label": "Solament",
       "description": "Operar Fedimint com un Guardian Sol sense consens, tolerància a fallades, còpies de seguretat federades, o altres beneficis de resiliència de Fedimint. Procediu amb precaució, no està destinat per a ús en producció."
+    },
+    "warning-modal": {
+      "title": "Està tothom a punt?",
+      "description": "Sortir de la cerimònia de configuració pot fer que la configuració falli i requerir que reinicieu el vostre guardian. Assegureu-vos que tothom estigui preparat per executar la configuració completa abans de continuar!"
     }
   },
   "run-dkg": {
@@ -231,7 +237,11 @@
     "meta-fields-add-another": "Afegeix un altre",
     "meta-fields-title": "La teva proposta Meta:",
     "password-warning": "Has de fer una còpia de seguretat de la teva contrasenya i guardar-la en un lloc segur. Aquesta contrasenya és necessària per accedir al teu tauler de guardians. No pots recuperar-la si la perds!",
-    "password-warning-title": "Fes una còpia de seguretat de la teva contrasenya!"
+    "password-warning-title": "Fes una còpia de seguretat de la teva contrasenya!",
+    "acknowledge-backed-up": "Jo, {{guardianName}} (el teu nom de tutor), prometo que he fet una còpia de seguretat i he assegurat la meva contrasenya:",
+    "confirm-and-backup-password": "Confirma i copia la contrasenya",
+    "error-guardian-name-mismatch": "El nom del guardian no coincideix.",
+    "network": "Xarxa"
   },
   "setup": {
     "common": {
@@ -283,6 +293,10 @@
         "title": "Pas desconegut",
         "subtitle": "Com vas arribar aquí?!"
       }
+    },
+    "warning": {
+      "title": "No sortiu ni actualitzeu durant la configuració!",
+      "description": "Sortir durant la configuració pot fer que la configuració falli i haureu de fer un reinici complet."
     }
   },
   "setup-complete": {

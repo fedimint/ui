@@ -16,7 +16,8 @@
     "confirm": "確認する",
     "you": "あなた",
     "close": "閉じる",
-    "save": "保存"
+    "save": "保存",
+    "continue": "続ける"
   },
   "connect-guardians": {
     "invite-guardians": "フォロワーを招待する",
@@ -61,7 +62,8 @@
       "health-issue": "問題",
       "health-good": "良い",
       "last-contribution-label": "最後の寄付ブロック",
-      "api-url-label": "APIのURL"
+      "api-url-label": "APIのURL",
+      "fetching-announcement": "お知らせを取得中..."
     },
     "gateways": {
       "label": "ライトニングゲートウェイ",
@@ -182,6 +184,10 @@
     "solo": {
       "label": "ソロ",
       "description": "Fedimintをコンセンサス、フォールトトレランス、連合バックアップ、またはFedimintのその他の耐障害性の利点なしでソロガーディアンとして操作します。注意して進めてください。生産用途には適していません。"
+    },
+    "warning-modal": {
+      "title": "皆さん、準備はいいですか？",
+      "description": "セットアップセレモニーを終了すると、セットアップが失敗し、ガーディアンを再起動する必要が生じる可能性があります。続行する前に、全員がフルセットアップを実行する準備ができていることを確認してください！"
     }
   },
   "run-dkg": {
@@ -231,7 +237,11 @@
     "meta-fields-add-another": "もう一つ追加する",
     "meta-fields-title": "あなたのメタ提案：",
     "password-warning": "パスワードをバックアップして、安全に保管してください。このパスワードは復元できません！",
-    "password-warning-title": "パスワードのバックアップをしてください！"
+    "password-warning-title": "パスワードのバックアップをしてください！",
+    "acknowledge-backed-up": "私は、{{guardianName}}（あなたの保護者名）として、私のパスワードをバックアップし、安全に保管したことを約束します。",
+    "confirm-and-backup-password": "パスワードの確認とバックアップ",
+    "error-guardian-name-mismatch": "保護者の名前が一致しません",
+    "network": "ネットワーク"
   },
   "setup": {
     "common": {
@@ -283,6 +293,10 @@
         "title": "未知のステップ",
         "subtitle": "どうやってここに来たの？！"
       }
+    },
+    "warning": {
+      "title": "セットアップ中は終了したりリフレッシュしたりしないでください！",
+      "description": "セットアップ中に終了すると、セットアップが失敗する可能性があり、再起動を行う必要があります。"
     }
   },
   "setup-complete": {

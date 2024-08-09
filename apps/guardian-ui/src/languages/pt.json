@@ -16,7 +16,8 @@
     "confirm": "Confirmar",
     "you": "Você",
     "close": "Fechar",
-    "save": "Salvar"
+    "save": "Salvar",
+    "continue": "Continue"
   },
   "connect-guardians": {
     "invite-guardians": "Convidar Seguidores",
@@ -61,7 +62,8 @@
       "health-issue": "Problema",
       "health-good": "Bom",
       "last-contribution-label": "Último bloco de contribuição",
-      "api-url-label": "URL da API"
+      "api-url-label": "URL da API",
+      "fetching-announcement": "Buscando anúncio..."
     },
     "gateways": {
       "label": "Portais de Relâmpago",
@@ -182,6 +184,10 @@
     "solo": {
       "label": "Solo",
       "description": "Operar o Fedimint como um Guardião Solo sem consenso, tolerância a falhas, backups federados ou outros benefícios de resiliência do Fedimint. Proceda com cautela, não é destinado para uso em produção."
+    },
+    "warning-modal": {
+      "title": "Está todo mundo pronto?",
+      "description": "Sair da cerimônia de configuração pode fazer com que a configuração falhe e exigir que você reinicie seu guardião. Certifique-se de que todos estejam prontos para executar a configuração completa antes de continuar!"
     }
   },
   "run-dkg": {
@@ -231,7 +237,11 @@
     "meta-fields-add-another": "Adicionar outro",
     "meta-fields-title": "Sua Proposta Meta:",
     "password-warning": "Você deve fazer um backup da sua senha e mantê-la segura. Esta senha é necessária para acessar seu painel de guardião. Você não pode recuperá-la se perder!",
-    "password-warning-title": "Faça um backup da sua senha!"
+    "password-warning-title": "Faça um backup da sua senha!",
+    "acknowledge-backed-up": "Eu, {{guardianName}} (seu nome de guardião), prometo que fiz backup e protegi minha senha:",
+    "confirm-and-backup-password": "Confirmar e Fazer Backup da Senha",
+    "error-guardian-name-mismatch": "O nome do guardião não corresponde.",
+    "network": "Rede"
   },
   "setup": {
     "common": {
@@ -283,6 +293,10 @@
         "title": "Passo desconhecido",
         "subtitle": "Como você chegou aqui?!"
       }
+    },
+    "warning": {
+      "title": "Não saia ou atualize durante a configuração!",
+      "description": "Sair durante a configuração pode fazer com que a configuração falhe e você terá que reiniciar do zero."
     }
   },
   "setup-complete": {

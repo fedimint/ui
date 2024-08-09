@@ -1,6 +1,11 @@
 const fs = require('fs/promises');
 const path = require('path');
 const { execSync } = require('child_process');
+const OpenAI = require('openai');
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 const srcPaths = [
   'apps/gateway-ui/src/languages',
@@ -12,20 +17,19 @@ const languages = process.argv.slice(2)[0].split(' ');
 
 async function installOpenAI() {
   console.log('Installing OpenAI package...');
-  execSync('yarn add openai', { stdio: 'inherit' });
+  execSync('yarn add openai --ignore-workspace-root-check', {
+    stdio: 'inherit',
+  });
 }
 
 async function uninstallOpenAI() {
   console.log('Uninstalling OpenAI package...');
-  execSync('yarn remove openai', { stdio: 'inherit' });
+  execSync('yarn remove openai --ignore-workspace-root-check', {
+    stdio: 'inherit',
+  });
 }
 
 async function translateAndFill() {
-  const { OpenAI } = require('openai');
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-
   try {
     for (const srcPath of srcPaths) {
       const srcFile = `${srcPath}/en.json`;
@@ -39,7 +43,12 @@ async function translateAndFill() {
         } catch (error) {
           console.log(`Creating new file for language: ${lang}`);
         }
-        const updatedData = await fillMissingKeys(srcData, targetData, lang);
+        const updatedData = await fillMissingKeys(
+          srcData,
+          targetData,
+          lang,
+          openai
+        );
         await fs.writeFile(
           targetFile,
           JSON.stringify(updatedData, null, 2),
