@@ -28,21 +28,8 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
   const { onCopy: onCopyInvoice } = useClipboard(invoice ?? '');
 
   const handleCreateInvoice = useCallback(() => {
-    if (!walletModalState.selectedFederation) return;
-    gateway
-      .fetchLightningInvoice(
-        walletModalState.selectedFederation.federation_id,
-        amount
-      )
-      .then((newInvoice) => {
-        setInvoice(newInvoice);
-        setShowSelector(false);
-        setShowInvoiceInfo(true);
-      })
-      .catch(({ message, error }) => {
-        console.error(error, message);
-      });
-  }, [gateway, walletModalState.selectedFederation, amount, setShowSelector]);
+    return;
+  }, []);
 
   if (showInvoiceInfo) {
     const lightningUri = `lightning:${invoice}`;
