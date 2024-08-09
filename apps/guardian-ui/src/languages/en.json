@@ -16,7 +16,8 @@
     "confirm": "Confirm",
     "you": "You",
     "close": "Close",
-    "save": "Save"
+    "save": "Save",
+    "continue": "Continue"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -61,7 +62,8 @@
       "health-issue": "Issue",
       "health-good": "Good",
       "last-contribution-label": "Last contribution block",
-      "api-url-label": "API URL"
+      "api-url-label": "API URL",
+      "fetching-announcement": "Fetching announcement..."
     },
     "gateways": {
       "label": "Lightning Gateways",
@@ -182,14 +184,18 @@
     "solo": {
       "label": "Solo",
       "description": "Operate Fedimint as a Solo Guardian without consensus, fault tolerance, federated backups, or other resilience benefits of Fedimint. Proceed with caution, not intended for production use."
+    },
+    "warning-modal": {
+      "title": "Is everyone ready?",
+      "description": "Exiting the setup ceremony may cause the setup to fail and require you to restart your guardian. Make sure everyone is ready to run the full setup before continuing!"
     }
   },
   "run-dkg": {
     "error-config": "Failed to run distributed key generation. Federation setup must be restarted.",
     "error-default": "Not ready for DKG, your current status is",
     "error-header": "Something went wrong.",
-    "waiting-header": "Waiting for peers...",
-    "generating-header": "Generating codes..."
+    "waiting-header": "Waiting for peers",
+    "generating-header": "Generating codes"
   },
   "set-config": {
     "bft-explanation-title": "Byzantine Fault Tolerance of Your Federation",
@@ -197,11 +203,13 @@
     "bft-faulty": "Your Federation will be able to tolerate {{faulty}} faulty, offline, or malicious Guardians without impacting the Federation's operations.",
     "guardian-name": "Guardian name",
     "guardian-name-help": "This random name will be shown to other Guardians during setup",
+    "acknowledge-backed-up": "I, {{guardianName}} (your guardian name), promise that I have backed up and secured my password:",
     "admin-password": "Admin password",
     "admin-password-generate": "Generate",
     "admin-password-set": "Click 'Generate' to create a secure password. You can modify it, but this password must be secure and backed up!",
     "admin-password-help": "Back up this password and keep it safe! You cannot recover this password!",
     "admin-password-backup": "I am using a strong password and have backed it up. (You cannot recover this password!)",
+    "confirm-and-backup-password": "Confirm and Backup Password",
     "confirm-password": "Confirm password",
     "error-password-mismatch": "Passwords don't match",
     "join-federation": "Join Federation link",
@@ -223,6 +231,7 @@
     "error-valid-min": "Please input a number of at least {{min}}.",
     "error-valid-max": "Please input a number of at most {{max}}.",
     "error-valid-min-max": "Please input a number between {{min}} and {{max}}.",
+    "error-guardian-name-mismatch": "Guardian name does not match",
     "meta-fields": "Meta fields",
     "meta-fields-description": "See <docs>documentation</docs> for more information.",
     "meta-fields-key": "Meta key",
@@ -230,10 +239,15 @@
     "meta-fields-effect": "Effect",
     "meta-fields-add-another": "Add another",
     "meta-fields-title": "Your Meta Proposal:",
+    "network": "Network",
     "password-warning-title": "Backup your Password!",
     "password-warning": "You MUST back up your password and keep it safe. This password is required to access your guardian dashboard. You CANNOT recover it if you lose it!"
   },
   "setup": {
+    "warning": {
+      "title": "Do not exit or refresh during setup!",
+      "description": "Exiting during setup may cause the setup to fail and you will have to do a fresh restart."
+    },
     "common": {
       "restart-setup": "Restart Setup",
       "restart-setup-alert": "The Setup Leader has restarted the Setup Ceremony. Please click \"Restart\" below to continue.",
@@ -300,7 +314,7 @@
     "verified-placeholder": "Paste code here",
     "error": "Something went wrong.",
     "error-peer-id": "Unable to determine which peer you are. Please refresh and try again.",
-    "verification-code": "Your verification code",
+    "verification-code": "Your ({{peerName}}) verification code",
     "verification-code-help": "Share this code with other guardians",
     "table-title": "Guardian verification codes",
     "table-description": "Enter each Guardian’s verification codes below.",

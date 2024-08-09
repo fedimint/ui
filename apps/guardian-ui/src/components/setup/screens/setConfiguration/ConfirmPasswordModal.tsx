@@ -6,7 +6,6 @@ import {
   AlertTitle,
   Box,
   Button,
-  Checkbox,
   Flex,
   FormControl,
   FormHelperText,
@@ -25,29 +24,31 @@ import { ReactComponent as WarningIcon } from '../../../../assets/svgs/warning.s
 
 interface ConfirmPasswordModalProps {
   password: string;
-  confirmPassword: string;
-  setConfirmPassword: (password: string) => void;
   submitConfig: () => Promise<void>;
   isOpen: boolean;
   onClose: () => void;
+  guardianName: string;
 }
 
 export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
   password,
-  confirmPassword,
-  setConfirmPassword,
   submitConfig,
   isOpen,
   onClose,
+  guardianName,
 }) => {
   const { t } = useTranslation();
-  const [isBackupConfirmed, setIsBackupConfirmed] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmGuardianName, setConfirmGuardianName] = useState('');
+
+  const confirmed =
+    confirmPassword === password && confirmGuardianName === guardianName;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{t('set-config.confirm-password')}</ModalHeader>
+        <ModalHeader>{t('set-config.confirm-and-backup-password')}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormControl>
@@ -76,13 +77,23 @@ export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
                 </AlertDescription>
               </Box>
             </Alert>
-            <Checkbox
-              mt={4}
-              isChecked={isBackupConfirmed}
-              onChange={(e) => setIsBackupConfirmed(e.target.checked)}
-            >
-              {t('set-config.admin-password-backup')}
-            </Checkbox>
+            <FormLabel mt={4}>
+              {t('set-config.acknowledge-backed-up', {
+                guardianName: guardianName,
+              })}
+            </FormLabel>
+            <Input
+              type='text'
+              value={confirmGuardianName}
+              onChange={(ev) => setConfirmGuardianName(ev.currentTarget.value)}
+              placeholder={guardianName}
+            />
+            {confirmGuardianName !== guardianName &&
+              confirmGuardianName !== '' && (
+                <FormHelperText color='red'>
+                  {t('set-config.error-guardian-name-mismatch')}
+                </FormHelperText>
+              )}
           </FormControl>
         </ModalBody>
         <ModalFooter>
@@ -91,12 +102,12 @@ export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
               colorScheme='blue'
               mr={3}
               onClick={() => {
-                if (password === confirmPassword) {
+                if (confirmed) {
                   onClose();
                   submitConfig();
                 }
               }}
-              isDisabled={password !== confirmPassword}
+              isDisabled={!confirmed}
             >
               {t('common.next')}
             </Button>

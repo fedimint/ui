@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { ServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { useConsensusPolling, useSetupContext } from '../../hooks';
+import { useConsensusPolling, useEllipsis, useSetupContext } from '../../hooks';
 import { formatApiErrorMessage } from '../../utils/api';
 
 interface Props {
@@ -25,6 +25,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
   const theme = useTheme();
   const [isWaitingForOthers, setIsWaitingForOthers] = useState(false);
   const [error, setError] = useState<string>();
+  const ellipsis = useEllipsis();
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -102,9 +103,9 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
         </>
       ) : (
         <Heading size='sm'>
-          {isWaitingForOthers
+          {(isWaitingForOthers
             ? t('run-dkg.waiting-header')
-            : t('run-dkg.generating-header')}
+            : t('run-dkg.generating-header')) + ellipsis}
         </Heading>
       )}
     </Flex>

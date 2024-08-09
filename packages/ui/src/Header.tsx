@@ -9,7 +9,11 @@ export const Header = React.memo(function Header({
   endChildrenSlot,
 }: HeaderProps) {
   return (
-    <Flex width='100%' mb='32px' justifyContent={['center', 'space-between']}>
+    <Flex
+      width='100%'
+      justifyContent={['center', 'space-between']}
+      mb={['24px', '12px']}
+    >
       <Flex
         alignItems='center'
         justifyContent={['center', 'flex-start']}

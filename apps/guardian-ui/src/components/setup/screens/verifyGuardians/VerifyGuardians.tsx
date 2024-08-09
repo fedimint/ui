@@ -64,6 +64,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
   const [isOpen, setIsOpen] = useState(false);
+  const [ourPeerName, setOurPeerName] = useState('');
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -80,6 +81,10 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
       if (ourCurrentId === null) {
         return setError(t('verify-guardians.error-peer-id'));
+      }
+
+      if (peers[ourCurrentId]) {
+        setOurPeerName(peers[ourCurrentId].name);
       }
 
       try {
@@ -262,7 +267,11 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           borderRadius='md'
           maxW='md'
         >
-          <FormLabel>{t('verify-guardians.verification-code')}</FormLabel>
+          <FormLabel>
+            {t('verify-guardians.verification-code', {
+              peerName: ourPeerName,
+            })}
+          </FormLabel>
           <CopyInput
             value={myHash}
             buttonLeftIcon={<Icon as={CopyIcon} />}

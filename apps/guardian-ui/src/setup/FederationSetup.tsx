@@ -1,19 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  Text,
-  Heading,
-  Icon,
-  Flex,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  ModalCloseButton,
-} from '@chakra-ui/react';
+import { Box, Button, Text, Heading, Icon, Flex } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { useSetupContext } from '../hooks';
 import {
@@ -34,6 +20,7 @@ import { TermsOfService } from '../components/TermsOfService';
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
 import { ServerStatus } from '@fedimint/types';
+import { RestartModals } from './RestartModals';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -229,37 +216,12 @@ export const FederationSetup: React.FC = () => {
       <Box width={['100%', '90%']} justifyItems='center'>
         {content}
       </Box>
-      <Modal isOpen={isPeerRestarted} onClose={handleRestart}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{t('setup.common.restart-setup')}</ModalHeader>
-          <ModalBody>{t('setup.common.restart-setup-alert')}</ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={handleRestart}>
-              {t('setup.common.restart-setup')}
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-      <Modal isOpen={confirmRestart} onClose={() => setConfirmRestart(false)}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalHeader>{t('setup.common.confirm-restart-setup')}</ModalHeader>
-          <ModalBody>{t('setup.common.confirm-restart-setup-alert')}</ModalBody>
-          <ModalFooter>
-            <Button
-              mr={3}
-              onClick={() => {
-                setConfirmRestart(false);
-                handleRestart();
-              }}
-            >
-              {t('setup.common.restart-setup')}
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <RestartModals
+        isPeerRestarted={isPeerRestarted}
+        handleRestart={handleRestart}
+        setConfirmRestart={setConfirmRestart}
+        confirmRestart={confirmRestart}
+      />
     </Flex>
   );
 };

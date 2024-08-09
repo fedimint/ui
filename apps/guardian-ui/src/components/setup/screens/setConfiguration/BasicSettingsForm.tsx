@@ -17,10 +17,8 @@ import { generatePassword } from '../../../../utils';
 interface BasicSettingsFormProps {
   myName: string;
   setMyName: (name: string) => void;
-  password: string;
+  password: string | null;
   setPassword: (password: string) => void;
-  hasCopied: boolean;
-  onCopy: () => void;
 }
 
 export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
@@ -28,8 +26,6 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
   setMyName,
   password,
   setPassword,
-  hasCopied,
-  onCopy,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -50,29 +46,25 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
       </FormControl>
       <FormControl>
         <FormLabel>{t('set-config.admin-password')}</FormLabel>
-        {password ? (
+        {password === null ? (
+          <Button onClick={() => setPassword(generatePassword())} w='100%'>
+            {t('set-config.admin-password-generate')}
+          </Button>
+        ) : (
           <Flex gap={2}>
             <Input
               type='text'
               value={password}
-              w='80%'
               placeholder='Password'
               onChange={(ev) => setPassword(ev.currentTarget.value)}
             />
-            <Button onClick={onCopy} w='20%'>
-              {hasCopied ? t('common.copied') : t('common.copy')}
-            </Button>
           </Flex>
-        ) : (
-          <Button onClick={() => setPassword(generatePassword())} w='100%'>
-            {t('set-config.admin-password-generate')}
-          </Button>
         )}
         <FormHelperText style={{ marginTop: '16px', marginBottom: '16px' }}>
           <Text color={theme.colors.yellow[500]}>
-            {password
-              ? t('set-config.admin-password-help')
-              : t('set-config.admin-password-set')}
+            {password === null
+              ? t('set-config.admin-password-set')
+              : t('set-config.admin-password-help')}
           </Text>
         </FormHelperText>
       </FormControl>

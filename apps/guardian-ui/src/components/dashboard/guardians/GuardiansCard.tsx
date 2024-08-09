@@ -87,7 +87,9 @@ export const GuardiansCard: React.FC<Props> = ({
             </StatusIndicator>
           ),
           lastContribution: federationStatus.last_contribution,
-          apiUrl: apiAnnouncement?.api_announcement.api_url,
+          apiUrl:
+            apiAnnouncement?.api_announcement.api_url ||
+            t('federation-dashboard.guardians.fetching-announcement'),
         });
       }
     }

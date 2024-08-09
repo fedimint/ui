@@ -5,7 +5,6 @@ import {
   Button,
   Text,
   useTheme,
-  useClipboard,
   useDisclosure,
 } from '@chakra-ui/react';
 import {
@@ -53,7 +52,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const isSolo = role === GuardianRole.Solo;
   const [myName, setMyName] = useState(stateMyName);
   const [password, setPassword] = useState(statePassword);
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [federationName, setFederationName] = useState('');
@@ -66,7 +64,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   });
   const [mintAmounts, setMintAmounts] = useState<number[]>([]);
   const [error, setError] = useState<string>();
-  const { onCopy, hasCopied } = useClipboard(password);
   const [numPeers, setNumPeers] = useState(
     stateNumPeers ? stateNumPeers.toString() : isSolo ? '1' : MIN_BFT_NUM_PEERS
   );
@@ -155,15 +152,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     );
   };
 
-  const handleNext = () => {
-    if (password !== confirmPassword) {
-      onOpen();
-    } else {
-      submitConfig();
-    }
-  };
-
   const submitConfig = async () => {
+    if (password === null) return;
     setError(undefined);
     try {
       if (!defaultParams)
@@ -257,12 +247,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         setMyName={setMyName}
         password={password}
         setPassword={setPassword}
-        hasCopied={hasCopied}
-        onCopy={onCopy}
       />
       <Button
         isDisabled={!isValid}
-        onClick={isValid ? handleNext : undefined}
+        onClick={onOpen}
         leftIcon={<Icon as={ArrowRightIcon} />}
         width='60%'
         alignSelf='center'
@@ -274,14 +262,15 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           {error}
         </Text>
       )}
-      <ConfirmPasswordModal
-        password={password}
-        confirmPassword={confirmPassword}
-        setConfirmPassword={setConfirmPassword}
-        submitConfig={submitConfig}
-        isOpen={isOpen}
-        onClose={onClose}
-      />
+      {password !== null && (
+        <ConfirmPasswordModal
+          password={password}
+          submitConfig={submitConfig}
+          isOpen={isOpen}
+          onClose={onClose}
+          guardianName={myName}
+        />
+      )}
     </Flex>
   );
 };
