@@ -62,7 +62,7 @@ async function translateAndFill() {
   }
 }
 
-async function fillMissingKeys(srcObj, targetObj, lang) {
+async function fillMissingKeys(srcObj, targetObj, lang, path = '') {
   const updatedObj = { ...targetObj };
   for (const key in srcObj) {
     const newPath = path ? `${path}.${key}` : key;
