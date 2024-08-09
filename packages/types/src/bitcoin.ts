@@ -11,3 +11,16 @@ export enum Network {
   Signet = 'signet',
   Regtest = 'regtest',
 }
+
+export class Bip21Uri {
+  constructor(public address: string, public amountSats?: Sats) {}
+
+  toString(): string {
+    let uri = `bitcoin:${this.address}`;
+    if (this.amountSats !== undefined) {
+      // Convert sats to btc for Bip21 URI, ensuring 8 decimal places
+      uri += `?amount=${(this.amountSats / 100000000).toFixed(8)}`;
+    }
+    return uri;
+  }
+}
