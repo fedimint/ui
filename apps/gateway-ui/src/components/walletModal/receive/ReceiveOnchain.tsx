@@ -31,7 +31,7 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
   const handleCreateDepositAddress = useCallback(() => {
     if (!walletModalState.selectedFederation) return;
     gateway
-      .fetchAddress(walletModalState.selectedFederation.federation_id)
+      .fetchPegInAddress(walletModalState.selectedFederation.federation_id)
       .then((newAddress) => {
         const bip21Uri = new Bip21Uri(newAddress, amount);
         setBip21Uri(bip21Uri);
