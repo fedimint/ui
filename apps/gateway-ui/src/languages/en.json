@@ -60,7 +60,8 @@
       "enter-amount-sats": "Enter amount in sats",
       "lightning-instructions": "Enter an amount in sats to create a Lightning invoice for",
       "create-deposit-address": "Create Deposit Address",
-      "create-lightning-invoice": "Create Lightning invoice"
+      "create-lightning-invoice": "Create Lightning invoice",
+      "paste-ecash-button": "Paste ecash note"
     },
     "send": {
       "submit": "Submit"
