@@ -83,11 +83,14 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         return setError(t('verify-guardians.error-peer-id'));
       }
 
+      if (peers[ourCurrentId]) {
+        setOurPeerName(peers[ourCurrentId].name);
+      }
+
       try {
         const hashes = await api.getVerifyConfigHash();
 
         setMyHash(hashes[ourCurrentId]);
-        setOurPeerName(peers[ourCurrentId].name);
         setPeersWithHash(
           Object.entries(peers)
             .map(([id, peer]) => ({
