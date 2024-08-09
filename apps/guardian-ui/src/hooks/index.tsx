@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContextValue, AppContext } from '../AppContext';
 import { SetupContext, SetupContextValue } from '../setup/SetupContext';
 import { AdminContext, AdminContextValue } from '../admin/AdminContext';
@@ -28,3 +28,16 @@ export function useConsensusPolling(shouldPoll = true) {
 export function useAdminContext(): AdminContextValue {
   return useContext(AdminContext);
 }
+
+export const useEllipsis = () => {
+  const [ellipsis, setEllipsis] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setEllipsis((prev) => (prev.length < 3 ? prev + '.' : ''));
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return ellipsis;
+};

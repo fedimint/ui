@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { ServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { useConsensusPolling, useSetupContext } from '../../hooks';
+import { useConsensusPolling, useEllipsis, useSetupContext } from '../../hooks';
 import { formatApiErrorMessage } from '../../utils/api';
 
 interface Props {
@@ -25,17 +25,10 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
   const theme = useTheme();
   const [isWaitingForOthers, setIsWaitingForOthers] = useState(false);
   const [error, setError] = useState<string>();
-  const [ellipsis, setEllipsis] = useState('');
+  const ellipsis = useEllipsis();
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setEllipsis((prev) => (prev.length < 3 ? prev + '.' : ''));
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
 
   // Keep trying to run DKG until it's finished, or we get an unexpected error.
   // 'Cancel' the effect on re-run to prevent calling `runDkg` multiple times.
