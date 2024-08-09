@@ -248,15 +248,18 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         password={password}
         setPassword={setPassword}
       />
-      <Button
-        isDisabled={!isValid}
-        onClick={onOpen}
-        leftIcon={<Icon as={ArrowRightIcon} />}
-        width='60%'
-        alignSelf='center'
-      >
-        {t('common.next')}
-      </Button>
+      <div>
+        <Button
+          isDisabled={!isValid}
+          onClick={onOpen}
+          leftIcon={<Icon as={ArrowRightIcon} />}
+          width={['100%', 'auto']}
+          alignSelf='center'
+        >
+          {t('common.next')}
+        </Button>
+      </div>
+
       {error && (
         <Text color={theme.colors.red[500]} mt={4}>
           {error}
