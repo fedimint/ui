@@ -61,7 +61,7 @@
       "health-label": "健康",
       "health-issue": "問題",
       "health-good": "良い",
-      "last-contribution-label": "最後の寄付ブロック",
+      "last-contribution-label": "最後のセッション貢献",
       "api-url-label": "APIのURL",
       "fetching-announcement": "お知らせを取得中..."
     },
