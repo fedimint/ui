@@ -21,8 +21,8 @@
     "submit": "Küldés"
   },
   "notConfigured": {
-    "title": "Non configurato",
-    "description": "Per favore, inserisci l'URL del server di configurazione Fedimint per continuare.",
+    "title": "Nincs konfigurálva",
+    "description": "Kérjük, adja meg a Fedimint konfigurációs szerver URL-jét a folytatáshoz.",
     "urlPlaceholder": "wss://fedimintd.my-awesome-domain.com:6000"
   },
   "connect-guardians": {
