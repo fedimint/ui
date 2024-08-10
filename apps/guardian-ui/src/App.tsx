@@ -17,6 +17,7 @@ import { useAppContext } from './hooks';
 import { useTranslation } from '@fedimint/utils';
 import { APP_ACTION_TYPE, Status } from './types';
 import { formatApiErrorMessage } from './utils/api';
+import { NotConfigured } from './components/NotConfigured';
 
 export const App = React.memo(function App() {
   const { t } = useTranslation();
@@ -38,6 +39,14 @@ export const App = React.memo(function App() {
           </Heading>
           <Text fontSize='md'>{state.appError}</Text>
         </Flex>
+      );
+    }
+
+    if (state.status === Status.NotConfigured) {
+      return (
+        <Wrapper>
+          <NotConfigured api={api} state={state} dispatch={dispatch} />
+        </Wrapper>
       );
     }
 
@@ -83,15 +92,7 @@ export const App = React.memo(function App() {
         <Spinner size='xl' />
       </Center>
     );
-  }, [
-    state.status,
-    state.initServerStatus,
-    state.appError,
-    state.needsAuth,
-    api,
-    dispatch,
-    t,
-  ]);
+  }, [state, api, dispatch, t]);
 
   return (
     <React.StrictMode>

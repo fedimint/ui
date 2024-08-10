@@ -17,7 +17,13 @@
     "you": "Vous",
     "close": "Fermer",
     "save": "Sauvegarder",
-    "continue": "Continuer"
+    "continue": "Continuer",
+    "submit": "Envoyer"
+  },
+  "notConfigured": {
+    "title": "Non configuré",
+    "description": "Veuillez entrer l'URL du serveur de configuration Fedimint pour continuer.",
+    "urlPlaceholder": "wss://fedimintd.my-awesome-domain.com:6000"
   },
   "connect-guardians": {
     "invite-guardians": "Inviter des abonnés",

@@ -20,7 +20,13 @@
     "you": "Tú",
     "close": "Cerrar",
     "save": "Guardar",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "submit": "Enviar"
+  },
+  "notConfigured": {
+    "title": "No configurado",
+    "description": "Por favor, ingrese la URL del servidor de configuración de Fedimint para continuar.",
+    "urlPlaceholder": "wss://fedimintd.my-awesome-domain.com:6000"
   },
   "connect-guardians": {
     "invite-guardians": "Invitar seguidores",

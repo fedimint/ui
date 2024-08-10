@@ -17,7 +17,13 @@
     "you": "Te",
     "close": "Bezárás",
     "save": "Mentés",
-    "continue": "Folytatás"
+    "continue": "Folytatás",
+    "submit": "Küldés"
+  },
+  "notConfigured": {
+    "title": "Non configurato",
+    "description": "Per favore, inserisci l'URL del server di configurazione Fedimint per continuare.",
+    "urlPlaceholder": "wss://fedimintd.my-awesome-domain.com:6000"
   },
   "connect-guardians": {
     "invite-guardians": "Kövesd a követőket",

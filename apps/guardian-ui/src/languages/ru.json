@@ -17,7 +17,13 @@
     "you": "Ты",
     "close": "Закрыть",
     "save": "Сохранить",
-    "continue": "Продолжить"
+    "continue": "Продолжить",
+    "submit": "Отправить"
+  },
+  "notConfigured": {
+    "title": "Не настроен",
+    "description": "Пожалуйста, введите URL сервера конфигурации Fedimint для продолжения.",
+    "urlPlaceholder": "wss://fedimintd.my-awesome-domain.com:6000"
   },
   "connect-guardians": {
     "invite-guardians": "Пригласить подписчиков",

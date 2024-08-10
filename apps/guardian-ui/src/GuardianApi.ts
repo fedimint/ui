@@ -38,25 +38,25 @@ export class GuardianApi {
         config.fm_config_api === 'config api not set' ||
         !config.fm_config_api
       ) {
-        throw new Error('Config API not set in config.json');
+        config.fm_config_api = undefined;
       }
       this.guardianConfig = config;
     }
     return this.guardianConfig;
   };
 
+  public setGuardianConfig = (config: GuardianConfig) => {
+    this.guardianConfig = config;
+  };
+
   /*** WebSocket methods ***/
 
-  public connect = async (): Promise<JsonRpcWebsocket> => {
+  public connect = async (websocketUrl: string): Promise<JsonRpcWebsocket> => {
     if (this.websocket !== null) {
       return this.websocket;
     }
     if (this.connectPromise) {
       return await this.connectPromise;
-    }
-    const websocketUrl = (await this.getGuardianConfig()).fm_config_api;
-    if (!websocketUrl) {
-      throw new Error('fm_config_api not found in config.json');
     }
 
     this.connectPromise = new Promise((resolve, reject) => {
@@ -201,7 +201,10 @@ export class GuardianApi {
     const maxTries = 10;
     const attemptConfirmConsensusRunning = async (): Promise<void> => {
       try {
-        await this.connect();
+        if (!this.guardianConfig?.fm_config_api) {
+          throw new Error('fm_config_api not found in config.json');
+        }
+        await this.connect(this.guardianConfig?.fm_config_api);
         await this.shutdown_internal();
         const status = await this.status();
         if (status.server === ServerStatus.ConsensusRunning) {
@@ -314,7 +317,10 @@ export class GuardianApi {
     params: unknown = null
   ): Promise<T> => {
     try {
-      const websocket = await this.connect();
+      if (!this.guardianConfig?.fm_config_api) {
+        throw new Error('fm_config_api not found in config.json');
+      }
+      const websocket = await this.connect(this.guardianConfig?.fm_config_api);
       // console.log('method', method);
       const response = await websocket.call(method, [
         {

@@ -22,7 +22,7 @@ procs:
     shell: yarn dev:guardian-ui
     env:
       PORT: '3000'
-      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18138
+      # REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18138
       BROWSER: none
   guardian-ui-2:
     shell: yarn dev:guardian-ui

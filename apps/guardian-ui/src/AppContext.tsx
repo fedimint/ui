@@ -58,7 +58,15 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   useEffect(() => {
     const load = async () => {
       try {
-        await api.connect();
+        const guardianConfig = await api.getGuardianConfig();
+        if (!guardianConfig?.fm_config_api) {
+          dispatch({
+            type: APP_ACTION_TYPE.SET_STATUS,
+            payload: Status.NotConfigured,
+          });
+          return;
+        }
+        await api.connect(guardianConfig.fm_config_api);
         const server = (await api.status()).server;
 
         // If they're at a point where a password has been configured, make
