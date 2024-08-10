@@ -61,7 +61,7 @@
       "health-label": "健康",
       "health-issue": "问题",
       "health-good": "好",
-      "last-contribution-label": "最后的贡献区块",
+      "last-contribution-label": "最后会话贡献",
       "api-url-label": "API网址",
       "fetching-announcement": "获取公告中..."
     },

@@ -61,7 +61,7 @@
       "health-label": "Здоровье",
       "health-issue": "Проблема",
       "health-good": "Хорошо",
-      "last-contribution-label": "Последний блок вклада",
+      "last-contribution-label": "Последний вклад в сессию",
       "api-url-label": "API URL",
       "fetching-announcement": "Получение объявления..."
     },

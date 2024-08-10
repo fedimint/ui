@@ -64,7 +64,7 @@
       "health-label": "Salud",
       "health-issue": "Problema",
       "health-good": "Bueno",
-      "last-contribution-label": "Último bloque de contribución",
+      "last-contribution-label": "Última contribución de sesión",
       "api-url-label": "URL de la API",
       "fetching-announcement": "Obteniendo anuncio..."
     },
