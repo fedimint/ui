@@ -11,11 +11,10 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { GuardianApi } from '../GuardianApi';
-import { AppState, APP_ACTION_TYPE, Status, AppAction } from '../types';
+import { APP_ACTION_TYPE, Status, AppAction } from '../types';
 
 interface NotConfiguredProps {
   api: GuardianApi;
-  state: AppState;
   dispatch: React.Dispatch<AppAction>;
 }
 

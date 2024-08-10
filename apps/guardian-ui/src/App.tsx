@@ -45,7 +45,7 @@ export const App = React.memo(function App() {
     if (state.status === Status.NotConfigured) {
       return (
         <Wrapper>
-          <NotConfigured api={api} state={state} dispatch={dispatch} />
+          <NotConfigured api={api} dispatch={dispatch} />
         </Wrapper>
       );
     }
@@ -92,7 +92,15 @@ export const App = React.memo(function App() {
         <Spinner size='xl' />
       </Center>
     );
-  }, [state, api, dispatch, t]);
+  }, [
+    state.status,
+    state.appError,
+    state.needsAuth,
+    state.initServerStatus,
+    api,
+    dispatch,
+    t,
+  ]);
 
   return (
     <React.StrictMode>
