@@ -2,8 +2,9 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
+      # v0.4.2 line with gateway-ecash-spend-receive
       url =
-        "github:fedimint/fedimint?rev=d0877d0310453b737309cef404d98300f3dfa0d2"; # v0.4.0
+        "github:fedimint/fedimint?rev=482c6c3e5ecce9db25743426e5c2a9e75be4aeb6";
     };
   };
   outputs = { self, flake-utils, fedimint }:
