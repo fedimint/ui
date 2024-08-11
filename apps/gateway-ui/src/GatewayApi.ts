@@ -416,7 +416,7 @@ export class GatewayApi {
     try {
       const res: Response = await this.post('withdraw', {
         federation_id: payload.federationId,
-        amount: payload.msatAmountOrAll,
+        amount: payload.satAmountOrAll,
         address: payload.address,
       });
 

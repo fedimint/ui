@@ -114,7 +114,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
           )}
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody pb={4}>
+        <ModalBody>
           {showSelector && (
             <WalletActionSelector
               action={walletModalState.action}

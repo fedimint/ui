@@ -1,4 +1,4 @@
-import { Network } from './bitcoin';
+import { Network, MSats, Sats } from './bitcoin';
 import { GatewayClientConfig } from './federation';
 
 export interface Gateway {
@@ -138,7 +138,7 @@ export interface Bolt11Invoice {
 }
 
 export interface PrunedInvoice {
-  amount: number;
+  amount: MSats;
   destination: string;
   destination_features: string;
   payment_hash: string;
@@ -157,7 +157,7 @@ export interface SendPaymentV2Payload {
 
 export interface OutgoingContract {
   payment_hash: string;
-  amount: number;
+  amount: MSats;
   expiration: number;
   claim_pk: string;
   refund_pk: string;
@@ -173,12 +173,12 @@ export interface SetConfigurationPayload {
 }
 
 export interface FederationRoutingFees {
-  base_msat: number;
+  base_msat: MSats;
   proportional_millionths: number;
 }
 
 export interface PegOutPayload {
   federationId: string;
-  msatAmountOrAll: number | string;
+  satAmountOrAll: Sats | 'all';
   address: string;
 }

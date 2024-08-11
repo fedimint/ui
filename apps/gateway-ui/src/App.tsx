@@ -101,6 +101,7 @@ export const App = React.memo(function Admin(): JSX.Element {
       <Flex direction='column' gap={4}>
         <HeaderWithUnitSelector setUnit={setUnit} />
         <WalletCard
+          unit={unit}
           federations={gatewayInfo.federations}
           setWalletModalState={setWalletModalState}
         />
