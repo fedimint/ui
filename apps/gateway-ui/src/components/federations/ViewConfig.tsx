@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -20,10 +20,11 @@ interface ViewConfigModalProps {
   config: GatewayClientConfig;
 }
 
-export const ViewConfigModal: React.FC<ViewConfigModalProps> = ({
-  federationId,
-  config,
-}) => {
+export const ViewConfigModal = forwardRef<
+  HTMLButtonElement,
+  ViewConfigModalProps
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+>(({ federationId, config }, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
 
@@ -57,4 +58,8 @@ export const ViewConfigModal: React.FC<ViewConfigModalProps> = ({
       </Modal>
     </>
   );
-};
+});
+
+ViewConfigModal.displayName = 'ViewConfigModal';
+
+export default ViewConfigModal;

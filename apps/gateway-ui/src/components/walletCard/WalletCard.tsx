@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { Box, Button, Flex, Text, Square } from '@chakra-ui/react';
-import { useTranslation } from '@fedimint/utils';
+import { formatValue, useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '../GatewayCard';
-import { FederationInfo } from '@fedimint/types';
+import { FederationInfo, MSats } from '@fedimint/types';
 import { PieChart } from 'react-minimal-pie-chart';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import {
@@ -10,13 +10,16 @@ import {
   WalletModalState,
   WalletModalType,
 } from '../walletModal/WalletModal';
+import { Unit } from '../../App';
 
 interface WalletCardProps {
+  unit: Unit;
   federations: FederationInfo[];
   setWalletModalState: (state: WalletModalState) => void;
 }
 
 export const WalletCard = React.memo(function WalletCard({
+  unit,
   federations,
   setWalletModalState,
 }: WalletCardProps): JSX.Element {
@@ -34,17 +37,32 @@ export const WalletCard = React.memo(function WalletCard({
       {
         title: t('wallet.ecash'),
         value: totalEcashBalance,
+        formattedValue: formatValue(totalEcashBalance as MSats, unit, true),
         color: '#FF6384',
       },
-      { title: t('wallet.lightning'), value: 500000000, color: '#36A2EB' },
-      { title: t('wallet.onchain'), value: 200000000, color: '#FFCE56' },
+      {
+        title: t('wallet.lightning'),
+        value: 500000000,
+        formattedValue: formatValue(500000000 as MSats, unit, true),
+        color: '#36A2EB',
+      },
+      {
+        title: t('wallet.onchain'),
+        value: 200000000,
+        formattedValue: formatValue(200000000 as MSats, unit, true),
+        color: '#FFCE56',
+      },
     ],
-    [totalEcashBalance, t]
+    [totalEcashBalance, t, unit]
   );
 
   const totalBalance = useMemo(() => {
-    return balanceData.reduce((total, item) => total + item.value, 0);
-  }, [balanceData]);
+    return formatValue(
+      balanceData.reduce((total, item) => total + item.value, 0) as MSats,
+      unit,
+      true
+    );
+  }, [balanceData, unit]);
 
   return (
     <GatewayCard title={t('wallet.title')}>
@@ -71,7 +89,7 @@ export const WalletCard = React.memo(function WalletCard({
                 </Text>
               </Flex>
               <Text fontSize='md' fontWeight='semibold'>
-                {item.value} sats
+                {item.formattedValue}
               </Text>
             </Flex>
           ))}
@@ -81,7 +99,7 @@ export const WalletCard = React.memo(function WalletCard({
                 {t('wallet.total')}:
               </Text>
               <Text fontSize='md' fontWeight='bold'>
-                {totalBalance} sats
+                {totalBalance}
               </Text>
             </Flex>
           </Box>

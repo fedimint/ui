@@ -9,7 +9,8 @@
     "sats": "sats",
     "copy": "Copy",
     "copied": "Copied!",
-    "uri": "URI"
+    "uri": "URI",
+    "view-on-mempool": "View on Mempool"
   },
   "admin": {
     "fetch-info-modal-text": "Checking federation details..."
@@ -48,7 +49,11 @@
     "send": "Send",
     "create-address": "Create Address",
     "to-federation": "To Federation",
-    "from-federation": "From Federation"
+    "from-federation": "From Federation",
+    "sent": "Sent",
+    "sent-amount": "Sent {{amount}}",
+    "to-address": "To Address",
+    "txid": "Transaction ID"
   },
   "wallet-modal": {
     "title": "Wallet Actions",
@@ -59,12 +64,17 @@
       "paste-invoice": "Paste invoice here",
       "enter-amount-sats": "Enter amount in sats",
       "lightning-instructions": "Enter an amount in sats to create a Lightning invoice for",
-      "create-deposit-address": "Create Deposit Address",
+      "create-peg-in-address": "Create Peg-in Address",
       "create-lightning-invoice": "Create Lightning invoice",
-      "paste-ecash-button": "Paste ecash note"
+      "paste-ecash-button": "Paste ecash note",
+      "peg-in-instructions": "Send Bitcoin to this address to peg into your {{federationName}} Ecash Balance"
     },
     "send": {
-      "submit": "Submit"
+      "submit": "Submit",
+      "to-onchain-address": "To Onchain Address",
+      "address-placeholder": "bc1p...",
+      "peg-out-to-onchain": "Peg Out Ecash to Onchain",
+      "peg-out-success": "Peg Out TX Sent!"
     }
   },
   "federation-card": {

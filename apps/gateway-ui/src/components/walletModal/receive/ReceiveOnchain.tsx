@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Flex, useClipboard } from '@chakra-ui/react';
+import { Flex, useClipboard, Text } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { Bip21Uri, FederationInfo, Sats } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
@@ -45,14 +45,22 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
 
   if (showAddressInfo) {
     return (
-      <QRCodeTabs
-        uriValue={bip21Uri?.toString() ?? ''}
-        addressValue={bip21Uri?.address ?? ''}
-        onCopyUri={onCopyUri}
-        onCopyAddress={onCopyAddress}
-        uriLabel={t('common.uri')}
-        addressLabel={t('common.address')}
-      />
+      <Flex direction='column' gap={2} align='center'>
+        <Text>
+          {t('wallet-modal.receive.peg-in-instructions', {
+            federationName:
+              walletModalState.selectedFederation?.config.meta.federation_name,
+          })}
+        </Text>
+        <QRCodeTabs
+          uriValue={bip21Uri?.toString() ?? ''}
+          addressValue={bip21Uri?.address ?? ''}
+          onCopyUri={onCopyUri}
+          onCopyAddress={onCopyAddress}
+          uriLabel={t('common.uri')}
+          addressLabel={t('common.address')}
+        />
+      </Flex>
     );
   }
 
@@ -66,7 +74,7 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
       <AmountInput amount={amount} setAmount={setAmount} />
       <CreateButton
         onClick={handleCreateDepositAddress}
-        label={t('wallet-modal.receive.create-deposit-address')}
+        label={t('wallet-modal.receive.create-peg-in-address')}
       />
     </Flex>
   );
