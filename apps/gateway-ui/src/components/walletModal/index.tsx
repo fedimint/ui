@@ -32,18 +32,19 @@ export interface ReceiveProps {
 export const AmountInput: React.FC<{
   amount: Sats;
   setAmount: (amount: Sats) => void;
-}> = ({ amount, setAmount }) => {
+  unit: 'sats' | 'msats' | 'btc';
+}> = ({ amount, setAmount, unit }) => {
   const { t } = useTranslation();
   return (
     <FormControl>
-      <FormLabel>{t('wallet-modal.receive.enter-amount-sats')}</FormLabel>
+      <FormLabel>{t('wallet-modal.receive.enter-amount', { unit })}</FormLabel>
       <NumberInput
         value={amount}
         onChange={(_, value) => setAmount(value as Sats)}
         min={0}
       >
         <NumberInputField
-          placeholder={t('wallet-modal.receive.enter-amount-sats')}
+          placeholder={t('wallet-modal.receive.enter-amount', { unit })}
           height='60px'
           fontSize='md'
         />
@@ -62,12 +63,12 @@ export const CreateButton: React.FC<{
 );
 
 interface QRCodeTabsProps {
-  uriValue: string;
   addressValue: string;
-  onCopyUri: () => void;
-  onCopyAddress: () => void;
-  uriLabel: string;
   addressLabel: string;
+  onCopyAddress: () => void;
+  uriValue?: string;
+  uriLabel?: string;
+  onCopyUri?: () => void;
 }
 
 export const QRCodeTabs: React.FC<QRCodeTabsProps> = ({
@@ -94,15 +95,17 @@ export const QRCodeTabs: React.FC<QRCodeTabsProps> = ({
         <Tabs width='100%' isFitted>
           <TabList>
             <Tab>{addressLabel}</Tab>
-            <Tab>{uriLabel}</Tab>
+            {uriValue && <Tab>{uriLabel}</Tab>}
           </TabList>
           <TabPanels>
             <TabPanel>
               <QRCodePanel value={addressValue} onCopy={onCopyAddress} />
             </TabPanel>
-            <TabPanel>
-              <QRCodePanel value={uriValue} onCopy={onCopyUri} />
-            </TabPanel>
+            {uriValue && uriLabel && onCopyUri && (
+              <TabPanel>
+                <QRCodePanel value={uriValue} onCopy={onCopyUri} />
+              </TabPanel>
+            )}
           </TabPanels>
         </Tabs>
       </Flex>

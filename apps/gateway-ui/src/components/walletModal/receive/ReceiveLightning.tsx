@@ -52,7 +52,7 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
         walletModalState={walletModalState}
         setWalletModalState={setWalletModalState}
       />
-      <AmountInput amount={amount} setAmount={setAmount} />
+      <AmountInput amount={amount} setAmount={setAmount} unit='sats' />
       <CreateButton
         onClick={handleCreateInvoice}
         label={t('wallet-modal.receive.create-lightning-invoice')}

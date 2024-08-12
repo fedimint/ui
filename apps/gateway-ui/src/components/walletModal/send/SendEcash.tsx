@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Box, Flex, useClipboard } from '@chakra-ui/react';
+import { Box, Flex, Text, useClipboard } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FederationInfo, Sats } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
@@ -43,14 +43,20 @@ const SendEcash: React.FC<SendEcashProps> = ({
 
   if (showEcash) {
     return (
-      <QRCodeTabs
-        uriValue={ecash}
-        addressValue={ecash}
-        onCopyUri={onCopyEcash}
-        onCopyAddress={onCopyEcash}
-        uriLabel={t('common.ecash')}
-        addressLabel={t('common.ecash')}
-      />
+      <Flex direction='column' gap={4} align='center'>
+        <Text>
+          {t('wallet-modal.send.ecash-created', {
+            amount,
+            federationName:
+              walletModalState.selectedFederation?.config.meta.federation_name,
+          })}
+        </Text>
+        <QRCodeTabs
+          addressValue={ecash}
+          onCopyAddress={onCopyEcash}
+          addressLabel={t('common.ecash')}
+        />
+      </Flex>
     );
   }
 
@@ -62,7 +68,7 @@ const SendEcash: React.FC<SendEcashProps> = ({
           walletModalState={walletModalState}
           setWalletModalState={setWalletModalState}
         />
-        <AmountInput amount={amount} setAmount={setAmount} />
+        <AmountInput amount={amount} setAmount={setAmount} unit='msats' />
         <CreateButton
           onClick={handleCreateEcash}
           label={t('wallet-modal.send.create-ecash')}

@@ -10,6 +10,8 @@ import {
   SendPaymentV2Payload,
   SetConfigurationPayload,
   PegOutPayload,
+  SpendEcashResponse,
+  ReceiveEcashResponse,
 } from '@fedimint/types';
 
 export const SESSION_STORAGE_KEY = 'gateway-ui-key';
@@ -438,14 +440,14 @@ export class GatewayApi {
     amount: number
   ): Promise<string> => {
     try {
-      const res: Response = await this.post('spend-ecash', {
+      const res: Response = await this.post('spend_ecash', {
         federation_id: federationId,
         amount,
       });
 
       if (res.ok) {
-        const ecash: string = await res.json();
-        return Promise.resolve(ecash);
+        const ecash: SpendEcashResponse = await res.json();
+        return Promise.resolve(ecash.notes);
       }
 
       throw responseToError(res);
@@ -454,15 +456,17 @@ export class GatewayApi {
     }
   };
 
-  receiveEcash = async (notes: string): Promise<string> => {
+  receiveEcash = async (notes: string): Promise<number> => {
+    const payload = {
+      notes: notes,
+      wait: true, // Always wait for the ecash to get reissued
+    };
     try {
-      const res: Response = await this.post('receive-ecash', {
-        notes,
-      });
+      const res: Response = await this.post('receive_ecash', payload);
 
       if (res.ok) {
-        const ecash: string = await res.json();
-        return Promise.resolve(ecash);
+        const resp: ReceiveEcashResponse = await res.json();
+        return Promise.resolve(resp.amount);
       }
 
       throw responseToError(res);

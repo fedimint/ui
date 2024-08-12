@@ -182,3 +182,12 @@ export interface PegOutPayload {
   satAmountOrAll: Sats | 'all';
   address: string;
 }
+
+export interface SpendEcashResponse {
+  notes: string;
+  operation_id: string;
+}
+
+export interface ReceiveEcashResponse {
+  amount: number;
+}
