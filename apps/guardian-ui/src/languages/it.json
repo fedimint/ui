@@ -17,7 +17,12 @@
     "you": "Tu",
     "close": "Cerrar",
     "save": "Guardar",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "submit": "Enviar"
+  },
+  "notConfigured": {
+    "title": "Non configurato",
+    "description": "Per favore, inserisci l'URL del server di configurazione Fedimint per continuare."
   },
   "connect-guardians": {
     "invite-guardians": "Invitar seguidores",

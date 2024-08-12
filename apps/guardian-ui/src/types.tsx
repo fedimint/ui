@@ -1,6 +1,7 @@
 import { Peer, ServerStatus, ConfigGenParams } from '@fedimint/types';
 
 export enum Status {
+  NotConfigured,
   Loading,
   Setup,
   Admin,

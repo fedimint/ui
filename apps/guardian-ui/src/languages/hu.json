@@ -17,7 +17,12 @@
     "you": "Te",
     "close": "Bezárás",
     "save": "Mentés",
-    "continue": "Folytatás"
+    "continue": "Folytatás",
+    "submit": "Küldés"
+  },
+  "notConfigured": {
+    "title": "Nincs konfigurálva",
+    "description": "Kérjük, adja meg a Fedimint konfigurációs szerver URL-jét a folytatáshoz."
   },
   "connect-guardians": {
     "invite-guardians": "Kövesd a követőket",

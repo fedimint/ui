@@ -17,7 +17,12 @@
     "you": "你",
     "close": "关闭",
     "save": "保存",
-    "continue": "继续"
+    "continue": "继续",
+    "submit": "提交"
+  },
+  "notConfigured": {
+    "title": "未配置",
+    "description": "请输入Fedimint配置服务器的URL以继续。"
   },
   "connect-guardians": {
     "invite-guardians": "邀请关注者",

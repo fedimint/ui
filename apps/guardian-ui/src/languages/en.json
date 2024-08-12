@@ -17,7 +17,12 @@
     "you": "You",
     "close": "Close",
     "save": "Save",
-    "continue": "Continue"
+    "continue": "Continue",
+    "submit": "Submit"
+  },
+  "notConfigured": {
+    "title": "Not Configured",
+    "description": "Please enter the CONFIG_API_URL of the Fedimint guardian server to point at."
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",

@@ -17,7 +17,12 @@
     "you": "Ты",
     "close": "Закрыть",
     "save": "Сохранить",
-    "continue": "Продолжить"
+    "continue": "Продолжить",
+    "submit": "Отправить"
+  },
+  "notConfigured": {
+    "title": "Не настроен",
+    "description": "Пожалуйста, введите URL сервера конфигурации Fedimint для продолжения."
   },
   "connect-guardians": {
     "invite-guardians": "Пригласить подписчиков",

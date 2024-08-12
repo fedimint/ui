@@ -17,7 +17,12 @@
     "you": "Tu",
     "close": "Tanca",
     "save": "Desaureta",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "submit": "Enviar"
+  },
+  "notConfigured": {
+    "title": "No Configurat",
+    "description": "Introduïu l'URL de l'API de configuració de Fedimint per continuar."
   },
   "connect-guardians": {
     "invite-guardians": "Convida els seguidors",

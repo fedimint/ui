@@ -17,7 +17,12 @@
     "you": "あなた",
     "close": "閉じる",
     "save": "保存",
-    "continue": "続ける"
+    "continue": "続ける",
+    "submit": "送信"
+  },
+  "notConfigured": {
+    "title": "未構成",
+    "description": "Fedimintの構成サーバーのURLを入力してください。"
   },
   "connect-guardians": {
     "invite-guardians": "フォロワーを招待する",

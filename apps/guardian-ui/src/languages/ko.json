@@ -17,7 +17,12 @@
     "you": "당신",
     "close": "닫기",
     "save": "저장",
-    "continue": "계속하다"
+    "continue": "계속하다",
+    "submit": "제출"
+  },
+  "notConfigured": {
+    "title": "미구성",
+    "description": "Fedimint 구성 서버의 URL을 입력하세요."
   },
   "connect-guardians": {
     "approve": "승인",

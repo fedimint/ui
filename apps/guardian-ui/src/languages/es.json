@@ -20,7 +20,12 @@
     "you": "Tú",
     "close": "Cerrar",
     "save": "Guardar",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "submit": "Enviar"
+  },
+  "notConfigured": {
+    "title": "No configurado",
+    "description": "Por favor, ingrese la URL del servidor de configuración de Fedimint para continuar."
   },
   "connect-guardians": {
     "invite-guardians": "Invitar seguidores",

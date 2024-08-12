@@ -17,7 +17,12 @@
     "you": "Du",
     "close": "Schließen",
     "save": "Speichern",
-    "continue": "Fortsetzen"
+    "continue": "Fortsetzen",
+    "submit": "Einreichen"
+  },
+  "notConfigured": {
+    "title": "Nicht konfiguriert",
+    "description": "Bitte geben Sie die CONFIG_API_URL des Fedimint-Wächter-Servers ein, um fortzufahren."
   },
   "connect-guardians": {
     "invite-guardians": "Follower einladen",
