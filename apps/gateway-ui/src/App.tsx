@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Flex } from '@chakra-ui/react';
-import { GatewayInfo, FederationInfo } from '@fedimint/types';
+import { GatewayInfo, FederationInfo, GatewayBalances } from '@fedimint/types';
 import { ConnectFederationModal, LightningCard } from './components';
 import { GatewayApi } from './GatewayApi';
 import { ApiProvider } from './ApiProvider';
@@ -22,6 +22,7 @@ export type Unit = (typeof UNIT_OPTIONS)[number];
 
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useMemo(() => new GatewayApi(), []);
+  const [balances, setBalances] = useState<GatewayBalances | null>(null);
 
   const [gatewayInfo, setGatewayInfo] = useState<GatewayInfo>({
     federations: [],
@@ -77,7 +78,20 @@ export const App = React.memo(function Admin(): JSX.Element {
           });
       };
 
+      const fetchBalances = () => {
+        gateway
+          .fetchBalances()
+          .then((balances) => {
+            setBalances(balances);
+          })
+          .catch(({ message, error }) => {
+            console.error(error);
+            setError(message);
+          });
+      };
+
       fetchInfo();
+      fetchBalances();
       setLoading(false);
       const interval = setInterval(fetchInfo, 5000);
       return () => clearInterval(interval);
@@ -100,11 +114,14 @@ export const App = React.memo(function Admin(): JSX.Element {
     return (
       <Flex direction='column' gap={4}>
         <HeaderWithUnitSelector setUnit={setUnit} />
-        <WalletCard
-          unit={unit}
-          federations={gatewayInfo.federations}
-          setWalletModalState={setWalletModalState}
-        />
+        {balances && (
+          <WalletCard
+            unit={unit}
+            balances={balances}
+            setWalletModalState={setWalletModalState}
+            federations={gatewayInfo.federations}
+          />
+        )}
         <LightningCard
           nodeId={gatewayInfo.gateway_id}
           network={gatewayInfo.network}
@@ -142,6 +159,7 @@ export const App = React.memo(function Admin(): JSX.Element {
     gatewayInfo,
     unit,
     walletModalState,
+    balances,
   ]);
 
   return (

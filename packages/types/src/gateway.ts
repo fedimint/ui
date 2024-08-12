@@ -191,3 +191,14 @@ export interface SpendEcashResponse {
 export interface ReceiveEcashResponse {
   amount: number;
 }
+
+export interface GatewayBalances {
+  onchain_balance_sats: number;
+  lightning_balance_msats: number;
+  ecash_balances: FederationBalanceInfo[];
+}
+
+export interface FederationBalanceInfo {
+  federation_id: string;
+  ecash_balance_msats: number;
+}

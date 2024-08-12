@@ -11,4 +11,3 @@ export * from './Wrapper';
 export * from './Login';
 export * from './NetworkIndicator';
 export * from './Header';
-export * from './QrReader';

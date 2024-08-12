@@ -12,6 +12,7 @@ import {
   PegOutPayload,
   SpendEcashResponse,
   ReceiveEcashResponse,
+  GatewayBalances,
 } from '@fedimint/types';
 
 export const SESSION_STORAGE_KEY = 'gateway-ui-key';
@@ -142,14 +143,12 @@ export class GatewayApi {
     }
   };
 
-  fetchBalance = async (federationId: string): Promise<number> => {
+  fetchBalances = async (): Promise<GatewayBalances> => {
     try {
-      const res: Response = await this.post('balance', {
-        federation_id: federationId,
-      });
+      const res: Response = await this.get('balances');
 
       if (res.ok) {
-        const balance: number = await res.json();
+        const balance: GatewayBalances = await res.json();
         return Promise.resolve(balance);
       }
 

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Box, Button, Flex, Text, Square } from '@chakra-ui/react';
 import { formatValue, useTranslation } from '@fedimint/utils';
 import { GatewayCard } from '../GatewayCard';
-import { FederationInfo, MSats } from '@fedimint/types';
+import { FederationInfo, GatewayBalances, MSats } from '@fedimint/types';
 import { PieChart } from 'react-minimal-pie-chart';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import {
@@ -14,46 +14,59 @@ import { Unit } from '../../App';
 
 interface WalletCardProps {
   unit: Unit;
-  federations: FederationInfo[];
+  balances: GatewayBalances;
   setWalletModalState: (state: WalletModalState) => void;
+  federations: FederationInfo[];
 }
 
 export const WalletCard = React.memo(function WalletCard({
   unit,
-  federations,
+  balances,
   setWalletModalState,
+  federations,
 }: WalletCardProps): JSX.Element {
   const { t } = useTranslation();
-
-  const totalEcashBalance = useMemo(() => {
-    return federations.reduce(
-      (total, federation) => total + federation.balance_msat,
-      0
-    );
-  }, [federations]);
 
   const balanceData = useMemo(
     () => [
       {
         title: t('wallet.ecash'),
-        value: totalEcashBalance,
-        formattedValue: formatValue(totalEcashBalance as MSats, unit, true),
+        value: balances.ecash_balances.reduce(
+          (total, item) => total + item.ecash_balance_msats,
+          0
+        ),
+        formattedValue: formatValue(
+          balances.ecash_balances.reduce(
+            (total, item) => total + item.ecash_balance_msats,
+            0
+          ) as MSats,
+          unit,
+          true
+        ),
         color: '#FF6384',
       },
       {
         title: t('wallet.lightning'),
-        value: 500000000,
-        formattedValue: formatValue(500000000 as MSats, unit, true),
+        value: balances.lightning_balance_msats,
+        formattedValue: formatValue(
+          balances.lightning_balance_msats as MSats,
+          unit,
+          true
+        ),
         color: '#36A2EB',
       },
       {
         title: t('wallet.onchain'),
-        value: 200000000,
-        formattedValue: formatValue(200000000 as MSats, unit, true),
+        value: balances.onchain_balance_sats * 1000, // Convert sats to msats
+        formattedValue: formatValue(
+          (balances.onchain_balance_sats * 1000) as MSats,
+          unit,
+          true
+        ),
         color: '#FFCE56',
       },
     ],
-    [totalEcashBalance, t, unit]
+    [balances, t, unit]
   );
 
   const totalBalance = useMemo(() => {
