@@ -22,8 +22,7 @@
   },
   "notConfigured": {
     "title": "Nincs konfigurálva",
-    "description": "Kérjük, adja meg a Fedimint konfigurációs szerver URL-jét a folytatáshoz.",
-    "urlPlaceholder": "wss://fedimintd.my-awesome-domain.com:6000"
+    "description": "Kérjük, adja meg a Fedimint konfigurációs szerver URL-jét a folytatáshoz."
   },
   "connect-guardians": {
     "invite-guardians": "Kövesd a követőket",

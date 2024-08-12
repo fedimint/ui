@@ -22,8 +22,7 @@
   },
   "notConfigured": {
     "title": "Non configurato",
-    "description": "Per favore, inserisci l'URL del server di configurazione Fedimint per continuare.",
-    "urlPlaceholder": "wss://fedimintd.my-awesome-domain.com:6000"
+    "description": "Per favore, inserisci l'URL del server di configurazione Fedimint per continuare."
   },
   "connect-guardians": {
     "invite-guardians": "Invitar seguidores",

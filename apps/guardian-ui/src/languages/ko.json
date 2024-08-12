@@ -22,8 +22,7 @@
   },
   "notConfigured": {
     "title": "미구성",
-    "description": "Fedimint 구성 서버의 URL을 입력하세요.",
-    "urlPlaceholder": "wss://fedimintd.my-awesome-domain.com:6000"
+    "description": "Fedimint 구성 서버의 URL을 입력하세요."
   },
   "connect-guardians": {
     "approve": "승인",

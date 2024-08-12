@@ -22,8 +22,7 @@
   },
   "notConfigured": {
     "title": "Not Configured",
-    "description": "Please enter the CONFIG_API_URL of the Fedimint guardian server to point at.",
-    "urlPlaceholder": "wss://fedimintd.my-awesome-domain.com:6000"
+    "description": "Please enter the CONFIG_API_URL of the Fedimint guardian server to point at."
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",

@@ -55,7 +55,7 @@ export const NotConfigured: React.FC<NotConfiguredProps> = ({
         <FormControl isInvalid={!!error}>
           <FormLabel>{t('notConfigured.urlLabel')}</FormLabel>
           <Input
-            placeholder={t('notConfigured.urlPlaceholder')}
+            placeholder={'wss://fedimintd.my-awesome-domain.com:6000'}
             value={configUrl}
             onChange={(e) => setConfigUrl(e.target.value)}
           />
