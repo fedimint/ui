@@ -10,11 +10,7 @@ interface SendLightningProps {
   setWalletModalState: (state: WalletModalState) => void;
 }
 
-const SendLightning: React.FC<SendLightningProps> = ({
-  federations,
-  walletModalState,
-  setWalletModalState,
-}) => {
+const SendLightning: React.FC<SendLightningProps> = () => {
   const { t } = useTranslation();
 
   return (
