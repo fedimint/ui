@@ -403,9 +403,7 @@ const WaitingForVerification: React.FC<{ verifiedConfigs: boolean }> = ({
 
   return (
     <Flex direction='row' height='100%' my={'auto'} gap={4} align='center'>
-      {verifiedConfigs ? (
-        <Text>{t('verify-guardians.all-guardians-verified')}</Text>
-      ) : (
+      {!verifiedConfigs && (
         <>
           <Spinner />
           <Text>{t('verify-guardians.wait-all-guardians-verification')}</Text>
