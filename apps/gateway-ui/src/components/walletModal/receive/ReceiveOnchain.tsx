@@ -71,7 +71,7 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
         walletModalState={walletModalState}
         setWalletModalState={setWalletModalState}
       />
-      <AmountInput amount={amount} setAmount={setAmount} />
+      <AmountInput amount={amount} setAmount={setAmount} unit='sats' />
       <CreateButton
         onClick={handleCreateDepositAddress}
         label={t('wallet-modal.receive.create-peg-in-address')}

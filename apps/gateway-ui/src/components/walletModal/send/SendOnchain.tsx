@@ -111,7 +111,7 @@ const SendOnchain: React.FC<SendOnchainProps> = ({
           onChange={(e) => setBitcoinAddress(e.target.value)}
         />
       </FormControl>
-      <AmountInput amount={amountSats} setAmount={setAmountSats} />
+      <AmountInput amount={amountSats} setAmount={setAmountSats} unit='sats' />
       <Button onClick={handlePegOut} colorScheme='blue'>
         {t('wallet-modal.send.peg-out-to-onchain')}
       </Button>
