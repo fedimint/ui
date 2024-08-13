@@ -451,8 +451,6 @@ export class GatewayApi {
     }
   };
 
-  // TODO: these don't exist yet
-
   spendEcash = async (
     federationId: string,
     amount: number

@@ -26,7 +26,6 @@ const ReceiveEcash: React.FC<ReceiveEcashProps> = ({ setShowSelector }) => {
       const text = await navigator.clipboard.readText();
       setEcashNote(text);
       const result = await gatewayApi.receiveEcash(text);
-      console.log('result', result);
       setClaimedAmount(result);
       setShowSelector(false);
     } catch (err) {

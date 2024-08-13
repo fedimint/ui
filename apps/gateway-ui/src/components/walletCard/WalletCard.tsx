@@ -28,6 +28,8 @@ export const WalletCard = React.memo(function WalletCard({
   const { t } = useTranslation();
 
   const balanceData = useMemo(
+    // Structure the data for the pie chart:
+    // title, value: balance_msats, formattedValue, color
     () => [
       {
         title: t('wallet.ecash'),
@@ -57,7 +59,7 @@ export const WalletCard = React.memo(function WalletCard({
       },
       {
         title: t('wallet.onchain'),
-        value: balances.onchain_balance_sats * 1000, // Convert sats to msats
+        value: balances.onchain_balance_sats * 1000,
         formattedValue: formatValue(
           (balances.onchain_balance_sats * 1000) as MSats,
           unit,

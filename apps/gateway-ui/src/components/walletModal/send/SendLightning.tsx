@@ -16,7 +16,7 @@ const SendLightning: React.FC<SendLightningProps> = () => {
   return (
     <Box>
       <Text>{t('wallet-modal.send.lightning-instructions')}</Text>
-      {/* Add more UI elements and logic for withdrawing via Lightning */}
+      {/* TODO: actually implement this after we get fedimint side working*/}
     </Box>
   );
 };
