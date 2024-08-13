@@ -124,7 +124,7 @@ export class GatewayApi {
     }
   };
 
-  // TODO: unimplemented
+  // TODO: unimplemented in fedimint
   backup = async (federationId: string): Promise<void> => {
     try {
       const res: Response = await this.post('backup', {
@@ -137,6 +137,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error backing up federation', error);
       return Promise.reject({
         message: 'Error backing up federation',
         error,
@@ -155,6 +156,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error fetching balance', error);
       return Promise.reject({
         message: 'Error fetching balance',
         error,
@@ -175,6 +177,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error fetching federation config', error);
       return Promise.reject({
         message: 'Error fetching federation config',
         error,
@@ -195,6 +198,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error connecting federation', error);
       return Promise.reject({ message: 'Error connecting federation', error });
     }
   };
@@ -212,6 +216,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error creating bolt11 invoice v2', error);
       return Promise.reject({
         message: 'Error creating bolt11 invoice v2',
         error,
@@ -230,6 +235,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error fetching gateway info', error);
       return Promise.reject({ message: 'Error fetching gateway info', error });
     }
   };
@@ -245,6 +251,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error fetching gateway id', error);
       return Promise.reject({ message: 'Error fetching gateway id', error });
     }
   };
@@ -260,6 +267,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error fetching funding address', error);
       return Promise.reject({
         message: 'Error fetching funding address',
         error,
@@ -277,6 +285,7 @@ export class GatewayApi {
         throw responseToError(res);
       }
     } catch (error) {
+      console.error('Error leaving federation', error);
       return Promise.reject({ message: 'Error leaving federation', error });
     }
   };
@@ -292,6 +301,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error listing active channels', error);
       return Promise.reject({
         message: 'Error listing active channels',
         error,
@@ -309,6 +319,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error opening channel', error);
       return Promise.reject({ message: 'Error opening channel', error });
     }
   };
@@ -326,6 +337,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error closing channels with peer', error);
       return Promise.reject({
         message: 'Error closing channels with peer',
         error,
@@ -346,6 +358,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error fetching routing info', error);
       return Promise.reject({ message: 'Error fetching routing info', error });
     }
   };
@@ -361,11 +374,12 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error paying invoice', error);
       return Promise.reject({ message: 'Error paying invoice', error });
     }
   };
 
-  // TODO: unimplemented
+  // TODO: unimplemented in fedimint
   restore = async (federationId: string): Promise<void> => {
     try {
       const res: Response = await this.post('restore', {
@@ -378,6 +392,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error in restore', error);
       return Promise.reject({ message: 'Error in restore', error });
     }
   };
@@ -411,6 +426,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error setting configuration', error);
       return Promise.reject({ message: 'Error setting configuration', error });
     }
   };
@@ -430,6 +446,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error requesting withdrawal', error);
       return Promise.reject({ message: 'Error requesting withdrawal', error });
     }
   };
@@ -453,6 +470,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error spending ecash', error);
       return Promise.reject({ message: 'Error spending ecash', error });
     }
   };
@@ -472,6 +490,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error receiving ecash', error);
       return Promise.reject({ message: 'Error receiving ecash', error });
     }
   };
