@@ -358,7 +358,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           >
             {t('common.next')}
           </Button>
-          <WaitingForVerification verifiedConfigs={verifiedConfigs} />
+          {!verifiedConfigs && <Spinner />}
         </Stack>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <ModalOverlay />
@@ -394,21 +394,4 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       </Flex>
     );
   }
-};
-
-const WaitingForVerification: React.FC<{ verifiedConfigs: boolean }> = ({
-  verifiedConfigs,
-}) => {
-  const { t } = useTranslation();
-
-  return (
-    <Flex direction='row' height='100%' my={'auto'} gap={4} align='center'>
-      {!verifiedConfigs && (
-        <>
-          <Spinner />
-          <Text>{t('verify-guardians.wait-all-guardians-verification')}</Text>
-        </>
-      )}
-    </Flex>
-  );
 };
