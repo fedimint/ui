@@ -2,8 +2,9 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     fedimint = {
+      # master on 2024-08-12
       url =
-        "github:fedimint/fedimint?rev=d0877d0310453b737309cef404d98300f3dfa0d2"; # v0.4.0
+        "github:fedimint/fedimint?rev=04ddaf35090548972008b45c482d8ad20abd22ef";
     };
   };
   outputs = { self, flake-utils, fedimint }:
