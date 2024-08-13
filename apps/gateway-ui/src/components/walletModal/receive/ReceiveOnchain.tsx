@@ -40,8 +40,15 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
       })
       .catch(({ message, error }) => {
         console.error(error, message);
+        alert(t('wallet-modal.receive.address-error', { error: message }));
       });
-  }, [gateway, walletModalState.selectedFederation, amount, setShowSelector]);
+  }, [
+    gateway,
+    walletModalState.selectedFederation,
+    amount,
+    setShowSelector,
+    t,
+  ]);
 
   if (showAddressInfo) {
     return (

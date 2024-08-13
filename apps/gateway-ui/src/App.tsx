@@ -7,7 +7,6 @@ import { ApiProvider } from './ApiProvider';
 import { Wrapper, Login } from '@fedimint/ui';
 import { FederationsTable } from './components/federations/FederationsTable';
 import { Loading } from './components/Loading';
-import { Error } from './components/Error';
 import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
 import { WalletCard } from './components/walletCard/WalletCard';
 import {
@@ -16,6 +15,7 @@ import {
   WalletModalState,
   WalletModalType,
 } from './components/walletModal/WalletModal';
+import { ErrorMessage } from './components/ErrorMessage';
 
 export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
 export type Unit = (typeof UNIT_OPTIONS)[number];
@@ -100,7 +100,7 @@ export const App = React.memo(function Admin(): JSX.Element {
 
   const content = useMemo(() => {
     if (loading) return <Loading />;
-    if (error) return <Error error={error} />;
+    if (error) return <ErrorMessage error={error} />;
     if (!authenticated) {
       return (
         <Login

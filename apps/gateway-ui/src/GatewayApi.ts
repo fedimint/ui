@@ -116,6 +116,7 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
+      console.error('Error fetching peg in address', error);
       return Promise.reject({
         message: 'Error fetching peg in address',
         error,
@@ -393,7 +394,8 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
-      return Promise.reject({ message: 'Error sending payment', error });
+      console.error('Error sending payment:', error);
+      return Promise.reject({ message: 'Failed to send payment', error });
     }
   };
 

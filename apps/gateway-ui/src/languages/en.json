@@ -36,7 +36,8 @@
     "information-bar-text": "The number of federations you can connect to is limited to one. Connecting to multiple federations will be supported soon.",
     "label": "Connect String:",
     "progress-modal-text": "Connecting to federation...",
-    "sub-heading": "The invite code is a long string that begins with ‘fed1’"
+    "sub-heading": "The invite code is a long string that begins with ‘fed1’",
+    "error-message": "Error connecting to federation: {{error}}"
   },
   "wallet": {
     "title": "Wallet",
@@ -72,7 +73,8 @@
       "create-lightning-invoice": "Create Lightning invoice",
       "paste-ecash-button": "Paste ecash note",
       "peg-in-instructions": "Send Bitcoin to this address to peg into your {{federationName}} Ecash Balance",
-      "ecash-claimed-success": "Ecash claimed successfully!"
+      "ecash-claimed-success": "Ecash claimed successfully!",
+      "address-error": "Error creating address: {{error}}"
     },
     "send": {
       "submit": "Submit",
@@ -81,7 +83,8 @@
       "peg-out-to-onchain": "Peg Out Ecash to Onchain",
       "peg-out-success": "Peg Out TX Sent!",
       "create-ecash": "Create Ecash Note",
-      "ecash-created": "Pulled a {{amount}} ecash note from your {{federationName}} balance. Send it to the recipient to claim."
+      "ecash-created": "Pulled a {{amount}} ecash note from your {{federationName}} balance. Send it to the recipient to claim.",
+      "ecash-error": "Error creating ecash note: {{error}}"
     }
   },
   "federation-card": {

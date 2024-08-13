@@ -38,8 +38,15 @@ const SendEcash: React.FC<SendEcashProps> = ({
       })
       .catch(({ message, error }) => {
         console.error(error, message);
+        alert(t('wallet-modal.send.ecash-error', { error: message }));
       });
-  }, [gateway, walletModalState.selectedFederation, amount, setShowSelector]);
+  }, [
+    gateway,
+    walletModalState.selectedFederation,
+    amount,
+    setShowSelector,
+    t,
+  ]);
 
   if (showEcash) {
     return (

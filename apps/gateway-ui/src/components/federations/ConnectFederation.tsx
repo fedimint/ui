@@ -102,11 +102,12 @@ export const ConnectFederation = React.memo(function ConnectFederation({
       .then((federation) => {
         renderConnectedFedCallback(federation);
         setConnectInfo('');
-        setLoading(false);
       })
       .catch(({ message, error }) => {
         console.error(error);
-        setErrorMsg(message);
+        setErrorMsg(t('connect-federation.error-message', { error: message }));
+      })
+      .finally(() => {
         setLoading(false);
       });
   };

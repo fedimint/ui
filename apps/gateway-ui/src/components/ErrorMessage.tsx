@@ -1,18 +1,30 @@
 import React from 'react';
-import { Text, useTheme } from '@chakra-ui/react';
+import { Flex, Heading, Text, useTheme } from '@chakra-ui/react';
+import { useTranslation } from '@fedimint/utils';
 
 interface ErrorMessageProps {
   error: string;
 }
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = ({ error }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
 
-  if (!error) return null;
-
   return (
-    <Text fontSize='md' color={theme.colors.red} fontFamily={theme.fonts.body}>
-      {error}
-    </Text>
+    <Flex
+      direction='column'
+      align='center'
+      width='100%'
+      paddingTop='10vh'
+      paddingX='4'
+      textAlign='center'
+    >
+      <Heading size='lg' marginBottom='4' color={theme.colors.red[500]}>
+        {t('common.error')}
+      </Heading>
+      <Text fontSize='md' color={theme.colors.gray[700]}>
+        {error}
+      </Text>
+    </Flex>
   );
 };
