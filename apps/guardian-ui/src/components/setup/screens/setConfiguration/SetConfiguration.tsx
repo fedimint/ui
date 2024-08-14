@@ -58,10 +58,12 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const [metaFields, setMetaFields] = useState<[string, string][]>([['', '']]);
   const [blockConfirmations, setBlockConfirmations] = useState('');
   const [network, setNetwork] = useState('');
+  const [networkSetFromParams, setNetworkSetFromParams] = useState(false);
   const [bitcoinRpc, setBitcoinRpc] = useState<BitcoinRpc>({
     kind: '',
     url: '',
   });
+  const [bitcoinSetFromParams, setBitcoinSetFromParams] = useState(false);
   const [mintAmounts, setMintAmounts] = useState<number[]>([]);
   const [error, setError] = useState<string>();
   const [numPeers, setNumPeers] = useState(
@@ -90,9 +92,11 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       }
       if (walletConsensus?.network) {
         setNetwork(walletConsensus.network);
+        setNetworkSetFromParams(true);
       }
       if (walletModule?.local?.bitcoin_rpc) {
         setBitcoinRpc(walletModule.local.bitcoin_rpc);
+        setBitcoinSetFromParams(true);
       }
     };
 
@@ -236,8 +240,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       <BitcoinSettingsForm
         network={network as Network}
         setNetwork={setNetwork}
+        networkSetFromParams={networkSetFromParams}
         bitcoinRpc={bitcoinRpc}
         setBitcoinRpc={setBitcoinRpc}
+        bitcoinSetFromParams={bitcoinSetFromParams}
         blockConfirmations={blockConfirmations}
         setBlockConfirmations={setBlockConfirmations}
         isHostOrSolo={isHost || isSolo}
