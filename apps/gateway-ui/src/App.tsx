@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Flex } from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo, GatewayBalances } from '@fedimint/types';
 import { ConnectFederationModal, LightningCard } from './components';
@@ -21,7 +21,7 @@ export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
 export type Unit = (typeof UNIT_OPTIONS)[number];
 
 export const App = React.memo(function Admin(): JSX.Element {
-  const gateway = useMemo(() => new GatewayApi(), []);
+  const gateway = useRef(() => new GatewayApi());
   const [balances, setBalances] = useState<GatewayBalances | null>(null);
 
   const [gatewayInfo, setGatewayInfo] = useState<GatewayInfo>({
@@ -38,8 +38,12 @@ export const App = React.memo(function Admin(): JSX.Element {
     version_hash: '',
     network: undefined,
   });
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
-  const [loading, setLoading] = useState(true);
+
+  // Whether the user has successfully authenticated with the gateway.
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  // Whether we are currently checking the authentication status.
+  const [runningInitialAuthCheck, setRunningInitialAuthCheck] = useState(false);
+
   const [error, setError] = useState<string>('');
   const [showConnectFed, setShowConnectFed] = useState(false);
   const [unit, setUnit] = useState<Unit>('sats');
@@ -50,24 +54,26 @@ export const App = React.memo(function Admin(): JSX.Element {
     selectedFederation: null,
   });
 
+  // Attempt to authenticate with the saved password on initial load and skip the login screen if successful.
   useEffect(() => {
-    setLoading(true);
-    if (!authenticated) {
-      gateway
-        .testPassword()
-        .then((authed) => {
-          setAuthenticated(authed);
-          if (!authed) {
-            setLoading(false);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          setLoading(false);
-        });
-    } else {
+    setRunningInitialAuthCheck(true);
+    gateway
+      .current()
+      .testPassword()
+      .then((authed) => {
+        setIsAuthenticated(authed);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => setRunningInitialAuthCheck(false));
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
       const fetchInfo = () => {
         gateway
+          .current()
           .fetchInfo()
           .then((gatewayInfo) => {
             setGatewayInfo(gatewayInfo);
@@ -80,6 +86,7 @@ export const App = React.memo(function Admin(): JSX.Element {
 
       const fetchBalances = () => {
         gateway
+          .current()
           .fetchBalances()
           .then((balances) => {
             setBalances(balances);
@@ -92,20 +99,19 @@ export const App = React.memo(function Admin(): JSX.Element {
 
       fetchInfo();
       fetchBalances();
-      setLoading(false);
       const interval = setInterval(fetchInfo, 5000);
       return () => clearInterval(interval);
     }
-  }, [gateway, authenticated]);
+  }, [isAuthenticated]);
 
   const content = useMemo(() => {
-    if (loading) return <Loading />;
+    if (runningInitialAuthCheck) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
-    if (!authenticated) {
+    if (!isAuthenticated) {
       return (
         <Login
-          checkAuth={gateway.testPassword}
-          setAuthenticated={() => setAuthenticated(true)}
+          checkAuth={gateway.current().testPassword}
+          setAuthenticated={() => setIsAuthenticated(true)}
           parseError={(err) => (err as Error).message}
         />
       );
@@ -151,9 +157,8 @@ export const App = React.memo(function Admin(): JSX.Element {
       </Flex>
     );
   }, [
-    gateway,
-    loading,
-    authenticated,
+    runningInitialAuthCheck,
+    isAuthenticated,
     showConnectFed,
     error,
     gatewayInfo,
@@ -163,7 +168,7 @@ export const App = React.memo(function Admin(): JSX.Element {
   ]);
 
   return (
-    <ApiProvider props={{ gateway }}>
+    <ApiProvider props={{ gateway: gateway.current() }}>
       <Wrapper size='lg'>{content}</Wrapper>
     </ApiProvider>
   );

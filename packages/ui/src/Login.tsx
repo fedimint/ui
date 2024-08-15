@@ -29,10 +29,12 @@ export const Login: React.FC<LoginProps> = ({
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = useCallback(
     async (ev: React.FormEvent) => {
       ev.preventDefault();
+      setLoading(true);
       try {
         const isValid = await checkAuth(password);
         if (isValid) {
@@ -44,6 +46,7 @@ export const Login: React.FC<LoginProps> = ({
         console.error({ err });
         setError(parseError(err));
       }
+      setLoading(false);
     },
     [password, checkAuth, setAuthenticated, parseError]
   );
@@ -74,7 +77,9 @@ export const Login: React.FC<LoginProps> = ({
           </InputGroup>
           {error && <FormErrorMessage>{error}</FormErrorMessage>}
         </FormControl>
-        <Button type='submit'>{t('login.submit')}</Button>
+        <Button isLoading={loading} type='submit'>
+          {t('login.submit')}
+        </Button>
       </Flex>
     </form>
   );
