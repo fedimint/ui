@@ -15,7 +15,7 @@ export enum Network {
 export enum BitcoinRpcKind {
   Bitcoind = 'bitcoind',
   Esplora = 'esplora',
-  Electrum = 'electrum',
+  // Electrum = 'electrum', TODO: needs testing fedimint side
 }
 
 export class Bip21Uri {
