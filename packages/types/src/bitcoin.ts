@@ -12,6 +12,12 @@ export enum Network {
   Regtest = 'regtest',
 }
 
+export enum BitcoinRpcKind {
+  Bitcoind = 'bitcoind',
+  Esplora = 'esplora',
+  // Electrum = 'electrum', TODO: needs testing fedimint side
+}
+
 export class Bip21Uri {
   constructor(public address: string, public amountSats?: Sats) {}
 
