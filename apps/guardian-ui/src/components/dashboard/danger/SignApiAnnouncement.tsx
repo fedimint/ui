@@ -46,7 +46,7 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
     : undefined;
 
   const announcementMatches = useMemo(() => {
-    if (!currentAnnouncement) return false;
+    if (!currentAnnouncement?.api_url || !apiUrl) return false;
     return normalizeUrl(currentAnnouncement.api_url) === normalizeUrl(apiUrl);
   }, [currentAnnouncement, apiUrl]);
 
