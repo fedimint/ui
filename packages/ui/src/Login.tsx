@@ -62,7 +62,7 @@ export const Login: React.FC<LoginProps> = ({
             {t('login.subtitle')}
           </Text>
         </Flex>
-        <FormControl isInvalid={!!error}>
+        <FormControl isInvalid={!!error} maxW='480px'>
           <FormLabel>{t('login.password')}</FormLabel>
           <InputGroup size='md'>
             <Input
