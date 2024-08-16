@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "nix-guardian": "./scripts/mprocs-nix.sh run-ui mprocs-nix-guardian.yml",
     "nix-gateway": "./scripts/mprocs-nix.sh dev-fed mprocs-nix-gateway.yml",
-    "mprocs": "mprocs -c ./mprocs.yml",
+    "docker": "mprocs -c ./mprocs-docker.yml",
     "translate": "node scripts/translate.js"
   },
   "devDependencies": {
