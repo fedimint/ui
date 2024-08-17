@@ -1,7 +1,7 @@
 default:
   @just --list
-mprocs:
-    mprocs -c mprocs.yml
+docker:
+    mprocs -c mprocs-docker.yml
 rotate:
     mprocs -c mprocs-rotate.yml
 restart:

@@ -104,7 +104,7 @@ Replace `-p 3000:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` wi
 ## Development
 
 The development password for the gateway is `thereisnosecondbest`.
-The development password for the guardians when using the `nix-gateway` or `mprocs` development environments is `pass`.
+The development password for the guardians when using the `nix-gateway` or `docker` development environments is `pass`.
 
 ### Option 1 - Running with Nix (preferred)
 
@@ -146,11 +146,11 @@ nix-guardian spins up these instances
 | guardian-ui-3 | http://127.0.0.1:3002/ |
 | guardian-ui-4 | http://127.0.0.1:3003/ |
 
-### Option 2 - Running with mprocs
+### Option 2 - Running with docker
 
 1. Install [mprocs](https://github.com/pvolok/mprocs)
 1. In terminal `cd` to the fedimint-ui repo root directory and run `yarn install`
-1. Run `yarn mprocs`
+1. Run `yarn docker`
 
 After running this command, you'll be present with the mprocs display. Along the left side are the list of processes currently available by mprocs. Along the bottom are hotkeys for navigating/interacting with mprocs. The main pane shows the shell output for the currently selected process.
 
