@@ -43,7 +43,7 @@ export const FederationSettingsForm: React.FC<FederationSettingsFormProps> = ({
       title={`${t('set-config.federation-settings')}`}
       isOpen={true}
     >
-      {isHost && (
+      {!isFollower && (
         <>
           <FormControl>
             <FormLabel>{t('set-config.federation-name')}</FormLabel>
@@ -52,19 +52,21 @@ export const FederationSettingsForm: React.FC<FederationSettingsFormProps> = ({
               onChange={handleChangeFederationName}
             />
           </FormControl>
-          <FormControl>
-            <FormLabel>{t('set-config.guardian-number')}</FormLabel>
-            <Select
-              value={numPeers}
-              onChange={(e) => setNumPeers(e.target.value)}
-            >
-              {BFT_NUMBERS.map((num) => (
-                <option key={num} value={num.toString()}>
-                  {num}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
+          {isHost && (
+            <FormControl>
+              <FormLabel>{t('set-config.guardian-number')}</FormLabel>
+              <Select
+                value={numPeers}
+                onChange={(e) => setNumPeers(e.target.value)}
+              >
+                {BFT_NUMBERS.map((num) => (
+                  <option key={num} value={num.toString()}>
+                    {num}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          )}
           <BftInfo numPeers={parseInt(numPeers)} />
         </>
       )}
