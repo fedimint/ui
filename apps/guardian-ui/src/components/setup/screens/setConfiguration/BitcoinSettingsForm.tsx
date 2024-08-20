@@ -52,10 +52,14 @@ export const BitcoinSettingsForm: React.FC<BitcoinSettingsFormProps> = ({
         <NumberFormControl
           isDisabled={bitcoinSetFromParams}
           labelText={t('set-config.block-confirmations')}
-          helperText={t('set-config.block-confirmations-help')}
+          helperText={
+            network === Network.Bitcoin
+              ? t('set-config.block-confirmations-help-mainnet')
+              : t('set-config.block-confirmations-help')
+          }
           warningText={t('set-config.block-confirmations-warning')}
           recommendedMin={5}
-          min={0}
+          min={network === Network.Bitcoin ? 5 : 0}
           max={200}
           value={blockConfirmations}
           onChange={(value) => {

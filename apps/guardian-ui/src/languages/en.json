@@ -227,6 +227,7 @@
     "bitcoin-settings": "Bitcoin settings",
     "block-confirmations": "Additional Block Confirmations",
     "block-confirmations-help": "Fedimint Guardians trail the blockchain tip by several confirmations to avoid block reorganizations.",
+    "block-confirmations-help-mainnet": "Running on Mainnet requires at least 5 additional confirmations.",
     "block-confirmations-warning": "Running Fedimint with less than 5 additional block confirmations is extremely risky! Fedimint CANNOT handle blockchain reorganizations.",
     "bitcoin-network": "Bitcoin Network",
     "select-network": "Select a network",
