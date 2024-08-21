@@ -176,8 +176,8 @@
     "submit": "Enviar"
   },
   "role-selector": {
-    "disclaimer-title": "Fedimint é um software em versão alfa.",
-    "disclaimer-text": "Você está usando uma versão muito antiga do Fedimint. Por favor, use com cautela e reporte problemas aos desenvolvedores do Fedimint no Github.",
+    "disclaimer-title": "Fedimint é um software beta.",
+    "disclaimer-text": "Por favor, reporte problemas aos desenvolvedores da Fedimint em https://github.com/fedimint/fedimint/issues",
     "leader": {
       "label": "Configuração do Líder",
       "description": "Insira as configurações que outros Guardiões aprovam. Um Guardião atua como Líder de Configuração."

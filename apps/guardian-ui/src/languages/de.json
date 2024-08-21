@@ -176,8 +176,8 @@
     "submit": "Einreichen"
   },
   "role-selector": {
-    "disclaimer-title": "Fedimint ist Alpha-Software",
-    "disclaimer-text": "Sie verwenden eine sehr frühe Version von Fedimint. Bitte verwenden Sie sie mit Vorsicht und melden Sie Probleme den Fedimint-Entwicklern auf Github.",
+    "disclaimer-title": "Fedimint ist Beta-Software",
+    "disclaimer-text": "Bitte melden Sie Probleme den Fedimint-Entwicklern unter https://github.com/fedimint/fedimint/issues",
     "leader": {
       "label": "Einrichtungsleiter",
       "description": "Geben Sie Konfigurationseinstellungen ein, die von anderen Hütern genehmigt werden. Ein Hüter fungiert als Setup-Leiter."
