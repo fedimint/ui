@@ -1,19 +1,38 @@
 const fs = require('fs/promises');
 const path = require('path');
 const { execSync } = require('child_process');
-const OpenAI = require('openai');
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const srcPaths = [
-  'apps/gateway-ui/src/languages',
-  'apps/guardian-ui/src/languages',
+const languages = [
+  'ca',
+  'de',
+  'es',
+  'fr',
+  'hu',
+  'it',
+  'ja',
+  'ko',
+  'pt',
+  'pt',
+  'ru',
+  'zh',
 ];
 
-// Get languages from command line arguments, excluding the first two default arguments (node path and script path)
-const languages = process.argv.slice(2)[0].split(' ');
+let srcPaths = [];
+const targetFile = process.argv[2];
+switch (targetFile) {
+  case 'gateway':
+    srcPaths = ['apps/gateway-ui/src/languages'];
+    break;
+  case 'guardian':
+    srcPaths = ['apps/guardian-ui/src/languages'];
+    break;
+  default:
+    srcPaths = [
+      'apps/gateway-ui/src/languages',
+      'apps/guardian-ui/src/languages',
+    ];
+}
+const targetKey = process.argv[3];
 
 async function installOpenAI() {
   console.log('Installing OpenAI package...');
@@ -29,7 +48,7 @@ async function uninstallOpenAI() {
   });
 }
 
-async function translateAndFill() {
+async function translateAndFill(openaiInstance) {
   try {
     for (const srcPath of srcPaths) {
       const srcFile = `${srcPath}/en.json`;
@@ -43,15 +62,36 @@ async function translateAndFill() {
         } catch (error) {
           console.log(`Creating new file for language: ${lang}`);
         }
+
+        let dataToTranslate = srcData;
+        let existingTranslations = targetData;
+
+        if (targetKey) {
+          dataToTranslate = getNestedValue(srcData, targetKey);
+          existingTranslations = getNestedValue(targetData, targetKey) || {};
+          if (!dataToTranslate) {
+            console.error(`Key "${targetKey}" not found in source file.`);
+            continue;
+          }
+        }
+
         const updatedData = await fillMissingKeys(
-          srcData,
-          targetData,
+          dataToTranslate,
+          existingTranslations,
           lang,
-          openai
+          targetKey || '',
+          openaiInstance
         );
+
+        if (targetKey) {
+          setNestedValue(targetData, targetKey, updatedData);
+        } else {
+          Object.assign(targetData, updatedData);
+        }
+
         await fs.writeFile(
           targetFile,
-          JSON.stringify(updatedData, null, 2),
+          JSON.stringify(targetData, null, 2),
           'utf8'
         );
         console.log(`Updated/created file for language: ${lang}`);
@@ -62,7 +102,27 @@ async function translateAndFill() {
   }
 }
 
-async function fillMissingKeys(srcObj, targetObj, lang, path = '') {
+function getNestedValue(obj, path) {
+  return path.split('.').reduce((current, key) => current && current[key], obj);
+}
+
+function setNestedValue(obj, path, value) {
+  const keys = path.split('.');
+  const lastKey = keys.pop();
+  const lastObj = keys.reduce(
+    (current, key) => (current[key] = current[key] || {}),
+    obj
+  );
+  lastObj[lastKey] = value;
+}
+
+async function fillMissingKeys(
+  srcObj,
+  targetObj,
+  lang,
+  path = '',
+  openaiInstance
+) {
   const updatedObj = { ...targetObj };
   for (const key in srcObj) {
     const newPath = path ? `${path}.${key}` : key;
@@ -80,7 +140,11 @@ async function fillMissingKeys(srcObj, targetObj, lang, path = '') {
     } else if (updatedObj[key] === undefined) {
       console.log(`Translating and adding missing key: ${newPath}`);
       await retryWithExponentialBackoff(async () => {
-        const translation = await translateWithOpenAI(srcObj[key], lang);
+        const translation = await translateWithOpenAI(
+          srcObj[key],
+          lang,
+          openaiInstance
+        );
         updatedObj[key] = translation;
       });
     } else {
@@ -91,10 +155,10 @@ async function fillMissingKeys(srcObj, targetObj, lang, path = '') {
   return updatedObj;
 }
 
-async function translateWithOpenAI(text, targetLang) {
+async function translateWithOpenAI(text, targetLang, openaiInstance) {
   const prompt = `Translate the following text to ${targetLang}. Return only the translated string, without any additional text or explanations:\n\n${text}`;
 
-  const response = await openai.chat.completions.create({
+  const response = await openaiInstance.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.3,
@@ -140,7 +204,11 @@ async function retryWithExponentialBackoff(
 async function main() {
   try {
     await installOpenAI();
-    await translateAndFill();
+    const { default: OpenAI } = await import('openai');
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    await translateAndFill(openai);
   } finally {
     await uninstallOpenAI();
   }
