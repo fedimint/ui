@@ -189,7 +189,7 @@ function isStringObject(obj) {
   return (
     typeof obj === 'object' &&
     obj !== null &&
-    Object.keys(obj).every((key) => !isNaN(parseInt(key)))
+    Object.keys(obj).every((key) => !Number.isNaN(parseInt(key)))
   );
 }
 
