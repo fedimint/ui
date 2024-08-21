@@ -177,7 +177,7 @@
   },
   "role-selector": {
     "disclaimer-title": "A Fedimint béta szoftver.",
-    "disclaimer-text": "Kérjük, jelezze a problémákat a Fedimint fejlesztőinek a következő címen: https://github.com/fedimint/fedimint/issues",
+    "disclaimer-text": "Kérjük, jelezze a problémákat a https://github.com/fedimint/fedimint/issues oldalon.",
     "leader": {
       "label": "Beállító vezető",
       "description": "Írja be a konfigurációs beállításokat, amelyeket más Őrzők jóváhagynak. Egy Őrző a Beállítási Vezető."

@@ -177,7 +177,7 @@
   },
   "role-selector": {
     "disclaimer-title": "Fedimint est un logiciel bêta",
-    "disclaimer-text": "Veuillez signaler les problèmes aux développeurs de Fedimint à l'adresse https://github.com/fedimint/fedimint/issues",
+    "disclaimer-text": "Veuillez signaler les problèmes à https://github.com/fedimint/fedimint/issues",
     "leader": {
       "label": "Leader de configuration",
       "description": "Entrez les paramètres de configuration que d'autres Gardiens approuvent. Un Gardien agit en tant que Leader de Configuration."

@@ -177,7 +177,7 @@
   },
   "role-selector": {
     "disclaimer-title": "Fedimint是测试版软件",
-    "disclaimer-text": "请向Fedimint开发者报告问题，网址为https://github.com/fedimint/fedimint/issues",
+    "disclaimer-text": "请在https://github.com/fedimint/fedimint/issues报告问题",
     "leader": {
       "label": "设置领导者",
       "description": "输入其他守护者批准的配置设置。一个守护者担任设置领导。"

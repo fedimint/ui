@@ -177,7 +177,7 @@
   },
   "role-selector": {
     "disclaimer-title": "Fedimint is beta software",
-    "disclaimer-text": "Please report issues to the Fedimint developers at https://github.com/fedimint/fedimint/issues",
+    "disclaimer-text": "Please report issues at https://github.com/fedimint/fedimint/issues",
     "leader": {
       "label": "Setup Leader",
       "description": "Enter configuration settings that other Guardians approve. One Guardian acts as Setup Leader. "

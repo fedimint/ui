@@ -177,7 +177,7 @@
   },
   "role-selector": {
     "disclaimer-title": "Fedimint és un programari beta.",
-    "disclaimer-text": "Si us plau, informeu de qualsevol problema als desenvolupadors de Fedimint a https://github.com/fedimint/fedimint/issues",
+    "disclaimer-text": "Si us plau, informa de qualsevol problema a https://github.com/fedimint/fedimint/issues",
     "leader": {
       "label": "Configura el líder",
       "description": "Introdueix la configuració que altres Guardians aproven. Un Guardian actua com a Líder de Configuració."

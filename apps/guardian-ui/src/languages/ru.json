@@ -177,7 +177,7 @@
   },
   "role-selector": {
     "disclaimer-title": "Fedimint - это бета-версия программного обеспечения.",
-    "disclaimer-text": "Пожалуйста, сообщайте о проблемах разработчикам Fedimint по адресу https://github.com/fedimint/fedimint/issues",
+    "disclaimer-text": "Пожалуйста, сообщайте о проблемах по адресу https://github.com/fedimint/fedimint/issues",
     "leader": {
       "label": "Настройка лидера",
       "description": "Введите настройки конфигурации, которые одобряют другие Стражи. Один Страж выступает в роли Руководителя настройки."
