@@ -30,7 +30,7 @@ services:
       # Public URL from which the webserver API is reachable
       - FM_GATEWAY_API_ADDR=http://gatewayd_1:8175
       # Gateway webserver authentication password
-      - FM_GATEWAY_PASSWORD=thereisnosecondbest
+      - FM_GATEWAY_PASSWORD=theresnosecondbest
       # Configured gateway routing fees Format: <base_msat>,<proportional_millionths>
       - FM_GATEWAY_FEES=0,1000
       # LND RPC address
@@ -166,7 +166,7 @@ services:
   #   environment:
   #     - PORT=3002
   #     - REACT_APP_FM_GATEWAY_API=http://127.0.0.1:8175
-  #     - REACT_APP_FM_GATEWAY_PASSWORD=thereisnosecondbest
+  #     - REACT_APP_FM_GATEWAY_PASSWORD=theresnosecondbest
   #   expose:
   #     - '3002'
   #   ports:

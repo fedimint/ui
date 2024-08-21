@@ -36,7 +36,7 @@ procs:
     env:
       PORT: '3004'
       REACT_APP_FM_GATEWAY_API: 'http://127.0.0.1:8175'
-      REACT_APP_FM_GATEWAY_PASSWORD: 'thereisnosecondbest'
+      REACT_APP_FM_GATEWAY_PASSWORD: 'theresnosecondbest'
       BROWSER: none
   fedimintd_1-logs:
     shell: sleep 3 && docker logs -f ui-fedimintd_1-1
