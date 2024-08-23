@@ -333,7 +333,7 @@
     "header": "🎉 🎉 🎉",
     "sentence-one": "모든 가디언의 검증 코드가 확인되었습니다.",
     "leader-message": "모든 수호자의 인증 코드가 확인되었습니다.",
-    "follower-message": "모두 완료되었습니다! 계속을 클릭하고 다른 가디언들에게 당신이 뛰고 있다고 알려주세요!"
+    "follower-message": "모두 완료되었습니다! 다른 가디언들에게 당신이 실행 중이라고 알려주세요!"
   },
   "verify-guardians": {
     "all-guardians-verified": "모든 보호자가 코드를 확인했습니다",
