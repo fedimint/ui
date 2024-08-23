@@ -1,6 +1,5 @@
-import React from 'react';
-import { Flex, Heading, Text, Button, Icon } from '@chakra-ui/react';
-import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
+import React, { useEffect, useState } from 'react';
+import { Flex, Heading, Text, Spinner } from '@chakra-ui/react';
 import { useAppContext } from '../../../../hooks';
 import { useTranslation } from '@fedimint/utils';
 import { APP_ACTION_TYPE, GuardianRole, Status } from '../../../../types';
@@ -12,10 +11,16 @@ interface SetupCompleteProps {
 export const SetupComplete: React.FC<SetupCompleteProps> = ({ role }) => {
   const { t } = useTranslation();
   const { dispatch } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleContinue = () => {
-    dispatch({ type: APP_ACTION_TYPE.SET_STATUS, payload: Status.Admin });
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(true);
+      dispatch({ type: APP_ACTION_TYPE.SET_STATUS, payload: Status.Admin });
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [dispatch]);
 
   return (
     <Flex
@@ -36,9 +41,12 @@ export const SetupComplete: React.FC<SetupCompleteProps> = ({ role }) => {
           ? t(`setup-complete.follower-message`)
           : t(`setup-complete.leader-message`)}
       </Text>
-      <Button leftIcon={<Icon as={ArrowRightIcon} />} onClick={handleContinue}>
-        {t('setup-complete.continue')}
-      </Button>
+      {isLoading && (
+        <Flex direction='column' align='center'>
+          <Spinner size='xl' mb={4} />
+          <Text>{t('setup-complete.loading-next-stage')}</Text>
+        </Flex>
+      )}
     </Flex>
   );
 };
