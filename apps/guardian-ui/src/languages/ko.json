@@ -198,8 +198,8 @@
     "title": "돌아온 것을 환영합니다!"
   },
   "role-selector": {
-    "disclaimer-text": "귀하는 매우 초기 버전의 Fedimint를 사용하고 있습니다. 주의해서 사용하고 Github의 Fedimint 개발자에게 문제를 보고하세요.",
-    "disclaimer-title": "Fedimint는 알파 소프트웨어입니다.",
+    "disclaimer-text": "문제점은 https://github.com/fedimint/fedimint/issues 에 보고해 주세요.",
+    "disclaimer-title": "Fedimint는 베타 소프트웨어입니다",
     "follower": {
       "description": "구성 리더가 구성을 설정하면 다른 보호자가 이 옵션을 선택하여 설정을 승인하고 연합을 만듭니다.",
       "label": "팔로워"

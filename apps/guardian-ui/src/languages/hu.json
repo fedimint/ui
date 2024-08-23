@@ -176,8 +176,8 @@
     "submit": "Benyújtás"
   },
   "role-selector": {
-    "disclaimer-title": "A Fedimint alfa szoftver.",
-    "disclaimer-text": "Nagyon korai verzióját használja a Fedimintnak. Kérjük, használja óvatosan, és jelentsen problémákat a Fedimint fejlesztőinek a Githubon.",
+    "disclaimer-title": "A Fedimint béta szoftver.",
+    "disclaimer-text": "Kérjük, jelezze a problémákat a https://github.com/fedimint/fedimint/issues oldalon.",
     "leader": {
       "label": "Beállító vezető",
       "description": "Írja be a konfigurációs beállításokat, amelyeket más Őrzők jóváhagynak. Egy Őrző a Beállítási Vezető."

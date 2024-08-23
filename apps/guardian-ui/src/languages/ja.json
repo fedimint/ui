@@ -176,8 +176,8 @@
     "submit": "提出する"
   },
   "role-selector": {
-    "disclaimer-title": "Fedimintはアルファソフトウェアです。",
-    "disclaimer-text": "非常に初期のバージョンのFedimintを使用しています。注意して使用し、問題はGithubのFedimint開発者に報告してください。",
+    "disclaimer-title": "Fedimintはベータ版ソフトウェアです",
+    "disclaimer-text": "問題はhttps://github.com/fedimint/fedimint/issuesで報告してください。",
     "leader": {
       "label": "セットアップリーダー",
       "description": "他のガーディアンが承認する設定を入力してください。1人のガーディアンがセットアップリーダーとして行動します。"

@@ -176,8 +176,8 @@
     "submit": "Soumettre"
   },
   "role-selector": {
-    "disclaimer-title": "Fedimint est un logiciel alpha.",
-    "disclaimer-text": "Vous utilisez une version très précoce de Fedimint. Veuillez l'utiliser avec prudence et signaler les problèmes aux développeurs de Fedimint sur Github.",
+    "disclaimer-title": "Fedimint est un logiciel bêta",
+    "disclaimer-text": "Veuillez signaler les problèmes à https://github.com/fedimint/fedimint/issues",
     "leader": {
       "label": "Leader de configuration",
       "description": "Entrez les paramètres de configuration que d'autres Gardiens approuvent. Un Gardien agit en tant que Leader de Configuration."
