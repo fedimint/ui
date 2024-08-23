@@ -103,7 +103,7 @@ Replace `-p 3000:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` wi
 
 ## Development
 
-The development password for the gateway is `thereisnosecondbest`.
+The development password for the gateway is `theresnosecondbest`.
 The development password for the guardians when using the `nix-gateway` or `docker` development environments is `pass`.
 
 ### Option 1 - Running with Nix (preferred)
@@ -196,7 +196,7 @@ From root repo directory:
 1. Run gateway-ui in development environment
 
    ```bash
-     PORT=3004 REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="thereisnosecondbest" yarn dev:gateway-ui
+     PORT=3004 REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="theresnosecondbest" yarn dev:gateway-ui
    ```
 
 1. Run `docker compose down` when done. It might be worth deleting `fm_*`, directory from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
