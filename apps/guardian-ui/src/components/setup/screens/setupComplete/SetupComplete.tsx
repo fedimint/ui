@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Flex, Heading, Text, Spinner } from '@chakra-ui/react';
 import { useAppContext } from '../../../../hooks';
 import { useTranslation } from '@fedimint/utils';
@@ -11,11 +11,9 @@ interface SetupCompleteProps {
 export const SetupComplete: React.FC<SetupCompleteProps> = ({ role }) => {
   const { t } = useTranslation();
   const { dispatch } = useAppContext();
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(true);
       dispatch({ type: APP_ACTION_TYPE.SET_STATUS, payload: Status.Admin });
     }, 3000);
 
@@ -41,12 +39,9 @@ export const SetupComplete: React.FC<SetupCompleteProps> = ({ role }) => {
           ? t(`setup-complete.follower-message`)
           : t(`setup-complete.leader-message`)}
       </Text>
-      {isLoading && (
-        <Flex direction='column' align='center'>
-          <Spinner size='xl' mb={4} />
-          <Text>{t('setup-complete.loading-next-stage')}</Text>
-        </Flex>
-      )}
+      <Flex direction='column' align='center'>
+        <Spinner size='xl' mb={4} />
+      </Flex>
     </Flex>
   );
 };
