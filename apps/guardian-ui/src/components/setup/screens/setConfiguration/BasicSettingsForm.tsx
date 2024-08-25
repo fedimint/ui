@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -22,6 +22,7 @@ interface BasicSettingsFormProps {
   setMyName: (name: string) => void;
   password: string | null;
   setPassword: (password: string) => void;
+  isNextDisabled: (disabled: boolean) => void;
 }
 
 export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
@@ -29,10 +30,23 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
   setMyName,
   password,
   setPassword,
+  isNextDisabled,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [showPassword, setShowPassword] = useState(false);
+
+  const validateName = useCallback(
+    (name: string) => {
+      const isValid = name.trim() !== '' && /^[a-zA-Z0-9]/.test(name);
+      isNextDisabled(!isValid);
+    },
+    [isNextDisabled]
+  );
+
+  useEffect(() => {
+    validateName(myName);
+  }, [myName, validateName]);
 
   return (
     <FormGroup
@@ -46,7 +60,11 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
           value={myName}
           onChange={(ev) => setMyName(ev.currentTarget.value)}
         />
-        <FormHelperText>{t('set-config.guardian-name-help')}</FormHelperText>
+        <FormHelperText>
+          {myName.trim() === ''
+            ? t('set-config.give-federation-name')
+            : t('set-config.guardian-name-help')}
+        </FormHelperText>
       </FormControl>
       <FormControl>
         <FormLabel>{t('set-config.admin-password')}</FormLabel>

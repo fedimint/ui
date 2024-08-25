@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   FormControl,
   FormHelperText,
+  Text,
   FormLabel,
   Input,
   Select,
+  useTheme,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup } from '@fedimint/ui';
@@ -36,6 +38,23 @@ export const FederationSettingsForm: React.FC<FederationSettingsFormProps> = ({
   setNumPeers,
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const [nameHelpText, setNameHelpText] = useState<string | null>(null);
+
+  const validateFederationName = useCallback(
+    (name: string) => {
+      if (name.trim() === '') {
+        setNameHelpText(t('set-config.give-federation-name'));
+      } else {
+        setNameHelpText(null);
+      }
+    },
+    [t]
+  );
+
+  useEffect(() => {
+    validateFederationName(federationName);
+  }, [federationName, validateFederationName]);
 
   return (
     <FormGroup
@@ -50,7 +69,15 @@ export const FederationSettingsForm: React.FC<FederationSettingsFormProps> = ({
             <Input
               value={federationName}
               onChange={handleChangeFederationName}
+              onBlur={() => validateFederationName(federationName)}
             />
+            {nameHelpText && (
+              <FormHelperText>
+                <Text color={theme.colors.yellow[500]}>
+                  {nameHelpText || t('set-config.guardian-name-help')}
+                </Text>
+              </FormHelperText>
+            )}
           </FormControl>
           {isHost && (
             <FormControl>

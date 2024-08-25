@@ -222,6 +222,7 @@
     "basic-settings": "Basics",
     "federation-settings": "Federation settings",
     "federation-name": "Federation name",
+    "give-federation-name": "Gives a name to your Federation",
     "guardian-number": "Number of guardians",
     "guardian-number-help": "Federations require a minimum of 4 guardians. This cannot be changed later.",
     "bitcoin-settings": "Bitcoin settings",

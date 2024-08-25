@@ -70,6 +70,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     stateNumPeers ? stateNumPeers.toString() : isSolo ? '1' : MIN_BFT_NUM_PEERS
   );
 
+  const [isNextDisabled, setIsNextDisabled] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -117,6 +118,12 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     setPassword(statePassword);
   }, [statePassword]);
 
+  // Validate if the name of the Federation is valid
+  const validateFederationName = (name: string) => {
+    const isValid = name.trim() !== '' && /^[a-zA-Z0-9]/.test(name);
+    setIsNextDisabled(!isValid);
+  };
+
   const hostCriteria = [
     myName,
     password,
@@ -149,6 +156,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   ) => {
     const newName = ev.currentTarget.value;
     setFederationName(newName);
+    validateFederationName(newName);
     setMetaFields((prev) =>
       prev.map(([key, val]) =>
         key === 'federation_name' ? [key, newName] : [key, val]
@@ -253,9 +261,10 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         setMyName={setMyName}
         password={password}
         setPassword={setPassword}
+        isNextDisabled={setIsNextDisabled}
       />
       <Button
-        isDisabled={!isValid}
+        isDisabled={!isValid || isNextDisabled}
         onClick={onOpen}
         leftIcon={<Icon as={ArrowRightIcon} />}
         width='60%'
