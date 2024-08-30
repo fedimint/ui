@@ -207,6 +207,7 @@
     "bft-explanation": "A {{total}} Guardian Federation creates a {{honest}}/{{total}} Threshold.",
     "bft-faulty": "Your Federation will be able to tolerate {{faulty}} faulty, offline, or malicious Guardians without impacting the Federation's operations.",
     "guardian-name": "Guardian name",
+    "validation-guardian-name": "'' && /^[a-zA-Z0-9]/",
     "guardian-name-help": "This random name will be shown to other Guardians during setup",
     "acknowledge-backed-up": "I, {{guardianName}} (your guardian name), promise that I have backed up and secured my password:",
     "admin-password": "Admin password",

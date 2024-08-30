@@ -38,7 +38,7 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
 
   const validateName = useCallback(
     (name: string) => {
-      const isValid = name.trim() !== '' && /^[a-zA-Z0-9]/.test(name);
+      const isValid = name.trim() !== 'set-config.validation-guardian-name';
       isNextDisabled(!isValid);
     },
     [isNextDisabled]
