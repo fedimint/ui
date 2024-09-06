@@ -46,7 +46,7 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
   const rows: TableRow<'name' | 'id' | 'balance' | 'actions'>[] =
     federations.map((federation) => ({
       key: federation.federation_id,
-      name: federation.config.meta.federation_name,
+      name: federation.config.global.meta.federation_name,
       id: (
         <Flex direction='column' alignItems='flex-start'>
           <Text fontSize='sm' fontWeight='medium'>

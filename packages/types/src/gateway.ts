@@ -1,5 +1,4 @@
 import { Network, MSats, Sats } from './bitcoin';
-import { GatewayClientConfig } from './federation';
 
 export interface Gateway {
   api: string;
@@ -36,11 +35,11 @@ export interface FederationInfo {
   federation_id: string;
   balance_msat: number;
   channel_id: number;
-  config: GatewayClientConfig;
   routing_fees: {
     base_msat: number;
     proportional_millionths: number;
   };
+  config: JsonClientConfig;
 }
 
 export interface CreateBolt11InvoiceV2Payload {
@@ -61,16 +60,54 @@ export type Bolt11InvoiceDescription =
   | { type: 'Hash'; value: string };
 
 export interface GatewayInfo {
+  api: string;
+  block_height: number;
+  federation_fake_scids: Record<number, string>;
   federations: FederationInfo[];
-  fees: Fees;
   gateway_id: string;
-  gateway_state: string;
+  gateway_state: GatewayState;
   lightning_alias: string;
+  lightning_mode: LightningMode;
   lightning_pub_key: string;
-  network?: Network;
-  route_hints: RouteHint[];
+  network: Network;
+  synced_to_chain: boolean;
   version_hash: string;
 }
+
+export enum GatewayState {
+  Initializing = 'Initializing',
+  Configuring = 'Configuring',
+  Connected = 'Connected',
+  Running = 'Running',
+  Disconnected = 'Disconnected',
+}
+
+export enum LightningConfig {
+  Lnd = 'lnd',
+  Cln = 'cln',
+  Ldk = 'ldk',
+}
+
+export interface LndConfig {
+  lnd_rpc_addr: string;
+  lnd_tls_cert: string;
+  lnd_macaroon: string;
+}
+
+export interface ClnConfig {
+  cln_extension_addr: string;
+}
+
+export interface LdkConfig {
+  esplora_server_url: string;
+  network: Network;
+  lightning_port: number;
+}
+
+export type LightningMode =
+  | { mode: LightningConfig.Lnd; config: LndConfig }
+  | { mode: LightningConfig.Cln; config: ClnConfig }
+  | { mode: LightningConfig.Ldk; config: LdkConfig };
 
 export interface GatewayFedConfig {
   federations: Record<string, JsonClientConfig>;

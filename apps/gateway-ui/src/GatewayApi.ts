@@ -164,11 +164,9 @@ export class GatewayApi {
     }
   };
 
-  fetchConfig = async (federationId: string): Promise<GatewayFedConfig> => {
+  fetchConfigs = async (): Promise<GatewayFedConfig> => {
     try {
-      const res: Response = await this.post('config', {
-        federation_id: federationId,
-      });
+      const res: Response = await this.post('config', {});
 
       if (res.ok) {
         const config: GatewayFedConfig = await res.json();

@@ -42,7 +42,8 @@ const FederationSelector: React.FC<FederationSelectorProps> = ({
             key={federation.federation_id}
             value={federation.federation_id}
           >
-            {federation.config.meta.federation_name || federation.federation_id}
+            {federation.config.global.meta.federation_name ||
+              federation.federation_id}
           </option>
         ))}
       </Select>

@@ -56,7 +56,8 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
         <Text>
           {t('wallet-modal.receive.peg-in-instructions', {
             federationName:
-              walletModalState.selectedFederation?.config.meta.federation_name,
+              walletModalState.selectedFederation?.config.global.meta
+                .federation_name,
           })}
         </Text>
         <QRCodeTabs
