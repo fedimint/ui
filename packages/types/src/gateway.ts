@@ -82,32 +82,35 @@ export enum GatewayState {
   Disconnected = 'Disconnected',
 }
 
-export enum LightningConfig {
-  Lnd = 'lnd',
-  Cln = 'cln',
-  Ldk = 'ldk',
+export interface LndMode {
+  Lnd: {
+    lnd_rpc_addr: string;
+    lnd_tls_cert: string;
+    lnd_macaroon: string;
+  };
 }
 
-export interface LndConfig {
-  lnd_rpc_addr: string;
-  lnd_tls_cert: string;
-  lnd_macaroon: string;
+export interface ClnMode {
+  Cln: {
+    cln_extension_addr: string;
+  };
 }
 
-export interface ClnConfig {
-  cln_extension_addr: string;
+export interface LdkMode {
+  Ldk: {
+    esplora_server_url: string;
+    network: Network;
+    lightning_port: number;
+  };
 }
 
-export interface LdkConfig {
-  esplora_server_url: string;
-  network: Network;
-  lightning_port: number;
-}
+export type LightningMode = LndMode | ClnMode | LdkMode;
 
-export type LightningMode =
-  | { mode: LightningConfig.Lnd; config: LndConfig }
-  | { mode: LightningConfig.Cln; config: ClnConfig }
-  | { mode: LightningConfig.Ldk; config: LdkConfig };
+export enum LightningType {
+  Lnd = 'Lnd',
+  Cln = 'Cln',
+  Ldk = 'Ldk',
+}
 
 export interface GatewayFedConfig {
   federations: Record<string, JsonClientConfig>;

@@ -127,6 +127,11 @@ export const App = React.memo(function Admin(): JSX.Element {
         <LightningCard
           nodeId={gatewayInfo.gateway_id}
           network={gatewayInfo.network}
+          alias={gatewayInfo.lightning_alias}
+          mode={gatewayInfo.lightning_mode}
+          pubkey={gatewayInfo.lightning_pub_key}
+          blockHeight={gatewayInfo.block_height}
+          syncedToChain={gatewayInfo.synced_to_chain}
         />
         <FederationsTable
           unit={unit}
