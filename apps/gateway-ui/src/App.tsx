@@ -23,21 +23,7 @@ export type Unit = (typeof UNIT_OPTIONS)[number];
 export const App = React.memo(function Admin(): JSX.Element {
   const gateway = useRef(() => new GatewayApi());
   const [balances, setBalances] = useState<GatewayBalances | null>(null);
-
-  const [gatewayInfo, setGatewayInfo] = useState<GatewayInfo>({
-    federations: [],
-    fees: {
-      base_msat: 0,
-      proportional_millionths: 0,
-    },
-    gateway_id: '',
-    gateway_state: '',
-    lightning_alias: '',
-    lightning_pub_key: '',
-    route_hints: [],
-    version_hash: '',
-    network: undefined,
-  });
+  const [gatewayInfo, setGatewayInfo] = useState<GatewayInfo | null>(null);
 
   // Whether the user has successfully authenticated with the gateway.
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -71,17 +57,24 @@ export const App = React.memo(function Admin(): JSX.Element {
 
   useEffect(() => {
     if (isAuthenticated) {
-      const fetchInfo = () => {
-        gateway
-          .current()
-          .fetchInfo()
-          .then((gatewayInfo) => {
-            setGatewayInfo(gatewayInfo);
-          })
-          .catch(({ message, error }) => {
-            console.error(error);
-            setError(message);
-          });
+      const fetchInfoAndConfigs = async () => {
+        try {
+          const gatewayInfo = await gateway.current().fetchInfo();
+
+          const configs = await gateway.current().fetchConfigs();
+
+          const updatedFederations = gatewayInfo.federations.map(
+            (federation) => ({
+              ...federation,
+              config: configs.federations[federation.federation_id],
+            })
+          );
+
+          setGatewayInfo({ ...gatewayInfo, federations: updatedFederations });
+        } catch (error: unknown) {
+          console.error(error);
+          setError((error as Error).message);
+        }
       };
 
       const fetchBalances = () => {
@@ -97,9 +90,10 @@ export const App = React.memo(function Admin(): JSX.Element {
           });
       };
 
-      fetchInfo();
+      fetchInfoAndConfigs();
       fetchBalances();
-      const interval = setInterval(fetchInfo, 5000);
+
+      const interval = setInterval(fetchInfoAndConfigs, 5000);
       return () => clearInterval(interval);
     }
   }, [isAuthenticated]);
@@ -117,6 +111,8 @@ export const App = React.memo(function Admin(): JSX.Element {
       );
     }
 
+    if (!gatewayInfo) return <Loading />;
+
     return (
       <Flex direction='column' gap={4}>
         <HeaderWithUnitSelector setUnit={setUnit} />
@@ -131,6 +127,11 @@ export const App = React.memo(function Admin(): JSX.Element {
         <LightningCard
           nodeId={gatewayInfo.gateway_id}
           network={gatewayInfo.network}
+          alias={gatewayInfo.lightning_alias}
+          mode={gatewayInfo.lightning_mode}
+          pubkey={gatewayInfo.lightning_pub_key}
+          blockHeight={gatewayInfo.block_height}
+          syncedToChain={gatewayInfo.synced_to_chain}
         />
         <FederationsTable
           unit={unit}

@@ -13,11 +13,11 @@ import { formatEllipsized, useTranslation } from '@fedimint/utils';
 import CodeMirror from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
 import { githubLight } from '@uiw/codemirror-theme-github';
-import { GatewayClientConfig } from '@fedimint/types';
+import { JsonClientConfig } from '@fedimint/types';
 
 interface ViewConfigModalProps {
   federationId: string;
-  config: GatewayClientConfig;
+  config: JsonClientConfig;
 }
 
 export const ViewConfigModal = forwardRef<

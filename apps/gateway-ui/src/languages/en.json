@@ -127,7 +127,14 @@
     "title": "Lightning Gateway Dashboard"
   },
   "info-card": {
-    "card_header": "Lightning Node ID"
+    "card-header": "Lightning Node Info",
+    "node-id": "Node ID",
+    "alias": "Alias",
+    "mode": "Mode",
+    "pubkey": "Pubkey",
+    "network": "Network",
+    "block-height": "Block Height",
+    "synced-to-chain": "Synced to Chain"
   },
   "withdraw-card": {
     "address-label": "Your address:",
