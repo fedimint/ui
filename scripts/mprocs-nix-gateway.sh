@@ -13,8 +13,32 @@ if [ "$STATUS" = "ERROR" ]; then
     exit 1
 fi
 
+# Check if argument is provided
+if [ -z "$GATEWAY_TYPE" ]; then
+    echo "Error: GATEWAY_TYPE is required for gateway-ui dev. Use 'cln', 'lnd', or 'ldk'."
+    exit 1
+fi
+
 # Configure UI env from devimint env
-export REACT_APP_FM_GATEWAY_API=$FM_GATEWAY_API_ADDR
+LOCAL_GATEWAY_API_ADDR=$FM_GATEWAY_API_ADDR
+
+# Handle which gateway to connect to
+if [ "$GATEWAY_TYPE" = "cln" ]; then
+    LOCAL_GATEWAY_API_ADDR="$FM_GATEWAY_API_ADDR"
+elif [ "$GATEWAY_TYPE" = "lnd" ]; then
+    LOCAL_GATEWAY_API_ADDR=$(echo "$FM_GATEWAY_API_ADDR" | sed -E 's/:([0-9]+)$/:'"$(($(echo "$FM_GATEWAY_API_ADDR" | sed -E 's/.*:([0-9]+)$/\1/') + 1))"'/')
+elif [ "$GATEWAY_TYPE" = "ldk" ]; then
+    LOCAL_GATEWAY_API_ADDR=$(echo "$FM_GATEWAY_API_ADDR" | sed -E 's/:([0-9]+)$/:'"$(($(echo "$FM_GATEWAY_API_ADDR" | sed -E 's/.*:([0-9]+)$/\1/') + 2))"'/')
+else
+    echo "Error: Invalid gateway type. Use 'cln', 'lnd', or 'ldk'."
+    exit 1
+fi
+
+echo "Starting gateway-ui on $LOCAL_GATEWAY_API_ADDR"
+echo "Gateway type: $GATEWAY_TYPE"
+echo "Local gateway api addr: $LOCAL_GATEWAY_API_ADDR"
+
+export REACT_APP_FM_GATEWAY_API=$LOCAL_GATEWAY_API_ADDR
 export REACT_APP_FM_GATEWAY_PASSWORD=$FM_GATEWAY_PASSWORD
 
 yarn dev:gateway-ui

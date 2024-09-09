@@ -24,12 +24,27 @@ procs:
     shell: tail -n +0 -F $FM_LOGS_DIR/bitcoind.log
   devimint:
     shell: tail -n +0 -F $FM_LOGS_DIR/devimint.log
-  gateway-ui:
+  gateway-ui-cln:
     shell: bash --init-file scripts/mprocs-nix-gateway.sh
     stop: SIGKILL
     env:
       PORT: '3004'
       BROWSER: none
+      GATEWAY_TYPE: cln
+  gateway-ui-lnd:
+    shell: bash --init-file scripts/mprocs-nix-gateway.sh
+    stop: SIGKILL
+    env:
+      PORT: '3005'
+      BROWSER: none
+      GATEWAY_TYPE: lnd
+  gateway-ui-ldk:
+    shell: bash --init-file scripts/mprocs-nix-gateway.sh
+    stop: SIGKILL
+    env:
+      PORT: '3006'
+      BROWSER: none
+      GATEWAY_TYPE: ldk
   guardian-ui-1:
     shell: bash --init-file scripts/mprocs-nix-guardian-manual.sh
     stop: SIGKILL
