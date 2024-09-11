@@ -8,7 +8,7 @@ import {
   FederationStatus,
   ModuleKind,
   PeerHashMap,
-  ServerStatus,
+  GuardianServerStatus,
   SignedApiAnnouncement,
   StatusResponse,
   Versions,
@@ -207,7 +207,7 @@ export class GuardianApi {
         await this.connect(this.guardianConfig?.fm_config_api);
         await this.shutdown_internal();
         const status = await this.status();
-        if (status.server === ServerStatus.ConsensusRunning) {
+        if (status.server === GuardianServerStatus.ConsensusRunning) {
           return;
         } else {
           throw new Error(

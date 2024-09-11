@@ -7,7 +7,7 @@ import React, {
   useReducer,
   useState,
 } from 'react';
-import { ConfigGenParams, ServerStatus } from '@fedimint/types';
+import { ConfigGenParams, GuardianServerStatus } from '@fedimint/types';
 import {
   SetupState,
   SetupAction,
@@ -139,7 +139,7 @@ export const SetupContext = createContext<SetupContextValue>({
 
 export interface SetupContextProviderProps {
   api: GuardianApi;
-  initServerStatus: ServerStatus;
+  initServerStatus: GuardianServerStatus;
   children: ReactNode;
 }
 
@@ -157,29 +157,29 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
 
   useEffect(() => {
     switch (initServerStatus) {
-      case ServerStatus.AwaitingPassword:
+      case GuardianServerStatus.AwaitingPassword:
         // If we're still waiting for a password, restart the whole thing.
         dispatch({
           type: SETUP_ACTION_TYPE.SET_INITIAL_STATE,
           payload: null,
         });
         break;
-      case ServerStatus.ReadyForConfigGen:
+      case GuardianServerStatus.ReadyForConfigGen:
         // If we're ready for DKG, move them to approve the config to start.
         dispatch({
           type: SETUP_ACTION_TYPE.SET_PROGRESS,
           payload: SetupProgress.ConnectGuardians,
         });
         break;
-      case ServerStatus.VerifyingConfigs:
-      case ServerStatus.VerifiedConfigs:
+      case GuardianServerStatus.VerifyingConfigs:
+      case GuardianServerStatus.VerifiedConfigs:
         // If we're supposed to be verifying, or have verified, jump to peer validation screen
         dispatch({
           type: SETUP_ACTION_TYPE.SET_PROGRESS,
           payload: SetupProgress.VerifyGuardians,
         });
         break;
-      case ServerStatus.ConsensusRunning:
+      case GuardianServerStatus.ConsensusRunning:
       default:
         // We should never boot into these states with the setup UI. We probably should show error
         // For now, skip past all setup, and transition to admin.

@@ -7,7 +7,7 @@ import {
   Flex,
   useTheme,
 } from '@chakra-ui/react';
-import { ServerStatus } from '@fedimint/types';
+import { GuardianServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { useConsensusPolling, useEllipsis, useSetupContext } from '../../hooks';
 import { formatApiErrorMessage } from '../../utils/api';
@@ -40,20 +40,20 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
         const status = await api.status();
         if (canceled) return;
         switch (status.server) {
-          case ServerStatus.SharingConfigGenParams:
+          case GuardianServerStatus.SharingConfigGenParams:
             await api.runDkg().catch((err) => {
               // If we timed out, np just try again
               if (err.code === -32002) return;
               throw err;
             });
             break;
-          case ServerStatus.ReadyForConfigGen:
+          case GuardianServerStatus.ReadyForConfigGen:
             setIsWaitingForOthers(true);
             break;
-          case ServerStatus.VerifyingConfigs:
+          case GuardianServerStatus.VerifyingConfigs:
             next();
             break;
-          case ServerStatus.ConfigGenFailed:
+          case GuardianServerStatus.ConfigGenFailed:
             setError(`${t('run-dkg.error-config')}`);
             break;
           default:
@@ -75,7 +75,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
   const progress = useMemo(() => {
     if (!peers.length) return 0;
     const peersWaiting = peers.filter(
-      (p) => p.status === ServerStatus.ReadyForConfigGen
+      (p) => p.status === GuardianServerStatus.ReadyForConfigGen
     );
     return Math.round((peersWaiting.length / peers.length) * 100);
   }, [peers]);

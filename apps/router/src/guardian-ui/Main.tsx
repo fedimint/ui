@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Box, Flex, Spinner, Heading, Text, Center } from '@chakra-ui/react';
-import { Wrapper, Login } from '@fedimint/ui';
+import { Login } from '@fedimint/ui';
 import { SetupContextProvider } from './setup/SetupContext';
 import { AdminContextProvider } from './admin/AdminContext';
 import { FederationSetup } from './setup/FederationSetup';
@@ -37,27 +37,21 @@ export const Main = React.memo(function App() {
     }
 
     if (state.status === GuardianStatus.NotConfigured) {
-      return (
-        <Wrapper>
-          <NotConfigured api={api} dispatch={dispatch} />
-        </Wrapper>
-      );
+      return <NotConfigured api={api} dispatch={dispatch} />;
     }
 
     if (state.needsAuth) {
       return (
-        <Wrapper>
-          <Login
-            checkAuth={(password) => api.testPassword(password || '')}
-            setAuthenticated={() =>
-              dispatch({
-                type: GUARDIAN_APP_ACTION_TYPE.SET_NEEDS_AUTH,
-                payload: false,
-              })
-            }
-            parseError={formatApiErrorMessage}
-          />
-        </Wrapper>
+        <Login
+          checkAuth={(password) => api.testPassword(password || '')}
+          setAuthenticated={() =>
+            dispatch({
+              type: GUARDIAN_APP_ACTION_TYPE.SET_NEEDS_AUTH,
+              payload: false,
+            })
+          }
+          parseError={formatApiErrorMessage}
+        />
       );
     }
 
@@ -67,9 +61,7 @@ export const Main = React.memo(function App() {
           initServerStatus={state.initServerStatus}
           api={api}
         >
-          <Wrapper>
-            <FederationSetup />
-          </Wrapper>
+          <FederationSetup />
         </SetupContextProvider>
       );
     }
@@ -77,9 +69,7 @@ export const Main = React.memo(function App() {
     if (state.status === GuardianStatus.Admin) {
       return (
         <AdminContextProvider api={api}>
-          <Wrapper size='lg'>
-            <FederationAdmin />
-          </Wrapper>
+          <FederationAdmin />
         </AdminContextProvider>
       );
     }

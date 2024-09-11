@@ -19,7 +19,7 @@ import { TermsOfService } from '../components/TermsOfService';
 
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
-import { ServerStatus } from '@fedimint/types';
+import { GuardianServerStatus } from '@fedimint/types';
 import { RestartModals } from './RestartModals';
 
 const PROGRESS_ORDER: SetupProgress[] = [
@@ -155,7 +155,7 @@ export const FederationSetup: React.FC = () => {
   const isPeerRestarted =
     canRestart &&
     peers &&
-    peers.some((peer) => peer.status === ServerStatus.SetupRestarted);
+    peers.some((peer) => peer.status === GuardianServerStatus.SetupRestarted);
 
   return (
     <Flex

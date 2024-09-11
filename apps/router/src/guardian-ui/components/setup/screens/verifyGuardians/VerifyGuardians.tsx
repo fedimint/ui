@@ -27,7 +27,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
-import { ServerStatus, Peer } from '@fedimint/types';
+import { GuardianServerStatus, Peer } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { CopyInput, Table } from '@fedimint/ui';
 import { useConsensusPolling, useSetupContext } from '../../../../hooks';
@@ -70,7 +70,11 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   useConsensusPolling();
 
   useEffect(() => {
-    if (peers.every((peer) => peer.status === ServerStatus.VerifiedConfigs)) {
+    if (
+      peers.every(
+        (peer) => peer.status === GuardianServerStatus.VerifiedConfigs
+      )
+    ) {
       setVerifiedConfigs(true);
     }
 
@@ -102,7 +106,9 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         );
 
         // If we're already at the VerifiedConfigs state, prefill all the other hashes with the correct values
-        if (peers[ourCurrentId].status === ServerStatus.VerifiedConfigs) {
+        if (
+          peers[ourCurrentId].status === GuardianServerStatus.VerifiedConfigs
+        ) {
           const otherPeers = Object.entries(peers).filter(
             ([id]) => id !== ourCurrentId.toString()
           );

@@ -3,7 +3,7 @@ import { Flex } from '@chakra-ui/react';
 import { GatewayInfo, FederationInfo, GatewayBalances } from '@fedimint/types';
 import { ConnectFederationModal, LightningCard } from './components';
 import { ApiContext } from './ApiProvider';
-import { Wrapper, Login } from '@fedimint/ui';
+import { Login } from '@fedimint/ui';
 import { FederationsTable } from './components/federations/FederationsTable';
 import { Loading } from './components/Loading';
 import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
@@ -165,5 +165,5 @@ export const Main = React.memo(function Admin(): JSX.Element {
     gateway,
   ]);
 
-  return <Wrapper size='lg'>{content}</Wrapper>;
+  return content;
 });

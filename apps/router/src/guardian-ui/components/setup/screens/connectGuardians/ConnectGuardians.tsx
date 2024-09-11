@@ -15,7 +15,7 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { CopyInput, Table, TableRow } from '@fedimint/ui';
-import { ModuleKind, ServerStatus } from '@fedimint/types';
+import { ModuleKind, GuardianServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { useConsensusPolling, useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
@@ -40,8 +40,9 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   const isAllConnected = numPeers && numPeers == peers.length;
   const isAllAccepted =
     isAllConnected &&
-    peers.filter((peer) => peer.status === ServerStatus.ReadyForConfigGen)
-      .length >=
+    peers.filter(
+      (peer) => peer.status === GuardianServerStatus.ReadyForConfigGen
+    ).length >=
       numPeers - 1;
 
   // For hosts, once all peers have connected, run DKG immediately.
@@ -169,7 +170,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
               peers[i].name +
               (ourCurrentId === i ? ` (${t('common.you')})` : ''),
             status:
-              peers[i].status === ServerStatus.ReadyForConfigGen ||
+              peers[i].status === GuardianServerStatus.ReadyForConfigGen ||
               ourCurrentId === i ? (
                 <Tag colorScheme='green'>{t('connect-guardians.approved')}</Tag>
               ) : (
