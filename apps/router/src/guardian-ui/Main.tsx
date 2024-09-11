@@ -7,7 +7,7 @@ import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
 import { useAppContext } from './hooks';
 import { useTranslation } from '@fedimint/utils';
-import { APP_ACTION_TYPE, Status } from './types';
+import { GUARDIAN_APP_ACTION_TYPE, GuardianStatus } from './types';
 import { formatApiErrorMessage } from './utils/api';
 import { NotConfigured } from './components/NotConfigured';
 
@@ -36,7 +36,7 @@ export const Main = React.memo(function App() {
       );
     }
 
-    if (state.status === Status.NotConfigured) {
+    if (state.status === GuardianStatus.NotConfigured) {
       return (
         <Wrapper>
           <NotConfigured api={api} dispatch={dispatch} />
@@ -50,7 +50,10 @@ export const Main = React.memo(function App() {
           <Login
             checkAuth={(password) => api.testPassword(password || '')}
             setAuthenticated={() =>
-              dispatch({ type: APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: false })
+              dispatch({
+                type: GUARDIAN_APP_ACTION_TYPE.SET_NEEDS_AUTH,
+                payload: false,
+              })
             }
             parseError={formatApiErrorMessage}
           />
@@ -58,7 +61,7 @@ export const Main = React.memo(function App() {
       );
     }
 
-    if (state.status === Status.Setup && state.initServerStatus) {
+    if (state.status === GuardianStatus.Setup && state.initServerStatus) {
       return (
         <SetupContextProvider
           initServerStatus={state.initServerStatus}
@@ -71,7 +74,7 @@ export const Main = React.memo(function App() {
       );
     }
 
-    if (state.status === Status.Admin) {
+    if (state.status === GuardianStatus.Admin) {
       return (
         <AdminContextProvider api={api}>
           <Wrapper size='lg'>

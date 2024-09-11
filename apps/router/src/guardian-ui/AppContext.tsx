@@ -5,33 +5,41 @@ import React, {
   useEffect,
   useReducer,
 } from 'react';
-import { ServerStatus } from '@fedimint/types';
+import { GuardianServerStatus } from '@fedimint/types';
 import { GuardianApi } from './GuardianApi';
 import { formatApiErrorMessage } from './utils/api';
-import { APP_ACTION_TYPE, AppAction, AppState, Status } from './types';
+import {
+  GUARDIAN_APP_ACTION_TYPE,
+  GuardianAppAction,
+  GuardianAppState,
+  GuardianStatus,
+} from './types';
 
-export interface AppContextValue {
+export interface GuardianAppContextValue {
   api: GuardianApi;
-  state: AppState;
-  dispatch: Dispatch<AppAction>;
+  state: GuardianAppState;
+  dispatch: Dispatch<GuardianAppAction>;
 }
 
 const initialState = {
-  status: Status.Loading,
+  status: GuardianStatus.Loading,
   needsAuth: false,
   initServerStatus: undefined,
   appError: undefined,
 };
 
-const reducer = (state: AppState, action: AppAction): AppState => {
+const reducer = (
+  state: GuardianAppState,
+  action: GuardianAppAction
+): GuardianAppState => {
   switch (action.type) {
-    case APP_ACTION_TYPE.SET_STATUS:
+    case GUARDIAN_APP_ACTION_TYPE.SET_STATUS:
       return { ...state, status: action.payload };
-    case APP_ACTION_TYPE.SET_NEEDS_AUTH:
+    case GUARDIAN_APP_ACTION_TYPE.SET_NEEDS_AUTH:
       return { ...state, needsAuth: action.payload };
-    case APP_ACTION_TYPE.SET_INIT_SERVER_STATUS:
+    case GUARDIAN_APP_ACTION_TYPE.SET_INIT_SERVER_STATUS:
       return { ...state, initServerStatus: action.payload };
-    case APP_ACTION_TYPE.SET_ERROR:
+    case GUARDIAN_APP_ACTION_TYPE.SET_ERROR:
       return { ...state, appError: action.payload };
     default:
       return state;
@@ -40,19 +48,19 @@ const reducer = (state: AppState, action: AppAction): AppState => {
 
 const api = new GuardianApi();
 
-export const AppContext = createContext<AppContextValue>({
+export const GuardianAppContext = createContext<GuardianAppContextValue>({
   api: api,
   state: initialState,
   dispatch: () => null,
 });
 
-export interface AppContextProviderProps {
+export interface GuardianAppContextProviderProps {
   children: ReactNode;
 }
 
-export const AppContextProvider: React.FC<AppContextProviderProps> = ({
-  children,
-}: AppContextProviderProps) => {
+export const GuardianAppContextProvider: React.FC<
+  GuardianAppContextProviderProps
+> = ({ children }: GuardianAppContextProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -61,8 +69,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
         const guardianConfig = await api.getGuardianConfig();
         if (!guardianConfig?.fm_config_api) {
           dispatch({
-            type: APP_ACTION_TYPE.SET_STATUS,
-            payload: Status.NotConfigured,
+            type: GUARDIAN_APP_ACTION_TYPE.SET_STATUS,
+            payload: GuardianStatus.NotConfigured,
           });
           return;
         }
@@ -71,42 +79,51 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
         // If they're at a point where a password has been configured, make
         // sure they have a valid password set. If not, set needsAuth.
-        if (server !== ServerStatus.AwaitingPassword) {
+        if (server !== GuardianServerStatus.AwaitingPassword) {
           const password = api.getPassword();
           const hasValidPassword = password
             ? await api.testPassword(password)
             : false;
           if (!hasValidPassword) {
-            dispatch({ type: APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: true });
+            dispatch({
+              type: GUARDIAN_APP_ACTION_TYPE.SET_NEEDS_AUTH,
+              payload: true,
+            });
           }
         }
 
-        if (server === ServerStatus.ConsensusRunning) {
-          dispatch({ type: APP_ACTION_TYPE.SET_STATUS, payload: Status.Admin });
+        if (server === GuardianServerStatus.ConsensusRunning) {
+          dispatch({
+            type: GUARDIAN_APP_ACTION_TYPE.SET_STATUS,
+            payload: GuardianStatus.Admin,
+          });
         } else {
-          dispatch({ type: APP_ACTION_TYPE.SET_STATUS, payload: Status.Setup });
+          dispatch({
+            type: GUARDIAN_APP_ACTION_TYPE.SET_STATUS,
+            payload: GuardianStatus.Setup,
+          });
         }
 
         dispatch({
-          type: APP_ACTION_TYPE.SET_INIT_SERVER_STATUS,
+          type: GUARDIAN_APP_ACTION_TYPE.SET_INIT_SERVER_STATUS,
           payload: server,
         });
       } catch (err) {
         console.log('app error', err);
         dispatch({
-          type: APP_ACTION_TYPE.SET_ERROR,
+          type: GUARDIAN_APP_ACTION_TYPE.SET_ERROR,
           payload: formatApiErrorMessage(err),
         });
       }
     };
 
-    if (state.status === Status.Loading) {
+    if (state.status === GuardianStatus.Loading) {
       load().catch((err) => console.error(err));
     }
   }, [state.status]);
 
   return (
-    <AppContext.Provider
+    <GuardianAppContext.Provider
       value={{
         api,
         state,
@@ -114,6 +131,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       }}
     >
       {children}
-    </AppContext.Provider>
+    </GuardianAppContext.Provider>
   );
 };

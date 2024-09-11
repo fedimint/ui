@@ -2,7 +2,7 @@ import type { MSats } from './bitcoin';
 import { AnyModuleParams, ModuleConfigs, ModuleKind } from './modules';
 import { MetaConfig } from './meta';
 
-export enum ServerStatus {
+export enum GuardianServerStatus {
   AwaitingPassword = 'awaiting_password',
   SharingConfigGenParams = 'sharing_config_gen_params',
   ReadyForConfigGen = 'ready_for_config_gen',
@@ -30,7 +30,7 @@ export interface Peer {
   cert: string;
   api_url: string;
   p2p_url: string;
-  status: ServerStatus;
+  status: GuardianServerStatus;
 }
 
 export type PeerHashMap = Record<number, string>;
@@ -44,7 +44,7 @@ export interface FederationStatus {
 }
 
 export interface StatusResponse {
-  server: ServerStatus;
+  server: GuardianServerStatus;
   federation?: FederationStatus;
 }
 

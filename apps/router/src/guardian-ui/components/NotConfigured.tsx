@@ -11,11 +11,15 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { GuardianApi } from '../GuardianApi';
-import { APP_ACTION_TYPE, Status, AppAction } from '../types';
+import {
+  GUARDIAN_APP_ACTION_TYPE,
+  GuardianStatus,
+  GuardianAppAction,
+} from '../types';
 
 interface NotConfiguredProps {
   api: GuardianApi;
-  dispatch: React.Dispatch<AppAction>;
+  dispatch: React.Dispatch<GuardianAppAction>;
 }
 
 export const NotConfigured: React.FC<NotConfiguredProps> = ({
@@ -33,7 +37,10 @@ export const NotConfigured: React.FC<NotConfiguredProps> = ({
 
       try {
         await api.setGuardianConfig({ fm_config_api: configUrl });
-        dispatch({ type: APP_ACTION_TYPE.SET_STATUS, payload: Status.Loading });
+        dispatch({
+          type: GUARDIAN_APP_ACTION_TYPE.SET_STATUS,
+          payload: GuardianStatus.Loading,
+        });
       } catch (err) {
         setError(t('errors.invalidConfig'));
       }

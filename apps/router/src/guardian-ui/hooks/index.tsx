@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { AppContextValue, AppContext } from '../AppContext';
+import { GuardianAppContextValue, GuardianAppContext } from '../AppContext';
 import { SetupContext, SetupContextValue } from '../setup/SetupContext';
 import { AdminContext, AdminContextValue } from '../admin/AdminContext';
 
-export function useAppContext(): AppContextValue {
-  return useContext(AppContext);
+export function useAppContext(): GuardianAppContextValue {
+  return useContext(GuardianAppContext);
 }
 
 export function useSetupContext(): SetupContextValue {
