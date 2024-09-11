@@ -1,0 +1,486 @@
+{
+  "common": {
+    "bitcoin": "比特币",
+    "next": "下一个",
+    "back": "背部",
+    "unknown": "未知",
+    "remove": "移除",
+    "copy": "复制",
+    "copied": "已复制！",
+    "cancel": "取消",
+    "review": "评论",
+    "approvals": "批准",
+    "approve": "批准",
+    "threshold": "阈值",
+    "confirm": "确认",
+    "you": "你",
+    "close": "关闭",
+    "save": "保存",
+    "continue": "继续",
+    "submit": "提交",
+    "address": "地址",
+    "amount": "金额",
+    "btc": "比特币",
+    "error": "错误",
+    "sats": "卫星",
+    "msats": "msats",
+    "uri": "统一资源标识符",
+    "view-on-mempool": "查看Mempool",
+    "ecash": "电子现金"
+  },
+  "notConfigured": {
+    "title": "未配置",
+    "description": "请输入指向Fedimint守护服务器的CONFIG_API_URL。"
+  },
+  "connect-guardians": {
+    "invite-guardians": "邀请关注者",
+    "invite-guardians-help": "将此链接分享给其他守护者",
+    "approve": "批准",
+    "approved": "批准",
+    "pending": "待定",
+    "not-joined": "未加入",
+    "waiting-for-guardian": "等待监护人",
+    "table-title": "联邦守护者",
+    "table-description": "一旦他们确认联邦设置，监护人将在此处得到确认。",
+    "meta-field-key": "元字段 - {{key}}"
+  },
+  "federation-dashboard": {
+    "invite-members": "邀请成员或作为监护人进行身份验证",
+    "invite-members-prompt": "分享此内容以邀请成员加入联盟",
+    "fed-info": {
+      "label": "联邦信息",
+      "your-status-label": "状态",
+      "block-count-label": "共识区块高度",
+      "api-version-label": "API版本",
+      "consensus-version-label": "共识版本",
+      "peer-id-label": "对等ID",
+      "session-info": {
+        "session-height": "会议高度",
+        "latest-session": "最新会议"
+      }
+    },
+    "balance": {
+      "label": "资产负债表"
+    },
+    "bitcoin-node": {
+      "label": "比特币节点",
+      "url-label": "网址",
+      "network-label": "网络"
+    },
+    "guardians": {
+      "label": "其他守护者",
+      "id-name-label": "ID：名称",
+      "status-label": "连接状态",
+      "health-label": "健康",
+      "health-issue": "问题",
+      "health-good": "好的",
+      "last-contribution-label": "上次会议贡献",
+      "api-url-label": "API网址",
+      "fetching-announcement": "获取公告..."
+    },
+    "gateways": {
+      "label": "闪电网关",
+      "node-id-label": "闪电节点ID",
+      "gateway-id-label": "网关ID",
+      "fee-label": "网关费用",
+      "view-on-site": "在{{site}}上查看",
+      "no-gateways-info-title": "尚未连接任何网关！",
+      "no-gateways-info-description": "闪电网络节点运营商可以连接到您的联盟，以提供闪电网络的互操作性。一旦连接，他们将会出现在这里。"
+    },
+    "api-announcements": {
+      "label": "API 公告",
+      "guardian": "守护者",
+      "api-url": "API网址",
+      "revision": "修订"
+    },
+    "config": {
+      "label": "联邦配置",
+      "view-config": "查看配置",
+      "missing-meta-module": "无法编辑元字段。元模块对此联邦不可用。",
+      "manage-meta": {
+        "label": "管理元数据",
+        "cancel-button": "取消",
+        "confirm-modal": {
+          "title": "确认批准",
+          "description": "您的批准将达到采纳这个元更改的阈值。您的新元将看起来像："
+        },
+        "consensus-meta-label": "当前的共识元数据",
+        "revoke-button": "撤销",
+        "no-consensus-meta-message": "共识中没有元数据",
+        "proposed-meta-label": "元提案",
+        "propose-meta": "提议元数据",
+        "propose-new-meta-button": "提议新的元数据",
+        "proposal-approved": "您已批准了这个提案。",
+        "no-submitted-meta-message": "没有元编辑供审查。",
+        "edit-meta-label": "编辑元数据",
+        "edit-consensus-meta-button": "编辑共识元数据",
+        "submit-meta-proposal": "提交元提案",
+        "peer-approvals": "同行认可",
+        "actions": "行动",
+        "revision": "修订",
+        "setup-meta-title": "为您的联邦设置元数据",
+        "setup-meta-description": "Fedimint可以以元字段的形式向客户提供额外信息：您可能想要与客户分享的任意信息的键值对。虽然这些元字段不会被Fedimint解读，但它们对于共识是相关的，即它们在联盟成员之间不能有差异。这样，客户可以依赖它们的正确性。",
+        "propose-updates": "作为联邦守护者，您可以提出对元数据的更新，这些更新将被其他守护者接受。一旦更新被一定数量的守护者接受，它将被采纳为联邦的新共识元数据。",
+        "core-meta-fields": "以下元字段已被定义为Fedimint核心协议的一部分，并且对于您的联邦元数据来说非常有用：",
+        "meta-field-expiry": "联邦将在此Unix时间戳之后关闭。",
+        "meta-field-name": "联邦的可读名称",
+        "meta-field-icon": "联邦徽标图标的URL",
+        "meta-field-welcome": "欢迎新用户加入联邦的欢迎信息",
+        "meta-field-gateways": "由联邦审核的网关标识符列表",
+        "your-own-fields": "您也可以向提案添加自定义的元字段。这些将被添加到所有连接到您的联盟的客户端的元数据中，可以用于您喜欢的任何目的。",
+        "meta-effect-add": "添加",
+        "meta-effect-modify": "修改",
+        "meta-effect-unchanged": "未改变",
+        "proposals": "提案"
+      }
+    },
+    "modal": {
+      "client-connect": "连接客户端"
+    },
+    "danger-zone": {
+      "danger-zone-label": "危险区域",
+      "cancel": "取消",
+      "danger-zone-description": "小心使用！",
+      "guardian-warning-message": "警告：不要与任何人分享此代码。任何拥有此代码的人都可以作为监护人进行身份验证。请确保您处于私密的位置，没有人在看您的屏幕。",
+      "guardian-acknowledge": "确认并揭示代码",
+      "acknowledge-and-download": "确认并继续",
+      "guardian-authenticate": "作为监护人进行身份验证",
+      "guardian-connect-warning": "不要分享这个",
+      "backup": {
+        "label": "备份",
+        "title": "下载备份",
+        "warning-title": "警告",
+        "warning-text": "备份包含联邦监护人的私钥和秘密材料，必须保持安全。使用此备份进行恢复需要您的管理员密码！",
+        "cancelButton": "取消",
+        "acknowledgeButton": "确认并下载"
+      },
+      "sign-api-announcement": {
+        "label": "签名API公告",
+        "title": "签名API公告",
+        "description": "签署新的API公告。",
+        "current-api-url": "来自本地配置的API URL",
+        "announced-api-url": "您的API URL来自联邦公告",
+        "urls-match": "您当前的API URL与您公布的API URL相匹配。",
+        "urls-mismatch": "您已在本地配置中更改了API URL，需要广播新的API公告。",
+        "sign-button": "签署新API公告",
+        "signing-in-progress": "正在登录中...",
+        "sign-tooltip": "签署API公告，向联盟公布您的API URL。"
+      },
+      "schedule-shutdown": {
+        "label": "安排关机",
+        "title": "安排关机",
+        "description": "安排您的监护节点在特定会话高度后关闭，以协调升级您的fedimintd二进制文件。",
+        "current-session": "当前会话",
+        "session-to-shutdown": "会话将在关闭",
+        "confirm-shutdown": "确认关机",
+        "session-to-shutdown-helper": "输入您希望关闭守护节点的会话高度。"
+      }
+    }
+  },
+  "login": {
+    "title": "欢迎回来！",
+    "subtitle": "请输入您的密码。",
+    "password": "密码",
+    "submit": "提交"
+  },
+  "role-selector": {
+    "disclaimer-title": "Fedimint是测试版软件",
+    "disclaimer-text": "请在https://github.com/fedimint/fedimint/issues报告问题。",
+    "leader": {
+      "label": "设置领导者",
+      "description": "输入其他守护者批准的配置设置。一个守护者充当设置领导者。"
+    },
+    "follower": {
+      "label": "追随者",
+      "description": "一旦设置领导者设定了配置，其他守护者选择此选项来批准设置并创建联邦。"
+    },
+    "solo": {
+      "label": "独奏",
+      "description": "以单人守护者的身份运行Fedimint，无需达成共识，无需容错，联邦备份或Fedimint的其他恢复能力。请谨慎进行，不建议用于生产使用。"
+    },
+    "warning-modal": {
+      "title": "大家都准备好了吗？",
+      "description": "退出设置仪式可能会导致设置失败，并需要您重新启动您的守护者。请确保每个人都准备好进行完整设置再继续！"
+    }
+  },
+  "run-dkg": {
+    "error-config": "无法运行分布式密钥生成。必须重新启动联邦设置。",
+    "error-default": "尚未准备好DKG，您当前的状态是",
+    "error-header": "发生了错误。",
+    "waiting-header": "等待同伴",
+    "generating-header": "生成代码"
+  },
+  "set-config": {
+    "bft-explanation-title": "您的联盟的拜占庭容错性",
+    "bft-explanation": "一个{{total}}守护者联盟创建了一个{{honest}}/{{total}}阈值。",
+    "bft-faulty": "您的联盟将能够容忍{{faulty}}个故障、离线或恶意的守护者，而不影响联盟的运营。",
+    "guardian-name": "监护人姓名",
+    "guardian-name-help": "在设置过程中，这个随机名称将会展示给其他守护者。",
+    "acknowledge-backed-up": "我，{{guardianName}}（您的监护人姓名），承诺我已备份并保护好我的密码：",
+    "admin-password": "管理员密码",
+    "admin-password-generate": "生成",
+    "admin-password-set": "点击“生成”以创建安全密码。您可以修改它，但这个密码必须是安全的并且备份！",
+    "admin-password-help": "备份此密码并妥善保管！您无法找回此密码！",
+    "admin-password-backup": "我正在使用一个强密码并已经备份。 (你无法恢复这个密码！)",
+    "confirm-and-backup-password": "确认并备份密码",
+    "confirm-password": "确认密码",
+    "error-password-mismatch": "密码不匹配",
+    "join-federation": "加入联邦链接",
+    "join-federation-help": "向创建联邦的人请求链接，并在此处粘贴。",
+    "basic-settings": "基础知识",
+    "federation-settings": "联邦设置",
+    "federation-name": "联邦名称",
+    "guardian-number": "监护人的数量",
+    "guardian-number-help": "联邦需要至少4名监护人。这个规定以后不能更改。",
+    "bitcoin-settings": "比特币设置",
+    "block-confirmations": "额外区块确认",
+    "block-confirmations-help": "Fedimint Guardians通过几次确认来跟踪区块链的尖端，以避免区块重组。",
+    "block-confirmations-help-mainnet": "在主网上运行至少需要额外的5个确认。",
+    "block-confirmations-warning": "以少于5个额外区块确认运行Fedimint非常危险！Fedimint无法处理区块链重组。",
+    "bitcoin-network": "比特币网络",
+    "select-network": "选择一个网络",
+    "bitcoin-rpc-kind": "比特币RPC种类",
+    "set-rpc-help": "为您的守护节点提供比特币区块数据的来源",
+    "bitcoin-rpc": "比特币RPC网址",
+    "read-from-env": "（从环境变量中检测到）",
+    "error-valid-number": "请输入有效的数字。",
+    "error-valid-min": "请输入一个至少为{{min}}的数字。",
+    "error-valid-max": "请输入一个最大不超过{{max}}的数字。",
+    "error-valid-min-max": "请输入一个介于{{min}}和{{max}}之间的数字。",
+    "error-guardian-name-mismatch": "监护人姓名不匹配",
+    "meta-fields": "元字段",
+    "meta-fields-description": "有关更多信息，请参阅<docs>文档</docs>。",
+    "meta-fields-key": "元键",
+    "meta-fields-value": "价值",
+    "meta-fields-effect": "效果",
+    "meta-fields-add-another": "添加另一个",
+    "meta-fields-title": "您的元提案：",
+    "network": "网络",
+    "password-warning-title": "备份您的密码！",
+    "password-warning": "您必须备份您的密码并妥善保管。这个密码是访问您的监护人仪表板所必需的。如果您丢失了它，您将无法恢复！"
+  },
+  "setup": {
+    "warning": {
+      "title": "在设置过程中请勿退出或刷新！",
+      "description": "在设置过程中退出可能会导致设置失败，您将不得不重新启动。"
+    },
+    "common": {
+      "restart-setup": "重新启动设置",
+      "restart-setup-alert": "设置负责人已重新启动设置仪式。请点击下方的“重新开始”以继续。",
+      "confirm-restart-setup": "您确定要重新开始设置仪式吗？",
+      "confirm-restart-setup-alert": "点击“重新开始”将为所有守护者重新开始仪式。"
+    },
+    "progress": {
+      "tos": {
+        "title": "服务条款"
+      },
+      "start": {
+        "title": "欢迎，守护者！",
+        "subtitle": "让我们来设置您的联邦。",
+        "step": "联邦详情"
+      },
+      "set-config": {
+        "title": "我们需要为您的联邦设置一些配置。",
+        "title-solo": "我们需要为您的Solo联盟设置一些配置。",
+        "subtitle-leader": "您的联盟追随者将在他们那端确认这些信息。",
+        "subtitle-solo": "运行单个联盟将失去许多Fedimint的优点。您将无法容忍监护人离线的故障共识，并且无法进行联合备份。请谨慎进行，不建议用于生产使用或与主网比特币一起使用。",
+        "subtitle-follower": "您的联盟领导将会设置主要的联盟详情。您将很快确认它们。",
+        "step": "联邦详情"
+      },
+      "connect-guardians": {
+        "title-leader": "邀请你的监护人",
+        "title-follower": "确认您的联邦信息",
+        "subtitle-leader": "与其他守护者分享链接，以便让所有人达到共识。一旦所有的守护者加入，你将自动进入下一步。",
+        "subtitle-follower": "请确保这里的信息正确无误，联邦守护者也是正确的。当你确定一切都好时，点击批准按钮。",
+        "step-leader": "邀请守护者",
+        "step-follower": "确认信息"
+      },
+      "run-dkg": {
+        "title": "成功！",
+        "subtitle": "所有守护者都已验证联邦设置详情。正在运行一些数字..."
+      },
+      "verify-guardians": {
+        "title": "验证您的监护人",
+        "subtitle": "向每个监护人询问他们的验证码，并将其粘贴在下方以检查有效性。我们快完成了！",
+        "step": "验证监护人",
+        "leader-confirm-done": "确认所有的追随者守护者已点击“下一步”并查看他们的守护者仪表板后再继续。",
+        "leader-confirm-done-emphasis": "点击“继续”将完成设置仪式。"
+      },
+      "setup-complete": {
+        "step": "完成！"
+      },
+      "error": {
+        "title": "未知步骤",
+        "subtitle": "你是怎么来到这里的？！"
+      }
+    }
+  },
+  "setup-complete": {
+    "header": "🎉 🎉 🎉",
+    "congratulations": "祝贺你",
+    "leader-message": "所有监护人的验证代码已经过验证。",
+    "follower-message": "你已经完成了！让其他守护者知道你正在运行！",
+    "continue": "继续"
+  },
+  "terms-of-service": {
+    "agree-and-continue": "同意并继续"
+  },
+  "verify-guardians": {
+    "verified": "已验证",
+    "verified-placeholder": "在这里粘贴代码",
+    "error": "发生了错误。",
+    "error-peer-id": "无法确定您是哪位用户。请刷新并再试一次。",
+    "verification-code": "您（{{peerName}}）的验证码",
+    "verification-code-help": "与其他监护人分享此代码",
+    "table-title": "监护人验证代码",
+    "table-description": "在下方输入每个监护人的验证代码。",
+    "table-column-name": "姓名",
+    "table-column-status": "状态",
+    "table-column-hash-input": "粘贴验证码",
+    "wait-all-guardians-verification": "等待所有守护者验证他们的代码",
+    "all-guardians-verified": "所有守护者都已验证他们的代码",
+    "starting-consensus": "开始达成共识..."
+  },
+  "footer": {
+    "docs-section-header": "文档",
+    "community-section-header": "社区",
+    "contribute-section-header": "贡献",
+    "getting-started-link-text": "开始入门",
+    "faq-link-text": "常见问题",
+    "blog-link-text": "博客",
+    "discord-link-text": "Discord",
+    "twitter-link-text": "推特",
+    "github-link-text": "GitHub"
+  },
+  "admin": {
+    "fetch-info-modal-text": "检查联邦详情..."
+  },
+  "balance-card": {
+    "card_header": "电子现金余额",
+    "sentence": "以Sats计价",
+    "your-balance": "您在此联盟的电子现金余额："
+  },
+  "connect-federation": {
+    "connect": "连接 🚀",
+    "connect-federation-button": "添加联盟",
+    "connection-string-placeholder": "粘贴联盟邀请码",
+    "heading": "使用邀请码连接到联盟",
+    "information-bar-text": "您可以连接的联盟数量仅限于一个。即将支持连接到多个联盟。",
+    "label": "连接字符串：",
+    "progress-modal-text": "正在连接到联邦...",
+    "sub-heading": "邀请码是一个以‘fed1’开头的长字符串。",
+    "error-message": "连接联邦时出错：{{error}}"
+  },
+  "wallet": {
+    "title": "钱包",
+    "ecash": "电子现金",
+    "lightning": "闪电",
+    "onchain": "Onchain",
+    "total": "总计",
+    "balance": "平衡",
+    "address": "地址",
+    "invoice": "发票",
+    "receive": "接收",
+    "send": "发送",
+    "create-address": "创建地址",
+    "to-federation": "至联邦",
+    "from-federation": "来自联邦",
+    "sent": "发送",
+    "sent-amount": "发送了{{amount}}",
+    "to-address": "致地址",
+    "txid": "交易ID",
+    "claimed-note": "声称的笔记",
+    "claimed-amount": "声称金额"
+  },
+  "wallet-modal": {
+    "title": "钱包操作",
+    "receive": {
+      "ecash-instructions": "在此处粘贴您的电子现金票据",
+      "paste-ecash-placeholder": "在此处粘贴电子现金票据",
+      "redeem": "兑换",
+      "paste-invoice": "在此处粘贴发票",
+      "enter-amount": "输入{{unit}}的金额",
+      "lightning-instructions": "输入sats金额以创建闪电发票",
+      "create-peg-in-address": "创建锚定地址",
+      "create-lightning-invoice": "创建Lightning发票",
+      "paste-ecash-button": "粘贴电子现金票据",
+      "peg-in-instructions": "将比特币发送到此地址，以便将其锚定到您的{{federationName}}电子现金余额中。",
+      "ecash-claimed-success": "成功领取电子现金！",
+      "address-error": "创建地址错误：{{error}}"
+    },
+    "send": {
+      "submit": "提交",
+      "to-onchain-address": "至Onchain地址",
+      "address-placeholder": "bc1p...",
+      "peg-out-to-onchain": "将Peg Out Ecash转移到Onchain",
+      "peg-out-success": "发送Peg Out TX！",
+      "create-ecash": "创建电子现金票据",
+      "ecash-created": "从您的{{federationName}}余额中提取了{{amount}}电子现金票据。将其发送给收款人进行认领。",
+      "ecash-error": "创建电子现金票据时出错：{{error}}"
+    }
+  },
+  "federation-card": {
+    "table-title": "联邦",
+    "id": "ID",
+    "name": "姓名",
+    "balance": "平衡",
+    "actions": "行动",
+    "receive": "接收",
+    "send": "发送",
+    "default-federation-name": "联邦",
+    "view-link-on": "在{{host}}上查看",
+    "leave-fed-error": "无法在余额中还有sats的情况下离开联盟。请先提取您的sats。",
+    "leave-fed-modal-title": "离开联邦",
+    "leave-fed-modal-text": "您确定要断开连接吗？",
+    "view-config": "查看配置",
+    "config-for": "{{federationId}}的配置"
+  },
+  "header": {
+    "active": "活跃",
+    "all": "所有",
+    "archived": "已归档",
+    "ascending": "上升",
+    "connect": "联合联接",
+    "date-created": "创建日期",
+    "descending": "下降",
+    "filter": "过滤器",
+    "sort": "排序",
+    "title": "闪电网关仪表板"
+  },
+  "info-card": {
+    "card-header": "闪电节点信息",
+    "node-id": "节点ID",
+    "alias": "别名",
+    "mode": "模式",
+    "pubkey": "公钥",
+    "network": "网络",
+    "block-height": "区块高度",
+    "synced-to-chain": "同步到链条"
+  },
+  "withdraw-card": {
+    "address-label": "您的地址：",
+    "address-placeholder": "输入您的比特币地址",
+    "amount-label": "金额（sats）：",
+    "amount-placeholder": "输入sats金额",
+    "card-header": "提取比特币",
+    "close": "关闭",
+    "confirm-withdraw": "确认提款",
+    "error": "错误",
+    "error-address": "金额或地址不能为空",
+    "error-amount": "金额不能为空或等于零",
+    "error-request": "无法请求提款",
+    "request-from": "要求提款自",
+    "requested-withdrawal": "要求提款",
+    "to": "至",
+    "total_bitcoin": "总比特币：",
+    "transaction-sent": "交易已发送！",
+    "view": "查看",
+    "view-it-on": "在上面查看它",
+    "withdraw": "取款",
+    "withdraw-all": "提取全部",
+    "withdrawal-created": "已创建提款。",
+    "withdrawal-created-description": "请检查您的交易历史记录",
+    "withdrawal-history": "提款历史",
+    "your-transaction": "您的交易ID："
+  }
+}

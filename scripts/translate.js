@@ -16,22 +16,8 @@ const languages = [
   'zh',
 ];
 
-let srcPaths = [];
-const targetFile = process.argv[2];
-switch (targetFile) {
-  case 'gateway':
-    srcPaths = ['apps/gateway-ui/src/languages'];
-    break;
-  case 'guardian':
-    srcPaths = ['apps/guardian-ui/src/languages'];
-    break;
-  default:
-    srcPaths = [
-      'apps/gateway-ui/src/languages',
-      'apps/guardian-ui/src/languages',
-    ];
-}
-const targetKey = process.argv[3];
+let srcPaths = ['apps/router/src/languages'];
+const targetKey = false;
 
 async function installOpenAI() {
   console.log('Installing OpenAI package...');
