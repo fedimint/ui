@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Flex, Heading, Text, Spinner } from '@chakra-ui/react';
-import { useAppContext } from '../../../../hooks';
 import { useTranslation } from '@fedimint/utils';
 import {
   GUARDIAN_APP_ACTION_TYPE,
   GuardianRole,
   GuardianStatus,
 } from '../../../../types';
+import { useGuardianContext } from '../../../../../context/hooks';
 
 interface SetupCompleteProps {
   role: GuardianRole;
@@ -14,7 +14,7 @@ interface SetupCompleteProps {
 
 export const SetupComplete: React.FC<SetupCompleteProps> = ({ role }) => {
   const { t } = useTranslation();
-  const { dispatch } = useAppContext();
+  const { dispatch } = useGuardianContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {
