@@ -17,8 +17,8 @@ import { ClientConfig, Gateway, ModuleKind } from '@fedimint/types';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation, formatEllipsized } from '@fedimint/utils';
 import { ModuleRpc } from '../../../types';
-import { useAdminContext } from '../../../hooks';
 import { ReactComponent as InfoIcon } from '../../../assets/svgs/info.svg';
+import { useGuardianAdminApi } from '../../../../context/hooks';
 
 type TableKey = 'nodeId' | 'gatewayId' | 'fee';
 
@@ -29,7 +29,7 @@ interface GatewaysCardProps {
 export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { api } = useAdminContext();
+  const api = useGuardianAdminApi();
   const [gateways, setGateways] = useState<Gateway[]>([]);
 
   // TODO: This is a hack to get the ln module id, extract this logic into the api interface like block count

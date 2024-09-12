@@ -9,8 +9,13 @@ import {
 } from '@chakra-ui/react';
 import { GuardianServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { useConsensusPolling, useEllipsis, useSetupContext } from '../../hooks';
+import { useEllipsis } from '../../hooks';
 import { formatApiErrorMessage } from '../../utils/api';
+import {
+  useConsensusPolling,
+  useGuardianSetupApi,
+  useGuardianSetupContext,
+} from '../../../context/hooks';
 
 interface Props {
   next(): void;
@@ -18,10 +23,10 @@ interface Props {
 
 export const RunDKG: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
+  const api = useGuardianSetupApi();
   const {
-    api,
     state: { peers },
-  } = useSetupContext();
+  } = useGuardianSetupContext();
   const theme = useTheme();
   const [isWaitingForOthers, setIsWaitingForOthers] = useState(false);
   const [error, setError] = useState<string>();

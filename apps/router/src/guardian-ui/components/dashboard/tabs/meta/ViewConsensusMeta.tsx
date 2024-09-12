@@ -29,7 +29,7 @@ export const ViewConsensusMeta = React.memo(function ConsensusMetaFields({
   updateConsensusMeta,
 }: ViewConsensusMetaProps): JSX.Element {
   const { t } = useTranslation();
-  const { api } = useAdminContext();
+  const api = useGuardianAdminApi();
   const theme = useTheme();
 
   useEffect(() => {

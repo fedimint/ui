@@ -12,13 +12,13 @@ import {
   useTheme,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { useAdminContext } from '../../../hooks';
 import { hexToBlob } from '../../../utils/api';
+import { useGuardianAdminApi } from '../../../../context/hooks';
 
 export const DownloadBackup: React.FC = () => {
   const theme = useTheme();
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
-  const { api } = useAdminContext();
+  const api = useGuardianAdminApi();
   const { t } = useTranslation();
 
   const handleConfirmDownload = async () => {

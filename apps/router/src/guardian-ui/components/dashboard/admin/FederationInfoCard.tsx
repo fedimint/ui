@@ -10,7 +10,7 @@ import {
 import { ClientConfig, StatusResponse, Versions } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues } from '@fedimint/ui';
-import { useAdminContext } from '../../../hooks';
+import { useGuardianAdminApi } from '../../../../context/hooks';
 
 interface Props {
   status: StatusResponse | undefined;
@@ -24,7 +24,7 @@ export const FederationInfoCard: React.FC<Props> = ({
   latestSession,
 }) => {
   const { t } = useTranslation();
-  const { api } = useAdminContext();
+  const api = useGuardianAdminApi();
   const [versions, setVersions] = useState<Versions>();
   const [blockCount, setBlockCount] = useState<number>();
 

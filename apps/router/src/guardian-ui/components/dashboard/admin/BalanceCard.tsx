@@ -10,12 +10,12 @@ import {
 } from '@chakra-ui/react';
 import { AuditSummary } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { useAdminContext } from '../../../hooks';
 import { BalanceTable } from './BalanceTable';
+import { useGuardianAdminApi } from '../../../../context/hooks';
 
 export const BalanceCard: React.FC = () => {
   const { t } = useTranslation();
-  const { api } = useAdminContext();
+  const api = useGuardianAdminApi();
   const [auditSummary, setAuditSummary] = useState<AuditSummary>();
   const [unit, setUnit] = useState<'msats' | 'sats' | 'btc'>('msats');
 

@@ -17,7 +17,6 @@ import {
 import { CopyInput, Table, TableRow } from '@fedimint/ui';
 import { ModuleKind, GuardianServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { useConsensusPolling, useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
 import { getModuleParamsFromConfig } from '../../../../utils/api';
 import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
@@ -30,7 +29,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
   const {
     state: { role, peers, numPeers, configGenParams, ourCurrentId },
-  } = useSetupContext();
+  } = useGuardianSetupContext();
 
   const guardianLink = ourCurrentId !== null ? peers[ourCurrentId].api_url : '';
 

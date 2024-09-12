@@ -14,7 +14,6 @@ import {
   Network,
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
 import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
 import {
@@ -27,6 +26,10 @@ import { BasicSettingsForm } from './BasicSettingsForm';
 import { FederationSettingsForm } from './FederationSettingsForm';
 import { BitcoinSettingsForm } from './BitcoinSettingsForm';
 import { ConfirmPasswordModal } from './ConfirmPasswordModal';
+import {
+  useGuardianSetupApi,
+  useGuardianSetupContext,
+} from '../../../../../context/hooks';
 
 interface Props {
   next: () => void;
@@ -36,6 +39,7 @@ const MIN_BFT_NUM_PEERS = '4';
 
 export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const { t } = useTranslation();
+  const api = useGuardianSetupApi();
   const {
     state: {
       role,
@@ -44,9 +48,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       password: statePassword,
       numPeers: stateNumPeers,
     },
-    api,
     submitConfiguration,
-  } = useSetupContext();
+  } = useGuardianSetupContext();
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
   const isSolo = role === GuardianRole.Solo;

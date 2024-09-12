@@ -59,7 +59,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
   consensusMeta,
 }: ProposedMetasProps): JSX.Element {
   const { t } = useTranslation();
-  const { api } = useAdminContext();
+  const api = useGuardianAdminApi();
   const { isOpen, onOpen: openModal, onClose } = useDisclosure();
   const [metaSubmissions, setMetaSubmissions] = useState<MetaSubmissionMap>();
   const [hasVoted, setHasVoted] = useState(false);

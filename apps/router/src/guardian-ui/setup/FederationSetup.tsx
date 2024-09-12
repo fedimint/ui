@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Box, Button, Text, Heading, Icon, Flex } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { useSetupContext } from '../hooks';
 import {
   GuardianRole,
   SetupProgress,
@@ -21,6 +20,10 @@ import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
 import { GuardianServerStatus } from '@fedimint/types';
 import { RestartModals } from './RestartModals';
+import {
+  useGuardianSetupApi,
+  useGuardianSetupContext,
+} from '../../context/hooks';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -33,11 +36,11 @@ const PROGRESS_ORDER: SetupProgress[] = [
 
 export const FederationSetup: React.FC = () => {
   const { t } = useTranslation();
+  const api = useGuardianSetupApi();
   const {
     state: { progress, role, peers, tosConfig },
     dispatch,
-    api,
-  } = useSetupContext();
+  } = useGuardianSetupContext();
   const [confirmRestart, setConfirmRestart] = useState(false);
 
   const setTosConfig = useCallback(
@@ -46,14 +49,6 @@ export const FederationSetup: React.FC = () => {
     },
     [dispatch]
   );
-
-  useEffect(() => {
-    async function getTos() {
-      const tos = (await api.getGuardianConfig()).tos;
-      setTosConfig({ showTos: !!tos, tos });
-    }
-    getTos();
-  }, [api, setTosConfig]);
 
   const isHost = role === GuardianRole.Host;
   const isSolo = role === GuardianRole.Solo;

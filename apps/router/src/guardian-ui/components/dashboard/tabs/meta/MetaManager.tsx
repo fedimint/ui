@@ -54,7 +54,7 @@ export const MetaManager = React.memo(function MetaManager({
   setEditedMetaFields,
 }: MetaManagerProps): JSX.Element {
   const { t } = useTranslation();
-  const { api } = useAdminContext();
+  const api = useGuardianAdminApi();
   const { isOpen, onOpen: originalOnOpen, onClose } = useDisclosure();
   const theme = useTheme();
 

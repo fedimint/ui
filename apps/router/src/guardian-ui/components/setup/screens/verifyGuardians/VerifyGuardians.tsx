@@ -30,13 +30,17 @@ import {
 import { GuardianServerStatus, Peer } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { CopyInput, Table } from '@fedimint/ui';
-import { useConsensusPolling, useSetupContext } from '../../../../hooks';
 import { GuardianRole } from '../../../../types';
 import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
 import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../../../../utils/api';
 import { ReactComponent as CheckCircleIcon } from '../../../../assets/svgs/check-circle.svg';
 import { ReactComponent as XCircleIcon } from '../../../../assets/svgs/x-circle.svg';
+import {
+  useConsensusPolling,
+  useGuardianSetupApi,
+  useGuardianSetupContext,
+} from '../../../../../context/hooks';
 
 interface PeerWithHash {
   id: string;
@@ -50,11 +54,11 @@ interface Props {
 
 export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
+  const api = useGuardianSetupApi();
   const {
-    api,
     state: { role, numPeers, peers, ourCurrentId },
     toggleConsensusPolling,
-  } = useSetupContext();
+  } = useGuardianSetupContext();
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
   const [myHash, setMyHash] = useState('');

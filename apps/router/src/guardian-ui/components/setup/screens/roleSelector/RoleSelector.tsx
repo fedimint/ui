@@ -17,9 +17,9 @@ import { ReactComponent as StarsIcon } from '../../../../assets/svgs/stars.svg';
 import { ReactComponent as IntersectSquareIcon } from '../../../../assets/svgs/intersect-square.svg';
 import { ReactComponent as WarningIcon } from '../../../../assets/svgs/warning.svg';
 import { ReactComponent as SoloIcon } from '../../../../assets/svgs/solo.svg';
-import { useSetupContext } from '../../../../hooks';
 import { useTranslation } from '@fedimint/utils';
 import { WarningModal } from './WarningModal';
+import { useGuardianSetupContext } from '../../../../../context/hooks';
 
 interface Props {
   next: () => void;
@@ -29,7 +29,7 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
   next,
 }: Props) {
   const { t } = useTranslation();
-  const { dispatch } = useSetupContext();
+  const { dispatch } = useGuardianSetupContext();
   const [role, setRole] = useState<GuardianRole>();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

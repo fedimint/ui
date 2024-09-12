@@ -5,7 +5,6 @@ import {
   SignedApiAnnouncement,
   StatusResponse,
 } from '@fedimint/types';
-import { useAdminContext } from '../hooks';
 import { GatewaysCard } from '../components/dashboard/gateways/GatewaysCard';
 import { GuardiansCard } from '../components/dashboard/guardians/GuardiansCard';
 import { FederationInfoCard } from '../components/dashboard/admin/FederationInfoCard';
@@ -15,6 +14,7 @@ import { InviteCode } from '../components/dashboard/admin/InviteCode';
 import { FederationTabsCard } from '../components/dashboard/tabs/FederationTabsCard';
 import { BftInfo } from '../components/BftInfo';
 import { DangerZone } from '../components/dashboard/danger/DangerZone';
+import { useGuardianAdminApi } from '../../context/hooks';
 
 const findOurPeerId = (
   configPeerIds: number[],
@@ -24,7 +24,7 @@ const findOurPeerId = (
 };
 
 export const FederationAdmin: React.FC = () => {
-  const { api } = useAdminContext();
+  const api = useGuardianAdminApi();
   const [status, setStatus] = useState<StatusResponse>();
   const [inviteCode, setInviteCode] = useState<string>('');
   const [config, setConfig] = useState<ClientConfig>();

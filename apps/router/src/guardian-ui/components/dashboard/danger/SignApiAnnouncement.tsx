@@ -21,7 +21,7 @@ import { useTranslation } from '@fedimint/utils';
 import { SignedApiAnnouncement } from '@fedimint/types';
 import { normalizeUrl } from '../../../utils';
 import { FiCheckCircle, FiAlertTriangle, FiEdit2 } from 'react-icons/fi';
-import { useAdminContext } from '../../../hooks';
+import { useGuardianAdminApi } from '../../../../context/hooks';
 
 interface SignApiAnnouncementProps {
   ourPeer: { id: number; name: string };
@@ -34,7 +34,7 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
   signedApiAnnouncements,
   currentApiUrl,
 }) => {
-  const { api } = useAdminContext();
+  const api = useGuardianAdminApi();
   const { t } = useTranslation();
   const [isSigningNew, setIsSigningNew] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
