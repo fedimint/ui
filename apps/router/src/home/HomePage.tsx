@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { Wrapper } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
-import { AppContext } from '../AppContext';
+import { AppContext } from '../context/AppContext';
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation();
@@ -28,11 +28,6 @@ export const HomePage: React.FC = () => {
   const [configUrl, setConfigUrl] = useState('');
 
   const content = useMemo(() => {
-    const services = [
-      ...guardians.map((g, index) => ({ type: 'guardian', index })),
-      ...gateways.map((g, index) => ({ type: 'gateway', index })),
-    ];
-
     return (
       <Flex
         direction='column'
@@ -41,7 +36,7 @@ export const HomePage: React.FC = () => {
         paddingTop='10vh'
         paddingX='4'
       >
-        {services.length === 0 ? (
+        {Object.keys(guardians).length + Object.keys(gateways).length === 0 ? (
           <>
             <Button
               onClick={onOpen}
@@ -74,19 +69,23 @@ export const HomePage: React.FC = () => {
               width='100%'
               maxWidth='400px'
             >
-              {services.map((service) => (
+              {Object.keys(guardians).map((guardianIndex) => (
                 <Link
-                  key={`${service.type}-${service.index}`}
-                  to={`/${service.type}/${service.index}`}
+                  key={`guardian-${guardianIndex}`}
+                  to={`/guardian/${guardianIndex}`}
                 >
-                  <Button
-                    width='100%'
-                    colorScheme={
-                      service.type === 'guardian' ? 'green' : 'purple'
-                    }
-                  >
-                    {t(`home.${service.type}`, service.type)}{' '}
-                    {service.index + 1}
+                  <Button width='100%' colorScheme='green'>
+                    {t(`home.guardian`, 'Guardian')} {guardianIndex}
+                  </Button>
+                </Link>
+              ))}
+              {Object.keys(gateways).map((gatewayIndex) => (
+                <Link
+                  key={`gateway-${gatewayIndex}`}
+                  to={`/gateway/${gatewayIndex}`}
+                >
+                  <Button width='100%' colorScheme='purple'>
+                    {t(`home.gateway`, 'Gateway')} {gatewayIndex}
                   </Button>
                 </Link>
               ))}

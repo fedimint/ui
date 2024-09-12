@@ -18,40 +18,18 @@ import { AdminRpc, ModuleRpc, SetupRpc, SharedRpc } from './types';
 export const SESSION_STORAGE_KEY = 'guardian-ui-key';
 
 export type GuardianConfig = {
-  fm_config_api?: string;
-  tos?: string;
+  fm_config_api: string;
 };
 
 export class GuardianApi {
   private websocket: JsonRpcWebsocket | null = null;
   private connectPromise: Promise<JsonRpcWebsocket> | null = null;
-  private guardianConfig: GuardianConfig | null = null;
 
-  public getGuardianConfig = async (): Promise<GuardianConfig> => {
-    if (this.guardianConfig === null) {
-      const response = await fetch('/config.json');
-      if (!response.ok) {
-        throw new Error('Could not find config.json');
-      }
-      const config: GuardianConfig = await response.json();
-      if (
-        config.fm_config_api === 'config api not set' ||
-        !config.fm_config_api
-      ) {
-        config.fm_config_api = undefined;
-      }
-      this.guardianConfig = config;
-    }
-    return this.guardianConfig;
-  };
-
-  public setGuardianConfig = (config: GuardianConfig) => {
-    this.guardianConfig = config;
-  };
+  constructor(private guardianConfig: GuardianConfig) {}
 
   /*** WebSocket methods ***/
 
-  public connect = async (websocketUrl: string): Promise<JsonRpcWebsocket> => {
+  public connect = async (): Promise<JsonRpcWebsocket> => {
     if (this.websocket !== null) {
       return this.websocket;
     }
@@ -62,7 +40,7 @@ export class GuardianApi {
     this.connectPromise = new Promise((resolve, reject) => {
       const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
-        websocketUrl,
+        this.guardianConfig.fm_config_api,
         requestTimeoutMs,
         (error: JsonRpcError) => {
           console.error('failed to create websocket', error);
@@ -204,7 +182,7 @@ export class GuardianApi {
         if (!this.guardianConfig?.fm_config_api) {
           throw new Error('fm_config_api not found in config.json');
         }
-        await this.connect(this.guardianConfig?.fm_config_api);
+        await this.connect();
         await this.shutdown_internal();
         const status = await this.status();
         if (status.server === GuardianServerStatus.ConsensusRunning) {
@@ -320,7 +298,7 @@ export class GuardianApi {
       if (!this.guardianConfig?.fm_config_api) {
         throw new Error('fm_config_api not found in config.json');
       }
-      const websocket = await this.connect(this.guardianConfig?.fm_config_api);
+      const websocket = await this.connect();
       // console.log('method', method);
       const response = await websocket.call(method, [
         {

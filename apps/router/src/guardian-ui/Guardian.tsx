@@ -1,24 +1,21 @@
 import React, { useMemo } from 'react';
 import { Box, Flex, Spinner, Heading, Text, Center } from '@chakra-ui/react';
 import { Login } from '@fedimint/ui';
-import { SetupContextProvider } from './setup/SetupContext';
-import { AdminContextProvider } from './admin/AdminContext';
+import { SetupContextProvider } from '../context/guardian/SetupContext';
+import { AdminContextProvider } from '../context/guardian/AdminContext';
 import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
-import { useAppContext } from './hooks';
+import { useGuardianContext } from '../context/hooks';
 import { useTranslation } from '@fedimint/utils';
 import { GUARDIAN_APP_ACTION_TYPE, GuardianStatus } from './types';
 import { formatApiErrorMessage } from './utils/api';
-import { NotConfigured } from './components/NotConfigured';
 
-export const Main = React.memo(function App() {
+export const Guardian: React.FC = () => {
+  const { api, state, dispatch } = useGuardianContext();
   const { t } = useTranslation();
-  const { state, api, dispatch } = useAppContext();
-
-  console.log('state', state);
 
   const content = useMemo(() => {
-    if (state.appError) {
+    if (state.guardianError) {
       return (
         <Flex
           direction='column'
@@ -31,13 +28,9 @@ export const Main = React.memo(function App() {
           <Heading size='lg' marginBottom='4'>
             {t('common.error')}
           </Heading>
-          <Text fontSize='md'>{state.appError}</Text>
+          <Text fontSize='md'>{state.guardianError}</Text>
         </Flex>
       );
-    }
-
-    if (state.status === GuardianStatus.NotConfigured) {
-      return <NotConfigured api={api} dispatch={dispatch} />;
     }
 
     if (state.needsAuth) {
@@ -57,10 +50,7 @@ export const Main = React.memo(function App() {
 
     if (state.status === GuardianStatus.Setup && state.initServerStatus) {
       return (
-        <SetupContextProvider
-          initServerStatus={state.initServerStatus}
-          api={api}
-        >
+        <SetupContextProvider initServerStatus={state.initServerStatus}>
           <FederationSetup />
         </SetupContextProvider>
       );
@@ -68,7 +58,7 @@ export const Main = React.memo(function App() {
 
     if (state.status === GuardianStatus.Admin) {
       return (
-        <AdminContextProvider api={api}>
+        <AdminContextProvider>
           <FederationAdmin />
         </AdminContextProvider>
       );
@@ -81,8 +71,8 @@ export const Main = React.memo(function App() {
     );
   }, [
     state.status,
-    state.appError,
     state.needsAuth,
+    state.guardianError,
     state.initServerStatus,
     api,
     dispatch,
@@ -94,4 +84,4 @@ export const Main = React.memo(function App() {
       <Box width='100%'>{content}</Box>
     </Center>
   );
-});
+};

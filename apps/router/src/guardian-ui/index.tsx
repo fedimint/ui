@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { App } from './App';
+import { App } from './Guardian';
 import spaceGroteskTtf from '@fedimint/ui/assets/fonts/SpaceGrotesk-Variable.ttf';
 import interTtf from '@fedimint/ui/assets/fonts/Inter-Variable.ttf';
 import { Fonts, SharedChakraProvider, theme } from '@fedimint/ui';

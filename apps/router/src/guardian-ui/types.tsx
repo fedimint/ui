@@ -1,7 +1,6 @@
 import { Peer, GuardianServerStatus, ConfigGenParams } from '@fedimint/types';
 
 export enum GuardianStatus {
-  NotConfigured,
   Loading,
   Setup,
   Admin,
@@ -11,7 +10,7 @@ export interface GuardianAppState {
   status: GuardianStatus;
   needsAuth: boolean;
   initServerStatus?: GuardianServerStatus;
-  appError?: string;
+  guardianError?: string;
 }
 
 export enum GUARDIAN_APP_ACTION_TYPE {
