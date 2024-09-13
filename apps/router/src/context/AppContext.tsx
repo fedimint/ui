@@ -148,10 +148,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [state, dispatch] = useReducer(reducer, makeInitialState());
 
   useEffect(() => {
-    const addService = (service: Service) => {
+    const addService = (service: Service, index: number) => {
       const kind = isGuardian(service) ? 'guardian' : 'gateway';
-      const stateKey = `${kind}s` as 'guardians' | 'gateways';
-      const id = (Object.keys(state[stateKey]).length + 1).toString();
+      const id = (index + 1).toString();
 
       if (kind === 'guardian') {
         dispatch({
@@ -173,12 +172,13 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
     const handleConfig = (data: Service | Service[]) => {
       const services = Array.isArray(data) ? data : [data];
-      services.forEach((service) => {
+      services.forEach((service, index) => {
         if (isGuardian(service) || isGateway(service)) {
-          addService(service);
+          addService(service, index);
         }
       });
     };
+
     fetch('/config.json')
       .then((response) => {
         if (!response.ok) {
@@ -202,7 +202,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       .catch((error) => {
         console.error('Error fetching or processing config:', error);
       });
-  }, [state]);
+  }, []);
 
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>

@@ -52,23 +52,25 @@ export const HomePage: React.FC = () => {
               <Table variant='simple'>
                 <Thead>
                   <Tr>
-                    <Th>{t('home.guardianId', 'Guardian ID')}</Th>
+                    <Th>{t('home.guardianUrl', 'Guardian URL')}</Th>
                     <Th>{t('home.actions', 'Actions')}</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {Object.keys(guardians).map((guardianIndex) => (
-                    <Tr key={`guardian-${guardianIndex}`}>
-                      <Td>{guardianIndex}</Td>
-                      <Td>
-                        <Link to={`/guardian/${guardianIndex}`}>
-                          <Button size='sm' colorScheme='green'>
-                            {t('home.view', 'View')}
-                          </Button>
-                        </Link>
-                      </Td>
-                    </Tr>
-                  ))}
+                  {Object.entries(guardians).map(
+                    ([guardianIndex, guardian]) => (
+                      <Tr key={`guardian-${guardianIndex}`}>
+                        <Td>{guardian.config.fm_config_api}</Td>
+                        <Td>
+                          <Link to={`/guardian/${guardianIndex}`}>
+                            <Button size='sm' colorScheme='green'>
+                              {t('home.view', 'View')}
+                            </Button>
+                          </Link>
+                        </Td>
+                      </Tr>
+                    )
+                  )}
                 </Tbody>
               </Table>
             </CardBody>
@@ -84,14 +86,14 @@ export const HomePage: React.FC = () => {
               <Table variant='simple'>
                 <Thead>
                   <Tr>
-                    <Th>{t('home.gatewayId', 'Gateway ID')}</Th>
+                    <Th>{t('home.gatewayUrl', 'Gateway URL')}</Th>
                     <Th>{t('home.actions', 'Actions')}</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {Object.keys(gateways).map((gatewayIndex) => (
+                  {Object.entries(gateways).map(([gatewayIndex, gateway]) => (
                     <Tr key={`gateway-${gatewayIndex}`}>
-                      <Td>{gatewayIndex}</Td>
+                      <Td>{gateway.config.baseUrl}</Td>
                       <Td>
                         <Link to={`/gateway/${gatewayIndex}`}>
                           <Button size='sm' colorScheme='purple'>
