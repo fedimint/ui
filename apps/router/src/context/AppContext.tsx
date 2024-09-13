@@ -1,7 +1,15 @@
-import React, { createContext, Dispatch, ReactNode, useReducer } from 'react';
+import React, {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useEffect,
+  useReducer,
+} from 'react';
 import { GuardianConfig } from '../guardian-ui/GuardianApi';
 
 import { GatewayConfig } from '../gateway-ui/types';
+
+type Service = GuardianConfig | GatewayConfig;
 
 export interface Guardian {
   config: GuardianConfig;
@@ -138,6 +146,63 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }: AppContextProviderProps) => {
   const [state, dispatch] = useReducer(reducer, makeInitialState());
+
+  useEffect(() => {
+    const addService = (service: Service) => {
+      const kind = isGuardian(service) ? 'guardian' : 'gateway';
+      const stateKey = `${kind}s` as 'guardians' | 'gateways';
+      const id = (Object.keys(state[stateKey]).length + 1).toString();
+
+      if (kind === 'guardian') {
+        dispatch({
+          type: APP_ACTION_TYPE.ADD_GUARDIAN,
+          payload: { id, guardian: { config: service as GuardianConfig } },
+        });
+      } else {
+        dispatch({
+          type: APP_ACTION_TYPE.ADD_GATEWAY,
+          payload: { id, gateway: { config: service as GatewayConfig } },
+        });
+      }
+    };
+
+    const isGuardian = (service: Service): service is GuardianConfig =>
+      'fm_config_api' in service;
+    const isGateway = (service: Service): service is GatewayConfig =>
+      'baseUrl' in service;
+
+    const handleConfig = (data: Service | Service[]) => {
+      const services = Array.isArray(data) ? data : [data];
+      services.forEach((service) => {
+        if (isGuardian(service) || isGateway(service)) {
+          addService(service);
+        }
+      });
+    };
+    fetch('/config.json')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then((text) => {
+        if (!text.trim()) {
+          console.warn('Config file is empty');
+          return;
+        }
+        try {
+          const data = JSON.parse(text);
+          handleConfig(data);
+        } catch (error) {
+          console.error('Error parsing config JSON:', error);
+          console.log('Raw config content:', text);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching or processing config:', error);
+      });
+  }, [state]);
 
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
