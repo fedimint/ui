@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
   Flex,
   Input,
@@ -12,8 +12,8 @@ import { WalletModalState } from '../WalletModal';
 import { FederationInfo, Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
 import { AmountInput } from '..';
-import { ApiContext } from '../../../ApiProvider';
 import SendOnchainSuccess from './SendOnchainSuccess';
+import { useGatewayApi } from '../../../../context/hooks';
 
 interface SendOnchainProps {
   federations: FederationInfo[];
@@ -29,7 +29,7 @@ const SendOnchain: React.FC<SendOnchainProps> = ({
   setShowSelector,
 }) => {
   const { t } = useTranslation();
-  const { gateway } = useContext(ApiContext);
+  const api = useGatewayApi();
   const [bitcoinAddress, setBitcoinAddress] = useState('');
   const [amountSats, setAmountSats] = useState<Sats>(0 as Sats);
   const [successTxid, setSuccessTxid] = useState<string | null>(null);
@@ -67,7 +67,7 @@ const SendOnchain: React.FC<SendOnchainProps> = ({
     }
 
     try {
-      const txid = await gateway.submitPegOut({
+      const txid = await api.submitPegOut({
         federationId: walletModalState.selectedFederation.federation_id,
         satAmountOrAll: amountSats,
         address: bitcoinAddress,

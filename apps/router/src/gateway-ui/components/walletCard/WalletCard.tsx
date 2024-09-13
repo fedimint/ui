@@ -10,7 +10,7 @@ import {
   WalletModalState,
   WalletModalType,
 } from '../walletModal/WalletModal';
-import { Unit } from '../../Main';
+import { Unit } from '../../Gateway';
 
 interface WalletCardProps {
   unit: Unit;

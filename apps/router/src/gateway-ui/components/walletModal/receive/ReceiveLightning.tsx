@@ -4,8 +4,8 @@ import { useTranslation } from '@fedimint/utils';
 import { FederationInfo, IncomingContract, Sats } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
 import FederationSelector from '../FederationSelector';
-import { ApiContext } from '../../../ApiProvider';
 import { AmountInput, CreateButton, QRCodeTabs } from '..';
+import { useGatewayApi } from '../../../../context/hooks';
 
 interface ReceiveLightningProps {
   federations: FederationInfo[];
@@ -21,7 +21,7 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
   setShowSelector,
 }) => {
   const { t } = useTranslation();
-  const { gateway } = React.useContext(ApiContext);
+  const api = useGatewayApi();
   const [amount, setAmount] = useState<Sats>(0 as Sats);
   const [invoice, setInvoice] = useState<string>();
   const [showInvoiceInfo, setShowInvoiceInfo] = useState(false);
@@ -33,7 +33,7 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
         commitment: 'test',
         ciphertext: 'test',
       };
-      const invoice = await gateway.createBolt11InvoiceV2({
+      const invoice = await api.createBolt11InvoiceV2({
         federation_id: walletModalState.selectedFederation?.federation_id ?? '',
         contract: incomingContract,
         invoice_amount: amount as number,
@@ -47,7 +47,7 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
       console.error('Failed to create invoice:', error);
     }
   }, [
-    gateway,
+    api,
     setShowSelector,
     setShowInvoiceInfo,
     walletModalState.selectedFederation?.federation_id,

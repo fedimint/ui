@@ -14,12 +14,17 @@ import {
   ReceiveEcashResponse,
   GatewayBalances,
 } from '@fedimint/types';
+import { GatewayConfig } from './types';
 
 export const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
 // GatewayApi is an implementation of the ApiInterface
 export class GatewayApi {
-  private baseUrl: string | undefined = process.env.REACT_APP_FM_GATEWAY_API;
+  private baseUrl: string;
+
+  constructor(config: GatewayConfig) {
+    this.baseUrl = config.baseUrl;
+  }
 
   // Tests a provided password or the one in session storage
   testPassword = async (password?: string): Promise<boolean> => {

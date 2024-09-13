@@ -13,7 +13,7 @@ import { FederationInfo, MSats } from '@fedimint/types';
 import { useTranslation, formatEllipsized, formatValue } from '@fedimint/utils';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { ViewConfigModal } from './ViewConfig';
-import { Unit } from '../../Main';
+import { Unit } from '../../Gateway';
 import {
   WalletModalAction,
   WalletModalState,

@@ -5,7 +5,7 @@ import { FederationInfo, Sats } from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
 import FederationSelector from '../FederationSelector';
 import { AmountInput, CreateButton, QRCodeTabs } from '..';
-import { ApiContext } from '../../../ApiProvider';
+import { useGatewayApi } from '../../../../context/hooks';
 
 interface SendEcashProps {
   federations: FederationInfo[];
@@ -21,7 +21,7 @@ const SendEcash: React.FC<SendEcashProps> = ({
   setShowSelector,
 }) => {
   const { t } = useTranslation();
-  const { gateway } = React.useContext(ApiContext);
+  const api = useGatewayApi();
   const [amount, setAmount] = useState<Sats>(0 as Sats);
   const [ecash, setEcash] = useState<string>('');
   const [showEcash, setShowEcash] = useState<boolean>(false);
@@ -29,7 +29,7 @@ const SendEcash: React.FC<SendEcashProps> = ({
 
   const handleCreateEcash = useCallback(() => {
     if (!walletModalState.selectedFederation) return;
-    gateway
+    api
       .spendEcash(walletModalState.selectedFederation.federation_id, amount)
       .then((newEcash) => {
         setEcash(newEcash);
@@ -40,13 +40,7 @@ const SendEcash: React.FC<SendEcashProps> = ({
         console.error(error, message);
         alert(t('wallet-modal.send.ecash-error', { error: message }));
       });
-  }, [
-    gateway,
-    walletModalState.selectedFederation,
-    amount,
-    setShowSelector,
-    t,
-  ]);
+  }, [api, walletModalState.selectedFederation, amount, setShowSelector, t]);
 
   if (showEcash) {
     return (

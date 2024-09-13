@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { FederationInfo } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { ApiContext } from '../../ApiProvider';
+import { useGatewayApi } from '../../../context/hooks';
 
 export interface ConnectFedModalProps {
   isOpen: boolean;
@@ -84,7 +84,7 @@ export const ConnectFederation = React.memo(function ConnectFederation({
   onClose,
 }: ConnectFederationProps) {
   const { t } = useTranslation();
-  const { gateway } = React.useContext(ApiContext);
+  const api = useGatewayApi();
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [connectInfo, setConnectInfo] = useState<string>('');
   const [loading, setLoading] = useState(false);
@@ -97,7 +97,7 @@ export const ConnectFederation = React.memo(function ConnectFederation({
 
   const handleConnectFederation = () => {
     setLoading(true);
-    gateway
+    api
       .connectFederation(connectInfo.trim())
       .then((federation) => {
         renderConnectedFedCallback(federation);

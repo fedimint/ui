@@ -6,7 +6,7 @@ import { WalletModalState } from '../WalletModal';
 import { motion } from 'framer-motion';
 import { FiCheckCircle } from 'react-icons/fi';
 import { InfoField } from '..';
-import { GatewayApi } from '../../../GatewayApi';
+import { useGatewayApi } from '../../../../context/hooks';
 
 interface ReceiveEcashProps {
   federations: FederationInfo[];
@@ -19,13 +19,13 @@ const ReceiveEcash: React.FC<ReceiveEcashProps> = ({ setShowSelector }) => {
   const { t } = useTranslation();
   const [ecashNote, setEcashNote] = useState('');
   const [claimedAmount, setClaimedAmount] = useState<number | null>(null);
-  const gatewayApi = new GatewayApi();
+  const api = useGatewayApi();
 
   const handlePaste = async () => {
     try {
       const text = await navigator.clipboard.readText();
       setEcashNote(text);
-      const result = await gatewayApi.receiveEcash(text);
+      const result = await api.receiveEcash(text);
       setClaimedAmount(result);
       setShowSelector(false);
     } catch (err) {

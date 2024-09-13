@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Guardian } from './guardian-ui/Guardian';
-import { App as GatewayApp } from './gateway-ui/App';
+import { Gateway } from './gateway-ui/Gateway';
 import { SharedChakraProvider, theme } from '@fedimint/ui';
 
 import { i18nProvider } from '@fedimint/utils';
@@ -11,6 +11,7 @@ import { AppContextProvider } from './context/AppContext';
 import { HomePage } from './home/HomePage';
 import { useAppContext } from './context/hooks';
 import { GuardianContextProvider } from './context/guardian/GuardianContext';
+import { GatewayContextProvider } from './context/gateway/GatewayContext';
 
 i18nProvider(languages);
 
@@ -31,7 +32,14 @@ const App = () => {
           />
         )}
         {selectedService?.kind === 'gateway' && (
-          <Route path='/gateway/:id' element={<GatewayApp />} />
+          <Route
+            path='/gateway/:id'
+            element={
+              <GatewayContextProvider>
+                <Gateway />
+              </GatewayContextProvider>
+            }
+          />
         )}
       </Routes>
     </Router>

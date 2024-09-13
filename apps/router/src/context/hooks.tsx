@@ -1,5 +1,5 @@
 import { Dispatch, useCallback, useContext, useEffect, useState } from 'react';
-import { AppContext, AppContextValue, Gateway } from './AppContext';
+import { AppContext, AppContextValue } from './AppContext';
 import {
   GuardianContext,
   GuardianContextValue,
@@ -20,13 +20,25 @@ import {
   GuardianConfig,
   SetupApiInterface,
 } from '../guardian-ui/GuardianApi';
-import { ConfigGenParams, GuardianServerStatus } from '@fedimint/types';
+import {
+  ConfigGenParams,
+  GatewayInfo,
+  GuardianServerStatus,
+} from '@fedimint/types';
 import { formatApiErrorMessage } from '../guardian-ui/utils/api';
 import {
   LOCAL_STORAGE_SETUP_KEY,
   SetupContext,
   SetupContextValue,
 } from './guardian/SetupContext';
+import {
+  GATEWAY_APP_ACTION_TYPE,
+  GatewayAppAction,
+  GatewayAppState,
+  GatewayConfig,
+} from '../gateway-ui/types';
+import { GatewayContext, GatewayContextValue } from './gateway/GatewayContext';
+import { GatewayApi } from '../gateway-ui/GatewayApi';
 
 export function useAppContext(): AppContextValue {
   return useContext(AppContext);
@@ -37,6 +49,13 @@ export const useGuardianConfig = (): GuardianConfig => {
   if (!selectedService || selectedService.kind !== 'guardian')
     throw new Error('useGuardianConfig must be used with a selected guardian');
   return guardians[selectedService.id].config;
+};
+
+export const useGatewayConfig = (): GatewayConfig => {
+  const { selectedService, gateways } = useAppContext();
+  if (!selectedService || selectedService.kind !== 'gateway')
+    throw new Error('useGatewayConfig must be used with a selected gateway');
+  return gateways[selectedService.id].config;
 };
 
 export const useGuardianDispatch = (): Dispatch<GuardianAppAction> => {
@@ -380,11 +399,121 @@ export const useHandleBackgroundGuardianSetupActions = (
   };
 };
 
-export const useSelectedGateway = (): Gateway | null => {
-  const { selectedService, gateways } = useAppContext();
-  if (!selectedService) return null;
-  if (selectedService.kind === 'gateway') {
-    return gateways[selectedService.id];
-  }
-  return null;
+export const useGatewayContext = (): GatewayContextValue => {
+  const gateway = useContext(GatewayContext);
+  if (!gateway)
+    throw new Error(
+      'useGatewayContext must be used within a GatewayContextProvider'
+    );
+  return gateway;
+};
+
+export const useGatewayApi = (): GatewayApi => {
+  const gateway = useGatewayContext();
+  return gateway.api;
+};
+
+export const useGatewayState = (): GatewayAppState => {
+  const gateway = useGatewayContext();
+  return gateway.state;
+};
+
+export const useGatewayInfo = (): GatewayInfo => {
+  const gateway = useGatewayContext();
+  if (!gateway.state.gatewayInfo)
+    throw new Error(
+      'useGatewayInfo must be used within a GatewayContextProvider'
+    );
+  return gateway.state.gatewayInfo;
+};
+
+export const useLoadGateway = (
+  dispatch: Dispatch<GatewayAppAction>
+): {
+  isAuthenticated: boolean;
+  runningInitialAuthCheck: boolean;
+} => {
+  const api = useGatewayApi();
+  // Whether we are currently checking the authentication status.
+  const [runningInitialAuthCheck, setRunningInitialAuthCheck] = useState(false);
+  // Whether the user has successfully authenticated with the gateway.
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  // Attempt to authenticate with the saved password on initial load and skip the login screen if successful.
+  useEffect(() => {
+    setRunningInitialAuthCheck(true);
+    api
+      .testPassword()
+      .then((authed) => {
+        setIsAuthenticated(authed);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => setRunningInitialAuthCheck(false));
+  }, [api]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const fetchInfoAndConfigs = async () => {
+        try {
+          const gatewayInfo = await api.fetchInfo();
+
+          const configs = await api.fetchConfigs();
+
+          const updatedFederations = gatewayInfo.federations.map(
+            (federation) => ({
+              ...federation,
+              config: configs.federations[federation.federation_id],
+            })
+          );
+
+          const updatedGatewayInfo = {
+            ...gatewayInfo,
+            federations: updatedFederations,
+          };
+
+          dispatch({
+            type: GATEWAY_APP_ACTION_TYPE.SET_GATEWAY_INFO,
+            payload: updatedGatewayInfo,
+          });
+        } catch (error: unknown) {
+          console.error(error);
+          dispatch({
+            type: GATEWAY_APP_ACTION_TYPE.SET_ERROR,
+            payload: (error as Error).message,
+          });
+        }
+      };
+
+      const fetchBalances = () => {
+        api
+          .fetchBalances()
+          .then((balances) => {
+            dispatch({
+              type: GATEWAY_APP_ACTION_TYPE.SET_BALANCES,
+              payload: balances,
+            });
+          })
+          .catch(({ message, error }) => {
+            console.error(error);
+            dispatch({
+              type: GATEWAY_APP_ACTION_TYPE.SET_ERROR,
+              payload: message,
+            });
+          });
+      };
+
+      fetchInfoAndConfigs();
+      fetchBalances();
+
+      const interval = setInterval(fetchInfoAndConfigs, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isAuthenticated, api, dispatch]);
+
+  return {
+    isAuthenticated,
+    runningInitialAuthCheck,
+  };
 };

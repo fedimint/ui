@@ -20,6 +20,10 @@ import { useTranslation } from '@fedimint/utils';
 import { GuardianRole } from '../../../../types';
 import { getModuleParamsFromConfig } from '../../../../utils/api';
 import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
+import {
+  useConsensusPolling,
+  useGuardianSetupContext,
+} from '../../../../../context/hooks';
 
 interface Props {
   next(): void;

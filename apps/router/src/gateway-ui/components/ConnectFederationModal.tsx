@@ -13,26 +13,31 @@ import {
   ModalContent,
   ModalCloseButton,
 } from '@chakra-ui/react';
-import { FederationInfo } from '@fedimint/types';
+import { GatewayInfo } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { ApiContext } from '../ApiProvider';
+import {
+  useGatewayApi,
+  useGatewayContext,
+  useGatewayInfo,
+} from '../../context/hooks';
+import { GATEWAY_APP_ACTION_TYPE } from '../types';
 
 export type ConnectFederationModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  renderConnectedFedCallback: (federation: FederationInfo) => void;
 };
 
 export const ConnectFederationModal = React.memo(
   function ConnectFederationModal({
     isOpen,
     onClose,
-    renderConnectedFedCallback,
   }: ConnectFederationModalProps) {
     const { t } = useTranslation();
-    const { gateway } = React.useContext(ApiContext);
-    const [errorMsg, setErrorMsg] = useState<string>('');
+    const api = useGatewayApi();
+    const { dispatch } = useGatewayContext();
+    const gatewayInfo = useGatewayInfo();
     const [connectInfo, setConnectInfo] = useState<string>('');
+    const [errorMsg, setErrorMsg] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const theme = useTheme();
 
@@ -45,10 +50,16 @@ export const ConnectFederationModal = React.memo(
 
     const handleConnectFederation = () => {
       setLoading(true);
-      gateway
+      api
         .connectFederation(connectInfo.trim())
         .then((federation) => {
-          renderConnectedFedCallback(federation);
+          dispatch({
+            type: GATEWAY_APP_ACTION_TYPE.SET_GATEWAY_INFO,
+            payload: {
+              ...gatewayInfo,
+              federations: [...gatewayInfo.federations, federation],
+            } as GatewayInfo,
+          });
           setConnectInfo('');
         })
         .catch(({ message, error }) => {

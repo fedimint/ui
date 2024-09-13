@@ -1,15 +1,12 @@
 import React from 'react';
 import { Flex, Heading, Tabs, TabList, Tab, useTheme } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { Unit, UNIT_OPTIONS } from '../Main';
+import { UNIT_OPTIONS } from '../Gateway';
+import { useGatewayContext } from '../../context/hooks';
+import { GATEWAY_APP_ACTION_TYPE } from '../types';
 
-interface HeaderWithUnitSelectorProps {
-  setUnit: (unit: Unit) => void;
-}
-
-export const HeaderWithUnitSelector: React.FC<HeaderWithUnitSelectorProps> = ({
-  setUnit,
-}) => {
+export const HeaderWithUnitSelector: React.FC = () => {
+  const { dispatch } = useGatewayContext();
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -31,7 +28,12 @@ export const HeaderWithUnitSelector: React.FC<HeaderWithUnitSelectorProps> = ({
         size='sm'
         variant='soft-rounded'
         defaultIndex={1}
-        onChange={(index) => setUnit(UNIT_OPTIONS[index])}
+        onChange={(index) => {
+          dispatch({
+            type: GATEWAY_APP_ACTION_TYPE.SET_UNIT,
+            payload: UNIT_OPTIONS[index],
+          });
+        }}
       >
         <TabList>
           {UNIT_OPTIONS.map((option) => (
