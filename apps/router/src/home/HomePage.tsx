@@ -60,7 +60,7 @@ export const HomePage: React.FC = () => {
                   {Object.entries(guardians).map(
                     ([guardianIndex, guardian]) => (
                       <Tr key={`guardian-${guardianIndex}`}>
-                        <Td>{guardian.config.fm_config_api}</Td>
+                        <Td>{guardian.config.baseUrl}</Td>
                         <Td>
                           <Link to={`/guardian/${guardianIndex}`}>
                             <Button size='sm' colorScheme='green'>

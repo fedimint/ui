@@ -8,6 +8,7 @@ import React, {
 import { GuardianConfig } from '../guardian-ui/GuardianApi';
 
 import { GatewayConfig } from '../gateway-ui/types';
+import { sha256Hash } from '@fedimint/utils';
 
 type Service = GuardianConfig | GatewayConfig;
 
@@ -131,34 +132,32 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [state, dispatch] = useReducer(reducer, makeInitialState());
 
   useEffect(() => {
-    const addService = (service: Service, index: number) => {
-      const kind = isGuardian(service) ? 'guardian' : 'gateway';
-      const id = (index + 1).toString();
+    const isGuardian = (service: Service): service is GuardianConfig =>
+      service.baseUrl.startsWith('ws');
+    const isGateway = (service: Service): service is GatewayConfig =>
+      service.baseUrl.startsWith('http');
+    const addService = async (service: Service) => {
+      const id = await sha256Hash(service.baseUrl);
 
-      if (kind === 'guardian') {
+      if (isGuardian(service)) {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
           payload: { id, guardian: { config: service as GuardianConfig } },
         });
-      } else {
+      } else if (isGateway(service)) {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GATEWAY,
           payload: { id, gateway: { config: service as GatewayConfig } },
         });
+      } else {
+        throw new Error(`Invalid service baseUrl in config.json: ${service}`);
       }
     };
 
-    const isGuardian = (service: Service): service is GuardianConfig =>
-      'fm_config_api' in service;
-    const isGateway = (service: Service): service is GatewayConfig =>
-      'baseUrl' in service;
-
     const handleConfig = (data: Service | Service[]) => {
       const services = Array.isArray(data) ? data : [data];
-      services.forEach((service, index) => {
-        if (isGuardian(service) || isGateway(service)) {
-          addService(service, index);
-        }
+      services.forEach((service) => {
+        addService(service);
       });
     };
 

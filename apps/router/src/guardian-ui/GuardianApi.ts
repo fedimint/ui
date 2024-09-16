@@ -18,7 +18,7 @@ import { AdminRpc, ModuleRpc, SetupRpc, SharedRpc } from './types';
 export const SESSION_STORAGE_KEY = 'guardian-ui-key';
 
 export type GuardianConfig = {
-  fm_config_api: string;
+  baseUrl: string;
 };
 
 export class GuardianApi {
@@ -40,7 +40,7 @@ export class GuardianApi {
     this.connectPromise = new Promise((resolve, reject) => {
       const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
-        this.guardianConfig.fm_config_api,
+        this.guardianConfig.baseUrl,
         requestTimeoutMs,
         (error: JsonRpcError) => {
           console.error('failed to create websocket', error);
@@ -179,7 +179,7 @@ export class GuardianApi {
     const maxTries = 10;
     const attemptConfirmConsensusRunning = async (): Promise<void> => {
       try {
-        if (!this.guardianConfig?.fm_config_api) {
+        if (!this.guardianConfig?.baseUrl) {
           throw new Error('fm_config_api not found in config.json');
         }
         await this.connect();
@@ -295,7 +295,7 @@ export class GuardianApi {
     params: unknown = null
   ): Promise<T> => {
     try {
-      if (!this.guardianConfig?.fm_config_api) {
+      if (!this.guardianConfig?.baseUrl) {
         throw new Error('fm_config_api not found in config.json');
       }
       const websocket = await this.connect();

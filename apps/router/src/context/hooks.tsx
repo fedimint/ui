@@ -44,6 +44,19 @@ export function useAppContext(): AppContextValue {
   return useContext(AppContext);
 }
 
+export function useAppGuardianConfigs(): GuardianConfig[] {
+  const { guardians } = useAppContext();
+  return Object.values(guardians).map((guardian) => guardian.config);
+}
+
+export function useNumberOfGuardians(): number {
+  return Object.keys(useAppContext().guardians).length;
+}
+
+export function useNumberOfGateways(): number {
+  return Object.keys(useAppContext().gateways).length;
+}
+
 export const useGuardianConfig = (id: string): GuardianConfig => {
   const { guardians } = useAppContext();
   if (!guardians[id])

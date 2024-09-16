@@ -6,7 +6,7 @@ export async function getEnv() {
     throw new Error('Could not find config.json');
   }
   const config: GuardianConfig = await response.json();
-  if (config.fm_config_api === 'config api not set' || !config.fm_config_api) {
+  if (config.baseUrl === 'config api not set' || !config.baseUrl) {
     throw new Error('Config API not set in config.json');
   }
   return config;

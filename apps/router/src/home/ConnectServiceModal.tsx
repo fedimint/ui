@@ -11,7 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import { useTranslation } from '@fedimint/utils';
+import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { GuardianConfig } from '../guardian-ui/GuardianApi';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
@@ -28,38 +28,49 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [configUrl, setConfigUrl] = useState('');
-  const { dispatch } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const { guardians, gateways, dispatch } = useAppContext();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setIsLoading(true);
     const isWebSocket =
       configUrl.startsWith('ws://') || configUrl.startsWith('wss://');
     const isHttp =
       configUrl.startsWith('http://') || configUrl.startsWith('https://');
 
+    const configUrlHash = await sha256Hash(configUrl);
+
     if (isWebSocket) {
-      const guardianConfig: GuardianConfig = { fm_config_api: configUrl };
+      if (Object.hasOwn(guardians, configUrlHash)) {
+        console.error('Guardian already exists');
+        return;
+      }
+      const guardianConfig: GuardianConfig = { baseUrl: configUrl };
       dispatch({
         type: APP_ACTION_TYPE.ADD_GUARDIAN,
         payload: {
-          id: configUrl,
+          id: configUrlHash,
           guardian: { config: guardianConfig },
         },
       });
     } else if (isHttp) {
+      if (Object.hasOwn(gateways, configUrlHash)) {
+        console.error('Gateway already exists');
+        return;
+      }
       const gatewayConfig: GatewayConfig = { baseUrl: configUrl };
       dispatch({
         type: APP_ACTION_TYPE.ADD_GATEWAY,
         payload: {
-          id: configUrl,
+          id: configUrlHash,
           gateway: { config: gatewayConfig },
         },
       });
     } else {
       console.error('Invalid URL format');
-      // You might want to show an error message to the user here
       return;
     }
-
+    setIsLoading(false);
     onClose();
   };
 
@@ -78,7 +89,12 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
               onChange={(e) => setConfigUrl(e.target.value)}
             />
           </FormControl>
-          <Button mt={4} colorScheme='blue' onClick={handleSubmit}>
+          <Button
+            mt={4}
+            colorScheme='blue'
+            onClick={handleSubmit}
+            isLoading={isLoading}
+          >
             {t('common.submit')}
           </Button>
         </ModalBody>
