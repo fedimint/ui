@@ -5,11 +5,7 @@ import React, {
   useMemo,
   useReducer,
 } from 'react';
-import {
-  useGatewayConfig,
-  useLoadGateway,
-  useSelectedServiceId,
-} from '../hooks';
+import { useGatewayConfig, useLoadGateway } from '../hooks';
 import { GatewayApi } from '../../gateway-ui/GatewayApi';
 import {
   GATEWAY_APP_ACTION_TYPE,
@@ -20,6 +16,7 @@ import {
 import { Loading } from '../../gateway-ui/components/Loading';
 import { ErrorMessage } from '../../gateway-ui/components/ErrorMessage';
 import { Login } from '@fedimint/ui';
+import { useLocation } from 'react-router-dom';
 
 export interface GatewayContextValue {
   id: string;
@@ -68,9 +65,10 @@ export interface GatewayContextProviderProps {
 export const GatewayContextProvider: React.FC<GatewayContextProviderProps> = ({
   children,
 }) => {
-  const selectedServiceId = useSelectedServiceId();
-  const config = useGatewayConfig();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const location = useLocation();
+  const gatewayId = location.pathname.split('/')[2];
+  const config = useGatewayConfig(gatewayId);
   const gatewayApi = useMemo(() => new GatewayApi(config), [config]);
 
   const { isAuthenticated, runningInitialAuthCheck } = useLoadGateway(dispatch);
@@ -96,7 +94,7 @@ export const GatewayContextProvider: React.FC<GatewayContextProviderProps> = ({
   return (
     <GatewayContext.Provider
       value={{
-        id: selectedServiceId,
+        id: gatewayId,
         api: gatewayApi,
         state,
         dispatch,

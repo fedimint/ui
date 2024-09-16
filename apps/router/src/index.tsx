@@ -9,38 +9,32 @@ import { i18nProvider } from '@fedimint/utils';
 import { languages } from './languages';
 import { AppContextProvider } from './context/AppContext';
 import { HomePage } from './home/HomePage';
-import { useAppContext } from './context/hooks';
 import { GuardianContextProvider } from './context/guardian/GuardianContext';
 import { GatewayContextProvider } from './context/gateway/GatewayContext';
 
 i18nProvider(languages);
 
 const App = () => {
-  const { selectedService } = useAppContext();
   return (
     <Router>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        {selectedService?.kind === 'guardian' && (
-          <Route
-            path='/guardian/:id'
-            element={
-              <GuardianContextProvider>
-                <Guardian />
-              </GuardianContextProvider>
-            }
-          />
-        )}
-        {selectedService?.kind === 'gateway' && (
-          <Route
-            path='/gateway/:id'
-            element={
-              <GatewayContextProvider>
-                <Gateway />
-              </GatewayContextProvider>
-            }
-          />
-        )}
+        <Route
+          path='/guardian/:id'
+          element={
+            <GuardianContextProvider>
+              <Guardian />
+            </GuardianContextProvider>
+          }
+        />
+        <Route
+          path='/gateway/:id'
+          element={
+            <GatewayContextProvider>
+              <Gateway />
+            </GatewayContextProvider>
+          }
+        />
       </Routes>
     </Router>
   );
