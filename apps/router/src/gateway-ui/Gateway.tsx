@@ -11,13 +11,16 @@ import {
   WalletModalState,
   WalletModalType,
 } from './components/walletModal/WalletModal';
-import { useGatewayContext } from '../context/hooks';
+import { useGatewayContext, useLoadGateway } from '../context/hooks';
+import { ErrorMessage } from './components/ErrorMessage';
+import { Login } from '@fedimint/ui';
+import { GATEWAY_APP_ACTION_TYPE } from './types';
 
 export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
 export type Unit = (typeof UNIT_OPTIONS)[number];
 
 export const Gateway = () => {
-  const { state } = useGatewayContext();
+  const { state, dispatch, api } = useGatewayContext();
   const [showConnectFed, setShowConnectFed] = useState(false);
   const [walletModalState, setWalletModalState] = useState<WalletModalState>({
     isOpen: false,
@@ -26,7 +29,23 @@ export const Gateway = () => {
     selectedFederation: null,
   });
 
-  if (!state.gatewayInfo) return <Loading />;
+  useLoadGateway();
+  if (state.needsAuth) {
+    return (
+      <Login
+        checkAuth={api.testPassword}
+        setAuthenticated={() =>
+          dispatch({
+            type: GATEWAY_APP_ACTION_TYPE.SET_NEEDS_AUTH,
+            payload: false,
+          })
+        }
+        parseError={(err) => (err as Error).message}
+      />
+    );
+  }
+  if (state.gatewayError) return <ErrorMessage error={state.gatewayError} />;
+  if (state.gatewayInfo === null) return <Loading />;
 
   return (
     <Flex direction='column' gap={4}>

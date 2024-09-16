@@ -47,7 +47,7 @@ export const LightningCard = React.memo(function LightningCard({
       <Text fontWeight='bold' mr={2}>
         {label}:
       </Text>
-      <Text>{value}</Text>
+      {value}
     </Flex>
   );
 

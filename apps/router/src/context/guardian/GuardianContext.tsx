@@ -12,7 +12,7 @@ import {
   GuardianAppState,
   GuardianStatus,
 } from '../../guardian-ui/types';
-import { useGuardianConfig, useLoadGuardian } from '../hooks';
+import { useGuardianConfig } from '../hooks';
 import { useLocation } from 'react-router-dom';
 
 export interface GuardianContextValue {
@@ -58,11 +58,10 @@ export const GuardianContextProvider: React.FC<
 > = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const location = useLocation();
+  console.log('location', location);
   const guardianId = location.pathname.split('/')[2];
   const config = useGuardianConfig(guardianId);
   const guardianApi = useMemo(() => new GuardianApi(config), [config]);
-
-  useLoadGuardian();
 
   return (
     <GuardianContext.Provider

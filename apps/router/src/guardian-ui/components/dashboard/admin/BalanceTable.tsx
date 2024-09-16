@@ -75,6 +75,7 @@ export const BalanceTable: React.FC<BalanceTableProps> = ({
           </Tr>
         </Tbody>
       </Table>
+      {/* TODO: make locales for all these */}
       {totalAssets - totalLiabilities > 0 && (
         <Box mt={4} p={4} borderWidth={1} borderRadius='md'>
           <Grid templateColumns='1fr 1fr' gap={4} alignItems='center'>

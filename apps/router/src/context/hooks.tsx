@@ -409,6 +409,15 @@ export const useGatewayState = (): GatewayAppState => {
   return gateway.state;
 };
 
+export const useGatewayDispatch = (): Dispatch<GatewayAppAction> => {
+  const gateway = useGatewayContext();
+  if (!gateway)
+    throw new Error(
+      'useGatewayDispatch must be used within a GatewayContextProvider'
+    );
+  return gateway.dispatch;
+};
+
 export const useGatewayInfo = (): GatewayInfo => {
   const gateway = useGatewayContext();
   if (!gateway.state.gatewayInfo)
@@ -418,34 +427,14 @@ export const useGatewayInfo = (): GatewayInfo => {
   return gateway.state.gatewayInfo;
 };
 
-export const useLoadGateway = (
-  dispatch: Dispatch<GatewayAppAction>
-): {
-  isAuthenticated: boolean;
-  runningInitialAuthCheck: boolean;
-} => {
+export const useLoadGateway = () => {
+  const state = useGatewayState();
+  const dispatch = useGatewayDispatch();
+
   const api = useGatewayApi();
-  // Whether we are currently checking the authentication status.
-  const [runningInitialAuthCheck, setRunningInitialAuthCheck] = useState(false);
-  // Whether the user has successfully authenticated with the gateway.
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
-  // Attempt to authenticate with the saved password on initial load and skip the login screen if successful.
-  useEffect(() => {
-    setRunningInitialAuthCheck(true);
-    api
-      .testPassword()
-      .then((authed) => {
-        setIsAuthenticated(authed);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => setRunningInitialAuthCheck(false));
-  }, [api]);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (!state.needsAuth) {
       const fetchInfoAndConfigs = async () => {
         try {
           const gatewayInfo = await api.fetchInfo();
@@ -501,10 +490,5 @@ export const useLoadGateway = (
       const interval = setInterval(fetchInfoAndConfigs, 5000);
       return () => clearInterval(interval);
     }
-  }, [isAuthenticated, api, dispatch]);
-
-  return {
-    isAuthenticated,
-    runningInitialAuthCheck,
-  };
+  }, [state.needsAuth, api, dispatch]);
 };

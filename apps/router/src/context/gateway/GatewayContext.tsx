@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useReducer,
 } from 'react';
-import { useGatewayConfig, useLoadGateway } from '../hooks';
+import { useGatewayConfig } from '../hooks';
 import { GatewayApi } from '../../gateway-ui/GatewayApi';
 import {
   GATEWAY_APP_ACTION_TYPE,
@@ -13,9 +13,6 @@ import {
   GatewayAppState,
   GatewayStatus,
 } from '../../gateway-ui/types';
-import { Loading } from '../../gateway-ui/components/Loading';
-import { ErrorMessage } from '../../gateway-ui/components/ErrorMessage';
-import { Login } from '@fedimint/ui';
 import { useLocation } from 'react-router-dom';
 
 export interface GatewayContextValue {
@@ -70,26 +67,6 @@ export const GatewayContextProvider: React.FC<GatewayContextProviderProps> = ({
   const gatewayId = location.pathname.split('/')[2];
   const config = useGatewayConfig(gatewayId);
   const gatewayApi = useMemo(() => new GatewayApi(config), [config]);
-
-  const { isAuthenticated, runningInitialAuthCheck } = useLoadGateway(dispatch);
-
-  if (runningInitialAuthCheck || state === null || state.gatewayInfo === null)
-    return <Loading />;
-  if (state.gatewayError) return <ErrorMessage error={state.gatewayError} />;
-  if (!isAuthenticated) {
-    return (
-      <Login
-        checkAuth={gatewayApi.testPassword}
-        setAuthenticated={() =>
-          dispatch({
-            type: GATEWAY_APP_ACTION_TYPE.SET_NEEDS_AUTH,
-            payload: false,
-          })
-        }
-        parseError={(err) => (err as Error).message}
-      />
-    );
-  }
 
   return (
     <GatewayContext.Provider

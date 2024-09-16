@@ -5,13 +5,14 @@ import { SetupContextProvider } from '../context/guardian/SetupContext';
 import { AdminContextProvider } from '../context/guardian/AdminContext';
 import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
-import { useGuardianContext } from '../context/hooks';
+import { useGuardianContext, useLoadGuardian } from '../context/hooks';
 import { useTranslation } from '@fedimint/utils';
 import { GUARDIAN_APP_ACTION_TYPE, GuardianStatus } from './types';
 import { formatApiErrorMessage } from './utils/api';
 
 export const Guardian: React.FC = () => {
   const { api, state, dispatch } = useGuardianContext();
+  useLoadGuardian();
   const { t } = useTranslation();
 
   const content = useMemo(() => {

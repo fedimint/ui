@@ -187,6 +187,13 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       });
   }, []);
 
+  if (
+    Object.keys(state.guardians).length === 0 &&
+    Object.keys(state.gateways).length === 0
+  ) {
+    return null;
+  }
+
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
       {children}
