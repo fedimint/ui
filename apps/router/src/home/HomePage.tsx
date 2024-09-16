@@ -17,7 +17,6 @@ import {
   Tr,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Wrapper } from '@fedimint/ui';
 import { useTranslation } from '@fedimint/utils';
 import { AppContext } from '../context/AppContext';
 import { ConnectServiceModal } from './ConnectServiceModal';
@@ -117,9 +116,9 @@ export const HomePage: React.FC = () => {
   }, [guardians, gateways, t, onOpen]);
 
   return (
-    <Wrapper>
+    <>
       {content}
       <ConnectServiceModal isOpen={isOpen} onClose={onClose} />
-    </Wrapper>
+    </>
   );
 };
