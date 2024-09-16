@@ -9,10 +9,11 @@
 
 This project includes the following apps / packages:
 
-### Apps
+### App
 
-- `guardian-ui`: Web app experience for setting up and administering fedimints. This is used by the Fedimint guardians
-- `gateway-ui`: Web app experience for managing Fedimint gateways. This is used by Gateway administrators
+We've refactored the Fedimint UI into a single client side app that can run on the browser or on desktop using Electron.
+
+- `router`: This creates a homescreen that shows all your connected services: guardians or gateways. You can connect to other guardians or gateways by entering their baseUrl. You have to authenticate each service separately because the auth for each one is done differently.
 
 ### Packages
 
