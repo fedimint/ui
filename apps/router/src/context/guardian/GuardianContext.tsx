@@ -12,11 +12,8 @@ import {
   GuardianAppState,
   GuardianStatus,
 } from '../../guardian-ui/types';
-import {
-  useGuardianConfig,
-  useLoadGuardian,
-  useSelectedServiceId,
-} from '../hooks';
+import { useGuardianConfig, useLoadGuardian } from '../hooks';
+import { useLocation } from 'react-router-dom';
 
 export interface GuardianContextValue {
   id: string;
@@ -59,9 +56,10 @@ export interface GuardianContextProviderProps {
 export const GuardianContextProvider: React.FC<
   GuardianContextProviderProps
 > = ({ children }) => {
-  const selectedServiceId = useSelectedServiceId();
-  const config = useGuardianConfig();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const location = useLocation();
+  const guardianId = location.pathname.split('/')[2];
+  const config = useGuardianConfig(guardianId);
   const guardianApi = useMemo(() => new GuardianApi(config), [config]);
 
   useLoadGuardian();
@@ -69,7 +67,7 @@ export const GuardianContextProvider: React.FC<
   return (
     <GuardianContext.Provider
       value={{
-        id: selectedServiceId,
+        id: guardianId,
         api: guardianApi,
         state,
         dispatch,

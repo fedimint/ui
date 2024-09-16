@@ -20,10 +20,6 @@ export interface Gateway {
 }
 
 export interface AppContextValue {
-  selectedService: {
-    id: string;
-    kind: 'guardian' | 'gateway';
-  } | null;
   guardians: Record<string, Guardian>;
   gateways: Record<string, Gateway>;
   dispatch: Dispatch<AppAction>;
@@ -43,7 +39,6 @@ const makeInitialState = (): AppContextValue => {
     }
   }
   return {
-    selectedService: null,
     guardians: {},
     gateways: {},
     dispatch: () => null,
@@ -59,13 +54,6 @@ export enum APP_ACTION_TYPE {
 }
 
 export type AppAction =
-  | {
-      type: APP_ACTION_TYPE.SET_SELECTED_SERVICE;
-      payload: {
-        id: string;
-        kind: 'guardian' | 'gateway';
-      };
-    }
   | {
       type: APP_ACTION_TYPE.ADD_GUARDIAN;
       payload: {
@@ -94,11 +82,6 @@ const reducer = (
   action: AppAction
 ): AppContextValue => {
   switch (action.type) {
-    case APP_ACTION_TYPE.SET_SELECTED_SERVICE:
-      return {
-        ...state,
-        selectedService: action.payload,
-      };
     case APP_ACTION_TYPE.ADD_GUARDIAN:
       return {
         ...state,

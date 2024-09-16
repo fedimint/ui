@@ -44,18 +44,18 @@ export function useAppContext(): AppContextValue {
   return useContext(AppContext);
 }
 
-export const useGuardianConfig = (): GuardianConfig => {
-  const { selectedService, guardians } = useAppContext();
-  if (!selectedService || selectedService.kind !== 'guardian')
+export const useGuardianConfig = (id: string): GuardianConfig => {
+  const { guardians } = useAppContext();
+  if (!guardians[id])
     throw new Error('useGuardianConfig must be used with a selected guardian');
-  return guardians[selectedService.id].config;
+  return guardians[id].config;
 };
 
-export const useGatewayConfig = (): GatewayConfig => {
-  const { selectedService, gateways } = useAppContext();
-  if (!selectedService || selectedService.kind !== 'gateway')
+export const useGatewayConfig = (id: string): GatewayConfig => {
+  const { gateways } = useAppContext();
+  if (!gateways[id])
     throw new Error('useGatewayConfig must be used with a selected gateway');
-  return gateways[selectedService.id].config;
+  return gateways[id].config;
 };
 
 export const useGuardianDispatch = (): Dispatch<GuardianAppAction> => {
@@ -120,15 +120,6 @@ export const useLoadGuardian = (): void => {
       load().catch((err) => console.error(err));
     }
   }, [guardianState.status, guardianApi, dispatch]);
-};
-
-export const useSelectedServiceId = (): string => {
-  const { selectedService } = useAppContext();
-  if (!selectedService)
-    throw new Error(
-      'useSelectedServiceId must be used with a selected service'
-    );
-  return selectedService.id;
 };
 
 export const useGuardianContext = (): GuardianContextValue => {
