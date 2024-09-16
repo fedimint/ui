@@ -78,6 +78,10 @@ export type AppAction =
       payload: string;
     };
 
+const saveToLocalStorage = (state: AppContextValue) => {
+  localStorage.setItem('fedimint_ui_state', JSON.stringify(state));
+};
+
 const reducer = (
   state: AppContextValue,
   action: AppAction
@@ -120,6 +124,15 @@ const reducer = (
   }
 };
 
+const reducerWithMiddleware = (
+  state: AppContextValue,
+  action: AppAction
+): AppContextValue => {
+  const newState = reducer(state, action);
+  saveToLocalStorage(newState);
+  return newState;
+};
+
 export const AppContext = createContext<AppContextValue>(makeInitialState());
 
 export interface AppContextProviderProps {
@@ -129,7 +142,10 @@ export interface AppContextProviderProps {
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }: AppContextProviderProps) => {
-  const [state, dispatch] = useReducer(reducer, makeInitialState());
+  const [state, dispatch] = useReducer(
+    reducerWithMiddleware,
+    makeInitialState()
+  );
 
   useEffect(() => {
     const isGuardian = (service: Service): service is GuardianConfig =>
