@@ -1,19 +1,18 @@
 import React, { memo } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, useBreakpointValue } from '@chakra-ui/react';
 import { Header, HeaderProps } from './Header';
 import { Footer } from './Footer';
 
 export interface WrapperProps {
   headerProps?: HeaderProps;
   children: React.ReactNode;
-  size?: 'md' | 'lg';
 }
 
 export const Wrapper = memo(function Wrapper({
   headerProps,
   children,
-  size = 'md',
 }: WrapperProps): JSX.Element {
+  const size = useBreakpointValue({ base: 'md', lg: 'lg' });
   return (
     <Flex
       minHeight='100vh'

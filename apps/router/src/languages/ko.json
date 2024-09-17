@@ -1,0 +1,486 @@
+{
+  "common": {
+    "bitcoin": "비트코인",
+    "next": "다음",
+    "back": "뒤로",
+    "unknown": "알 수 없음",
+    "remove": "제거하다",
+    "copy": "복사",
+    "copied": "복사됨!",
+    "cancel": "취소",
+    "review": "리뷰",
+    "approvals": "승인들",
+    "approve": "승인하다",
+    "threshold": "임계값",
+    "confirm": "확인하다",
+    "you": "당신",
+    "close": "닫기",
+    "save": "저장",
+    "continue": "계속하다",
+    "submit": "제출하다",
+    "address": "주소",
+    "amount": "금액",
+    "btc": "BTC",
+    "error": "오류",
+    "sats": "새츠",
+    "msats": "msats",
+    "uri": "URI",
+    "view-on-mempool": "Mempool에서 보기",
+    "ecash": "전자현금"
+  },
+  "notConfigured": {
+    "title": "구성되지 않음",
+    "description": "Fedimint 가디언 서버를 가리키려면 CONFIG_API_URL을 입력해 주세요."
+  },
+  "connect-guardians": {
+    "invite-guardians": "팔로워 초대하기",
+    "invite-guardians-help": "이 링크를 다른 가디언들과 공유하세요.",
+    "approve": "승인하다",
+    "approved": "승인됨",
+    "pending": "보류 중",
+    "not-joined": "가입하지 않음",
+    "waiting-for-guardian": "보호자를 기다리는 중",
+    "table-title": "연합 수호자들",
+    "table-description": "가디언들은 연맹 설정을 확인하면 여기에서 확인됩니다.",
+    "meta-field-key": "메타 필드 - {{key}}"
+  },
+  "federation-dashboard": {
+    "invite-members": "회원을 초대하거나 보호자로 인증하세요.",
+    "invite-members-prompt": "이것을 공유하여 회원들이 연합에 가입하도록 초대하세요",
+    "fed-info": {
+      "label": "연합 정보",
+      "your-status-label": "상태",
+      "block-count-label": "합의 블록 높이",
+      "api-version-label": "API 버전",
+      "consensus-version-label": "합의된 버전",
+      "peer-id-label": "피어 ID",
+      "session-info": {
+        "session-height": "세션 높이",
+        "latest-session": "최근 세션"
+      }
+    },
+    "balance": {
+      "label": "대차대조표"
+    },
+    "bitcoin-node": {
+      "label": "비트코인 노드",
+      "url-label": "URL",
+      "network-label": "네트워크"
+    },
+    "guardians": {
+      "label": "다른 수호자들",
+      "id-name-label": "ID: 이름",
+      "status-label": "연결 상태",
+      "health-label": "건강",
+      "health-issue": "문제",
+      "health-good": "좋은",
+      "last-contribution-label": "마지막 세션 기여",
+      "api-url-label": "API URL",
+      "fetching-announcement": "공지사항 가져오는 중..."
+    },
+    "gateways": {
+      "label": "번개 게이트웨이",
+      "node-id-label": "번개 노드 ID",
+      "gateway-id-label": "게이트웨이 ID",
+      "fee-label": "게이트웨이 수수료",
+      "view-on-site": "{{site}}에서 보기",
+      "no-gateways-info-title": "아직 연결된 게이트웨이가 없습니다!",
+      "no-gateways-info-description": "라이트닝 노드 운영자는 여러분의 연합에 연결하여 라이트닝 네트워크 상호 운용성을 제공할 수 있습니다. 연결되면 그들은 여기에 표시될 것입니다."
+    },
+    "api-announcements": {
+      "label": "API 공지사항",
+      "guardian": "가디언",
+      "api-url": "API URL",
+      "revision": "개정"
+    },
+    "config": {
+      "label": "연합 구성",
+      "view-config": "구성 보기",
+      "missing-meta-module": "메타 필드를 편집하는 것은 불가능합니다. 이 연합에는 메타 모듈이 사용할 수 없습니다.",
+      "manage-meta": {
+        "label": "메타 관리",
+        "cancel-button": "취소",
+        "confirm-modal": {
+          "title": "승인 확인",
+          "description": "당신의 승인이 이 메타 변경을 채택하기 위한 임계점에 도달할 것입니다. 당신의 새로운 메타는 다음과 같이 보일 것입니다:"
+        },
+        "consensus-meta-label": "현재 합의에 대한 메타",
+        "revoke-button": "철회하다",
+        "no-consensus-meta-message": "합의에 메타는 없습니다",
+        "proposed-meta-label": "메타 제안들",
+        "propose-meta": "메타 제안하기",
+        "propose-new-meta-button": "새 메타 제안하기",
+        "proposal-approved": "이 제안을 승인하셨습니다.",
+        "no-submitted-meta-message": "리뷰할 메타 편집이 없습니다.",
+        "edit-meta-label": "메타 편집",
+        "edit-consensus-meta-button": "편집 합의 메타",
+        "submit-meta-proposal": "메타 제안 제출",
+        "peer-approvals": "동료 승인",
+        "actions": "행동들",
+        "revision": "개정",
+        "setup-meta-title": "당신의 연합을 위한 메타 설정하기",
+        "setup-meta-description": "Fedimint는 메타 필드 형태로 클라이언트에게 추가 정보를 제공할 수 있습니다: 클라이언트와 공유하고 싶은 임의의 정보를 가진 키-값 쌍입니다. 이 메타 필드는 Fedimint에 의해 해석되지 않지만, 합의에 관련된 것이므로 연합 회원 간에 차이가 있을 수 없습니다. 이런 방식으로 클라이언트는 그들의 정확성에 의존할 수 있습니다.",
+        "propose-updates": "페디민트 가디언으로서, 다른 가디언들이 수락할 메타에 대한 업데이트를 제안할 수 있습니다. 업데이트가 일정 수준의 가디언들에 의해 수락되면, 그것은 연합의 새로운 합의 메타로 채택될 것입니다.",
+        "core-meta-fields": "다음 메타 필드는 핵심 Fedimint 프로토콜의 일부로 정의되었으며, 귀하의 연합의 메타에 포함하는 것이 유용합니다:",
+        "meta-field-expiry": "연합이 종료될 유닉스 타임스탬프.",
+        "meta-field-name": "연합의 사람이 읽을 수 있는 이름",
+        "meta-field-icon": "연맹을 위한 로고 아이콘의 URL",
+        "meta-field-welcome": "연합에 가입하는 새로운 사용자를 위한 환영 메시지",
+        "meta-field-gateways": "연맹이 검증한 게이트웨이 식별자 목록",
+        "your-own-fields": "제안서에 임의의 메타 필드를 추가할 수도 있습니다. 이들은 연합에 연결된 모든 클라이언트의 메타에 추가되며, 원하는 목적에 따라 사용할 수 있습니다.",
+        "meta-effect-add": "추가",
+        "meta-effect-modify": "수정하다",
+        "meta-effect-unchanged": "변경되지 않음",
+        "proposals": "제안들"
+      }
+    },
+    "modal": {
+      "client-connect": "클라이언트 연결"
+    },
+    "danger-zone": {
+      "danger-zone-label": "위험 지역",
+      "cancel": "취소",
+      "danger-zone-description": "주의해서 사용하십시오!",
+      "guardian-warning-message": "경고: 이 코드를 누구와도 공유하지 마십시오. 이 코드를 가진 사람은 가디언으로 인증할 수 있습니다. 개인적인 장소에 있고 화면을 보는 사람이 없는지 확인하십시오.",
+      "guardian-acknowledge": "인정하고 코드를 공개하다",
+      "acknowledge-and-download": "인정하고 진행하십시오",
+      "guardian-authenticate": "보호자로 인증하십시오",
+      "guardian-connect-warning": "이것을 공유하지 마세요",
+      "backup": {
+        "label": "백업",
+        "title": "백업 다운로드",
+        "warning-title": "경고",
+        "warning-text": "백업에는 연합 가디언의 개인 키와 비밀 자료가 포함되어 있으며, 안전하게 보관해야 합니다. 이 백업을 사용한 복구는 관리자 비밀번호가 필요합니다!",
+        "cancelButton": "취소",
+        "acknowledgeButton": "인정 및 다운로드"
+      },
+      "sign-api-announcement": {
+        "label": "API 공지 사항",
+        "title": "API 공지 사항",
+        "description": "새로운 API 공지 사항에 서명하십시오.",
+        "current-api-url": "로컬 설정에서의 API URL",
+        "announced-api-url": "연합 공지사항에서의 API URL",
+        "urls-match": "현재 API URL이 공지된 API URL과 일치합니다.",
+        "urls-mismatch": "당신은 로컬 설정에서 API URL을 변경했고 새로운 API 공지를 전송해야 합니다.",
+        "sign-button": "새 API 공지 사항 서명",
+        "signing-in-progress": "로그인 진행 중...",
+        "sign-tooltip": "연합에게 당신의 API URL을 알리기 위해 API 공지를 서명하세요."
+      },
+      "schedule-shutdown": {
+        "label": "컴퓨터 종료 예약",
+        "title": "컴퓨터 종료 일정 설정",
+        "description": "특정 세션 높이 후에 가디언 노드를 종료하도록 스케줄링하여 fedimintd 바이너리의 조정된 업그레이드를 진행하세요.",
+        "current-session": "현재 세션",
+        "session-to-shutdown": "세션 종료 예정 시간에",
+        "confirm-shutdown": "종료 확인",
+        "session-to-shutdown-helper": "가디언 노드를 종료하려는 세션 높이를 입력하세요."
+      }
+    }
+  },
+  "login": {
+    "title": "다시 오신 것을 환영합니다!",
+    "subtitle": "비밀번호를 입력해 주세요.",
+    "password": "비밀번호",
+    "submit": "제출하다"
+  },
+  "role-selector": {
+    "disclaimer-title": "Fedimint는 베타 소프트웨어입니다",
+    "disclaimer-text": "문제점은 https://github.com/fedimint/fedimint/issues 에 보고해 주세요.",
+    "leader": {
+      "label": "리더 설정",
+      "description": "다른 가디언들이 승인하는 구성 설정을 입력하세요. 한 명의 가디언이 설정 리더로 활동합니다."
+    },
+    "follower": {
+      "label": "팔로워",
+      "description": "설정 리더가 구성을 설정하면 다른 가디언들이 이 옵션을 선택하여 설정을 승인하고 연합을 만듭니다."
+    },
+    "solo": {
+      "label": "솔로",
+      "description": "Fedimint를 합의, 장애 허용, 연합 백업 또는 Fedimint의 기타 복원력 이점 없이 Solo Guardian으로 운영하십시오. 주의해서 진행하십시오, 생산용으로 사용하기 위한 것이 아닙니다."
+    },
+    "warning-modal": {
+      "title": "모두 준비되셨나요?",
+      "description": "설정 절차를 중단하면 설정이 실패하고 보호자를 다시 시작해야 할 수 있습니다. 계속하기 전에 모두가 전체 설정을 실행할 준비가 되었는지 확인하세요!"
+    }
+  },
+  "run-dkg": {
+    "error-config": "분산 키 생성을 실행하는 데 실패했습니다. 연합 설정을 다시 시작해야 합니다.",
+    "error-default": "DKG에 대비되지 않았습니다, 현재 상태는",
+    "error-header": "뭔가 잘못되었습니다.",
+    "waiting-header": "피어들을 기다리는 중",
+    "generating-header": "코드 생성 중"
+  },
+  "set-config": {
+    "bft-explanation-title": "당신의 연합의 비잔틴 장애 허용",
+    "bft-explanation": "{{total}} 가디언 연맹은 {{honest}}/{{total}} 임계치를 만듭니다.",
+    "bft-faulty": "당신의 연합은 {{faulty}}개의 결함이 있는, 오프라인 상태인, 또는 악의적인 가디언들을 운영에 영향을 주지 않고 용인할 수 있을 것입니다.",
+    "guardian-name": "보호자 이름",
+    "guardian-name-help": "이 무작위 이름은 설정 중에 다른 가디언들에게 표시됩니다.",
+    "acknowledge-backed-up": "나, {{guardianName}} (당신의 보호자 이름),는 내 비밀번호를 백업하고 안전하게 보관했다는 것을 약속합니다.",
+    "admin-password": "관리자 비밀번호",
+    "admin-password-generate": "생성하다",
+    "admin-password-set": "생성'을 클릭하여 안전한 비밀번호를 생성하세요. 수정할 수 있지만, 이 비밀번호는 안전해야 하며 백업이 되어야 합니다!",
+    "admin-password-help": "이 비밀번호를 백업하고 안전하게 보관하세요! 이 비밀번호는 복구할 수 없습니다!",
+    "admin-password-backup": "나는 강력한 비밀번호를 사용하고 백업해 두었습니다. (이 비밀번호는 복구할 수 없습니다!)",
+    "confirm-and-backup-password": "비밀번호 확인 및 백업",
+    "confirm-password": "비밀번호 확인",
+    "error-password-mismatch": "비밀번호가 일치하지 않습니다.",
+    "join-federation": "연합 가입 링크",
+    "join-federation-help": "연합을 만든 사람에게 링크를 요청하고, 여기에 붙여넣으세요.",
+    "basic-settings": "기본 사항",
+    "federation-settings": "연합 설정",
+    "federation-name": "연합 이름",
+    "guardian-number": "보호자의 수",
+    "guardian-number-help": "연맹은 최소 4명의 보호자가 필요합니다. 이는 나중에 변경할 수 없습니다.",
+    "bitcoin-settings": "비트코인 설정",
+    "block-confirmations": "추가 블록 확인",
+    "block-confirmations-help": "Fedimint 가디언들은 블록 재구성을 피하기 위해 블록체인의 끝을 몇 번의 확인을 거쳐 추적합니다.",
+    "block-confirmations-help-mainnet": "메인넷에서 실행하려면 최소 5회 추가 확인이 필요합니다.",
+    "block-confirmations-warning": "5개 미만의 추가 블록 확인으로 Fedimint를 실행하는 것은 매우 위험합니다! Fedimint는 블록체인 재구성을 처리할 수 없습니다.",
+    "bitcoin-network": "비트코인 네트워크",
+    "select-network": "네트워크 선택",
+    "bitcoin-rpc-kind": "비트코인 RPC 종류",
+    "set-rpc-help": "당신의 가디언 노드를 위한 비트코인 블록 데이터의 출처",
+    "bitcoin-rpc": "비트코인 RPC URL",
+    "read-from-env": "(환경 변수에서 감지됨)",
+    "error-valid-number": "유효한 숫자를 입력해 주세요.",
+    "error-valid-min": "적어도 {{min}}의 숫자를 입력해 주세요.",
+    "error-valid-max": "{{max}} 이하의 숫자를 입력해 주세요.",
+    "error-valid-min-max": "{{min}}과 {{max}} 사이의 숫자를 입력해 주세요.",
+    "error-guardian-name-mismatch": "보호자 이름이 일치하지 않습니다",
+    "meta-fields": "메타 필드",
+    "meta-fields-description": "자세한 정보는 <docs>문서</docs>를 참조하세요.",
+    "meta-fields-key": "메타 키",
+    "meta-fields-value": "가치",
+    "meta-fields-effect": "효과",
+    "meta-fields-add-another": "다른 것을 추가하다",
+    "meta-fields-title": "당신의 메타 제안:",
+    "network": "네트워크",
+    "password-warning-title": "비밀번호를 백업하세요!",
+    "password-warning": "반드시 비밀번호를 백업하고 안전하게 보관해야 합니다. 이 비밀번호는 가디언 대시보드에 접근하는 데 필요합니다. 잃어버리면 복구할 수 없습니다!"
+  },
+  "setup": {
+    "warning": {
+      "title": "설치 중에 종료하거나 새로 고치지 마세요!",
+      "description": "설정 중에 종료하면 설정이 실패할 수 있으며, 처음부터 다시 시작해야 할 수 있습니다."
+    },
+    "common": {
+      "restart-setup": "설정 다시 시작",
+      "restart-setup-alert": "설정 리더가 설정 의식을 다시 시작했습니다. 계속하려면 아래의 \"다시 시작\"을 클릭해 주세요.",
+      "confirm-restart-setup": "설정 의식을 다시 시작하길 원하는지 확실한가요?",
+      "confirm-restart-setup-alert": "재시작\"을 클릭하면 모든 가디언들에 대한 의식이 다시 시작됩니다."
+    },
+    "progress": {
+      "tos": {
+        "title": "서비스 이용 약관"
+      },
+      "start": {
+        "title": "환영합니다, 수호자님!",
+        "subtitle": "당신의 연합을 설정합시다.",
+        "step": "연합 세부 사항"
+      },
+      "set-config": {
+        "title": "우리는 귀하의 연합을 위한 몇 가지 설정을 해야 합니다.",
+        "title-solo": "당신의 솔로 연맹에 대한 몇 가지 설정을 해야 합니다.",
+        "subtitle-leader": "당신의 연합 팔로워들이 그들 쪽에서 이 정보를 확인할 것입니다.",
+        "subtitle-solo": "솔로 페더레이션을 운영하면 Fedimint의 많은 이점을 잃게 됩니다. 가디언이 오프라인 상태일 때 장애 허용 합의를 가질 수 없으며 연합 백업을 수행할 수 없습니다. 주의해서 진행하십시오, 프로덕션 사용이나 메인넷 비트코인 사용에는 권장되지 않습니다.",
+        "subtitle-follower": "당신의 연합 리더가 주요 연합 세부사항을 설정할 예정입니다. 곧 그것들을 확인하게 될 것입니다.",
+        "step": "연합 세부사항"
+      },
+      "connect-guardians": {
+        "title-leader": "당신의 가디언들을 초대하세요",
+        "title-follower": "연합 정보를 확인하세요",
+        "subtitle-leader": "다른 가디언들과 링크를 공유하여 모두가 같은 페이지에 있도록 하세요. 모든 가디언들이 참여하면 자동으로 다음 단계로 넘어갑니다.",
+        "subtitle-follower": "여기의 정보가 올바르게 보이는지, 연합 수호자들이 정확한지 확인하세요. 확실하게 보일 때 승인 버튼을 클릭하세요.",
+        "step-leader": "가디언들을 초대하십시오",
+        "step-follower": "정보 확인"
+      },
+      "run-dkg": {
+        "title": "성공!",
+        "subtitle": "모든 가디언들이 연방 설정 세부사항을 확인했습니다. 일부 숫자를 실행 중..."
+      },
+      "verify-guardians": {
+        "title": "당신의 가디언을 확인하세요",
+        "subtitle": "각 가디언에게 그들의 인증 코드를 요청하고, 아래에 붙여넣어 유효성을 확인하세요. 거의 다 끝났습니다!",
+        "step": "보호자 확인",
+        "leader-confirm-done": "모든 팔로워 가디언들이 \"다음\"을 클릭하고 그들의 가디언 대시보드를 확인한 후에 계속 진행하십시오.",
+        "leader-confirm-done-emphasis": "계속\"을 클릭하면 설정 절차가 완료됩니다."
+      },
+      "setup-complete": {
+        "step": "완료!"
+      },
+      "error": {
+        "title": "알 수 없는 단계",
+        "subtitle": "여기 어떻게 왔어요?!"
+      }
+    }
+  },
+  "setup-complete": {
+    "header": "🎉 🎉 🎉",
+    "congratulations": "축하합니다",
+    "leader-message": "모든 가디언의 인증 코드가 확인되었습니다.",
+    "follower-message": "다 끝났어! 다른 수호자들에게 네가 달리고 있다고 알려줘!",
+    "continue": "계속하다"
+  },
+  "terms-of-service": {
+    "agree-and-continue": "동의하고 계속하기"
+  },
+  "verify-guardians": {
+    "verified": "인증된",
+    "verified-placeholder": "여기에 코드를 붙여넣으세요.",
+    "error": "무언가 잘못되었습니다.",
+    "error-peer-id": "어떤 피어인지 확인할 수 없습니다. 새로 고치고 다시 시도해 주세요.",
+    "verification-code": "당신({{peerName}})의 인증 코드",
+    "verification-code-help": "이 코드를 다른 보호자들과 공유하세요.",
+    "table-title": "가디언 인증 코드",
+    "table-description": "아래에 각 가디언의 인증 코드를 입력하세요.",
+    "table-column-name": "이름",
+    "table-column-status": "상태",
+    "table-column-hash-input": "인증 코드를 붙여넣기",
+    "wait-all-guardians-verification": "모든 가디언이 코드를 확인하는 것을 기다리고 있습니다.",
+    "all-guardians-verified": "모든 가디언들이 그들의 코드를 확인했습니다.",
+    "starting-consensus": "합의를 시작합니다..."
+  },
+  "footer": {
+    "docs-section-header": "문서",
+    "community-section-header": "커뮤니티",
+    "contribute-section-header": "기여하다",
+    "getting-started-link-text": "시작하기",
+    "faq-link-text": "자주 묻는 질문",
+    "blog-link-text": "블로그",
+    "discord-link-text": "디스코드",
+    "twitter-link-text": "트위터",
+    "github-link-text": "GitHub"
+  },
+  "admin": {
+    "fetch-info-modal-text": "연합 정보 확인 중..."
+  },
+  "balance-card": {
+    "card_header": "eCash 잔액",
+    "sentence": "Sats로 표시된",
+    "your-balance": "이 연합에서의 귀하의 eCash 잔액:"
+  },
+  "connect-federation": {
+    "connect": "연결 🚀",
+    "connect-federation-button": "연합 추가",
+    "connection-string-placeholder": "연합 초대 코드를 붙여넣으세요.",
+    "heading": "초대 코드를 사용하여 연합에 연결하세요.",
+    "information-bar-text": "연결할 수 있는 연맹의 수는 하나로 제한됩니다. 곧 여러 연맹에 연결하는 것이 지원될 예정입니다.",
+    "label": "연결 문자열:",
+    "progress-modal-text": "연합에 연결 중...",
+    "sub-heading": "초대 코드는 'fed1'로 시작하는 긴 문자열입니다.",
+    "error-message": "연합에 연결하는 중 오류 발생: {{error}}"
+  },
+  "wallet": {
+    "title": "지갑",
+    "ecash": "이캐시",
+    "lightning": "번개",
+    "onchain": "온체인",
+    "total": "총계",
+    "balance": "균형",
+    "address": "주소",
+    "invoice": "송장",
+    "receive": "받다",
+    "send": "보내다",
+    "create-address": "주소 생성",
+    "to-federation": "연합에게",
+    "from-federation": "연합에서",
+    "sent": "보냈습니다.",
+    "sent-amount": "{{amount}} 보냄",
+    "to-address": "주소 지정하기",
+    "txid": "거래 ID",
+    "claimed-note": "주장된 메모",
+    "claimed-amount": "청구 금액"
+  },
+  "wallet-modal": {
+    "title": "지갑 작업",
+    "receive": {
+      "ecash-instructions": "여기에 전자현금 메모를 붙여넣으세요.",
+      "paste-ecash-placeholder": "여기에 전자현금 메모를 붙여넣으세요.",
+      "redeem": "환급하다",
+      "paste-invoice": "여기에 송장을 붙여넣으세요.",
+      "enter-amount": "{{unit}} 단위로 금액을 입력하세요.",
+      "lightning-instructions": "Lightning 인보이스를 생성하기 위해 sats로 금액을 입력하십시오.",
+      "create-peg-in-address": "페그-인 주소 생성하기",
+      "create-lightning-invoice": "라이트닝 인보이스 생성",
+      "paste-ecash-button": "ecash 노트를 붙여넣기",
+      "peg-in-instructions": "이 주소로 비트코인을 보내서 {{federationName}} 이캐시 잔액에 연동하세요.",
+      "ecash-claimed-success": "성공적으로 Ecash를 청구했습니다!",
+      "address-error": "주소 생성 오류: {{error}}"
+    },
+    "send": {
+      "submit": "제출하다",
+      "to-onchain-address": "온체인 주소로",
+      "address-placeholder": "bc1p...",
+      "peg-out-to-onchain": "Peg Out Ecash를 Onchain에 연결하다",
+      "peg-out-success": "Peg Out TX 전송 완료!",
+      "create-ecash": "Ecash 노트 생성하기",
+      "ecash-created": "당신의 {{federationName}} 잔액에서 {{amount}} ecash 노트를 인출했습니다. 수령인에게 보내서 청구하세요.",
+      "ecash-error": "ecash 메모 생성 오류: {{error}}"
+    }
+  },
+  "federation-card": {
+    "table-title": "연맹들",
+    "id": "ID",
+    "name": "이름",
+    "balance": "균형",
+    "actions": "행동들",
+    "receive": "받다",
+    "send": "보내기",
+    "default-federation-name": "연합",
+    "view-link-on": "{{host}}에서 보기",
+    "leave-fed-error": "당신의 잔고에 사트가 있으면 연맹을 떠날 수 없습니다. 먼저 사트를 인출해 주세요.",
+    "leave-fed-modal-title": "연합을 떠나다",
+    "leave-fed-modal-text": "정말로 연결을 끊고 싶으신가요?",
+    "view-config": "구성 보기",
+    "config-for": "{{federationId}}에 대한 설정"
+  },
+  "header": {
+    "active": "활성화된",
+    "all": "모두",
+    "archived": "보관된",
+    "ascending": "오름차순",
+    "connect": "연합 연결",
+    "date-created": "생성된 날짜",
+    "descending": "하강하는",
+    "filter": "필터",
+    "sort": "정렬",
+    "title": "번개 게이트웨이 대시보드"
+  },
+  "info-card": {
+    "card-header": "번개 노드 정보",
+    "node-id": "노드 ID",
+    "alias": "별명",
+    "mode": "모드",
+    "pubkey": "공개키",
+    "network": "네트워크",
+    "block-height": "블록 높이",
+    "synced-to-chain": "체인에 동기화됨"
+  },
+  "withdraw-card": {
+    "address-label": "당신의 주소:",
+    "address-placeholder": "당신의 btc 주소를 입력하세요",
+    "amount-label": "금액 (sats):",
+    "amount-placeholder": "sats로 금액을 입력하세요",
+    "card-header": "비트코인 인출",
+    "close": "닫기",
+    "confirm-withdraw": "출금 확인",
+    "error": "오류",
+    "error-address": "금액 또는 주소는 비어 있을 수 없습니다.",
+    "error-amount": "금액은 비어 있거나 0이 될 수 없습니다.",
+    "error-request": "출금 요청에 실패했습니다",
+    "request-from": "출금 요청함에서",
+    "requested-withdrawal": "출금 요청",
+    "to": "에",
+    "total_bitcoin": "총 비트코인:",
+    "transaction-sent": "거래 전송됨!",
+    "view": "보기",
+    "view-it-on": "그것을 보세요",
+    "withdraw": "인출하다",
+    "withdraw-all": "모두 출금하다",
+    "withdrawal-created": "출금 생성됨.",
+    "withdrawal-created-description": "거래 내역을 확인해 주세요.",
+    "withdrawal-history": "출금 내역",
+    "your-transaction": "당신의 거래 ID:"
+  }
+}

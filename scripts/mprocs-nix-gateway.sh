@@ -41,4 +41,4 @@ echo "Local gateway api addr: $LOCAL_GATEWAY_API_ADDR"
 export REACT_APP_FM_GATEWAY_API=$LOCAL_GATEWAY_API_ADDR
 export REACT_APP_FM_GATEWAY_PASSWORD=$FM_GATEWAY_PASSWORD
 
-yarn dev:gateway-ui
+yarn dev

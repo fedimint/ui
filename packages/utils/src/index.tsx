@@ -18,3 +18,13 @@ export const getNodeUrl = (
       return new URL(`https://mempool.space/lightning/node/${nodeId}`);
   }
 };
+
+export const sha256Hash = async (input: string): Promise<string> => {
+  const hashBuffer = await window.crypto.subtle.digest(
+    'SHA-256',
+    new TextEncoder().encode(input)
+  );
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+};

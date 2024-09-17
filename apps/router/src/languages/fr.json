@@ -1,0 +1,486 @@
+{
+  "common": {
+    "bitcoin": "Bitcoin",
+    "next": "Suivant",
+    "back": "Retour",
+    "unknown": "Inconnu",
+    "remove": "Supprimer",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "cancel": "Annuler",
+    "review": "Critique",
+    "approvals": "Approbations",
+    "approve": "Approuver",
+    "threshold": "Seuil",
+    "confirm": "Confirmer",
+    "you": "Tu",
+    "close": "Fermer",
+    "save": "Sauvegarder",
+    "continue": "Continuer",
+    "submit": "Soumettre",
+    "address": "Adresse",
+    "amount": "Montant",
+    "btc": "BTC",
+    "error": "Erreur",
+    "sats": "sats",
+    "msats": "msats",
+    "uri": "URI",
+    "view-on-mempool": "Vue sur Mempool",
+    "ecash": "Ecash"
+  },
+  "notConfigured": {
+    "title": "Non configuré",
+    "description": "Veuillez entrer le CONFIG_API_URL du serveur gardien Fedimint à pointer."
+  },
+  "connect-guardians": {
+    "invite-guardians": "Invitez des abonnés",
+    "invite-guardians-help": "Partagez ce lien avec les autres Gardiens",
+    "approve": "Approuver",
+    "approved": "Approuvé",
+    "pending": "En attente",
+    "not-joined": "Non joint",
+    "waiting-for-guardian": "En attente du tuteur",
+    "table-title": "Gardiens de la Fédération",
+    "table-description": "Les gardiens seront confirmés ici une fois qu'ils confirment les paramètres de la Fédération.",
+    "meta-field-key": "Champ Meta - {{clé}}"
+  },
+  "federation-dashboard": {
+    "invite-members": "Invitez des membres ou authentifiez-vous en tant que tuteur",
+    "invite-members-prompt": "Partagez ceci pour inviter des membres à rejoindre la fédération",
+    "fed-info": {
+      "label": "Informations sur la Fédération",
+      "your-status-label": "Statut",
+      "block-count-label": "Hauteur de Bloc Consensus",
+      "api-version-label": "Version de l'API",
+      "consensus-version-label": "Version consensuelle",
+      "peer-id-label": "ID de pair",
+      "session-info": {
+        "session-height": "Hauteur de la session",
+        "latest-session": "Dernière Session"
+      }
+    },
+    "balance": {
+      "label": "Bilan comptable"
+    },
+    "bitcoin-node": {
+      "label": "Nœud Bitcoin",
+      "url-label": "URL",
+      "network-label": "Réseau"
+    },
+    "guardians": {
+      "label": "Autres Gardiens",
+      "id-name-label": "ID : Nom",
+      "status-label": "Statut de la connexion",
+      "health-label": "Santé",
+      "health-issue": "Problème",
+      "health-good": "Bon",
+      "last-contribution-label": "Contribution de la Dernière Session",
+      "api-url-label": "URL de l'API",
+      "fetching-announcement": "Récupération de l'annonce..."
+    },
+    "gateways": {
+      "label": "Passerelles Éclair",
+      "node-id-label": "ID du nœud Lightning",
+      "gateway-id-label": "ID de la passerelle",
+      "fee-label": "Frais de passerelle",
+      "view-on-site": "Vue sur {{site}}",
+      "no-gateways-info-title": "Aucune passerelle connectée pour l'instant !",
+      "no-gateways-info-description": "Les opérateurs de nœuds Lightning peuvent se connecter à votre fédération pour fournir l'interopérabilité du réseau Lightning. Une fois connectés, ils apparaîtront ici."
+    },
+    "api-announcements": {
+      "label": "Annonces API",
+      "guardian": "Gardien",
+      "api-url": "URL de l'API",
+      "revision": "Révision"
+    },
+    "config": {
+      "label": "Configuration de la Fédération",
+      "view-config": "Voir la configuration",
+      "missing-meta-module": "La modification des champs Meta n'est pas possible. Le module Meta n'est pas disponible pour cette fédération.",
+      "manage-meta": {
+        "label": "Gérer Meta",
+        "cancel-button": "Annuler",
+        "confirm-modal": {
+          "title": "Confirmer l'approbation",
+          "description": "Votre approbation atteindra le seuil pour adopter ce changement méta. Votre nouveau méta ressemblera à :"
+        },
+        "consensus-meta-label": "Méta actuel en consensus",
+        "revoke-button": "Révoquer",
+        "no-consensus-meta-message": "il n'y a pas de meta dans le consensus",
+        "proposed-meta-label": "Propositions Meta",
+        "propose-meta": "Propose Meta",
+        "propose-new-meta-button": "Proposer un nouveau Meta",
+        "proposal-approved": "Vous avez approuvé cette proposition",
+        "no-submitted-meta-message": "il n'y a pas de modifications meta à examiner",
+        "edit-meta-label": "Modifier le méta",
+        "edit-consensus-meta-button": "Modifier le Consensus Meta",
+        "submit-meta-proposal": "Soumettre une proposition Meta",
+        "peer-approvals": "Approbations des pairs",
+        "actions": "Actions",
+        "revision": "Révision",
+        "setup-meta-title": "Configuration d'un Meta pour votre Fédération",
+        "setup-meta-description": "Fedimint peut fournir des informations supplémentaires aux clients sous forme de champs meta : des paires de clés-valeurs avec des informations arbitraires que vous pourriez vouloir partager avec les clients. Bien que ces champs meta ne soient pas interprétés par Fedimint, ils sont pertinents pour le consensus, c'est-à-dire qu'ils ne peuvent pas différer entre les membres de la fédération. De cette façon, les clients peuvent compter sur leur exactitude.",
+        "propose-updates": "En tant que gardien de fedimint, vous pouvez proposer des mises à jour du meta qui seront acceptées par les autres gardiens. Une fois la mise à jour acceptée par un seuil de gardiens, elle sera adoptée comme le nouveau meta de consensus pour la fédération.",
+        "core-meta-fields": "Les champs méta suivants ont été définis comme faisant partie du protocole de base Fedimint et sont utiles à inclure pour la méta de votre fédération :",
+        "meta-field-expiry": "Un timestamp Unix après lequel la fédération s'arrêtera.",
+        "meta-field-name": "Le nom lisible par l'homme de la fédération",
+        "meta-field-icon": "Une URL vers une icône de logo pour la fédération",
+        "meta-field-welcome": "Un message de bienvenue pour les nouveaux utilisateurs rejoignant la fédération",
+        "meta-field-gateways": "Une liste d'identifiants de passerelle validés par la fédération",
+        "your-own-fields": "Vous pouvez également ajouter vos propres champs méta arbitraires à la proposition. Ceux-ci seront ajoutés aux métadonnées de tous les clients qui se connectent à votre fédération et peuvent être utilisés à n'importe quelle fin que vous souhaitez.",
+        "meta-effect-add": "Ajouter",
+        "meta-effect-modify": "Modifier",
+        "meta-effect-unchanged": "Inchangé",
+        "proposals": "Propositions"
+      }
+    },
+    "modal": {
+      "client-connect": "Connecter un Client"
+    },
+    "danger-zone": {
+      "danger-zone-label": "Zone de Danger",
+      "cancel": "Annuler",
+      "danger-zone-description": "Utilisez avec prudence !",
+      "guardian-warning-message": "AVERTISSEMENT : Ne partagez pas ce code avec quiconque. Toute personne en possession de ce code peut s'authentifier en tant que Gardien. Assurez-vous d'être dans un lieu privé et que personne ne regarde votre écran.",
+      "guardian-acknowledge": "Reconnaître et Révéler le Code",
+      "acknowledge-and-download": "Reconnaître & Procéder",
+      "guardian-authenticate": "Authentifiez-vous en tant que Gardien",
+      "guardian-connect-warning": "NE PARTAGEZ PAS CECI",
+      "backup": {
+        "label": "Sauvegarde",
+        "title": "Télécharger la sauvegarde",
+        "warning-title": "Avertissement",
+        "warning-text": "La sauvegarde contient des clés privées et des matériaux secrets pour le gardien de la fédération et doit être conservée en toute sécurité. La récupération à l'aide de cette sauvegarde nécessite votre mot de passe administrateur !",
+        "cancelButton": "Annuler",
+        "acknowledgeButton": "Reconnaître & Télécharger"
+      },
+      "sign-api-announcement": {
+        "label": "Annonce de l'API Sign",
+        "title": "Annonce de l'API Sign",
+        "description": "Signez une nouvelle annonce d'API.",
+        "current-api-url": "Votre URL d'API à partir de la configuration locale",
+        "announced-api-url": "Votre URL d'API des Annonces de la Fédération",
+        "urls-match": "Votre URL d'API actuelle correspond à votre URL d'API annoncée.",
+        "urls-mismatch": "Vous avez modifié l'URL de l'API dans votre configuration locale et devez diffuser une nouvelle annonce d'API.",
+        "sign-button": "Annonce de la nouvelle API",
+        "signing-in-progress": "Connexion en cours...",
+        "sign-tooltip": "Signez l'annonce de l'API pour annoncer votre URL d'API à la fédération."
+      },
+      "schedule-shutdown": {
+        "label": "Planifier l'arrêt",
+        "title": "Programmer l'arrêt",
+        "description": "Planifiez l'arrêt de votre nœud gardien après une hauteur de session spécifique pour une mise à niveau coordonnée de vos binaires fedimintd.",
+        "current-session": "Session actuelle",
+        "session-to-shutdown": "Session à fermer à",
+        "confirm-shutdown": "Confirmer l'arrêt",
+        "session-to-shutdown-helper": "Entrez la hauteur de session à laquelle vous souhaitez éteindre votre nœud gardien."
+      }
+    }
+  },
+  "login": {
+    "title": "Bienvenue de retour !",
+    "subtitle": "Veuillez entrer votre mot de passe.",
+    "password": "Mot de passe",
+    "submit": "Soumettre"
+  },
+  "role-selector": {
+    "disclaimer-title": "Fedimint est un logiciel bêta",
+    "disclaimer-text": "Veuillez signaler les problèmes à https://github.com/fedimint/fedimint/issues",
+    "leader": {
+      "label": "Configuration du Leader",
+      "description": "Entrez les paramètres de configuration approuvés par d'autres Gardiens. Un Gardien agit en tant que Leader de configuration."
+    },
+    "follower": {
+      "label": "Abonné",
+      "description": "Une fois qu'un Responsable de configuration a défini les configurations, les autres Gardiens choisissent cette option pour approuver les paramètres et créer la Fédération."
+    },
+    "solo": {
+      "label": "Solo",
+      "description": "Exploitez Fedimint en tant que Gardien Solo sans consensus, tolérance aux pannes, sauvegardes fédérées, ou autres avantages de résilience de Fedimint. Procédez avec prudence, non destiné à une utilisation en production."
+    },
+    "warning-modal": {
+      "title": "Tout le monde est-il prêt ?",
+      "description": "Quitter la cérémonie de configuration peut entraîner l'échec de la configuration et vous obliger à redémarrer votre gardien. Assurez-vous que tout le monde est prêt à exécuter la configuration complète avant de continuer !"
+    }
+  },
+  "run-dkg": {
+    "error-config": "Échec de l'exécution de la génération de clé distribuée. La configuration de la fédération doit être redémarrée.",
+    "error-default": "Pas prêt pour DKG, votre statut actuel est",
+    "error-header": "Quelque chose s'est mal passé.",
+    "waiting-header": "En attente de pairs",
+    "generating-header": "Génération de codes"
+  },
+  "set-config": {
+    "bft-explanation-title": "Tolérance aux pannes byzantines de votre fédération",
+    "bft-explanation": "Une Fédération de Gardiens {{total}} crée un Seuil {{honest}}/{{total}}.",
+    "bft-faulty": "Votre Fédération sera capable de tolérer {{faulty}} Gardiens défectueux, hors ligne ou malveillants sans impacter les opérations de la Fédération.",
+    "guardian-name": "Nom du tuteur",
+    "guardian-name-help": "Ce nom aléatoire sera affiché aux autres Gardiens lors de la configuration",
+    "acknowledge-backed-up": "Moi, {{guardianName}} (votre nom de tuteur), je promets que j'ai sauvegardé et sécurisé mon mot de passe :",
+    "admin-password": "Mot de passe administrateur",
+    "admin-password-generate": "Générer",
+    "admin-password-set": "Cliquez sur 'Générer' pour créer un mot de passe sécurisé. Vous pouvez le modifier, mais ce mot de passe doit être sécurisé et sauvegardé !",
+    "admin-password-help": "Sauvegardez ce mot de passe et gardez-le en sécurité ! Vous ne pouvez pas récupérer ce mot de passe !",
+    "admin-password-backup": "J'utilise un mot de passe fort et je l'ai sauvegardé. (Vous ne pouvez pas récupérer ce mot de passe !)",
+    "confirm-and-backup-password": "Confirmer et Sauvegarder le Mot de Passe",
+    "confirm-password": "Confirmer le mot de passe",
+    "error-password-mismatch": "Les mots de passe ne correspondent pas",
+    "join-federation": "Rejoignez le lien de la Fédération",
+    "join-federation-help": "Demandez à la personne qui a créé la Fédération un lien, et collez-le ici.",
+    "basic-settings": "Les bases",
+    "federation-settings": "Paramètres de la fédération",
+    "federation-name": "Nom de la fédération",
+    "guardian-number": "Nombre de gardiens",
+    "guardian-number-help": "Les fédérations exigent un minimum de 4 gardiens. Cela ne peut pas être modifié ultérieurement.",
+    "bitcoin-settings": "Paramètres Bitcoin",
+    "block-confirmations": "Confirmations supplémentaires de bloc",
+    "block-confirmations-help": "Les gardiens de Fedimint suivent la pointe de la blockchain avec plusieurs confirmations pour éviter les réorganisations de blocs.",
+    "block-confirmations-help-mainnet": "L'exécution sur Mainnet nécessite au moins 5 confirmations supplémentaires.",
+    "block-confirmations-warning": "Exécuter Fedimint avec moins de 5 confirmations de blocs supplémentaires est extrêmement risqué ! Fedimint NE PEUT PAS gérer les réorganisations de la blockchain.",
+    "bitcoin-network": "Réseau Bitcoin",
+    "select-network": "Sélectionnez un réseau",
+    "bitcoin-rpc-kind": "Type RPC Bitcoin",
+    "set-rpc-help": "Source de données de bloc bitcoin pour votre nœud gardien",
+    "bitcoin-rpc": "URL RPC Bitcoin",
+    "read-from-env": "(Détecté à partir des variables d'environnement)",
+    "error-valid-number": "Veuillez entrer un numéro valide.",
+    "error-valid-min": "Veuillez entrer un nombre d'au moins {{min}}.",
+    "error-valid-max": "Veuillez entrer un nombre au maximum de {{max}}.",
+    "error-valid-min-max": "Veuillez entrer un nombre entre {{min}} et {{max}}.",
+    "error-guardian-name-mismatch": "Le nom du tuteur ne correspond pas",
+    "meta-fields": "Champs Meta",
+    "meta-fields-description": "Voir <docs>documentation</docs> pour plus d'informations.",
+    "meta-fields-key": "Clé Meta",
+    "meta-fields-value": "Valeur",
+    "meta-fields-effect": "Effet",
+    "meta-fields-add-another": "Ajouter un autre",
+    "meta-fields-title": "Votre proposition Meta :",
+    "network": "Réseau",
+    "password-warning-title": "Sauvegardez votre mot de passe !",
+    "password-warning": "Vous DEVEZ sauvegarder votre mot de passe et le garder en sécurité. Ce mot de passe est nécessaire pour accéder à votre tableau de bord de gardien. Vous NE POUVEZ PAS le récupérer si vous le perdez !"
+  },
+  "setup": {
+    "warning": {
+      "title": "Ne quittez pas ou ne rafraîchissez pas pendant l'installation !",
+      "description": "Quitter pendant l'installation peut entraîner l'échec de celle-ci et vous devrez effectuer un redémarrage complet."
+    },
+    "common": {
+      "restart-setup": "Redémarrez l'installation",
+      "restart-setup-alert": "Le Responsable de la Configuration a redémarré la Cérémonie de Configuration. Veuillez cliquer sur \"Redémarrer\" ci-dessous pour continuer.",
+      "confirm-restart-setup": "Êtes-vous sûr de vouloir redémarrer la Cérémonie de Configuration ?",
+      "confirm-restart-setup-alert": "Cliquer sur \"Redémarrer\" redémarrera la cérémonie pour tous les Gardiens."
+    },
+    "progress": {
+      "tos": {
+        "title": "Conditions d'utilisation"
+      },
+      "start": {
+        "title": "Bienvenue, Gardien !",
+        "subtitle": "Configurons votre fédération.",
+        "step": "Détails de la fédération"
+      },
+      "set-config": {
+        "title": "Nous devons définir certaines configurations pour votre Fédération",
+        "title-solo": "Nous devons définir certaines configurations pour votre Fédération Solo",
+        "subtitle-leader": "Vos abonnés de la Fédération confirmeront cette information de leur côté.",
+        "subtitle-solo": "L'exploitation d'une Fédération Solo perd de nombreux avantages de Fedimint. Vous n'aurez pas de consensus de tolérance aux pannes pour un gardien hors ligne et ne pourrez pas effectuer de sauvegardes fédérées. Procédez avec prudence, déconseillé pour une utilisation en production ou avec le réseau principal de Bitcoin.",
+        "subtitle-follower": "Votre dirigeant de la Fédération mettra en place les détails principaux de la Fédération. Vous les confirmerez bientôt.",
+        "step": "Détails de la fédération"
+      },
+      "connect-guardians": {
+        "title-leader": "Invitez vos Gardiens",
+        "title-follower": "Confirmez vos informations de Fédération",
+        "subtitle-leader": "Partagez le lien avec les autres Gardiens pour que tout le monde soit sur la même longueur d'onde. Une fois que tous les Gardiens ont rejoint, vous passerez automatiquement à l'étape suivante.",
+        "subtitle-follower": "Assurez-vous que les informations ici sont correctes, et que les Gardiens de la Fédération sont corrects. Cliquez sur le bouton Approuver lorsque vous êtes sûr que cela semble bon.",
+        "step-leader": "Invitez les Gardiens",
+        "step-follower": "Confirmer les informations"
+      },
+      "run-dkg": {
+        "title": "Succès !",
+        "subtitle": "Tous les Gardiens ont validé les détails de configuration de la fédération. En train de calculer quelques chiffres..."
+      },
+      "verify-guardians": {
+        "title": "Vérifiez vos Gardiens",
+        "subtitle": "Demandez à chaque Gardien son code de vérification et collez-les ci-dessous pour vérifier leur validité. Nous avons presque fini !",
+        "step": "Vérifier les tuteurs",
+        "leader-confirm-done": "Confirmez que tous les Gardiens suivants ont cliqué sur \"Suivant\" et ont vu leurs tableaux de bord de gardien avant de continuer.",
+        "leader-confirm-done-emphasis": "Cliquer sur \"Continuer\" terminera la cérémonie de configuration."
+      },
+      "setup-complete": {
+        "step": "Terminé !"
+      },
+      "error": {
+        "title": "Étape inconnue",
+        "subtitle": "Comment es-tu arrivé ici ?!"
+      }
+    }
+  },
+  "setup-complete": {
+    "header": "🎉 🎉 🎉",
+    "congratulations": "Félicitations",
+    "leader-message": "Tous les codes de vérification des Gardiens ont été vérifiés.",
+    "follower-message": "Vous avez terminé ! Faites savoir aux autres Gardiens que vous êtes en marche !",
+    "continue": "Continuer"
+  },
+  "terms-of-service": {
+    "agree-and-continue": "Accepter & continuer"
+  },
+  "verify-guardians": {
+    "verified": "Vérifié",
+    "verified-placeholder": "Collez le code ici",
+    "error": "Quelque chose s'est mal passé.",
+    "error-peer-id": "Impossible de déterminer quel pair vous êtes. Veuillez actualiser et réessayer.",
+    "verification-code": "Votre code de vérification ({{peerName}})",
+    "verification-code-help": "Partagez ce code avec d'autres gardiens",
+    "table-title": "Codes de vérification du gardien",
+    "table-description": "Entrez les codes de vérification de chaque gardien ci-dessous.",
+    "table-column-name": "Nom",
+    "table-column-status": "Statut",
+    "table-column-hash-input": "Collez le code de vérification",
+    "wait-all-guardians-verification": "En attente de la vérification de leurs codes par tous les Gardiens",
+    "all-guardians-verified": "Tous les gardiens ont vérifié leurs codes",
+    "starting-consensus": "Démarrage du consensus..."
+  },
+  "footer": {
+    "docs-section-header": "Docs",
+    "community-section-header": "Communauté",
+    "contribute-section-header": "Contribuer",
+    "getting-started-link-text": "Commencer",
+    "faq-link-text": "Questions Fréquemment Posées",
+    "blog-link-text": "Blog",
+    "discord-link-text": "Discord",
+    "twitter-link-text": "Twitter",
+    "github-link-text": "GitHub"
+  },
+  "admin": {
+    "fetch-info-modal-text": "Vérification des détails de la fédération..."
+  },
+  "balance-card": {
+    "card_header": "Solde eCash",
+    "sentence": "Dénominé en Sats",
+    "your-balance": "Votre solde eCash sur cette fédération :"
+  },
+  "connect-federation": {
+    "connect": "Connecter 🚀",
+    "connect-federation-button": "Ajouter une Fédération",
+    "connection-string-placeholder": "Collez le code d'invitation de la fédération",
+    "heading": "Connectez-vous à une fédération en utilisant un code d'invitation",
+    "information-bar-text": "Le nombre de fédérations auxquelles vous pouvez vous connecter est limité à une. La connexion à plusieurs fédérations sera bientôt prise en charge.",
+    "label": "Chaîne de connexion :",
+    "progress-modal-text": "Connexion à la fédération...",
+    "sub-heading": "Le code d'invitation est une longue chaîne qui commence par 'fed1",
+    "error-message": "Erreur de connexion à la fédération : {{error}}"
+  },
+  "wallet": {
+    "title": "Portefeuille",
+    "ecash": "Ecash",
+    "lightning": "Éclair",
+    "onchain": "Sur la chaîne",
+    "total": "Total",
+    "balance": "Équilibre",
+    "address": "Adresse",
+    "invoice": "Facture",
+    "receive": "Recevoir",
+    "send": "Envoyer",
+    "create-address": "Créer une adresse",
+    "to-federation": "À la Fédération",
+    "from-federation": "De la Fédération",
+    "sent": "Envoyé",
+    "sent-amount": "Envoyé {{amount}}",
+    "to-address": "À l'adresse",
+    "txid": "ID de transaction",
+    "claimed-note": "Note revendiquée",
+    "claimed-amount": "Montant revendiqué"
+  },
+  "wallet-modal": {
+    "title": "Actions de Portefeuille",
+    "receive": {
+      "ecash-instructions": "Collez votre note ecash ici",
+      "paste-ecash-placeholder": "Collez la note ecash ici",
+      "redeem": "Échanger",
+      "paste-invoice": "Collez la facture ici",
+      "enter-amount": "Entrez le montant en {{unit}}",
+      "lightning-instructions": "Entrez un montant en sats pour créer une facture Lightning pour",
+      "create-peg-in-address": "Créer une adresse Peg-in",
+      "create-lightning-invoice": "Créer une facture Lightning",
+      "paste-ecash-button": "Collez la note ecash",
+      "peg-in-instructions": "Envoyez du Bitcoin à cette adresse pour l'ancrer à votre solde Ecash de {{federationName}}",
+      "ecash-claimed-success": "Ecash revendiqué avec succès !",
+      "address-error": "Erreur lors de la création de l'adresse : {{error}}"
+    },
+    "send": {
+      "submit": "Soumettre",
+      "to-onchain-address": "À l'adresse Onchain",
+      "address-placeholder": "bc1p...",
+      "peg-out-to-onchain": "Convertir Peg Out Ecash en Onchain",
+      "peg-out-success": "Peg Out TX Envoyé !",
+      "create-ecash": "Créer une Note Ecash",
+      "ecash-created": "Retiré une note d'ecash de {{amount}} de votre solde {{federationName}}. Envoyez-le au destinataire pour réclamer.",
+      "ecash-error": "Erreur lors de la création de la note ecash : {{error}}"
+    }
+  },
+  "federation-card": {
+    "table-title": "Fédérations",
+    "id": "ID",
+    "name": "Nom",
+    "balance": "Équilibre",
+    "actions": "Actions",
+    "receive": "Recevoir",
+    "send": "Envoyer",
+    "default-federation-name": "Fédération:",
+    "view-link-on": "Vue sur {{host}}",
+    "leave-fed-error": "Impossible de quitter la fédération avec des sats dans votre solde. Veuillez d'abord retirer vos sats.",
+    "leave-fed-modal-title": "Quitter la Fédération",
+    "leave-fed-modal-text": "Êtes-vous sûr de vouloir vous déconnecter de",
+    "view-config": "Voir Config",
+    "config-for": "Configuration pour {{federationId}}"
+  },
+  "header": {
+    "active": "Actif",
+    "all": "Tout",
+    "archived": "Archivé",
+    "ascending": "Ascendant",
+    "connect": "Fédération Connect",
+    "date-created": "Date de création",
+    "descending": "Descendant",
+    "filter": "Filtre",
+    "sort": "Trier",
+    "title": "Tableau de bord de la passerelle Lightning"
+  },
+  "info-card": {
+    "card-header": "Informations sur le Nœud Lightning",
+    "node-id": "ID de nœud",
+    "alias": "Alias",
+    "mode": "Mode",
+    "pubkey": "Clé publique",
+    "network": "Réseau",
+    "block-height": "Hauteur de bloc",
+    "synced-to-chain": "Synchronisé à la Chaîne"
+  },
+  "withdraw-card": {
+    "address-label": "Votre adresse :",
+    "address-placeholder": "Entrez votre adresse btc",
+    "amount-label": "Montant (sats) :",
+    "amount-placeholder": "Entrez le montant en sats",
+    "card-header": "Retirer Bitcoin",
+    "close": "Fermer",
+    "confirm-withdraw": "Confirmer le Retrait",
+    "error": "Erreur",
+    "error-address": "Le montant ou l'adresse ne peuvent pas être vides",
+    "error-amount": "Le montant ne peut pas être vide ou égal à zéro",
+    "error-request": "Échec de la demande de retrait",
+    "request-from": "Demande de retrait de",
+    "requested-withdrawal": "Demande de Retrait",
+    "to": "à",
+    "total_bitcoin": "Total Bitcoin :",
+    "transaction-sent": "Transaction envoyée !",
+    "view": "Vue",
+    "view-it-on": "Voir sur",
+    "withdraw": "Retirer",
+    "withdraw-all": "Retirer tout",
+    "withdrawal-created": "Retrait créé.",
+    "withdrawal-created-description": "Veuillez vérifier votre historique de transactions",
+    "withdrawal-history": "Historique des retraits",
+    "your-transaction": "Votre ID de transaction :"
+  }
+}

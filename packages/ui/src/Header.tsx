@@ -19,7 +19,7 @@ export const Header = React.memo(function Header({
         justifyContent={['center', 'flex-start']}
         gap='2'
       >
-        <>
+        <a href='/'>
           <svg
             width='200'
             height='46'
@@ -53,7 +53,7 @@ export const Header = React.memo(function Header({
               </radialGradient>
             </defs>
           </svg>
-        </>
+        </a>
       </Flex>
       {endChildrenSlot}
     </Flex>
