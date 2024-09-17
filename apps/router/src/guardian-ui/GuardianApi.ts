@@ -180,7 +180,7 @@ export class GuardianApi {
     const attemptConfirmConsensusRunning = async (): Promise<void> => {
       try {
         if (!this.guardianConfig?.baseUrl) {
-          throw new Error('fm_config_api not found in config.json');
+          throw new Error('guardian baseUrl not found in config');
         }
         await this.connect();
         await this.shutdown_internal();
@@ -296,7 +296,7 @@ export class GuardianApi {
   ): Promise<T> => {
     try {
       if (!this.guardianConfig?.baseUrl) {
-        throw new Error('fm_config_api not found in config.json');
+        throw new Error('guardian baseUrl not found in config');
       }
       const websocket = await this.connect();
       // console.log('method', method);
