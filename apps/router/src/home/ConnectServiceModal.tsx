@@ -71,6 +71,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
       return;
     }
     setIsLoading(false);
+    setConfigUrl('');
     onClose();
   };
 
