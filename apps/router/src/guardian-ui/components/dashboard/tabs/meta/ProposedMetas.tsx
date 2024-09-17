@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Flex,
   Text,
@@ -9,27 +9,30 @@ import {
   CardFooter,
   Icon,
   useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { ReactComponent as CheckIcon } from '../../../../assets/svgs/check.svg';
-import {
-  useTranslation,
-  hexToMeta,
-  metaToHex,
-  fieldsToMeta,
-} from '@fedimint/utils';
-import { MetaFields, MetaSubmissions } from '@fedimint/types';
+import { useTranslation, metaToHex, fieldsToMeta } from '@fedimint/utils';
+import { MetaFields, ParsedConsensusMeta } from '@fedimint/types';
 
 import { ModuleRpc } from '../../../../types';
 import { Table, TableColumn } from '@fedimint/ui';
-import { DEFAULT_META_KEY } from './MetaManager';
-import { bftHonest, generateSimpleHash } from '../../../../utils';
+import { bftHonest, generateSimpleHash, isJsonString } from '../../../../utils';
+import { DEFAULT_META_KEY } from '../FederationTabsCard';
+import { ConfirmNewMetaModal } from './ConfirmNewMetaModal';
 import { useGuardianAdminApi } from '../../../../../context/hooks';
+
+export const formatJsonValue = (value: string): JSX.Element => {
+  if (isJsonString(value)) {
+    const parsedJson = JSON.parse(value);
+    return (
+      <pre>
+        <code>{JSON.stringify(parsedJson, null, 2)}</code>
+      </pre>
+    );
+  }
+  return <Text>{value}</Text>;
+};
 
 type MetaSubmissionMap = {
   [key: string]: {
@@ -38,81 +41,32 @@ type MetaSubmissionMap = {
   };
 };
 
+type TableKey = 'metaKey' | 'value' | 'effect';
+
 interface ProposedMetasProps {
   ourPeer: { id: number; name: string };
   peers: { id: number; name: string }[];
   metaModuleId: string;
-  updateEditedMetaFields: (fields: MetaFields) => void;
-  pollTimeout: number;
-  onOpen: () => void;
-  consensusMeta: Record<string, string>;
+  consensusMeta?: ParsedConsensusMeta;
+  metaSubmissions: MetaSubmissionMap;
+  hasVoted: boolean;
 }
-
-type TableKey = 'metaKey' | 'value' | 'effect';
 
 export const ProposedMetas = React.memo(function ProposedMetas({
   ourPeer,
   peers,
   metaModuleId,
-  pollTimeout,
-  onOpen,
   consensusMeta,
+  metaSubmissions,
 }: ProposedMetasProps): JSX.Element {
   const { t } = useTranslation();
   const api = useGuardianAdminApi();
   const { isOpen, onOpen: openModal, onClose } = useDisclosure();
-  const [metaSubmissions, setMetaSubmissions] = useState<MetaSubmissionMap>();
-  const [hasVoted, setHasVoted] = useState(false);
   const [selectedMeta, setSelectedMeta] = useState<MetaFields | null>(null);
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const totalGuardians = peers.length;
   const threshold = bftHonest(totalGuardians);
-
-  useEffect(() => {
-    const pollSubmissionInterval = setInterval(async () => {
-      try {
-        const submissions = await api.moduleApiCall<MetaSubmissions>(
-          Number(metaModuleId),
-          ModuleRpc.getSubmissions,
-          0
-        );
-
-        const metas: MetaSubmissionMap = {};
-        let voted = false;
-
-        Object.entries(submissions).forEach(([peer, hexString]) => {
-          if (hexString === '7b7d') return; // Filter out empty submissions
-          const metaObject = hexToMeta(hexString);
-          const meta = Object.entries(metaObject).filter(
-            ([, value]) => value !== undefined && value !== ''
-          ) as [string, string][];
-
-          const metaKey = JSON.stringify(meta); // Use JSON string as a key to group identical metas
-
-          if (metas[metaKey]) {
-            metas[metaKey].peers.push(Number(peer));
-          } else {
-            metas[metaKey] = {
-              peers: [Number(peer)],
-              meta: meta as MetaFields,
-            };
-          }
-
-          if (Number(peer) === ourPeer.id) {
-            voted = true;
-          }
-        });
-
-        setMetaSubmissions(metas);
-        setHasVoted(voted);
-      } catch (err) {
-        console.warn('Failed to poll for meta submissions', err);
-      }
-    }, pollTimeout);
-    return () => {
-      clearInterval(pollSubmissionInterval);
-    };
-  }, [api, metaModuleId, pollTimeout, ourPeer.id]);
 
   const handleClear = useCallback(async () => {
     try {
@@ -148,7 +102,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
     [api, metaModuleId]
   );
 
-  const columns: TableColumn<TableKey>[] = [
+  const columnsWithEffect: TableColumn<TableKey>[] = [
     {
       key: 'metaKey',
       heading: t('set-config.meta-fields-key'),
@@ -163,16 +117,36 @@ export const ProposedMetas = React.memo(function ProposedMetas({
     },
   ];
 
-  const getEffect = (key: string, value: string): JSX.Element => {
-    console.log('consensusMeta', consensusMeta);
-    if (consensusMeta[key] === undefined) {
+  const isEqual = (a: string, b: string): boolean => {
+    try {
+      return JSON.stringify(JSON.parse(a)) === JSON.stringify(JSON.parse(b));
+    } catch {
+      return a === b;
+    }
+  };
+
+  const getEffect = (
+    key: string,
+    value: string,
+    consensusMeta: ParsedConsensusMeta | undefined
+  ): JSX.Element => {
+    if (!consensusMeta?.value) {
       return (
         <Text color='green.500'>
           {t('federation-dashboard.config.manage-meta.meta-effect-add')}
         </Text>
       );
     }
-    if (String(consensusMeta[key]) !== value) {
+
+    const consensusValue = consensusMeta.value.find(([k]) => k === key)?.[1];
+
+    if (consensusValue === undefined) {
+      return (
+        <Text color='green.500'>
+          {t('federation-dashboard.config.manage-meta.meta-effect-add')}
+        </Text>
+      );
+    } else if (!isEqual(consensusValue, value)) {
       return (
         <Text color='yellow.500'>
           {t('federation-dashboard.config.manage-meta.meta-effect-modify')}
@@ -225,47 +199,108 @@ export const ProposedMetas = React.memo(function ProposedMetas({
       ) : null}
       {metaSubmissions &&
         Object.entries(metaSubmissions).map(([key, submission]) => {
-          const submissionKeys = new Set(submission.meta.map(([key]) => key));
+          const submissionMap = new Map(submission.meta);
           const rows = [
-            ...submission.meta.map(([key, value]) => ({
-              key: `${key}-${value}`,
-              metaKey: <Text>{key}</Text>,
-              value: <Text>{value}</Text>,
-              effect: getEffect(key, value),
-            })),
-            ...Object.entries(consensusMeta)
-              .filter(([key]) => !submissionKeys.has(key))
+            ...submission.meta
+              .filter(([key, value]) => {
+                const consensusValue = consensusMeta?.value.find(
+                  ([k]) => k === key
+                )?.[1];
+                return !consensusValue || !isEqual(consensusValue, value);
+              })
               .map(([key, value]) => ({
                 key: `${key}-${value}`,
-                metaKey: <Text as='del'>{key}</Text>,
-                value: <Text as='del'>{value}</Text>,
-                effect: <Text color='red.500'>{t('common.remove')}</Text>,
+                metaKey: <Text>{key}</Text>,
+                value: (
+                  <pre>
+                    <code>{formatJsonValue(value)}</code>
+                  </pre>
+                ),
+                effect: getEffect(key, value, consensusMeta),
               })),
+            ...(consensusMeta
+              ? consensusMeta.value
+                  .filter(([key]) => !submissionMap.has(key))
+                  .map(([key, value]) => ({
+                    key: `${key}-${value}`,
+                    metaKey: <Text as='del'>{key}</Text>,
+                    value: <Text as='del'>{value}</Text>,
+                    effect: <Text color='red.500'>{t('common.remove')}</Text>,
+                  }))
+              : []),
           ];
 
           const totalGuardians = peers.length;
           const currentApprovals = submission.peers.length;
 
           return (
-            <Card key={key} mb={4}>
+            <Card key={key} mb={4} variant={isMobile ? 'unstyled' : 'elevated'}>
               <CardHeader>
-                <Flex justifyContent='space-between' alignItems='center'>
-                  <Text fontSize='md' fontWeight={'semibold'}>
+                <Flex
+                  justifyContent='space-between'
+                  alignItems='center'
+                  flexDir={isMobile ? 'column' : 'row'}
+                >
+                  <Text
+                    fontSize='md'
+                    fontWeight={'semibold'}
+                    mb={isMobile ? 2 : 0}
+                  >
                     {`Proposal ID: ${generateSimpleHash(key)}`}
                   </Text>
+                  {submission.peers.includes(ourPeer.id) ? (
+                    <Button
+                      onClick={handleClear}
+                      variant='outline'
+                      colorScheme='red'
+                      size={isMobile ? 'sm' : 'md'}
+                    >
+                      {t(
+                        'federation-dashboard.config.manage-meta.revoke-button'
+                      )}
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() =>
+                        handleApproveWithWarning(
+                          submission.meta,
+                          currentApprovals
+                        )
+                      }
+                      colorScheme='green'
+                      variant={'outline'}
+                      ml={isMobile ? 0 : 4}
+                      mt={isMobile ? 2 : 0}
+                      size={isMobile ? 'sm' : 'md'}
+                    >
+                      {t('common.approve')}
+                    </Button>
+                  )}
                 </Flex>
               </CardHeader>
-              <CardBody mb={0}>
-                <Table columns={columns} rows={rows} />
+              <CardBody mb={0} px={isMobile ? 0 : 4}>
+                {isMobile ? (
+                  <Flex flexDir='column'>
+                    {rows.map((row) => (
+                      <Flex key={row.key} flexDir='column' mb={4}>
+                        <Text fontWeight='bold'>{row.metaKey}</Text>
+                        {row.value}
+                        {row.effect}
+                      </Flex>
+                    ))}
+                  </Flex>
+                ) : (
+                  <Table columns={columnsWithEffect} rows={rows} />
+                )}
               </CardBody>
-              <CardFooter flexDir='row' justifyContent='space-between'>
-                <Flex alignItems='justify-left' flexDir='column' gap={2}>
-                  <Text fontWeight='semibold'>
-                    {t('common.approvals')}: ( {currentApprovals} /
-                    {totalGuardians} )
-                  </Text>
+              <CardFooter flexDir='column' alignItems='flex-start'>
+                <Text fontWeight='semibold' mb={2}>
+                  {t('common.approvals')}: ( {currentApprovals} /{' '}
+                  {totalGuardians} )
+                </Text>
+                <Flex flexWrap='wrap' gap={2}>
                   {submission.peers.map((peerId) => (
-                    <Flex key={peerId} alignItems='center' mr={2}>
+                    <Flex key={peerId} alignItems='center'>
                       <Icon
                         as={CheckIcon}
                         color={
@@ -273,10 +308,10 @@ export const ProposedMetas = React.memo(function ProposedMetas({
                             ? 'blue.500'
                             : 'green.500'
                         }
-                        w={5}
-                        h={5}
+                        w={4}
+                        h={4}
                       />
-                      <Text ml={1}>
+                      <Text ml={1} fontSize={isMobile ? 'sm' : 'md'}>
                         {ourPeer.id === Number(peerId)
                           ? t('common.you')
                           : peers.find((p) => p.id === Number(peerId))?.name}
@@ -284,73 +319,17 @@ export const ProposedMetas = React.memo(function ProposedMetas({
                     </Flex>
                   ))}
                 </Flex>
-                {submission.peers.includes(ourPeer.id) ? (
-                  <Button
-                    onClick={handleClear}
-                    variant='outline'
-                    colorScheme='red'
-                  >
-                    {t('federation-dashboard.config.manage-meta.revoke-button')}
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() =>
-                      handleApproveWithWarning(
-                        submission.meta,
-                        currentApprovals
-                      )
-                    }
-                    colorScheme='green'
-                    variant={'outline'}
-                    ml={4}
-                  >
-                    {t('common.approve')}
-                  </Button>
-                )}
               </CardFooter>
             </Card>
           );
         })}
-      {hasVoted ? null : (
-        <Button onClick={onOpen} variant='solid' colorScheme='green'>
-          {t('federation-dashboard.config.manage-meta.propose-new-meta-button')}
-        </Button>
-      )}
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>
-            {t('federation-dashboard.config.manage-meta.confirm-modal.title')}
-          </ModalHeader>
-          <ModalBody>
-            <Text mb={4}>
-              {t(
-                'federation-dashboard.config.manage-meta.confirm-modal.description'
-              )}
-            </Text>
-            {selectedMeta && (
-              <Table
-                columns={columns}
-                rows={selectedMeta.map(([key, value]) => ({
-                  key: `${key}-${value}`,
-                  metaKey: <Text>{key}</Text>,
-                  value: <Text>{value}</Text>,
-                  effect: getEffect(key, value),
-                }))}
-              />
-            )}
-          </ModalBody>
-          <ModalFooter>
-            <Button variant='ghost' onClick={onClose}>
-              {t('common.cancel')}
-            </Button>
-            <Button colorScheme='green' ml={3} onClick={confirmApproval}>
-              {t('common.confirm')}
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <ConfirmNewMetaModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={confirmApproval}
+        selectedMeta={selectedMeta}
+      />
     </Flex>
   );
 });

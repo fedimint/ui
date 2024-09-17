@@ -77,3 +77,12 @@ export const normalizeUrl = (url: string): string => {
     return url;
   }
 };
+
+export function isJsonString(str: string): boolean {
+  try {
+    JSON.parse(str);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
