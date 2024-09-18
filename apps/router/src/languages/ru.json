@@ -30,7 +30,8 @@
   },
   "notConfigured": {
     "title": "Не настроено",
-    "description": "Пожалуйста, введите CONFIG_API_URL сервера-хранителя Fedimint, на который следует указать."
+    "description": "Пожалуйста, введите CONFIG_API_URL сервера-хранителя Fedimint, на который следует указать.",
+    "urlLabel": "URL"
   },
   "connect-guardians": {
     "invite-guardians": "Пригласить подписчиков",
@@ -482,5 +483,15 @@
     "withdrawal-created-description": "Пожалуйста, проверьте историю ваших транзакций.",
     "withdrawal-history": "История вывода средств",
     "your-transaction": "Ваш идентификатор транзакции:"
+  },
+  "home": {
+    "services": "Услуги",
+    "addService": "Добавить услугу",
+    "guardians": "Опекуны",
+    "guardianUrl": "URL-адрес Guardian",
+    "actions": "Действия",
+    "view": "Просмотр",
+    "gateways": "Шлюзы",
+    "gatewayUrl": "URL-адрес шлюза"
   }
 }

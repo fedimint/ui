@@ -30,7 +30,8 @@
   },
   "notConfigured": {
     "title": "No configurat",
-    "description": "Introduïu l'CONFIG_API_URL del servidor guardià de Fedimint al qual voleu apuntar."
+    "description": "Introduïu l'CONFIG_API_URL del servidor guardià de Fedimint al qual voleu apuntar.",
+    "urlLabel": "URL"
   },
   "connect-guardians": {
     "invite-guardians": "Convida Seguidors",
@@ -482,5 +483,15 @@
     "withdrawal-created-description": "Si us plau, comprova el teu historial de transaccions.",
     "withdrawal-history": "Historial de retirada",
     "your-transaction": "La vostra ID de transacció:"
+  },
+  "home": {
+    "services": "Serveis",
+    "addService": "Afegir un Servei",
+    "guardians": "Guardians",
+    "guardianUrl": "URL del Guardian",
+    "actions": "Accions",
+    "view": "Vista",
+    "gateways": "Passarel·les",
+    "gatewayUrl": "URL de la passarel·la"
   }
 }

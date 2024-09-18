@@ -30,7 +30,8 @@
   },
   "notConfigured": {
     "title": "Nincs beállítva",
-    "description": "Kérjük, adja meg a Fedimint guardian szerver CONFIG_API_URL-jét, amelyre mutatni szeretne."
+    "description": "Kérjük, adja meg a Fedimint guardian szerver CONFIG_API_URL-jét, amelyre mutatni szeretne.",
+    "urlLabel": "URL"
   },
   "connect-guardians": {
     "invite-guardians": "Hívj meg követőket",
@@ -482,5 +483,15 @@
     "withdrawal-created-description": "Kérjük, ellenőrizze tranzakcióinak előzményeit.",
     "withdrawal-history": "Kifizetési előzmények",
     "your-transaction": "Az Ön tranzakciós azonosítója:"
+  },
+  "home": {
+    "services": "Szolgáltatások",
+    "addService": "Szolgáltatás hozzáadása",
+    "guardians": "Őrzők",
+    "guardianUrl": "Guardian URL",
+    "actions": "Cselekvések",
+    "view": "Megtekintés",
+    "gateways": "Átjárók",
+    "gatewayUrl": "Átjáró URL"
   }
 }

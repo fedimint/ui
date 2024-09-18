@@ -30,7 +30,8 @@
   },
   "notConfigured": {
     "title": "Not Configured",
-    "description": "Please enter the CONFIG_API_URL of the Fedimint guardian server to point at."
+    "description": "Please enter the CONFIG_API_URL of the Fedimint guardian server to point at.",
+    "urlLabel": "URL"
   },
   "connect-guardians": {
     "invite-guardians": "Invite Followers",
@@ -176,6 +177,16 @@
         "session-to-shutdown-helper": "Enter the session height at which you want to shutdown your guardian node."
       }
     }
+  },
+  "home": {
+    "services": "Services",
+    "addService": "Add a Service",
+    "guardians": "Guardians",
+    "guardianUrl": "Guardian URL",
+    "actions": "Actions",
+    "view": "View",
+    "gateways": "Gateways",
+    "gatewayUrl": "Gateway URL"
   },
   "login": {
     "title": "Welcome back!",

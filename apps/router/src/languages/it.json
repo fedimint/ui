@@ -30,7 +30,8 @@
   },
   "notConfigured": {
     "title": "Non configurato",
-    "description": "Inserisci il CONFIG_API_URL del server guardian di Fedimint a cui puntare."
+    "description": "Inserisci il CONFIG_API_URL del server guardian di Fedimint a cui puntare.",
+    "urlLabel": "URL"
   },
   "connect-guardians": {
     "invite-guardians": "Invita Seguaci",
@@ -482,5 +483,15 @@
     "withdrawal-created-description": "Per favore controlla la tua cronologia delle transazioni",
     "withdrawal-history": "Storia dei prelievi",
     "your-transaction": "Il tuo ID transazione:"
+  },
+  "home": {
+    "services": "Servizi",
+    "addService": "Aggiungi un servizio",
+    "guardians": "Tutelari",
+    "guardianUrl": "URL del Guardian",
+    "actions": "Aktionen",
+    "view": "Vista",
+    "gateways": "Portali",
+    "gatewayUrl": "URL del gateway"
   }
 }

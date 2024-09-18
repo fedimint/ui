@@ -30,7 +30,8 @@
   },
   "notConfigured": {
     "title": "設定されていません",
-    "description": "Fedimintガーディアンサーバーを指すためのCONFIG_API_URLを入力してください。"
+    "description": "Fedimintガーディアンサーバーを指すためのCONFIG_API_URLを入力してください。",
+    "urlLabel": "URL"
   },
   "connect-guardians": {
     "invite-guardians": "フォロワーを招待する",
@@ -482,5 +483,15 @@
     "withdrawal-created-description": "あなたの取引履歴を確認してください。",
     "withdrawal-history": "引き出し履歴",
     "your-transaction": "あなたの取引ID:"
+  },
+  "home": {
+    "services": "サービス",
+    "addService": "サービスを追加する",
+    "guardians": "ガーディアンズ",
+    "guardianUrl": "ガーディアンURL",
+    "actions": "行動",
+    "view": "表示",
+    "gateways": "ゲートウェイズ",
+    "gatewayUrl": "ゲートウェイURL"
   }
 }
