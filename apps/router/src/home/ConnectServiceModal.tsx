@@ -10,12 +10,12 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  useToast,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
-import { GuardianConfig } from '../guardian-ui/GuardianApi';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
-import { GatewayConfig } from '../gateway-ui/types';
+import { checkServiceExists, getServiceType } from './utils';
 
 interface ConnectServiceModalProps {
   isOpen: boolean;
@@ -30,49 +30,50 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
   const [configUrl, setConfigUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { guardians, gateways, dispatch } = useAppContext();
+  const toast = useToast();
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const isWebSocket =
-      configUrl.startsWith('ws://') || configUrl.startsWith('wss://');
-    const isHttp =
-      configUrl.startsWith('http://') || configUrl.startsWith('https://');
-
-    const configUrlHash = await sha256Hash(configUrl);
-
-    if (isWebSocket) {
-      if (Object.hasOwn(guardians, configUrlHash)) {
-        console.error('Guardian already exists');
-        return;
+    try {
+      if (checkServiceExists(configUrl, guardians, gateways)) {
+        throw new Error('A service with this URL already exists');
       }
-      const guardianConfig: GuardianConfig = { baseUrl: configUrl };
-      dispatch({
-        type: APP_ACTION_TYPE.ADD_GUARDIAN,
-        payload: {
-          id: configUrlHash,
-          guardian: { config: guardianConfig },
-        },
-      });
-    } else if (isHttp) {
-      if (Object.hasOwn(gateways, configUrlHash)) {
-        console.error('Gateway already exists');
-        return;
+
+      const serviceType = getServiceType(configUrl);
+      const id = await sha256Hash(configUrl);
+
+      if (serviceType === 'guardian') {
+        dispatch({
+          type: APP_ACTION_TYPE.ADD_GUARDIAN,
+          payload: { id, guardian: { config: { baseUrl: configUrl } } },
+        });
+      } else {
+        dispatch({
+          type: APP_ACTION_TYPE.ADD_GATEWAY,
+          payload: { id, gateway: { config: { baseUrl: configUrl } } },
+        });
       }
-      const gatewayConfig: GatewayConfig = { baseUrl: configUrl };
-      dispatch({
-        type: APP_ACTION_TYPE.ADD_GATEWAY,
-        payload: {
-          id: configUrlHash,
-          gateway: { config: gatewayConfig },
-        },
+
+      setConfigUrl('');
+      onClose();
+      toast({
+        title: 'Service added',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
       });
-    } else {
-      console.error('Invalid URL format');
-      return;
+    } catch (error) {
+      toast({
+        title: 'Error adding service',
+        description:
+          error instanceof Error ? error.message : 'An unknown error occurred',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
-    setConfigUrl('');
-    onClose();
   };
 
   return (

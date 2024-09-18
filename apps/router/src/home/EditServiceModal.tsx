@@ -10,8 +10,9 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  useToast,
 } from '@chakra-ui/react';
-import { useTranslation } from '@fedimint/utils';
+import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE, AppAction } from '../context/AppContext';
 
@@ -30,24 +31,66 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [configUrl, setConfigUrl] = useState(serviceUrl);
-  const { dispatch } = useAppContext();
+  const { dispatch, guardians, gateways } = useAppContext();
+  const toast = useToast();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (service) {
-      const payload = {
-        id: service.id,
-        [service.type]: { config: { baseUrl: configUrl } },
-      };
+      try {
+        const newId = await sha256Hash(configUrl);
 
-      dispatch({
-        type:
-          service.type === 'guardian'
-            ? APP_ACTION_TYPE.UPDATE_GUARDIAN
-            : APP_ACTION_TYPE.UPDATE_GATEWAY,
-        payload,
-      } as AppAction);
+        // Check if the new URL already exists
+        const serviceExists = Object.values({ ...guardians, ...gateways }).some(
+          (s) => s.config.baseUrl === configUrl
+        );
+
+        if (serviceExists) {
+          throw new Error('A service with this URL already exists');
+        }
+
+        // Remove old service
+        dispatch({
+          type:
+            service.type === 'guardian'
+              ? APP_ACTION_TYPE.REMOVE_GUARDIAN
+              : APP_ACTION_TYPE.REMOVE_GATEWAY,
+          payload: service.id,
+        });
+
+        // Add new service
+        const newPayload = {
+          id: newId,
+          [service.type]: { config: { baseUrl: configUrl } },
+        };
+
+        dispatch({
+          type:
+            service.type === 'guardian'
+              ? APP_ACTION_TYPE.ADD_GUARDIAN
+              : APP_ACTION_TYPE.ADD_GATEWAY,
+          payload: newPayload,
+        } as AppAction);
+
+        onClose();
+        toast({
+          title: 'Service updated',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+      } catch (error) {
+        toast({
+          title: 'Error updating service',
+          description:
+            error instanceof Error
+              ? error.message
+              : 'An unknown error occurred',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
     }
-    onClose();
   };
 
   return (

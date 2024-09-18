@@ -60,7 +60,7 @@ export const HomePage: React.FC = () => {
                     `${type.charAt(0).toUpperCase() + type.slice(1)} URL`
                   )}
                 </Th>
-                <Th>{t('home.actions', 'Actions')}</Th>
+                <Th width='200px'>{t('home.actions', 'Actions')}</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -68,11 +68,12 @@ export const HomePage: React.FC = () => {
                 <Tr key={`${type}-${id}`}>
                   <Td>{service.config.baseUrl}</Td>
                   <Td>
-                    <Flex gap={2}>
+                    <Flex justifyContent='flex-end' gap={2}>
                       <Link to={`/${type}/${id}`}>
                         <Button
                           size='sm'
                           colorScheme={type === 'guardian' ? 'green' : 'purple'}
+                          width='60px'
                         >
                           {t('home.view', 'View')}
                         </Button>
