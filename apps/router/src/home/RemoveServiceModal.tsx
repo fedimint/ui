@@ -47,7 +47,7 @@ export const RemoveServiceModal: React.FC<RemoveServiceModalProps> = ({
       <ModalContent>
         <ModalHeader>
           {t('home.remove-service-modal.title', {
-            type: service.type,
+            type: service.type.charAt(0).toUpperCase() + service.type.slice(1),
           })}
         </ModalHeader>
         <ModalCloseButton />

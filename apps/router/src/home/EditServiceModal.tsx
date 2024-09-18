@@ -98,17 +98,14 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          {t(
-            'home.editService',
-            `Edit ${
-              service.type.charAt(0).toUpperCase() + service.type.slice(1)
-            }`
-          )}
+          {t('home.edit-service-modal.title', {
+            type: service.type.charAt(0).toUpperCase() + service.type.slice(1),
+          })}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <FormControl>
-            <FormLabel>{t('notConfigured.urlLabel')}</FormLabel>
+            <FormLabel>{t('home.edit-service-modal.url-label')}</FormLabel>
             <Input
               value={configUrl}
               onChange={(e) => setConfigUrl(e.target.value)}

@@ -197,6 +197,10 @@
     "remove-service-modal": {
       "title": "Remove {{type}}",
       "confirm": "Are you sure you want to remove this {{type}}?"
+    },
+    "edit-service-modal": {
+      "title": "Edit {{type}}",
+      "url-label": "URL"
     }
   },
   "login": {
