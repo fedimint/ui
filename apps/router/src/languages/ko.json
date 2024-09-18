@@ -30,7 +30,8 @@
   },
   "notConfigured": {
     "title": "구성되지 않음",
-    "description": "Fedimint 가디언 서버를 가리키려면 CONFIG_API_URL을 입력해 주세요."
+    "description": "Fedimint 가디언 서버를 가리키려면 CONFIG_API_URL을 입력해 주세요.",
+    "urlLabel": "URL"
   },
   "connect-guardians": {
     "invite-guardians": "팔로워 초대하기",
@@ -482,5 +483,15 @@
     "withdrawal-created-description": "거래 내역을 확인해 주세요.",
     "withdrawal-history": "출금 내역",
     "your-transaction": "당신의 거래 ID:"
+  },
+  "home": {
+    "services": "서비스",
+    "addService": "서비스 추가",
+    "guardians": "보호자들",
+    "guardianUrl": "가디언 URL",
+    "actions": "행동들",
+    "view": "보기",
+    "gateways": "게이트웨이",
+    "gatewayUrl": "게이트웨이 URL"
   }
 }

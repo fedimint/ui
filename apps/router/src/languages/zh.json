@@ -30,7 +30,8 @@
   },
   "notConfigured": {
     "title": "未配置",
-    "description": "请输入指向Fedimint守护服务器的CONFIG_API_URL。"
+    "description": "请输入指向Fedimint守护服务器的CONFIG_API_URL。",
+    "urlLabel": "网址"
   },
   "connect-guardians": {
     "invite-guardians": "邀请关注者",
@@ -482,5 +483,15 @@
     "withdrawal-created-description": "请检查您的交易历史记录",
     "withdrawal-history": "提款历史",
     "your-transaction": "您的交易ID："
+  },
+  "home": {
+    "services": "服务",
+    "addService": "添加服务",
+    "guardians": "守护者",
+    "guardianUrl": "卫报网址",
+    "actions": "行动",
+    "view": "查看",
+    "gateways": "网关",
+    "gatewayUrl": "网关URL"
   }
 }
