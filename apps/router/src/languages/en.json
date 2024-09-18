@@ -177,6 +177,19 @@
       }
     }
   },
+  "home": {
+    "services": "Services",
+    "addService": "Add a Service",
+    "guardians": "Guardians",
+    "guardianUrl": "Guardian URL",
+    "actions": "Actions",
+    "view": "View",
+    "gateways": "Gateways",
+    "gatewayUrl": "Gateway URL"
+  },
+  "notConfigured": {
+    "urlLabel": "URL"
+  },
   "login": {
     "title": "Welcome back!",
     "subtitle": "Please enter your password.",
