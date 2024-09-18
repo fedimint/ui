@@ -46,14 +46,17 @@ export const RemoveServiceModal: React.FC<RemoveServiceModalProps> = ({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          {t(
-            'home.removeService',
-            `${service.type.charAt(0).toUpperCase() + service.type.slice(1)}`
-          )}
+          {t('home.remove-service-modal.title', {
+            type: service.type,
+          })}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text>{t('home.removeServiceConfirm', `${service?.type}?`)}</Text>
+          <Text>
+            {t('home.remove-service-modal.confirm', {
+              type: service.type,
+            })}
+          </Text>
         </ModalBody>
         <ModalFooter>
           <Button colorScheme='red' mr={3} onClick={handleRemove}>
