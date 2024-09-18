@@ -493,6 +493,16 @@
     "actions": "Accions",
     "view": "Vista",
     "gateways": "Passarel·les",
-    "gatewayUrl": "URL de la passarel·la"
+    "gatewayUrl": "URL de la passarel·la",
+    "connect-service-modal": {
+      "label": "Connectar un servei",
+      "title": "Connecta un Servei Fedimint",
+      "url-label": "URL",
+      "helper-text": "Serà wss:// per a guardian o https:// per a passarel·la"
+    },
+    "remove-service-modal": {
+      "title": "Elimina {{type}}",
+      "confirm": "Esteu segur que voleu eliminar aquest {{type}}?"
+    }
   }
 }

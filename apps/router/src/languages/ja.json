@@ -493,6 +493,16 @@
     "actions": "行動",
     "view": "表示",
     "gateways": "ゲートウェイズ",
-    "gatewayUrl": "ゲートウェイURL"
+    "gatewayUrl": "ゲートウェイURL",
+    "connect-service-modal": {
+      "label": "サービスを接続する",
+      "title": "Fedimintサービスを接続する",
+      "url-label": "URL",
+      "helper-text": "ガーディアンの場合はwss://、ゲートウェイの場合はhttps://になります。"
+    },
+    "remove-service-modal": {
+      "title": "{{type}}を削除する",
+      "confirm": "この{{type}}を削除してもよろしいですか？"
+    }
   }
 }

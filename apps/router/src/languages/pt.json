@@ -493,6 +493,16 @@
     "actions": "Ações",
     "view": "Visualizar",
     "gateways": "Portais",
-    "gatewayUrl": "URL do Gateway"
+    "gatewayUrl": "URL do Gateway",
+    "connect-service-modal": {
+      "label": "Conectar um Serviço",
+      "title": "Conecte um Serviço Fedimint",
+      "url-label": "URL",
+      "helper-text": "Será wss:// para guardião ou https:// para gateway"
+    },
+    "remove-service-modal": {
+      "title": "Remova {{type}}",
+      "confirm": "Tem certeza de que deseja remover este {{type}}?"
+    }
   }
 }

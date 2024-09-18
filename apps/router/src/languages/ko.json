@@ -493,6 +493,16 @@
     "actions": "행동들",
     "view": "보기",
     "gateways": "게이트웨이",
-    "gatewayUrl": "게이트웨이 URL"
+    "gatewayUrl": "게이트웨이 URL",
+    "connect-service-modal": {
+      "label": "서비스 연결하기",
+      "title": "Fedimint 서비스를 연결하십시오.",
+      "url-label": "URL",
+      "helper-text": "guardian의 경우 wss://, gateway의 경우 https://가 될 것입니다."
+    },
+    "remove-service-modal": {
+      "title": "{{type}} 제거",
+      "confirm": "이 {{type}}을 삭제하시겠습니까?"
+    }
   }
 }

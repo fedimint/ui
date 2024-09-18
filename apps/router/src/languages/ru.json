@@ -493,6 +493,16 @@
     "actions": "Действия",
     "view": "Просмотр",
     "gateways": "Шлюзы",
-    "gatewayUrl": "URL-адрес шлюза"
+    "gatewayUrl": "URL-адрес шлюза",
+    "connect-service-modal": {
+      "label": "Подключить сервис",
+      "title": "Подключите сервис Fedimint",
+      "url-label": "URL",
+      "helper-text": "Будет wss:// для защитника или https:// для шлюза"
+    },
+    "remove-service-modal": {
+      "title": "Удалить {{type}}",
+      "confirm": "Вы уверены, что хотите удалить этот {{type}}?"
+    }
   }
 }

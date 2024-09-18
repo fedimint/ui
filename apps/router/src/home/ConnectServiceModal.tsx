@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Button,
   FormControl,
+  FormHelperText,
   FormLabel,
   Input,
   Modal,
@@ -80,16 +81,21 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{t('home.addService', 'Add Service')}</ModalHeader>
+        <ModalHeader>
+          {t('home.connect-service-modal.title', 'Connect a Service')}
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <FormControl>
-            <FormLabel>{t('notConfigured.urlLabel')}</FormLabel>
+            <FormLabel>{t('home.connect-service-modal.url-label')}</FormLabel>
             <Input
-              placeholder='wss://fedimintd.my-awesome-domain.com:6000'
+              placeholder='wss://fedimintd.domain.com:6000'
               value={configUrl}
               onChange={(e) => setConfigUrl(e.target.value)}
             />
+            <FormHelperText fontSize='sm'>
+              {t('home.connect-service-modal.helper-text')}
+            </FormHelperText>
           </FormControl>
           <Button
             mt={4}

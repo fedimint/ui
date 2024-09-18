@@ -493,6 +493,16 @@
     "actions": "Cselekvések",
     "view": "Megtekintés",
     "gateways": "Átjárók",
-    "gatewayUrl": "Átjáró URL"
+    "gatewayUrl": "Átjáró URL",
+    "connect-service-modal": {
+      "label": "Csatlakoztasson egy szolgáltatást",
+      "title": "Csatlakoztassa a Fedimint Szolgáltatást",
+      "url-label": "URL",
+      "helper-text": "Guardian esetén wss:// lesz, gateway esetén pedig https://"
+    },
+    "remove-service-modal": {
+      "title": "Távolítsa el a {{type}}",
+      "confirm": "Biztosan el akarja távolítani ezt a(z) {{type}}-t?"
+    }
   }
 }

@@ -493,6 +493,16 @@
     "actions": "Aktionen",
     "view": "Vista",
     "gateways": "Portali",
-    "gatewayUrl": "URL del gateway"
+    "gatewayUrl": "URL del gateway",
+    "connect-service-modal": {
+      "label": "Collega un servizio",
+      "title": "Collega un servizio Fedimint",
+      "url-label": "URL",
+      "helper-text": "Sarà wss:// per guardian o https:// per gateway"
+    },
+    "remove-service-modal": {
+      "title": "Rimuovi {{type}}",
+      "confirm": "Sei sicuro di voler rimuovere questo {{type}}?"
+    }
   }
 }

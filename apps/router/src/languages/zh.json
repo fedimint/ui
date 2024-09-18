@@ -493,6 +493,16 @@
     "actions": "行动",
     "view": "查看",
     "gateways": "网关",
-    "gatewayUrl": "网关URL"
+    "gatewayUrl": "网关URL",
+    "connect-service-modal": {
+      "label": "连接服务",
+      "title": "连接Fedimint服务",
+      "url-label": "网址",
+      "helper-text": "将为guardian使用wss://，为gateway使用https://。"
+    },
+    "remove-service-modal": {
+      "title": "删除{{type}}",
+      "confirm": "您确定要删除这个{{type}}吗？"
+    }
   }
 }
