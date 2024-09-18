@@ -8,32 +8,16 @@ import {
   MenuList,
   Button,
 } from '@chakra-ui/react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { sha256Hash } from '@fedimint/utils';
+import { useNavigate } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
+import { useAppContext } from '../context/hooks';
 
-export interface HeaderProps {
-  endChildrenSlot?: React.ReactNode;
-  guardiansUrls?: string[];
-  gatewaysUrls?: string[];
-}
-
-export const Header = React.memo(function Header({
-  endChildrenSlot,
-  guardiansUrls,
-  gatewaysUrls,
-}: HeaderProps) {
-  const location = useLocation();
+export const Header = React.memo(function Header() {
+  const { guardians, gateways } = useAppContext();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-  const showSelector = location.pathname !== '/';
-
-  const handleServiceSelect = (
-    type: 'guardian' | 'gateway',
-    baseUrl: string
-  ) => {
-    const id = sha256Hash(baseUrl);
+  const handleServiceSelect = (type: 'guardian' | 'gateway', id: string) => {
     navigate(`/${type}/${id}`);
     setIsOpen(false);
   };
@@ -84,39 +68,73 @@ export const Header = React.memo(function Header({
             </defs>
           </svg>
         </a>
-        {showSelector && (
-          <Menu isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <MenuButton
-              as={Button}
-              leftIcon={React.createElement(FiMenu)}
-              variant='outline'
-              onClick={() => setIsOpen(!isOpen)}
-            />
-            <MenuList>
-              <MenuItem onClick={() => navigate('/')}>Home</MenuItem>
-              {guardiansUrls && <MenuItem>Guardians</MenuItem>}
-              {guardiansUrls?.map((guardianUrl) => (
-                <MenuItem
-                  key={guardianUrl}
-                  onClick={() => handleServiceSelect('guardian', guardianUrl)}
-                >
-                  <Text fontSize='sm'>{guardianUrl}</Text>
-                </MenuItem>
-              ))}
-              <MenuItem>Gateways</MenuItem>
-              {gatewaysUrls?.map((gatewayUrl) => (
-                <MenuItem
-                  key={gatewayUrl}
-                  onClick={() => handleServiceSelect('gateway', gatewayUrl)}
-                >
-                  <Text fontSize='sm'>{gatewayUrl}</Text>
-                </MenuItem>
-              ))}
-            </MenuList>
-          </Menu>
-        )}
       </Flex>
-      {endChildrenSlot}
+      {Object.entries(guardians).length || Object.entries(gateways).length ? (
+        <Menu
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          placement='bottom-end'
+        >
+          <MenuButton
+            as={Button}
+            leftIcon={React.createElement(FiMenu)}
+            size='md'
+            variant='outline'
+            onClick={() => setIsOpen(!isOpen)}
+          />
+          <MenuList>
+            <MenuItem
+              onClick={() => navigate('/')}
+              fontWeight='bold'
+              cursor='default'
+            >
+              Home
+            </MenuItem>
+            {Object.entries(guardians).length > 0 ? (
+              <>
+                <MenuItem
+                  as='div'
+                  fontWeight='bold'
+                  _hover={{ background: 'none' }}
+                  cursor='default'
+                >
+                  Guardians
+                </MenuItem>
+                {Object.entries(guardians).map(([id, guardian]) => (
+                  <MenuItem
+                    key={id}
+                    onClick={() => handleServiceSelect('guardian', id)}
+                    pl={4}
+                  >
+                    <Text fontSize='sm'>{guardian.config.baseUrl}</Text>
+                  </MenuItem>
+                ))}
+              </>
+            ) : null}
+            {Object.entries(gateways).length > 0 ? (
+              <>
+                <MenuItem
+                  as='div'
+                  fontWeight='bold'
+                  _hover={{ background: 'none' }}
+                  cursor='default'
+                >
+                  Gateways
+                </MenuItem>
+                {Object.entries(gateways).map(([id, gateway]) => (
+                  <MenuItem
+                    key={id}
+                    onClick={() => handleServiceSelect('gateway', id)}
+                    pl={4}
+                  >
+                    <Text fontSize='sm'>{gateway.config.baseUrl}</Text>
+                  </MenuItem>
+                ))}
+              </>
+            ) : null}
+          </MenuList>
+        </Menu>
+      ) : null}
     </Flex>
   );
 });
