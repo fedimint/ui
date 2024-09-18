@@ -1,13 +1,43 @@
-import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import {
+  Flex,
+  Text,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Button,
+} from '@chakra-ui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { sha256Hash } from '@fedimint/utils';
+import { FiMenu } from 'react-icons/fi';
 
 export interface HeaderProps {
   endChildrenSlot?: React.ReactNode;
+  guardiansUrls?: string[];
+  gatewaysUrls?: string[];
 }
 
 export const Header = React.memo(function Header({
   endChildrenSlot,
+  guardiansUrls,
+  gatewaysUrls,
 }: HeaderProps) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const showSelector = location.pathname !== '/';
+
+  const handleServiceSelect = (
+    type: 'guardian' | 'gateway',
+    baseUrl: string
+  ) => {
+    const id = sha256Hash(baseUrl);
+    navigate(`/${type}/${id}`);
+    setIsOpen(false);
+  };
+
   return (
     <Flex
       width='100%'
@@ -54,6 +84,37 @@ export const Header = React.memo(function Header({
             </defs>
           </svg>
         </a>
+        {showSelector && (
+          <Menu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <MenuButton
+              as={Button}
+              leftIcon={React.createElement(FiMenu)}
+              variant='outline'
+              onClick={() => setIsOpen(!isOpen)}
+            />
+            <MenuList>
+              <MenuItem onClick={() => navigate('/')}>Home</MenuItem>
+              {guardiansUrls && <MenuItem>Guardians</MenuItem>}
+              {guardiansUrls?.map((guardianUrl) => (
+                <MenuItem
+                  key={guardianUrl}
+                  onClick={() => handleServiceSelect('guardian', guardianUrl)}
+                >
+                  <Text fontSize='sm'>{guardianUrl}</Text>
+                </MenuItem>
+              ))}
+              <MenuItem>Gateways</MenuItem>
+              {gatewaysUrls?.map((gatewayUrl) => (
+                <MenuItem
+                  key={gatewayUrl}
+                  onClick={() => handleServiceSelect('gateway', gatewayUrl)}
+                >
+                  <Text fontSize='sm'>{gatewayUrl}</Text>
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+        )}
       </Flex>
       {endChildrenSlot}
     </Flex>
