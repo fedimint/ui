@@ -26,7 +26,8 @@
     "msats": "msats",
     "uri": "URI",
     "view-on-mempool": "Veure a Mempool",
-    "ecash": "Efectiu digital"
+    "ecash": "Efectiu digital",
+    "view": "Veure"
   },
   "notConfigured": {
     "title": "No configurat",

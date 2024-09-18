@@ -26,7 +26,8 @@
     "msats": "msats",
     "uri": "URI",
     "view-on-mempool": "Mempool에서 보기",
-    "ecash": "전자현금"
+    "ecash": "전자현금",
+    "view": "보기"
   },
   "notConfigured": {
     "title": "구성되지 않음",

@@ -26,7 +26,8 @@
     "msats": "мсатс",
     "uri": "URI",
     "view-on-mempool": "Просмотр Mempool",
-    "ecash": "Электронные деньги"
+    "ecash": "Электронные деньги",
+    "view": "Просмотр"
   },
   "notConfigured": {
     "title": "Не настроено",

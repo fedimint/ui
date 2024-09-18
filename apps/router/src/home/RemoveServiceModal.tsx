@@ -14,13 +14,13 @@ import { useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
 
-interface DeleteServiceModalProps {
+interface RemoveServiceModalProps {
   isOpen: boolean;
   onClose: () => void;
   service: { type: 'guardian' | 'gateway'; id: string };
 }
 
-export const DeleteServiceModal: React.FC<DeleteServiceModalProps> = ({
+export const RemoveServiceModal: React.FC<RemoveServiceModalProps> = ({
   isOpen,
   onClose,
   service,
@@ -28,7 +28,7 @@ export const DeleteServiceModal: React.FC<DeleteServiceModalProps> = ({
   const { t } = useTranslation();
   const { dispatch } = useAppContext();
 
-  const handleDelete = () => {
+  const handleRemove = () => {
     if (service) {
       dispatch({
         type:
@@ -47,24 +47,17 @@ export const DeleteServiceModal: React.FC<DeleteServiceModalProps> = ({
       <ModalContent>
         <ModalHeader>
           {t(
-            'home.deleteService',
-            `Delete ${
-              service.type.charAt(0).toUpperCase() + service.type.slice(1)
-            }`
+            'home.removeService',
+            `${service.type.charAt(0).toUpperCase() + service.type.slice(1)}`
           )}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text>
-            {t(
-              'home.deleteServiceConfirm',
-              `Are you sure you want to delete this ${service?.type}?`
-            )}
-          </Text>
+          <Text>{t('home.removeServiceConfirm', `${service?.type}?`)}</Text>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme='red' mr={3} onClick={handleDelete}>
-            {t('common.delete')}
+          <Button colorScheme='red' mr={3} onClick={handleRemove}>
+            {t('common.remove')}
           </Button>
           <Button variant='ghost' onClick={onClose}>
             {t('common.cancel')}

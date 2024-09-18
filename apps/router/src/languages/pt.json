@@ -26,7 +26,8 @@
     "msats": "msats",
     "uri": "URI",
     "view-on-mempool": "Visualizar no Mempool",
-    "ecash": "Ecash"
+    "ecash": "Ecash",
+    "view": "Visualizar"
   },
   "notConfigured": {
     "title": "Não Configurado",

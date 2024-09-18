@@ -25,6 +25,7 @@
     "sats": "sats",
     "msats": "msats",
     "uri": "URI",
+    "view": "View",
     "view-on-mempool": "View on Mempool",
     "ecash": "Ecash"
   },

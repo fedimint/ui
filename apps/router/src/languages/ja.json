@@ -26,7 +26,8 @@
     "msats": "ミサツ",
     "uri": "URI",
     "view-on-mempool": "Mempoolを表示する",
-    "ecash": "電子マネー"
+    "ecash": "電子マネー",
+    "view": "表示"
   },
   "notConfigured": {
     "title": "設定されていません",

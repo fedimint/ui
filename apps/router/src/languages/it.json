@@ -26,7 +26,8 @@
     "msats": "msats",
     "uri": "URI",
     "view-on-mempool": "Visualizza su Mempool",
-    "ecash": "Efectivo electrónico"
+    "ecash": "Efectivo electrónico",
+    "view": "Vista"
   },
   "notConfigured": {
     "title": "Non configurato",

@@ -26,7 +26,8 @@
     "msats": "msats",
     "uri": "统一资源标识符",
     "view-on-mempool": "查看Mempool",
-    "ecash": "电子现金"
+    "ecash": "电子现金",
+    "view": "查看"
   },
   "notConfigured": {
     "title": "未配置",

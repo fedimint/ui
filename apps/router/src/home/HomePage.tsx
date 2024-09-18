@@ -18,12 +18,12 @@ import {
   useDisclosure,
   IconButton,
 } from '@chakra-ui/react';
-import { FiEdit, FiX } from 'react-icons/fi';
+import { FiEdit, FiExternalLink, FiX } from 'react-icons/fi';
 import { useTranslation } from '@fedimint/utils';
 import { ConnectServiceModal } from './ConnectServiceModal';
 import { useAppContext } from '../context/hooks';
 import { EditServiceModal } from './EditServiceModal';
-import { DeleteServiceModal } from './DeleteServiceModal';
+import { RemoveServiceModal } from './RemoveServiceModal';
 import { Gateway, Guardian } from '../context/AppContext';
 
 export const HomePage: React.FC = () => {
@@ -33,7 +33,7 @@ export const HomePage: React.FC = () => {
     type: 'guardian' | 'gateway';
     id: string;
   } | null>(null);
-  const [deletingService, setDeletingService] = useState<{
+  const [removingService, setRemovingService] = useState<{
     type: 'guardian' | 'gateway';
     id: string;
   } | null>(null);
@@ -66,31 +66,38 @@ export const HomePage: React.FC = () => {
             <Tbody>
               {Object.entries(services).map(([id, service]) => (
                 <Tr key={`${type}-${id}`}>
-                  <Td>{service.config.baseUrl}</Td>
                   <Td>
-                    <Flex justifyContent='flex-end' gap={2}>
-                      <Link to={`/${type}/${id}`}>
-                        <Button
-                          size='sm'
-                          colorScheme={type === 'guardian' ? 'green' : 'purple'}
-                          width='60px'
-                        >
-                          {t('home.view', 'View')}
-                        </Button>
-                      </Link>
+                    <Flex gap={2} alignItems='center'>
+                      {service.config.baseUrl}
                       <IconButton
                         aria-label={`Edit ${type}`}
                         icon={<FiEdit />}
                         size='sm'
-                        colorScheme='blue'
+                        colorScheme='gray'
+                        variant='ghost'
                         onClick={() => setEditingService({ type, id })}
                       />
+                    </Flex>
+                  </Td>
+                  <Td>
+                    <Flex justifyContent='flex-end' gap={3} alignItems='center'>
+                      <Link to={`/${type}/${id}`}>
+                        <Button
+                          rightIcon={<FiExternalLink />}
+                          size='sm'
+                          colorScheme='blue'
+                        >
+                          {t('common.view', 'View')}
+                        </Button>
+                      </Link>
+
                       <IconButton
                         aria-label={`Delete ${type}`}
                         icon={<FiX />}
-                        size='sm'
+                        size='md'
                         colorScheme='red'
-                        onClick={() => setDeletingService({ type, id })}
+                        variant='ghost'
+                        onClick={() => setRemovingService({ type, id })}
                       />
                     </Flex>
                   </Td>
@@ -142,11 +149,11 @@ export const HomePage: React.FC = () => {
           }
         />
       )}
-      {deletingService && (
-        <DeleteServiceModal
+      {removingService && (
+        <RemoveServiceModal
           isOpen={true}
-          onClose={() => setDeletingService(null)}
-          service={deletingService}
+          onClose={() => setRemovingService(null)}
+          service={removingService}
         />
       )}
     </>

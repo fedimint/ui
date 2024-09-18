@@ -26,7 +26,8 @@
     "msats": "msats",
     "uri": "URI",
     "view-on-mempool": "Megtekintés a Mempool-on",
-    "ecash": "Ecash"
+    "ecash": "Ecash",
+    "view": "Megtekintés"
   },
   "notConfigured": {
     "title": "Nincs beállítva",
