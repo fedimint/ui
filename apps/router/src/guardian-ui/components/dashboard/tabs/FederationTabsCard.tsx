@@ -27,7 +27,7 @@ import { useTranslation, hexToMeta } from '@fedimint/utils';
 import { MetaManager } from './meta/MetaManager';
 import { ApiAnnouncements } from './ApiAnnouncements';
 
-import { ProposedMetas } from './meta/ProposedMetas';
+import { ProposedMetas } from './meta/proposals/ProposedMetas';
 import { ModuleRpc } from '../../../types';
 import { useGuardianAdminApi } from '../../../../context/hooks';
 

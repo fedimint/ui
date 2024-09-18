@@ -15,12 +15,16 @@ import { ReactComponent as CheckIcon } from '../../../../assets/svgs/check.svg';
 import { useTranslation, metaToHex, fieldsToMeta } from '@fedimint/utils';
 import { MetaFields, ParsedConsensusMeta } from '@fedimint/types';
 
-import { ModuleRpc } from '../../../../types';
+import { ModuleRpc } from '../../../../../types';
 import { Table, TableColumn } from '@fedimint/ui';
-import { bftHonest, generateSimpleHash, isJsonString } from '../../../../utils';
-import { DEFAULT_META_KEY } from '../FederationTabsCard';
+import {
+  bftHonest,
+  generateSimpleHash,
+  isJsonString,
+} from '../../../../../utils';
+import { DEFAULT_META_KEY } from '../../FederationTabsCard';
 import { ConfirmNewMetaModal } from './ConfirmNewMetaModal';
-import { useGuardianAdminApi } from '../../../../../context/hooks';
+import { useGuardianAdminApi } from '../../../../../../context/hooks';
 
 export const formatJsonValue = (value: string): JSX.Element => {
   if (isJsonString(value)) {
