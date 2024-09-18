@@ -11,9 +11,9 @@ import {
 } from '@chakra-ui/react';
 import { fieldsToMeta, metaToHex, useTranslation } from '@fedimint/utils';
 import { ParsedConsensusMeta } from '@fedimint/types';
-import { ModuleRpc } from '../../../../types';
-import { DEFAULT_META_KEY } from '../FederationTabsCard';
-import { useGuardianAdminApi } from '../../../../../context/hooks';
+import { ModuleRpc } from '../../../../../types';
+import { DEFAULT_META_KEY } from '../../FederationTabsCard';
+import { useGuardianAdminApi } from '../../../../../../context/hooks';
 import { RequiredMeta } from './RequiredMeta';
 
 const metaArrayToObject = (

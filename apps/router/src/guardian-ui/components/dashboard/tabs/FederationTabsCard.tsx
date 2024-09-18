@@ -24,7 +24,7 @@ import {
   SignedApiAnnouncement,
 } from '@fedimint/types';
 import { useTranslation, hexToMeta } from '@fedimint/utils';
-import { MetaManager } from './meta/MetaManager';
+import { MetaManager } from './meta/manager/MetaManager';
 import { ApiAnnouncements } from './ApiAnnouncements';
 
 import { ProposedMetas } from './meta/proposals/ProposedMetas';

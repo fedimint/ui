@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, FormLabel, Input } from '@chakra-ui/react';
 import { snakeToTitleCase } from '@fedimint/utils';
-import { IconPreview } from '../IconPreview';
+import { IconPreview } from './IconPreview';
 
 interface MetaInputProps {
   metaKey: string;

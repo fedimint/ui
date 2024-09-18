@@ -11,7 +11,7 @@ import {
   useDisclosure,
   useBreakpointValue,
 } from '@chakra-ui/react';
-import { ReactComponent as CheckIcon } from '../../../../assets/svgs/check.svg';
+import { ReactComponent as CheckIcon } from '../../../../../assets/svgs/check.svg';
 import { useTranslation, metaToHex, fieldsToMeta } from '@fedimint/utils';
 import { MetaFields, ParsedConsensusMeta } from '@fedimint/types';
 
