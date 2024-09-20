@@ -18,8 +18,6 @@ import { Wrapper } from './components/Wrapper';
 
 i18nProvider(languages);
 
-// ... existing imports ...
-
 const App = () => {
   return (
     <Router>
