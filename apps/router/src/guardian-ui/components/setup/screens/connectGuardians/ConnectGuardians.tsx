@@ -64,7 +64,12 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   } else if (role === GuardianRole.Host) {
     content = (
       <Flex direction={['column', 'row']} gap={4} align='start'>
-        <FormControl minW={400} bg='blue.50' p={2} borderRadius='md'>
+        <FormControl
+          minW={['100%', '400px', '400px']}
+          bg='blue.50'
+          p={2}
+          borderRadius='md'
+        >
           <FormLabel>{t('connect-guardians.invite-guardians')}</FormLabel>
           <CopyInput
             value={guardianLink}

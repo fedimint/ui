@@ -28,3 +28,17 @@ export const sha256Hash = async (input: string): Promise<string> => {
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('');
 };
+
+export const snakeToTitleCase = (str: string): string => {
+  return str
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
+export const titleToSnakeCase = (str: string): string => {
+  return str
+    .split(' ')
+    .map((word) => word.toLowerCase())
+    .join('_');
+};

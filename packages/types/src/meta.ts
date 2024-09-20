@@ -17,3 +17,9 @@ export interface ConsensusMeta {
   revision: number;
   value: string;
 }
+
+// Parsed ConsensusMeta
+export interface ParsedConsensusMeta {
+  revision: number;
+  value: MetaFields;
+}

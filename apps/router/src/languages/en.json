@@ -90,28 +90,34 @@
       "no-gateways-info-description": "Lightning node operators can connect to your federation to provide Lightning Network interoperability. Once connected, they will appear here."
     },
     "api-announcements": {
-      "label": "API Announcements",
+      "label": "API",
       "guardian": "Guardian",
       "api-url": "API URL",
       "revision": "Revision"
     },
     "config": {
       "label": "Federation Config",
-      "view-config": "View Config",
+      "view-config": "Config",
+      "view-meta": "Meta",
       "missing-meta-module": "Editing Meta fields is not possible. The Meta module is not available for this federation.",
       "manage-meta": {
+        "header": "Your Federation's Metadata",
+        "description": "Fedimint can supply your users with additional information (metadata) about the Federation, such as a name, welcome message, or image. While this information does not affect the custody of funds, all the Guardians must agree on the metadata.",
+        "learn-more": "Learn more about Federation Metadata.",
         "label": "Manage Meta",
         "cancel-button": "Cancel",
         "confirm-modal": {
           "title": "Confirm Approval",
           "description": "Your approval will reach the threshold to adopt this meta change. Your new meta will look like:"
         },
-        "consensus-meta-label": "Current meta in consensus",
+        "consensus-meta-label": "Consensus Metadata",
         "revoke-button": "Revoke",
         "no-consensus-meta-message": "there are no meta in consensus",
         "proposed-meta-label": "Meta Proposals",
         "propose-meta": "Propose Meta",
-        "propose-new-meta-button": "Propose New Meta",
+        "propose-new-meta-button": "Propose New Metadata",
+        "add-custom-field-button": "Add Custom Field",
+        "reset-to-consensus-button": "Reset to Consensus",
         "proposal-approved": "You have approved this proposal",
         "no-submitted-meta-message": "there are no meta edits to review",
         "edit-meta-label": "Edit meta",
