@@ -1,124 +1,77 @@
-import React, { useContext, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Flex,
-  Heading,
-  Table,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-  useDisclosure,
-} from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Button, Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { AppContext } from '../context/AppContext';
 import { ConnectServiceModal } from './ConnectServiceModal';
+import { useAppContext } from '../context/hooks';
+import { EditServiceModal } from './EditServiceModal';
+import { RemoveServiceModal } from './RemoveServiceModal';
+import { NoConnectedServices } from './NoConnectedServices';
+import { ServiceTable } from './ServiceTable';
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation();
-  const { guardians, gateways } = useContext(AppContext);
+  const { guardians, gateways } = useAppContext();
+  const [editingService, setEditingService] = useState<{
+    type: 'guardian' | 'gateway';
+    id: string;
+  } | null>(null);
+  const [removingService, setRemovingService] = useState<{
+    type: 'guardian' | 'gateway';
+    id: string;
+  } | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const content = useMemo(() => {
-    return (
-      <Box width='100%' maxWidth='1200px' margin='auto' paddingY='8'>
-        <Flex
-          justifyContent='space-between'
-          alignItems='center'
-          marginBottom='6'
-        >
-          <Heading as='h1' size='xl'>
-            {t('home.services', 'Services')}
-          </Heading>
-          <Button onClick={onOpen} colorScheme='blue'>
-            {t('home.addService', 'Add a Service')}
-          </Button>
-        </Flex>
-
-        {Object.keys(guardians).length > 0 && (
-          <Card marginBottom='6'>
-            <CardHeader>
-              <Heading size='md'>{t('home.guardians', 'Guardians')}</Heading>
-            </CardHeader>
-            <CardBody>
-              <Table variant='simple'>
-                <Thead>
-                  <Tr>
-                    <Th>{t('home.guardianUrl', 'Guardian URL')}</Th>
-                    <Th>{t('home.actions', 'Actions')}</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {Object.entries(guardians).map(
-                    ([guardianIndex, guardian]) => (
-                      <Tr key={`guardian-${guardianIndex}`}>
-                        <Td>{guardian.config.baseUrl}</Td>
-                        <Td>
-                          <Link to={`/guardian/${guardianIndex}`}>
-                            <Button size='sm' colorScheme='green'>
-                              {t('home.view', 'View')}
-                            </Button>
-                          </Link>
-                        </Td>
-                      </Tr>
-                    )
-                  )}
-                </Tbody>
-              </Table>
-            </CardBody>
-          </Card>
-        )}
-
-        {Object.keys(gateways).length > 0 && (
-          <Card>
-            <CardHeader>
-              <Heading size='md'>{t('home.gateways', 'Gateways')}</Heading>
-            </CardHeader>
-            <CardBody>
-              <Table variant='simple'>
-                <Thead>
-                  <Tr>
-                    <Th>{t('home.gatewayUrl', 'Gateway URL')}</Th>
-                    <Th>{t('home.actions', 'Actions')}</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {Object.entries(gateways).map(([gatewayIndex, gateway]) => (
-                    <Tr key={`gateway-${gatewayIndex}`}>
-                      <Td>{gateway.config.baseUrl}</Td>
-                      <Td>
-                        <Link to={`/gateway/${gatewayIndex}`}>
-                          <Button size='sm' colorScheme='purple'>
-                            {t('home.view', 'View')}
-                          </Button>
-                        </Link>
-                      </Td>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </CardBody>
-          </Card>
-        )}
-
-        {Object.keys(guardians).length + Object.keys(gateways).length === 0 && (
-          <Text>{t('home.noServices', 'No services connected yet.')}</Text>
-        )}
-      </Box>
-    );
-  }, [guardians, gateways, t, onOpen]);
-
   return (
-    <>
-      {content}
+    <Box width='100%' maxWidth='1200px' margin='auto' paddingY='8'>
+      <Flex justifyContent='space-between' alignItems='center' marginBottom='6'>
+        <Heading as='h1' size='xl'>
+          {t('home.services')}
+        </Heading>
+        <Button onClick={onOpen} colorScheme='blue'>
+          {t('home.connect-service-modal.label')}
+        </Button>
+      </Flex>
+
+      {Object.keys(guardians).length > 0 && (
+        <ServiceTable
+          services={guardians}
+          type='guardian'
+          setEditingService={setEditingService}
+          setRemovingService={setRemovingService}
+        />
+      )}
+      {Object.keys(gateways).length > 0 && (
+        <ServiceTable
+          services={gateways}
+          type='gateway'
+          setEditingService={setEditingService}
+          setRemovingService={setRemovingService}
+        />
+      )}
+      {Object.keys(guardians).length + Object.keys(gateways).length === 0 && (
+        <NoConnectedServices />
+      )}
+
       <ConnectServiceModal isOpen={isOpen} onClose={onClose} />
-    </>
+      {editingService && (
+        <EditServiceModal
+          isOpen={true}
+          onClose={() => setEditingService(null)}
+          service={editingService}
+          serviceUrl={
+            editingService.type === 'guardian'
+              ? guardians[editingService.id].config.baseUrl
+              : gateways[editingService.id].config.baseUrl
+          }
+        />
+      )}
+      {removingService && (
+        <RemoveServiceModal
+          isOpen={true}
+          onClose={() => setRemovingService(null)}
+          service={removingService}
+        />
+      )}
+    </Box>
   );
 };

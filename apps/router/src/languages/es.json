@@ -26,7 +26,8 @@
     "msats": "msats",
     "uri": "URI",
     "view-on-mempool": "Vista en Mempool",
-    "ecash": "Efectivo digital"
+    "ecash": "Efectivo digital",
+    "view": "Vista"
   },
   "notConfigured": {
     "title": "No Configurado",
@@ -492,6 +493,16 @@
     "actions": "Acciones",
     "view": "Vista",
     "gateways": "Pasarelas",
-    "gatewayUrl": "URL de Gateway"
+    "gatewayUrl": "URL de Gateway",
+    "connect-service-modal": {
+      "label": "Conectar un Servicio",
+      "title": "Conectar un Servicio Fedimint",
+      "url-label": "URL",
+      "helper-text": "Será wss:// para guardian o https:// para gateway"
+    },
+    "remove-service-modal": {
+      "title": "Eliminar {{tipo}}",
+      "confirm": "¿Estás seguro de que quieres eliminar este {{type}}?"
+    }
   }
 }

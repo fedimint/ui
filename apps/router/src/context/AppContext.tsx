@@ -52,6 +52,8 @@ export enum APP_ACTION_TYPE {
   ADD_GATEWAY = 'ADD_GATEWAY',
   REMOVE_GUARDIAN = 'REMOVE_GUARDIAN',
   REMOVE_GATEWAY = 'REMOVE_GATEWAY',
+  UPDATE_GUARDIAN = 'UPDATE_GUARDIAN',
+  UPDATE_GATEWAY = 'UPDATE_GATEWAY',
 }
 
 export type AppAction =
@@ -76,6 +78,20 @@ export type AppAction =
   | {
       type: APP_ACTION_TYPE.REMOVE_GATEWAY;
       payload: string;
+    }
+  | {
+      type: APP_ACTION_TYPE.UPDATE_GUARDIAN;
+      payload: {
+        id: string;
+        guardian: Guardian;
+      };
+    }
+  | {
+      type: APP_ACTION_TYPE.UPDATE_GATEWAY;
+      payload: {
+        id: string;
+        gateway: Gateway;
+      };
     };
 
 const saveToLocalStorage = (state: AppContextValue) => {
@@ -120,6 +136,22 @@ const reducer = (
             ([key]) => key !== action.payload
           )
         ),
+      };
+    case APP_ACTION_TYPE.UPDATE_GUARDIAN:
+      return {
+        ...state,
+        guardians: {
+          ...state.guardians,
+          [action.payload.id]: action.payload.guardian,
+        },
+      };
+    case APP_ACTION_TYPE.UPDATE_GATEWAY:
+      return {
+        ...state,
+        gateways: {
+          ...state.gateways,
+          [action.payload.id]: action.payload.gateway,
+        },
       };
   }
 };
