@@ -26,7 +26,8 @@
     "msats": "msats",
     "uri": "URI",
     "view-on-mempool": "Vue sur Mempool",
-    "ecash": "Ecash"
+    "ecash": "Ecash",
+    "view": "Vue"
   },
   "notConfigured": {
     "title": "Non configuré",
@@ -492,6 +493,16 @@
     "actions": "Actions",
     "view": "Vue",
     "gateways": "Passerelles",
-    "gatewayUrl": "URL de la passerelle"
+    "gatewayUrl": "URL de la passerelle",
+    "connect-service-modal": {
+      "label": "Connecter un service",
+      "title": "Connectez un service Fedimint",
+      "url-label": "URL",
+      "helper-text": "Sera wss:// pour guardian ou https:// pour gateway"
+    },
+    "remove-service-modal": {
+      "title": "Supprimer {{type}}",
+      "confirm": "Êtes-vous sûr de vouloir supprimer ce {{type}} ?"
+    }
   }
 }

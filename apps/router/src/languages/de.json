@@ -26,7 +26,8 @@
     "msats": "msats",
     "uri": "URI",
     "view-on-mempool": "Ansicht auf Mempool",
-    "ecash": "Ecash"
+    "ecash": "Ecash",
+    "view": "Ansicht"
   },
   "notConfigured": {
     "title": "Nicht konfiguriert",
@@ -492,6 +493,16 @@
     "actions": "Aktionen",
     "view": "Ansehen",
     "gateways": "Gateways",
-    "gatewayUrl": "Gateway-URL"
+    "gatewayUrl": "Gateway-URL",
+    "connect-service-modal": {
+      "label": "Einen Service verbinden",
+      "title": "Verbinden Sie einen Fedimint-Service",
+      "url-label": "URL",
+      "helper-text": "Wird wss:// für Guardian oder https:// für Gateway sein"
+    },
+    "remove-service-modal": {
+      "title": "Entfernen Sie {{type}}",
+      "confirm": "Sind Sie sicher, dass Sie diesen {{type}} entfernen möchten?"
+    }
   }
 }

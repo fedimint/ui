@@ -25,6 +25,7 @@
     "sats": "sats",
     "msats": "msats",
     "uri": "URI",
+    "view": "View",
     "view-on-mempool": "View on Mempool",
     "ecash": "Ecash"
   },
@@ -186,7 +187,21 @@
     "actions": "Actions",
     "view": "View",
     "gateways": "Gateways",
-    "gatewayUrl": "Gateway URL"
+    "gatewayUrl": "Gateway URL",
+    "connect-service-modal": {
+      "label": "Connect a Service",
+      "title": "Connect a Fedimint Service",
+      "url-label": "URL",
+      "helper-text": "Will be wss:// for guardian or https:// for gateway"
+    },
+    "remove-service-modal": {
+      "title": "Remove {{type}}",
+      "confirm": "Are you sure you want to remove this {{type}}?"
+    },
+    "edit-service-modal": {
+      "title": "Edit {{type}}",
+      "url-label": "URL"
+    }
   },
   "login": {
     "title": "Welcome back!",
