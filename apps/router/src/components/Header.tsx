@@ -9,12 +9,8 @@ export const Header = React.memo(function Header() {
   const { guardians, gateways } = useAppContext();
   const { type, id } = useActiveService();
   const activeService = useMemo(() => {
-    if (type === 'guardian') {
-      return guardians[id];
-    } else if (type === 'gateway') {
-      return gateways[id];
-    }
-    return null;
+    const serviceMap = { guardian: guardians, gateway: gateways };
+    return serviceMap[type]?.[id] ?? null;
   }, [type, id, guardians, gateways]);
 
   const hasServices =
