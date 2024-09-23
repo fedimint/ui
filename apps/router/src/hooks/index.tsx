@@ -5,8 +5,7 @@ export const useActiveService = () => {
   const [type, id] = location.pathname.split('/').filter(Boolean);
 
   return {
-    activeServiceId: type && id ? `${type}/${id}` : null,
-    serviceType: type as 'guardian' | 'gateway' | null,
-    serviceId: id || null,
+    type,
+    id,
   };
 };

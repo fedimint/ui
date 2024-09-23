@@ -7,11 +7,15 @@ import { useAppContext } from '../context/hooks';
 
 export const Header = React.memo(function Header() {
   const { guardians, gateways } = useAppContext();
-  const { activeServiceId } = useActiveService();
+  const { type, id } = useActiveService();
   const activeService = useMemo(() => {
-    if (!activeServiceId) return null;
-    return guardians[activeServiceId] || gateways[activeServiceId];
-  }, [activeServiceId, guardians, gateways]);
+    if (type === 'guardian') {
+      return guardians[id];
+    } else if (type === 'gateway') {
+      return gateways[id];
+    }
+    return null;
+  }, [type, id, guardians, gateways]);
 
   const hasServices =
     Object.keys(guardians).length > 0 || Object.keys(gateways).length > 0;
@@ -27,13 +31,14 @@ export const Header = React.memo(function Header() {
         <Flex alignItems='center'>
           {activeService && (
             <Text mr={2} fontSize='sm' color='gray.600'>
+              {type === 'guardian' ? 'Guardian' : 'Gateway'}:{' '}
               {activeService.config.baseUrl}
             </Text>
           )}
           <ServiceMenu
             guardians={guardians}
             gateways={gateways}
-            activeServiceId={activeServiceId}
+            activeServiceId={id}
           />
         </Flex>
       )}
