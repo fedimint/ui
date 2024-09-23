@@ -46,7 +46,7 @@ export const Footer = () => {
           href='https://fedimint.org'
         />
         <Flex direction='row' gap={4} justifyContent='center'>
-          <CustomLink title='Discord' href='https://discord.gg/nzqta7AZ' />
+          <CustomLink title='Discord' href='https://chat.fedimint.org/' />
           <CustomLink title='Github' href='https://github.com/fedimint' />
         </Flex>
       </Stack>
