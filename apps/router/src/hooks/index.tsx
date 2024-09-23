@@ -1,12 +1,16 @@
 import { useLocation } from 'react-router-dom';
 
-export const useActiveService = () => {
+export const useActiveService = (): {
+  type: 'guardian' | 'gateway';
+  id: string;
+} => {
   const location = useLocation();
   const [type, id] = location.pathname.split('/').filter(Boolean);
-
+  if (type !== 'guardian' && type !== 'gateway') {
+    throw new Error('Invalid service type');
+  }
   return {
-    activeServiceId: type && id ? `${type}/${id}` : null,
-    serviceType: type as 'guardian' | 'gateway' | null,
-    serviceId: id || null,
+    type,
+    id,
   };
 };
