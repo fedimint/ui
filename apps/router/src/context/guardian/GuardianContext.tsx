@@ -58,7 +58,6 @@ export const GuardianContextProvider: React.FC<
 > = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const location = useLocation();
-  console.log('location', location);
   const guardianId = location.pathname.split('/')[2];
   const config = useGuardianConfig(guardianId);
   const guardianApi = useMemo(() => new GuardianApi(config), [config]);
