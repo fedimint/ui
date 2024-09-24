@@ -235,11 +235,12 @@ export const useHandleSetupServerStatus = (
 };
 
 export const useUpdateLocalStorageOnSetupStateChange = (
+  id: string,
   state: SetupState
 ): void => {
   useEffect(() => {
     localStorage.setItem(
-      LOCAL_STORAGE_SETUP_KEY,
+      `${LOCAL_STORAGE_SETUP_KEY}-${id}`,
       JSON.stringify({
         role: state.role,
         progress: state.progress,
@@ -254,7 +255,7 @@ export const useUpdateLocalStorageOnSetupStateChange = (
       // Clear local storage on setup complete.
       // This happens when we transition to admin experience.
       if (state.progress === SetupProgress.SetupComplete) {
-        localStorage.removeItem(LOCAL_STORAGE_SETUP_KEY);
+        localStorage.removeItem(`${LOCAL_STORAGE_SETUP_KEY}-${id}`);
       }
     };
   }, [
@@ -264,6 +265,7 @@ export const useUpdateLocalStorageOnSetupStateChange = (
     state.numPeers,
     state.configGenParams,
     state.ourCurrentId,
+    id,
   ]);
 };
 

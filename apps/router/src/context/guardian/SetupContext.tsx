@@ -16,13 +16,14 @@ import {
   useHandleSetupServerStatus,
   useUpdateLocalStorageOnSetupStateChange,
 } from '../hooks';
+import { useLocation } from 'react-router-dom';
 
 export const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
 
 /**
  * Creates the initial state using loaded state from local storage.
  */
-function makeInitialState(loadFromStorage = true): SetupState {
+function useInitialState(id: string): SetupState {
   const randomName =
     randomNames[Math.floor(Math.random() * randomNames.length)] +
     Math.floor(Math.random() * 10000)
@@ -39,15 +40,15 @@ function makeInitialState(loadFromStorage = true): SetupState {
     tosConfig: { showTos: false, tos: undefined },
     ourCurrentId: null,
   };
-  if (loadFromStorage) {
-    try {
-      const storageJson = localStorage.getItem(LOCAL_STORAGE_SETUP_KEY);
-      if (storageJson) {
-        state = JSON.parse(storageJson) as SetupState;
-      }
-    } catch (err) {
-      console.warn('Encountered error while fetching storage state', err);
+  try {
+    const storageJson = localStorage.getItem(
+      `${LOCAL_STORAGE_SETUP_KEY}-${id}`
+    );
+    if (storageJson) {
+      state = JSON.parse(storageJson) as SetupState;
     }
+  } catch (err) {
+    console.warn('Encountered error while fetching storage state', err);
   }
 
   if (
@@ -63,12 +64,10 @@ function makeInitialState(loadFromStorage = true): SetupState {
   return state;
 }
 
-const initialState = makeInitialState();
-
 const reducer = (state: SetupState, action: SetupAction): SetupState => {
   switch (action.type) {
     case SETUP_ACTION_TYPE.SET_INITIAL_STATE:
-      return makeInitialState(false);
+      return { ...state };
     case SETUP_ACTION_TYPE.SET_ROLE:
       return { ...state, role: action.payload };
     case SETUP_ACTION_TYPE.SET_PROGRESS:
@@ -106,7 +105,17 @@ export interface SetupContextValue {
 }
 
 export const SetupContext = createContext<SetupContextValue>({
-  state: initialState,
+  state: {
+    role: null,
+    progress: SetupProgress.Start,
+    myName: '',
+    configGenParams: null,
+    password: '',
+    numPeers: 0,
+    peers: [],
+    tosConfig: { showTos: false, tos: undefined },
+    ourCurrentId: null,
+  },
   dispatch: () => null,
   submitConfiguration: () => Promise.reject(),
   connectToHost: () => Promise.reject(),
@@ -123,7 +132,9 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   initServerStatus,
   children,
 }: SetupContextProviderProps) => {
+  const guardianId = useLocation().pathname.split('/')[2];
   const api = useGuardianApi();
+  const initialState = useInitialState(guardianId);
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
     password: api.getPassword() || initialState.password,
@@ -132,7 +143,7 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   useHandleSetupServerStatus(initServerStatus, dispatch);
 
   // Update local storage on state changes.
-  useUpdateLocalStorageOnSetupStateChange(state);
+  useUpdateLocalStorageOnSetupStateChange(guardianId, state);
 
   const {
     submitConfiguration,
