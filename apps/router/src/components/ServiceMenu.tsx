@@ -14,7 +14,7 @@ import { ServiceType, ServiceConfig } from '../types';
 type ServiceMenuProps = {
   guardians: Record<string, ServiceConfig>;
   gateways: Record<string, ServiceConfig>;
-  activeServiceId: string | null;
+  activeServiceId: string | undefined;
 };
 
 export const ServiceMenu: React.FC<ServiceMenuProps> = ({
