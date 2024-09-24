@@ -1,8 +1,11 @@
 import { Peer, GuardianServerStatus, ConfigGenParams } from '@fedimint/types';
 
-export type GuardianConfig = {
-  baseUrl: string;
-};
+export interface GuardianConfig {
+  id: string;
+  config: {
+    baseUrl: string;
+  };
+}
 
 export enum GuardianStatus {
   Loading,

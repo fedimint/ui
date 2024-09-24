@@ -1,9 +1,12 @@
 import { GatewayBalances, GatewayInfo } from '@fedimint/types';
 import { Unit } from './index';
 
-export type GatewayConfig = {
-  baseUrl: string;
-};
+export interface GatewayConfig {
+  id: string;
+  config: {
+    baseUrl: string;
+  };
+}
 
 export enum GatewayStatus {
   Loading,

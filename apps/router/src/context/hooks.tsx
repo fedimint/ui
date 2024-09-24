@@ -46,7 +46,10 @@ export function useAppContext(): AppContextValue {
 
 export function useAppGuardianConfigs(): GuardianConfig[] {
   const { guardians } = useAppContext();
-  return Object.values(guardians).map((guardian) => guardian.config);
+  return Object.values(guardians).map((guardian) => ({
+    id: guardian.id,
+    config: guardian.config,
+  }));
 }
 
 export function useNumberOfGuardians(): number {
@@ -61,14 +64,14 @@ export const useGuardianConfig = (id: string): GuardianConfig => {
   const { guardians } = useAppContext();
   if (!guardians[id])
     throw new Error('useGuardianConfig must be used with a selected guardian');
-  return guardians[id].config;
+  return { id, config: guardians[id].config };
 };
 
 export const useGatewayConfig = (id: string): GatewayConfig => {
   const { gateways } = useAppContext();
   if (!gateways[id])
     throw new Error('useGatewayConfig must be used with a selected gateway');
-  return gateways[id].config;
+  return { id, config: gateways[id].config };
 };
 
 export const useGuardianDispatch = (): Dispatch<GuardianAppAction> => {

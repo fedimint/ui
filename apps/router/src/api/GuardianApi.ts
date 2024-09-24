@@ -27,7 +27,7 @@ export class GuardianApi {
   private websocket: JsonRpcWebsocket | null = null;
   private connectPromise: Promise<JsonRpcWebsocket> | null = null;
 
-  constructor(private guardianConfig: GuardianConfig) {}
+  constructor(private guardian: GuardianConfig) {}
 
   /*** WebSocket methods ***/
 
@@ -42,7 +42,7 @@ export class GuardianApi {
     this.connectPromise = new Promise((resolve, reject) => {
       const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
-        this.guardianConfig.baseUrl,
+        this.guardian.baseUrl,
         requestTimeoutMs,
         (error: JsonRpcError) => {
           console.error('failed to create websocket', error);
@@ -82,13 +82,17 @@ export class GuardianApi {
     return true;
   };
 
+  private getSessionStorageKey(): string {
+    return `${SESSION_STORAGE_KEY}-${this.guardian.id}`;
+  }
+
   public getPassword = (): string | null => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY);
+    return sessionStorage.getItem(this.getSessionStorageKey());
   };
 
   public testPassword = async (password: string): Promise<boolean> => {
     // Replace with password to check.
-    sessionStorage.setItem(SESSION_STORAGE_KEY, password);
+    sessionStorage.setItem(this.getSessionStorageKey(), password);
 
     // Attempt a 'status' rpc call with the temporary password.
     try {
@@ -102,7 +106,7 @@ export class GuardianApi {
   };
 
   private clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    sessionStorage.removeItem(this.getSessionStorageKey());
   };
 
   /*** Shared RPC methods */
@@ -120,7 +124,7 @@ export class GuardianApi {
 
   public setPassword = async (password: string): Promise<void> => {
     // Save password to session storage so that it's included in the r[c] call
-    sessionStorage.setItem(SESSION_STORAGE_KEY, password);
+    sessionStorage.setItem(this.getSessionStorageKey(), password);
 
     try {
       await this.call(SetupRpc.setPassword);
@@ -181,7 +185,7 @@ export class GuardianApi {
     const maxTries = 10;
     const attemptConfirmConsensusRunning = async (): Promise<void> => {
       try {
-        if (!this.guardianConfig?.baseUrl) {
+        if (!this.guardian.config.baseUrl) {
           throw new Error('guardian baseUrl not found in config');
         }
         await this.connect();
@@ -297,7 +301,7 @@ export class GuardianApi {
     params: unknown = null
   ): Promise<T> => {
     try {
-      if (!this.guardianConfig?.baseUrl) {
+      if (!this.guardian.config.baseUrl) {
         throw new Error('guardian baseUrl not found in config');
       }
       const websocket = await this.connect();
