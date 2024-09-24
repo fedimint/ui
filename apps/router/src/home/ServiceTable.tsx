@@ -11,6 +11,7 @@ import {
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -40,6 +41,16 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const getSetupState = (id: string) => {
+    const setupKey = `setup-state-${id}`;
+    const setupState = localStorage.getItem(setupKey);
+    if (setupState) {
+      const { progress, role } = JSON.parse(setupState);
+      return { progress, role };
+    }
+    return null;
+  };
+
   return (
     <Card marginBottom='6'>
       <CardHeader>
@@ -57,48 +68,62 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
                   `${type.charAt(0).toUpperCase() + type.slice(1)} URL`
                 )}
               </Th>
-              <Th width='200px'>{t('home.actions', 'Actions')}</Th>
+              {type === 'guardian' && <Th>{t('home.setup-state')}</Th>}
+              <Th width='200px'>{t('home.actions')}</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {Object.entries(services).map(([id, service]) => (
-              <Tr key={`${type}-${id}`}>
-                <Td>
-                  <Flex gap={2} alignItems='center'>
-                    {service.config.baseUrl}
-                    <IconButton
-                      aria-label={`Edit ${type}`}
-                      icon={<FiEdit />}
-                      size='sm'
-                      colorScheme='gray'
-                      variant='ghost'
-                      onClick={() => setEditingService({ type, id })}
-                    />
-                  </Flex>
-                </Td>
-                <Td>
-                  <Flex justifyContent='flex-end' gap={3} alignItems='center'>
-                    <Link to={`/${type}/${id}`}>
-                      <Button
-                        rightIcon={<FiExternalLink />}
+            {Object.entries(services).map(([id, service]) => {
+              const setupState = type === 'guardian' ? getSetupState(id) : null;
+              return (
+                <Tr key={`${type}-${id}`}>
+                  <Td>
+                    <Flex gap={2} alignItems='center'>
+                      {service.config.baseUrl}
+                      <IconButton
+                        aria-label={`Edit ${type}`}
+                        icon={<FiEdit />}
                         size='sm'
-                        colorScheme='blue'
-                      >
-                        {t('common.view', 'View')}
-                      </Button>
-                    </Link>
-                    <IconButton
-                      aria-label={`Delete ${type}`}
-                      icon={<FiX />}
-                      size='md'
-                      colorScheme='red'
-                      variant='ghost'
-                      onClick={() => setRemovingService({ type, id })}
-                    />
-                  </Flex>
-                </Td>
-              </Tr>
-            ))}
+                        colorScheme='gray'
+                        variant='ghost'
+                        onClick={() => setEditingService({ type, id })}
+                      />
+                    </Flex>
+                  </Td>
+                  {type === 'guardian' && (
+                    <Td>
+                      {setupState ? (
+                        <Flex direction='column'>
+                          <Text>{setupState.role}</Text>
+                          <Text>{setupState.progress}</Text>
+                        </Flex>
+                      ) : null}
+                    </Td>
+                  )}
+                  <Td>
+                    <Flex justifyContent='flex-end' gap={3} alignItems='center'>
+                      <Link to={`/${type}/${id}`}>
+                        <Button
+                          rightIcon={<FiExternalLink />}
+                          size='sm'
+                          colorScheme='blue'
+                        >
+                          {t('common.view', 'View')}
+                        </Button>
+                      </Link>
+                      <IconButton
+                        aria-label={`Delete ${type}`}
+                        icon={<FiX />}
+                        size='md'
+                        colorScheme='red'
+                        variant='ghost'
+                        onClick={() => setRemovingService({ type, id })}
+                      />
+                    </Flex>
+                  </Td>
+                </Tr>
+              );
+            })}
           </Tbody>
         </Table>
       </CardBody>

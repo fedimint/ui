@@ -18,7 +18,7 @@ import {
 } from '../hooks';
 import { useLocation } from 'react-router-dom';
 
-export const LOCAL_STORAGE_SETUP_KEY = 'setup-guardian-ui-state';
+export const LOCAL_STORAGE_SETUP_KEY = 'setup-state';
 
 /**
  * Creates the initial state using loaded state from local storage.

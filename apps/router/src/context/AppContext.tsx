@@ -12,10 +12,12 @@ import { sha256Hash } from '@fedimint/utils';
 type Service = GuardianConfig | GatewayConfig;
 
 export interface Guardian {
+  id: string;
   config: GuardianConfig;
 }
 
 export interface Gateway {
+  id: string;
   config: GatewayConfig;
 }
 
@@ -189,12 +191,12 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       if (isGuardian(service)) {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
-          payload: { id, guardian: { config: service as GuardianConfig } },
+          payload: { id, guardian: { id, config: service as GuardianConfig } },
         });
       } else if (isGateway(service)) {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GATEWAY,
-          payload: { id, gateway: { config: service as GatewayConfig } },
+          payload: { id, gateway: { id, config: service as GatewayConfig } },
         });
       } else {
         throw new Error(`Invalid service baseUrl in config.json: ${service}`);

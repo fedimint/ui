@@ -75,12 +75,12 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
       if (serviceType === 'guardian') {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
-          payload: { id, guardian: { config: { baseUrl: configUrl } } },
+          payload: { id, guardian: { id, config: { baseUrl: configUrl } } },
         });
       } else {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GATEWAY,
-          payload: { id, gateway: { config: { baseUrl: configUrl } } },
+          payload: { id, gateway: { id, config: { baseUrl: configUrl } } },
         });
       }
       resetForm();
