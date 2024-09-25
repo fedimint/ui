@@ -1,162 +1,162 @@
 version: '3'
 
 services:
-  fedimintd_1:
-    image: fedimint/fedimintd:v0.4.0-rc.6
-    environment:
-      - FM_DATA_DIR=/data
-      - FM_BIND_P2P=0.0.0.0:18173
-      - FM_P2P_URL=fedimint://fedimintd_1:18173
-      - FM_BIND_API=0.0.0.0:18174
-      - FM_API_URL=ws://fedimintd_1:18174
-      - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
-      - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
-      - FM_REL_NOTES_ACK=0_4_xyz
-    ports:
-      - '18174:18174'
-    volumes:
-      - ./fm_data/1/data:/data
-    depends_on:
-      - bitcoind
-
-  gatewayd_1:
-    image: fedimint/gatewayd:v0.4.0-rc.6
-    command: gatewayd lnd
-    environment:
-      # Path to folder containing gateway config and data files
-      - FM_GATEWAY_DATA_DIR=/gateway_data
-      # Gateway webserver listen address
-      - FM_GATEWAY_LISTEN_ADDR=0.0.0.0:8175
-      # Public URL from which the webserver API is reachable
-      - FM_GATEWAY_API_ADDR=http://gatewayd_1:8175
-      # Gateway webserver authentication password
-      - FM_GATEWAY_PASSWORD=theresnosecondbest
-      # Configured gateway routing fees Format: <base_msat>,<proportional_millionths>
-      - FM_GATEWAY_FEES=0,1000
-      # LND RPC address
-      - FM_LND_RPC_ADDR=https://lnd_1:11009
-      # LND TLS cert file path
-      - FM_LND_TLS_CERT=/lnd_data/tls.cert
-      # LND macaroon file path
-      - FM_LND_MACAROON=/lnd_data/admin.macaroon
-    volumes:
-      - ./fm_data/gw:/gateway_data
-      - ./misc/test/data/data:/lnd_data
-    ports:
-      - '8175:8175'
-    depends_on:
-      - lnd_1
-
-  lnd_1:
-    image: lightninglabs/lnd:v0.18.2-beta
-    ports:
-      - '11009:11009'
-    volumes:
-      - ./misc/test/data:/root/.lnd
-      - ./misc/test/lnd.conf:/root/.lnd/lnd.conf
-    depends_on:
-      - bitcoind
-      - fedimintd_1
-
-  fedimintd_2:
-    image: fedimint/fedimintd:v0.4.0-rc.6
-    environment:
-      - FM_DATA_DIR=/data
-      - FM_BIND_P2P=0.0.0.0:18173
-      - FM_P2P_URL=fedimint://fedimintd_2:18173
-      - FM_BIND_API=0.0.0.0:18184
-      - FM_API_URL=ws://fedimintd_2:18184
-      - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
-      - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
-      - FM_REL_NOTES_ACK=0_4_xyz
-    ports:
-      - '18184:18184'
-    volumes:
-      - ./fm_data/2/data:/data
-    depends_on:
-      - bitcoind
-
-  # Uncomment me for a second gateway
-  # gatewayd_2:
-  #   image: fedimint/gatewayd:master
-  #   networks:
-  #     app_network:
-  #       ipv4_address: 10.5.0.8
-
-  fedimintd_3:
-    image: fedimint/fedimintd:v0.4.0-rc.6
-    environment:
-      - FM_DATA_DIR=/data
-      - FM_BIND_P2P=0.0.0.0:18174
-      - FM_P2P_URL=fedimint://fedimintd_3:18174
-      - FM_BIND_API=0.0.0.0:18185
-      - FM_API_URL=ws://fedimintd_3:18185
-      - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
-      - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
-      - FM_REL_NOTES_ACK=0_4_xyz
-    ports:
-      - '18185:18185'
-    volumes:
-      - ./fm_data/3/data:/data
-    depends_on:
-      - bitcoind
-
-  fedimintd_4:
-    image: fedimint/fedimintd:v0.4.0-rc.6
-    environment:
-      - FM_DATA_DIR=/data
-      - FM_BIND_P2P=0.0.0.0:18175
-      - FM_P2P_URL=fedimint://fedimintd_4:18175
-      - FM_BIND_API=0.0.0.0:18186
-      - FM_API_URL=ws://fedimintd_4:18186
-      - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
-      - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
-      - FM_REL_NOTES_ACK=0_4_xyz
-    ports:
-      - '18186:18186'
-    volumes:
-      - ./fm_data/4/data:/data
-    depends_on:
-      - bitcoind
-
-  bitcoind:
-    image: btcpayserver/bitcoin:26.0
-    environment:
-      BITCOIN_NETWORK: regtest
-      BITCOIN_EXTRA_ARGS: |
-        rpcport=43782
-        rpcbind=0.0.0.0:43782
-        port=39388
-        whitelist=0.0.0.0/0
-        rpcuser=bitcoin
-        rpcpassword=bitcoin
-        rpcallowip=0.0.0.0/0
-        fallbackfee=0.0004
-        txindex=1
-        server=1
-        zmqpubrawblock=tcp://0.0.0.0:38332
-        zmqpubrawtx=tcp://0.0.0.0:38333
-    expose:
-      - '43782'
-      - '39388'
-    ports:
-      - '43782:43782'
-      - '39388:39388'
-    volumes:
-      - './fm_data/bitcoin:/data'
-
-  # Uncomment me to test out Dockerfile.guardian-ui locally
-  # guardian_ui:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.guardian-ui
+  # fedimintd_1:
+  #   image: fedimint/fedimintd:v0.4.0-rc.6
   #   environment:
-  #     - PORT=3001
-  #     - REACT_APP_FM_CONFIG_API=ws://localhost:18184
-  #   expose:
-  #     - '3001'
+  #     - FM_DATA_DIR=/data
+  #     - FM_BIND_P2P=0.0.0.0:18173
+  #     - FM_P2P_URL=fedimint://fedimintd_1:18173
+  #     - FM_BIND_API=0.0.0.0:18174
+  #     - FM_API_URL=ws://fedimintd_1:18174
+  #     - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+  #     - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
+  #     - FM_REL_NOTES_ACK=0_4_xyz
   #   ports:
-  #     - '3001:3001'
+  #     - '18174:18174'
+  #   volumes:
+  #     - ./fm_data/1/data:/data
+  #   depends_on:
+  #     - bitcoind
+
+  # gatewayd_1:
+  #   image: fedimint/gatewayd:v0.4.0-rc.6
+  #   command: gatewayd lnd
+  #   environment:
+  #     # Path to folder containing gateway config and data files
+  #     - FM_GATEWAY_DATA_DIR=/gateway_data
+  #     # Gateway webserver listen address
+  #     - FM_GATEWAY_LISTEN_ADDR=0.0.0.0:8175
+  #     # Public URL from which the webserver API is reachable
+  #     - FM_GATEWAY_API_ADDR=http://gatewayd_1:8175
+  #     # Gateway webserver authentication password
+  #     - FM_GATEWAY_PASSWORD=theresnosecondbest
+  #     # Configured gateway routing fees Format: <base_msat>,<proportional_millionths>
+  #     - FM_GATEWAY_FEES=0,1000
+  #     # LND RPC address
+  #     - FM_LND_RPC_ADDR=https://lnd_1:11009
+  #     # LND TLS cert file path
+  #     - FM_LND_TLS_CERT=/lnd_data/tls.cert
+  #     # LND macaroon file path
+  #     - FM_LND_MACAROON=/lnd_data/admin.macaroon
+  #   volumes:
+  #     - ./fm_data/gw:/gateway_data
+  #     - ./misc/test/data/data:/lnd_data
+  #   ports:
+  #     - '8175:8175'
+  #   depends_on:
+  #     - lnd_1
+
+  # lnd_1:
+  #   image: lightninglabs/lnd:v0.18.2-beta
+  #   ports:
+  #     - '11009:11009'
+  #   volumes:
+  #     - ./misc/test/data:/root/.lnd
+  #     - ./misc/test/lnd.conf:/root/.lnd/lnd.conf
+  #   depends_on:
+  #     - bitcoind
+  #     - fedimintd_1
+
+  # fedimintd_2:
+  #   image: fedimint/fedimintd:v0.4.0-rc.6
+  #   environment:
+  #     - FM_DATA_DIR=/data
+  #     - FM_BIND_P2P=0.0.0.0:18173
+  #     - FM_P2P_URL=fedimint://fedimintd_2:18173
+  #     - FM_BIND_API=0.0.0.0:18184
+  #     - FM_API_URL=ws://fedimintd_2:18184
+  #     - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+  #     - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
+  #     - FM_REL_NOTES_ACK=0_4_xyz
+  #   ports:
+  #     - '18184:18184'
+  #   volumes:
+  #     - ./fm_data/2/data:/data
+  #   depends_on:
+  #     - bitcoind
+
+  # # Uncomment me for a second gateway
+  # # gatewayd_2:
+  # #   image: fedimint/gatewayd:master
+  # #   networks:
+  # #     app_network:
+  # #       ipv4_address: 10.5.0.8
+
+  # fedimintd_3:
+  #   image: fedimint/fedimintd:v0.4.0-rc.6
+  #   environment:
+  #     - FM_DATA_DIR=/data
+  #     - FM_BIND_P2P=0.0.0.0:18174
+  #     - FM_P2P_URL=fedimint://fedimintd_3:18174
+  #     - FM_BIND_API=0.0.0.0:18185
+  #     - FM_API_URL=ws://fedimintd_3:18185
+  #     - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+  #     - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
+  #     - FM_REL_NOTES_ACK=0_4_xyz
+  #   ports:
+  #     - '18185:18185'
+  #   volumes:
+  #     - ./fm_data/3/data:/data
+  #   depends_on:
+  #     - bitcoind
+
+  # fedimintd_4:
+  #   image: fedimint/fedimintd:v0.4.0-rc.6
+  #   environment:
+  #     - FM_DATA_DIR=/data
+  #     - FM_BIND_P2P=0.0.0.0:18175
+  #     - FM_P2P_URL=fedimint://fedimintd_4:18175
+  #     - FM_BIND_API=0.0.0.0:18186
+  #     - FM_API_URL=ws://fedimintd_4:18186
+  #     - FM_DEFAULT_BITCOIND_RPC_URL=http://bitcoin:bitcoin@bitcoind:43782
+  #     - FM_DEFAULT_BITCOIND_RPC_KIND=bitcoind
+  #     - FM_REL_NOTES_ACK=0_4_xyz
+  #   ports:
+  #     - '18186:18186'
+  #   volumes:
+  #     - ./fm_data/4/data:/data
+  #   depends_on:
+  #     - bitcoind
+
+  # bitcoind:
+  #   image: btcpayserver/bitcoin:26.0
+  #   environment:
+  #     BITCOIN_NETWORK: regtest
+  #     BITCOIN_EXTRA_ARGS: |
+  #       rpcport=43782
+  #       rpcbind=0.0.0.0:43782
+  #       port=39388
+  #       whitelist=0.0.0.0/0
+  #       rpcuser=bitcoin
+  #       rpcpassword=bitcoin
+  #       rpcallowip=0.0.0.0/0
+  #       fallbackfee=0.0004
+  #       txindex=1
+  #       server=1
+  #       zmqpubrawblock=tcp://0.0.0.0:38332
+  #       zmqpubrawtx=tcp://0.0.0.0:38333
+  #   expose:
+  #     - '43782'
+  #     - '39388'
+  #   ports:
+  #     - '43782:43782'
+  #     - '39388:39388'
+  #   volumes:
+  #     - './fm_data/bitcoin:/data'
+
+  # Uncomment me to test out Dockerfile locally
+  fedimint_ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3000
+      # - REACT_APP_FM_CONFIG_API=ws://localhost:18184
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
 
   # Uncomment me to test out Dockerfile.gateway-ui locally
   # gateway_ui:
