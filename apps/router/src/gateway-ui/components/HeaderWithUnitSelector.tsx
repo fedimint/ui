@@ -27,7 +27,7 @@ export const HeaderWithUnitSelector: React.FC = () => {
       <Tabs
         size='sm'
         variant='soft-rounded'
-        defaultIndex={1}
+        defaultIndex={0}
         onChange={(index) => {
           dispatch({
             type: GATEWAY_APP_ACTION_TYPE.SET_UNIT,
