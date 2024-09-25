@@ -145,29 +145,15 @@ services:
     volumes:
       - './fm_data/bitcoin:/data'
 
-  # Uncomment me to test out Dockerfile.guardian-ui locally
-  # guardian_ui:
+  # Uncomment me to test out Dockerfile locally
+  # fedimint_ui:
   #   build:
   #     context: .
-  #     dockerfile: Dockerfile.guardian-ui
+  #     dockerfile: Dockerfile
   #   environment:
-  #     - PORT=3001
-  #     - REACT_APP_FM_CONFIG_API=ws://localhost:18184
+  #     - PORT=3000
+  #     # - REACT_APP_FM_CONFIG_API=ws://localhost:18184
   #   expose:
-  #     - '3001'
+  #     - '3000'
   #   ports:
-  #     - '3001:3001'
-
-  # Uncomment me to test out Dockerfile.gateway-ui locally
-  # gateway_ui:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.gateway-ui
-  #   environment:
-  #     - PORT=3002
-  #     - REACT_APP_FM_GATEWAY_API=http://127.0.0.1:8175
-  #     - REACT_APP_FM_GATEWAY_PASSWORD=theresnosecondbest
-  #   expose:
-  #     - '3002'
-  #   ports:
-  #     - '3002:3002'
+  #     - '3000:3000'
