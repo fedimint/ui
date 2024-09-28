@@ -14,10 +14,7 @@ import {
 import { useGatewayContext, useLoadGateway } from '../context/hooks';
 import { ErrorMessage } from './components/ErrorMessage';
 import { Login } from '@fedimint/ui';
-import { GATEWAY_APP_ACTION_TYPE } from './types';
-
-export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;
-export type Unit = (typeof UNIT_OPTIONS)[number];
+import { GATEWAY_APP_ACTION_TYPE } from '../types/gateway';
 
 export const Gateway = () => {
   const { state, dispatch, api } = useGatewayContext();

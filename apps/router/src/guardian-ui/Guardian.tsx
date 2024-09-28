@@ -7,7 +7,7 @@ import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
 import { useGuardianContext, useLoadGuardian } from '../context/hooks';
 import { useTranslation } from '@fedimint/utils';
-import { GUARDIAN_APP_ACTION_TYPE, GuardianStatus } from './types';
+import { GUARDIAN_APP_ACTION_TYPE, GuardianStatus } from '../types/guardian';
 import { formatApiErrorMessage } from './utils/api';
 
 export const Guardian: React.FC = () => {
