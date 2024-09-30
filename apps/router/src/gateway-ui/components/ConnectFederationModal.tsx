@@ -20,7 +20,7 @@ import {
   useGatewayContext,
   useGatewayInfo,
 } from '../../context/hooks';
-import { GATEWAY_APP_ACTION_TYPE } from '../types';
+import { GATEWAY_APP_ACTION_TYPE } from '../../types/gateway';
 
 export type ConnectFederationModalProps = {
   isOpen: boolean;

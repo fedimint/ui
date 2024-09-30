@@ -28,7 +28,7 @@ import { MetaManager } from './meta/manager/MetaManager';
 import { ApiAnnouncements } from './ApiAnnouncements';
 
 import { ProposedMetas } from './meta/proposals/ProposedMetas';
-import { ModuleRpc } from '../../../types';
+import { ModuleRpc } from '../../../../types/guardian';
 import { useGuardianAdminApi } from '../../../../context/hooks';
 
 export const DEFAULT_META_KEY = 0;

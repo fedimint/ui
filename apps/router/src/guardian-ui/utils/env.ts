@@ -1,4 +1,4 @@
-import { GuardianConfig } from '../GuardianApi';
+import { GuardianConfig } from '../../types/guardian';
 
 export async function getEnv() {
   const response = await fetch('config.json');

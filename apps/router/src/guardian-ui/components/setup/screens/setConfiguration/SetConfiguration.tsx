@@ -14,7 +14,7 @@ import {
   Network,
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { GuardianRole } from '../../../../types';
+import { GuardianRole } from '../../../../../types/guardian';
 import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
 import {
   formatApiErrorMessage,

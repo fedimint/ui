@@ -5,7 +5,7 @@ import {
   GUARDIAN_APP_ACTION_TYPE,
   GuardianRole,
   GuardianStatus,
-} from '../../../../types';
+} from '../../../../../types/guardian';
 import { useGuardianContext } from '../../../../../context/hooks';
 
 interface SetupCompleteProps {

@@ -8,18 +8,18 @@ import {
   GUARDIAN_APP_ACTION_TYPE,
   GuardianAppAction,
   GuardianAppState,
+  GuardianConfig,
   GuardianStatus,
   SETUP_ACTION_TYPE,
   SetupAction,
   SetupProgress,
   SetupState,
-} from '../guardian-ui/types';
+} from '../types/guardian';
 import {
   AdminApiInterface,
   GuardianApi,
-  GuardianConfig,
   SetupApiInterface,
-} from '../guardian-ui/GuardianApi';
+} from '../api/GuardianApi';
 import {
   ConfigGenParams,
   GatewayInfo,
@@ -36,9 +36,9 @@ import {
   GatewayAppAction,
   GatewayAppState,
   GatewayConfig,
-} from '../gateway-ui/types';
+} from '../types/gateway';
 import { GatewayContext, GatewayContextValue } from './gateway/GatewayContext';
-import { GatewayApi } from '../gateway-ui/GatewayApi';
+import { GatewayApi } from '../api/GatewayApi';
 
 export function useAppContext(): AppContextValue {
   return useContext(AppContext);

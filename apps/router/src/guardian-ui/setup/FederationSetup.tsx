@@ -6,7 +6,7 @@ import {
   SetupProgress,
   SETUP_ACTION_TYPE,
   tosConfigState,
-} from '../types';
+} from '../../types/guardian';
 import { RoleSelector } from '../components/setup/screens/roleSelector/RoleSelector';
 import { SetConfiguration } from '../components/setup/screens/setConfiguration/SetConfiguration';
 import { ConnectGuardians } from '../components/setup/screens/connectGuardians/ConnectGuardians';
