@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Button,
   FormControl,
-  FormHelperText,
   FormLabel,
   Input,
   Modal,
@@ -11,12 +10,14 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Textarea,
   useToast,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
 import { checkServiceExists, getServiceType } from './utils';
+import { ServiceCheckApi } from '../api/ServiceCheckApi';
 
 interface ConnectServiceModalProps {
   isOpen: boolean;
@@ -29,6 +30,8 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [configUrl, setConfigUrl] = useState('');
+  const [password, setPassword] = useState('');
+  const [serviceResult, setServiceResult] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { guardians, gateways, dispatch } = useAppContext();
   const toast = useToast();
@@ -42,21 +45,27 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
 
       const serviceType = getServiceType(configUrl);
       const id = await sha256Hash(configUrl);
+      const api = new ServiceCheckApi();
+
+      let serviceInfo;
 
       if (serviceType === 'guardian') {
+        serviceInfo = await api.checkGuardian(configUrl, password);
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
           payload: { id, guardian: { config: { baseUrl: configUrl } } },
         });
       } else {
+        serviceInfo = await api.checkGateway(configUrl, password);
         dispatch({
           type: APP_ACTION_TYPE.ADD_GATEWAY,
           payload: { id, gateway: { config: { baseUrl: configUrl } } },
         });
       }
 
+      setServiceResult(JSON.stringify(serviceInfo, null, 2));
       setConfigUrl('');
-      onClose();
+      setPassword('');
       toast({
         title: 'Service added',
         status: 'success',
@@ -78,7 +87,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size='lg'>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
@@ -93,10 +102,27 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
               value={configUrl}
               onChange={(e) => setConfigUrl(e.target.value)}
             />
-            <FormHelperText fontSize='sm'>
-              {t('home.connect-service-modal.helper-text')}
-            </FormHelperText>
           </FormControl>
+          <FormControl mt={4}>
+            <FormLabel>Password</FormLabel>
+            <Input
+              type='password'
+              placeholder='Enter password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
+          {serviceResult && (
+            <FormControl mt={4}>
+              <FormLabel>Service Info</FormLabel>
+              <Textarea
+                value={serviceResult}
+                readOnly
+                height='200px'
+                fontFamily='mono'
+              />
+            </FormControl>
+          )}
           <Button
             mt={4}
             colorScheme='blue'

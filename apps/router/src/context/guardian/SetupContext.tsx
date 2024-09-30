@@ -5,7 +5,7 @@ import {
   SetupAction,
   SETUP_ACTION_TYPE,
   SetupProgress,
-} from '../../guardian-ui/types';
+} from '../../types/guardian';
 import { isConsensusparams } from '../../guardian-ui/utils/validators';
 import { randomNames } from '../../guardian-ui/setup/randomNames';
 import {

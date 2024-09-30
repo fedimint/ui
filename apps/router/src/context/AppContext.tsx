@@ -5,9 +5,8 @@ import React, {
   useEffect,
   useReducer,
 } from 'react';
-import { GuardianConfig } from '../guardian-ui/GuardianApi';
-
-import { GatewayConfig } from '../gateway-ui/types';
+import { GuardianConfig } from '../types/guardian';
+import { GatewayConfig } from '../types/gateway';
 import { sha256Hash } from '@fedimint/utils';
 
 type Service = GuardianConfig | GatewayConfig;

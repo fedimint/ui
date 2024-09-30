@@ -13,13 +13,15 @@ import {
   StatusResponse,
   Versions,
 } from '@fedimint/types';
-import { AdminRpc, ModuleRpc, SetupRpc, SharedRpc } from './types';
+import {
+  AdminRpc,
+  GuardianConfig,
+  ModuleRpc,
+  SetupRpc,
+  SharedRpc,
+} from '../types/guardian';
 
 export const SESSION_STORAGE_KEY = 'guardian-ui-key';
-
-export type GuardianConfig = {
-  baseUrl: string;
-};
 
 export class GuardianApi {
   private websocket: JsonRpcWebsocket | null = null;
