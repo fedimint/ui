@@ -31,50 +31,32 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
   const { t } = useTranslation();
   const [configUrl, setConfigUrl] = useState('');
   const [password, setPassword] = useState('');
-  const [serviceResult, setServiceResult] = useState('');
+  const [serviceInfo, setServiceInfo] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { guardians, gateways, dispatch } = useAppContext();
   const toast = useToast();
 
-  const handleSubmit = async () => {
+  const handleCheck = async () => {
+    const api = new ServiceCheckApi();
     setIsLoading(true);
     try {
       if (checkServiceExists(configUrl, guardians, gateways)) {
-        throw new Error('A service with this URL already exists');
-      }
-
-      const serviceType = getServiceType(configUrl);
-      const id = await sha256Hash(configUrl);
-      const api = new ServiceCheckApi();
-
-      let serviceInfo;
-
-      if (serviceType === 'guardian') {
-        serviceInfo = await api.checkGuardian(configUrl, password);
-        dispatch({
-          type: APP_ACTION_TYPE.ADD_GUARDIAN,
-          payload: { id, guardian: { config: { baseUrl: configUrl } } },
+        console.log('toasting');
+        toast({
+          title: 'Service already exists',
+          description: 'A service with this URL already exists',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
         });
-      } else {
-        serviceInfo = await api.checkGateway(configUrl, password);
-        dispatch({
-          type: APP_ACTION_TYPE.ADD_GATEWAY,
-          payload: { id, gateway: { config: { baseUrl: configUrl } } },
-        });
+        return;
       }
-
-      setServiceResult(JSON.stringify(serviceInfo, null, 2));
-      setConfigUrl('');
-      setPassword('');
-      toast({
-        title: 'Service added',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
+      const info = await api.check(configUrl, password);
+      setServiceInfo(JSON.stringify(info, null, 2));
     } catch (error) {
+      console.log('toasting');
       toast({
-        title: 'Error adding service',
+        title: 'Error checking service',
         description:
           error instanceof Error ? error.message : 'An unknown error occurred',
         status: 'error',
@@ -86,8 +68,57 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     }
   };
 
+  const handleConfirm = async () => {
+    try {
+      const id = await sha256Hash(configUrl);
+      const serviceType = getServiceType(configUrl);
+
+      if (serviceType === 'guardian') {
+        dispatch({
+          type: APP_ACTION_TYPE.ADD_GUARDIAN,
+          payload: { id, guardian: { config: { baseUrl: configUrl } } },
+        });
+      } else {
+        dispatch({
+          type: APP_ACTION_TYPE.ADD_GATEWAY,
+          payload: { id, gateway: { config: { baseUrl: configUrl } } },
+        });
+      }
+
+      toast({
+        title: 'Service added',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      onClose();
+    } catch (error) {
+      toast({
+        title: 'Error adding service',
+        description:
+          error instanceof Error ? error.message : 'An unknown error occurred',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const resetForm = () => {
+    setConfigUrl('');
+    setPassword('');
+    setServiceInfo(null);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='lg'>
+    <Modal
+      isOpen={isOpen}
+      onClose={() => {
+        resetForm();
+        onClose();
+      }}
+      size='lg'
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
@@ -95,42 +126,55 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <FormControl>
-            <FormLabel>{t('home.connect-service-modal.url-label')}</FormLabel>
-            <Input
-              placeholder='wss://fedimintd.domain.com:6000'
-              value={configUrl}
-              onChange={(e) => setConfigUrl(e.target.value)}
-            />
-          </FormControl>
-          <FormControl mt={4}>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type='password'
-              placeholder='Enter password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </FormControl>
-          {serviceResult && (
-            <FormControl mt={4}>
-              <FormLabel>Service Info</FormLabel>
-              <Textarea
-                value={serviceResult}
-                readOnly
-                height='200px'
-                fontFamily='mono'
-              />
-            </FormControl>
+          {!serviceInfo ? (
+            <>
+              <FormControl>
+                <FormLabel>
+                  {t('home.connect-service-modal.url-label')}
+                </FormLabel>
+                <Input
+                  placeholder='wss://fedimintd.domain.com:6000'
+                  value={configUrl}
+                  onChange={(e) => setConfigUrl(e.target.value)}
+                />
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Password</FormLabel>
+                <Input
+                  type='password'
+                  placeholder='Enter password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </FormControl>
+              <Button
+                mt={4}
+                colorScheme='blue'
+                onClick={handleCheck}
+                isLoading={isLoading}
+              >
+                {t('common.submit')}
+              </Button>
+            </>
+          ) : (
+            <>
+              <FormControl>
+                <FormLabel>Service Info</FormLabel>
+                <Textarea
+                  value={JSON.stringify(serviceInfo, null, 2)}
+                  readOnly
+                  height='200px'
+                  fontFamily='mono'
+                />
+              </FormControl>
+              <Button mt={4} colorScheme='green' onClick={handleConfirm}>
+                Confirm
+              </Button>
+              <Button mt={4} ml={2} onClick={resetForm}>
+                Back
+              </Button>
+            </>
           )}
-          <Button
-            mt={4}
-            colorScheme='blue'
-            onClick={handleSubmit}
-            isLoading={isLoading}
-          >
-            {t('common.submit')}
-          </Button>
         </ModalBody>
       </ModalContent>
     </Modal>

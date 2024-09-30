@@ -8,6 +8,7 @@ import React, {
 import { GuardianConfig } from '../types/guardian';
 import { GatewayConfig } from '../types/gateway';
 import { sha256Hash } from '@fedimint/utils';
+import { ServiceCheckApi } from '../api/ServiceCheckApi';
 
 type Service = GuardianConfig | GatewayConfig;
 
@@ -23,6 +24,7 @@ export interface AppContextValue {
   guardians: Record<string, Guardian>;
   gateways: Record<string, Gateway>;
   dispatch: Dispatch<AppAction>;
+  serviceCheckApi: ServiceCheckApi;
 }
 
 const makeInitialState = (): AppContextValue => {
@@ -42,6 +44,7 @@ const makeInitialState = (): AppContextValue => {
     guardians: {},
     gateways: {},
     dispatch: () => null,
+    serviceCheckApi: new ServiceCheckApi(),
   };
 };
 
