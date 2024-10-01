@@ -515,19 +515,10 @@
     "remove-service-modal": {
       "title": "删除{{type}}",
       "confirm": "您确定要删除这个{{type}}吗？"
-<<<<<<< HEAD
     },
     "edit-service-modal": {
       "title": "编辑{{type}}",
       "url-label": "网址"
-||||||| parent of 139bd6a4 (chore: translate)
-=======
-    },
-    "setup-state": "设置状态",
-    "edit-service-modal": {
-      "title": "编辑{{type}}",
-      "url-label": "网址"
->>>>>>> 139bd6a4 (chore: translate)
     }
   }
 }

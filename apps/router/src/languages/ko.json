@@ -515,19 +515,10 @@
     "remove-service-modal": {
       "title": "{{type}} 제거",
       "confirm": "이 {{type}}을 삭제하시겠습니까?"
-<<<<<<< HEAD
     },
     "edit-service-modal": {
       "title": "{{type}} 편집",
       "url-label": "URL"
-||||||| parent of 139bd6a4 (chore: translate)
-=======
-    },
-    "setup-state": "설정 상태",
-    "edit-service-modal": {
-      "title": "{{type}} 편집",
-      "url-label": "URL"
->>>>>>> 139bd6a4 (chore: translate)
     }
   }
 }

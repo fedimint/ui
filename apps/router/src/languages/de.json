@@ -515,19 +515,10 @@
     "remove-service-modal": {
       "title": "Entfernen Sie {{type}}",
       "confirm": "Sind Sie sicher, dass Sie diesen {{type}} entfernen möchten?"
-<<<<<<< HEAD
     },
     "edit-service-modal": {
       "title": "Bearbeiten {{type}}",
       "url-label": "URL"
-||||||| parent of 139bd6a4 (chore: translate)
-=======
-    },
-    "setup-state": "Einrichtungszustand",
-    "edit-service-modal": {
-      "title": "Bearbeiten {{type}}",
-      "url-label": "URL"
->>>>>>> 139bd6a4 (chore: translate)
     }
   }
 }

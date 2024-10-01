@@ -515,19 +515,10 @@
     "remove-service-modal": {
       "title": "{{type}}を削除する",
       "confirm": "この{{type}}を削除してもよろしいですか？"
-<<<<<<< HEAD
     },
     "edit-service-modal": {
       "title": "{{type}}を編集する",
       "url-label": "URL"
-||||||| parent of 139bd6a4 (chore: translate)
-=======
-    },
-    "setup-state": "設定状態",
-    "edit-service-modal": {
-      "title": "{{type}}を編集する",
-      "url-label": "URL"
->>>>>>> 139bd6a4 (chore: translate)
     }
   }
 }

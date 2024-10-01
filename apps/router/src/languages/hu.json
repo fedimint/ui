@@ -515,19 +515,10 @@
     "remove-service-modal": {
       "title": "Távolítsa el a {{type}}",
       "confirm": "Biztosan el akarja távolítani ezt a(z) {{type}}-t?"
-<<<<<<< HEAD
     },
     "edit-service-modal": {
       "title": "Szerkesztés {{type}}",
       "url-label": "URL"
-||||||| parent of 139bd6a4 (chore: translate)
-=======
-    },
-    "setup-state": "Beállítási állapot",
-    "edit-service-modal": {
-      "title": "Szerkesztés {{type}}",
-      "url-label": "URL"
->>>>>>> 139bd6a4 (chore: translate)
     }
   }
 }
