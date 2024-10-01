@@ -42,7 +42,7 @@ export class GuardianApi {
     this.connectPromise = new Promise((resolve, reject) => {
       const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
-        this.guardian.baseUrl,
+        this.guardian.config.baseUrl,
         requestTimeoutMs,
         (error: JsonRpcError) => {
           console.error('failed to create websocket', error);

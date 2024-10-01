@@ -515,10 +515,19 @@
     "remove-service-modal": {
       "title": "Supprimer {{type}}",
       "confirm": "Êtes-vous sûr de vouloir supprimer ce {{type}} ?"
+<<<<<<< HEAD
     },
     "edit-service-modal": {
       "title": "Modifier {{type}}",
       "url-label": "URL"
+||||||| parent of 139bd6a4 (chore: translate)
+=======
+    },
+    "setup-state": "État de Configuration",
+    "edit-service-modal": {
+      "title": "Modifier {{type}}",
+      "url-label": "URL"
+>>>>>>> 139bd6a4 (chore: translate)
     }
   }
 }
