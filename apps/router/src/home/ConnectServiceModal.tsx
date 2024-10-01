@@ -105,46 +105,6 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     [serviceInfo, handleCheck, handleConfirm]
   );
 
-  const renderServiceInfo = () => {
-    if (!serviceInfo) return null;
-    const info = JSON.parse(serviceInfo);
-    return (
-      <Flex direction='column' align='stretch' gap={4} width='100%'>
-        <Box>
-          <Text fontSize='lg' fontWeight='bold' display='inline'>
-            {t('home.connect-service-modal.service-type-label')}:{' '}
-          </Text>
-          <Badge colorScheme={'blue'} fontSize='md' px={2} py={1}>
-            {info.serviceType.toUpperCase()}
-          </Badge>
-        </Box>
-        {info.serviceType === 'gateway' && (
-          <Box>
-            <Text fontSize='lg' fontWeight='bold' display='inline'>
-              {t('home.connect-service-modal.service-name-label')}:{' '}
-            </Text>
-            <Text fontSize='lg' display='inline'>
-              {info.serviceName}
-            </Text>
-          </Box>
-        )}
-        <Box>
-          <Text fontSize='lg' fontWeight='bold' display='inline'>
-            {t('home.connect-service-modal.sync-status-label')}:{' '}
-          </Text>
-          <Badge
-            colorScheme={info.synced ? 'green' : 'red'}
-            fontSize='md'
-            px={2}
-            py={1}
-          >
-            {info.synced ? 'SYNCED' : 'NOT SYNCED'}
-          </Badge>
-        </Box>
-      </Flex>
-    );
-  };
-
   return (
     <Modal
       isOpen={isOpen}
@@ -197,7 +157,9 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
           {serviceInfo && (
             <>
               <Divider my={6} />
-              <FormControl>{renderServiceInfo()}</FormControl>
+              <FormControl>
+                <ServiceInfoDisplay serviceInfo={serviceInfo} />
+              </FormControl>
               <Button mt={4} colorScheme='green' onClick={handleConfirm}>
                 {t('common.confirm')}
               </Button>
@@ -206,5 +168,52 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
         </ModalBody>
       </ModalContent>
     </Modal>
+  );
+};
+
+interface ServiceInfoDisplayProps {
+  serviceInfo: string;
+}
+
+export const ServiceInfoDisplay: React.FC<ServiceInfoDisplayProps> = ({
+  serviceInfo,
+}) => {
+  const { t } = useTranslation();
+  const info = JSON.parse(serviceInfo);
+
+  return (
+    <Flex direction='column' align='stretch' gap={4} width='100%'>
+      <Box>
+        <Text fontSize='lg' fontWeight='bold' display='inline'>
+          {t('home.connect-service-modal.service-type-label')}:{' '}
+        </Text>
+        <Badge colorScheme={'blue'} fontSize='md' px={2} py={1}>
+          {info.serviceType.toUpperCase()}
+        </Badge>
+      </Box>
+      {info.serviceType === 'gateway' && (
+        <Box>
+          <Text fontSize='lg' fontWeight='bold' display='inline'>
+            {t('home.connect-service-modal.service-name-label')}:{' '}
+          </Text>
+          <Text fontSize='lg' display='inline'>
+            {info.serviceName}
+          </Text>
+        </Box>
+      )}
+      <Box>
+        <Text fontSize='lg' fontWeight='bold' display='inline'>
+          {t('home.connect-service-modal.sync-status-label')}:{' '}
+        </Text>
+        <Badge
+          colorScheme={info.synced ? 'green' : 'red'}
+          fontSize='md'
+          px={2}
+          py={1}
+        >
+          {info.synced ? 'SYNCED' : 'NOT SYNCED'}
+        </Badge>
+      </Box>
+    </Flex>
   );
 };
