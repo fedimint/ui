@@ -10,7 +10,6 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { RadioButtonGroup, RadioButtonOption } from '@fedimint/ui';
-import { GuardianRole, SETUP_ACTION_TYPE } from '../../../../types';
 import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
 import { ReactComponent as CheckIcon } from '../../../../assets/svgs/check.svg';
 import { ReactComponent as StarsIcon } from '../../../../assets/svgs/stars.svg';
@@ -20,6 +19,7 @@ import { ReactComponent as SoloIcon } from '../../../../assets/svgs/solo.svg';
 import { useTranslation } from '@fedimint/utils';
 import { WarningModal } from './WarningModal';
 import { useGuardianSetupContext } from '../../../../../context/hooks';
+import { GuardianRole, SETUP_ACTION_TYPE } from '../../../../../types/guardian';
 
 interface Props {
   next: () => void;

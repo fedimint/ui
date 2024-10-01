@@ -15,7 +15,6 @@ import { ReactComponent as CheckIcon } from '../../../../../assets/svgs/check.sv
 import { useTranslation, metaToHex, fieldsToMeta } from '@fedimint/utils';
 import { MetaFields, ParsedConsensusMeta } from '@fedimint/types';
 
-import { ModuleRpc } from '../../../../../types';
 import { Table, TableColumn } from '@fedimint/ui';
 import {
   bftHonest,
@@ -25,6 +24,7 @@ import {
 import { DEFAULT_META_KEY } from '../../FederationTabsCard';
 import { ConfirmNewMetaModal } from './ConfirmNewMetaModal';
 import { useGuardianAdminApi } from '../../../../../../context/hooks';
+import { ModuleRpc } from '../../../../../../types/guardian';
 
 export const formatJsonValue = (value: string): JSX.Element => {
   if (isJsonString(value)) {

@@ -27,7 +27,10 @@
     "uri": "URI",
     "view-on-mempool": "Mempoolを表示する",
     "ecash": "電子マネー",
-    "view": "表示"
+    "view": "表示",
+    "check": "チェック",
+    "connect": "接続する",
+    "password": "パスワード"
   },
   "notConfigured": {
     "title": "設定されていません",
@@ -133,8 +136,14 @@
         "meta-effect-add": "追加する",
         "meta-effect-modify": "修正する",
         "meta-effect-unchanged": "変わらず",
-        "proposals": "提案"
-      }
+        "proposals": "提案",
+        "header": "あなたの連盟のメタデータ",
+        "description": "Fedimintは、連盟の名前、歓迎メッセージ、画像など、連盟に関する追加情報（メタデータ）をユーザーに提供できます。この情報は資金の保管に影響を与えませんが、すべてのガーディアンはメタデータについて合意しなければなりません。",
+        "learn-more": "フェデレーションメタデータについて詳しく学びましょう。",
+        "add-custom-field-button": "カスタムフィールドを追加する",
+        "reset-to-consensus-button": "コンセンサスにリセットする"
+      },
+      "view-meta": "メタ"
     },
     "modal": {
       "client-connect": "クライアントを接続する"
@@ -498,11 +507,18 @@
       "label": "サービスを接続する",
       "title": "Fedimintサービスを接続する",
       "url-label": "URL",
-      "helper-text": "ガーディアンの場合はwss://、ゲートウェイの場合はhttps://になります。"
+      "helper-text": "ガーディアンの場合はwss://、ゲートウェイの場合はhttps://になります。",
+      "service-type-label": "サービスタイプ",
+      "service-name-label": "サービス名",
+      "sync-status-label": "同期状況"
     },
     "remove-service-modal": {
       "title": "{{type}}を削除する",
       "confirm": "この{{type}}を削除してもよろしいですか？"
+    },
+    "edit-service-modal": {
+      "title": "{{type}}を編集する",
+      "url-label": "URL"
     }
   }
 }

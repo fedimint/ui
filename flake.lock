@@ -20,7 +20,11 @@
       "inputs": {
         "devshell": "devshell",
         "flake-utils": "flake-utils_4",
-        "nixpkgs": ["fedimint", "flakebox", "nixpkgs"]
+        "nixpkgs": [
+          "fedimint",
+          "flakebox",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1719001124,
@@ -60,7 +64,11 @@
     },
     "crane": {
       "inputs": {
-        "nixpkgs": ["fedimint", "flakebox", "nixpkgs"]
+        "nixpkgs": [
+          "fedimint",
+          "flakebox",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1717383740,
@@ -80,7 +88,12 @@
     "devshell": {
       "inputs": {
         "flake-utils": "flake-utils_3",
-        "nixpkgs": ["fedimint", "flakebox", "android-nixpkgs", "nixpkgs"]
+        "nixpkgs": [
+          "fedimint",
+          "flakebox",
+          "android-nixpkgs",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1717408969,
@@ -106,23 +119,26 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1727462592,
-        "narHash": "sha256-G+dxZi3cUwLeyKQlsV3uCdlQVIvt5QWHxDk2ZTZaBZQ=",
+        "lastModified": 1727712199,
+        "narHash": "sha256-3Y95+vA64HaqodepPkwY159vIc6JES5oo9qPWLRF9es=",
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "4ccc52631b02ee741b01257e8cfb207e9f9629bf",
+        "rev": "e8e3e6d84c223c3b90d7cf8d5fd5f346a7443e66",
         "type": "github"
       },
       "original": {
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "4ccc52631b02ee741b01257e8cfb207e9f9629bf",
+        "rev": "e8e3e6d84c223c3b90d7cf8d5fd5f346a7443e66",
         "type": "github"
       }
     },
     "fenix": {
       "inputs": {
-        "nixpkgs": ["fedimint", "nixpkgs"],
+        "nixpkgs": [
+          "fedimint",
+          "nixpkgs"
+        ],
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
@@ -210,7 +226,11 @@
     },
     "flake-utils_5": {
       "inputs": {
-        "systems": ["fedimint", "flakebox", "systems"]
+        "systems": [
+          "fedimint",
+          "flakebox",
+          "systems"
+        ]
       },
       "locked": {
         "lastModified": 1710146030,
@@ -248,9 +268,15 @@
       "inputs": {
         "android-nixpkgs": "android-nixpkgs",
         "crane": "crane",
-        "fenix": ["fedimint", "fenix"],
+        "fenix": [
+          "fedimint",
+          "fenix"
+        ],
         "flake-utils": "flake-utils_5",
-        "nixpkgs": ["fedimint", "nixpkgs"],
+        "nixpkgs": [
+          "fedimint",
+          "nixpkgs"
+        ],
         "systems": "systems_4"
       },
       "locked": {

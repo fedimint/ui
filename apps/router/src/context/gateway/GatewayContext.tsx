@@ -6,13 +6,13 @@ import React, {
   useReducer,
 } from 'react';
 import { useGatewayConfig } from '../hooks';
-import { GatewayApi } from '../../gateway-ui/GatewayApi';
+import { GatewayApi } from '../../api/GatewayApi';
 import {
   GATEWAY_APP_ACTION_TYPE,
   GatewayAppAction,
   GatewayAppState,
   GatewayStatus,
-} from '../../gateway-ui/types';
+} from '../../types/gateway';
 import { useLocation } from 'react-router-dom';
 
 export interface GatewayContextValue {

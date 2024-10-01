@@ -14,7 +14,7 @@ import {
   ReceiveEcashResponse,
   GatewayBalances,
 } from '@fedimint/types';
-import { GatewayConfig } from './types';
+import { GatewayConfig } from '../types/gateway';
 
 export const SESSION_STORAGE_KEY = 'gateway-ui-key';
 

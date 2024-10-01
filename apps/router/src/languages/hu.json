@@ -27,7 +27,10 @@
     "uri": "URI",
     "view-on-mempool": "Megtekintés a Mempool-on",
     "ecash": "Ecash",
-    "view": "Megtekintés"
+    "view": "Megtekintés",
+    "check": "Ellenőrizze",
+    "connect": "Csatlakozás",
+    "password": "Jelszó"
   },
   "notConfigured": {
     "title": "Nincs beállítva",
@@ -133,8 +136,14 @@
         "meta-effect-add": "Adj hozzá",
         "meta-effect-modify": "Módosít",
         "meta-effect-unchanged": "Változatlan",
-        "proposals": "Javaslatok"
-      }
+        "proposals": "Javaslatok",
+        "header": "Az Ön Szövetségének Metaadatai",
+        "description": "A Fedimint további információkkal (metaadatokkal) láthatja el felhasználóit a Föderációról, mint például név, üdvözlő üzenet vagy kép. Bár ezek az információk nem befolyásolják az alapok őrzését, minden Őrzőnek egyet kell értenie a metaadatokkal.",
+        "learn-more": "Tudjon meg többet a Szövetségi Metaadatokról.",
+        "add-custom-field-button": "Egyéni mező hozzáadása",
+        "reset-to-consensus-button": "Visszaállítás konszenzusra"
+      },
+      "view-meta": "Meta"
     },
     "modal": {
       "client-connect": "Csatlakoztassa a Klienst"
@@ -498,11 +507,18 @@
       "label": "Csatlakoztasson egy szolgáltatást",
       "title": "Csatlakoztassa a Fedimint Szolgáltatást",
       "url-label": "URL",
-      "helper-text": "Guardian esetén wss:// lesz, gateway esetén pedig https://"
+      "helper-text": "Guardian esetén wss:// lesz, gateway esetén pedig https://",
+      "service-type-label": "Szolgáltatás típusa",
+      "service-name-label": "Szolgáltatás neve",
+      "sync-status-label": "Szinkronizálási állapot"
     },
     "remove-service-modal": {
       "title": "Távolítsa el a {{type}}",
       "confirm": "Biztosan el akarja távolítani ezt a(z) {{type}}-t?"
+    },
+    "edit-service-modal": {
+      "title": "Szerkesztés {{type}}",
+      "url-label": "URL"
     }
   }
 }

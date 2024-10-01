@@ -30,7 +30,7 @@ import {
 import { GuardianServerStatus, Peer } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { CopyInput, Table } from '@fedimint/ui';
-import { GuardianRole } from '../../../../types';
+import { GuardianRole } from '../../../../../types/guardian';
 import { ReactComponent as ArrowRightIcon } from '../../../../assets/svgs/arrow-right.svg';
 import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../../../../utils/api';

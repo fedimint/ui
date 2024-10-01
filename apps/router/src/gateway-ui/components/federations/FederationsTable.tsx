@@ -13,12 +13,12 @@ import { FederationInfo, MSats } from '@fedimint/types';
 import { useTranslation, formatEllipsized, formatValue } from '@fedimint/utils';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { ViewConfigModal } from './ViewConfig';
-import { Unit } from '../../Gateway';
 import {
   WalletModalAction,
   WalletModalState,
   WalletModalType,
 } from '../walletModal/WalletModal';
+import { Unit } from '../../../types';
 
 interface FederationsTableProps {
   federations: FederationInfo[];

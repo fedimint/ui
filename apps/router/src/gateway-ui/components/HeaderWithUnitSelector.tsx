@@ -1,9 +1,9 @@
 import React from 'react';
 import { Flex, Heading, Tabs, TabList, Tab, useTheme } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { UNIT_OPTIONS } from '../Gateway';
 import { useGatewayContext } from '../../context/hooks';
-import { GATEWAY_APP_ACTION_TYPE } from '../types';
+import { GATEWAY_APP_ACTION_TYPE } from '../../types/gateway';
+import { UNIT_OPTIONS } from '../../types';
 
 export const HeaderWithUnitSelector: React.FC = () => {
   const { dispatch } = useGatewayContext();

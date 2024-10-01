@@ -27,7 +27,10 @@
     "uri": "URI",
     "view-on-mempool": "Veure a Mempool",
     "ecash": "Efectiu digital",
-    "view": "Veure"
+    "view": "Veure",
+    "check": "Comprova",
+    "connect": "Connecta",
+    "password": "Contrasenya"
   },
   "notConfigured": {
     "title": "No configurat",
@@ -133,8 +136,14 @@
         "meta-effect-add": "Afegir",
         "meta-effect-modify": "Modifica",
         "meta-effect-unchanged": "Sense canvis",
-        "proposals": "Propostes"
-      }
+        "proposals": "Propostes",
+        "header": "Les metadades de la vostra Federació",
+        "description": "Fedimint pot proporcionar als vostres usuaris informació addicional (metadades) sobre la Federació, com ara un nom, un missatge de benvinguda o una imatge. Encara que aquesta informació no afecta la custòdia dels fons, tots els Guardians han d'estar d'acord amb les metadades.",
+        "learn-more": "Obtén més informació sobre les metadades de la Federació.",
+        "add-custom-field-button": "Afegeix un camp personalitzat",
+        "reset-to-consensus-button": "Restablir al Consens"
+      },
+      "view-meta": "Objectiu"
     },
     "modal": {
       "client-connect": "Connecta un Client"
@@ -498,11 +507,18 @@
       "label": "Connectar un servei",
       "title": "Connecta un Servei Fedimint",
       "url-label": "URL",
-      "helper-text": "Serà wss:// per a guardian o https:// per a passarel·la"
+      "helper-text": "Serà wss:// per a guardian o https:// per a passarel·la",
+      "service-type-label": "Tipus de servei",
+      "service-name-label": "Nom del Servei",
+      "sync-status-label": "Estat de sincronització"
     },
     "remove-service-modal": {
       "title": "Elimina {{type}}",
       "confirm": "Esteu segur que voleu eliminar aquest {{type}}?"
+    },
+    "edit-service-modal": {
+      "title": "Edita {{type}}",
+      "url-label": "URL"
     }
   }
 }

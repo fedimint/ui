@@ -5,6 +5,8 @@
     "back": "Back",
     "unknown": "Unknown",
     "remove": "Remove",
+    "check": "Check",
+    "connect": "Connect",
     "copy": "Copy",
     "copied": "Copied!",
     "cancel": "Cancel",
@@ -27,7 +29,8 @@
     "uri": "URI",
     "view": "View",
     "view-on-mempool": "View on Mempool",
-    "ecash": "Ecash"
+    "ecash": "Ecash",
+    "password": "Password"
   },
   "notConfigured": {
     "title": "Not Configured",
@@ -198,7 +201,10 @@
       "label": "Connect a Service",
       "title": "Connect a Fedimint Service",
       "url-label": "URL",
-      "helper-text": "Will be wss:// for guardian or https:// for gateway"
+      "helper-text": "Will be wss:// for guardian or https:// for gateway",
+      "service-type-label": "Service Type",
+      "service-name-label": "Service Name",
+      "sync-status-label": "Sync Status"
     },
     "remove-service-modal": {
       "title": "Remove {{type}}",

@@ -5,13 +5,13 @@ import React, {
   useMemo,
   useReducer,
 } from 'react';
-import { GuardianApi } from '../../guardian-ui/GuardianApi';
+import { GuardianApi } from '../../api/GuardianApi';
 import {
   GUARDIAN_APP_ACTION_TYPE,
   GuardianAppAction,
   GuardianAppState,
   GuardianStatus,
-} from '../../guardian-ui/types';
+} from '../../types/guardian';
 import { useGuardianConfig } from '../hooks';
 import { useLocation } from 'react-router-dom';
 
