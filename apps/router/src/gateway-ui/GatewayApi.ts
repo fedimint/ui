@@ -190,7 +190,7 @@ export class GatewayApi {
 
   connectFederation = async (inviteCode: string): Promise<FederationInfo> => {
     try {
-      const res: Response = await this.post('connect-fed', {
+      const res: Response = await this.post('connect_fed', {
         invite_code: inviteCode,
       });
 
