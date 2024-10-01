@@ -10,9 +10,11 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Textarea,
-  FormErrorMessage,
   Text,
+  Badge,
+  Flex,
+  Box,
+  Divider,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
@@ -36,6 +38,16 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { guardians, gateways, dispatch } = useAppContext();
+
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      if (!serviceInfo) {
+        handleCheck();
+      } else {
+        handleConfirm();
+      }
+    }
+  };
 
   const handleCheck = async () => {
     const api = new ServiceCheckApi();
@@ -74,7 +86,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
           payload: { id, gateway: { config: { baseUrl: configUrl } } },
         });
       }
-
+      resetForm();
       onClose();
     } catch (error) {
       setError(
@@ -88,6 +100,46 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     setPassword('');
     setServiceInfo(null);
     setError(null);
+  };
+
+  const renderServiceInfo = () => {
+    if (!serviceInfo) return null;
+    const info = JSON.parse(serviceInfo);
+    return (
+      <Flex direction='column' align='stretch' gap={4} width='100%'>
+        <Box>
+          <Text fontSize='lg' fontWeight='bold' display='inline'>
+            {t('home.connect-service-modal.service-type-label')}:{' '}
+          </Text>
+          <Badge colorScheme={'blue'} fontSize='md' px={2} py={1}>
+            {info.serviceType.toUpperCase()}
+          </Badge>
+        </Box>
+        {info.serviceType === 'gateway' && (
+          <Box>
+            <Text fontSize='lg' fontWeight='bold' display='inline'>
+              {t('home.connect-service-modal.service-name-label')}:{' '}
+            </Text>
+            <Text fontSize='lg' display='inline'>
+              {info.serviceName}
+            </Text>
+          </Box>
+        )}
+        <Box>
+          <Text fontSize='lg' fontWeight='bold' display='inline'>
+            {t('home.connect-service-modal.sync-status-label')}:{' '}
+          </Text>
+          <Badge
+            colorScheme={info.synced ? 'green' : 'red'}
+            fontSize='md'
+            px={2}
+            py={1}
+          >
+            {info.synced ? 'SYNCED' : 'NOT SYNCED'}
+          </Badge>
+        </Box>
+      </Flex>
+    );
   };
 
   return (
@@ -111,53 +163,40 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
               {error}
             </Text>
           )}
-          {!serviceInfo ? (
+          <FormControl isInvalid={!!error}>
+            <FormLabel>{t('home.connect-service-modal.url-label')}</FormLabel>
+            <Input
+              placeholder='wss://fedimintd.domain.com:6000'
+              value={configUrl}
+              onChange={(e) => setConfigUrl(e.target.value)}
+            />
+          </FormControl>
+          <FormControl mt={4}>
+            <FormLabel>{t('common.password')}</FormLabel>
+            <Input
+              type='password'
+              placeholder='Enter password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={handleKeyPress}
+            />
+          </FormControl>
+          {!serviceInfo && (
+            <Button
+              mt={4}
+              colorScheme='blue'
+              onClick={handleCheck}
+              isLoading={isLoading}
+            >
+              {t('common.check')}
+            </Button>
+          )}
+          {serviceInfo && (
             <>
-              <FormControl isInvalid={!!error}>
-                <FormLabel>
-                  {t('home.connect-service-modal.url-label')}
-                </FormLabel>
-                <Input
-                  placeholder='wss://fedimintd.domain.com:6000'
-                  value={configUrl}
-                  onChange={(e) => setConfigUrl(e.target.value)}
-                />
-                {error && <FormErrorMessage>{error}</FormErrorMessage>}
-              </FormControl>
-              <FormControl mt={4}>
-                <FormLabel>Password</FormLabel>
-                <Input
-                  type='password'
-                  placeholder='Enter password'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </FormControl>
-              <Button
-                mt={4}
-                colorScheme='blue'
-                onClick={handleCheck}
-                isLoading={isLoading}
-              >
-                {t('common.submit')}
-              </Button>
-            </>
-          ) : (
-            <>
-              <FormControl>
-                <FormLabel>Service Info</FormLabel>
-                <Textarea
-                  value={serviceInfo}
-                  readOnly
-                  height='200px'
-                  fontFamily='mono'
-                />
-              </FormControl>
+              <Divider my={6} />
+              <FormControl>{renderServiceInfo()}</FormControl>
               <Button mt={4} colorScheme='green' onClick={handleConfirm}>
-                Confirm
-              </Button>
-              <Button mt={4} ml={2} onClick={resetForm}>
-                Back
+                {t('common.confirm')}
               </Button>
             </>
           )}
