@@ -1,4 +1,5 @@
-import { GatewayConfig, GuardianConfig } from '../context/AppContext';
+import { GuardianConfig } from '../types/guardian';
+import { GatewayConfig } from '../types/gateway';
 
 export const checkServiceExists = (
   configUrl: string,

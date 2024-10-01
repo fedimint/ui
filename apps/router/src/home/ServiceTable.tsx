@@ -18,7 +18,8 @@ import {
 } from '@chakra-ui/react';
 import { FiEdit, FiExternalLink, FiX } from 'react-icons/fi';
 import { useTranslation } from '@fedimint/utils';
-import { GatewayConfig, GuardianConfig } from '../context/AppContext';
+import { GuardianConfig } from '../types/guardian';
+import { GatewayConfig } from '../types/gateway';
 
 interface ServiceTableProps {
   services: Record<string, GuardianConfig | GatewayConfig>;
