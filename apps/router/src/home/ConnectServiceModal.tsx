@@ -11,7 +11,8 @@ import {
   ModalHeader,
   ModalOverlay,
   Textarea,
-  useToast,
+  FormErrorMessage,
+  Text,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
@@ -33,42 +34,31 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
   const [password, setPassword] = useState('');
   const [serviceInfo, setServiceInfo] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { guardians, gateways, dispatch } = useAppContext();
-  const toast = useToast();
 
   const handleCheck = async () => {
     const api = new ServiceCheckApi();
     setIsLoading(true);
+    setError(null);
     try {
       if (checkServiceExists(configUrl, guardians, gateways)) {
-        console.log('toasting');
-        toast({
-          title: 'Service already exists',
-          description: 'A service with this URL already exists',
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        });
+        setError('A service with this URL already exists');
         return;
       }
       const info = await api.check(configUrl, password);
       setServiceInfo(JSON.stringify(info, null, 2));
     } catch (error) {
-      console.log('toasting');
-      toast({
-        title: 'Error checking service',
-        description:
-          error instanceof Error ? error.message : 'An unknown error occurred',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      setError(
+        error instanceof Error ? error.message : 'An unknown error occurred'
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleConfirm = async () => {
+    setError(null);
     try {
       const id = await sha256Hash(configUrl);
       const serviceType = getServiceType(configUrl);
@@ -85,22 +75,11 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
         });
       }
 
-      toast({
-        title: 'Service added',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
       onClose();
     } catch (error) {
-      toast({
-        title: 'Error adding service',
-        description:
-          error instanceof Error ? error.message : 'An unknown error occurred',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      setError(
+        error instanceof Error ? error.message : 'An unknown error occurred'
+      );
     }
   };
 
@@ -108,6 +87,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     setConfigUrl('');
     setPassword('');
     setServiceInfo(null);
+    setError(null);
   };
 
   return (
@@ -126,9 +106,14 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
+          {error && (
+            <Text color='red.500' mb={4}>
+              {error}
+            </Text>
+          )}
           {!serviceInfo ? (
             <>
-              <FormControl>
+              <FormControl isInvalid={!!error}>
                 <FormLabel>
                   {t('home.connect-service-modal.url-label')}
                 </FormLabel>
@@ -137,6 +122,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
                   value={configUrl}
                   onChange={(e) => setConfigUrl(e.target.value)}
                 />
+                {error && <FormErrorMessage>{error}</FormErrorMessage>}
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Password</FormLabel>
@@ -161,7 +147,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
               <FormControl>
                 <FormLabel>Service Info</FormLabel>
                 <Textarea
-                  value={JSON.stringify(serviceInfo, null, 2)}
+                  value={serviceInfo}
                   readOnly
                   height='200px'
                   fontFamily='mono'
