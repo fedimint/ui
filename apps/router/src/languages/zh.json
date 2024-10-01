@@ -27,7 +27,10 @@
     "uri": "统一资源标识符",
     "view-on-mempool": "查看Mempool",
     "ecash": "电子现金",
-    "view": "查看"
+    "view": "查看",
+    "check": "检查",
+    "connect": "连接",
+    "password": "密码"
   },
   "notConfigured": {
     "title": "未配置",
@@ -133,8 +136,14 @@
         "meta-effect-add": "添加",
         "meta-effect-modify": "修改",
         "meta-effect-unchanged": "未改变",
-        "proposals": "提案"
-      }
+        "proposals": "提案",
+        "header": "您的联邦元数据",
+        "description": "Fedimint可以为您的用户提供有关联邦的额外信息（元数据），例如名称、欢迎信息或图片。虽然这些信息不会影响资金的保管，但所有的守护者都必须对元数据达成一致。",
+        "learn-more": "了解更多关联元数据。",
+        "add-custom-field-button": "添加自定义字段",
+        "reset-to-consensus-button": "重置为共识"
+      },
+      "view-meta": "元"
     },
     "modal": {
       "client-connect": "连接客户端"
@@ -498,11 +507,18 @@
       "label": "连接服务",
       "title": "连接Fedimint服务",
       "url-label": "网址",
-      "helper-text": "将为guardian使用wss://，为gateway使用https://。"
+      "helper-text": "将为guardian使用wss://，为gateway使用https://。",
+      "service-type-label": "服务类型",
+      "service-name-label": "服务名称",
+      "sync-status-label": "同步状态"
     },
     "remove-service-modal": {
       "title": "删除{{type}}",
       "confirm": "您确定要删除这个{{type}}吗？"
+    },
+    "edit-service-modal": {
+      "title": "编辑{{type}}",
+      "url-label": "网址"
     }
   }
 }

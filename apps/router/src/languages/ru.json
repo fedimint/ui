@@ -27,7 +27,10 @@
     "uri": "URI",
     "view-on-mempool": "Просмотр Mempool",
     "ecash": "Электронные деньги",
-    "view": "Просмотр"
+    "view": "Просмотр",
+    "check": "Проверьте",
+    "connect": "Подключить",
+    "password": "Пароль"
   },
   "notConfigured": {
     "title": "Не настроено",
@@ -133,8 +136,14 @@
         "meta-effect-add": "Добавить",
         "meta-effect-modify": "Изменить",
         "meta-effect-unchanged": "Неизменный",
-        "proposals": "Предложения"
-      }
+        "proposals": "Предложения",
+        "header": "Метаданные вашего Федерации",
+        "description": "Fedimint может предоставить вашим пользователям дополнительную информацию (метаданные) о Федерации, такую как имя, приветственное сообщение или изображение. Хотя эта информация не влияет на хранение средств, все Хранители должны согласиться с метаданными.",
+        "learn-more": "Узнайте больше о метаданных Федерации.",
+        "add-custom-field-button": "Добавить пользовательское поле",
+        "reset-to-consensus-button": "Сброс до консенсуса"
+      },
+      "view-meta": "Мета"
     },
     "modal": {
       "client-connect": "Подключить клиента"
@@ -498,11 +507,18 @@
       "label": "Подключить сервис",
       "title": "Подключите сервис Fedimint",
       "url-label": "URL",
-      "helper-text": "Будет wss:// для защитника или https:// для шлюза"
+      "helper-text": "Будет wss:// для защитника или https:// для шлюза",
+      "service-type-label": "Тип услуги",
+      "service-name-label": "Название услуги",
+      "sync-status-label": "Статус синхронизации"
     },
     "remove-service-modal": {
       "title": "Удалить {{type}}",
       "confirm": "Вы уверены, что хотите удалить этот {{type}}?"
+    },
+    "edit-service-modal": {
+      "title": "Редактировать {{type}}",
+      "url-label": "URL"
     }
   }
 }

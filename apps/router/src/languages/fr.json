@@ -27,7 +27,10 @@
     "uri": "URI",
     "view-on-mempool": "Vue sur Mempool",
     "ecash": "Ecash",
-    "view": "Vue"
+    "view": "Vue",
+    "check": "Vérifier",
+    "connect": "Connecter",
+    "password": "Mot de passe"
   },
   "notConfigured": {
     "title": "Non configuré",
@@ -133,8 +136,14 @@
         "meta-effect-add": "Ajouter",
         "meta-effect-modify": "Modifier",
         "meta-effect-unchanged": "Inchangé",
-        "proposals": "Propositions"
-      }
+        "proposals": "Propositions",
+        "header": "Les métadonnées de votre Fédération",
+        "description": "Fedimint peut fournir à vos utilisateurs des informations supplémentaires (métadonnées) sur la Fédération, telles qu'un nom, un message de bienvenue ou une image. Bien que ces informations n'affectent pas la garde des fonds, tous les Gardiens doivent être d'accord sur les métadonnées.",
+        "learn-more": "En savoir plus sur les métadonnées de la Fédération.",
+        "add-custom-field-button": "Ajouter un champ personnalisé",
+        "reset-to-consensus-button": "Réinitialiser au Consensus"
+      },
+      "view-meta": "Méta"
     },
     "modal": {
       "client-connect": "Connecter un Client"
@@ -498,11 +507,18 @@
       "label": "Connecter un service",
       "title": "Connectez un service Fedimint",
       "url-label": "URL",
-      "helper-text": "Sera wss:// pour guardian ou https:// pour gateway"
+      "helper-text": "Sera wss:// pour guardian ou https:// pour gateway",
+      "service-type-label": "Type de service",
+      "service-name-label": "Nom du service",
+      "sync-status-label": "Statut de Synchronisation"
     },
     "remove-service-modal": {
       "title": "Supprimer {{type}}",
       "confirm": "Êtes-vous sûr de vouloir supprimer ce {{type}} ?"
+    },
+    "edit-service-modal": {
+      "title": "Modifier {{type}}",
+      "url-label": "URL"
     }
   }
 }

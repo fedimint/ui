@@ -27,7 +27,10 @@
     "uri": "URI",
     "view-on-mempool": "Ansicht auf Mempool",
     "ecash": "Ecash",
-    "view": "Ansicht"
+    "view": "Ansicht",
+    "check": "Überprüfen",
+    "connect": "Verbinden",
+    "password": "Passwort"
   },
   "notConfigured": {
     "title": "Nicht konfiguriert",
@@ -133,8 +136,14 @@
         "meta-effect-add": "Hinzufügen",
         "meta-effect-modify": "Ändern",
         "meta-effect-unchanged": "Unverändert",
-        "proposals": "Vorschläge"
-      }
+        "proposals": "Vorschläge",
+        "header": "Die Metadaten Ihrer Föderation",
+        "description": "Fedimint kann Ihren Benutzern zusätzliche Informationen (Metadaten) über die Föderation liefern, wie zum Beispiel einen Namen, eine Willkommensnachricht oder ein Bild. Obwohl diese Informationen die Verwahrung von Geldern nicht beeinflussen, müssen alle Wächter den Metadaten zustimmen.",
+        "learn-more": "Erfahren Sie mehr über Federation Metadata.",
+        "add-custom-field-button": "Benutzerdefiniertes Feld hinzufügen",
+        "reset-to-consensus-button": "Zurücksetzen auf Konsens"
+      },
+      "view-meta": "Meta"
     },
     "modal": {
       "client-connect": "Verbinden Sie einen Client"
@@ -498,11 +507,18 @@
       "label": "Einen Service verbinden",
       "title": "Verbinden Sie einen Fedimint-Service",
       "url-label": "URL",
-      "helper-text": "Wird wss:// für Guardian oder https:// für Gateway sein"
+      "helper-text": "Wird wss:// für Guardian oder https:// für Gateway sein",
+      "service-type-label": "Dienstleistungsart",
+      "service-name-label": "Dienstname",
+      "sync-status-label": "Synchronisationsstatus"
     },
     "remove-service-modal": {
       "title": "Entfernen Sie {{type}}",
       "confirm": "Sind Sie sicher, dass Sie diesen {{type}} entfernen möchten?"
+    },
+    "edit-service-modal": {
+      "title": "Bearbeiten {{type}}",
+      "url-label": "URL"
     }
   }
 }

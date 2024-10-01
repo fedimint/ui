@@ -27,7 +27,10 @@
     "uri": "URI",
     "view-on-mempool": "Mempool에서 보기",
     "ecash": "전자현금",
-    "view": "보기"
+    "view": "보기",
+    "check": "확인하세요",
+    "connect": "연결하다",
+    "password": "비밀번호"
   },
   "notConfigured": {
     "title": "구성되지 않음",
@@ -133,8 +136,14 @@
         "meta-effect-add": "추가",
         "meta-effect-modify": "수정하다",
         "meta-effect-unchanged": "변경되지 않음",
-        "proposals": "제안들"
-      }
+        "proposals": "제안들",
+        "header": "당신의 연맹의 메타데이터",
+        "description": "Fedimint는 연합에 대한 추가 정보(메타데이터)를 사용자에게 제공할 수 있습니다. 이 정보에는 이름, 환영 메시지, 이미지 등이 포함될 수 있습니다. 이 정보는 자금의 보관에 영향을 미치지 않지만, 모든 가디언들이 메타데이터에 대해 동의해야 합니다.",
+        "learn-more": "연합 메타데이터에 대해 더 알아보세요.",
+        "add-custom-field-button": "사용자 정의 필드 추가",
+        "reset-to-consensus-button": "합의로 재설정"
+      },
+      "view-meta": "메타"
     },
     "modal": {
       "client-connect": "클라이언트 연결"
@@ -498,11 +507,18 @@
       "label": "서비스 연결하기",
       "title": "Fedimint 서비스를 연결하십시오.",
       "url-label": "URL",
-      "helper-text": "guardian의 경우 wss://, gateway의 경우 https://가 될 것입니다."
+      "helper-text": "guardian의 경우 wss://, gateway의 경우 https://가 될 것입니다.",
+      "service-type-label": "서비스 유형",
+      "service-name-label": "서비스 이름",
+      "sync-status-label": "동기화 상태"
     },
     "remove-service-modal": {
       "title": "{{type}} 제거",
       "confirm": "이 {{type}}을 삭제하시겠습니까?"
+    },
+    "edit-service-modal": {
+      "title": "{{type}} 편집",
+      "url-label": "URL"
     }
   }
 }
