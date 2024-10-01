@@ -23,7 +23,7 @@ export class GatewayApi {
   private baseUrl: string;
 
   constructor(config: GatewayConfig) {
-    this.baseUrl = config.baseUrl;
+    this.baseUrl = config.config.baseUrl;
   }
 
   // Tests a provided password or the one in session storage
