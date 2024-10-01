@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Button,
   FormControl,
@@ -39,17 +39,14 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
   const [error, setError] = useState<string | null>(null);
   const { guardians, gateways, dispatch } = useAppContext();
 
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      if (!serviceInfo) {
-        handleCheck();
-      } else {
-        handleConfirm();
-      }
-    }
-  };
+  const resetForm = useCallback(() => {
+    setConfigUrl('');
+    setPassword('');
+    setServiceInfo(null);
+    setError(null);
+  }, []);
 
-  const handleCheck = async () => {
+  const handleCheck = useCallback(async () => {
     const api = new ServiceCheckApi();
     setIsLoading(true);
     setError(null);
@@ -67,9 +64,9 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [configUrl, password, guardians, gateways]);
 
-  const handleConfirm = async () => {
+  const handleConfirm = useCallback(async () => {
     setError(null);
     try {
       const id = await sha256Hash(configUrl);
@@ -93,14 +90,20 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
         error instanceof Error ? error.message : 'An unknown error occurred'
       );
     }
-  };
+  }, [configUrl, dispatch, resetForm, onClose]);
 
-  const resetForm = () => {
-    setConfigUrl('');
-    setPassword('');
-    setServiceInfo(null);
-    setError(null);
-  };
+  const handleKeyPress = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        if (!serviceInfo) {
+          handleCheck();
+        } else {
+          handleConfirm();
+        }
+      }
+    },
+    [serviceInfo, handleCheck, handleConfirm]
+  );
 
   const renderServiceInfo = () => {
     if (!serviceInfo) return null;
