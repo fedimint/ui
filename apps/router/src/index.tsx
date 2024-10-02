@@ -15,6 +15,7 @@ import { HomePage } from './home/HomePage';
 import { GuardianContextProvider } from './context/guardian/GuardianContext';
 import { GatewayContextProvider } from './context/gateway/GatewayContext';
 import { Wrapper } from './components/Wrapper';
+import { AuthContextProvider } from './context/AuthContext';
 
 i18nProvider(languages);
 
@@ -56,7 +57,9 @@ root.render(
       <ColorModeScript />
       <Fonts spaceGroteskTtf={spaceGroteskTtf} interTtf={interTtf} />
       <AppContextProvider>
-        <App />
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
       </AppContextProvider>
     </SharedChakraProvider>
   </React.StrictMode>

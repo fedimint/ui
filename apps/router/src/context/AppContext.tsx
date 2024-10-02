@@ -9,7 +9,9 @@ import { GuardianConfig } from '../types/guardian';
 import { GatewayConfig } from '../types/gateway';
 import { sha256Hash } from '@fedimint/utils';
 
-type Service = GuardianConfig | GatewayConfig;
+interface ServiceConfig {
+  baseUrl: string;
+}
 
 export interface AppContextValue {
   guardians: Record<string, GuardianConfig>;
@@ -171,17 +173,18 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   );
 
   useEffect(() => {
-    const isGuardian = (service: Service): service is GuardianConfig =>
-      service.config.baseUrl.startsWith('ws');
-    const isGateway = (service: Service): service is GatewayConfig =>
-      service.config.baseUrl.startsWith('http');
-    const addService = async (service: Service) => {
-      const id = await sha256Hash(service.config.baseUrl);
+    const isGuardian = (service: ServiceConfig) =>
+      service.baseUrl.startsWith('ws');
+    const isGateway = (service: ServiceConfig) =>
+      service.baseUrl.startsWith('http');
+    const addService = async (service: ServiceConfig) => {
+      console.log('service', service);
+      const id = await sha256Hash(service.baseUrl);
 
       if (isGuardian(service)) {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
-          payload: { id, guardian: { id, config: service.config } },
+          payload: { id, guardian: { id, config: service } },
         });
       } else if (isGateway(service)) {
         dispatch({
@@ -193,7 +196,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       }
     };
 
-    const handleConfig = (data: Service | Service[]) => {
+    const handleConfig = (data: ServiceConfig | ServiceConfig[]) => {
       const services = Array.isArray(data) ? data : [data];
       services.forEach((service) => {
         addService(service);

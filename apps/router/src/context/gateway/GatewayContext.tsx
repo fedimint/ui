@@ -69,6 +69,7 @@ export const GatewayContextProvider: React.FC<GatewayContextProviderProps> = ({
   const { getGatewayPassword } = useAuth();
   const config = useGatewayConfig(gatewayId);
   const password = getGatewayPassword(gatewayId);
+  console.log('password', password);
   const gatewayApi = useMemo(
     () => new GatewayApi(config, password),
     [config, password]
