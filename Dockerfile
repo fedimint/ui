@@ -29,6 +29,7 @@ RUN yarn build
 FROM base AS runner
 WORKDIR /app
 
+# note: remember to make changes to the installPhase in flake.nix as well
 COPY --from=installer /app/apps/router/build build
 COPY scripts/replace-react-env.js scripts/replace-react-env.js
 COPY scripts/write-config-from-env.js scripts/write-config-from-env.js
