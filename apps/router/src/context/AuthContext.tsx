@@ -58,7 +58,11 @@ export type AuthAction =
     };
 
 const saveToLocalStorage = (state: AuthContextValue) => {
-  localStorage.setItem('fedimint_ui_auth', JSON.stringify(state));
+  const { guardianPasswords, gatewayPasswords } = state;
+  localStorage.setItem(
+    'fedimint_ui_auth',
+    JSON.stringify({ guardianPasswords, gatewayPasswords })
+  );
 };
 
 const reducer = (
