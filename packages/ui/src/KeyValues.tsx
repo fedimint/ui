@@ -33,9 +33,7 @@ export const KeyValues: React.FC<KeyValuesProps> = ({
           >
             {label || key}
           </Text>
-          <Text size='md' fontWeight='500'>
-            {value}
-          </Text>
+          {value}
         </Flex>
       ))}
     </Flex>

@@ -21,6 +21,7 @@ export class ServiceCheckApi {
   }
 
   private getUrlType(url: string): 'websocket' | 'http' {
+    console.log('url', url);
     if (url.startsWith('ws://') || url.startsWith('wss://')) return 'websocket';
     if (url.startsWith('http://') || url.startsWith('https://')) return 'http';
     throw new Error(
