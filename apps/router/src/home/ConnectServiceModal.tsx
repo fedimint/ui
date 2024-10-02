@@ -21,6 +21,7 @@ import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
 import { checkServiceExists, getServiceType } from './utils';
 import { ServiceCheckApi } from '../api/ServiceCheckApi';
+import { useAuth } from '../hooks/useAuth';
 
 interface ConnectServiceModalProps {
   isOpen: boolean;
@@ -32,6 +33,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
   onClose,
 }) => {
   const { t } = useTranslation();
+  const { setGuardianPassword, setGatewayPassword } = useAuth();
   const [configUrl, setConfigUrl] = useState('');
   const [password, setPassword] = useState('');
   const [serviceInfo, setServiceInfo] = useState<string | null>(null);
@@ -77,11 +79,13 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
           payload: { id, guardian: { id, config: { baseUrl: configUrl } } },
         });
+        setGuardianPassword(id, password);
       } else {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GATEWAY,
           payload: { id, gateway: { id, config: { baseUrl: configUrl } } },
         });
+        setGatewayPassword(id, password);
       }
       resetForm();
       onClose();
@@ -90,7 +94,15 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
         error instanceof Error ? error.message : 'An unknown error occurred'
       );
     }
-  }, [configUrl, dispatch, resetForm, onClose]);
+  }, [
+    configUrl,
+    password,
+    dispatch,
+    resetForm,
+    onClose,
+    setGatewayPassword,
+    setGuardianPassword,
+  ]);
 
   const handleKeyPress = useCallback(
     (event: React.KeyboardEvent) => {
