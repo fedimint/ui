@@ -43,11 +43,19 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
   const { t } = useTranslation();
 
   const getSetupState = (id: string) => {
+    if (typeof localStorage === 'undefined') {
+      return null;
+    }
     const setupKey = `setup-state-${id}`;
     const setupState = localStorage.getItem(setupKey);
     if (setupState) {
-      const { progress, role } = JSON.parse(setupState);
-      return { progress, role };
+      try {
+        const { progress, role } = JSON.parse(setupState);
+        return { progress, role };
+      } catch (e) {
+        console.error(`Failed to parse setup state for ${id}:`, e);
+        return null;
+      }
     }
     return null;
   };
