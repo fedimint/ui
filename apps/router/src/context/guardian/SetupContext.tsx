@@ -11,12 +11,12 @@ import { randomNames } from '../../guardian-ui/setup/randomNames';
 import {
   FollowerConfigs,
   HostConfigs,
-  useGuardianApi,
   useHandleBackgroundGuardianSetupActions,
   useHandleSetupServerStatus,
   useUpdateLocalStorageOnSetupStateChange,
 } from '../hooks';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 export const LOCAL_STORAGE_SETUP_KEY = 'setup-state';
 
@@ -133,11 +133,11 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   children,
 }: SetupContextProviderProps) => {
   const guardianId = useLocation().pathname.split('/')[2];
-  const api = useGuardianApi();
+  const { getGuardianPassword } = useAuth();
   const initialState = useInitialState(guardianId);
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
-    password: api.getPassword() || initialState.password,
+    password: getGuardianPassword(guardianId) || initialState.password,
   });
 
   useHandleSetupServerStatus(initServerStatus, dispatch);

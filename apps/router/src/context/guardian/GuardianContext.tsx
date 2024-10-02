@@ -14,6 +14,7 @@ import {
 } from '../../types/guardian';
 import { useGuardianConfig } from '../hooks';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 export interface GuardianContextValue {
   id: string;
@@ -59,8 +60,13 @@ export const GuardianContextProvider: React.FC<
   const [state, dispatch] = useReducer(reducer, initialState);
   const location = useLocation();
   const guardianId = location.pathname.split('/')[2];
+  const { getGuardianPassword } = useAuth();
   const config = useGuardianConfig(guardianId);
-  const guardianApi = useMemo(() => new GuardianApi(config), [config]);
+  const password = getGuardianPassword(guardianId);
+  const guardianApi = useMemo(
+    () => new GuardianApi(config, password),
+    [config, password]
+  );
 
   return (
     <GuardianContext.Provider

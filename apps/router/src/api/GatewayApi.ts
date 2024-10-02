@@ -20,85 +20,72 @@ export const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
 // GatewayApi is an implementation of the ApiInterface
 export class GatewayApi {
-  private baseUrl: string;
+  public config: GatewayConfig;
+  private password: string | null;
 
-  constructor(config: GatewayConfig) {
-    this.baseUrl = config.config.baseUrl;
+  constructor(config: GatewayConfig, password: string | null) {
+    this.config = config;
+    this.password = password;
   }
 
   // Tests a provided password or the one in session storage
-  testPassword = async (password?: string): Promise<boolean> => {
-    const tempPassword = password || this.getPassword();
+  testPassword = async (password: string): Promise<boolean> => {
+    const tempPassword = password || this.password;
 
     if (!tempPassword) {
       return false;
     }
 
-    // Replace with temp password to check.
-    sessionStorage.setItem(SESSION_STORAGE_KEY, tempPassword);
-
     try {
-      await this.fetchInfo();
+      await this.fetchInfo(tempPassword);
       return true;
     } catch (err) {
       // TODO: make sure error is auth error, not unrelated
       console.error(err);
-      this.clearPassword();
       return false;
     }
   };
 
-  private getPassword = (): string | null => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY);
-  };
-
-  clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
-  };
-
-  private post = async (api: string, body: unknown): Promise<Response> => {
-    if (this.baseUrl === undefined) {
+  private post = async (
+    api: string,
+    body: unknown,
+    password?: string
+  ): Promise<Response> => {
+    if (this.config.config.baseUrl === undefined) {
       throw new Error(
         'Misconfigured Gateway API. Make sure FM_GATEWAY_API is configured appropriately'
       );
     }
-
-    const password = this.getPassword();
-    if (!password) {
-      throw new Error(
-        'Misconfigured Gateway API. Make sure gateway password is configured appropriately'
-      );
+    if (this.password === null) {
+      throw new Error('Password is null');
     }
 
-    return fetch(`${this.baseUrl}/${api}`, {
+    const tempPassword = password || this.password;
+
+    return fetch(`${this.config.config.baseUrl}/${api}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${password}`,
+        Authorization: `Bearer ${tempPassword}`,
       },
       body: JSON.stringify(body),
     });
   };
 
-  private get = async (api: string): Promise<Response> => {
-    if (this.baseUrl === undefined) {
+  private get = async (api: string, password?: string): Promise<Response> => {
+    if (this.config.config.baseUrl === undefined) {
       throw new Error(
         'Misconfigured Gateway API. Make sure FM_GATEWAY_API is configured appropriately'
       );
     }
 
-    const password = this.getPassword();
-    if (!password) {
-      throw new Error(
-        'Misconfigured Gateway API. Make sure gateway password is configured appropriately'
-      );
-    }
+    const tempPassword = password || this.password;
 
-    return fetch(`${this.baseUrl}/${api}`, {
+    return fetch(`${this.config.config.baseUrl}/${api}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${password}`,
+        Authorization: `Bearer ${tempPassword}`,
       },
     });
   };
@@ -227,9 +214,9 @@ export class GatewayApi {
     }
   };
 
-  fetchInfo = async (): Promise<GatewayInfo> => {
+  fetchInfo = async (password?: string): Promise<GatewayInfo> => {
     try {
-      const res: Response = await this.get('info');
+      const res: Response = await this.get('info', password);
 
       if (res.ok) {
         const info: GatewayInfo = await res.json();

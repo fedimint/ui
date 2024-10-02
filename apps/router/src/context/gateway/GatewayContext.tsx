@@ -6,7 +6,6 @@ import React, {
   useReducer,
 } from 'react';
 import { useGatewayConfig } from '../hooks';
-import { GatewayApi } from '../../api/GatewayApi';
 import {
   GATEWAY_APP_ACTION_TYPE,
   GatewayAppAction,
@@ -14,6 +13,8 @@ import {
   GatewayStatus,
 } from '../../types/gateway';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
+import { GatewayApi } from '../../api/GatewayApi';
 
 export interface GatewayContextValue {
   id: string;
@@ -65,8 +66,13 @@ export const GatewayContextProvider: React.FC<GatewayContextProviderProps> = ({
   const [state, dispatch] = useReducer(reducer, initialState);
   const location = useLocation();
   const gatewayId = location.pathname.split('/')[2];
+  const { getGatewayPassword } = useAuth();
   const config = useGatewayConfig(gatewayId);
-  const gatewayApi = useMemo(() => new GatewayApi(config), [config]);
+  const password = getGatewayPassword(gatewayId);
+  const gatewayApi = useMemo(
+    () => new GatewayApi(config, password),
+    [config, password]
+  );
 
   return (
     <GatewayContext.Provider

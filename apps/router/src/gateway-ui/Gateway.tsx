@@ -30,7 +30,7 @@ export const Gateway = () => {
   if (state.needsAuth) {
     return (
       <Login
-        checkAuth={api.testPassword}
+        checkAuth={(password) => api.testPassword(password ?? '')}
         setAuthenticated={() =>
           dispatch({
             type: GATEWAY_APP_ACTION_TYPE.SET_NEEDS_AUTH,
