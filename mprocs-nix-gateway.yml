@@ -2,6 +2,12 @@ procs:
   user:
     shell: bash --init-file scripts/mprocs-user-shell.sh
     stop: SIGKILL
+  ui:
+    shell: bash --init-file scripts/mprocs-ui.sh
+    stop: SIGKILL
+    env:
+      PORT: '3000'
+      BROWSER: none
   fedimint0:
     shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-default-0.log
   fedimint1:
@@ -24,30 +30,3 @@ procs:
     shell: tail -n +0 -F $FM_LOGS_DIR/bitcoind.log
   devimint:
     shell: tail -n +0 -F $FM_LOGS_DIR/devimint.log
-  gateway-ui-cln:
-    shell: bash --init-file scripts/mprocs-nix-gateway.sh
-    stop: SIGKILL
-    env:
-      PORT: '3004'
-      BROWSER: none
-      GATEWAY_TYPE: cln
-  gateway-ui-lnd:
-    shell: bash --init-file scripts/mprocs-nix-gateway.sh
-    stop: SIGKILL
-    env:
-      PORT: '3005'
-      BROWSER: none
-      GATEWAY_TYPE: lnd
-  gateway-ui-ldk:
-    shell: bash --init-file scripts/mprocs-nix-gateway.sh
-    stop: SIGKILL
-    env:
-      PORT: '3006'
-      BROWSER: none
-      GATEWAY_TYPE: ldk
-  guardian-ui-1:
-    shell: bash --init-file scripts/mprocs-nix-guardian-manual.sh
-    stop: SIGKILL
-    env:
-      PORT: '3000'
-      BROWSER: none
