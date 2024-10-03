@@ -16,11 +16,11 @@
 
 
         # When `yarn.lock` changes, follow these steps to update the `sha256` hash:
-        # 1. Remove the existing `sha256` hash.*
-        # 2. Rebuild the Nix derivation** by executing:
+        # 1. Remove the existing `sha256` hash.
+        # 2. Rebuild the Nix derivation by executing:
         #    nix build .#guardian-ui
-        # 3. Obtain the new `sha256` hash** from the build error message.
-        # 4. Update the `sha256` value** below with the newly copied hash.
+        # 3. Obtain the new `sha256` hash from the build error message.
+        # 4. Update the `sha256` value below with the newly copied hash.
         #
         # **Important:** 
         # Keeping the `sha256` hash in sync with `yarn.lock` is essential. An outdated or incorrect hash 
@@ -58,6 +58,7 @@
             yarn
             cacert
             yarn2nix-moretea.fixup_yarn_lock
+            nodePackages.serve
           ];
 
           configurePhase = ''
@@ -86,11 +87,15 @@
 
           # should be similar to the installer in the Dockerfile
           installPhase = ''
-            mkdir -p $out/scripts
+            mkdir -p $out
+            # static files that can be served by reverse-proxies
+            cp -r apps/router/build/* $out
 
-            cp -r apps/router/build/* $out/
-            cp -r scripts/replace-react-env.js $out/scripts/replace-react-env.js
-            cp -r scripts/write-config-from-env.js $out/scripts/write-config-from-env.js
+            # wrapper for "nix run .#guardian-ui" (based on https://wiki.nixos.org/wiki/Node.js#Packaging_with_yarn2nix)
+            mkdir -p $out/bin
+            echo "#!/bin/sh" > $out/bin/guardian-ui
+            echo "exec ${pkgs.nodePackages.serve}/bin/serve -s $out" >> $out/bin/guardian-ui
+            chmod +x $out/bin/guardian-ui
           '';
         };
       });
