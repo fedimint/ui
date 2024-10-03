@@ -18,6 +18,7 @@
     "you": "You",
     "close": "Close",
     "save": "Save",
+    "status": "Status",
     "continue": "Continue",
     "submit": "Submit",
     "address": "Address",
@@ -205,7 +206,8 @@
       "helper-text": "Will be wss:// for guardian or https:// for gateway",
       "service-type-label": "Service Type",
       "service-name-label": "Service Name",
-      "sync-status-label": "Sync Status"
+      "status-label": "Status",
+      "valid-service-password-hint": "Valid service, enter the service's configured password (specific for each service)"
     },
     "remove-service-modal": {
       "title": "Remove {{type}}",
@@ -213,7 +215,8 @@
     },
     "edit-service-modal": {
       "title": "Edit {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Password"
     }
   },
   "login": {

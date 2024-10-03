@@ -510,7 +510,8 @@
       "helper-text": "Guardian esetén wss:// lesz, gateway esetén pedig https://",
       "service-type-label": "Szolgáltatás típusa",
       "service-name-label": "Szolgáltatás neve",
-      "sync-status-label": "Szinkronizálási állapot"
+      "status-label": "Státusz",
+      "valid-service-password-hint": "Érvényes szolgáltatás, adja meg a szolgáltatás beállított jelszavát (minden szolgáltatásra specifikus)"
     },
     "remove-service-modal": {
       "title": "Távolítsa el a {{type}}",
@@ -519,6 +520,7 @@
     "edit-service-modal": {
       "title": "Szerkesztés {{type}}",
       "url-label": "URL"
-    }
+    },
+    "setup-state": "Beállítási állapot"
   }
 }

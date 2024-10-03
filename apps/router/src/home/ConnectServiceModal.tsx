@@ -20,7 +20,7 @@ import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
 import { checkServiceExists, getServiceType } from './utils';
-import { ServiceCheckApi } from '../api/ServiceCheckApi';
+import { ServiceCheckApi, ServiceCheckResponse } from '../api/ServiceCheckApi';
 import { useAuth } from '../hooks/useAuth';
 
 interface ConnectServiceModalProps {
@@ -36,9 +36,12 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
   const { setGuardianPassword, setGatewayPassword } = useAuth();
   const [configUrl, setConfigUrl] = useState('');
   const [password, setPassword] = useState('');
-  const [serviceInfo, setServiceInfo] = useState<string | null>(null);
+  const [serviceInfo, setServiceInfo] = useState<ServiceCheckResponse | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [requiresPassword, setRequiresPassword] = useState(false);
   const { guardians, gateways, dispatch } = useAppContext();
 
   const resetForm = useCallback(() => {
@@ -46,6 +49,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     setPassword('');
     setServiceInfo(null);
     setError(null);
+    setRequiresPassword(false);
   }, []);
 
   const handleCheck = useCallback(async () => {
@@ -57,8 +61,18 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
         setError('A service with this URL already exists');
         return;
       }
-      const info = await api.check(configUrl, password);
-      setServiceInfo(JSON.stringify(info, null, 2));
+      let info: ServiceCheckResponse;
+      if (!requiresPassword) {
+        info = await api.checkWithoutPassword(configUrl);
+        if (info.requiresPassword) {
+          setRequiresPassword(true);
+          setServiceInfo(null);
+          return;
+        }
+      } else {
+        info = await api.checkWithPassword(configUrl, password);
+      }
+      setServiceInfo(info);
     } catch (error) {
       setError(
         error instanceof Error ? error.message : 'An unknown error occurred'
@@ -66,7 +80,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     } finally {
       setIsLoading(false);
     }
-  }, [configUrl, password, guardians, gateways]);
+  }, [configUrl, password, guardians, gateways, requiresPassword]);
 
   const handleConfirm = useCallback(async () => {
     setError(null);
@@ -146,16 +160,21 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
               onChange={(e) => setConfigUrl(e.target.value)}
             />
           </FormControl>
-          <FormControl mt={4}>
-            <FormLabel>{t('common.password')}</FormLabel>
-            <Input
-              type='password'
-              placeholder='Enter password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={handleKeyPress}
-            />
-          </FormControl>
+          {requiresPassword && (
+            <FormControl mt={4}>
+              <FormLabel>{t('common.password')}</FormLabel>
+              <Input
+                type='password'
+                placeholder='Enter password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyPress}
+              />
+              <Text fontSize='sm' color='gray.500' mt={1}>
+                {t('home.connect-service-modal.valid-service-password-hint')}
+              </Text>
+            </FormControl>
+          )}
           {!serviceInfo && (
             <Button
               mt={4}
@@ -173,7 +192,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
                 <ServiceInfoDisplay serviceInfo={serviceInfo} />
               </FormControl>
               <Button mt={4} colorScheme='green' onClick={handleConfirm}>
-                {t('common.confirm')}
+                {t('common.connect')}
               </Button>
             </>
           )}
@@ -184,14 +203,13 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
 };
 
 interface ServiceInfoDisplayProps {
-  serviceInfo: string;
+  serviceInfo: ServiceCheckResponse;
 }
 
 export const ServiceInfoDisplay: React.FC<ServiceInfoDisplayProps> = ({
   serviceInfo,
 }) => {
   const { t } = useTranslation();
-  const info = JSON.parse(serviceInfo);
 
   return (
     <Flex direction='column' align='stretch' gap={4} width='100%'>
@@ -200,30 +218,27 @@ export const ServiceInfoDisplay: React.FC<ServiceInfoDisplayProps> = ({
           {t('home.connect-service-modal.service-type-label')}:{' '}
         </Text>
         <Badge colorScheme={'blue'} fontSize='md' px={2} py={1}>
-          {info.serviceType.toUpperCase()}
+          {serviceInfo.serviceType.toUpperCase()}
         </Badge>
       </Box>
-      {info.serviceType === 'gateway' && (
+      {serviceInfo.serviceType === 'gateway' && (
         <Box>
           <Text fontSize='lg' fontWeight='bold' display='inline'>
             {t('home.connect-service-modal.service-name-label')}:{' '}
           </Text>
           <Text fontSize='lg' display='inline'>
-            {info.serviceName}
+            {serviceInfo.serviceName}
           </Text>
         </Box>
       )}
       <Box>
         <Text fontSize='lg' fontWeight='bold' display='inline'>
-          {t('home.connect-service-modal.sync-status-label')}:{' '}
+          {t('home.connect-service-modal.status-label')}:{' '}
         </Text>
-        <Badge
-          colorScheme={info.synced ? 'green' : 'red'}
-          fontSize='md'
-          px={2}
-          py={1}
-        >
-          {info.synced ? 'SYNCED' : 'NOT SYNCED'}
+        <Badge colorScheme='blue' fontSize='md' px={2} py={1}>
+          {serviceInfo.status === 'AWAITING_PASSWORD'
+            ? 'SETUP'
+            : serviceInfo.status}
         </Badge>
       </Box>
     </Flex>

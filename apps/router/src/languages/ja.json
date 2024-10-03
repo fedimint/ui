@@ -510,7 +510,8 @@
       "helper-text": "ガーディアンの場合はwss://、ゲートウェイの場合はhttps://になります。",
       "service-type-label": "サービスタイプ",
       "service-name-label": "サービス名",
-      "sync-status-label": "同期状況"
+      "status-label": "ステータス",
+      "valid-service-password-hint": "有効なサービス、サービスごとに設定されたパスワードを入力してください。"
     },
     "remove-service-modal": {
       "title": "{{type}}を削除する",
@@ -519,6 +520,7 @@
     "edit-service-modal": {
       "title": "{{type}}を編集する",
       "url-label": "URL"
-    }
+    },
+    "setup-state": "設定状態"
   }
 }

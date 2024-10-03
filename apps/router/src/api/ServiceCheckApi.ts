@@ -1,16 +1,26 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import { StatusResponse, GatewayInfo } from '@fedimint/types';
 
-interface ServiceCheckResponse {
+export interface ServiceCheckResponse {
   serviceType: 'guardian' | 'gateway';
   serviceName: string;
-  synced: boolean;
+  status: string;
+  requiresPassword: boolean;
 }
 
 export class ServiceCheckApi {
   private static readonly REQUEST_TIMEOUT_MS = 30000;
 
-  public async check(
+  public async checkWithoutPassword(
+    baseUrl: string
+  ): Promise<ServiceCheckResponse> {
+    const urlType = this.getUrlType(baseUrl);
+    return urlType === 'websocket'
+      ? this.checkGuardianWithoutPassword(baseUrl)
+      : this.checkGatewayWithoutPassword(baseUrl);
+  }
+
+  public async checkWithPassword(
     baseUrl: string,
     password: string
   ): Promise<ServiceCheckResponse> {
@@ -46,8 +56,9 @@ export class ServiceCheckApi {
       const result = statusResponse.result as StatusResponse;
       return {
         serviceType: 'guardian',
-        serviceName: 'Guardian', // Guardians don't have a specific name in the status response
-        synced: result.server === 'consensus_running',
+        serviceName: 'Guardian',
+        status: result.server,
+        requiresPassword: true,
       };
     } catch (error) {
       console.error('Error checking guardian service:', error);
@@ -69,7 +80,7 @@ export class ServiceCheckApi {
 
   private async getGuardianStatus(
     websocket: JsonRpcWebsocket,
-    password: string
+    password?: string
   ) {
     const statusResponse = await websocket.call('status', [
       { auth: password, params: null },
@@ -101,7 +112,91 @@ export class ServiceCheckApi {
       return {
         serviceType: 'gateway',
         serviceName: gatewayInfo.lightning_alias,
-        synced: gatewayInfo.synced_to_chain,
+        status: gatewayInfo.synced_to_chain ? 'Synced' : 'Syncing',
+        requiresPassword: true,
+      };
+    } catch (error) {
+      console.error('Error checking gateway service:', error);
+      throw error;
+    }
+  }
+
+  private async checkGuardianWithoutPassword(
+    baseUrl: string
+  ): Promise<ServiceCheckResponse> {
+    const websocket = new JsonRpcWebsocket(
+      baseUrl,
+      ServiceCheckApi.REQUEST_TIMEOUT_MS,
+      (error: JsonRpcError) =>
+        console.error('Failed to create websocket', error)
+    );
+
+    try {
+      await websocket.open();
+      const statusResponse = await this.getGuardianStatus(websocket);
+      const result = statusResponse.result as StatusResponse;
+      if (result.server !== 'awaiting_password') {
+        return {
+          serviceType: 'guardian',
+          serviceName: 'Guardian',
+          status: 'Setup',
+          requiresPassword: true,
+        };
+      }
+
+      return {
+        serviceType: 'guardian',
+        serviceName: 'Guardian',
+        status: result.server,
+        requiresPassword: false,
+      };
+    } catch (error) {
+      if (error instanceof JsonRpcError && error.code === -32600) {
+        return {
+          serviceType: 'guardian',
+          serviceName: 'Guardian',
+          status: 'Setup',
+          requiresPassword: true,
+        };
+      }
+      throw error;
+    } finally {
+      await websocket.close();
+    }
+  }
+
+  private async checkGatewayWithoutPassword(
+    baseUrl: string
+  ): Promise<ServiceCheckResponse> {
+    try {
+      const response = await fetch(`${baseUrl}/info`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 401) {
+        return {
+          serviceType: 'gateway',
+          serviceName: 'Gateway',
+          status: 'Setup',
+          requiresPassword: true,
+        };
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          `Error fetching gateway info: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const gatewayInfo = (await response.json()) as GatewayInfo;
+      return {
+        serviceType: 'gateway',
+        serviceName: gatewayInfo.lightning_alias,
+        status: gatewayInfo.synced_to_chain ? 'Synced' : 'Syncing',
+        requiresPassword: false,
       };
     } catch (error) {
       console.error('Error checking gateway service:', error);

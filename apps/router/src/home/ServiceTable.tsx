@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Button,
@@ -11,7 +11,6 @@ import {
   Table,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
@@ -20,6 +19,7 @@ import { FiEdit, FiExternalLink, FiX } from 'react-icons/fi';
 import { useTranslation } from '@fedimint/utils';
 import { GuardianConfig } from '../types/guardian';
 import { GatewayConfig } from '../types/gateway';
+import { ServiceCheckApi, ServiceCheckResponse } from '../api/ServiceCheckApi';
 
 interface ServiceTableProps {
   services: Record<string, GuardianConfig | GatewayConfig>;
@@ -41,24 +41,35 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
   setRemovingService,
 }) => {
   const { t } = useTranslation();
+  // const [serviceStatuses, setServiceStatuses] = useState<
+  //   Record<string, ServiceCheckResponse>
+  // >({});
 
-  const getSetupState = (id: string) => {
-    if (typeof localStorage === 'undefined') {
-      return null;
-    }
-    const setupKey = `setup-state-${id}`;
-    const setupState = localStorage.getItem(setupKey);
-    if (setupState) {
-      try {
-        const { progress, role } = JSON.parse(setupState);
-        return { progress, role };
-      } catch (e) {
-        console.error(`Failed to parse setup state for ${id}:`, e);
-        return null;
+  useEffect(() => {
+    const checkServices = async () => {
+      const api = new ServiceCheckApi();
+      const statuses: Record<string, ServiceCheckResponse> = {};
+
+      for (const [id, service] of Object.entries(services)) {
+        try {
+          const status = await api.checkWithoutPassword(service.config.baseUrl);
+          statuses[id] = status;
+        } catch (error) {
+          console.error(`Failed to check service ${id}:`, error);
+          statuses[id] = {
+            serviceType: type,
+            serviceName: type === 'guardian' ? 'Guardian' : 'Gateway',
+            status: 'Error',
+            requiresPassword: false,
+          };
+        }
       }
-    }
-    return null;
-  };
+
+      // setServiceStatuses(statuses);
+    };
+
+    checkServices();
+  }, [services, type]);
 
   return (
     <Card marginBottom='6'>
@@ -77,13 +88,13 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
                   `${type.charAt(0).toUpperCase() + type.slice(1)} URL`
                 )}
               </Th>
-              {type === 'guardian' && <Th>{t('home.setup-state')}</Th>}
+              {/* <Th>{t('common.status')}</Th> */}
               <Th width='200px'>{t('home.actions')}</Th>
             </Tr>
           </Thead>
           <Tbody>
             {Object.entries(services).map(([id, service]) => {
-              const setupState = type === 'guardian' ? getSetupState(id) : null;
+              // const serviceStatus = serviceStatuses[id];
               return (
                 <Tr key={`${type}-${id}`}>
                   <Td>
@@ -99,16 +110,18 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
                       />
                     </Flex>
                   </Td>
-                  {type === 'guardian' && (
-                    <Td>
-                      {setupState ? (
-                        <Flex direction='column'>
-                          <Text>{setupState.role}</Text>
-                          <Text>{setupState.progress}</Text>
-                        </Flex>
-                      ) : null}
-                    </Td>
-                  )}
+                  {/* <Td>
+                    {serviceStatus ? (
+                      <Flex direction='column'>
+                        <Text>{serviceStatus.status}</Text>
+                        {serviceStatus.requiresPassword && (
+                          <Text color='orange.500'>Requires Password</Text>
+                        )}
+                      </Flex>
+                    ) : (
+                      <Text>Loading...</Text>
+                    )}
+                  </Td> */}
                   <Td>
                     <Flex justifyContent='flex-end' gap={3} alignItems='center'>
                       <Link to={`/${type}/${id}`}>

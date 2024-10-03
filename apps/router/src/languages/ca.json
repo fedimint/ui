@@ -510,7 +510,8 @@
       "helper-text": "Serà wss:// per a guardian o https:// per a passarel·la",
       "service-type-label": "Tipus de servei",
       "service-name-label": "Nom del Servei",
-      "sync-status-label": "Estat de sincronització"
+      "status-label": "Estat",
+      "valid-service-password-hint": "Servei vàlid, introduïu la contrasenya configurada del servei (específica per a cada servei)"
     },
     "remove-service-modal": {
       "title": "Elimina {{type}}",
@@ -519,6 +520,7 @@
     "edit-service-modal": {
       "title": "Edita {{type}}",
       "url-label": "URL"
-    }
+    },
+    "setup-state": "Configurar l'estat"
   }
 }

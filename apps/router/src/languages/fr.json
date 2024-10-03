@@ -510,7 +510,8 @@
       "helper-text": "Sera wss:// pour guardian ou https:// pour gateway",
       "service-type-label": "Type de service",
       "service-name-label": "Nom du service",
-      "sync-status-label": "Statut de Synchronisation"
+      "status-label": "Statut",
+      "valid-service-password-hint": "Service valide, entrez le mot de passe configuré pour le service (spécifique pour chaque service)"
     },
     "remove-service-modal": {
       "title": "Supprimer {{type}}",
@@ -519,6 +520,7 @@
     "edit-service-modal": {
       "title": "Modifier {{type}}",
       "url-label": "URL"
-    }
+    },
+    "setup-state": "État de Configuration"
   }
 }

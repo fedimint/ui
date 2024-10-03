@@ -11,10 +11,15 @@ import {
   ModalHeader,
   ModalOverlay,
   useToast,
+  InputGroup,
+  InputRightElement,
+  IconButton,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE, AppAction } from '../context/AppContext';
+import { useAuth } from '../hooks/useAuth';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 interface EditServiceModalProps {
   isOpen: boolean;
@@ -31,8 +36,24 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [configUrl, setConfigUrl] = useState(serviceUrl);
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const { dispatch, guardians, gateways } = useAppContext();
+  const {
+    setGuardianPassword,
+    setGatewayPassword,
+    getGuardianPassword,
+    getGatewayPassword,
+  } = useAuth();
   const toast = useToast();
+
+  React.useEffect(() => {
+    const currentPassword =
+      service.type === 'guardian'
+        ? getGuardianPassword(service.id)
+        : getGatewayPassword(service.id);
+    setPassword(currentPassword || '');
+  }, [service, getGuardianPassword, getGatewayPassword]);
 
   const handleSubmit = async () => {
     if (service) {
@@ -41,7 +62,7 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
 
         // Check if the new URL already exists
         const serviceExists = Object.values({ ...guardians, ...gateways }).some(
-          (s) => s.config.baseUrl === configUrl
+          (s) => s.config.baseUrl === configUrl && s.id !== service.id
         );
 
         if (serviceExists) {
@@ -70,6 +91,13 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
               : APP_ACTION_TYPE.ADD_GATEWAY,
           payload: newPayload,
         } as AppAction);
+
+        // Update password
+        if (service.type === 'guardian') {
+          setGuardianPassword(newId, password);
+        } else {
+          setGatewayPassword(newId, password);
+        }
 
         onClose();
         toast({
@@ -110,6 +138,25 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
               value={configUrl}
               onChange={(e) => setConfigUrl(e.target.value)}
             />
+          </FormControl>
+          <FormControl mt={4}>
+            <FormLabel>{t('home.edit-service-modal.password-label')}</FormLabel>
+            <InputGroup>
+              <Input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <InputRightElement>
+                <IconButton
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  icon={showPassword ? <FiEyeOff /> : <FiEye />}
+                  onClick={() => setShowPassword(!showPassword)}
+                  variant='ghost'
+                  size='sm'
+                />
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
           <Button mt={4} colorScheme='blue' onClick={handleSubmit}>
             {t('common.save')}

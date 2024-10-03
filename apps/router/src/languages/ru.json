@@ -510,7 +510,8 @@
       "helper-text": "Будет wss:// для защитника или https:// для шлюза",
       "service-type-label": "Тип услуги",
       "service-name-label": "Название услуги",
-      "sync-status-label": "Статус синхронизации"
+      "status-label": "Статус",
+      "valid-service-password-hint": "Действующий сервис, введите настроенный пароль для сервиса (специфический для каждого сервиса)"
     },
     "remove-service-modal": {
       "title": "Удалить {{type}}",
@@ -519,6 +520,7 @@
     "edit-service-modal": {
       "title": "Редактировать {{type}}",
       "url-label": "URL"
-    }
+    },
+    "setup-state": "Состояние настройки"
   }
 }

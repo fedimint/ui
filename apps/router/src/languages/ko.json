@@ -510,7 +510,8 @@
       "helper-text": "guardian의 경우 wss://, gateway의 경우 https://가 될 것입니다.",
       "service-type-label": "서비스 유형",
       "service-name-label": "서비스 이름",
-      "sync-status-label": "동기화 상태"
+      "status-label": "상태",
+      "valid-service-password-hint": "유효한 서비스, 서비스의 설정된 비밀번호를 입력하세요 (각 서비스별로 특정)"
     },
     "remove-service-modal": {
       "title": "{{type}} 제거",
@@ -519,6 +520,7 @@
     "edit-service-modal": {
       "title": "{{type}} 편집",
       "url-label": "URL"
-    }
+    },
+    "setup-state": "설정 상태"
   }
 }

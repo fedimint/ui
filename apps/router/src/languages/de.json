@@ -510,7 +510,8 @@
       "helper-text": "Wird wss:// für Guardian oder https:// für Gateway sein",
       "service-type-label": "Dienstleistungsart",
       "service-name-label": "Dienstname",
-      "sync-status-label": "Synchronisationsstatus"
+      "status-label": "Status",
+      "valid-service-password-hint": "Gültiger Service, geben Sie das konfigurierte Passwort des Dienstes ein (spezifisch für jeden Dienst)"
     },
     "remove-service-modal": {
       "title": "Entfernen Sie {{type}}",
@@ -519,6 +520,7 @@
     "edit-service-modal": {
       "title": "Bearbeiten {{type}}",
       "url-label": "URL"
-    }
+    },
+    "setup-state": "Einrichtungszustand"
   }
 }

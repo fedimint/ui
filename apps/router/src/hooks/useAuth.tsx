@@ -19,6 +19,20 @@ export const useAuth = () => {
     });
   };
 
+  const removeGuardianPassword = (id: string) => {
+    dispatch({
+      type: AUTH_ACTION_TYPE.REMOVE_GUARDIAN_PASSWORD,
+      payload: id,
+    });
+  };
+
+  const removeGatewayPassword = (id: string) => {
+    dispatch({
+      type: AUTH_ACTION_TYPE.REMOVE_GATEWAY_PASSWORD,
+      payload: id,
+    });
+  };
+
   const getGuardianPassword = (id: string) => guardianPasswords[id] || null;
   const getGatewayPassword = (id: string) => gatewayPasswords[id] || null;
 
@@ -27,5 +41,7 @@ export const useAuth = () => {
     setGatewayPassword,
     getGuardianPassword,
     getGatewayPassword,
+    removeGuardianPassword,
+    removeGatewayPassword,
   };
 };
