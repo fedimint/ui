@@ -523,6 +523,18 @@
       "url-label": "URL",
       "password-label": "Contraseña"
     },
-    "setup-state": "Estado de Configuración"
+    "setup-state": "Estado de Configuración",
+    "master-password": {
+      "master-password-explainer": "Establezca una contraseña maestra para la interfaz de usuario para almacenar las credenciales cifradas para cada uno de sus servicios. Cada servicio tendrá su propia contraseña cuando lo conecte, la contraseña maestra solo se usa para esta interfaz de usuario.",
+      "master-password": "Contraseña Maestra",
+      "enter-master-password": "Ingrese la Contraseña Maestra",
+      "create-master-password": "Crear Contraseña Maestra",
+      "confirm-master-password": "Confirmar Contraseña Maestra",
+      "set-master-password": "Establecer Contraseña Maestra",
+      "password-mismatch": "Las contraseñas no coinciden",
+      "password-too-short": "La contraseña debe tener al menos 8 caracteres de longitud",
+      "password-label": "Contraseña",
+      "unlock-services": "Desbloquear Servicios"
+    }
   }
 }

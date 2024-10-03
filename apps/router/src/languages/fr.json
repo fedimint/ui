@@ -523,6 +523,18 @@
       "url-label": "URL",
       "password-label": "Mot de passe"
     },
-    "setup-state": "État de Configuration"
+    "setup-state": "État de Configuration",
+    "master-password": {
+      "master-password-explainer": "Définissez un mot de passe principal pour l'interface utilisateur afin de stocker les identifiants cryptés pour chacun de vos services. Chaque service aura son propre mot de passe lorsque vous le connectez, le mot de passe principal n'est utilisé que pour cette interface utilisateur.",
+      "master-password": "Mot de passe principal",
+      "enter-master-password": "Entrez le mot de passe principal",
+      "create-master-password": "Créer un mot de passe principal",
+      "confirm-master-password": "Confirmer le mot de passe principal",
+      "set-master-password": "Définir le mot de passe principal",
+      "password-mismatch": "Les mots de passe ne correspondent pas",
+      "password-too-short": "Le mot de passe doit comporter au moins 8 caractères.",
+      "password-label": "Mot de passe",
+      "unlock-services": "Déverrouiller les services"
+    }
   }
 }

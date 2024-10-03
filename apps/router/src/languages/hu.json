@@ -523,6 +523,18 @@
       "url-label": "URL",
       "password-label": "Jelszó"
     },
-    "setup-state": "Beállítási állapot"
+    "setup-state": "Beállítási állapot",
+    "master-password": {
+      "master-password-explainer": "Állítson be egy mesterjelszót a felhasználói felülethez, hogy titkosított hitelesítő adatokat tároljon minden szolgáltatásához. Minden szolgáltatásnak saját jelszava lesz, amikor csatlakoztatja, a mesterjelszót csak ehhez a felhasználói felülethez használják.",
+      "master-password": "Mesterjelszó",
+      "enter-master-password": "Adja meg a mesterjelszót",
+      "create-master-password": "Hozzon létre főjelszót",
+      "confirm-master-password": "Megerősítés - Mesterjelszó",
+      "set-master-password": "Mesterjelszó beállítása",
+      "password-mismatch": "A jelszavak nem egyeznek meg",
+      "password-too-short": "A jelszónak legalább 8 karakter hosszúnak kell lennie.",
+      "password-label": "Jelszó",
+      "unlock-services": "Szolgáltatások feloldása"
+    }
   }
 }

@@ -523,6 +523,18 @@
       "url-label": "URL",
       "password-label": "Senha"
     },
-    "setup-state": "Estado de Configuração"
+    "setup-state": "Estado de Configuração",
+    "master-password": {
+      "master-password-explainer": "Defina uma senha mestra para a interface do usuário para armazenar credenciais criptografadas para cada um dos seus serviços. Cada serviço terá sua própria senha quando você o conectar, a senha mestra é usada apenas para esta interface do usuário.",
+      "master-password": "Senha Mestra",
+      "enter-master-password": "Insira a Senha Mestra",
+      "create-master-password": "Crie uma Senha Mestra",
+      "confirm-master-password": "Confirme a Senha Mestra",
+      "set-master-password": "Definir Senha Mestra",
+      "password-mismatch": "As senhas não correspondem",
+      "password-too-short": "A senha deve ter pelo menos 8 caracteres.",
+      "password-label": "Senha",
+      "unlock-services": "Desbloquear Serviços"
+    }
   }
 }

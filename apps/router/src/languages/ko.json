@@ -523,6 +523,18 @@
       "url-label": "URL",
       "password-label": "비밀번호"
     },
-    "setup-state": "설정 상태"
+    "setup-state": "설정 상태",
+    "master-password": {
+      "master-password-explainer": "UI에 각 서비스의 암호화된 자격 증명을 저장하기 위한 마스터 비밀번호를 설정하세요. 각 서비스는 연결할 때마다 고유한 비밀번호를 가질 것이며, 마스터 비밀번호는 이 UI에만 사용됩니다.",
+      "master-password": "마스터 비밀번호",
+      "enter-master-password": "마스터 비밀번호 입력",
+      "create-master-password": "마스터 비밀번호 생성",
+      "confirm-master-password": "마스터 비밀번호 확인",
+      "set-master-password": "마스터 비밀번호 설정",
+      "password-mismatch": "비밀번호가 일치하지 않습니다.",
+      "password-too-short": "비밀번호는 최소 8자 이상이어야 합니다",
+      "password-label": "비밀번호",
+      "unlock-services": "서비스 잠금 해제"
+    }
   }
 }

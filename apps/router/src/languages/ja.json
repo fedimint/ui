@@ -523,6 +523,18 @@
       "url-label": "URL",
       "password-label": "パスワード"
     },
-    "setup-state": "設定状態"
+    "setup-state": "設定状態",
+    "master-password": {
+      "master-password-explainer": "各サービスの暗号化された認証情報を保存するためのUIのマスターパスワードを設定します。接続する各サービスはそれぞれ独自のパスワードを持ち、マスターパスワードはこのUIのためだけに使用されます。",
+      "master-password": "マスターパスワード",
+      "enter-master-password": "マスターパスワードを入力してください",
+      "create-master-password": "マスターパスワードを作成する",
+      "confirm-master-password": "マスターパスワードを確認してください",
+      "set-master-password": "マスターパスワードを設定する",
+      "password-mismatch": "パスワードが一致しません",
+      "password-too-short": "パスワードは最低8文字以上でなければなりません",
+      "password-label": "パスワード",
+      "unlock-services": "サービスのロックを解除する"
+    }
   }
 }

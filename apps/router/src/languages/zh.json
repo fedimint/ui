@@ -523,6 +523,18 @@
       "url-label": "网址",
       "password-label": "密码"
     },
-    "setup-state": "设置状态"
+    "setup-state": "设置状态",
+    "master-password": {
+      "master-password-explainer": "为UI设置一个主密码，用于存储每项服务的加密凭证。当你连接每项服务时，每项服务都将有自己的密码，主密码仅用于此UI。",
+      "master-password": "主密码",
+      "enter-master-password": "输入主密码",
+      "create-master-password": "创建主密码",
+      "confirm-master-password": "确认主密码",
+      "set-master-password": "设置主密码",
+      "password-mismatch": "密码不匹配",
+      "password-too-short": "密码必须至少为8个字符长",
+      "password-label": "密码",
+      "unlock-services": "解锁服务"
+    }
   }
 }
