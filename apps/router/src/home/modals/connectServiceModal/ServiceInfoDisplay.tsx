@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Badge, Flex, Box } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { ServiceCheckResponse } from '../../api/ServiceCheckApi';
+import { ServiceCheckResponse } from '../../../api/ServiceCheckApi';
 
 interface ServiceInfoDisplayProps {
   serviceInfo: ServiceCheckResponse;

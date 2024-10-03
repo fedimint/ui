@@ -4,9 +4,11 @@ import { Logo } from './Logo';
 import { ServiceMenu } from './ServiceMenu';
 import { useActiveService } from '../hooks';
 import { useAppContext } from '../context/hooks';
+import { useMasterPassword } from '../hooks/useMasterPassword';
 
 export const Header = React.memo(function Header() {
   const { guardians, gateways } = useAppContext();
+  const { masterPassword } = useMasterPassword();
   const activeService = useActiveService();
   const activeServiceInfo = useMemo(() => {
     if (!activeService) return null;
@@ -24,7 +26,7 @@ export const Header = React.memo(function Header() {
       mb={['24px', '12px']}
     >
       <Logo />
-      {hasServices && (
+      {hasServices && masterPassword && (
         <Flex alignItems='center'>
           {activeService && activeServiceInfo && (
             <Text mr={2} fontSize='sm' color='gray.600'>

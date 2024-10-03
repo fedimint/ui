@@ -7,7 +7,8 @@ export const useUnlockedService = (
   serviceId: string,
   serviceType: 'guardian' | 'gateway'
 ) => {
-  const { guardianPasswords, gatewayPasswords } = useContext(AuthContext);
+  const { guardianEncryptedPasswords, gatewayEncryptedPasswords } =
+    useContext(AuthContext);
   const { masterPassword } = useMasterPassword();
   const [decryptedServicePassword, setDecryptedServicePassword] = useState<
     string | null
@@ -17,7 +18,9 @@ export const useUnlockedService = (
     const decryptPassword = async () => {
       if (!masterPassword || !serviceId || !serviceType) return;
       const services =
-        serviceType === 'guardian' ? guardianPasswords : gatewayPasswords;
+        serviceType === 'guardian'
+          ? guardianEncryptedPasswords
+          : gatewayEncryptedPasswords;
       const serviceEncryptedPassword = services[serviceId];
       if (!serviceEncryptedPassword) return;
       const decrypted = await decrypt(serviceEncryptedPassword, masterPassword);
@@ -29,8 +32,8 @@ export const useUnlockedService = (
     masterPassword,
     serviceId,
     serviceType,
-    guardianPasswords,
-    gatewayPasswords,
+    guardianEncryptedPasswords,
+    gatewayEncryptedPasswords,
   ]);
 
   return {

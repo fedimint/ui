@@ -209,6 +209,18 @@
       "status-label": "Status",
       "valid-service-password-hint": "Valid service, enter the service's configured password (specific for each service)"
     },
+    "master-password": {
+      "master-password-explainer": "Set a master password for the UI to store encrypted credentials for each of your services. Each service will have its own password when you connect it, the master password is only used for this UI.",
+      "master-password": "Master Password",
+      "enter-master-password": "Enter Master Password",
+      "create-master-password": "Create Master Password",
+      "confirm-master-password": "Confirm Master Password",
+      "set-master-password": "Set Master Password",
+      "password-mismatch": "Passwords do not match",
+      "password-too-short": "Password must be at least 8 characters long",
+      "password-label": "Password",
+      "unlock-services": "Unlock Services"
+    },
     "remove-service-modal": {
       "title": "Remove {{type}}",
       "confirm": "Are you sure you want to remove this {{type}}?"

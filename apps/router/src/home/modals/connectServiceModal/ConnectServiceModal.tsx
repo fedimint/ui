@@ -10,8 +10,6 @@ import {
 import { useTranslation } from '@fedimint/utils';
 import { useConnectServiceForm } from './useConnectServiceForm';
 import { ConnectServiceForm } from './ConnectServiceForm';
-import { useMasterPassword } from '../../hooks/useMasterPassword';
-import { MasterPasswordModalBody } from './MasterPasswordModalBody';
 
 interface ConnectServiceModalProps {
   isOpen: boolean;
@@ -23,7 +21,6 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
   onClose,
 }) => {
   const { t } = useTranslation();
-  const { isMasterPasswordSet } = useMasterPassword();
   const {
     configUrl,
     setConfigUrl,
@@ -67,23 +64,19 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          {isMasterPasswordSet ? (
-            <ConnectServiceForm
-              configUrl={configUrl}
-              setConfigUrl={setConfigUrl}
-              password={password}
-              setPassword={setPassword}
-              serviceInfo={serviceInfo}
-              isLoading={isLoading}
-              error={error}
-              requiresPassword={requiresPassword}
-              handleCheck={handleCheck}
-              handleConfirm={handleConfirm}
-              handleKeyPress={handleKeyPress}
-            />
-          ) : (
-            <MasterPasswordModalBody />
-          )}
+          <ConnectServiceForm
+            configUrl={configUrl}
+            setConfigUrl={setConfigUrl}
+            password={password}
+            setPassword={setPassword}
+            serviceInfo={serviceInfo}
+            isLoading={isLoading}
+            error={error}
+            requiresPassword={requiresPassword}
+            handleCheck={handleCheck}
+            handleConfirm={handleConfirm}
+            handleKeyPress={handleKeyPress}
+          />
         </ModalBody>
       </ModalContent>
     </Modal>

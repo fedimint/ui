@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { Box, Button, Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { ConnectServiceModal } from './connectServiceModal/ConnectServiceModal';
+import { ConnectServiceModal } from './modals/connectServiceModal/ConnectServiceModal';
 import { useAppContext } from '../context/hooks';
-import { EditServiceModal } from './EditServiceModal';
-import { RemoveServiceModal } from './RemoveServiceModal';
-import { NoConnectedServices } from './NoConnectedServices';
-import { ServiceTable } from './ServiceTable';
+import { EditServiceModal } from './modals/EditServiceModal';
+import { RemoveServiceModal } from './modals/RemoveServiceModal';
+import { NoConnectedServices } from './services/NoConnectedServices';
+import { ServiceTable } from './services/ServiceTable';
 import { useMasterPassword } from '../hooks/useMasterPassword';
+import { SetMasterPassword } from './SetMasterPassword';
+import { ServicesList } from './services/ServicesList';
 import { EnterMasterPassword } from './EnterMasterPassword';
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation();
   const { guardians, gateways } = useAppContext();
-  const { isMasterPasswordSet } = useMasterPassword();
+  const { isMasterPasswordSet, masterPassword } = useMasterPassword();
   const [editingService, setEditingService] = useState<{
     type: 'guardian' | 'gateway';
     id: string;
@@ -22,48 +24,77 @@ export const HomePage: React.FC = () => {
     type: 'guardian' | 'gateway';
     id: string;
   } | null>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isConnectServiceOpen,
+    onOpen: onConnectServiceOpen,
+    onClose: onConnectServiceClose,
+  } = useDisclosure();
+  const {
+    isOpen: isSetMasterPasswordOpen,
+    onOpen: onSetMasterPasswordOpen,
+    onClose: onSetMasterPasswordClose,
+  } = useDisclosure();
+
+  if (isMasterPasswordSet && !masterPassword) {
+    return <EnterMasterPassword />;
+  }
+
+  const renderContent = () => {
+    return (
+      <>
+        <Flex
+          justifyContent='space-between'
+          alignItems='center'
+          marginBottom='6'
+        >
+          <Heading as='h1' size='xl'>
+            {t('home.services')}
+          </Heading>
+          {masterPassword ? (
+            <Button onClick={onConnectServiceOpen} colorScheme='blue'>
+              {t('home.connect-service-modal.label')}
+            </Button>
+          ) : (
+            <Button onClick={onSetMasterPasswordOpen} colorScheme='blue'>
+              {t('home.master-password.create-master-password')}
+            </Button>
+          )}
+        </Flex>
+        {Object.keys(guardians).length > 0 && (
+          <ServicesList
+            guardians={guardians}
+            gateways={gateways}
+            setEditingService={setEditingService}
+            setRemovingService={setRemovingService}
+          />
+        )}
+        {Object.keys(gateways).length > 0 && (
+          <ServiceTable
+            services={gateways}
+            type='gateway'
+            setEditingService={setEditingService}
+            setRemovingService={setRemovingService}
+          />
+        )}
+        {Object.keys(guardians).length + Object.keys(gateways).length === 0 && (
+          <NoConnectedServices />
+        )}
+      </>
+    );
+  };
 
   return (
     <Box width='100%' maxWidth='1200px' margin='auto' paddingY='8'>
-      {!isMasterPasswordSet ? (
-        <EnterMasterPassword />
-      ) : (
-        <>
-          <Flex
-            justifyContent='space-between'
-            alignItems='center'
-            marginBottom='6'
-          >
-            <Heading as='h1' size='xl'>
-              {t('home.services')}
-            </Heading>
-            <Button onClick={onOpen} colorScheme='blue'>
-              {t('home.connect-service-modal.label')}
-            </Button>
-          </Flex>
-          {Object.keys(guardians).length > 0 && (
-            <ServiceTable
-              services={guardians}
-              type='guardian'
-              setEditingService={setEditingService}
-              setRemovingService={setRemovingService}
-            />
-          )}
-          {Object.keys(gateways).length > 0 && (
-            <ServiceTable
-              services={gateways}
-              type='gateway'
-              setEditingService={setEditingService}
-              setRemovingService={setRemovingService}
-            />
-          )}
-          {Object.keys(guardians).length + Object.keys(gateways).length ===
-            0 && <NoConnectedServices />}
-        </>
-      )}
+      {renderContent()}
 
-      <ConnectServiceModal isOpen={isOpen} onClose={onClose} />
+      <ConnectServiceModal
+        isOpen={isConnectServiceOpen}
+        onClose={onConnectServiceClose}
+      />
+      <SetMasterPassword
+        isOpen={isSetMasterPasswordOpen}
+        onClose={onSetMasterPasswordClose}
+      />
       {editingService && (
         <EditServiceModal
           isOpen={true}

@@ -4,7 +4,7 @@ import { useMasterPassword } from './useMasterPassword';
 import { encrypt } from '../utils/crypto';
 
 export const useAuthContext = () => {
-  const { guardianPasswords, gatewayPasswords, dispatch } =
+  const { guardianEncryptedPasswords, gatewayEncryptedPasswords, dispatch } =
     useContext(AuthContext);
   const { masterPassword } = useMasterPassword();
 
@@ -41,9 +41,9 @@ export const useAuthContext = () => {
   };
 
   const getEncryptedGuardianPassword = (id: string) =>
-    guardianPasswords[id] || null;
+    guardianEncryptedPasswords[id] || null;
   const getEncryptedGatewayPassword = (id: string) =>
-    gatewayPasswords[id] || null;
+    gatewayEncryptedPasswords[id] || null;
 
   return {
     storeGuardianPassword,

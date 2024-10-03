@@ -16,9 +16,9 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
-import { useAppContext } from '../context/hooks';
-import { APP_ACTION_TYPE, AppAction } from '../context/AppContext';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAppContext } from '../../context/hooks';
+import { APP_ACTION_TYPE, AppAction } from '../../context/AppContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 interface EditServiceModalProps {

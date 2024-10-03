@@ -1,13 +1,13 @@
 import { useState, useCallback } from 'react';
 import { sha256Hash } from '@fedimint/utils';
-import { useAppContext } from '../../context/hooks';
-import { APP_ACTION_TYPE } from '../../context/AppContext';
-import { checkServiceExists, getServiceType } from '../utils';
+import { useAppContext } from '../../../context/hooks';
+import { APP_ACTION_TYPE } from '../../../context/AppContext';
+import { checkServiceExists, getServiceType } from '../../utils';
 import {
   ServiceCheckApi,
   ServiceCheckResponse,
-} from '../../api/ServiceCheckApi';
-import { useAuthContext } from '../../hooks/useAuthContext';
+} from '../../../api/ServiceCheckApi';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 
 export const useConnectServiceForm = (onClose: () => void) => {
   const { storeGuardianPassword, storeGatewayPassword } = useAuthContext();

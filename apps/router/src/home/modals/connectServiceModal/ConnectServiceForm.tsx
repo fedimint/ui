@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { ServiceInfoDisplay } from './ServiceInfoDisplay';
-import { ServiceCheckResponse } from '../../api/ServiceCheckApi';
+import { ServiceCheckResponse } from '../../../api/ServiceCheckApi';
 
 interface ConnectServiceFormProps {
   configUrl: string;
