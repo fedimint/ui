@@ -1,11 +1,8 @@
 {
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    fedimint = {
-      # master on 09/30/2024
-      url =
-        "github:fedimint/fedimint?rev=e8e3e6d84c223c3b90d7cf8d5fd5f346a7443e66";
-    };
+    fedimint.url =
+      "github:fedimint/fedimint?ref=refs/tags/v0.4.3";
   };
   outputs = { self, flake-utils, fedimint }:
     flake-utils.lib.eachDefaultSystem (system:
@@ -17,11 +14,24 @@
         };
         fmLib = fedimint.lib.${system};
 
+
+        # When `yarn.lock` changes, follow these steps to update the `sha256` hash:
+        # 1. Remove the existing `sha256` hash.*
+        # 2. Rebuild the Nix derivation** by executing:
+        #    nix build .#guardian-ui
+        # 3. Obtain the new `sha256` hash** from the build error message.
+        # 4. Update the `sha256` value** below with the newly copied hash.
+        #
+        # **Important:** 
+        # Keeping the `sha256` hash in sync with `yarn.lock` is essential. An outdated or incorrect hash 
+        # will cause the Nix package to become out-of-sync with Yarn dependencies, potentially leading 
+        # to build failures or inconsistent behavior.
         yarnOfflineCache = pkgs.fetchYarnDeps {
           yarnLock = ./yarn.lock;
-          hash = "sha256-lJcqjTwC5C+4rvug6RYg8Ees4SzNTD+HazfACz1EaSQ=";
+          hash = "sha256-a1YeZYvxstAqDCgK2qrlylkKYhIX1Xo28tCKt46hxrE=";
         };
-      in {
+      in
+      {
         devShells = fmLib.devShells // {
           default = fmLib.devShells.default.overrideAttrs (prev: {
             nativeBuildInputs = [
@@ -40,18 +50,27 @@
 
         packages.guardian-ui = pkgs.stdenv.mkDerivation {
           pname = "guardian-ui";
-          version = "0.3.0";
+          version = "0.4.3";
           src = ./.;
 
           nativeBuildInputs = with pkgs; [
             nodejs
             yarn
+            cacert
             yarn2nix-moretea.fixup_yarn_lock
           ];
 
           configurePhase = ''
             export HOME=$(mktemp -d)
           '';
+
+          # NixOS is introducing `yarnBuildHook`, `yarnConfigHook`, and `yarnInstallHook`,
+          # which could simplify the current complex `buildPhase` that uses `fixup_yarn_lock`
+          # and the `installPhase`.
+          # 1. [JavaScript Frameworks Documentation](https://github.com/NixOS/nixpkgs/blob/ab4dc6ca78809a367aba6fb2813a15116560e2a9/doc/languages-frameworks/javascript.section.md)
+          # 2. [Nixpkgs Issue #324246](https://github.com/NixOS/nixpkgs/issues/324246)
+          #
+          # Additionally, avoid using `pkgs.mkYarnPackage` as it is slated for deprecation.
 
           buildPhase = ''
             yarn config --offline set yarn-offline-mirror ${yarnOfflineCache}
@@ -62,12 +81,16 @@
               --ignore-engines --ignore-scripts
             patchShebangs .
 
-            yarn build:guardian-ui
+            yarn build
           '';
 
+          # should be similar to the installer in the Dockerfile
           installPhase = ''
-            mkdir -p $out
-            cp -R apps/guardian-ui/build/* $out
+            mkdir -p $out/scripts
+
+            cp -r apps/router/build/* $out/
+            cp -r scripts/replace-react-env.js $out/scripts/replace-react-env.js
+            cp -r scripts/write-config-from-env.js $out/scripts/write-config-from-env.js
           '';
         };
       });
