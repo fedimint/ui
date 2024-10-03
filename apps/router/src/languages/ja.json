@@ -30,7 +30,8 @@
     "view": "表示",
     "check": "チェック",
     "connect": "接続する",
-    "password": "パスワード"
+    "password": "パスワード",
+    "status": "ステータス"
   },
   "notConfigured": {
     "title": "設定されていません",
@@ -519,7 +520,8 @@
     },
     "edit-service-modal": {
       "title": "{{type}}を編集する",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "パスワード"
     },
     "setup-state": "設定状態"
   }

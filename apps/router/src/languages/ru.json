@@ -30,7 +30,8 @@
     "view": "Просмотр",
     "check": "Проверьте",
     "connect": "Подключить",
-    "password": "Пароль"
+    "password": "Пароль",
+    "status": "Статус"
   },
   "notConfigured": {
     "title": "Не настроено",
@@ -519,7 +520,8 @@
     },
     "edit-service-modal": {
       "title": "Редактировать {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Пароль"
     },
     "setup-state": "Состояние настройки"
   }

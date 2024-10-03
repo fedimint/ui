@@ -30,7 +30,8 @@
     "view": "Megtekintés",
     "check": "Ellenőrizze",
     "connect": "Csatlakozás",
-    "password": "Jelszó"
+    "password": "Jelszó",
+    "status": "Állapot"
   },
   "notConfigured": {
     "title": "Nincs beállítva",
@@ -519,7 +520,8 @@
     },
     "edit-service-modal": {
       "title": "Szerkesztés {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Jelszó"
     },
     "setup-state": "Beállítási állapot"
   }

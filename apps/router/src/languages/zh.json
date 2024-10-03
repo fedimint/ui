@@ -30,7 +30,8 @@
     "view": "查看",
     "check": "检查",
     "connect": "连接",
-    "password": "密码"
+    "password": "密码",
+    "status": "状态"
   },
   "notConfigured": {
     "title": "未配置",
@@ -519,7 +520,8 @@
     },
     "edit-service-modal": {
       "title": "编辑{{type}}",
-      "url-label": "网址"
+      "url-label": "网址",
+      "password-label": "密码"
     },
     "setup-state": "设置状态"
   }

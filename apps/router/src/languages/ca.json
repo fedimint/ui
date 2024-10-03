@@ -30,7 +30,8 @@
     "view": "Veure",
     "check": "Comprova",
     "connect": "Connecta",
-    "password": "Contrasenya"
+    "password": "Contrasenya",
+    "status": "Estat"
   },
   "notConfigured": {
     "title": "No configurat",
@@ -519,7 +520,8 @@
     },
     "edit-service-modal": {
       "title": "Edita {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Contrasenya"
     },
     "setup-state": "Configurar l'estat"
   }

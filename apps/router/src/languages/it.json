@@ -30,7 +30,8 @@
     "view": "Vista",
     "check": "Verifica",
     "connect": "Collegare",
-    "password": "Contraseña"
+    "password": "Contraseña",
+    "status": "Stato"
   },
   "notConfigured": {
     "title": "Non configurato",
@@ -519,7 +520,8 @@
     },
     "edit-service-modal": {
       "title": "Modifica {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Contraseña"
     },
     "setup-state": "Configura Stato"
   }

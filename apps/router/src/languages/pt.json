@@ -30,7 +30,8 @@
     "view": "Visualizar",
     "check": "Verificar",
     "connect": "Conectar",
-    "password": "Senha"
+    "password": "Senha",
+    "status": "Estado"
   },
   "notConfigured": {
     "title": "Não Configurado",
@@ -519,7 +520,8 @@
     },
     "edit-service-modal": {
       "title": "Editar {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Senha"
     },
     "setup-state": "Estado de Configuração"
   }

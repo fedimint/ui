@@ -30,7 +30,8 @@
     "view": "보기",
     "check": "확인하세요",
     "connect": "연결하다",
-    "password": "비밀번호"
+    "password": "비밀번호",
+    "status": "상태"
   },
   "notConfigured": {
     "title": "구성되지 않음",
@@ -519,7 +520,8 @@
     },
     "edit-service-modal": {
       "title": "{{type}} 편집",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "비밀번호"
     },
     "setup-state": "설정 상태"
   }
