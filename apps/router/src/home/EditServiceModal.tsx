@@ -18,7 +18,7 @@ import {
 import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE, AppAction } from '../context/AppContext';
-import { useAuth } from '../hooks/useAuth';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 interface EditServiceModalProps {
@@ -40,20 +40,20 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
   const [showPassword, setShowPassword] = useState(false);
   const { dispatch, guardians, gateways } = useAppContext();
   const {
-    setGuardianPassword,
-    setGatewayPassword,
-    getGuardianPassword,
-    getGatewayPassword,
-  } = useAuth();
+    storeGuardianPassword,
+    storeGatewayPassword,
+    getEncryptedGuardianPassword,
+    getEncryptedGatewayPassword,
+  } = useAuthContext();
   const toast = useToast();
 
   React.useEffect(() => {
     const currentPassword =
       service.type === 'guardian'
-        ? getGuardianPassword(service.id)
-        : getGatewayPassword(service.id);
+        ? getEncryptedGuardianPassword(service.id)
+        : getEncryptedGatewayPassword(service.id);
     setPassword(currentPassword || '');
-  }, [service, getGuardianPassword, getGatewayPassword]);
+  }, [service, getEncryptedGuardianPassword, getEncryptedGatewayPassword]);
 
   const handleSubmit = async () => {
     if (service) {
@@ -94,9 +94,9 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
 
         // Update password
         if (service.type === 'guardian') {
-          setGuardianPassword(newId, password);
+          storeGuardianPassword(newId, password);
         } else {
-          setGatewayPassword(newId, password);
+          storeGatewayPassword(newId, password);
         }
 
         onClose();

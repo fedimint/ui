@@ -39,7 +39,7 @@ import {
 } from '../types/gateway';
 import { GatewayContext, GatewayContextValue } from './gateway/GatewayContext';
 import { GatewayApi } from '../api/GatewayApi';
-import { useAuth } from '../hooks/useAuth';
+import { useUnlockedService } from '../hooks/useUnlockedService';
 
 export function useAppContext(): AppContextValue {
   return useContext(AppContext);
@@ -86,7 +86,7 @@ export const useGuardianDispatch = (): Dispatch<GuardianAppAction> => {
 
 export const useLoadGuardian = (): void => {
   const { api, state, dispatch, id } = useGuardianContext();
-  const { getGuardianPassword } = useAuth();
+  const { decryptedServicePassword } = useUnlockedService(id, 'guardian');
 
   useEffect(() => {
     const load = async () => {
@@ -97,9 +97,8 @@ export const useLoadGuardian = (): void => {
         // If they're at a point where a password has been configured, make
         // sure they have a valid password set. If not, set needsAuth.
         if (server !== GuardianServerStatus.AwaitingPassword) {
-          const password = getGuardianPassword(id);
-          const hasValidPassword = password
-            ? await api.testPassword(password)
+          const hasValidPassword = decryptedServicePassword
+            ? await api.testPassword(decryptedServicePassword)
             : false;
           if (!hasValidPassword) {
             dispatch({
@@ -136,7 +135,7 @@ export const useLoadGuardian = (): void => {
     if (state.status === GuardianStatus.Loading) {
       load().catch((err) => console.error(err));
     }
-  }, [state.status, api, dispatch, id, getGuardianPassword]);
+  }, [state.status, api, dispatch, id, decryptedServicePassword]);
 };
 
 export const useGuardianContext = (): GuardianContextValue => {

@@ -13,7 +13,7 @@ import {
 import { useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
-import { useAuth } from '../hooks/useAuth';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 interface RemoveServiceModalProps {
   isOpen: boolean;
@@ -28,7 +28,7 @@ export const RemoveServiceModal: React.FC<RemoveServiceModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const { dispatch } = useAppContext();
-  const { removeGuardianPassword, removeGatewayPassword } = useAuth();
+  const { removeGuardianPassword, removeGatewayPassword } = useAuthContext();
   const handleRemove = () => {
     if (service) {
       dispatch({

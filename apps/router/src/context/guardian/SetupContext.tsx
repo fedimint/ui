@@ -16,7 +16,7 @@ import {
   useUpdateLocalStorageOnSetupStateChange,
 } from '../hooks';
 import { useLocation } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useUnlockedService } from '../../hooks/useUnlockedService';
 
 export const LOCAL_STORAGE_SETUP_KEY = 'setup-state';
 
@@ -110,7 +110,7 @@ export const SetupContext = createContext<SetupContextValue>({
     progress: SetupProgress.Start,
     myName: '',
     configGenParams: null,
-    password: '',
+    password: null,
     numPeers: 0,
     peers: [],
     tosConfig: { showTos: false, tos: undefined },
@@ -133,11 +133,14 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   children,
 }: SetupContextProviderProps) => {
   const guardianId = useLocation().pathname.split('/')[2];
-  const { getGuardianPassword } = useAuth();
+  const { decryptedServicePassword } = useUnlockedService(
+    guardianId,
+    'guardian'
+  );
   const initialState = useInitialState(guardianId);
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
-    password: getGuardianPassword(guardianId) || initialState.password,
+    password: decryptedServicePassword || initialState.password,
   });
 
   useHandleSetupServerStatus(initServerStatus, dispatch);

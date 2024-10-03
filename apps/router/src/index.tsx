@@ -16,31 +16,37 @@ import { GuardianContextProvider } from './context/guardian/GuardianContext';
 import { GatewayContextProvider } from './context/gateway/GatewayContext';
 import { Wrapper } from './components/Wrapper';
 import { AuthContextProvider } from './context/AuthContext';
+import { useMasterPassword } from './hooks/useMasterPassword';
 
 i18nProvider(languages);
 
 const App = () => {
+  const { masterPassword } = useMasterPassword();
   return (
     <Router>
       <Wrapper>
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route
-            path='/guardian/:id'
-            element={
-              <GuardianContextProvider>
-                <Guardian />
-              </GuardianContextProvider>
-            }
-          />
-          <Route
-            path='/gateway/:id'
-            element={
-              <GatewayContextProvider>
-                <Gateway />
-              </GatewayContextProvider>
-            }
-          />
+          {masterPassword && (
+            <>
+              <Route
+                path='/guardian/:id'
+                element={
+                  <GuardianContextProvider>
+                    <Guardian />
+                  </GuardianContextProvider>
+                }
+              />
+              <Route
+                path='/gateway/:id'
+                element={
+                  <GatewayContextProvider>
+                    <Gateway />
+                  </GatewayContextProvider>
+                }
+              />
+            </>
+          )}
         </Routes>
       </Wrapper>
     </Router>
