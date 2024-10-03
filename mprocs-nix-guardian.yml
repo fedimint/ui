@@ -2,6 +2,12 @@ procs:
   user:
     shell: bash --init-file scripts/mprocs-user-shell.sh
     stop: SIGKILL
+  ui:
+    shell: bash --init-file scripts/mprocs-ui.sh
+    stop: SIGKILL
+    env:
+      PORT: '3000'
+      BROWSER: none
   fedimint0:
     shell: tail -n +0 -F $FM_LOGS_DIR/fedimintd-default-0.log
   fedimint1:
@@ -18,27 +24,3 @@ procs:
     shell: tail -n +0 -F $FM_LOGS_DIR/bitcoind.log
   devimint:
     shell: tail -n +0 -F $FM_LOGS_DIR/devimint.log
-  guardian-ui-1:
-    shell: yarn dev
-    env:
-      PORT: '3000'
-      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18138
-      BROWSER: none
-  guardian-ui-2:
-    shell: yarn dev
-    env:
-      PORT: '3001'
-      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18140
-      BROWSER: none
-  guardian-ui-3:
-    shell: yarn dev
-    env:
-      PORT: '3002'
-      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18142
-      BROWSER: none
-  guardian-ui-4:
-    shell: yarn dev
-    env:
-      PORT: '3003'
-      REACT_APP_FM_CONFIG_API: ws://127.0.0.1:18144
-      BROWSER: none
