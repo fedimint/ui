@@ -96,6 +96,7 @@ export class GuardianApi {
       return true;
     } catch (err) {
       // TODO: make sure error is auth error, not unrelated
+      console.error('Failed to authenticate with password:', err);
       this.clearPassword();
       return false;
     }

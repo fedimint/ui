@@ -130,9 +130,9 @@ export const MetaManager = React.memo(function MetaManager({
 
   const removeCustomField = (key: string) => {
     setOptionalMeta((prev) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { [key]: _, ...rest } = prev;
-      return rest;
+      const newOptionalMeta = { ...prev };
+      delete newOptionalMeta[key];
+      return newOptionalMeta;
     });
   };
 

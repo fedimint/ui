@@ -37,7 +37,9 @@ export const NumberFormControl = React.memo<NumberFormControlProps>(
     const { t } = useTranslation();
 
     const onValueChange = (value: string) => {
-      onChange && onChange(value, Number(value));
+      if (onChange) {
+        onChange(value, Number(value));
+      }
     };
 
     const showWarning =
