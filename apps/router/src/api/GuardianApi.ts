@@ -36,15 +36,38 @@ export class GuardianApi {
 
   /*** WebSocket methods ***/
 
-  public connect = async (): Promise<JsonRpcWebsocket> => {
-    if (this.websocket !== null) {
-      return this.websocket;
-    }
-    if (this.connectPromise) {
-      return await this.connectPromise;
-    }
+  private async connectWithFibonacciBackoff(): Promise<JsonRpcWebsocket> {
+    const maxAttempts = 10;
+    const fibonacci = (n: number): number => {
+      if (n <= 1) return n;
+      let a = 0,
+        b = 1;
+      for (let i = 2; i <= n; i++) {
+        const temp = a + b;
+        a = b;
+        b = temp;
+      }
+      return b;
+    };
 
-    this.connectPromise = new Promise((resolve, reject) => {
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const websocket = await this.attemptConnection();
+        return websocket;
+      } catch (error) {
+        if (attempt === maxAttempts - 1) throw error;
+        const backoffTime = fibonacci(attempt + 1) * 1000; // Convert to milliseconds
+        console.warn(
+          `Attempt ${attempt + 1} failed. Retrying in ${backoffTime}ms...`
+        );
+        await new Promise((resolve) => setTimeout(resolve, backoffTime));
+      }
+    }
+    throw new Error('Max retry attempts reached');
+  }
+
+  private attemptConnection(): Promise<JsonRpcWebsocket> {
+    return new Promise((resolve, reject) => {
       const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
         this.guardian.config.baseUrl,
@@ -58,8 +81,7 @@ export class GuardianApi {
       websocket
         .open()
         .then(() => {
-          this.websocket = websocket;
-          resolve(this.websocket);
+          resolve(websocket);
         })
         .catch((error) => {
           console.error('failed to open websocket', error);
@@ -70,8 +92,25 @@ export class GuardianApi {
           );
         });
     });
+  }
 
-    return this.connectPromise;
+  public connect = async (): Promise<JsonRpcWebsocket> => {
+    if (this.websocket !== null) {
+      return this.websocket;
+    }
+    if (this.connectPromise) {
+      return await this.connectPromise;
+    }
+
+    this.connectPromise = this.connectWithFibonacciBackoff();
+
+    try {
+      this.websocket = await this.connectPromise;
+      return this.websocket;
+    } catch (error) {
+      this.connectPromise = null;
+      throw error;
+    }
   };
 
   private shutdown_internal = async (): Promise<boolean> => {
