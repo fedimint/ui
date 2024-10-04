@@ -59,15 +59,14 @@ export const HomePage: React.FC = () => {
             </Button>
           )}
         </Flex>
-        {Object.keys(guardians).length > 0 && (
+        {Object.keys(guardians).length + Object.keys(gateways).length > 0 ? (
           <ServicesList
             guardians={guardians}
             gateways={gateways}
             setEditingService={setEditingService}
             setRemovingService={setRemovingService}
           />
-        )}
-        {Object.keys(guardians).length + Object.keys(gateways).length === 0 && (
+        ) : (
           <NoConnectedServices />
         )}
       </>
