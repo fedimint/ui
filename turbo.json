@@ -5,7 +5,7 @@
     "packages/eslint-config/*.json",
     "packages/tsconfig/*.json"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "outputs": ["build/**", "dist/**"],
       "dependsOn": ["^build"]

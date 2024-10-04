@@ -7,12 +7,12 @@ import { AnyModuleParams, ConfigGenParams, ModuleKind } from '@fedimint/types';
 export function getModuleParamsFromConfig<T extends AnyModuleParams[0]>(
   config: ConfigGenParams | null,
   moduleName: T
-  // Ignore any type below, it will be properly typed at call time via moduleName.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Extract<AnyModuleParams, [T, any]>[1] | null {
+): Extract<AnyModuleParams, [T, AnyModuleParams[1]]>[1] | null {
   if (!config) return null;
   const module = Object.values(config.modules).find((m) => m[0] === moduleName);
-  return module ? module[1] : null;
+  return module
+    ? (module[1] as Extract<AnyModuleParams, [T, AnyModuleParams[1]]>[1])
+    : null;
 }
 
 /**
