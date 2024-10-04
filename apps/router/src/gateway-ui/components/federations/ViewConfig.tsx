@@ -23,7 +23,7 @@ interface ViewConfigModalProps {
 export const ViewConfigModal = forwardRef<
   HTMLButtonElement,
   ViewConfigModalProps
->(({ federationId, config }) => {
+>(({ federationId, config }, _) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
 

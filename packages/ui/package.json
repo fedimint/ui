@@ -19,15 +19,15 @@
     "qrloop": "^1.4.1"
   },
   "devDependencies": {
-    "@chakra-ui/react": "^2.4.5",
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11",
+    "@chakra-ui/react": "^2.9.5",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@fedimint/eslint-config": "*",
     "@fedimint/tsconfig": "*",
     "@fedimint/types": "*",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "react": "^18.2.0",
-    "tsup": "^5.10.1"
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.3.1",
+    "tsup": "^8.3.0"
   }
 }
