@@ -40,7 +40,7 @@ export const useConnectServiceForm = (onClose: () => void) => {
       }
       let info: ServiceCheckResponse;
       if (!requiresPassword || password === null) {
-        info = await api.check(configUrl);
+        info = await api.check(configUrl, null);
         if (info.requiresPassword) {
           setRequiresPassword(true);
           setServiceInfo(null);

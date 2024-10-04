@@ -41,13 +41,21 @@ export const ViewServiceButton: React.FC<ViewServiceButtonProps> = ({
     const api = new ServiceCheckApi();
 
     try {
-      if (!decryptedServicePassword) {
-        throw new Error('Service password not found');
-      }
+      const checkResult = await api.check(baseUrl, decryptedServicePassword);
 
-      await api.check(baseUrl, decryptedServicePassword);
-      navigate(`/${type}/${id}`);
+      if (
+        checkResult.status === 'awaiting_password' ||
+        checkResult.status === 'Setup'
+      ) {
+        // Allow navigation if the service is awaiting password or in setup
+        navigate(`/${type}/${id}`);
+      } else if (checkResult.requiresPassword && !decryptedServicePassword) {
+        throw new Error('Service password not found');
+      } else {
+        navigate(`/${type}/${id}`);
+      }
     } catch (error) {
+      console.error('Service check error:', error);
       onOpen();
     } finally {
       setIsLoading(false);

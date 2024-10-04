@@ -18,7 +18,6 @@ export const useUnlockedService = (
   useEffect(() => {
     const decryptPassword = async () => {
       if (!masterPassword || !serviceId || !serviceType) {
-        console.error('Missing required data for decryption');
         setError('Missing required data for decryption');
         return;
       }
@@ -27,11 +26,11 @@ export const useUnlockedService = (
         serviceType === 'guardian'
           ? guardianEncryptedPasswords
           : gatewayEncryptedPasswords;
-
       const serviceEncryptedPassword = services[serviceId];
+
       if (!serviceEncryptedPassword) {
-        console.error(`No encrypted password found for service ${serviceId}`);
-        setError(`No encrypted password found for service ${serviceId}`);
+        setDecryptedServicePassword(null);
+        setError(null);
         return;
       }
 
@@ -43,13 +42,9 @@ export const useUnlockedService = (
         setDecryptedServicePassword(decrypted);
         setError(null);
       } catch (err) {
-        if (err instanceof Error) {
-          console.error('Decryption error:', err);
-          setError(`Failed to decrypt password: ${err.message}`);
-        } else {
-          console.error('Unknown decryption error:', err);
-          setError('Failed to decrypt password: Unknown error');
-        }
+        const errorMessage =
+          err instanceof Error ? err.message : 'Unknown error';
+        setError(`Failed to decrypt password: ${errorMessage}`);
         setDecryptedServicePassword(null);
       }
     };
@@ -63,8 +58,5 @@ export const useUnlockedService = (
     gatewayEncryptedPasswords,
   ]);
 
-  return {
-    decryptedServicePassword,
-    error,
-  };
+  return { decryptedServicePassword, error };
 };

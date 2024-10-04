@@ -13,7 +13,7 @@ export class ServiceCheckApi {
 
   public async check(
     baseUrl: string,
-    password?: string
+    password: string | null
   ): Promise<ServiceCheckResponse> {
     const isWebsocket =
       baseUrl.startsWith('ws://') || baseUrl.startsWith('wss://');
@@ -24,7 +24,7 @@ export class ServiceCheckApi {
 
   private async checkGuardian(
     baseUrl: string,
-    password?: string
+    password: string | null
   ): Promise<ServiceCheckResponse> {
     const websocket = new JsonRpcWebsocket(
       baseUrl,
@@ -40,21 +40,15 @@ export class ServiceCheckApi {
       return {
         serviceType: 'guardian',
         serviceName: 'Guardian',
-        status: password
-          ? result.server
-          : result.server !== 'awaiting_password'
-          ? 'Setup'
-          : result.server,
-        requiresPassword: password
-          ? true
-          : result.server !== 'awaiting_password',
+        status: result.server,
+        requiresPassword: result.server === 'awaiting_password',
       };
     } catch (error) {
       if (error instanceof JsonRpcError && error.code === -32600) {
         return {
           serviceType: 'guardian',
           serviceName: 'Guardian',
-          status: password ? 'Invalid Password' : 'Setup',
+          status: 'Invalid Password',
           requiresPassword: true,
         };
       }
@@ -66,17 +60,22 @@ export class ServiceCheckApi {
 
   private async getGuardianStatus(
     websocket: JsonRpcWebsocket,
-    password?: string
+    password: string | null
   ) {
-    if (password) {
-      await websocket.call('auth', [{ auth: password, params: null }]);
+    try {
+      return await websocket.call('status', [{ auth: password, params: null }]);
+    } catch (error) {
+      if (error instanceof JsonRpcError && error.code === -32600 && password) {
+        // If authentication fails with a password, try without it
+        return await websocket.call('status', [{ auth: null, params: null }]);
+      }
+      throw error;
     }
-    return websocket.call('status', [{ auth: password, params: null }]);
   }
 
   private async checkGateway(
     baseUrl: string,
-    password?: string
+    password: string | null
   ): Promise<ServiceCheckResponse> {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
