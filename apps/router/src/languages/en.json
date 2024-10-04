@@ -544,5 +544,9 @@
     "withdrawal-created-description": "Please check your transaction history",
     "withdrawal-history": "Withdrawal History",
     "your-transaction": "Your transaction ID:"
+  },
+  "errors": {
+    "auth-error": "Authentication Error",
+    "auth-error-message": "Please check that your connection URL and password are correct, then try again."
   }
 }

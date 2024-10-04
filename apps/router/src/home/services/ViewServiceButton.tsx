@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Text,
   Button,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalBody,
   ModalFooter,
   useDisclosure,
+  Box,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  ModalBody,
 } from '@chakra-ui/react';
 import { FiExternalLink } from 'react-icons/fi';
 import { useTranslation } from '@fedimint/utils';
@@ -29,9 +32,8 @@ export const ViewServiceButton: React.FC<ViewServiceButtonProps> = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { decryptedServicePassword } = useUnlockedService(id, type);
 
   const handleClick = async () => {
@@ -46,15 +48,6 @@ export const ViewServiceButton: React.FC<ViewServiceButtonProps> = ({
       await api.check(baseUrl, decryptedServicePassword);
       navigate(`/${type}/${id}`);
     } catch (error) {
-      if (error instanceof Error) {
-        if (error.message === 'Service password not found') {
-          setErrorMessage(t('errors.service-password-not-found'));
-        } else {
-          setErrorMessage(t('errors.check-service-password'));
-        }
-      } else {
-        setErrorMessage(t('errors.unknown-error'));
-      }
       onOpen();
     } finally {
       setIsLoading(false);
@@ -62,13 +55,14 @@ export const ViewServiceButton: React.FC<ViewServiceButtonProps> = ({
   };
 
   return (
-    <>
+    <Box>
       <Button
         rightIcon={<FiExternalLink />}
         size='sm'
         colorScheme='blue'
         onClick={handleClick}
         isLoading={isLoading}
+        mb={2}
       >
         {t('common.view')}
       </Button>
@@ -76,9 +70,16 @@ export const ViewServiceButton: React.FC<ViewServiceButtonProps> = ({
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{t('errors.auth-error')}</ModalHeader>
           <ModalBody>
-            <Text>{errorMessage}</Text>
+            <Alert status='warning' mt={2}>
+              <AlertIcon />
+              <Box>
+                <AlertTitle>{t('errors.auth-error')}</AlertTitle>
+                <AlertDescription>
+                  {t('errors.auth-error-message')}
+                </AlertDescription>
+              </Box>
+            </Alert>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onClose}>
@@ -87,6 +88,6 @@ export const ViewServiceButton: React.FC<ViewServiceButtonProps> = ({
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
+    </Box>
   );
 };
