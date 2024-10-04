@@ -8,8 +8,15 @@ export const useAuthContext = () => {
     useContext(AuthContext);
   const { masterPassword } = useMasterPassword();
 
-  const storeGuardianPassword = async (id: string, password: string) => {
+  const storeGuardianPassword = async (id: string, password: string | null) => {
     if (!masterPassword) return;
+    if (password === null) {
+      dispatch({
+        type: AUTH_ACTION_TYPE.REMOVE_GUARDIAN_PASSWORD,
+        payload: id,
+      });
+      return;
+    }
     const encryptedPassword = await encrypt(password, masterPassword);
     dispatch({
       type: AUTH_ACTION_TYPE.SET_GUARDIAN_PASSWORD,
@@ -17,8 +24,15 @@ export const useAuthContext = () => {
     });
   };
 
-  const storeGatewayPassword = async (id: string, password: string) => {
+  const storeGatewayPassword = async (id: string, password: string | null) => {
     if (!masterPassword) return;
+    if (password === null) {
+      dispatch({
+        type: AUTH_ACTION_TYPE.REMOVE_GATEWAY_PASSWORD,
+        payload: id,
+      });
+      return;
+    }
     const encryptedPassword = await encrypt(password, masterPassword);
     dispatch({
       type: AUTH_ACTION_TYPE.SET_GATEWAY_PASSWORD,

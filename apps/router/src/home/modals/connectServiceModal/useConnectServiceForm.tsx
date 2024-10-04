@@ -12,7 +12,7 @@ import { useAuthContext } from '../../../hooks/useAuthContext';
 export const useConnectServiceForm = (onClose: () => void) => {
   const { storeGuardianPassword, storeGatewayPassword } = useAuthContext();
   const [configUrl, setConfigUrl] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState<string | null>(null);
   const [serviceInfo, setServiceInfo] = useState<ServiceCheckResponse | null>(
     null
   );
@@ -23,7 +23,7 @@ export const useConnectServiceForm = (onClose: () => void) => {
 
   const resetForm = useCallback(() => {
     setConfigUrl('');
-    setPassword('');
+    setPassword(null);
     setServiceInfo(null);
     setError(null);
     setRequiresPassword(false);
@@ -39,7 +39,7 @@ export const useConnectServiceForm = (onClose: () => void) => {
         return;
       }
       let info: ServiceCheckResponse;
-      if (!requiresPassword) {
+      if (!requiresPassword || password === null) {
         info = await api.checkWithoutPassword(configUrl);
         if (info.requiresPassword) {
           setRequiresPassword(true);

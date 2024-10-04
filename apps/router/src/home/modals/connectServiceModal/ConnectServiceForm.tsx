@@ -14,8 +14,8 @@ import { ServiceCheckResponse } from '../../../api/ServiceCheckApi';
 interface ConnectServiceFormProps {
   configUrl: string;
   setConfigUrl: (value: string) => void;
-  password: string;
-  setPassword: (value: string) => void;
+  password: string | null;
+  setPassword: (value: string | null) => void;
   serviceInfo: ServiceCheckResponse | null;
   isLoading: boolean;
   error: string | null;
@@ -61,7 +61,7 @@ export const ConnectServiceForm: React.FC<ConnectServiceFormProps> = ({
           <Input
             type='password'
             placeholder='Enter password'
-            value={password}
+            value={password ?? ''}
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={handleKeyPress}
           />
