@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import {
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -15,14 +13,11 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import { FiEdit, FiExternalLink, FiX } from 'react-icons/fi';
+import { FiEdit, FiX } from 'react-icons/fi';
 import { useTranslation } from '@fedimint/utils';
 import { GuardianConfig } from '../../types/guardian';
 import { GatewayConfig } from '../../types/gateway';
-import {
-  ServiceCheckApi,
-  ServiceCheckResponse,
-} from '../../api/ServiceCheckApi';
+import { ViewServiceButton } from './ViewServiceButton';
 
 interface ServiceTableProps {
   services: Record<string, GuardianConfig | GatewayConfig>;
@@ -44,36 +39,6 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
   setRemovingService,
 }) => {
   const { t } = useTranslation();
-  // const [serviceStatuses, setServiceStatuses] = useState<
-  //   Record<string, ServiceCheckResponse>
-  // >({});
-
-  useEffect(() => {
-    const checkServices = async () => {
-      const api = new ServiceCheckApi();
-      const statuses: Record<string, ServiceCheckResponse> = {};
-
-      for (const [id, service] of Object.entries(services)) {
-        try {
-          const status = await api.checkWithoutPassword(service.config.baseUrl);
-          statuses[id] = status;
-        } catch (error) {
-          console.error(`Failed to check service ${id}:`, error);
-          statuses[id] = {
-            serviceType: type,
-            serviceName: type === 'guardian' ? 'Guardian' : 'Gateway',
-            status: 'Error',
-            requiresPassword: false,
-          };
-        }
-      }
-
-      // setServiceStatuses(statuses);
-    };
-
-    checkServices();
-  }, [services, type]);
-
   return (
     <Card marginBottom='6'>
       <CardHeader>
@@ -127,15 +92,11 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
                   </Td> */}
                   <Td>
                     <Flex justifyContent='flex-end' gap={3} alignItems='center'>
-                      <Link to={`/${type}/${id}`}>
-                        <Button
-                          rightIcon={<FiExternalLink />}
-                          size='sm'
-                          colorScheme='blue'
-                        >
-                          {t('common.view', 'View')}
-                        </Button>
-                      </Link>
+                      <ViewServiceButton
+                        type={type}
+                        id={id}
+                        baseUrl={service.config.baseUrl}
+                      />
                       <IconButton
                         aria-label={`Delete ${type}`}
                         icon={<FiX />}

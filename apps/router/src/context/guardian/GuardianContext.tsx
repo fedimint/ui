@@ -2,6 +2,7 @@ import React, {
   createContext,
   Dispatch,
   ReactNode,
+  useEffect,
   useMemo,
   useReducer,
 } from 'react';
@@ -65,6 +66,15 @@ export const GuardianContextProvider: React.FC<
     'guardian'
   );
   const config = useGuardianConfig(guardianId);
+  useEffect(() => {
+    if (decryptedServicePassword) {
+      dispatch({
+        type: GUARDIAN_APP_ACTION_TYPE.SET_NEEDS_AUTH,
+        payload: false,
+      });
+    }
+  }, [decryptedServicePassword]);
+
   const guardianApi = useMemo(
     () => new GuardianApi(config, decryptedServicePassword),
     [config, decryptedServicePassword]

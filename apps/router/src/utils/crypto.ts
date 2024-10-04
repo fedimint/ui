@@ -1,78 +1,91 @@
-const IV_LENGTH = 12;
-const SALT_LENGTH = 16;
-const KEY_LENGTH = 256;
-const ALGORITHM = 'AES-GCM';
-const PBKDF2_ITERATIONS = 100000;
-
-async function deriveKey(
+export async function encrypt(
   password: string,
-  salt: Uint8Array
-): Promise<CryptoKey> {
+  plaintext: string
+): Promise<string> {
   const encoder = new TextEncoder();
+  const pwUtf8 = encoder.encode(password);
+  const pwKey = await crypto.subtle.importKey('raw', pwUtf8, 'PBKDF2', false, [
+    'deriveKey',
+  ]);
 
-  const baseKey = await crypto.subtle.importKey(
-    'raw',
-    encoder.encode(password),
-    'PBKDF2',
-    false,
-    ['deriveBits', 'deriveKey']
-  );
+  const salt = encoder.encode('fixed-salt');
 
-  return crypto.subtle.deriveKey(
+  const key = await crypto.subtle.deriveKey(
     {
       name: 'PBKDF2',
-      salt,
-      iterations: PBKDF2_ITERATIONS,
+      salt: salt,
+      iterations: 100000,
       hash: 'SHA-256',
     },
-    baseKey,
-    { name: ALGORITHM, length: KEY_LENGTH },
+    pwKey,
+    {
+      name: 'AES-GCM',
+      length: 256,
+    },
     false,
     ['encrypt', 'decrypt']
   );
-}
 
-export async function encrypt(
-  plaintext: string,
-  password: string
-): Promise<string> {
-  const encoder = new TextEncoder();
-  const iv = crypto.getRandomValues(new Uint8Array(IV_LENGTH));
-  const salt = crypto.getRandomValues(new Uint8Array(SALT_LENGTH));
-  const key = await deriveKey(password, salt);
+  const iv = encoder.encode('fixed-iv-123456789012'); // 12 bytes for AES-GCM
 
-  const encrypted = await crypto.subtle.encrypt(
-    { name: ALGORITHM, iv },
+  const ciphertextBuffer = await crypto.subtle.encrypt(
+    {
+      name: 'AES-GCM',
+      iv: iv,
+    },
     key,
     encoder.encode(plaintext)
   );
 
-  const result = new Uint8Array(salt.length + iv.length + encrypted.byteLength);
-  result.set(salt, 0);
-  result.set(iv, salt.length);
-  result.set(new Uint8Array(encrypted), salt.length + iv.length);
+  const ciphertextArray = new Uint8Array(ciphertextBuffer);
+  const ciphertextBase64 = btoa(String.fromCharCode(...ciphertextArray));
 
-  return btoa(String.fromCharCode.apply(null, Array.from(result)));
+  return ciphertextBase64;
 }
 
 export async function decrypt(
-  ciphertext: string,
-  password: string
+  password: string,
+  ciphertextBase64: string
 ): Promise<string> {
+  const encoder = new TextEncoder();
   const decoder = new TextDecoder();
-  const data = Uint8Array.from(atob(ciphertext), (c) => c.charCodeAt(0));
+  const pwUtf8 = encoder.encode(password);
+  const pwKey = await crypto.subtle.importKey('raw', pwUtf8, 'PBKDF2', false, [
+    'deriveKey',
+  ]);
 
-  const salt = data.slice(0, SALT_LENGTH);
-  const iv = data.slice(SALT_LENGTH, SALT_LENGTH + IV_LENGTH);
-  const encrypted = data.slice(SALT_LENGTH + IV_LENGTH);
+  const salt = encoder.encode('fixed-salt');
 
-  const key = await deriveKey(password, salt);
-
-  const decrypted = await crypto.subtle.decrypt(
-    { name: ALGORITHM, iv },
-    key,
-    encrypted
+  const key = await crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt: salt,
+      iterations: 100000,
+      hash: 'SHA-256',
+    },
+    pwKey,
+    {
+      name: 'AES-GCM',
+      length: 256,
+    },
+    false,
+    ['encrypt', 'decrypt']
   );
 
-  return decoder.decode(decrypted);
+  const iv = encoder.encode('fixed-iv-123456789012'); // 12 bytes for AES-GCM
+
+  const ciphertextBytes = Uint8Array.from(atob(ciphertextBase64), (c) =>
+    c.charCodeAt(0)
+  );
+
+  const plaintextBuffer = await crypto.subtle.decrypt(
+    {
+      name: 'AES-GCM',
+      iv: iv,
+    },
+    key,
+    ciphertextBytes
+  );
+
+  return decoder.decode(plaintextBuffer);
 }

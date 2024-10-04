@@ -36,7 +36,7 @@ export const EnterMasterPassword: React.FC = () => {
       try {
         console.log('test', test);
         console.log('password', password);
-        const decryptedTest = await decrypt(test, password);
+        const decryptedTest = await decrypt(password, test);
         console.log('decryptedTest', decryptedTest);
         if (decryptedTest !== 'test') {
           throw new Error('Invalid password');

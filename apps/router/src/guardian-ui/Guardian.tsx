@@ -1,17 +1,15 @@
 import React, { useMemo } from 'react';
 import { Box, Flex, Spinner, Heading, Text, Center } from '@chakra-ui/react';
-import { Login } from '@fedimint/ui';
 import { SetupContextProvider } from '../context/guardian/SetupContext';
 import { AdminContextProvider } from '../context/guardian/AdminContext';
 import { FederationSetup } from './setup/FederationSetup';
 import { FederationAdmin } from './admin/FederationAdmin';
 import { useGuardianContext, useLoadGuardian } from '../context/hooks';
 import { useTranslation } from '@fedimint/utils';
-import { GUARDIAN_APP_ACTION_TYPE, GuardianStatus } from '../types/guardian';
-import { formatApiErrorMessage } from './utils/api';
+import { GuardianStatus } from '../types/guardian';
 
 export const Guardian: React.FC = () => {
-  const { api, state, dispatch } = useGuardianContext();
+  const { state } = useGuardianContext();
   useLoadGuardian();
   const { t } = useTranslation();
 
@@ -31,21 +29,6 @@ export const Guardian: React.FC = () => {
           </Heading>
           <Text fontSize='md'>{state.guardianError}</Text>
         </Flex>
-      );
-    }
-
-    if (state.needsAuth) {
-      return (
-        <Login
-          checkAuth={(password) => api.testPassword(password || '')}
-          setAuthenticated={() =>
-            dispatch({
-              type: GUARDIAN_APP_ACTION_TYPE.SET_NEEDS_AUTH,
-              payload: false,
-            })
-          }
-          parseError={formatApiErrorMessage}
-        />
       );
     }
 
@@ -70,15 +53,7 @@ export const Guardian: React.FC = () => {
         <Spinner size='xl' />
       </Center>
     );
-  }, [
-    state.status,
-    state.needsAuth,
-    state.guardianError,
-    state.initServerStatus,
-    api,
-    dispatch,
-    t,
-  ]);
+  }, [state.status, state.guardianError, state.initServerStatus, t]);
 
   return (
     <Center>

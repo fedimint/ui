@@ -20,6 +20,8 @@ import { useAppContext } from '../../context/hooks';
 import { APP_ACTION_TYPE, AppAction } from '../../context/AppContext';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { decrypt } from '../../utils/crypto';
+import { useMasterPassword } from '../../hooks/useMasterPassword';
 
 interface EditServiceModalProps {
   isOpen: boolean;
@@ -36,7 +38,9 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [configUrl, setConfigUrl] = useState(serviceUrl);
+  const [passwordFetched, setPasswordFetched] = useState(false);
   const [password, setPassword] = useState('');
+  const { masterPassword } = useMasterPassword();
   const [showPassword, setShowPassword] = useState(false);
   const { dispatch, guardians, gateways } = useAppContext();
   const {
@@ -46,68 +50,117 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
     getEncryptedGatewayPassword,
   } = useAuthContext();
   const toast = useToast();
-
-  const getPassword = useCallback(() => {
-    return service.type === 'guardian'
-      ? getEncryptedGuardianPassword(service.id)
-      : getEncryptedGatewayPassword(service.id);
+  const getPassword = useCallback(async () => {
+    if (!masterPassword) {
+      return '';
+    }
+    const encryptedPassword =
+      service.type === 'guardian'
+        ? getEncryptedGuardianPassword(service.id)
+        : getEncryptedGatewayPassword(service.id);
+    return encryptedPassword
+      ? await decrypt(masterPassword, encryptedPassword)
+      : '';
   }, [
     service.type,
     service.id,
     getEncryptedGuardianPassword,
     getEncryptedGatewayPassword,
+    masterPassword,
   ]);
 
   useEffect(() => {
-    const currentPassword = getPassword();
-    setPassword(currentPassword || '');
-  }, [getPassword]);
+    const fetchPassword = async () => {
+      if (!passwordFetched) {
+        const currentPassword = await getPassword();
+        setPassword(currentPassword || '');
+        setPasswordFetched(true);
+      }
+    };
+    fetchPassword();
+  }, [getPassword, passwordFetched]);
+
+  // Reset state when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setPasswordFetched(false);
+      setPassword('');
+      setConfigUrl(serviceUrl);
+    }
+  }, [isOpen, serviceUrl]);
 
   const handleSubmit = async () => {
     if (service) {
       try {
-        const newId = await sha256Hash(configUrl);
+        console.log(`Attempting to update ${service.type} service`);
 
-        // Check if the new URL already exists
-        const serviceExists = Object.values({ ...guardians, ...gateways }).some(
-          (s) => s.config.baseUrl === configUrl && s.id !== service.id
-        );
+        // Check if only the password has changed
+        const isOnlyPasswordChanged = configUrl === serviceUrl;
 
-        if (serviceExists) {
-          throw new Error('A service with this URL already exists');
-        }
-
-        // Remove old service
-        dispatch({
-          type:
-            service.type === 'guardian'
-              ? APP_ACTION_TYPE.REMOVE_GUARDIAN
-              : APP_ACTION_TYPE.REMOVE_GATEWAY,
-          payload: service.id,
-        });
-
-        // Add new service
-        const newPayload = {
-          id: newId,
-          [service.type]: { config: { baseUrl: configUrl } },
-        };
-
-        dispatch({
-          type:
-            service.type === 'guardian'
-              ? APP_ACTION_TYPE.ADD_GUARDIAN
-              : APP_ACTION_TYPE.ADD_GATEWAY,
-          payload: newPayload,
-        } as AppAction);
-
-        // Update password
-        if (service.type === 'guardian') {
-          storeGuardianPassword(newId, password);
+        if (isOnlyPasswordChanged) {
+          console.log(
+            `Updating password for ${service.type} service with ID: ${service.id}`
+          );
+          if (service.type === 'guardian') {
+            storeGuardianPassword(service.id, password);
+          } else {
+            storeGatewayPassword(service.id, password);
+          }
         } else {
-          storeGatewayPassword(newId, password);
+          const newId = await sha256Hash(configUrl);
+          console.log(`New service ID: ${newId}`);
+
+          // Check if the new URL already exists
+          const serviceExists = Object.values({
+            ...guardians,
+            ...gateways,
+          }).some((s) => s.config.baseUrl === configUrl && s.id !== service.id);
+
+          if (serviceExists) {
+            console.error('Service with this URL already exists');
+            throw new Error('A service with this URL already exists');
+          }
+
+          console.log(
+            `Removing old ${service.type} service with ID: ${service.id}`
+          );
+          // Remove old service
+          dispatch({
+            type:
+              service.type === 'guardian'
+                ? APP_ACTION_TYPE.REMOVE_GUARDIAN
+                : APP_ACTION_TYPE.REMOVE_GATEWAY,
+            payload: service.id,
+          });
+
+          // Add new service
+          const newPayload = {
+            id: newId,
+            [service.type]: { config: { baseUrl: configUrl } },
+          };
+          console.log(`Adding new ${service.type} service:`, newPayload);
+
+          dispatch({
+            type:
+              service.type === 'guardian'
+                ? APP_ACTION_TYPE.ADD_GUARDIAN
+                : APP_ACTION_TYPE.ADD_GATEWAY,
+            payload: newPayload,
+          } as AppAction);
+
+          // Update password for the new service
+          console.log(
+            `Updating password for ${service.type} service with ID: ${newId}`
+          );
+          if (service.type === 'guardian') {
+            storeGuardianPassword(newId, password);
+          } else {
+            storeGatewayPassword(newId, password);
+          }
         }
 
         onClose();
+        console.log('Service update completed successfully');
         toast({
           title: 'Service updated',
           status: 'success',
@@ -115,6 +168,7 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
           isClosable: true,
         });
       } catch (error) {
+        console.error('Error updating service:', error);
         toast({
           title: 'Error updating service',
           description:

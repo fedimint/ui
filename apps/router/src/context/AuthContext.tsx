@@ -168,7 +168,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
     setMasterPasswordState(password);
     if (password) {
       sessionStorage.setItem('masterPassword', password);
-      const encryptedTest = await encrypt('test', password);
+      const encryptedTest = await encrypt(password, 'test');
       dispatch({
         type: AUTH_ACTION_TYPE.SET_TEST,
         payload: encryptedTest,

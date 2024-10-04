@@ -17,7 +17,7 @@ export const useAuthContext = () => {
       });
       return;
     }
-    const encryptedPassword = await encrypt(password, masterPassword);
+    const encryptedPassword = await encrypt(masterPassword, password);
     dispatch({
       type: AUTH_ACTION_TYPE.SET_GUARDIAN_PASSWORD,
       payload: { id, encryptedPassword },
@@ -33,7 +33,8 @@ export const useAuthContext = () => {
       });
       return;
     }
-    const encryptedPassword = await encrypt(password, masterPassword);
+    const encryptedPassword = await encrypt(masterPassword, password);
+    console.log('encryptedPassword here', encryptedPassword);
     dispatch({
       type: AUTH_ACTION_TYPE.SET_GATEWAY_PASSWORD,
       payload: { id, encryptedPassword },
