@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Button,
   FormControl,
@@ -47,13 +47,21 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
   } = useAuthContext();
   const toast = useToast();
 
-  React.useEffect(() => {
-    const currentPassword =
-      service.type === 'guardian'
-        ? getEncryptedGuardianPassword(service.id)
-        : getEncryptedGatewayPassword(service.id);
+  const getPassword = useCallback(() => {
+    return service.type === 'guardian'
+      ? getEncryptedGuardianPassword(service.id)
+      : getEncryptedGatewayPassword(service.id);
+  }, [
+    service.type,
+    service.id,
+    getEncryptedGuardianPassword,
+    getEncryptedGatewayPassword,
+  ]);
+
+  useEffect(() => {
+    const currentPassword = getPassword();
     setPassword(currentPassword || '');
-  }, [service, getEncryptedGuardianPassword, getEncryptedGatewayPassword]);
+  }, [getPassword]);
 
   const handleSubmit = async () => {
     if (service) {
