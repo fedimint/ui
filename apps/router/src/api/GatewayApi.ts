@@ -46,6 +46,42 @@ export class GatewayApi {
     }
   };
 
+  private async fetchWithFibonacciBackoff(
+    url: string,
+    options: RequestInit
+  ): Promise<Response> {
+    const maxAttempts = 10;
+    const fibonacci = (n: number): number => {
+      if (n <= 1) return n;
+      let a = 0,
+        b = 1;
+      for (let i = 2; i <= n; i++) {
+        const temp = a + b;
+        a = b;
+        b = temp;
+      }
+      return b;
+    };
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response;
+      } catch (error) {
+        if (attempt === maxAttempts - 1) throw error;
+        const backoffTime = fibonacci(attempt + 1) * 1000; // Convert to milliseconds
+        console.warn(
+          `Attempt ${attempt + 1} failed. Retrying in ${backoffTime}ms...`
+        );
+        await new Promise((resolve) => setTimeout(resolve, backoffTime));
+      }
+    }
+    throw new Error('Max retry attempts reached');
+  }
+
   private post = async (
     api: string,
     body: unknown,
@@ -62,14 +98,17 @@ export class GatewayApi {
 
     const tempPassword = password || this.password;
 
-    return fetch(`${this.config.config.baseUrl}/${api}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tempPassword}`,
-      },
-      body: JSON.stringify(body),
-    });
+    return this.fetchWithFibonacciBackoff(
+      `${this.config.config.baseUrl}/${api}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tempPassword}`,
+        },
+        body: JSON.stringify(body),
+      }
+    );
   };
 
   private get = async (api: string, password?: string): Promise<Response> => {
@@ -81,13 +120,16 @@ export class GatewayApi {
 
     const tempPassword = password || this.password;
 
-    return fetch(`${this.config.config.baseUrl}/${api}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tempPassword}`,
-      },
-    });
+    return this.fetchWithFibonacciBackoff(
+      `${this.config.config.baseUrl}/${api}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tempPassword}`,
+        },
+      }
+    );
   };
 
   /**
