@@ -15,6 +15,7 @@ import { HomePage } from './home/HomePage';
 import { GuardianContextProvider } from './context/guardian/GuardianContext';
 import { GatewayContextProvider } from './context/gateway/GatewayContext';
 import { Wrapper } from './components/Wrapper';
+import { NotificationProvider } from './home/NotificationProvider';
 
 i18nProvider(languages);
 
@@ -56,7 +57,9 @@ root.render(
       <ColorModeScript />
       <Fonts spaceGroteskTtf={spaceGroteskTtf} interTtf={interTtf} />
       <AppContextProvider>
-        <App />
+        <NotificationProvider>
+          <App />
+        </NotificationProvider>
       </AppContextProvider>
     </SharedChakraProvider>
   </React.StrictMode>

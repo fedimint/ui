@@ -24,6 +24,7 @@ import {
   useGuardianSetupApi,
   useGuardianSetupContext,
 } from '../../context/hooks';
+import { useNotification } from '../../home/NotificationProvider';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -35,6 +36,7 @@ const PROGRESS_ORDER: SetupProgress[] = [
 ];
 
 export const FederationSetup: React.FC = () => {
+  const { showSuccess, showError } = useNotification();
   const { t } = useTranslation();
   const api = useGuardianSetupApi();
   const {
@@ -68,7 +70,8 @@ export const FederationSetup: React.FC = () => {
     if (!nextProgress) return;
     dispatch({ type: SETUP_ACTION_TYPE.SET_PROGRESS, payload: nextProgress });
     window.scrollTo(0, 0);
-  }, [dispatch, nextProgress]);
+    showSuccess(t(`setup.progress.start.success`));
+  }, [dispatch, nextProgress, showSuccess, t]);
 
   const handleRestart = useCallback(() => {
     api
@@ -76,11 +79,13 @@ export const FederationSetup: React.FC = () => {
       .then(() => {
         dispatch({ type: SETUP_ACTION_TYPE.SET_INITIAL_STATE, payload: null });
         window.scrollTo(0, 0);
+        showSuccess(t('setup.common.restart-success'));
       })
       .catch((err) => {
         console.error(err);
+        showError(t('setup.common.restart-error'));
       });
-  }, [api, dispatch]);
+  }, [api, dispatch, showSuccess, showError, t]);
 
   let title: React.ReactNode;
   let subtitle: React.ReactNode;

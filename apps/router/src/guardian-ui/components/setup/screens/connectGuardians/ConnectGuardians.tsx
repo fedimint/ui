@@ -24,12 +24,14 @@ import {
   useGuardianSetupContext,
 } from '../../../../../context/hooks';
 import { GuardianRole } from '../../../../../types/guardian';
+import { useNotification } from '../../../../../home/NotificationProvider';
 
 interface Props {
   next(): void;
 }
 
 export const ConnectGuardians: React.FC<Props> = ({ next }) => {
+  const { showSuccess, showInfo } = useNotification();
   const { t } = useTranslation();
   const {
     state: { role, peers, numPeers, configGenParams, ourCurrentId },
@@ -51,12 +53,14 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   // For hosts, once all peers have connected, run DKG immediately.
   useEffect(() => {
     if (role !== GuardianRole.Host || !isAllAccepted) return;
+    showSuccess(t('connect-guardians.all-connected'));
     next();
-  }, [role, isAllAccepted, next]);
+  }, [role, isAllAccepted, next, showSuccess, t]);
 
   const handleApprove = useCallback(() => {
+    showInfo(t('connect-guardians.approved'));
     next();
-  }, [next]);
+  }, [next, showInfo, t]);
 
   let content: React.ReactNode;
   if (!configGenParams) {

@@ -36,6 +36,7 @@ import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
 import { formatApiErrorMessage } from '../../../../utils/api';
 import { ReactComponent as CheckCircleIcon } from '../../../../assets/svgs/check-circle.svg';
 import { ReactComponent as XCircleIcon } from '../../../../assets/svgs/x-circle.svg';
+import { useNotification } from '../../../../../home/NotificationProvider';
 import {
   useConsensusPolling,
   useGuardianSetupApi,
@@ -55,6 +56,7 @@ interface Props {
 export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
   const api = useGuardianSetupApi();
+  const { showError } = useNotification();
   const {
     state: { role, numPeers, peers, ourCurrentId },
     toggleConsensusPolling,
@@ -62,11 +64,11 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
   const [myHash, setMyHash] = useState('');
-  const [peersWithHash, setPeersWithHash] = useState<PeerWithHash[]>();
+  const [peersWithHash, setPeersWithHash] = useState<PeerWithHash[]>([]);
   const [enteredHashes, setEnteredHashes] = useState<string[]>([]);
   const [verifiedConfigs, setVerifiedConfigs] = useState<boolean>(false);
   const [isStarting, setIsStarting] = useState(false);
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [ourPeerName, setOurPeerName] = useState('');
 
@@ -84,11 +86,17 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
     async function assembleHashInfo() {
       if (peers.length === 0) {
-        return setError(t('verify-guardians.error'));
+        const errorMessage = t('verify-guardians.error');
+        setError(errorMessage);
+        showError(errorMessage);
+        return;
       }
 
       if (ourCurrentId === null) {
-        return setError(t('verify-guardians.error-peer-id'));
+        const errorMessage = t('verify-guardians.error-peer-id');
+        setError(errorMessage);
+        showError(errorMessage);
+        return;
       }
 
       if (peers[ourCurrentId]) {
@@ -121,11 +129,13 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           );
         }
       } catch (err) {
-        setError(formatApiErrorMessage(err));
+        const errorMessage = formatApiErrorMessage(err);
+        setError(errorMessage);
+        showError(errorMessage);
       }
     }
     assembleHashInfo();
-  }, [api, peers, ourCurrentId, t]);
+  }, [api, peers, ourCurrentId, t, showError]);
 
   useEffect(() => {
     // If we're the only guardian, skip this verify other guardians step.
@@ -134,7 +144,9 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         .startConsensus()
         .then(next)
         .catch((err) => {
-          setError(formatApiErrorMessage(err));
+          const errorMessage = formatApiErrorMessage(err);
+          setError(errorMessage);
+          showError(errorMessage);
         });
       return;
     }
@@ -151,7 +163,9 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           toggleConsensusPolling(false);
         })
         .catch((err) => {
-          setError(formatApiErrorMessage(err));
+          const errorMessage = formatApiErrorMessage(err);
+          setError(errorMessage);
+          showError(errorMessage);
         });
     }
   }, [
@@ -162,6 +176,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     numPeers,
     next,
     toggleConsensusPolling,
+    showError,
   ]);
 
   const handleNext = useCallback(async () => {
@@ -170,10 +185,12 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       await api.startConsensus();
       next();
     } catch (err) {
-      setError(formatApiErrorMessage(err));
+      const errorMessage = formatApiErrorMessage(err);
+      setError(errorMessage);
+      showError(errorMessage);
     }
     setIsStarting(false);
-  }, [api, next]);
+  }, [api, next, showError]);
 
   // Host of one immediately skips this step.
   useEffect(() => {

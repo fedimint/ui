@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { QRCodeSVG } from 'qrcode.react';
+import { useNotification } from '../../../../home/NotificationProvider';
 
 const QR_CODE_SIZE = 256;
 const FEDIMINT_GUARDIAN_PREFIX = 'fedimint:guardian:';
@@ -34,6 +35,7 @@ export const GuardianAuthenticationCode: React.FC<
 > = ({ inviteCode, ourPeer }) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { showError } = useNotification();
   const [isOpen, setIsOpen] = useState(false);
   const [qrValue, setQrValue] = useState<string>('');
   const [isAcknowledged, setIsAcknowledged] = useState(false);
@@ -53,9 +55,13 @@ export const GuardianAuthenticationCode: React.FC<
   };
 
   const handleOpen = () => {
-    setQrValue(calculateGuardianAuthenticationCode());
-    setIsOpen(true);
-    setIsAcknowledged(false);
+    try {
+      setQrValue(calculateGuardianAuthenticationCode());
+      setIsOpen(true);
+      setIsAcknowledged(false);
+    } catch (error) {
+      showError('Failed to generate the authentication code.');
+    }
   };
   const handleClose = () => setIsOpen(false);
 

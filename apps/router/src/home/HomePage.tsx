@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { ConnectServiceModal } from './ConnectServiceModal';
@@ -7,6 +7,7 @@ import { EditServiceModal } from './EditServiceModal';
 import { RemoveServiceModal } from './RemoveServiceModal';
 import { NoConnectedServices } from './NoConnectedServices';
 import { ServiceTable } from './ServiceTable';
+import { useNotification } from './NotificationProvider';
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation();
@@ -20,6 +21,31 @@ export const HomePage: React.FC = () => {
     id: string;
   } | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { showError, showSuccess } = useNotification();
+
+  useEffect(() => {
+    try {
+      // Simulate error
+      throw new Error('Failed to connect to the service.');
+    } catch (error) {
+      if (error instanceof Error) {
+        showError(error.message);
+      } else {
+        showError('An unknown error occurred.');
+      }
+    }
+
+    try {
+      // Simulate a success
+      showSuccess('Service connected successfully!');
+    } catch (error) {
+      if (error instanceof Error) {
+        showError(error.message);
+      } else {
+        showError('An unknown error occurred.');
+      }
+    }
+  }, [showError, showSuccess]);
 
   return (
     <Box width='100%' maxWidth='1200px' margin='auto' paddingY='8'>

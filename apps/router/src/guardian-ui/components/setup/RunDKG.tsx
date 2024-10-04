@@ -16,6 +16,7 @@ import {
   useGuardianSetupApi,
   useGuardianSetupContext,
 } from '../../../context/hooks';
+import { useNotification } from '../../../home/NotificationProvider';
 
 interface Props {
   next(): void;
@@ -31,6 +32,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
   const [isWaitingForOthers, setIsWaitingForOthers] = useState(false);
   const [error, setError] = useState<string>();
   const ellipsis = useEllipsis();
+  const { showSuccess, showError, showInfo } = useNotification();
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -51,21 +53,34 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
               if (err.code === -32002) return;
               throw err;
             });
+            showInfo(t('run-dkg.running'));
             break;
           case GuardianServerStatus.ReadyForConfigGen:
             setIsWaitingForOthers(true);
+            showInfo(t('run-dkg.waiting-for-others'));
             break;
           case GuardianServerStatus.VerifyingConfigs:
+            showSuccess(t('run-dkg.completed'));
             next();
             break;
-          case GuardianServerStatus.ConfigGenFailed:
-            setError(`${t('run-dkg.error-config')}`);
+          case GuardianServerStatus.ConfigGenFailed: {
+            const errorMessage = t('run-dkg.error-config');
+            setError(errorMessage);
+            showError(errorMessage);
             break;
-          default:
-            setError(`${t('run-dkg.error-default')} '${status.server}'`);
+          }
+          default: {
+            const defaultErrorMessage = `${t('run-dkg.error-default')} '${
+              status.server
+            }'`;
+            setError(defaultErrorMessage);
+            showError(defaultErrorMessage);
+          }
         }
       } catch (err) {
-        setError(formatApiErrorMessage(err));
+        const errorMessage = formatApiErrorMessage(err);
+        setError(errorMessage);
+        showError(errorMessage);
       }
       timeout = setTimeout(pollDkg, 3000);
     };
@@ -75,7 +90,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
       clearTimeout(timeout);
       canceled = true;
     };
-  }, [next, api, t]);
+  }, [next, api, t, showSuccess, showError, showInfo]);
 
   const progress = useMemo(() => {
     if (!peers.length) return 0;

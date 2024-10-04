@@ -30,6 +30,7 @@ import {
   useGuardianSetupApi,
   useGuardianSetupContext,
 } from '../../../../../context/hooks';
+import { useNotification } from '../../../../../home/NotificationProvider';
 
 interface Props {
   next: () => void;
@@ -37,7 +38,8 @@ interface Props {
 
 const MIN_BFT_NUM_PEERS = '4';
 
-export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
+export const SetConfiguration: React.FC<Props> = ({ next }) => {
+  const { showSuccess, showError } = useNotification();
   const { t } = useTranslation();
   const api = useGuardianSetupApi();
   const {
@@ -216,9 +218,12 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           },
         });
       }
+      showSuccess(t('set-config.success-message'));
       next();
     } catch (err) {
-      setError(formatApiErrorMessage(err));
+      const errorMessage = formatApiErrorMessage(err);
+      setError(errorMessage);
+      showError(errorMessage);
     }
   };
 
