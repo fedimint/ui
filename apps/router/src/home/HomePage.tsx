@@ -6,7 +6,6 @@ import { useAppContext } from '../context/hooks';
 import { EditServiceModal } from './modals/EditServiceModal';
 import { RemoveServiceModal } from './modals/RemoveServiceModal';
 import { NoConnectedServices } from './services/NoConnectedServices';
-import { ServiceTable } from './services/ServiceTable';
 import { useMasterPassword } from '../hooks/useMasterPassword';
 import { SetMasterPassword } from './SetMasterPassword';
 import { ServicesList } from './services/ServicesList';
@@ -64,14 +63,6 @@ export const HomePage: React.FC = () => {
           <ServicesList
             guardians={guardians}
             gateways={gateways}
-            setEditingService={setEditingService}
-            setRemovingService={setRemovingService}
-          />
-        )}
-        {Object.keys(gateways).length > 0 && (
-          <ServiceTable
-            services={gateways}
-            type='gateway'
             setEditingService={setEditingService}
             setRemovingService={setRemovingService}
           />
