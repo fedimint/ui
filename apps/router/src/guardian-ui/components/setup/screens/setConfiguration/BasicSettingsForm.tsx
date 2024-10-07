@@ -20,7 +20,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 interface BasicSettingsFormProps {
   myName: string;
   setMyName: (name: string) => void;
-  password: string | null;
+  password: string;
   setPassword: (password: string) => void;
 }
 
@@ -41,15 +41,20 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
       isOpen={true}
     >
       <FormControl>
-        <FormLabel>{t('set-config.guardian-name')}</FormLabel>
+        <FormLabel htmlFor='guardian-name'>
+          {t('set-config.guardian-name')}
+        </FormLabel>
         <Input
+          id='guardian-name'
           value={myName}
           onChange={(ev) => setMyName(ev.currentTarget.value)}
         />
         <FormHelperText>{t('set-config.guardian-name-help')}</FormHelperText>
       </FormControl>
       <FormControl>
-        <FormLabel>{t('set-config.admin-password')}</FormLabel>
+        <FormLabel htmlFor='admin-password'>
+          {t('set-config.admin-password')}
+        </FormLabel>
         {password === null ? (
           <Button onClick={() => setPassword(generatePassword())} w='100%'>
             {t('set-config.admin-password-generate')}
@@ -57,6 +62,7 @@ export const BasicSettingsForm: React.FC<BasicSettingsFormProps> = ({
         ) : (
           <InputGroup>
             <Input
+              id='admin-password'
               type={showPassword ? 'text' : 'password'}
               value={password}
               placeholder='Password'

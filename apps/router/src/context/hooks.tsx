@@ -40,6 +40,7 @@ import {
 import { GatewayContext, GatewayContextValue } from './gateway/GatewayContext';
 import { GatewayApi } from '../api/GatewayApi';
 import { useUnlockedService } from '../hooks/useUnlockedService';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 export function useAppContext(): AppContextValue {
   return useContext(AppContext);
@@ -302,6 +303,8 @@ export const useHandleBackgroundGuardianSetupActions = (
   toggleConsensusPolling: SetupContextValue['toggleConsensusPolling'];
 } => {
   const api = useGuardianApi();
+  const { id } = useGuardianContext();
+  const { storeGuardianPassword } = useAuthContext();
   const { password, myName } = state;
   const [isPollingConsensus, setIsPollingConsensus] = useState(false);
 
@@ -344,6 +347,7 @@ export const useHandleBackgroundGuardianSetupActions = (
     useCallback(
       async ({ password: newPassword, myName, configs }) => {
         if (!password) {
+          storeGuardianPassword(id, newPassword);
           await api.setPassword(newPassword);
 
           dispatch({
@@ -385,7 +389,7 @@ export const useHandleBackgroundGuardianSetupActions = (
           await fetchConsensusState();
         }
       },
-      [password, api, dispatch, fetchConsensusState]
+      [password, api, dispatch, fetchConsensusState, id, storeGuardianPassword]
     );
 
   const connectToHost = useCallback(

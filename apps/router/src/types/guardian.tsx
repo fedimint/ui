@@ -72,10 +72,11 @@ export interface tosConfigState {
 }
 
 export interface SetupState {
+  id: string;
   role: GuardianRole | null;
   progress: SetupProgress;
   myName: string;
-  password: string | null;
+  password: string;
   ourCurrentId: number | null;
   configGenParams: ConfigGenParams | null;
   numPeers: number;

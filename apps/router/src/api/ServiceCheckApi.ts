@@ -41,7 +41,7 @@ export class ServiceCheckApi {
         serviceType: 'guardian',
         serviceName: 'Guardian',
         status: result.server,
-        requiresPassword: result.server === 'awaiting_password',
+        requiresPassword: result.server !== 'awaiting_password',
       };
     } catch (error) {
       if (error instanceof JsonRpcError && error.code === -32600) {
@@ -62,15 +62,7 @@ export class ServiceCheckApi {
     websocket: JsonRpcWebsocket,
     password: string | null
   ) {
-    try {
-      return await websocket.call('status', [{ auth: password, params: null }]);
-    } catch (error) {
-      if (error instanceof JsonRpcError && error.code === -32600 && password) {
-        // If authentication fails with a password, try without it
-        return await websocket.call('status', [{ auth: null, params: null }]);
-      }
-      throw error;
-    }
+    return await websocket.call('status', [{ auth: password, params: null }]);
   }
 
   private async checkGateway(

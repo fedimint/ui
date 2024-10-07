@@ -155,7 +155,8 @@ export class GuardianApi {
   /*** Setup RPC methods ***/
 
   public setPassword = async (password: string): Promise<void> => {
-    return this.call(SetupRpc.setPassword, password);
+    this.password = password;
+    return this.call(SetupRpc.setPassword);
   };
 
   public setConfigGenConnections = async (
@@ -379,6 +380,7 @@ export class GuardianApi {
 
       return result;
     } catch (error: unknown) {
+      console.error('error auth', this.password);
       console.error(`error calling '${method}' on websocket rpc : `, error);
       throw 'error' in (error as { error: JsonRpcError })
         ? (error as { error: JsonRpcError }).error

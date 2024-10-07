@@ -30,11 +30,12 @@ function useInitialState(id: string): SetupState {
       .toString()
       .padStart(4, '0');
   let state: SetupState = {
+    id,
     role: null,
     progress: SetupProgress.Start,
     myName: randomName,
     configGenParams: null,
-    password: null,
+    password: '',
     numPeers: 0,
     peers: [],
     tosConfig: { showTos: false, tos: undefined },
@@ -106,11 +107,12 @@ export interface SetupContextValue {
 
 export const SetupContext = createContext<SetupContextValue>({
   state: {
+    id: '',
     role: null,
     progress: SetupProgress.Start,
     myName: '',
     configGenParams: null,
-    password: null,
+    password: '',
     numPeers: 0,
     peers: [],
     tosConfig: { showTos: false, tos: undefined },
@@ -140,7 +142,11 @@ export const SetupContextProvider: React.FC<SetupContextProviderProps> = ({
   const initialState = useInitialState(guardianId);
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
-    password: decryptedServicePassword || initialState.password,
+    id: guardianId,
+    password:
+      decryptedServicePassword !== null
+        ? decryptedServicePassword
+        : initialState.password,
   });
 
   useHandleSetupServerStatus(initServerStatus, dispatch);

@@ -30,6 +30,8 @@ import {
   useGuardianSetupApi,
   useGuardianSetupContext,
 } from '../../../../../context/hooks';
+import { useAuthContext } from '../../../../../hooks/useAuthContext';
+import { useUnlockedService } from '../../../../../hooks/useUnlockedService';
 
 interface Props {
   next: () => void;
@@ -42,19 +44,21 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
   const api = useGuardianSetupApi();
   const {
     state: {
+      id,
       role,
       configGenParams,
       myName: stateMyName,
-      password: statePassword,
       numPeers: stateNumPeers,
     },
     submitConfiguration,
   } = useGuardianSetupContext();
+  const { storeGuardianPassword } = useAuthContext();
   const theme = useTheme();
   const isHost = role === GuardianRole.Host;
   const isSolo = role === GuardianRole.Solo;
   const [myName, setMyName] = useState(stateMyName);
-  const [password, setPassword] = useState(statePassword);
+  const { decryptedServicePassword } = useUnlockedService(id, 'guardian');
+  const [password, setPassword] = useState(decryptedServicePassword);
   const [hostServerUrl, setHostServerUrl] = useState('');
   const [defaultParams, setDefaultParams] = useState<ConfigGenParams>();
   const [federationName, setFederationName] = useState('');
@@ -115,14 +119,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     }
   }, [configGenParams, api]);
 
-  // Update password when updated from state
-  useEffect(() => {
-    setPassword(statePassword);
-  }, [statePassword]);
-
   const hostCriteria = [
     myName,
-    password,
     federationName,
     isValidNumber(numPeers, 4),
     isValidNumber(blockConfirmations, 0, 200),
@@ -132,7 +130,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
 
   const soloCriteria = [
     myName,
-    password,
     federationName,
     isValidNumber(blockConfirmations, 0, 200),
     isValidMeta(metaFields),
@@ -161,6 +158,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
 
   const submitConfig = async () => {
     if (password === null) return;
+    // Update the password in the auth context and the guardian api
+    storeGuardianPassword(id, password);
     setError(undefined);
     try {
       if (!defaultParams)
@@ -191,6 +190,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       if (isHost || isSolo) {
         // Hosts set their own connection name
         // - They should submit both their local and the consensus config gen params.
+        console.log('submitConfig', password);
         await submitConfiguration({
           myName,
           password,
@@ -216,6 +216,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           },
         });
       }
+
       next();
     } catch (err) {
       setError(formatApiErrorMessage(err));
@@ -254,7 +255,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       <BasicSettingsForm
         myName={myName}
         setMyName={setMyName}
-        password={password}
+        password={password ?? ''}
         setPassword={setPassword}
       />
       <Button
