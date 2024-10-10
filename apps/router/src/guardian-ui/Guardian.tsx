@@ -11,7 +11,7 @@ import { GUARDIAN_APP_ACTION_TYPE, GuardianStatus } from '../types/guardian';
 import { formatApiErrorMessage } from './utils/api';
 
 export const Guardian: React.FC = () => {
-  const { api, state, dispatch } = useGuardianContext();
+  const { api, state, dispatch, id } = useGuardianContext();
   useLoadGuardian();
   const { t } = useTranslation();
 
@@ -37,6 +37,7 @@ export const Guardian: React.FC = () => {
     if (state.needsAuth) {
       return (
         <Login
+          serviceId={id}
           checkAuth={(password) => api.testPassword(password || '')}
           setAuthenticated={() =>
             dispatch({
@@ -78,6 +79,7 @@ export const Guardian: React.FC = () => {
     api,
     dispatch,
     t,
+    id,
   ]);
 
   return (
