@@ -33,7 +33,7 @@ export class GatewayApi {
     if (!tempPassword) {
       return false;
     }
-    console.log('setting password for gateway', this.id, tempPassword);
+
     // Replace with temp password to check.
     sessionStorage.setItem(this.id, tempPassword);
 
@@ -406,7 +406,6 @@ export class GatewayApi {
 
       if (res.ok) {
         const result = await res.json();
-        console.log('sendPaymentV2 result:', result);
         return Promise.resolve(result);
       }
 

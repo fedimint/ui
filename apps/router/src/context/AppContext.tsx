@@ -226,7 +226,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
           handleConfig(data);
         } catch (error) {
           console.error('Error parsing config JSON:', error);
-          console.log('Raw config content:', text);
         }
       })
       .catch((error) => {
