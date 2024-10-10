@@ -9,19 +9,13 @@ import { GuardianConfig } from '../types/guardian';
 import { GatewayConfig } from '../types/gateway';
 import { sha256Hash } from '@fedimint/utils';
 
-type Service = GuardianConfig | GatewayConfig;
-
-export interface Guardian {
-  config: GuardianConfig;
-}
-
-export interface Gateway {
-  config: GatewayConfig;
+interface ServiceConfig {
+  baseUrl: string;
 }
 
 export interface AppContextValue {
-  guardians: Record<string, Guardian>;
-  gateways: Record<string, Gateway>;
+  guardians: Record<string, GuardianConfig>;
+  gateways: Record<string, GatewayConfig>;
   dispatch: Dispatch<AppAction>;
 }
 
@@ -60,14 +54,14 @@ export type AppAction =
       type: APP_ACTION_TYPE.ADD_GUARDIAN;
       payload: {
         id: string;
-        guardian: Guardian;
+        guardian: GuardianConfig;
       };
     }
   | {
       type: APP_ACTION_TYPE.ADD_GATEWAY;
       payload: {
         id: string;
-        gateway: Gateway;
+        gateway: GatewayConfig;
       };
     }
   | {
@@ -82,14 +76,14 @@ export type AppAction =
       type: APP_ACTION_TYPE.UPDATE_GUARDIAN;
       payload: {
         id: string;
-        guardian: Guardian;
+        guardian: GuardianConfig;
       };
     }
   | {
       type: APP_ACTION_TYPE.UPDATE_GATEWAY;
       payload: {
         id: string;
-        gateway: Gateway;
+        gateway: GatewayConfig;
       };
     };
 
@@ -179,29 +173,29 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   );
 
   useEffect(() => {
-    const isGuardian = (service: Service): service is GuardianConfig =>
+    const isGuardian = (service: ServiceConfig) =>
       service.baseUrl.startsWith('ws');
-    const isGateway = (service: Service): service is GatewayConfig =>
+    const isGateway = (service: ServiceConfig) =>
       service.baseUrl.startsWith('http');
-    const addService = async (service: Service) => {
+    const addService = async (service: ServiceConfig) => {
       const id = await sha256Hash(service.baseUrl);
 
       if (isGuardian(service)) {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
-          payload: { id, guardian: { config: service as GuardianConfig } },
+          payload: { id, guardian: { id, config: service } },
         });
       } else if (isGateway(service)) {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GATEWAY,
-          payload: { id, gateway: { config: service as GatewayConfig } },
+          payload: { id, gateway: { id, config: service } },
         });
       } else {
         throw new Error(`Invalid service baseUrl in config.json: ${service}`);
       }
     };
 
-    const handleConfig = (data: Service | Service[]) => {
+    const handleConfig = (data: ServiceConfig | ServiceConfig[]) => {
       const services = Array.isArray(data) ? data : [data];
       services.forEach((service) => {
         addService(service);

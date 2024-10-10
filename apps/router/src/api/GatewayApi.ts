@@ -20,87 +20,116 @@ export const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
 // GatewayApi is an implementation of the ApiInterface
 export class GatewayApi {
-  private baseUrl: string;
+  public config: GatewayConfig;
+  private password: string | null;
 
-  constructor(config: GatewayConfig) {
-    this.baseUrl = config.baseUrl;
+  constructor(config: GatewayConfig, password: string | null) {
+    this.config = config;
+    this.password = password;
   }
 
   // Tests a provided password or the one in session storage
-  testPassword = async (password?: string): Promise<boolean> => {
-    const tempPassword = password || this.getPassword();
+  testPassword = async (password: string): Promise<boolean> => {
+    const tempPassword = password || this.password;
 
     if (!tempPassword) {
       return false;
     }
 
-    // Replace with temp password to check.
-    sessionStorage.setItem(SESSION_STORAGE_KEY, tempPassword);
-
     try {
-      await this.fetchInfo();
+      await this.fetchInfo(tempPassword);
       return true;
     } catch (err) {
       // TODO: make sure error is auth error, not unrelated
       console.error(err);
-      this.clearPassword();
       return false;
     }
   };
 
-  private getPassword = (): string | null => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY);
+  private async fetchWithFibonacciBackoff(
+    url: string,
+    options: RequestInit
+  ): Promise<Response> {
+    const maxAttempts = 10;
+    const fibonacci = (n: number): number => {
+      if (n <= 1) return n;
+      let a = 0,
+        b = 1;
+      for (let i = 2; i <= n; i++) {
+        const temp = a + b;
+        a = b;
+        b = temp;
+      }
+      return b;
+    };
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response;
+      } catch (error) {
+        if (attempt === maxAttempts - 1) throw error;
+        const backoffTime = fibonacci(attempt + 1) * 1000; // Convert to milliseconds
+        console.warn(
+          `Attempt ${attempt + 1} failed. Retrying in ${backoffTime}ms...`
+        );
+        await new Promise((resolve) => setTimeout(resolve, backoffTime));
+      }
+    }
+    throw new Error('Max retry attempts reached');
+  }
+
+  private post = async (
+    api: string,
+    body: unknown,
+    password?: string
+  ): Promise<Response> => {
+    if (this.config.config.baseUrl === undefined) {
+      throw new Error(
+        'Misconfigured Gateway API. Make sure FM_GATEWAY_API is configured appropriately'
+      );
+    }
+    if (this.password === null) {
+      throw new Error('Password is null');
+    }
+
+    const tempPassword = password || this.password;
+
+    return this.fetchWithFibonacciBackoff(
+      `${this.config.config.baseUrl}/${api}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tempPassword}`,
+        },
+        body: JSON.stringify(body),
+      }
+    );
   };
 
-  clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
-  };
-
-  private post = async (api: string, body: unknown): Promise<Response> => {
-    if (this.baseUrl === undefined) {
+  private get = async (api: string, password?: string): Promise<Response> => {
+    if (this.config.config.baseUrl === undefined) {
       throw new Error(
         'Misconfigured Gateway API. Make sure FM_GATEWAY_API is configured appropriately'
       );
     }
 
-    const password = this.getPassword();
-    if (!password) {
-      throw new Error(
-        'Misconfigured Gateway API. Make sure gateway password is configured appropriately'
-      );
-    }
+    const tempPassword = password || this.password;
 
-    return fetch(`${this.baseUrl}/${api}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${password}`,
-      },
-      body: JSON.stringify(body),
-    });
-  };
-
-  private get = async (api: string): Promise<Response> => {
-    if (this.baseUrl === undefined) {
-      throw new Error(
-        'Misconfigured Gateway API. Make sure FM_GATEWAY_API is configured appropriately'
-      );
-    }
-
-    const password = this.getPassword();
-    if (!password) {
-      throw new Error(
-        'Misconfigured Gateway API. Make sure gateway password is configured appropriately'
-      );
-    }
-
-    return fetch(`${this.baseUrl}/${api}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${password}`,
-      },
-    });
+    return this.fetchWithFibonacciBackoff(
+      `${this.config.config.baseUrl}/${api}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tempPassword}`,
+        },
+      }
+    );
   };
 
   /**
@@ -227,9 +256,9 @@ export class GatewayApi {
     }
   };
 
-  fetchInfo = async (): Promise<GatewayInfo> => {
+  fetchInfo = async (password?: string): Promise<GatewayInfo> => {
     try {
-      const res: Response = await this.get('info');
+      const res: Response = await this.get('info', password);
 
       if (res.ok) {
         const info: GatewayInfo = await res.json();

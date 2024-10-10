@@ -6,7 +6,6 @@ import React, {
   useReducer,
 } from 'react';
 import { useGatewayConfig } from '../hooks';
-import { GatewayApi } from '../../api/GatewayApi';
 import {
   GATEWAY_APP_ACTION_TYPE,
   GatewayAppAction,
@@ -14,6 +13,8 @@ import {
   GatewayStatus,
 } from '../../types/gateway';
 import { useLocation } from 'react-router-dom';
+import { GatewayApi } from '../../api/GatewayApi';
+import { useUnlockedService } from '../../hooks/useUnlockedService';
 
 export interface GatewayContextValue {
   id: string;
@@ -65,8 +66,15 @@ export const GatewayContextProvider: React.FC<GatewayContextProviderProps> = ({
   const [state, dispatch] = useReducer(reducer, initialState);
   const location = useLocation();
   const gatewayId = location.pathname.split('/')[2];
+  const { decryptedServicePassword } = useUnlockedService(gatewayId, 'gateway');
   const config = useGatewayConfig(gatewayId);
-  const gatewayApi = useMemo(() => new GatewayApi(config), [config]);
+  if (decryptedServicePassword !== null) {
+    dispatch({ type: GATEWAY_APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: false });
+  }
+  const gatewayApi = useMemo(
+    () => new GatewayApi(config, decryptedServicePassword),
+    [config, decryptedServicePassword]
+  );
 
   return (
     <GatewayContext.Provider

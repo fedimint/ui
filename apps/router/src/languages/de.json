@@ -30,7 +30,8 @@
     "view": "Ansicht",
     "check": "Überprüfen",
     "connect": "Verbinden",
-    "password": "Passwort"
+    "password": "Passwort",
+    "status": "Status"
   },
   "notConfigured": {
     "title": "Nicht konfiguriert",
@@ -510,7 +511,8 @@
       "helper-text": "Wird wss:// für Guardian oder https:// für Gateway sein",
       "service-type-label": "Dienstleistungsart",
       "service-name-label": "Dienstname",
-      "sync-status-label": "Synchronisationsstatus"
+      "status-label": "Status",
+      "valid-service-password-hint": "Gültiger Service, geben Sie das konfigurierte Passwort des Dienstes ein (spezifisch für jeden Dienst)"
     },
     "remove-service-modal": {
       "title": "Entfernen Sie {{type}}",
@@ -518,7 +520,21 @@
     },
     "edit-service-modal": {
       "title": "Bearbeiten {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Passwort"
+    },
+    "setup-state": "Einrichtungszustand",
+    "master-password": {
+      "master-password-explainer": "Legen Sie ein Master-Passwort für die Benutzeroberfläche fest, um verschlüsselte Anmeldedaten für jeden Ihrer Dienste zu speichern. Jeder Dienst wird sein eigenes Passwort haben, wenn Sie es verbinden, das Master-Passwort wird nur für diese Benutzeroberfläche verwendet.",
+      "master-password": "Master-Passwort",
+      "enter-master-password": "Master-Passwort eingeben",
+      "create-master-password": "Master-Passwort erstellen",
+      "confirm-master-password": "Master-Passwort bestätigen",
+      "set-master-password": "Master-Passwort festlegen",
+      "password-mismatch": "Passwörter stimmen nicht überein",
+      "password-too-short": "Das Passwort muss mindestens 8 Zeichen lang sein",
+      "password-label": "Passwort",
+      "unlock-services": "Dienste entsperren"
     }
   }
 }

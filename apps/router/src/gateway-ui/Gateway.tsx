@@ -15,9 +15,11 @@ import { useGatewayContext, useLoadGateway } from '../context/hooks';
 import { ErrorMessage } from './components/ErrorMessage';
 import { Login } from '@fedimint/ui';
 import { GATEWAY_APP_ACTION_TYPE } from '../types/gateway';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 export const Gateway = () => {
-  const { state, dispatch, api } = useGatewayContext();
+  const { state, dispatch, api, id } = useGatewayContext();
+  const { storeGatewayPassword } = useAuthContext();
   const [showConnectFed, setShowConnectFed] = useState(false);
   const [walletModalState, setWalletModalState] = useState<WalletModalState>({
     isOpen: false,
@@ -30,13 +32,14 @@ export const Gateway = () => {
   if (state.needsAuth) {
     return (
       <Login
-        checkAuth={api.testPassword}
-        setAuthenticated={() =>
+        checkAuth={(password) => api.testPassword(password ?? '')}
+        setAuthenticated={(password) => {
+          storeGatewayPassword(id, password);
           dispatch({
             type: GATEWAY_APP_ACTION_TYPE.SET_NEEDS_AUTH,
             payload: false,
-          })
-        }
+          });
+        }}
         parseError={(err) => (err as Error).message}
       />
     );

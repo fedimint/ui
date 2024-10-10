@@ -30,7 +30,8 @@
     "view": "Vista",
     "check": "Verifica",
     "connect": "Collegare",
-    "password": "Contraseña"
+    "password": "Contraseña",
+    "status": "Stato"
   },
   "notConfigured": {
     "title": "Non configurato",
@@ -510,7 +511,8 @@
       "helper-text": "Sarà wss:// per guardian o https:// per gateway",
       "service-type-label": "Tipo di servizio",
       "service-name-label": "Nome del servizio",
-      "sync-status-label": "Stato di sincronizzazione"
+      "status-label": "Stato",
+      "valid-service-password-hint": "Servizio valido, inserisci la password configurata per il servizio (specifica per ogni servizio)"
     },
     "remove-service-modal": {
       "title": "Rimuovi {{type}}",
@@ -518,7 +520,21 @@
     },
     "edit-service-modal": {
       "title": "Modifica {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Parola d'ordine"
+    },
+    "setup-state": "Configura Stato",
+    "master-password": {
+      "master-password-explainer": "Imposta una password principale per l'interfaccia utente per memorizzare le credenziali crittografate per ciascuno dei tuoi servizi. Ogni servizio avrà la sua password quando lo colleghi, la password principale viene utilizzata solo per questa interfaccia utente.",
+      "master-password": "Password principale",
+      "enter-master-password": "Inserisci la password principale",
+      "create-master-password": "Crea Password Principale",
+      "confirm-master-password": "Conferma la password principale",
+      "set-master-password": "Imposta la password principale",
+      "password-mismatch": "Le password non corrispondono",
+      "password-too-short": "La password deve essere lunga almeno 8 caratteri",
+      "password-label": "Parola d'ordine",
+      "unlock-services": "Sblocca Servizi"
     }
   }
 }

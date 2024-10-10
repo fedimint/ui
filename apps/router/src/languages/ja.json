@@ -30,7 +30,8 @@
     "view": "表示",
     "check": "チェック",
     "connect": "接続する",
-    "password": "パスワード"
+    "password": "パスワード",
+    "status": "ステータス"
   },
   "notConfigured": {
     "title": "設定されていません",
@@ -510,7 +511,8 @@
       "helper-text": "ガーディアンの場合はwss://、ゲートウェイの場合はhttps://になります。",
       "service-type-label": "サービスタイプ",
       "service-name-label": "サービス名",
-      "sync-status-label": "同期状況"
+      "status-label": "ステータス",
+      "valid-service-password-hint": "有効なサービス、サービスごとに設定されたパスワードを入力してください。"
     },
     "remove-service-modal": {
       "title": "{{type}}を削除する",
@@ -518,7 +520,21 @@
     },
     "edit-service-modal": {
       "title": "{{type}}を編集する",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "パスワード"
+    },
+    "setup-state": "設定状態",
+    "master-password": {
+      "master-password-explainer": "各サービスの暗号化された認証情報を保存するためのUIのマスターパスワードを設定します。接続する各サービスはそれぞれ独自のパスワードを持ち、マスターパスワードはこのUIのためだけに使用されます。",
+      "master-password": "マスターパスワード",
+      "enter-master-password": "マスターパスワードを入力してください",
+      "create-master-password": "マスターパスワードを作成する",
+      "confirm-master-password": "マスターパスワードを確認してください",
+      "set-master-password": "マスターパスワードを設定する",
+      "password-mismatch": "パスワードが一致しません",
+      "password-too-short": "パスワードは最低8文字以上でなければなりません",
+      "password-label": "パスワード",
+      "unlock-services": "サービスのロックを解除する"
     }
   }
 }

@@ -1,8 +1,9 @@
 {
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
+    # TODO: switch back to a tagged release once we cut 0.5.0
     fedimint.url =
-      "github:fedimint/fedimint?ref=refs/tags/v0.4.3";
+      "github:fedimint/fedimint?rev=a8bac6b97ae4b1ed2bd85f8f04ac89c348f38343";
   };
   outputs = { self, flake-utils, fedimint }:
     flake-utils.lib.eachDefaultSystem (system:

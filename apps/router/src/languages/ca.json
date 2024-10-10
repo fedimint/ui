@@ -30,7 +30,8 @@
     "view": "Veure",
     "check": "Comprova",
     "connect": "Connecta",
-    "password": "Contrasenya"
+    "password": "Contrasenya",
+    "status": "Estat"
   },
   "notConfigured": {
     "title": "No configurat",
@@ -510,7 +511,8 @@
       "helper-text": "Serà wss:// per a guardian o https:// per a passarel·la",
       "service-type-label": "Tipus de servei",
       "service-name-label": "Nom del Servei",
-      "sync-status-label": "Estat de sincronització"
+      "status-label": "Estat",
+      "valid-service-password-hint": "Servei vàlid, introduïu la contrasenya configurada del servei (específica per a cada servei)"
     },
     "remove-service-modal": {
       "title": "Elimina {{type}}",
@@ -518,7 +520,21 @@
     },
     "edit-service-modal": {
       "title": "Edita {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Contrasenya"
+    },
+    "setup-state": "Configurar l'estat",
+    "master-password": {
+      "master-password-explainer": "Estableix una contrasenya mestra per a la interfície d'usuari per emmagatzemar les credencials encriptades per a cadascun dels teus serveis. Cada servei tindrà la seva pròpia contrasenya quan el connectis, la contrasenya mestra només s'utilitza per a aquesta interfície d'usuari.",
+      "master-password": "Contrasenya Mestra",
+      "enter-master-password": "Introduïu la contrasenya mestra",
+      "create-master-password": "Crea una contrasenya mestra",
+      "confirm-master-password": "Confirma la contrasenya mestra",
+      "set-master-password": "Estableix la contrasenya mestra",
+      "password-mismatch": "Les contrasenyes no coincideixen",
+      "password-too-short": "La contrasenya ha de tenir com a mínim 8 caràcters.",
+      "password-label": "Contrasenya",
+      "unlock-services": "Desbloquejar Serveis"
     }
   }
 }

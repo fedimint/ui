@@ -18,6 +18,8 @@
     "you": "You",
     "close": "Close",
     "save": "Save",
+    "setup": "Setup",
+    "status": "Status",
     "continue": "Continue",
     "submit": "Submit",
     "address": "Address",
@@ -193,10 +195,19 @@
     "addService": "Add a Service",
     "guardians": "Guardians",
     "guardianUrl": "Guardian URL",
+    "setup-state": "Setup State",
     "actions": "Actions",
     "view": "View",
     "gateways": "Gateways",
     "gatewayUrl": "Gateway URL",
+    "no-services": "No Connected Services",
+    "federation-services-description": "A Fedimint federation consists of two types of services:",
+    "guardians-title": "Guardians:",
+    "guardians-description": "Responsible for running the Fedimint protocol, custodying funds, and managing the minting and redemption of eCash notes. They use distributed consensus to secure the federation.",
+    "gateways-title": "Gateways (Lightning Service Providers):",
+    "gateways-description": "Bridge between the Fedimint and the Lightning Network, allowing users to send and receive Lightning payments. They can be run by the federation or independent providers.",
+    "learn-more-text": "You can learn more about how to set up Fedimint services here:",
+    "learn-more-link": "Learn how to set up Fedimint services",
     "connect-service-modal": {
       "label": "Connect a Service",
       "title": "Connect a Fedimint Service",
@@ -204,7 +215,20 @@
       "helper-text": "Will be wss:// for guardian or https:// for gateway",
       "service-type-label": "Service Type",
       "service-name-label": "Service Name",
-      "sync-status-label": "Sync Status"
+      "status-label": "Status",
+      "valid-service-password-hint": "Valid service, enter the service's configured password (specific for each service)"
+    },
+    "master-password": {
+      "master-password-explainer": "Set a master password for the UI to store encrypted credentials for each of your services. Each service will have its own password when you connect it, the master password is only used for this UI.",
+      "master-password": "Master Password",
+      "enter-master-password": "Enter Master Password",
+      "create-master-password": "Create Master Password",
+      "confirm-master-password": "Confirm Master Password",
+      "set-master-password": "Set Master Password",
+      "password-mismatch": "Passwords do not match",
+      "password-too-short": "Password must be at least 8 characters long",
+      "password-label": "Password",
+      "unlock-services": "Unlock Services"
     },
     "remove-service-modal": {
       "title": "Remove {{type}}",
@@ -212,7 +236,8 @@
     },
     "edit-service-modal": {
       "title": "Edit {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Password"
     }
   },
   "login": {
@@ -520,5 +545,9 @@
     "withdrawal-created-description": "Please check your transaction history",
     "withdrawal-history": "Withdrawal History",
     "your-transaction": "Your transaction ID:"
+  },
+  "errors": {
+    "auth-error": "Authentication Error",
+    "auth-error-message": "Please check that your connection URL and password are correct, then try again."
   }
 }

@@ -30,7 +30,8 @@
     "view": "Просмотр",
     "check": "Проверьте",
     "connect": "Подключить",
-    "password": "Пароль"
+    "password": "Пароль",
+    "status": "Статус"
   },
   "notConfigured": {
     "title": "Не настроено",
@@ -510,7 +511,8 @@
       "helper-text": "Будет wss:// для защитника или https:// для шлюза",
       "service-type-label": "Тип услуги",
       "service-name-label": "Название услуги",
-      "sync-status-label": "Статус синхронизации"
+      "status-label": "Статус",
+      "valid-service-password-hint": "Действующий сервис, введите настроенный пароль для сервиса (специфический для каждого сервиса)"
     },
     "remove-service-modal": {
       "title": "Удалить {{type}}",
@@ -518,7 +520,21 @@
     },
     "edit-service-modal": {
       "title": "Редактировать {{type}}",
-      "url-label": "URL"
+      "url-label": "URL",
+      "password-label": "Пароль"
+    },
+    "setup-state": "Состояние настройки",
+    "master-password": {
+      "master-password-explainer": "Установите мастер-пароль для пользовательского интерфейса, чтобы хранить зашифрованные учетные данные для каждого из ваших сервисов. Каждый сервис будет иметь свой собственный пароль при подключении, мастер-пароль используется только для этого интерфейса.",
+      "master-password": "Мастер-пароль",
+      "enter-master-password": "Введите мастер-пароль",
+      "create-master-password": "Создать мастер-пароль",
+      "confirm-master-password": "Подтвердите мастер-пароль",
+      "set-master-password": "Установить мастер-пароль",
+      "password-mismatch": "Пароли не совпадают",
+      "password-too-short": "Пароль должен быть не менее 8 символов в длину.",
+      "password-label": "Пароль",
+      "unlock-services": "Разблокировка услуг"
     }
   }
 }

@@ -39,14 +39,11 @@ import {
 } from '../types/gateway';
 import { GatewayContext, GatewayContextValue } from './gateway/GatewayContext';
 import { GatewayApi } from '../api/GatewayApi';
+import { useUnlockedService } from '../hooks/useUnlockedService';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 export function useAppContext(): AppContextValue {
   return useContext(AppContext);
-}
-
-export function useAppGuardianConfigs(): GuardianConfig[] {
-  const { guardians } = useAppContext();
-  return Object.values(guardians).map((guardian) => guardian.config);
 }
 
 export function useNumberOfGuardians(): number {
@@ -61,14 +58,14 @@ export const useGuardianConfig = (id: string): GuardianConfig => {
   const { guardians } = useAppContext();
   if (!guardians[id])
     throw new Error('useGuardianConfig must be used with a selected guardian');
-  return guardians[id].config;
+  return { id, config: guardians[id].config };
 };
 
 export const useGatewayConfig = (id: string): GatewayConfig => {
   const { gateways } = useAppContext();
   if (!gateways[id])
     throw new Error('useGatewayConfig must be used with a selected gateway');
-  return gateways[id].config;
+  return { id, config: gateways[id].config };
 };
 
 export const useGuardianDispatch = (): Dispatch<GuardianAppAction> => {
@@ -81,21 +78,20 @@ export const useGuardianDispatch = (): Dispatch<GuardianAppAction> => {
 };
 
 export const useLoadGuardian = (): void => {
-  const guardianApi = useGuardianApi();
-  const guardianState = useGuardianState();
-  const dispatch = useGuardianDispatch();
+  const { api, state, dispatch, id } = useGuardianContext();
+  const { decryptedServicePassword } = useUnlockedService(id, 'guardian');
+
   useEffect(() => {
     const load = async () => {
       try {
-        await guardianApi.connect();
-        const server = (await guardianApi.status()).server;
+        await api.connect();
+        const server = (await api.status()).server;
 
         // If they're at a point where a password has been configured, make
         // sure they have a valid password set. If not, set needsAuth.
         if (server !== GuardianServerStatus.AwaitingPassword) {
-          const password = guardianApi.getPassword();
-          const hasValidPassword = password
-            ? await guardianApi.testPassword(password)
+          const hasValidPassword = decryptedServicePassword
+            ? await api.testPassword(decryptedServicePassword)
             : false;
           if (!hasValidPassword) {
             dispatch({
@@ -129,10 +125,10 @@ export const useLoadGuardian = (): void => {
       }
     };
 
-    if (guardianState.status === GuardianStatus.Loading) {
+    if (state.status === GuardianStatus.Loading) {
       load().catch((err) => console.error(err));
     }
-  }, [guardianState.status, guardianApi, dispatch]);
+  }, [state.status, api, dispatch, id, decryptedServicePassword]);
 };
 
 export const useGuardianContext = (): GuardianContextValue => {
@@ -235,11 +231,12 @@ export const useHandleSetupServerStatus = (
 };
 
 export const useUpdateLocalStorageOnSetupStateChange = (
+  id: string,
   state: SetupState
 ): void => {
   useEffect(() => {
     localStorage.setItem(
-      LOCAL_STORAGE_SETUP_KEY,
+      `${LOCAL_STORAGE_SETUP_KEY}-${id}`,
       JSON.stringify({
         role: state.role,
         progress: state.progress,
@@ -254,7 +251,7 @@ export const useUpdateLocalStorageOnSetupStateChange = (
       // Clear local storage on setup complete.
       // This happens when we transition to admin experience.
       if (state.progress === SetupProgress.SetupComplete) {
-        localStorage.removeItem(LOCAL_STORAGE_SETUP_KEY);
+        localStorage.removeItem(`${LOCAL_STORAGE_SETUP_KEY}-${id}`);
       }
     };
   }, [
@@ -264,6 +261,7 @@ export const useUpdateLocalStorageOnSetupStateChange = (
     state.numPeers,
     state.configGenParams,
     state.ourCurrentId,
+    id,
   ]);
 };
 
@@ -297,6 +295,8 @@ export const useHandleBackgroundGuardianSetupActions = (
   toggleConsensusPolling: SetupContextValue['toggleConsensusPolling'];
 } => {
   const api = useGuardianApi();
+  const { id } = useGuardianContext();
+  const { storeGuardianPassword } = useAuthContext();
   const { password, myName } = state;
   const [isPollingConsensus, setIsPollingConsensus] = useState(false);
 
@@ -339,6 +339,7 @@ export const useHandleBackgroundGuardianSetupActions = (
     useCallback(
       async ({ password: newPassword, myName, configs }) => {
         if (!password) {
+          storeGuardianPassword(id, newPassword);
           await api.setPassword(newPassword);
 
           dispatch({
@@ -380,7 +381,7 @@ export const useHandleBackgroundGuardianSetupActions = (
           await fetchConsensusState();
         }
       },
-      [password, api, dispatch, fetchConsensusState]
+      [password, api, dispatch, fetchConsensusState, id, storeGuardianPassword]
     );
 
   const connectToHost = useCallback(

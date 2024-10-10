@@ -2,6 +2,7 @@ import React, {
   createContext,
   Dispatch,
   ReactNode,
+  useEffect,
   useMemo,
   useReducer,
 } from 'react';
@@ -14,6 +15,7 @@ import {
 } from '../../types/guardian';
 import { useGuardianConfig } from '../hooks';
 import { useLocation } from 'react-router-dom';
+import { useUnlockedService } from '../../hooks/useUnlockedService';
 
 export interface GuardianContextValue {
   id: string;
@@ -59,8 +61,24 @@ export const GuardianContextProvider: React.FC<
   const [state, dispatch] = useReducer(reducer, initialState);
   const location = useLocation();
   const guardianId = location.pathname.split('/')[2];
+  const { decryptedServicePassword } = useUnlockedService(
+    guardianId,
+    'guardian'
+  );
   const config = useGuardianConfig(guardianId);
-  const guardianApi = useMemo(() => new GuardianApi(config), [config]);
+  useEffect(() => {
+    if (decryptedServicePassword) {
+      dispatch({
+        type: GUARDIAN_APP_ACTION_TYPE.SET_NEEDS_AUTH,
+        payload: false,
+      });
+    }
+  }, [decryptedServicePassword]);
+
+  const guardianApi = useMemo(
+    () => new GuardianApi(config, decryptedServicePassword),
+    [config, decryptedServicePassword]
+  );
 
   return (
     <GuardianContext.Provider

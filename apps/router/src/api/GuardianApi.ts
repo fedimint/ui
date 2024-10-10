@@ -26,23 +26,51 @@ export const SESSION_STORAGE_KEY = 'guardian-ui-key';
 export class GuardianApi {
   private websocket: JsonRpcWebsocket | null = null;
   private connectPromise: Promise<JsonRpcWebsocket> | null = null;
+  private guardian: GuardianConfig;
+  private password: string | null;
 
-  constructor(private guardianConfig: GuardianConfig) {}
+  constructor(config: GuardianConfig, password: string | null) {
+    this.guardian = config;
+    this.password = password;
+  }
 
   /*** WebSocket methods ***/
 
-  public connect = async (): Promise<JsonRpcWebsocket> => {
-    if (this.websocket !== null) {
-      return this.websocket;
-    }
-    if (this.connectPromise) {
-      return await this.connectPromise;
-    }
+  private async connectWithFibonacciBackoff(): Promise<JsonRpcWebsocket> {
+    const maxAttempts = 10;
+    const fibonacci = (n: number): number => {
+      if (n <= 1) return n;
+      let a = 0,
+        b = 1;
+      for (let i = 2; i <= n; i++) {
+        const temp = a + b;
+        a = b;
+        b = temp;
+      }
+      return b;
+    };
 
-    this.connectPromise = new Promise((resolve, reject) => {
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const websocket = await this.attemptConnection();
+        return websocket;
+      } catch (error) {
+        if (attempt === maxAttempts - 1) throw error;
+        const backoffTime = fibonacci(attempt + 1) * 1000; // Convert to milliseconds
+        console.warn(
+          `Attempt ${attempt + 1} failed. Retrying in ${backoffTime}ms...`
+        );
+        await new Promise((resolve) => setTimeout(resolve, backoffTime));
+      }
+    }
+    throw new Error('Max retry attempts reached');
+  }
+
+  private attemptConnection(): Promise<JsonRpcWebsocket> {
+    return new Promise((resolve, reject) => {
       const requestTimeoutMs = 1000 * 60 * 60 * 5; // 5 minutes, dkg can take a while
       const websocket = new JsonRpcWebsocket(
-        this.guardianConfig.baseUrl,
+        this.guardian.config.baseUrl,
         requestTimeoutMs,
         (error: JsonRpcError) => {
           console.error('failed to create websocket', error);
@@ -53,8 +81,7 @@ export class GuardianApi {
       websocket
         .open()
         .then(() => {
-          this.websocket = websocket;
-          resolve(this.websocket);
+          resolve(websocket);
         })
         .catch((error) => {
           console.error('failed to open websocket', error);
@@ -65,8 +92,25 @@ export class GuardianApi {
           );
         });
     });
+  }
 
-    return this.connectPromise;
+  public connect = async (): Promise<JsonRpcWebsocket> => {
+    if (this.websocket !== null) {
+      return this.websocket;
+    }
+    if (this.connectPromise) {
+      return await this.connectPromise;
+    }
+
+    this.connectPromise = this.connectWithFibonacciBackoff();
+
+    try {
+      this.websocket = await this.connectPromise;
+      return this.websocket;
+    } catch (error) {
+      this.connectPromise = null;
+      throw error;
+    }
   };
 
   private shutdown_internal = async (): Promise<boolean> => {
@@ -82,34 +126,26 @@ export class GuardianApi {
     return true;
   };
 
-  public getPassword = (): string | null => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY);
-  };
-
   public testPassword = async (password: string): Promise<boolean> => {
-    // Replace with password to check.
-    sessionStorage.setItem(SESSION_STORAGE_KEY, password);
-
     // Attempt a 'status' rpc call with the temporary password.
     try {
-      await this.auth();
+      await this.auth_test(password);
       return true;
     } catch (err) {
       // TODO: make sure error is auth error, not unrelated
-      this.clearPassword();
+      console.error(err);
       return false;
     }
   };
+  /*** Shared RPC methods */
 
-  private clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+  /*** Shared RPC methods */
+  auth = async (): Promise<void> => {
+    return this.call(SharedRpc.auth);
   };
 
-  /*** Shared RPC methods */
-
-  /*** Shared RPC methods */
-  auth = (): Promise<void> => {
-    return this.call(SharedRpc.auth);
+  auth_test = async (password: string): Promise<void> => {
+    return this.call_test(SharedRpc.auth, password);
   };
 
   status = (): Promise<StatusResponse> => {
@@ -119,16 +155,8 @@ export class GuardianApi {
   /*** Setup RPC methods ***/
 
   public setPassword = async (password: string): Promise<void> => {
-    // Save password to session storage so that it's included in the r[c] call
-    sessionStorage.setItem(SESSION_STORAGE_KEY, password);
-
-    try {
-      await this.call(SetupRpc.setPassword);
-    } catch (err) {
-      // If the call failed, clear the password first then re-throw
-      this.clearPassword();
-      throw err;
-    }
+    this.password = password;
+    return this.call(SetupRpc.setPassword);
   };
 
   public setConfigGenConnections = async (
@@ -181,7 +209,7 @@ export class GuardianApi {
     const maxTries = 10;
     const attemptConfirmConsensusRunning = async (): Promise<void> => {
       try {
-        if (!this.guardianConfig?.baseUrl) {
+        if (!this.guardian.config.baseUrl) {
           throw new Error('guardian baseUrl not found in config');
         }
         await this.connect();
@@ -291,20 +319,20 @@ export class GuardianApi {
     return this.call_any_method(method, params);
   };
 
-  // NOTE: Uncomment the console.logs for debugging all fedimint rpc calls
-  private call_any_method = async <T>(
-    method: string,
+  private call_test = async <T>(
+    method: SetupRpc | AdminRpc | SharedRpc,
+    password: string | null,
     params: unknown = null
   ): Promise<T> => {
     try {
-      if (!this.guardianConfig?.baseUrl) {
+      if (!this.guardian.config.baseUrl) {
         throw new Error('guardian baseUrl not found in config');
       }
       const websocket = await this.connect();
       // console.log('method', method);
       const response = await websocket.call(method, [
         {
-          auth: this.getPassword() || null,
+          auth: password || this.password || null,
           params,
         },
       ]);
@@ -318,6 +346,41 @@ export class GuardianApi {
 
       return result;
     } catch (error: unknown) {
+      console.error(`error calling '${method}' on websocket rpc : `, error);
+      throw 'error' in (error as { error: JsonRpcError })
+        ? (error as { error: JsonRpcError }).error
+        : error;
+    }
+  };
+
+  // NOTE: Uncomment the console.logs for debugging all fedimint rpc calls
+  private call_any_method = async <T>(
+    method: string,
+    params: unknown = null
+  ): Promise<T> => {
+    try {
+      if (!this.guardian.config.baseUrl) {
+        throw new Error('guardian baseUrl not found in config');
+      }
+      const websocket = await this.connect();
+      // console.log('method', method);
+      const response = await websocket.call(method, [
+        {
+          auth: this.password || null,
+          params,
+        },
+      ]);
+      // console.log('response', response);
+
+      if (response.error) {
+        throw response.error;
+      }
+
+      const result = response.result as T;
+
+      return result;
+    } catch (error: unknown) {
+      console.error('error auth', this.password);
       console.error(`error calling '${method}' on websocket rpc : `, error);
       throw 'error' in (error as { error: JsonRpcError })
         ? (error as { error: JsonRpcError }).error

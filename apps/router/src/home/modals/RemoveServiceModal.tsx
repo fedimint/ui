@@ -11,8 +11,9 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { useAppContext } from '../context/hooks';
-import { APP_ACTION_TYPE } from '../context/AppContext';
+import { useAppContext } from '../../context/hooks';
+import { APP_ACTION_TYPE } from '../../context/AppContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 interface RemoveServiceModalProps {
   isOpen: boolean;
@@ -27,7 +28,7 @@ export const RemoveServiceModal: React.FC<RemoveServiceModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const { dispatch } = useAppContext();
-
+  const { removeGuardianPassword, removeGatewayPassword } = useAuthContext();
   const handleRemove = () => {
     if (service) {
       dispatch({
@@ -37,6 +38,9 @@ export const RemoveServiceModal: React.FC<RemoveServiceModalProps> = ({
             : APP_ACTION_TYPE.REMOVE_GATEWAY,
         payload: service.id,
       });
+      service.type === 'guardian'
+        ? removeGuardianPassword(service.id)
+        : removeGatewayPassword(service.id);
     }
     onClose();
   };
