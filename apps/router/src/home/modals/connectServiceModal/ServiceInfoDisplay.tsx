@@ -38,7 +38,7 @@ export const ServiceInfoDisplay: React.FC<ServiceInfoDisplayProps> = ({
         </Text>
         <Badge colorScheme='blue' fontSize='md' px={2} py={1}>
           {serviceInfo.status === 'AWAITING_PASSWORD'
-            ? 'SETUP'
+            ? t('common.setup')
             : serviceInfo.status}
         </Badge>
       </Box>

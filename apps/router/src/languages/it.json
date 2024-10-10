@@ -521,7 +521,7 @@
     "edit-service-modal": {
       "title": "Modifica {{type}}",
       "url-label": "URL",
-      "password-label": "Contraseña"
+      "password-label": "Parola d'ordine"
     },
     "setup-state": "Configura Stato",
     "master-password": {
@@ -533,7 +533,7 @@
       "set-master-password": "Imposta la password principale",
       "password-mismatch": "Le password non corrispondono",
       "password-too-short": "La password deve essere lunga almeno 8 caratteri",
-      "password-label": "Contraseña",
+      "password-label": "Parola d'ordine",
       "unlock-services": "Sblocca Servizi"
     }
   }

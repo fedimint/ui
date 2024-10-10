@@ -56,13 +56,11 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
                   `${type.charAt(0).toUpperCase() + type.slice(1)} URL`
                 )}
               </Th>
-              {/* <Th>{t('common.status')}</Th> */}
               <Th width='200px'>{t('home.actions')}</Th>
             </Tr>
           </Thead>
           <Tbody>
             {Object.entries(services).map(([id, service]) => {
-              // const serviceStatus = serviceStatuses[id];
               return (
                 <Tr key={`${type}-${id}`}>
                   <Td>
@@ -78,18 +76,6 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({
                       />
                     </Flex>
                   </Td>
-                  {/* <Td>
-                    {serviceStatus ? (
-                      <Flex direction='column'>
-                        <Text>{serviceStatus.status}</Text>
-                        {serviceStatus.requiresPassword && (
-                          <Text color='orange.500'>Requires Password</Text>
-                        )}
-                      </Flex>
-                    ) : (
-                      <Text>Loading...</Text>
-                    )}
-                  </Td> */}
                   <Td>
                     <Flex justifyContent='flex-end' gap={3} alignItems='center'>
                       <ViewServiceButton

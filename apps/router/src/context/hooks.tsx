@@ -46,14 +46,6 @@ export function useAppContext(): AppContextValue {
   return useContext(AppContext);
 }
 
-export function useAppGuardianConfigs(): GuardianConfig[] {
-  const { guardians } = useAppContext();
-  return Object.values(guardians).map((guardian) => ({
-    id: guardian.id,
-    config: guardian.config,
-  }));
-}
-
 export function useNumberOfGuardians(): number {
   return Object.keys(useAppContext().guardians).length;
 }

@@ -69,7 +69,7 @@ export const GatewayContextProvider: React.FC<GatewayContextProviderProps> = ({
   const { decryptedServicePassword } = useUnlockedService(gatewayId, 'gateway');
   const config = useGatewayConfig(gatewayId);
   if (decryptedServicePassword !== null) {
-    state.needsAuth = false;
+    dispatch({ type: GATEWAY_APP_ACTION_TYPE.SET_NEEDS_AUTH, payload: false });
   }
   const gatewayApi = useMemo(
     () => new GatewayApi(config, decryptedServicePassword),

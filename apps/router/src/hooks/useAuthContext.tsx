@@ -9,7 +9,9 @@ export const useAuthContext = () => {
   const { masterPassword } = useMasterPassword();
 
   const storeGuardianPassword = async (id: string, password: string | null) => {
-    if (!masterPassword) return;
+    if (!masterPassword) {
+      throw new Error('Master password is not available.');
+    }
     if (password === null) {
       dispatch({
         type: AUTH_ACTION_TYPE.REMOVE_GUARDIAN_PASSWORD,
@@ -25,7 +27,9 @@ export const useAuthContext = () => {
   };
 
   const storeGatewayPassword = async (id: string, password: string | null) => {
-    if (!masterPassword) return;
+    if (!masterPassword) {
+      throw new Error('Master password is not available.');
+    }
     if (password === null) {
       dispatch({
         type: AUTH_ACTION_TYPE.REMOVE_GATEWAY_PASSWORD,

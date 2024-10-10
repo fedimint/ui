@@ -178,7 +178,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     const isGateway = (service: ServiceConfig) =>
       service.baseUrl.startsWith('http');
     const addService = async (service: ServiceConfig) => {
-      console.log('service', service);
       const id = await sha256Hash(service.baseUrl);
 
       if (isGuardian(service)) {

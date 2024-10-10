@@ -190,7 +190,6 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       if (isHost || isSolo) {
         // Hosts set their own connection name
         // - They should submit both their local and the consensus config gen params.
-        console.log('submitConfig', password);
         await submitConfiguration({
           myName,
           password,
