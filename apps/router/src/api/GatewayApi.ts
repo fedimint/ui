@@ -15,9 +15,6 @@ import {
   GatewayBalances,
 } from '@fedimint/types';
 import { GatewayConfig } from '../types/gateway';
-import { useAuthContext } from '../hooks/useAuthContext';
-
-export const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
 // GatewayApi is an implementation of the ApiInterface
 export class GatewayApi {
@@ -36,9 +33,9 @@ export class GatewayApi {
     if (!tempPassword) {
       return false;
     }
-
+    console.log('setting password for gateway', this.id, tempPassword);
     // Replace with temp password to check.
-    sessionStorage.setItem(SESSION_STORAGE_KEY, tempPassword);
+    sessionStorage.setItem(this.id, tempPassword);
 
     try {
       await this.fetchInfo();
@@ -52,12 +49,11 @@ export class GatewayApi {
   };
 
   private getPassword = (): string | null => {
-    const { getGatewayPassword } = useAuthContext();
-    return getGatewayPassword(this.id);
+    return sessionStorage.getItem(this.id) || null;
   };
 
   clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    sessionStorage.removeItem(this.id);
   };
 
   private post = async (api: string, body: unknown): Promise<Response> => {

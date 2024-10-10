@@ -39,7 +39,6 @@ import {
 } from '../types/gateway';
 import { GatewayContext, GatewayContextValue } from './gateway/GatewayContext';
 import { GatewayApi } from '../api/GatewayApi';
-import { useAuthContext } from '../hooks/useAuthContext';
 
 export function useAppContext(): AppContextValue {
   return useContext(AppContext);
@@ -83,7 +82,6 @@ export const useGuardianDispatch = (): Dispatch<GuardianAppAction> => {
 
 export const useLoadGuardian = (): void => {
   const { api, state, id, dispatch } = useGuardianContext();
-  const { getGuardianPassword } = useAuthContext();
   useEffect(() => {
     const load = async () => {
       try {
@@ -93,7 +91,7 @@ export const useLoadGuardian = (): void => {
         // If they're at a point where a password has been configured, make
         // sure they have a valid password set. If not, set needsAuth.
         if (server !== GuardianServerStatus.AwaitingPassword) {
-          const password = getGuardianPassword(id);
+          const password = api.getPassword();
           const hasValidPassword = password
             ? await api.testPassword(password)
             : false;
@@ -132,7 +130,7 @@ export const useLoadGuardian = (): void => {
     if (state.status === GuardianStatus.Loading) {
       load().catch((err) => console.error(err));
     }
-  }, [state.status, api, dispatch, id, getGuardianPassword]);
+  }, [state.status, api, dispatch, id]);
 };
 
 export const useGuardianContext = (): GuardianContextValue => {
@@ -441,10 +439,10 @@ export const useGatewayInfo = (): GatewayInfo => {
 };
 
 export const useLoadGateway = () => {
-  const state = useGatewayState();
-  const dispatch = useGatewayDispatch();
-
-  const api = useGatewayApi();
+  const { state, dispatch, api, id } = useGatewayContext();
+  if (sessionStorage.getItem(id)) {
+    state.needsAuth = false;
+  }
 
   useEffect(() => {
     if (!state.needsAuth) {
