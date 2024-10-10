@@ -2,6 +2,7 @@ import { GatewayBalances, GatewayInfo } from '@fedimint/types';
 import { Unit } from './index';
 
 export type GatewayConfig = {
+  id: string;
   baseUrl: string;
 };
 

@@ -15,15 +15,18 @@ import {
   GatewayBalances,
 } from '@fedimint/types';
 import { GatewayConfig } from '../types/gateway';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 export const SESSION_STORAGE_KEY = 'gateway-ui-key';
 
 // GatewayApi is an implementation of the ApiInterface
 export class GatewayApi {
   private baseUrl: string;
+  private id: string;
 
   constructor(config: GatewayConfig) {
     this.baseUrl = config.baseUrl;
+    this.id = config.id;
   }
 
   // Tests a provided password or the one in session storage
@@ -49,7 +52,8 @@ export class GatewayApi {
   };
 
   private getPassword = (): string | null => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY);
+    const { getGatewayPassword } = useAuthContext();
+    return getGatewayPassword(this.id);
   };
 
   clearPassword = () => {

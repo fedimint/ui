@@ -20,14 +20,17 @@ import {
   SetupRpc,
   SharedRpc,
 } from '../types/guardian';
-
+import { useAuthContext } from '../hooks/useAuthContext';
 export const SESSION_STORAGE_KEY = 'guardian-ui-key';
 
 export class GuardianApi {
   private websocket: JsonRpcWebsocket | null = null;
   private connectPromise: Promise<JsonRpcWebsocket> | null = null;
+  private guardianConfig: GuardianConfig;
 
-  constructor(private guardianConfig: GuardianConfig) {}
+  constructor(guardianConfig: GuardianConfig) {
+    this.guardianConfig = guardianConfig;
+  }
 
   /*** WebSocket methods ***/
 
@@ -82,13 +85,9 @@ export class GuardianApi {
     return true;
   };
 
-  public getPassword = (): string | null => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY);
-  };
-
   public testPassword = async (password: string): Promise<boolean> => {
-    // Replace with password to check.
-    sessionStorage.setItem(SESSION_STORAGE_KEY, password);
+    const { setGuardianPassword } = useAuthContext();
+    setGuardianPassword(this.guardianConfig.id, password);
 
     // Attempt a 'status' rpc call with the temporary password.
     try {
@@ -297,6 +296,8 @@ export class GuardianApi {
     params: unknown = null
   ): Promise<T> => {
     try {
+      const { getGuardianPassword } = useAuthContext();
+      const password = getGuardianPassword(this.guardianConfig.id);
       if (!this.guardianConfig?.baseUrl) {
         throw new Error('guardian baseUrl not found in config');
       }
@@ -304,7 +305,7 @@ export class GuardianApi {
       // console.log('method', method);
       const response = await websocket.call(method, [
         {
-          auth: this.getPassword() || null,
+          auth: password || null,
           params,
         },
       ]);
