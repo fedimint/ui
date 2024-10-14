@@ -8,6 +8,7 @@ import {
   Input,
   Link,
   Text,
+  IconButton,
 } from '@chakra-ui/react';
 import { fieldsToMeta, metaToHex, useTranslation } from '@fedimint/utils';
 import { ParsedConsensusMeta } from '@fedimint/types';
@@ -15,6 +16,7 @@ import { DEFAULT_META_KEY } from '../../FederationTabsCard';
 import { RequiredMeta } from './RequiredMeta';
 import { useGuardianAdminApi } from '../../../../../../context/hooks';
 import { ModuleRpc } from '../../../../../../types/guardian';
+import { FiX } from 'react-icons/fi';
 
 const metaArrayToObject = (
   metaArray: [string, string][]
@@ -41,8 +43,8 @@ export const MetaManager = React.memo(function MetaManager({
   const [requiredMeta, setRequiredMeta] = useState<Record<string, string>>({
     federation_name: '',
     welcome_message: '',
-    popup_end_timestamp: '',
     federation_icon_url: '',
+    sites: '',
   });
   const [isRequiredMetaValid, setIsRequiredMetaValid] = useState(true);
   const [optionalMeta, setOptionalMeta] = useState<Record<string, string>>({});
@@ -53,25 +55,27 @@ export const MetaManager = React.memo(function MetaManager({
       const {
         federation_name,
         welcome_message,
-        popup_end_timestamp,
         federation_icon_url,
+        sites,
         ...rest
       } = metaObj;
       setRequiredMeta({
         federation_name,
         welcome_message,
-        popup_end_timestamp,
         federation_icon_url,
+        sites: sites || '[]',
       });
       setOptionalMeta(rest);
     }
   }, [consensusMeta]);
 
   const isAnyRequiredFieldEmpty = useCallback(() => {
-    // Popup end timestamp is optional but placed in required for simplicity
-    return ['federation_name', 'welcome_message', 'federation_icon_url'].some(
-      (key) => requiredMeta[key].trim() === ''
-    );
+    return [
+      'federation_name',
+      'welcome_message',
+      'federation_icon_url',
+      'sites',
+    ].some((key) => requiredMeta[key].trim() === '');
   }, [requiredMeta]);
 
   const isMetaUnchanged = useCallback(() => {
@@ -104,22 +108,33 @@ export const MetaManager = React.memo(function MetaManager({
       const {
         federation_name,
         welcome_message,
-        popup_end_timestamp,
         federation_icon_url,
+        sites,
         ...rest
       } = metaObj;
       setRequiredMeta({
         federation_name,
         welcome_message,
-        popup_end_timestamp,
         federation_icon_url,
+        sites: sites,
       });
       setOptionalMeta(rest);
     }
   }, [consensusMeta]);
 
-  const handleOptionalMetaChange = (key: string, value: string) => {
-    setOptionalMeta((prev) => ({ ...prev, [key]: value }));
+  const handleOptionalMetaChange = (
+    oldKey: string,
+    newKey: string,
+    value: string
+  ) => {
+    setOptionalMeta((prev) => {
+      const newMeta = { ...prev };
+      if (oldKey !== newKey) {
+        delete newMeta[oldKey];
+      }
+      newMeta[newKey] = value;
+      return newMeta;
+    });
   };
 
   const addCustomField = () => {
@@ -141,7 +156,7 @@ export const MetaManager = React.memo(function MetaManager({
     const updatedMetaArray = Object.entries({
       ...requiredMeta,
       ...optionalMeta,
-    }).filter(([key, value]) => key !== 'popup_end_timestamp' || value !== '');
+    });
     api
       .moduleApiCall<{ metaValue: string }[]>(
         Number(metaModuleId),
@@ -195,25 +210,53 @@ export const MetaManager = React.memo(function MetaManager({
       />
       <Flex flexDirection='column' gap={4}>
         {Object.entries(optionalMeta).map(([key, value]) => (
-          <Flex key={key} flexDirection='column'>
-            <Flex alignItems='center' mb={1} justifyContent='space-between'>
-              <FormLabel fontWeight='bold' mb={0} mr={2}>
-                {key}
-              </FormLabel>
-              <Button
-                fontSize='sm'
-                color='red.500'
-                onClick={() => removeCustomField(key)}
-                variant='ghost'
-                height='auto'
-                _hover={{ backgroundColor: 'transparent' }}
-              >
-                {t('common.remove')}
-              </Button>
+          <Flex key={key} alignItems='center' gap={2}>
+            <Flex
+              flex={1}
+              alignItems='center'
+              gap={2}
+              p={2}
+              borderWidth={1}
+              borderRadius='md'
+            >
+              <Flex direction='column' flex={1}>
+                <FormLabel htmlFor={`key-${key}`} fontSize='xs' mb={0}>
+                  Key
+                </FormLabel>
+                <Input
+                  id={`key-${key}`}
+                  defaultValue={key}
+                  onBlur={(e) =>
+                    handleOptionalMetaChange(key, e.target.value, value)
+                  }
+                  size='sm'
+                />
+              </Flex>
+              <Flex direction='column' flex={1}>
+                <FormLabel htmlFor={`value-${key}`} fontSize='xs' mb={0}>
+                  Value
+                </FormLabel>
+                <Input
+                  id={`value-${key}`}
+                  value={value}
+                  onChange={(e) =>
+                    handleOptionalMetaChange(key, key, e.target.value)
+                  }
+                  size='sm'
+                />
+              </Flex>
             </Flex>
-            <Input
-              value={value}
-              onChange={(e) => handleOptionalMetaChange(key, e.target.value)}
+            <IconButton
+              aria-label='Remove custom field'
+              icon={<FiX />}
+              size='sm'
+              fontSize='xl'
+              color='red.500'
+              variant='ghost'
+              onClick={() => removeCustomField(key)}
+              minWidth='auto'
+              height='auto'
+              padding={1}
             />
           </Flex>
         ))}
