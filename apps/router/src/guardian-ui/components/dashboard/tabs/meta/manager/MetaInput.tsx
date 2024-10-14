@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Flex, FormLabel, Input } from '@chakra-ui/react';
 import { snakeToTitleCase } from '@fedimint/utils';
 import { IconPreview } from './IconPreview';
@@ -41,6 +41,13 @@ export const MetaInput: React.FC<MetaInputProps> = ({
       return null;
     }
   }, []);
+
+  // Add this useEffect hook
+  useEffect(() => {
+    if (metaKey === 'federation_icon_url' && value) {
+      validateIcon(value);
+    }
+  }, [metaKey, value, validateIcon]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;

@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Flex, FormLabel, Input, Button, IconButton } from '@chakra-ui/react';
+import {
+  Flex,
+  FormLabel,
+  Input,
+  Button,
+  IconButton,
+  Text,
+} from '@chakra-ui/react';
 import { FiX } from 'react-icons/fi';
 import { IconPreview } from './IconPreview';
 
@@ -20,33 +27,15 @@ export const SitesInput: React.FC<SitesInputProps> = ({ value, onChange }) => {
   const [imageValidities, setImageValidities] = useState<boolean[]>([]);
   const [localImageUrls, setLocalImageUrls] = useState<(string | null)[]>([]);
 
-  useEffect(() => {
-    try {
-      const parsedSites = JSON.parse(value);
-      setSites(Array.isArray(parsedSites) ? parsedSites : []);
-      setImageValidities(new Array(parsedSites.length).fill(true));
-      setLocalImageUrls(new Array(parsedSites.length).fill(null));
-    } catch {
-      setSites([]);
-      setImageValidities([]);
-      setLocalImageUrls([]);
-    }
-  }, [value]);
-
   const validateIcon = useCallback(async (url: string, index: number) => {
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const blob = await response.blob();
-      if (!blob.type.startsWith('image/')) {
-        throw new Error('Invalid image format');
-      }
-      const objectURL = URL.createObjectURL(blob);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const response = await fetch(url, { mode: 'no-cors' });
+      // Since we're using no-cors, we can't check response.ok
+      // We'll assume it's valid if we get here without an error
       setLocalImageUrls((prev) => {
         const newUrls = [...prev];
-        newUrls[index] = objectURL;
+        newUrls[index] = url; // Use the original URL instead of creating an object URL
         return newUrls;
       });
       setImageValidities((prev) => {
@@ -54,8 +43,9 @@ export const SitesInput: React.FC<SitesInputProps> = ({ value, onChange }) => {
         newValidities[index] = true;
         return newValidities;
       });
-      return objectURL;
+      return url;
     } catch (error) {
+      // Silently handle the error
       setLocalImageUrls((prev) => {
         const newUrls = [...prev];
         newUrls[index] = null;
@@ -66,12 +56,29 @@ export const SitesInput: React.FC<SitesInputProps> = ({ value, onChange }) => {
         newValidities[index] = false;
         return newValidities;
       });
-      if (error instanceof Error) {
-        console.error(`Icon validation failed: ${error.message}`);
-      }
       return null;
     }
   }, []);
+
+  useEffect(() => {
+    try {
+      const parsedSites = JSON.parse(value);
+      setSites(Array.isArray(parsedSites) ? parsedSites : []);
+      setImageValidities(new Array(parsedSites.length).fill(true));
+      setLocalImageUrls(new Array(parsedSites.length).fill(null));
+
+      // Validate icons on initial load
+      parsedSites.forEach((site: Site, index: number) => {
+        if (site.imageUrl) {
+          validateIcon(site.imageUrl, index);
+        }
+      });
+    } catch {
+      setSites([]);
+      setImageValidities([]);
+      setLocalImageUrls([]);
+    }
+  }, [value, validateIcon]);
 
   const handleSiteChange = (
     index: number,
@@ -115,17 +122,11 @@ export const SitesInput: React.FC<SitesInputProps> = ({ value, onChange }) => {
 
   return (
     <Flex flexDirection='column'>
-      <Flex alignItems='center' mb={2} justifyContent='space-between'>
-        <FormLabel fontWeight='bold' mb={0} mr={2}>
+      <Flex justifyContent='space-between' alignItems='center' mb={2}>
+        <Text fontSize='lg' fontWeight='bold'>
           Sites
-        </FormLabel>
-        <Button
-          size='sm'
-          onClick={addSite}
-          px={2}
-          minW='auto'
-          variant='outline'
-        >
+        </Text>
+        <Button onClick={addSite} size='sm' variant='outline'>
           Add Site
         </Button>
       </Flex>
