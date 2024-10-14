@@ -17,6 +17,7 @@ import { RequiredMeta } from './RequiredMeta';
 import { useGuardianAdminApi } from '../../../../../../context/hooks';
 import { ModuleRpc } from '../../../../../../types/guardian';
 import { FiX } from 'react-icons/fi';
+import { SitesInput } from './SitesInput';
 
 const metaArrayToObject = (
   metaArray: [string, string][]
@@ -44,9 +45,9 @@ export const MetaManager = React.memo(function MetaManager({
     federation_name: '',
     welcome_message: '',
     federation_icon_url: '',
-    sites: '',
   });
   const [isRequiredMetaValid, setIsRequiredMetaValid] = useState(true);
+  const [sites, setSites] = useState<string>('[]');
   const [optionalMeta, setOptionalMeta] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -63,19 +64,40 @@ export const MetaManager = React.memo(function MetaManager({
         federation_name,
         welcome_message,
         federation_icon_url,
-        sites: sites || '[]',
       });
+      setSites(sites || '[]');
       setOptionalMeta(rest);
     }
   }, [consensusMeta]);
 
   const isAnyRequiredFieldEmpty = useCallback(() => {
-    return [
+    const requiredFields = [
       'federation_name',
       'welcome_message',
       'federation_icon_url',
-      'sites',
-    ].some((key) => requiredMeta[key].trim() === '');
+    ];
+    const areBasicFieldsEmpty = requiredFields.some(
+      (key) => requiredMeta[key].trim() === ''
+    );
+
+    if (areBasicFieldsEmpty) return true;
+
+    // Check sites
+    if (requiredMeta.sites.trim() !== '') {
+      try {
+        const sites = JSON.parse(requiredMeta.sites);
+        if (Array.isArray(sites) && sites.length > 0) {
+          return sites.some(
+            (site) => !site.id || !site.url || !site.title || !site.imageUrl
+          );
+        }
+      } catch (error) {
+        console.error('Error parsing sites JSON:', error);
+        return true;
+      }
+    }
+
+    return false;
   }, [requiredMeta]);
 
   const isMetaUnchanged = useCallback(() => {
@@ -84,23 +106,30 @@ export const MetaManager = React.memo(function MetaManager({
 
     // Check if all current fields (required and optional) match the consensus meta
     const allCurrentFields = { ...requiredMeta, ...optionalMeta };
-    const currentUnchanged = Object.entries(allCurrentFields).every(
+
+    // Check if the number of fields has changed
+    if (
+      Object.keys(allCurrentFields).length !==
+      Object.keys(consensusMetaObj).length
+    ) {
+      return false;
+    }
+
+    // Check if any field values have changed
+    return Object.entries(allCurrentFields).every(
       ([key, value]) => consensusMetaObj[key] === value
     );
-
-    // Check if any fields from consensus meta are missing in the current fields
-    const noFieldsRemoved = Object.keys(consensusMetaObj).every(
-      (key) => key in allCurrentFields
-    );
-
-    return currentUnchanged && noFieldsRemoved;
   }, [requiredMeta, optionalMeta, consensusMeta]);
 
   const canSubmit = useCallback(() => {
-    return (
-      !isAnyRequiredFieldEmpty() && isRequiredMetaValid && !isMetaUnchanged()
-    );
-  }, [isAnyRequiredFieldEmpty, isRequiredMetaValid, isMetaUnchanged]);
+    const allFieldsFilled =
+      Object.values(requiredMeta).every((value) => value.trim() !== '') &&
+      Object.entries(optionalMeta).every(
+        ([key, value]) => key.trim() !== '' && value.trim() !== ''
+      );
+
+    return allFieldsFilled && isRequiredMetaValid && !isMetaUnchanged();
+  }, [requiredMeta, optionalMeta, isRequiredMetaValid, isMetaUnchanged]);
 
   const resetToConsensus = useCallback(() => {
     if (consensusMeta?.value) {
@@ -155,6 +184,7 @@ export const MetaManager = React.memo(function MetaManager({
     if (metaModuleId === undefined || isAnyRequiredFieldEmpty()) return;
     const updatedMetaArray = Object.entries({
       ...requiredMeta,
+      sites,
       ...optionalMeta,
     });
     api
@@ -177,10 +207,15 @@ export const MetaManager = React.memo(function MetaManager({
     api,
     metaModuleId,
     requiredMeta,
+    sites,
     optionalMeta,
     isAnyRequiredFieldEmpty,
     setActiveTab,
   ]);
+
+  const handleSitesChange = (sitesJson: string) => {
+    setSites(sitesJson);
+  };
 
   return (
     <Flex flexDirection='column' gap={6}>
@@ -202,12 +237,32 @@ export const MetaManager = React.memo(function MetaManager({
       </Box>
 
       <Divider />
+
+      {/* Required Meta */}
+      <Text fontSize='lg' fontWeight='bold'>
+        Required Meta Fields
+      </Text>
       <RequiredMeta
         requiredMeta={requiredMeta}
         setRequiredMeta={setRequiredMeta}
         isValid={isRequiredMetaValid}
         setIsValid={setIsRequiredMetaValid}
       />
+
+      <Divider />
+
+      {/* Sites */}
+      <Text fontSize='lg' fontWeight='bold'>
+        Sites
+      </Text>
+      <SitesInput value={sites} onChange={handleSitesChange} />
+
+      <Divider />
+
+      {/* Optional Meta */}
+      <Text fontSize='lg' fontWeight='bold'>
+        Optional Meta Fields
+      </Text>
       <Flex flexDirection='column' gap={4}>
         {Object.entries(optionalMeta).map(([key, value]) => (
           <Flex key={key} alignItems='center' gap={2}>
@@ -261,6 +316,8 @@ export const MetaManager = React.memo(function MetaManager({
           </Flex>
         ))}
       </Flex>
+
+      {/* Buttons */}
       <Flex gap={4}>
         <Button
           colorScheme='blue'
