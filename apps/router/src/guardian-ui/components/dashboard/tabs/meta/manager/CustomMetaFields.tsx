@@ -129,10 +129,7 @@ export const CustomMetaFields: React.FC<CustomMetaFieldsProps> = ({
               </Flex>
             </Flex>
             {key === 'federation_icon_url' && (
-              <IconPreview
-                imageUrl={localIconUrl ?? ''}
-                isValid={iconValidity}
-              />
+              <IconPreview imageUrl={localIconUrl ?? ''} />
             )}
             <IconButton
               aria-label='Remove field'

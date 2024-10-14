@@ -82,10 +82,7 @@ export const MetaInput: React.FC<MetaInputProps> = ({
             }
           />
           {metaKey === 'federation_icon_url' && (
-            <IconPreview
-              imageUrl={localImageUrl ?? ''}
-              isValid={localIsIconValid}
-            />
+            <IconPreview imageUrl={localImageUrl ?? ''} />
           )}
         </Flex>
       </Flex>
