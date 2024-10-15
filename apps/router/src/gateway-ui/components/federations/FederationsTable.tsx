@@ -101,22 +101,13 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
     }));
 
   return (
-    <Card>
-      <CardHeader>
-        <Flex justifyContent='space-between' alignItems='center'>
-          <Text size='lg' fontWeight='600'>
-            {t('federation-card.table-title')}
-          </Text>
-          <Flex alignItems='center'>
-            <Button onClick={onConnectFederation} ml={4}>
-              {t('connect-federation.connect-federation-button')}
-            </Button>
-          </Flex>
-        </Flex>
-      </CardHeader>
-      <CardBody>
-        <Table columns={columns} rows={rows} />
-      </CardBody>
-    </Card>
+    <Flex direction='column' gap={4}>
+      <Flex alignItems='center' justifyContent='flex-end'>
+        <Button onClick={onConnectFederation}>
+          {t('connect-federation.connect-federation-button')}
+        </Button>
+      </Flex>
+      <Table columns={columns} rows={rows} />
+    </Flex>
   );
 };

@@ -127,7 +127,7 @@
     "title": "Lightning Gateway Dashboard"
   },
   "info-card": {
-    "card-header": "Lightning Node Info",
+    "card-header": "Node Info",
     "node-id": "Node ID",
     "alias": "Alias",
     "mode": "Mode",

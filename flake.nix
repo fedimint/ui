@@ -2,7 +2,7 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     fedimint.url =
-      "github:fedimint/fedimint?ref=refs/tags/v0.4.3";
+      "github:fedimint/fedimint?rev=adb5d429fcac40572839a568788795fe621578d8";
   };
   outputs = { self, flake-utils, fedimint }:
     flake-utils.lib.eachDefaultSystem (system:
