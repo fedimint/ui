@@ -244,8 +244,13 @@
     "warning-modal": {
       "title": "Is everyone ready?",
       "description": "Exiting the setup ceremony may cause the setup to fail and require you to restart your guardian. Make sure everyone is ready to run the full setup before continuing!"
+    },
+    "bitcoin-node": {
+      "not-synced": "Bitcoin Node Not Fully Synced",
+      "not-synced-description": "Your Bitcoin node is currently {{progress}}% synced. You must wait for full synchronization before proceeding."
     }
   },
+
   "run-dkg": {
     "error-config": "Failed to run distributed key generation. Federation setup must be restarted.",
     "error-default": "Not ready for DKG, your current status is",
