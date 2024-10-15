@@ -274,16 +274,18 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
                 setActiveTab={setActiveTab}
               />
             </TabPanel>
-            <TabPanel>
-              <ProposedMetas
-                ourPeer={ourPeer}
-                peers={peers}
-                metaModuleId={metaModuleId ?? ''}
-                consensusMeta={consensusMeta}
-                metaSubmissions={metaSubmissions}
-                hasVoted={hasVoted}
-              />
-            </TabPanel>
+            {pendingProposalsCount > 0 && (
+              <TabPanel>
+                <ProposedMetas
+                  ourPeer={ourPeer}
+                  peers={peers}
+                  metaModuleId={metaModuleId ?? ''}
+                  consensusMeta={consensusMeta}
+                  metaSubmissions={metaSubmissions}
+                  hasVoted={hasVoted}
+                />
+              </TabPanel>
+            )}
           </TabPanels>
         </Flex>
       </Tabs>
