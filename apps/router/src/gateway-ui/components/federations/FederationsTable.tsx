@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Text,
-  Flex,
-  Link,
-  useTheme,
-  Button,
-} from '@chakra-ui/react';
+import { Text, Flex, Link, useTheme, Button } from '@chakra-ui/react';
 import { FederationInfo, MSats } from '@fedimint/types';
 import { useTranslation, formatEllipsized, formatValue } from '@fedimint/utils';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
