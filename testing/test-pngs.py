@@ -13,7 +13,8 @@ class ImageServer(SimpleHTTPRequestHandler):
                 "Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Accept"
             )
             self.end_headers()
-            with open(self.path[1:], "rb") as f:
+            file_path = os.path.abspath(self.path[1:])
+            with open(file_path, "rb") as f:
                 self.wfile.write(f.read())
         else:
             self.send_error(404, "File not found")
