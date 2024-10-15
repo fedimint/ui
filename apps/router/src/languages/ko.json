@@ -52,7 +52,7 @@
   "federation-dashboard": {
     "invite-members": "회원을 초대하거나 보호자로 인증하세요.",
     "invite-members-prompt": "이것을 공유하여 회원들이 연합에 가입하도록 초대하세요",
-    "fed-info": {
+    "info": {
       "label": "연합 정보",
       "your-status-label": "상태",
       "block-count-label": "합의 블록 높이",

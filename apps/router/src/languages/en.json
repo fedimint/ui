@@ -50,10 +50,10 @@
     "meta-field-key": "Meta field - {{key}}"
   },
   "federation-dashboard": {
-    "invite-members": "Invite members or authenticate as a guardian",
+    "invite-members": "Invite members to join the federation",
     "invite-members-prompt": "Share this to invite members to join the federation",
-    "fed-info": {
-      "label": "Federation Info",
+    "info": {
+      "label": "Info",
       "your-status-label": "Status",
       "block-count-label": "Consensus Block Height",
       "api-version-label": "API version",
@@ -62,7 +62,12 @@
       "session-info": {
         "session-height": "Session Height",
         "latest-session": "Latest Session"
-      }
+      },
+      "version-label": "Version (consensus / api)",
+      "consensus-block-height-label": "Consensus Bitcoin Block Height"
+    },
+    "status": {
+      "label": "Status"
     },
     "balance": {
       "label": "Balance Sheet"

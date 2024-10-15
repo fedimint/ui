@@ -1,20 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Flex, Box, Heading, Skeleton } from '@chakra-ui/react';
+import { Flex, Heading, Skeleton } from '@chakra-ui/react';
 import {
   ClientConfig,
   SignedApiAnnouncement,
   StatusResponse,
 } from '@fedimint/types';
-import { GatewaysCard } from '../components/dashboard/gateways/GatewaysCard';
-import { GuardiansCard } from '../components/dashboard/guardians/GuardiansCard';
-import { FederationInfoCard } from '../components/dashboard/admin/FederationInfoCard';
-import { BitcoinNodeCard } from '../components/dashboard/admin/BitcoinNodeCard';
-import { BalanceCard } from '../components/dashboard/admin/BalanceCard';
-import { InviteCode } from '../components/dashboard/admin/InviteCode';
 import { FederationTabsCard } from '../components/dashboard/tabs/FederationTabsCard';
-import { BftInfo } from '../components/BftInfo';
 import { DangerZone } from '../components/dashboard/danger/DangerZone';
 import { useGuardianAdminApi } from '../../context/hooks';
+import { InviteCode } from '../components/dashboard/admin/InviteCode';
 
 const findOurPeerId = (
   configPeerIds: number[],
@@ -82,49 +76,14 @@ export const FederationAdmin: React.FC = () => {
             <Skeleton height='32px' width='180px' />
           )}
         </Heading>
-        <Flex
-          flexDirection={{ base: 'column', md: 'row' }}
-          justifyContent='space-between'
-          alignItems={{ base: 'stretch', md: 'center' }}
-          gap={{ base: 4, md: 6 }}
-        >
-          <Box width={{ base: '100%', md: 'auto' }}>
-            <InviteCode inviteCode={inviteCode} />
-          </Box>
-          {config && (
-            <Box width={{ base: '100%', md: 'auto' }}>
-              <BftInfo
-                numPeers={Object.keys(config.global.api_endpoints).length}
-              />
-            </Box>
-          )}
-        </Flex>
-        <Flex
-          gap={6}
-          alignItems='flex-start'
-          flexDir={{ base: 'column', sm: 'column', md: 'row' }}
-        >
-          <Flex w='100%' direction='column' gap={5}>
-            <FederationInfoCard
-              status={status}
-              config={config}
-              latestSession={latestSession}
-            />
-            <BitcoinNodeCard modulesConfigs={config?.modules} />
-          </Flex>
-          <BalanceCard />
-        </Flex>
-        <GuardiansCard
-          status={status}
-          config={config}
-          signedApiAnnouncements={signedApiAnnouncements}
-        />
-        <GatewaysCard config={config} />
+        <InviteCode inviteCode={inviteCode} />
         {ourPeer && (
           <FederationTabsCard
             config={config}
             ourPeer={ourPeer}
             signedApiAnnouncements={signedApiAnnouncements}
+            latestSession={latestSession}
+            status={status}
           />
         )}
         <DangerZone

@@ -52,7 +52,7 @@
   "federation-dashboard": {
     "invite-members": "メンバーを招待するか、保護者として認証する",
     "invite-members-prompt": "これを共有して、連盟にメンバーを招待します。",
-    "fed-info": {
+    "info": {
       "label": "連盟情報",
       "your-status-label": "ステータス",
       "block-count-label": "合意ブロック高さ",

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import {
   ClientConfig,
   PeerConnectionStatus,
@@ -11,13 +11,13 @@ import { useTranslation } from '@fedimint/utils';
 
 type TableKey = 'idName' | 'status' | 'health' | 'lastContribution' | 'apiUrl';
 
-interface Props {
+interface GuardiansStatusProps {
   status: StatusResponse | undefined;
   config: ClientConfig | undefined;
   signedApiAnnouncements: Record<string, SignedApiAnnouncement>;
 }
 
-export const GuardiansCard: React.FC<Props> = ({
+export const GuardiansStatus: React.FC<GuardiansStatusProps> = ({
   status,
   config,
   signedApiAnnouncements,
@@ -101,15 +101,12 @@ export const GuardiansCard: React.FC<Props> = ({
   }
 
   return (
-    <Card flex='1'>
-      <CardHeader>
-        <Text size='lg' fontWeight='600'>
-          {t('federation-dashboard.guardians.label')}
-        </Text>
-      </CardHeader>
-      <CardBody>
-        <Table columns={columns} rows={rows} />
-      </CardBody>
-    </Card>
+    <Flex direction='column' gap={6}>
+      <Text size='lg' fontWeight='600'>
+        {t('federation-dashboard.guardians.label')}
+      </Text>
+
+      <Table columns={columns} rows={rows} />
+    </Flex>
   );
 };

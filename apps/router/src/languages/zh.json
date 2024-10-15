@@ -52,7 +52,7 @@
   "federation-dashboard": {
     "invite-members": "邀请成员或作为监护人进行身份验证",
     "invite-members-prompt": "分享此内容以邀请成员加入联盟",
-    "fed-info": {
+    "info": {
       "label": "联邦信息",
       "your-status-label": "状态",
       "block-count-label": "共识区块高度",
