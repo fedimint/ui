@@ -15,12 +15,14 @@ import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import { useTranslation } from '@fedimint/utils';
 
 interface LoginProps {
+  serviceId: string;
   checkAuth: (password?: string) => Promise<boolean>;
   setAuthenticated: () => void;
   parseError: (err: unknown) => string;
 }
 
 export const Login: React.FC<LoginProps> = ({
+  serviceId,
   checkAuth,
   setAuthenticated,
   parseError,
@@ -63,13 +65,18 @@ export const Login: React.FC<LoginProps> = ({
           </Text>
         </Flex>
         <FormControl isInvalid={!!error} maxW='480px'>
-          <FormLabel>{t('login.password')}</FormLabel>
+          <FormLabel htmlFor={`password-${serviceId}`}>
+            {t('login.password')}
+          </FormLabel>
           <InputGroup size='md'>
             <Input
+              id={`password-${serviceId}`}
+              name={`password-${serviceId}`}
               pr='4.5rem'
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(ev) => setPassword(ev.currentTarget.value)}
+              autoComplete='current-password'
             />
             <InputRightElement onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}

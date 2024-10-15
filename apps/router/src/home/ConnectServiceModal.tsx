@@ -14,13 +14,11 @@ import {
   Badge,
   Flex,
   Box,
-  Divider,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
-import { checkServiceExists, getServiceType } from './utils';
-import { ServiceCheckApi } from '../api/ServiceCheckApi';
+import { getServiceType } from './utils';
 
 interface ConnectServiceModalProps {
   isOpen: boolean;
@@ -33,54 +31,44 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [configUrl, setConfigUrl] = useState('');
-  const [password, setPassword] = useState('');
-  const [serviceInfo, setServiceInfo] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { guardians, gateways, dispatch } = useAppContext();
 
   const resetForm = useCallback(() => {
     setConfigUrl('');
-    setPassword('');
-    setServiceInfo(null);
     setError(null);
   }, []);
 
-  const handleCheck = useCallback(async () => {
-    const api = new ServiceCheckApi();
-    setIsLoading(true);
-    setError(null);
-    try {
-      if (checkServiceExists(configUrl, guardians, gateways)) {
-        setError('A service with this URL already exists');
-        return;
-      }
-      const info = await api.check(configUrl, password);
-      setServiceInfo(JSON.stringify(info, null, 2));
-    } catch (error) {
-      setError(
-        error instanceof Error ? error.message : 'An unknown error occurred'
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }, [configUrl, password, guardians, gateways]);
+  const checkServiceExists = useCallback(
+    async (url: string) => {
+      const id = await sha256Hash(url);
+      return id in guardians || id in gateways;
+    },
+    [guardians, gateways]
+  );
 
   const handleConfirm = useCallback(async () => {
     setError(null);
+    setIsLoading(true);
     try {
+      const exists = await checkServiceExists(configUrl);
+      if (exists) {
+        throw new Error('Service already exists');
+      }
+
       const id = await sha256Hash(configUrl);
       const serviceType = getServiceType(configUrl);
 
       if (serviceType === 'guardian') {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
-          payload: { id, guardian: { config: { baseUrl: configUrl } } },
+          payload: { id, guardian: { config: { id, baseUrl: configUrl } } },
         });
       } else {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GATEWAY,
-          payload: { id, gateway: { config: { baseUrl: configUrl } } },
+          payload: { id, gateway: { config: { id, baseUrl: configUrl } } },
         });
       }
       resetForm();
@@ -89,21 +77,10 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
       setError(
         error instanceof Error ? error.message : 'An unknown error occurred'
       );
+    } finally {
+      setIsLoading(false);
     }
-  }, [configUrl, dispatch, resetForm, onClose]);
-
-  const handleKeyPress = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        if (!serviceInfo) {
-          handleCheck();
-        } else {
-          handleConfirm();
-        }
-      }
-    },
-    [serviceInfo, handleCheck, handleConfirm]
-  );
+  }, [configUrl, dispatch, resetForm, onClose, checkServiceExists]);
 
   return (
     <Modal
@@ -132,39 +109,21 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
               placeholder='wss://fedimintd.domain.com:6000'
               value={configUrl}
               onChange={(e) => setConfigUrl(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleConfirm();
+                }
+              }}
             />
           </FormControl>
-          <FormControl mt={4}>
-            <FormLabel>{t('common.password')}</FormLabel>
-            <Input
-              type='password'
-              placeholder='Enter password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={handleKeyPress}
-            />
-          </FormControl>
-          {!serviceInfo && (
-            <Button
-              mt={4}
-              colorScheme='blue'
-              onClick={handleCheck}
-              isLoading={isLoading}
-            >
-              {t('common.check')}
-            </Button>
-          )}
-          {serviceInfo && (
-            <>
-              <Divider my={6} />
-              <FormControl>
-                <ServiceInfoDisplay serviceInfo={serviceInfo} />
-              </FormControl>
-              <Button mt={4} colorScheme='green' onClick={handleConfirm}>
-                {t('common.confirm')}
-              </Button>
-            </>
-          )}
+          <Button
+            mt={4}
+            colorScheme='blue'
+            onClick={handleConfirm}
+            isLoading={isLoading}
+          >
+            {t('common.confirm')}
+          </Button>
         </ModalBody>
       </ModalContent>
     </Modal>

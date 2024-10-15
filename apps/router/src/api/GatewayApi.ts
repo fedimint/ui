@@ -16,14 +16,14 @@ import {
 } from '@fedimint/types';
 import { GatewayConfig } from '../types/gateway';
 
-export const SESSION_STORAGE_KEY = 'gateway-ui-key';
-
 // GatewayApi is an implementation of the ApiInterface
 export class GatewayApi {
   private baseUrl: string;
+  private id: string;
 
   constructor(config: GatewayConfig) {
     this.baseUrl = config.baseUrl;
+    this.id = config.id;
   }
 
   // Tests a provided password or the one in session storage
@@ -35,7 +35,7 @@ export class GatewayApi {
     }
 
     // Replace with temp password to check.
-    sessionStorage.setItem(SESSION_STORAGE_KEY, tempPassword);
+    sessionStorage.setItem(this.id, tempPassword);
 
     try {
       await this.fetchInfo();
@@ -49,11 +49,11 @@ export class GatewayApi {
   };
 
   private getPassword = (): string | null => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY);
+    return sessionStorage.getItem(this.id) || null;
   };
 
   clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    sessionStorage.removeItem(this.id);
   };
 
   private post = async (api: string, body: unknown): Promise<Response> => {
@@ -406,7 +406,6 @@ export class GatewayApi {
 
       if (res.ok) {
         const result = await res.json();
-        console.log('sendPaymentV2 result:', result);
         return Promise.resolve(result);
       }
 

@@ -17,7 +17,7 @@ import { Login } from '@fedimint/ui';
 import { GATEWAY_APP_ACTION_TYPE } from '../types/gateway';
 
 export const Gateway = () => {
-  const { state, dispatch, api } = useGatewayContext();
+  const { state, dispatch, api, id } = useGatewayContext();
   const [showConnectFed, setShowConnectFed] = useState(false);
   const [walletModalState, setWalletModalState] = useState<WalletModalState>({
     isOpen: false,
@@ -30,6 +30,7 @@ export const Gateway = () => {
   if (state.needsAuth) {
     return (
       <Login
+        serviceId={id}
         checkAuth={api.testPassword}
         setAuthenticated={() =>
           dispatch({

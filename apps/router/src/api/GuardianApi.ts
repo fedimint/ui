@@ -21,13 +21,14 @@ import {
   SharedRpc,
 } from '../types/guardian';
 
-export const SESSION_STORAGE_KEY = 'guardian-ui-key';
-
 export class GuardianApi {
   private websocket: JsonRpcWebsocket | null = null;
   private connectPromise: Promise<JsonRpcWebsocket> | null = null;
+  private guardianConfig: GuardianConfig;
 
-  constructor(private guardianConfig: GuardianConfig) {}
+  constructor(guardianConfig: GuardianConfig) {
+    this.guardianConfig = guardianConfig;
+  }
 
   /*** WebSocket methods ***/
 
@@ -82,13 +83,8 @@ export class GuardianApi {
     return true;
   };
 
-  public getPassword = (): string | null => {
-    return sessionStorage.getItem(SESSION_STORAGE_KEY);
-  };
-
   public testPassword = async (password: string): Promise<boolean> => {
-    // Replace with password to check.
-    sessionStorage.setItem(SESSION_STORAGE_KEY, password);
+    this.setSessionPassword(password);
 
     // Attempt a 'status' rpc call with the temporary password.
     try {
@@ -102,7 +98,7 @@ export class GuardianApi {
   };
 
   private clearPassword = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    sessionStorage.removeItem(this.guardianConfig.id);
   };
 
   /*** Shared RPC methods */
@@ -118,10 +114,16 @@ export class GuardianApi {
 
   /*** Setup RPC methods ***/
 
-  public setPassword = async (password: string): Promise<void> => {
-    // Save password to session storage so that it's included in the r[c] call
-    sessionStorage.setItem(SESSION_STORAGE_KEY, password);
+  public getPassword = (): string | null => {
+    return sessionStorage.getItem(this.guardianConfig.id) || null;
+  };
 
+  public setSessionPassword = (password: string): void => {
+    sessionStorage.setItem(this.guardianConfig.id, password);
+  };
+
+  public setPassword = async (password: string): Promise<void> => {
+    this.setSessionPassword(password);
     try {
       await this.call(SetupRpc.setPassword);
     } catch (err) {
@@ -297,6 +299,7 @@ export class GuardianApi {
     params: unknown = null
   ): Promise<T> => {
     try {
+      const password = this.getPassword();
       if (!this.guardianConfig?.baseUrl) {
         throw new Error('guardian baseUrl not found in config');
       }
@@ -304,7 +307,7 @@ export class GuardianApi {
       // console.log('method', method);
       const response = await websocket.call(method, [
         {
-          auth: this.getPassword() || null,
+          auth: password || null,
           params,
         },
       ]);

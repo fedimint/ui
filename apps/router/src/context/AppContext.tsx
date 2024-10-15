@@ -185,16 +185,17 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       service.baseUrl.startsWith('http');
     const addService = async (service: Service) => {
       const id = await sha256Hash(service.baseUrl);
+      const newService = { ...service, id };
 
-      if (isGuardian(service)) {
+      if (isGuardian(newService)) {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
-          payload: { id, guardian: { config: service as GuardianConfig } },
+          payload: { id, guardian: { config: newService as GuardianConfig } },
         });
-      } else if (isGateway(service)) {
+      } else if (isGateway(newService)) {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GATEWAY,
-          payload: { id, gateway: { config: service as GatewayConfig } },
+          payload: { id, gateway: { config: newService as GatewayConfig } },
         });
       } else {
         throw new Error(`Invalid service baseUrl in config.json: ${service}`);
@@ -225,7 +226,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
           handleConfig(data);
         } catch (error) {
           console.error('Error parsing config JSON:', error);
-          console.log('Raw config content:', text);
         }
       })
       .catch((error) => {
