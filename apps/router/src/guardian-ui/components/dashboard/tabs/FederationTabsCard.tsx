@@ -185,8 +185,10 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
         index={activeTab}
         onChange={setActiveTab}
         orientation='vertical'
+        display='flex'
+        height='100%'
       >
-        <Flex>
+        <Flex width='100%'>
           <TabList flexDirection='column' minWidth='200px' p={4}>
             <Tab justifyContent='flex-start' mb={2}>
               {t('federation-dashboard.info.label')}
