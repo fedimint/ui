@@ -17,14 +17,18 @@ export const Header = React.memo(function Header() {
   const hasServices =
     Object.keys(guardians).length > 0 || Object.keys(gateways).length > 0;
 
+  const isSoloDeploy = !!(
+    process.env.REACT_APP_FM_CONFIG_API || process.env.REACT_APP_FM_GATEWAY_API
+  );
+
   return (
     <Flex
       width='100%'
       justifyContent={['center', 'space-between']}
       mb={['24px', '12px']}
     >
-      <Logo />
-      {hasServices && (
+      <Logo isSoloDeploy={isSoloDeploy} />
+      {hasServices && !isSoloDeploy && (
         <Flex alignItems='center'>
           {activeService && activeServiceInfo && (
             <Text mr={2} fontSize='sm' color='gray.600'>
