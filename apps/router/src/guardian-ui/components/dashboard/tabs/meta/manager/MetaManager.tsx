@@ -1,20 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  FormLabel,
-  Input,
-  Link,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Button, Divider, Flex, Link, Text } from '@chakra-ui/react';
 import { fieldsToMeta, metaToHex, useTranslation } from '@fedimint/utils';
 import { ParsedConsensusMeta } from '@fedimint/types';
 import { DEFAULT_META_KEY } from '../../FederationTabsCard';
-import { RequiredMeta } from './RequiredMeta';
 import { useGuardianAdminApi } from '../../../../../../context/hooks';
 import { ModuleRpc } from '../../../../../../types/guardian';
+import { SitesInput } from './SitesInput';
+import { CustomMetaFields } from './CustomMetaFields';
 
 const metaArrayToObject = (
   metaArray: [string, string][]
@@ -38,110 +30,83 @@ export const MetaManager = React.memo(function MetaManager({
 }: MetaManagerProps): JSX.Element {
   const { t } = useTranslation();
   const api = useGuardianAdminApi();
-  const [requiredMeta, setRequiredMeta] = useState<Record<string, string>>({
-    federation_name: '',
-    welcome_message: '',
-    popup_end_timestamp: '',
-    federation_icon_url: '',
-  });
-  const [isRequiredMetaValid, setIsRequiredMetaValid] = useState(true);
-  const [optionalMeta, setOptionalMeta] = useState<Record<string, string>>({});
+  const [sites, setSites] = useState<string>('[]');
+  const [customMeta, setCustomMeta] = useState<Record<string, string>>({});
 
   useEffect(() => {
     if (consensusMeta?.value) {
       const metaObj = metaArrayToObject(consensusMeta.value);
-      const {
-        federation_name,
-        welcome_message,
-        popup_end_timestamp,
-        federation_icon_url,
-        ...rest
-      } = metaObj;
-      setRequiredMeta({
-        federation_name,
-        welcome_message,
-        popup_end_timestamp,
-        federation_icon_url,
-      });
-      setOptionalMeta(rest);
+      const { sites = '[]', ...rest } = metaObj;
+
+      setSites(sites);
+      setCustomMeta(rest);
     }
   }, [consensusMeta]);
 
-  const isAnyRequiredFieldEmpty = useCallback(() => {
-    // Popup end timestamp is optional but placed in required for simplicity
-    return ['federation_name', 'welcome_message', 'federation_icon_url'].some(
-      (key) => requiredMeta[key].trim() === ''
-    );
-  }, [requiredMeta]);
+  const isAnyFieldEmpty = useCallback(() => {
+    if (
+      Object.entries(customMeta).some(
+        ([key, value]) => key.trim() === '' || value.trim() === ''
+      )
+    )
+      return true;
+
+    if (sites.trim() !== '') {
+      try {
+        const localSites = JSON.parse(sites);
+        if (Array.isArray(localSites) && localSites.length > 0) {
+          return localSites.some(
+            (site) => !site.id || !site.url || !site.title || !site.imageUrl
+          );
+        }
+      } catch (error) {
+        console.error('Error parsing sites JSON:', error);
+        return true;
+      }
+    }
+
+    return false;
+  }, [customMeta, sites]);
 
   const isMetaUnchanged = useCallback(() => {
     if (!consensusMeta?.value) return false;
     const consensusMetaObj = metaArrayToObject(consensusMeta.value);
 
-    // Check if all current fields (required and optional) match the consensus meta
-    const allCurrentFields = { ...requiredMeta, ...optionalMeta };
-    const currentUnchanged = Object.entries(allCurrentFields).every(
-      ([key, value]) => consensusMetaObj[key] === value
-    );
+    // Check if the number of fields has changed
+    if (
+      Object.keys(customMeta).length + 1 !== // +1 for sites
+      Object.keys(consensusMetaObj).length
+    ) {
+      return false;
+    }
 
-    // Check if any fields from consensus meta are missing in the current fields
-    const noFieldsRemoved = Object.keys(consensusMetaObj).every(
-      (key) => key in allCurrentFields
+    // Check if any field values have changed
+    return (
+      Object.entries(customMeta).every(
+        ([key, value]) => consensusMetaObj[key] === value
+      ) && consensusMetaObj.sites === sites
     );
-
-    return currentUnchanged && noFieldsRemoved;
-  }, [requiredMeta, optionalMeta, consensusMeta]);
+  }, [customMeta, sites, consensusMeta]);
 
   const canSubmit = useCallback(() => {
-    return (
-      !isAnyRequiredFieldEmpty() && isRequiredMetaValid && !isMetaUnchanged()
-    );
-  }, [isAnyRequiredFieldEmpty, isRequiredMetaValid, isMetaUnchanged]);
+    return !isAnyFieldEmpty() && !isMetaUnchanged();
+  }, [isAnyFieldEmpty, isMetaUnchanged]);
 
   const resetToConsensus = useCallback(() => {
     if (consensusMeta?.value) {
       const metaObj = metaArrayToObject(consensusMeta.value);
-      const {
-        federation_name,
-        welcome_message,
-        popup_end_timestamp,
-        federation_icon_url,
-        ...rest
-      } = metaObj;
-      setRequiredMeta({
-        federation_name,
-        welcome_message,
-        popup_end_timestamp,
-        federation_icon_url,
-      });
-      setOptionalMeta(rest);
+      const { sites, ...rest } = metaObj;
+      setSites(sites || '[]');
+      setCustomMeta(rest);
     }
   }, [consensusMeta]);
 
-  const handleOptionalMetaChange = (key: string, value: string) => {
-    setOptionalMeta((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const addCustomField = () => {
-    const timestamp = Date.now();
-    const newKey = `custom_field_${timestamp}`;
-    setOptionalMeta((prev) => ({ ...prev, [newKey]: '' }));
-  };
-
-  const removeCustomField = (key: string) => {
-    setOptionalMeta((prev) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { [key]: _, ...rest } = prev;
-      return rest;
-    });
-  };
-
   const proposeMetaEdits = useCallback(() => {
-    if (metaModuleId === undefined || isAnyRequiredFieldEmpty()) return;
+    if (metaModuleId === undefined || isAnyFieldEmpty()) return;
     const updatedMetaArray = Object.entries({
-      ...requiredMeta,
-      ...optionalMeta,
-    }).filter(([key, value]) => key !== 'popup_end_timestamp' || value !== '');
+      ...customMeta,
+      sites,
+    });
     api
       .moduleApiCall<{ metaValue: string }[]>(
         Number(metaModuleId),
@@ -158,14 +123,11 @@ export const MetaManager = React.memo(function MetaManager({
         console.error(error);
         alert('Failed to propose meta edits. Please try again.');
       });
-  }, [
-    api,
-    metaModuleId,
-    requiredMeta,
-    optionalMeta,
-    isAnyRequiredFieldEmpty,
-    setActiveTab,
-  ]);
+  }, [api, metaModuleId, customMeta, sites, isAnyFieldEmpty, setActiveTab]);
+
+  const handleSitesChange = (sitesJson: string) => {
+    setSites(sitesJson);
+  };
 
   return (
     <Flex flexDirection='column' gap={6}>
@@ -185,39 +147,10 @@ export const MetaManager = React.memo(function MetaManager({
           {t('federation-dashboard.config.manage-meta.learn-more')}
         </Link>
       </Box>
-
       <Divider />
-      <RequiredMeta
-        requiredMeta={requiredMeta}
-        setRequiredMeta={setRequiredMeta}
-        isValid={isRequiredMetaValid}
-        setIsValid={setIsRequiredMetaValid}
-      />
-      <Flex flexDirection='column' gap={4}>
-        {Object.entries(optionalMeta).map(([key, value]) => (
-          <Flex key={key} flexDirection='column'>
-            <Flex alignItems='center' mb={1} justifyContent='space-between'>
-              <FormLabel fontWeight='bold' mb={0} mr={2}>
-                {key}
-              </FormLabel>
-              <Button
-                fontSize='sm'
-                color='red.500'
-                onClick={() => removeCustomField(key)}
-                variant='ghost'
-                height='auto'
-                _hover={{ backgroundColor: 'transparent' }}
-              >
-                {t('common.remove')}
-              </Button>
-            </Flex>
-            <Input
-              value={value}
-              onChange={(e) => handleOptionalMetaChange(key, e.target.value)}
-            />
-          </Flex>
-        ))}
-      </Flex>
+      <CustomMetaFields customMeta={customMeta} setCustomMeta={setCustomMeta} />
+      <Divider />
+      <SitesInput value={sites} onChange={handleSitesChange} />
       <Flex gap={4}>
         <Button
           colorScheme='blue'
@@ -233,9 +166,6 @@ export const MetaManager = React.memo(function MetaManager({
             )}
           </Button>
         )}
-        <Button onClick={addCustomField} variant='outline'>
-          {t('federation-dashboard.config.manage-meta.add-custom-field-button')}
-        </Button>
       </Flex>
     </Flex>
   );

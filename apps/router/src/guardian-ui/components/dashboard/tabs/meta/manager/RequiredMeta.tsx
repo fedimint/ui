@@ -1,64 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { Flex } from '@chakra-ui/react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Flex, Text } from '@chakra-ui/react';
 import { MetaInput } from './MetaInput';
+import { ParsedConsensusMeta } from '@fedimint/types';
 
 interface RequiredMetaProps {
-  requiredMeta: Record<string, string>;
-  setRequiredMeta: React.Dispatch<React.SetStateAction<Record<string, string>>>;
-  isValid: boolean;
-  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
+  consensusMeta?: ParsedConsensusMeta;
+  onValidityChange: (isValid: boolean) => void;
+  onRequiredMetaChange: (requiredMeta: Record<string, string>) => void;
 }
 
 export const RequiredMeta: React.FC<RequiredMetaProps> = ({
-  requiredMeta,
-  setRequiredMeta,
-  setIsValid,
+  consensusMeta,
+  onValidityChange,
+  onRequiredMetaChange,
 }) => {
-  const [iconPreview, setIconPreview] = useState<string | null>(null);
-  const [isIconValid, setIsIconValid] = useState<boolean>(true);
+  const [requiredMeta, setRequiredMeta] = useState<Record<string, string>>({
+    federation_name: '',
+    welcome_message: '',
+    federation_icon_url: '',
+  });
 
   useEffect(() => {
-    let objectURL: string | null = null;
+    if (consensusMeta?.value) {
+      const metaObj = Object.fromEntries(consensusMeta.value);
+      const {
+        federation_name = '',
+        welcome_message = '',
+        federation_icon_url = '',
+      } = metaObj;
 
-    const validateIcon = async (url: string) => {
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const blob = await response.blob();
-        if (!blob.type.startsWith('image/')) {
-          throw new Error('Invalid image format');
-        }
-        objectURL = URL.createObjectURL(blob);
-        setIconPreview(objectURL);
-        setIsIconValid(true);
-      } catch (error) {
-        setIconPreview(null);
-        setIsIconValid(false);
-        if (error instanceof Error) {
-          console.error(`Icon validation failed: ${error.message}`);
-        }
-      }
-    };
-
-    if (requiredMeta.federation_icon_url) {
-      validateIcon(requiredMeta.federation_icon_url);
-    } else {
-      setIconPreview(null);
-      setIsIconValid(true);
+      setRequiredMeta({
+        federation_name,
+        welcome_message,
+        federation_icon_url,
+      });
     }
+  }, [consensusMeta]);
 
-    return () => {
-      if (objectURL) {
-        URL.revokeObjectURL(objectURL);
-      }
-    };
-  }, [requiredMeta.federation_icon_url]);
+  const isAnyRequiredFieldEmpty = useCallback(() => {
+    return Object.values(requiredMeta).some((value) => value.trim() === '');
+  }, [requiredMeta]);
 
   useEffect(() => {
-    setIsValid(isIconValid);
-  }, [isIconValid, setIsValid]);
+    onValidityChange(!isAnyRequiredFieldEmpty());
+    onRequiredMetaChange(requiredMeta);
+  }, [
+    requiredMeta,
+    isAnyRequiredFieldEmpty,
+    onValidityChange,
+    onRequiredMetaChange,
+  ]);
 
   const handleChange = (key: string, value: string) => {
     setRequiredMeta((prev) => ({ ...prev, [key]: value }));
@@ -66,14 +57,15 @@ export const RequiredMeta: React.FC<RequiredMetaProps> = ({
 
   return (
     <Flex flexDirection='column' gap={4}>
+      <Text fontSize='lg' fontWeight='bold'>
+        Required Meta Fields
+      </Text>
       {Object.entries(requiredMeta).map(([key, value]) => (
         <MetaInput
           key={key}
           metaKey={key}
           value={value}
           onChange={handleChange}
-          isIconValid={isIconValid}
-          iconPreview={iconPreview}
         />
       ))}
     </Flex>
