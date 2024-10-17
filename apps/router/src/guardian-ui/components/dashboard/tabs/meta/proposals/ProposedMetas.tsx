@@ -54,6 +54,7 @@ interface ProposedMetasProps {
   consensusMeta?: ParsedConsensusMeta;
   metaSubmissions: MetaSubmissionMap;
   hasVoted: boolean;
+  setActiveTab: (tab: number) => void;
 }
 
 export const ProposedMetas = React.memo(function ProposedMetas({
@@ -62,6 +63,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
   metaModuleId,
   consensusMeta,
   metaSubmissions,
+  setActiveTab,
 }: ProposedMetasProps): JSX.Element {
   const { t } = useTranslation();
   const api = useGuardianAdminApi();
@@ -180,6 +182,7 @@ export const ProposedMetas = React.memo(function ProposedMetas({
   const confirmApproval = async () => {
     if (selectedMeta) {
       await handleApprove(selectedMeta);
+      setActiveTab(0);
       onClose();
     }
   };
