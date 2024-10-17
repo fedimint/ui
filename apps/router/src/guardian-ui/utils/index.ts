@@ -83,6 +83,7 @@ export function isJsonString(str: string): boolean {
     JSON.parse(str);
     return true;
   } catch (e) {
+    console.error('Error parsing JSON string', e);
     return false;
   }
 }
