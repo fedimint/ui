@@ -33,7 +33,7 @@ export const InviteCode: React.FC<InviteCodeProps> = ({ inviteCode }) => {
   const handleClose = () => setIsOpen(false);
 
   return (
-    <Box mt={['12px', '24px', '36px']} bg='blue.50' p={2} borderRadius='md'>
+    <Box bg='blue.50' p={2} borderRadius='md' maxWidth='40%'>
       <Text
         mb='6px'
         fontSize='14px'
@@ -85,9 +85,6 @@ export const InviteCode: React.FC<InviteCodeProps> = ({ inviteCode }) => {
           </ModalBody>
         </ModalContent>
       </Modal>
-      <Text mt='6px' fontSize='14px' color={theme.colors.gray[500]}>
-        {t('federation-dashboard.invite-members-prompt')}
-      </Text>
     </Box>
   );
 };

@@ -52,7 +52,7 @@
   "federation-dashboard": {
     "invite-members": "Пригласите участников или авторизуйтесь как опекун",
     "invite-members-prompt": "Поделитесь этим, чтобы пригласить участников присоединиться к федерации",
-    "fed-info": {
+    "info": {
       "label": "Информация о Федерации",
       "your-status-label": "Статус",
       "block-count-label": "Высота блока по консенсусу",

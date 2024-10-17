@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   Card,
-  CardBody,
-  CardHeader,
   Flex,
   Tabs,
   TabList,
@@ -10,6 +8,7 @@ import {
   Tab,
   TabPanel,
   Badge,
+  Divider,
 } from '@chakra-ui/react';
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { json } from '@codemirror/lang-json';
@@ -22,14 +21,17 @@ import {
   ModuleKind,
   ParsedConsensusMeta,
   SignedApiAnnouncement,
+  StatusResponse,
 } from '@fedimint/types';
 import { useTranslation, hexToMeta } from '@fedimint/utils';
 import { MetaManager } from './meta/manager/MetaManager';
 import { ApiAnnouncements } from './ApiAnnouncements';
-
 import { ProposedMetas } from './meta/proposals/ProposedMetas';
 import { ModuleRpc } from '../../../../types/guardian';
 import { useGuardianAdminApi } from '../../../../context/hooks';
+import { BalanceSheet } from './balanceSheet/BalanceSheet';
+import { FederationInfo } from './info/FederationInfo';
+import { FederationStatus } from './status/FederationStatus';
 
 export const DEFAULT_META_KEY = 0;
 export const POLL_TIMEOUT_MS = 2000;
@@ -45,12 +47,16 @@ interface FederationTabsCardProps {
   config: ClientConfig | undefined;
   ourPeer: { id: number; name: string };
   signedApiAnnouncements: Record<string, SignedApiAnnouncement>;
+  latestSession: number | undefined;
+  status: StatusResponse | undefined;
 }
 
 export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
   config,
   ourPeer,
   signedApiAnnouncements,
+  latestSession,
+  status,
 }) => {
   const { t } = useTranslation();
   const [metaModuleId, setMetaModuleId] = useState<string | undefined>(
@@ -172,59 +178,77 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
   }, [config]);
 
   return config ? (
-    <Card flex='1'>
+    <Card flex='1' width='100%'>
       <Tabs
         variant='soft-rounded'
         colorScheme='blue'
         index={activeTab}
         onChange={setActiveTab}
+        orientation='vertical'
+        display='flex'
+        height='100%'
       >
-        <CardHeader>
-          <Flex direction='column' gap='4'>
-            <Flex justify='space-between' align='center'>
-              <TabList>
-                <Tab minWidth='auto' px={2}>
-                  {t('federation-dashboard.config.view-meta')}
-                </Tab>
-                <Tab minWidth='auto' px={2}>
-                  {t('federation-dashboard.config.view-config')}
-                </Tab>
-                <Tab minWidth='auto' px={2}>
-                  {t('federation-dashboard.api-announcements.label')}
-                </Tab>
-                {pendingProposalsCount > 0 && (
-                  <Tab minWidth='auto' px={2}>
-                    <Flex align='center'>
-                      {t(
-                        'federation-dashboard.config.manage-meta.proposed-meta-label'
-                      )}
-                      <Badge
-                        ml={2}
-                        fontSize='0.8em'
-                        colorScheme='red'
-                        borderRadius='full'
-                        boxSize='1.5em'
-                        display='flex'
-                        alignItems='center'
-                        justifyContent='center'
-                      >
-                        {pendingProposalsCount}
-                      </Badge>
-                    </Flex>
-                  </Tab>
-                )}
-              </TabList>
-            </Flex>
-          </Flex>
-        </CardHeader>
-        <CardBody>
-          <TabPanels>
+        <Flex width='100%'>
+          <TabList flexDirection='column' minWidth='200px' p={4}>
+            <Tab justifyContent='flex-start' mb={2}>
+              {t('federation-dashboard.info.label')}
+            </Tab>
+            <Tab justifyContent='flex-start' mb={2}>
+              {t('federation-dashboard.status.label')}
+            </Tab>
+            <Tab justifyContent='flex-start' mb={2}>
+              {t('federation-dashboard.balance.label')}
+            </Tab>
+            <Tab justifyContent='flex-start' mb={2}>
+              {t('federation-dashboard.config.view-config')}
+            </Tab>
+            <Tab justifyContent='flex-start' mb={2}>
+              {t('federation-dashboard.api-announcements.label')}
+            </Tab>
+            <Tab justifyContent='flex-start' mb={2}>
+              {t('federation-dashboard.config.manage-meta.label')}
+            </Tab>
+
+            {pendingProposalsCount > 0 && (
+              <Tab justifyContent='flex-start'>
+                <Flex align='center' justify='space-between' width='100%'>
+                  {t(
+                    'federation-dashboard.config.manage-meta.proposed-meta-label'
+                  )}
+                  <Badge
+                    fontSize='0.8em'
+                    colorScheme='red'
+                    borderRadius='full'
+                    boxSize='1.5em'
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='center'
+                  >
+                    {pendingProposalsCount}
+                  </Badge>
+                </Flex>
+              </Tab>
+            )}
+          </TabList>
+          <Divider orientation='vertical' />
+          <TabPanels flex={1} width='100%'>
             <TabPanel>
-              <MetaManager
-                metaModuleId={metaModuleId}
-                consensusMeta={consensusMeta}
-                setActiveTab={setActiveTab}
+              <FederationInfo
+                status={status}
+                config={config}
+                latestSession={latestSession}
+                modulesConfigs={config?.modules}
               />
+            </TabPanel>
+            <TabPanel>
+              <FederationStatus
+                status={status}
+                config={config}
+                signedApiAnnouncements={signedApiAnnouncements}
+              />
+            </TabPanel>
+            <TabPanel>
+              <BalanceSheet />
             </TabPanel>
             <TabPanel>
               <CodeMirror
@@ -244,18 +268,27 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
               />
             </TabPanel>
             <TabPanel>
-              <ProposedMetas
-                ourPeer={ourPeer}
-                peers={peers}
-                metaModuleId={metaModuleId ?? ''}
+              <MetaManager
+                metaModuleId={metaModuleId}
                 consensusMeta={consensusMeta}
-                metaSubmissions={metaSubmissions}
-                hasVoted={hasVoted}
                 setActiveTab={setActiveTab}
               />
             </TabPanel>
+            {pendingProposalsCount > 0 && (
+              <TabPanel>
+                <ProposedMetas
+                  ourPeer={ourPeer}
+                  peers={peers}
+                  metaModuleId={metaModuleId ?? ''}
+                  consensusMeta={consensusMeta}
+                  metaSubmissions={metaSubmissions}
+                  hasVoted={hasVoted}
+                  setActiveTab={setActiveTab}
+                />
+              </TabPanel>
+            )}
           </TabPanels>
-        </CardBody>
+        </Flex>
       </Tabs>
     </Card>
   ) : null;

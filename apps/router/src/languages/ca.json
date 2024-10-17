@@ -52,7 +52,7 @@
   "federation-dashboard": {
     "invite-members": "Convida membres o autentica't com a tutor",
     "invite-members-prompt": "Comparteix això per convidar membres a unir-se a la federació",
-    "fed-info": {
+    "info": {
       "label": "Informació de la Federació",
       "your-status-label": "Estat",
       "block-count-label": "Alçada del Bloc de Consens",

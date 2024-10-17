@@ -5,9 +5,6 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
-  Card,
-  CardBody,
-  CardHeader,
   Flex,
   Link,
   Text,
@@ -16,17 +13,17 @@ import {
 import { ClientConfig, Gateway, ModuleKind } from '@fedimint/types';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation, formatEllipsized } from '@fedimint/utils';
-import { ReactComponent as InfoIcon } from '../../../assets/svgs/info.svg';
-import { useGuardianAdminApi } from '../../../../context/hooks';
-import { ModuleRpc } from '../../../../types/guardian';
+import { ReactComponent as InfoIcon } from '../../../../assets/svgs/info.svg';
+import { useGuardianAdminApi } from '../../../../../context/hooks';
+import { ModuleRpc } from '../../../../../types/guardian';
 
 type TableKey = 'nodeId' | 'gatewayId' | 'fee';
 
-interface GatewaysCardProps {
+interface GatewaysStatusProps {
   config: ClientConfig | undefined;
 }
 
-export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
+export const GatewaysStatus: React.FC<GatewaysStatusProps> = ({ config }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const api = useGuardianAdminApi();
@@ -107,33 +104,29 @@ export const GatewaysCard: React.FC<GatewaysCardProps> = ({ config }) => {
   );
 
   return (
-    <Card>
-      <CardHeader>
-        <Text size='lg' fontWeight='600'>
-          {t('federation-dashboard.gateways.label')}
-        </Text>
-      </CardHeader>
-      <CardBody>
-        {gateways.length === 0 ? (
-          <Flex justifyContent='center'>
-            <Alert status='info'>
-              <AlertIcon as={InfoIcon} />
-              <Box>
-                <AlertTitle>
-                  {t('federation-dashboard.gateways.no-gateways-info-title')}
-                </AlertTitle>
-                <AlertDescription>
-                  {t(
-                    'federation-dashboard.gateways.no-gateways-info-description'
-                  )}
-                </AlertDescription>
-              </Box>
-            </Alert>
-          </Flex>
-        ) : (
-          <Table columns={columns} rows={rows} />
-        )}
-      </CardBody>
-    </Card>
+    <Flex direction='column' gap={6}>
+      <Text size='lg' fontWeight='600'>
+        {t('federation-dashboard.gateways.label')}
+      </Text>
+      {gateways.length === 0 ? (
+        <Flex justifyContent='center'>
+          <Alert status='info'>
+            <AlertIcon as={InfoIcon} />
+            <Box>
+              <AlertTitle>
+                {t('federation-dashboard.gateways.no-gateways-info-title')}
+              </AlertTitle>
+              <AlertDescription>
+                {t(
+                  'federation-dashboard.gateways.no-gateways-info-description'
+                )}
+              </AlertDescription>
+            </Box>
+          </Alert>
+        </Flex>
+      ) : (
+        <Table columns={columns} rows={rows} />
+      )}
+    </Flex>
   );
 };

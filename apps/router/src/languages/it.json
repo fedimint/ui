@@ -52,7 +52,7 @@
   "federation-dashboard": {
     "invite-members": "Invita membri o autenticati come un tutore",
     "invite-members-prompt": "Condividi questo per invitare i membri a unirsi alla federazione",
-    "fed-info": {
+    "info": {
       "label": "Informazioni sulla Federazione",
       "your-status-label": "Stato",
       "block-count-label": "Consensus Block Height",

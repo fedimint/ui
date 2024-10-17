@@ -52,7 +52,7 @@
   "federation-dashboard": {
     "invite-members": "Hívjon meg tagokat vagy hitelesítse magát mint gondviselő.",
     "invite-members-prompt": "Ossza meg ezt, hogy meghívja a tagokat a szövetséghez csatlakozásra.",
-    "fed-info": {
+    "info": {
       "label": "Szövetségi Információ",
       "your-status-label": "Státusz",
       "block-count-label": "Konszenzus Blokk Magasság",

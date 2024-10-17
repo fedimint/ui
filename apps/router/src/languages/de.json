@@ -52,7 +52,7 @@
   "federation-dashboard": {
     "invite-members": "Laden Sie Mitglieder ein oder authentifizieren Sie sich als Vormund",
     "invite-members-prompt": "Teilen Sie dies, um Mitglieder einzuladen, dem Verband beizutreten.",
-    "fed-info": {
+    "info": {
       "label": "Föderationsinfo",
       "your-status-label": "Status",
       "block-count-label": "Konsens-Blockhöhe",
