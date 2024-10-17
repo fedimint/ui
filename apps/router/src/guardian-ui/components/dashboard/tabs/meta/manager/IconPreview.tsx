@@ -1,43 +1,36 @@
 import React from 'react';
-import { Flex, Image } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 
 interface IconPreviewProps {
-  iconPreview: string | null;
+  imageUrl: string;
 }
 
-export const IconPreview: React.FC<IconPreviewProps> = ({ iconPreview }) => (
-  <Flex
-    ml={2}
+export const IconPreview: React.FC<IconPreviewProps> = ({ imageUrl }) => (
+  <Box
+    width='40px'
+    height='40px'
+    borderRadius='md'
+    overflow='hidden'
+    bg='gray.100'
+    display='flex'
     alignItems='center'
     justifyContent='center'
-    width='36px'
-    height='36px'
-    borderRadius='full'
-    overflow='hidden'
     boxShadow='sm'
-    bg='gray.100'
     flexShrink={0}
   >
-    {iconPreview ? (
+    {imageUrl ? (
       <Image
-        src={iconPreview}
-        alt='Federation Icon'
+        src={imageUrl}
+        alt='Icon'
+        objectFit='cover'
         width='100%'
         height='100%'
-        objectFit='cover'
+        fallback={<Box>?</Box>}
       />
     ) : (
-      <Flex
-        width='100%'
-        height='100%'
-        alignItems='center'
-        justifyContent='center'
-        fontSize='md'
-        fontWeight='bold'
-        color='gray.400'
-      >
+      <Box fontSize='md' fontWeight='bold' color='gray.400'>
         ?
-      </Flex>
+      </Box>
     )}
-  </Flex>
+  </Box>
 );
