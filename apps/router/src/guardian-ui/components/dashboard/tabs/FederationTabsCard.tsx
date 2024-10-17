@@ -283,6 +283,7 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
                   consensusMeta={consensusMeta}
                   metaSubmissions={metaSubmissions}
                   hasVoted={hasVoted}
+                  setActiveTab={setActiveTab}
                 />
               </TabPanel>
             )}
