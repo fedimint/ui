@@ -173,6 +173,7 @@ export enum AdminRpc {
 export enum SharedRpc {
   auth = 'auth',
   status = 'status',
+  checkBitcoinStatus = 'check_bitcoin_status',
   getVerifyConfigHash = 'verify_config_hash',
 }
 

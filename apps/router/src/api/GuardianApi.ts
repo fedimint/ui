@@ -12,6 +12,7 @@ import {
   SignedApiAnnouncement,
   StatusResponse,
   Versions,
+  BitcoinRpcConnectionStatus,
 } from '@fedimint/types';
 import {
   AdminRpc,
@@ -110,6 +111,10 @@ export class GuardianApi {
 
   status = (): Promise<StatusResponse> => {
     return this.call(SharedRpc.status);
+  };
+
+  checkBitcoinStatus = (): Promise<BitcoinRpcConnectionStatus> => {
+    return this.call(SharedRpc.checkBitcoinStatus);
   };
 
   /*** Setup RPC methods ***/
