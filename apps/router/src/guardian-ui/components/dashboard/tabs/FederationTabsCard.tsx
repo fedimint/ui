@@ -256,7 +256,7 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
                 theme={githubLight}
                 extensions={[json()]}
                 basicSetup={{ autocompletion: true }}
-                width={'900px'}
+                maxWidth={'900px'}
                 height={'500px'}
                 readOnly
               />
