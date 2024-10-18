@@ -46,7 +46,7 @@ procs:
       BROWSER: none
       GATEWAY_TYPE: ldk
   guardian-ui-1:
-    shell: bash --init-file scripts/mprocs-nix-guardian-manual.sh
+    shell: bash --init-file scripts/mprocs-nix-guardian.sh
     stop: SIGKILL
     env:
       PORT: '3000'
