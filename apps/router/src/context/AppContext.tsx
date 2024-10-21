@@ -263,7 +263,13 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     };
 
     // Run both checks
-    checkEnvVars().then(fetchConfig);
+    checkEnvVars()
+      .catch((error) => {
+        console.error('Error in checkEnvVars:', error);
+      })
+      .finally(() => {
+        fetchConfig();
+      });
   }, []);
 
   return (
