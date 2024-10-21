@@ -30,7 +30,9 @@
     "view": "查看",
     "check": "检查",
     "connect": "连接",
-    "password": "密码"
+    "password": "密码",
+    "federation-name": "联邦名称",
+    "guardian-name": "监护人姓名"
   },
   "notConfigured": {
     "title": "未配置",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "会议高度",
         "latest-session": "最新会议"
-      }
+      },
+      "version-label": "版本（共识/ API）",
+      "consensus-block-height-label": "比特币区块高度共识"
     },
     "balance": {
       "label": "资产负债表"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "确认关机",
         "session-to-shutdown-helper": "输入您希望关闭守护节点的会话高度。"
       }
+    },
+    "status": {
+      "label": "状态"
     }
   },
   "login": {
