@@ -183,6 +183,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       service.baseUrl.startsWith('ws');
     const isGateway = (service: Service): service is GatewayConfig =>
       service.baseUrl.startsWith('http');
+
     const addService = async (service: Service) => {
       const id = await sha256Hash(service.baseUrl);
       const newService = { ...service, id };
@@ -198,7 +199,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
           payload: { id, gateway: { config: newService as GatewayConfig } },
         });
       } else {
-        throw new Error(`Invalid service baseUrl in config.json: ${service}`);
+        throw new Error(`Invalid service baseUrl: ${service.baseUrl}`);
       }
     };
 
@@ -209,27 +210,65 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       });
     };
 
-    fetch('/config.json')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-      })
-      .then((text) => {
-        if (!text.trim()) {
-          console.warn('Config file is empty');
-          return;
-        }
-        try {
-          const data = JSON.parse(text);
-          handleConfig(data);
-        } catch (error) {
-          console.error('Error parsing config JSON:', error);
-        }
-      })
+    // Check environment variables
+    const checkEnvVars = async () => {
+      if (process.env.REACT_APP_FM_CONFIG_API) {
+        const id = await sha256Hash(process.env.REACT_APP_FM_CONFIG_API);
+        console.log(
+          'Adding guardian config from env var',
+          process.env.REACT_APP_FM_CONFIG_API
+        );
+        await addService({
+          id,
+          baseUrl: process.env.REACT_APP_FM_CONFIG_API,
+        });
+      }
+      if (process.env.REACT_APP_FM_GATEWAY_API) {
+        const id = await sha256Hash(process.env.REACT_APP_FM_GATEWAY_API);
+        console.log(
+          'Adding gateway config from env var',
+          process.env.REACT_APP_FM_GATEWAY_API
+        );
+        await addService({
+          id,
+          baseUrl: process.env.REACT_APP_FM_GATEWAY_API,
+        });
+      }
+    };
+
+    // Fetch config.json
+    const fetchConfig = () => {
+      fetch('/config.json')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.text();
+        })
+        .then((text) => {
+          if (!text.trim()) {
+            console.warn('Config file is empty');
+            return;
+          }
+          try {
+            const data = JSON.parse(text);
+            handleConfig(data);
+          } catch (error) {
+            console.error('Error parsing config JSON:', error);
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching or processing config:', error);
+        });
+    };
+
+    // Run both checks
+    checkEnvVars()
       .catch((error) => {
-        console.error('Error fetching or processing config:', error);
+        console.error('Error in checkEnvVars:', error);
+      })
+      .finally(() => {
+        fetchConfig();
       });
   }, []);
 
