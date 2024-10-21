@@ -6,7 +6,7 @@ on:
       - package.json
       - yarn.lock
       - .github/workflows/fedimint-ui-docker.yml
-      - apps/guardian-ui/**
+      - apps/router/**
       - packages/**
 jobs:
   docker:
