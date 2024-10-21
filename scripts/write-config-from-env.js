@@ -9,7 +9,7 @@ if (!targetDir) {
 
 function write_config(filePath) {
   let config = {
-    fm_config_api: process.env.REACT_APP_FM_CONFIG_API,
+    baseUrl: process.env.REACT_APP_FM_CONFIG_API,
     tos: process.env.REACT_APP_TOS,
   };
 
