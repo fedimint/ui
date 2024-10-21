@@ -2,7 +2,7 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     fedimint.url =
-      "github:fedimint/fedimint?ref=refs/tags/v0.4.3";
+      "github:fedimint/fedimint?rev=6f6bdb319e83ae737a14ef5689deef4fa17f9268";
   };
   outputs = { self, flake-utils, fedimint }:
     flake-utils.lib.eachDefaultSystem (system:
@@ -10,7 +10,7 @@
         nixpkgs = fedimint.inputs.nixpkgs;
         pkgs = import nixpkgs {
           inherit system;
-          overlays = fedimint.overlays.fedimint;
+          overlays = [ fedimint.overlays.all ];
         };
         fmLib = fedimint.lib.${system};
 
