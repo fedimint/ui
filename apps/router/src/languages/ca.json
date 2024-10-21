@@ -30,7 +30,9 @@
     "view": "Veure",
     "check": "Comprova",
     "connect": "Connecta",
-    "password": "Contrasenya"
+    "password": "Contrasenya",
+    "federation-name": "Nom de la Federació",
+    "guardian-name": "Nom del Tutor"
   },
   "notConfigured": {
     "title": "No configurat",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "Alçada de la Sessió",
         "latest-session": "Última sessió"
-      }
+      },
+      "version-label": "Versió (consens / api)",
+      "consensus-block-height-label": "Consens de l'altura del bloc Bitcoin"
     },
     "balance": {
       "label": "Balanç general"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "Confirma l'aturada",
         "session-to-shutdown-helper": "Introduïu l'alçada de la sessió en què voleu tancar el vostre node de guardian."
       }
+    },
+    "status": {
+      "label": "Estat"
     }
   },
   "login": {

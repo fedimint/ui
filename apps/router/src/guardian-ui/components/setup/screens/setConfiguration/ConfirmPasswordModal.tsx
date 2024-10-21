@@ -54,6 +54,7 @@ export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
           <FormControl>
             <FormLabel>{t('set-config.confirm-password')}</FormLabel>
             <Input
+              id='confirm-password'
               type='password'
               value={confirmPassword}
               onChange={(ev) => setConfirmPassword(ev.currentTarget.value)}

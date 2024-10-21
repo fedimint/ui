@@ -189,7 +189,7 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
         height='100%'
       >
         <Flex width='100%'>
-          <TabList flexDirection='column' minWidth='200px' p={4}>
+          <TabList flexDirection='column' minWidth='220px' p={4}>
             <Tab justifyContent='flex-start' mb={2}>
               {t('federation-dashboard.info.label')}
             </Tab>
@@ -256,8 +256,8 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
                 theme={githubLight}
                 extensions={[json()]}
                 basicSetup={{ autocompletion: true }}
-                minWidth={'500px'}
-                minHeight={'500px'}
+                maxWidth={'900px'}
+                height={'500px'}
                 readOnly
               />
             </TabPanel>
