@@ -30,7 +30,9 @@
     "view": "Ansicht",
     "check": "Überprüfen",
     "connect": "Verbinden",
-    "password": "Passwort"
+    "password": "Passwort",
+    "federation-name": "Bundesname",
+    "guardian-name": "Name des Vormunds"
   },
   "notConfigured": {
     "title": "Nicht konfiguriert",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "Sitzungshöhe",
         "latest-session": "Letzte Sitzung"
-      }
+      },
+      "version-label": "Version (Konsens / API)",
+      "consensus-block-height-label": "Konsens Bitcoin Blockhöhe"
     },
     "balance": {
       "label": "Bilanz"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "Herunterfahren bestätigen",
         "session-to-shutdown-helper": "Geben Sie die Sitzungshöhe ein, bei der Sie Ihren Guardian-Knoten herunterfahren möchten."
       }
+    },
+    "status": {
+      "label": "Status"
     }
   },
   "login": {

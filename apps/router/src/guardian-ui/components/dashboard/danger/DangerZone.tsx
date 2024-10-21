@@ -30,14 +30,7 @@ export const DangerZone: React.FC<DangerZoneProps> = ({
   const toggleCollapse = () => setIsOpen(!isOpen);
 
   return (
-    <Box
-      mt='12px'
-      bg='red.50'
-      p={4}
-      borderRadius='md'
-      border='1px'
-      borderColor='red.200'
-    >
+    <Box bg='red.50' p={4} borderRadius='md' border='1px' borderColor='red.200'>
       <Flex justifyContent='space-between' alignItems='center'>
         <Text
           mb='6px'

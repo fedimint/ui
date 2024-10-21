@@ -30,7 +30,9 @@
     "view": "Megtekintés",
     "check": "Ellenőrizze",
     "connect": "Csatlakozás",
-    "password": "Jelszó"
+    "password": "Jelszó",
+    "federation-name": "Szövetség Neve",
+    "guardian-name": "Őrző Neve"
   },
   "notConfigured": {
     "title": "Nincs beállítva",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "Munkamenet Magasság",
         "latest-session": "Legutóbbi munkamenet"
-      }
+      },
+      "version-label": "Verzió (konszenzus / api)",
+      "consensus-block-height-label": "Konszenzus Bitcoin Blokk Magasság"
     },
     "balance": {
       "label": "Mérleg"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "Leállítás megerősítése",
         "session-to-shutdown-helper": "Adja meg azt a munkamenet magasságot, amelynél le szeretné állítani a guardian csomópontját."
       }
+    },
+    "status": {
+      "label": "Állapot"
     }
   },
   "login": {

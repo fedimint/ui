@@ -30,7 +30,9 @@
     "view": "Visualizar",
     "check": "Verificar",
     "connect": "Conectar",
-    "password": "Senha"
+    "password": "Senha",
+    "federation-name": "Nome da Federação",
+    "guardian-name": "Nome do Guardião"
   },
   "notConfigured": {
     "title": "Não Configurado",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "Altura da Sessão",
         "latest-session": "Última Sessão"
-      }
+      },
+      "version-label": "Versão (consenso / api)",
+      "consensus-block-height-label": "Altura do Bloco de Consenso Bitcoin"
     },
     "balance": {
       "label": "Balanço Patrimonial"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "Confirmar Desligamento",
         "session-to-shutdown-helper": "Insira a altura da sessão na qual você deseja desligar seu nó guardião."
       }
+    },
+    "status": {
+      "label": "Estado"
     }
   },
   "login": {

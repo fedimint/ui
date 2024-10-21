@@ -1,5 +1,7 @@
 {
   "common": {
+    "federation-name": "Federation Name",
+    "guardian-name": "Guardian Name",
     "bitcoin": "Bitcoin",
     "next": "Next",
     "back": "Back",

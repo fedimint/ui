@@ -30,7 +30,9 @@
     "view": "Vue",
     "check": "Vérifier",
     "connect": "Connecter",
-    "password": "Mot de passe"
+    "password": "Mot de passe",
+    "federation-name": "Nom de la Fédération",
+    "guardian-name": "Nom du Tuteur"
   },
   "notConfigured": {
     "title": "Non configuré",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "Hauteur de la session",
         "latest-session": "Dernière Session"
-      }
+      },
+      "version-label": "Version (consensus / api)",
+      "consensus-block-height-label": "Hauteur de bloc de consensus Bitcoin"
     },
     "balance": {
       "label": "Bilan comptable"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "Confirmer l'arrêt",
         "session-to-shutdown-helper": "Entrez la hauteur de session à laquelle vous souhaitez éteindre votre nœud gardien."
       }
+    },
+    "status": {
+      "label": "Statut"
     }
   },
   "login": {

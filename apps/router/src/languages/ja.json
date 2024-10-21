@@ -30,7 +30,9 @@
     "view": "表示",
     "check": "チェック",
     "connect": "接続する",
-    "password": "パスワード"
+    "password": "パスワード",
+    "federation-name": "連盟名",
+    "guardian-name": "保護者の名前"
   },
   "notConfigured": {
     "title": "設定されていません",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "セッションの高さ",
         "latest-session": "最新のセッション"
-      }
+      },
+      "version-label": "バージョン（合意 / API）",
+      "consensus-block-height-label": "合意ビットコインブロック高さ"
     },
     "balance": {
       "label": "貸借対照表"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "シャットダウンの確認",
         "session-to-shutdown-helper": "ガーディアンノードをシャットダウンしたいセッションの高さを入力してください。"
       }
+    },
+    "status": {
+      "label": "ステータス"
     }
   },
   "login": {

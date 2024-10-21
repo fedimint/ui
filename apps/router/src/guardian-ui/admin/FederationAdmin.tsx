@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Flex, Heading, Skeleton } from '@chakra-ui/react';
+import { Flex, Skeleton, Text } from '@chakra-ui/react';
 import {
   ClientConfig,
   SignedApiAnnouncement,
@@ -9,6 +9,7 @@ import { FederationTabsCard } from '../components/dashboard/tabs/FederationTabsC
 import { DangerZone } from '../components/dashboard/danger/DangerZone';
 import { useGuardianAdminApi } from '../../context/hooks';
 import { InviteCode } from '../components/dashboard/admin/InviteCode';
+import { useTranslation } from '@fedimint/utils';
 
 const findOurPeerId = (
   configPeerIds: number[],
@@ -18,6 +19,7 @@ const findOurPeerId = (
 };
 
 export const FederationAdmin: React.FC = () => {
+  const { t } = useTranslation();
   const api = useGuardianAdminApi();
   const [status, setStatus] = useState<StatusResponse>();
   const [inviteCode, setInviteCode] = useState<string>('');
@@ -68,15 +70,45 @@ export const FederationAdmin: React.FC = () => {
 
   return (
     <Flex gap='32px' flexDirection='row'>
-      <Flex gap={6} flexDirection='column' w='100%'>
-        <Heading size='xs' mt='12px'>
-          {config ? (
-            config.global.meta.federation_name
-          ) : (
-            <Skeleton height='32px' width='180px' />
-          )}
-        </Heading>
-        <InviteCode inviteCode={inviteCode} />
+      <Flex gap={4} flexDirection='column' w='100%'>
+        {config ? (
+          <Flex gap={6} justifyContent='space-between' alignItems='center'>
+            <Flex flexDirection='column' gap={3}>
+              <Flex alignItems='baseline'>
+                <Text
+                  fontSize='sm'
+                  color='gray.500'
+                  textTransform='uppercase'
+                  letterSpacing='wide'
+                  width='150px'
+                >
+                  {t('common.federation-name')}
+                </Text>
+                <Text fontSize='lg' color='gray.700' fontWeight='medium'>
+                  {config.global.meta.federation_name}
+                </Text>
+              </Flex>
+              <Flex alignItems='baseline'>
+                <Text
+                  fontSize='sm'
+                  color='gray.500'
+                  textTransform='uppercase'
+                  letterSpacing='wide'
+                  width='150px'
+                >
+                  {t('common.guardian-name')}
+                </Text>
+                <Text fontSize='lg' color='gray.700' fontWeight='medium'>
+                  {ourPeer?.name}
+                </Text>
+              </Flex>
+            </Flex>
+            <InviteCode inviteCode={inviteCode} />
+          </Flex>
+        ) : (
+          <Skeleton height='120px' width='100%' />
+        )}
+
         {ourPeer && (
           <FederationTabsCard
             config={config}

@@ -30,7 +30,9 @@
     "view": "보기",
     "check": "확인하세요",
     "connect": "연결하다",
-    "password": "비밀번호"
+    "password": "비밀번호",
+    "federation-name": "연합 이름",
+    "guardian-name": "보호자 이름"
   },
   "notConfigured": {
     "title": "구성되지 않음",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "세션 높이",
         "latest-session": "최근 세션"
-      }
+      },
+      "version-label": "버전 (합의 / api)",
+      "consensus-block-height-label": "합의 비트코인 블록 높이"
     },
     "balance": {
       "label": "대차대조표"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "종료 확인",
         "session-to-shutdown-helper": "가디언 노드를 종료하려는 세션 높이를 입력하세요."
       }
+    },
+    "status": {
+      "label": "상태"
     }
   },
   "login": {

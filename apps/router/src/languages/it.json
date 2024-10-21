@@ -30,7 +30,9 @@
     "view": "Vista",
     "check": "Verifica",
     "connect": "Collegare",
-    "password": "Contraseña"
+    "password": "Contraseña",
+    "federation-name": "Nome della Federazione",
+    "guardian-name": "Nome del tutore"
   },
   "notConfigured": {
     "title": "Non configurato",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "Altezza della sessione",
         "latest-session": "Ultima sessione"
-      }
+      },
+      "version-label": "Versione (consenso / api)",
+      "consensus-block-height-label": "Consensus Bitcoin Block Height"
     },
     "balance": {
       "label": "Bilancio"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "Conferma spegnimento",
         "session-to-shutdown-helper": "Inserisci l'altezza della sessione alla quale vuoi spegnere il tuo nodo guardiano."
       }
+    },
+    "status": {
+      "label": "Stato"
     }
   },
   "login": {

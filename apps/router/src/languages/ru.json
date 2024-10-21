@@ -30,7 +30,9 @@
     "view": "Просмотр",
     "check": "Проверьте",
     "connect": "Подключить",
-    "password": "Пароль"
+    "password": "Пароль",
+    "federation-name": "Название федерации",
+    "guardian-name": "Имя опекуна"
   },
   "notConfigured": {
     "title": "Не настроено",
@@ -62,7 +64,9 @@
       "session-info": {
         "session-height": "Высота сессии",
         "latest-session": "Последняя сессия"
-      }
+      },
+      "version-label": "Версия (консенсус / api)",
+      "consensus-block-height-label": "Консенсус высоты блока Bitcoin"
     },
     "balance": {
       "label": "Балансовый отчет"
@@ -186,6 +190,9 @@
         "confirm-shutdown": "Подтвердите выключение",
         "session-to-shutdown-helper": "Введите высоту сессии, при достижении которой вы хотите выключить свой узел-хранитель."
       }
+    },
+    "status": {
+      "label": "Статус"
     }
   },
   "login": {
