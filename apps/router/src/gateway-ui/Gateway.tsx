@@ -44,13 +44,6 @@ export const Gateway = () => {
   if (state.gatewayError) return <ErrorMessage error={state.gatewayError} />;
   if (state.gatewayInfo === null) return <Loading />;
 
-  const setShowConnectFed = (value: boolean) => {
-    dispatch({
-      type: GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED,
-      payload: value,
-    });
-  };
-
   const setActiveTab = (index: number) => {
     dispatch({ type: GATEWAY_APP_ACTION_TYPE.SET_ACTIVE_TAB, payload: index });
   };
@@ -95,7 +88,12 @@ export const Gateway = () => {
       </Card>
       <ConnectFederationModal
         isOpen={state.showConnectFed}
-        onClose={() => setShowConnectFed(false)}
+        onClose={() =>
+          dispatch({
+            type: GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED,
+            payload: false,
+          })
+        }
       />
       <WalletModal />
     </Flex>
