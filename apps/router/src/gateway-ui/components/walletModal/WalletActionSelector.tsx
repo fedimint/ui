@@ -1,8 +1,8 @@
 import React from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { WalletModalAction, WalletModalType } from './WalletModal';
 import { WalletTypeButtons } from './WalletTypeButtons';
+import { WalletModalAction, WalletModalType } from '../../../types/gateway';
 
 interface WalletActionSelectorProps {
   action: WalletModalAction;

@@ -4,12 +4,13 @@ import { FederationInfo, MSats } from '@fedimint/types';
 import { useTranslation, formatEllipsized, formatValue } from '@fedimint/utils';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { ViewConfigModal } from './ViewConfig';
+
+import { Unit } from '../../../types';
 import {
   WalletModalAction,
   WalletModalState,
   WalletModalType,
-} from '../walletModal/WalletModal';
-import { Unit } from '../../../types';
+} from '../../../types/gateway';
 
 interface FederationsTableProps {
   federations: FederationInfo[];

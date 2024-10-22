@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Flex,
   Tabs,
@@ -14,29 +14,16 @@ import { FederationsTable } from './components/federations/FederationsTable';
 import { Loading } from './components/Loading';
 import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
 import { WalletCard } from './components/walletCard/WalletCard';
-import {
-  WalletModal,
-  WalletModalAction,
-  WalletModalState,
-  WalletModalType,
-} from './components/walletModal/WalletModal';
+import { WalletModal } from './components/walletModal/WalletModal';
 import { useGatewayContext, useLoadGateway } from '../context/hooks';
 import { ErrorMessage } from './components/ErrorMessage';
 import { Login } from '@fedimint/ui';
-import { GATEWAY_APP_ACTION_TYPE } from '../types/gateway';
+import { GATEWAY_APP_ACTION_TYPE, WalletModalState } from '../types/gateway';
 import { useTranslation } from '@fedimint/utils';
 
 export const Gateway = () => {
   const { t } = useTranslation();
   const { state, dispatch, api, id } = useGatewayContext();
-  const [showConnectFed, setShowConnectFed] = useState(false);
-  const [walletModalState, setWalletModalState] = useState<WalletModalState>({
-    isOpen: false,
-    action: WalletModalAction.Receive,
-    type: WalletModalType.Onchain,
-    selectedFederation: null,
-  });
-  const [activeTab, setActiveTab] = useState(0);
 
   useLoadGateway();
   if (state.needsAuth) {
@@ -57,6 +44,24 @@ export const Gateway = () => {
   if (state.gatewayError) return <ErrorMessage error={state.gatewayError} />;
   if (state.gatewayInfo === null) return <Loading />;
 
+  const setShowConnectFed = (value: boolean) => {
+    dispatch({
+      type: GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED,
+      payload: value,
+    });
+  };
+
+  const setWalletModalState = (newState: WalletModalState) => {
+    dispatch({
+      type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
+      payload: newState,
+    });
+  };
+
+  const setActiveTab = (index: number) => {
+    dispatch({ type: GATEWAY_APP_ACTION_TYPE.SET_ACTIVE_TAB, payload: index });
+  };
+
   return (
     <Flex direction='column' gap={4}>
       <HeaderWithUnitSelector />
@@ -64,7 +69,7 @@ export const Gateway = () => {
         <Tabs
           variant='soft-rounded'
           colorScheme='blue'
-          index={activeTab}
+          index={state.activeTab}
           onChange={setActiveTab}
           orientation='vertical'
           display='flex'
@@ -118,12 +123,12 @@ export const Gateway = () => {
         </Tabs>
       </Card>
       <ConnectFederationModal
-        isOpen={showConnectFed}
+        isOpen={state.showConnectFed}
         onClose={() => setShowConnectFed(false)}
       />
       <WalletModal
         federations={state.gatewayInfo.federations}
-        walletModalState={walletModalState}
+        walletModalState={state.walletModalState}
         setWalletModalState={setWalletModalState}
       />
     </Flex>

@@ -17,23 +17,11 @@ import SendEcash from './send/SendEcash';
 // import SendLightning from './send/SendLightning';
 import SendOnchain from './send/SendOnchain';
 import { WalletActionSelector } from './WalletActionSelector';
-
-export enum WalletModalAction {
-  Receive = 'receive',
-  Send = 'send',
-}
-export enum WalletModalType {
-  Ecash = 'ecash',
-  // Lightning = 'lightning',
-  Onchain = 'onchain',
-}
-
-export interface WalletModalState {
-  isOpen: boolean;
-  action: WalletModalAction;
-  type: WalletModalType;
-  selectedFederation: FederationInfo | null;
-}
+import {
+  WalletModalAction,
+  WalletModalState,
+  WalletModalType,
+} from '../../../types/gateway';
 
 interface WalletModalProps {
   federations: FederationInfo[];

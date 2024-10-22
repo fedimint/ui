@@ -8,35 +8,24 @@ import {
   FormLabel,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { WalletModalState } from '../WalletModal';
-import { FederationInfo, Sats } from '@fedimint/types';
+import { Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
 import { AmountInput } from '..';
 import SendOnchainSuccess from './SendOnchainSuccess';
 import { useGatewayApi } from '../../../../context/hooks';
+import { useGatewayContext } from '../../../../context/hooks';
 
-interface SendOnchainProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-  setShowSelector: (show: boolean) => void;
-}
-
-const SendOnchain: React.FC<SendOnchainProps> = ({
-  federations,
-  walletModalState,
-  setWalletModalState,
-  setShowSelector,
-}) => {
+const SendOnchain: React.FC = () => {
   const { t } = useTranslation();
   const api = useGatewayApi();
+  const { state } = useGatewayContext();
   const [bitcoinAddress, setBitcoinAddress] = useState('');
   const [amountSats, setAmountSats] = useState<Sats>(0 as Sats);
   const [successTxid, setSuccessTxid] = useState<string | null>(null);
   const toast = useToast();
 
   const handlePegOut = async () => {
-    if (!walletModalState.selectedFederation) {
+    if (!state.walletModalState.selectedFederation) {
       toast({
         title: t('wallet-modal.send.select-federation'),
         status: 'error',
@@ -68,11 +57,10 @@ const SendOnchain: React.FC<SendOnchainProps> = ({
 
     try {
       const txid = await api.submitPegOut({
-        federationId: walletModalState.selectedFederation.federation_id,
+        federationId: state.walletModalState.selectedFederation.federation_id,
         satAmountOrAll: amountSats,
         address: bitcoinAddress,
       });
-      setShowSelector(false);
       setSuccessTxid(txid);
     } catch (error) {
       console.error('Peg-out error:', error);
@@ -98,11 +86,7 @@ const SendOnchain: React.FC<SendOnchainProps> = ({
 
   return (
     <Flex direction='column' gap={4}>
-      <FederationSelector
-        federations={federations}
-        walletModalState={walletModalState}
-        setWalletModalState={setWalletModalState}
-      />
+      <FederationSelector />
       <FormControl>
         <FormLabel>{t('wallet-modal.send.to-onchain-address')}</FormLabel>
         <Input

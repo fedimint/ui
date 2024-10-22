@@ -1,26 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { Box, Flex, Text, useClipboard } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FederationInfo, Sats } from '@fedimint/types';
-import { WalletModalState } from '../WalletModal';
+import { Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
 import { AmountInput, CreateButton, QRCodeTabs } from '..';
-import { useGatewayApi } from '../../../../context/hooks';
+import { useGatewayApi, useGatewayContext } from '../../../../context/hooks';
 
-interface SendEcashProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-  setShowSelector: (show: boolean) => void;
-}
-
-const SendEcash: React.FC<SendEcashProps> = ({
-  federations,
-  walletModalState,
-  setWalletModalState,
-  setShowSelector,
-}) => {
+const SendEcash: React.FC = () => {
   const { t } = useTranslation();
+  const { state } = useGatewayContext();
   const api = useGatewayApi();
   const [amount, setAmount] = useState<Sats>(0 as Sats);
   const [ecash, setEcash] = useState<string>('');
@@ -28,19 +16,21 @@ const SendEcash: React.FC<SendEcashProps> = ({
   const { onCopy: onCopyEcash } = useClipboard(ecash);
 
   const handleCreateEcash = useCallback(() => {
-    if (!walletModalState.selectedFederation) return;
+    if (!state.walletModalState.selectedFederation) return;
     api
-      .spendEcash(walletModalState.selectedFederation.federation_id, amount)
+      .spendEcash(
+        state.walletModalState.selectedFederation.federation_id,
+        amount
+      )
       .then((newEcash) => {
         setEcash(newEcash);
-        setShowSelector(false);
         setShowEcash(true);
       })
       .catch(({ message, error }) => {
         console.error(error, message);
         alert(t('wallet-modal.send.ecash-error', { error: message }));
       });
-  }, [api, walletModalState.selectedFederation, amount, setShowSelector, t]);
+  }, [api, state.walletModalState.selectedFederation, amount, t]);
 
   if (showEcash) {
     return (
@@ -49,7 +39,7 @@ const SendEcash: React.FC<SendEcashProps> = ({
           {t('wallet-modal.send.ecash-created', {
             amount,
             federationName:
-              walletModalState.selectedFederation?.config.global.meta
+              state.walletModalState.selectedFederation?.config.global.meta
                 .federation_name,
           })}
         </Text>
@@ -65,11 +55,7 @@ const SendEcash: React.FC<SendEcashProps> = ({
   return (
     <Box>
       <Flex direction='column' gap={4}>
-        <FederationSelector
-          federations={federations}
-          walletModalState={walletModalState}
-          setWalletModalState={setWalletModalState}
-        />
+        <FederationSelector />
         <AmountInput amount={amount} setAmount={setAmount} unit='msats' />
         <CreateButton
           onClick={handleCreateEcash}

@@ -1,25 +1,15 @@
 import React, { useCallback, useState } from 'react';
 import { Flex, useClipboard } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FederationInfo, IncomingContract, Sats } from '@fedimint/types';
-import { WalletModalState } from '../WalletModal';
+import { IncomingContract, Sats } from '@fedimint/types';
+import { useGatewayContext } from '../../../../context/hooks';
 import FederationSelector from '../FederationSelector';
 import { AmountInput, CreateButton, QRCodeTabs } from '..';
 import { useGatewayApi } from '../../../../context/hooks';
 
-interface ReceiveLightningProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-  setShowSelector: (show: boolean) => void;
-}
+const ReceiveLightning: React.FC = () => {
+  const { state } = useGatewayContext();
 
-const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
-  federations,
-  walletModalState,
-  setWalletModalState,
-  setShowSelector,
-}) => {
   const { t } = useTranslation();
   const api = useGatewayApi();
   const [amount, setAmount] = useState<Sats>(0 as Sats);
@@ -34,23 +24,22 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
         ciphertext: 'test',
       };
       const invoice = await api.createBolt11InvoiceV2({
-        federation_id: walletModalState.selectedFederation?.federation_id ?? '',
+        federation_id:
+          state.walletModalState.selectedFederation?.federation_id ?? '',
         contract: incomingContract,
         invoice_amount: amount as number,
         description: { type: 'Direct', value: 'Test Lightning Invoice' },
         expiry_time: Math.floor(Date.now() / 1000) + 3600, // Set expiry to 1 hour from now
       });
       setInvoice(invoice);
-      setShowSelector(false);
       setShowInvoiceInfo(true);
     } catch (error) {
       console.error('Failed to create invoice:', error);
     }
   }, [
     api,
-    setShowSelector,
     setShowInvoiceInfo,
-    walletModalState.selectedFederation?.federation_id,
+    state.walletModalState.selectedFederation?.federation_id,
     amount,
   ]);
 
@@ -70,11 +59,7 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
 
   return (
     <Flex direction='column' gap={4}>
-      <FederationSelector
-        federations={federations}
-        walletModalState={walletModalState}
-        setWalletModalState={setWalletModalState}
-      />
+      <FederationSelector />
       <AmountInput amount={amount} setAmount={setAmount} unit='sats' />
       <CreateButton
         onClick={handleCreateInvoice}

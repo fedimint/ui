@@ -4,12 +4,12 @@ import { formatValue, useTranslation } from '@fedimint/utils';
 import { FederationInfo, GatewayBalances, MSats } from '@fedimint/types';
 import { PieChart } from 'react-minimal-pie-chart';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
+import { Unit } from '../../../types';
 import {
   WalletModalAction,
   WalletModalState,
   WalletModalType,
-} from '../walletModal/WalletModal';
-import { Unit } from '../../../types';
+} from '../../../types/gateway';
 
 interface WalletCardProps {
   unit: Unit;

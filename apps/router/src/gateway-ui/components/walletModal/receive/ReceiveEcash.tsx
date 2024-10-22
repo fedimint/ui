@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Flex, Text, Button } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FederationInfo } from '@fedimint/types';
-import { WalletModalState } from '../WalletModal';
 import { motion } from 'framer-motion';
 import { FiCheckCircle } from 'react-icons/fi';
 import { InfoField } from '..';
 import { useGatewayApi } from '../../../../context/hooks';
+import { WalletModalState } from '../../../../types/gateway';
 
 interface ReceiveEcashProps {
   federations: FederationInfo[];
