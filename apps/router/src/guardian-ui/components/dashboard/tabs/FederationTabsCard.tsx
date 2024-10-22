@@ -28,7 +28,7 @@ import { MetaManager } from './meta/manager/MetaManager';
 import { ApiAnnouncements } from './ApiAnnouncements';
 import { ProposedMetas } from './meta/proposals/ProposedMetas';
 import { ModuleRpc } from '../../../../types/guardian';
-import { useGuardianAdminApi } from '../../../../context/hooks';
+import { useGuardianAdminApi } from '../../../../hooks';
 import { BalanceSheet } from './balanceSheet/BalanceSheet';
 import { FederationInfo } from './info/FederationInfo';
 import { FederationStatus } from './status/FederationStatus';

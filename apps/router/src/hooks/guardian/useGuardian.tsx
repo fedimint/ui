@@ -120,6 +120,15 @@ export const useGuardianStatus = (): GuardianStatus => {
   return guardian.state.status;
 };
 
+export const useGuardianId = (): string => {
+  const guardian = useContext(GuardianContext);
+  if (!guardian)
+    throw new Error(
+      'useGuardianId must be used within a GuardianContextProvider'
+    );
+  return guardian.id;
+};
+
 export const useGuardianAdminApi = (): AdminApiInterface => {
   const guardian = useContext(GuardianContext);
   if (!guardian)

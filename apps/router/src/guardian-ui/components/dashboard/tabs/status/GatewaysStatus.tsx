@@ -14,7 +14,7 @@ import { ClientConfig, Gateway, ModuleKind } from '@fedimint/types';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { useTranslation, formatEllipsized } from '@fedimint/utils';
 import { ReactComponent as InfoIcon } from '../../../../assets/svgs/info.svg';
-import { useGuardianAdminApi } from '../../../../../context/hooks';
+import { useGuardianAdminApi } from '../../../../../hooks';
 import { ModuleRpc } from '../../../../../types/guardian';
 
 type TableKey = 'nodeId' | 'gatewayId' | 'fee';

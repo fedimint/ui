@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 export * from './guardian/useGuardian';
+export * from './guardian/useGuardianSetup';
 export * from './gateway/useGateway';
 
 import { useContext } from 'react';

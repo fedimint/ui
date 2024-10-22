@@ -124,7 +124,9 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
           <>
             <AlertIcon />
             <Box>
-              <AlertTitle>{t('role-selector.bitcoin-node.not-synced')}</AlertTitle>
+              <AlertTitle>
+                {t('role-selector.bitcoin-node.not-synced')}
+              </AlertTitle>
               <AlertDescription>
                 {t('role-selector.bitcoin-node.not-synced-description', {
                   progress: Math.round(Number(bitcoinStatus) * 100),
@@ -151,7 +153,9 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
         <Button
           width={['100%', 'auto']}
           leftIcon={<Icon as={ArrowRightIcon} />}
-          isDisabled={!role || (bitcoinStatus !== undefined && bitcoinStatus !== 'Synced')}
+          isDisabled={
+            !role || (bitcoinStatus !== undefined && bitcoinStatus !== 'Synced')
+          }
           onClick={() => {
             role === GuardianRole.Solo ? handleConfirm() : setIsModalOpen(true);
           }}

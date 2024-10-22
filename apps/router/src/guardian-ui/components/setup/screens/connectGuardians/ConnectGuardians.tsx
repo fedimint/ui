@@ -22,7 +22,7 @@ import { ReactComponent as CopyIcon } from '../../../../assets/svgs/copy.svg';
 import {
   useConsensusPolling,
   useGuardianSetupContext,
-} from '../../../../../context/hooks';
+} from '../../../../../hooks';
 import { GuardianRole } from '../../../../../types/guardian';
 
 interface Props {
