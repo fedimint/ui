@@ -37,6 +37,7 @@ const initialState: GatewayAppState = {
     action: WalletModalAction.Receive,
     type: WalletModalType.Onchain,
     selectedFederation: null,
+    showSelector: true,
   },
   activeTab: 0,
 };

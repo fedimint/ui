@@ -30,6 +30,7 @@ export interface WalletModalState {
   action: WalletModalAction;
   type: WalletModalType;
   selectedFederation: FederationInfo | null;
+  showSelector: boolean;
 }
 
 export interface GatewayAppState {

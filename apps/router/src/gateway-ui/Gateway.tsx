@@ -89,34 +89,12 @@ export const Gateway = () => {
             </TabList>
             <Divider orientation='vertical' />
             <TabPanels flex={1} width='100%'>
+              <TabPanel>{state.balances && <WalletCard />}</TabPanel>
               <TabPanel>
-                {state.balances && (
-                  <WalletCard
-                    unit={state.unit}
-                    balances={state.balances}
-                    setWalletModalState={setWalletModalState}
-                    federations={state.gatewayInfo.federations}
-                  />
-                )}
+                <LightningCard />
               </TabPanel>
               <TabPanel>
-                <LightningCard
-                  nodeId={state.gatewayInfo.gateway_id}
-                  network={state.gatewayInfo.network}
-                  alias={state.gatewayInfo.lightning_alias}
-                  mode={state.gatewayInfo.lightning_mode}
-                  pubkey={state.gatewayInfo.lightning_pub_key}
-                  blockHeight={state.gatewayInfo.block_height}
-                  syncedToChain={state.gatewayInfo.synced_to_chain}
-                />
-              </TabPanel>
-              <TabPanel>
-                <FederationsTable
-                  unit={state.unit}
-                  federations={state.gatewayInfo.federations}
-                  onConnectFederation={() => setShowConnectFed(true)}
-                  setWalletModalState={setWalletModalState}
-                />
+                <FederationsTable />
               </TabPanel>
             </TabPanels>
           </Flex>
