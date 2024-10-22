@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Flex,
   Tabs,
@@ -26,6 +26,17 @@ export const Gateway = () => {
   const { state, dispatch, api, id } = useGatewayContext();
 
   useLoadGateway();
+
+  const setActiveTab = useCallback(
+    (index: number) => {
+      dispatch({
+        type: GATEWAY_APP_ACTION_TYPE.SET_ACTIVE_TAB,
+        payload: index,
+      });
+    },
+    [dispatch]
+  );
+
   if (state.needsAuth) {
     return (
       <Login
@@ -43,10 +54,6 @@ export const Gateway = () => {
   }
   if (state.gatewayError) return <ErrorMessage error={state.gatewayError} />;
   if (state.gatewayInfo === null) return <Loading />;
-
-  const setActiveTab = (index: number) => {
-    dispatch({ type: GATEWAY_APP_ACTION_TYPE.SET_ACTIVE_TAB, payload: index });
-  };
 
   return (
     <Flex direction='column' gap={4}>
