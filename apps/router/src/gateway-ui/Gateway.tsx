@@ -15,11 +15,11 @@ import { Loading } from './components/Loading';
 import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
 import { WalletCard } from './components/walletCard/WalletCard';
 import { WalletModal } from './components/walletModal/WalletModal';
-import { useGatewayContext, useLoadGateway } from '../context/hooks';
 import { ErrorMessage } from './components/ErrorMessage';
 import { Login } from '@fedimint/ui';
-import { GATEWAY_APP_ACTION_TYPE, WalletModalState } from '../types/gateway';
+import { GATEWAY_APP_ACTION_TYPE } from '../types/gateway';
 import { useTranslation } from '@fedimint/utils';
+import { useGatewayContext, useLoadGateway } from '../hooks';
 
 export const Gateway = () => {
   const { t } = useTranslation();
@@ -48,13 +48,6 @@ export const Gateway = () => {
     dispatch({
       type: GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED,
       payload: value,
-    });
-  };
-
-  const setWalletModalState = (newState: WalletModalState) => {
-    dispatch({
-      type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
-      payload: newState,
     });
   };
 
@@ -104,11 +97,7 @@ export const Gateway = () => {
         isOpen={state.showConnectFed}
         onClose={() => setShowConnectFed(false)}
       />
-      <WalletModal
-        federations={state.gatewayInfo.federations}
-        walletModalState={state.walletModalState}
-        setWalletModalState={setWalletModalState}
-      />
+      <WalletModal />
     </Flex>
   );
 };

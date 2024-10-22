@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControl, FormLabel, Select } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { useGatewayContext } from '../../../context/hooks';
+import { useGatewayContext } from '../../../hooks';
 import {
   GATEWAY_APP_ACTION_TYPE,
   WalletModalAction,

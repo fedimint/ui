@@ -12,13 +12,11 @@ import { Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
 import { AmountInput } from '..';
 import SendOnchainSuccess from './SendOnchainSuccess';
-import { useGatewayApi } from '../../../../context/hooks';
-import { useGatewayContext } from '../../../../context/hooks';
+import { useGatewayContext } from '../../../../hooks';
 
 const SendOnchain: React.FC = () => {
   const { t } = useTranslation();
-  const api = useGatewayApi();
-  const { state } = useGatewayContext();
+  const { state, api } = useGatewayContext();
   const [bitcoinAddress, setBitcoinAddress] = useState('');
   const [amountSats, setAmountSats] = useState<Sats>(0 as Sats);
   const [successTxid, setSuccessTxid] = useState<string | null>(null);

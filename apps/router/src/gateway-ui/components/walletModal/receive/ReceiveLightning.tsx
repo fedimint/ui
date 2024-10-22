@@ -2,16 +2,14 @@ import React, { useCallback, useState } from 'react';
 import { Flex, useClipboard } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { IncomingContract, Sats } from '@fedimint/types';
-import { useGatewayContext } from '../../../../context/hooks';
 import FederationSelector from '../FederationSelector';
 import { AmountInput, CreateButton, QRCodeTabs } from '..';
-import { useGatewayApi } from '../../../../context/hooks';
+import { useGatewayContext } from '../../../../hooks';
 
 const ReceiveLightning: React.FC = () => {
-  const { state } = useGatewayContext();
+  const { state, api } = useGatewayContext();
 
   const { t } = useTranslation();
-  const api = useGatewayApi();
   const [amount, setAmount] = useState<Sats>(0 as Sats);
   const [invoice, setInvoice] = useState<string>();
   const [showInvoiceInfo, setShowInvoiceInfo] = useState(false);

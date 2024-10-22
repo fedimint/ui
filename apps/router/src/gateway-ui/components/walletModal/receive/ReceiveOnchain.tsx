@@ -4,12 +4,11 @@ import { useTranslation } from '@fedimint/utils';
 import { Bip21Uri, Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
 import { AmountInput, CreateButton, QRCodeTabs } from '..';
-import { useGatewayApi, useGatewayContext } from '../../../../context/hooks';
+import { useGatewayContext } from '../../../../hooks';
 
 const ReceiveOnchain: React.FC = () => {
   const { t } = useTranslation();
-  const { state } = useGatewayContext();
-  const api = useGatewayApi();
+  const { state, api } = useGatewayContext();
   const [amount, setAmount] = useState<Sats>(0 as Sats);
   const [bip21Uri, setBip21Uri] = useState<Bip21Uri>();
   const [showAddressInfo, setShowAddressInfo] = useState(false);

@@ -9,7 +9,7 @@ import {
   WalletModalAction,
   WalletModalType,
 } from '../../../types/gateway';
-import { useGatewayContext } from '../../../context/hooks';
+import { useGatewayContext } from '../../../hooks';
 
 export const WalletCard = React.memo(function WalletCard(): JSX.Element {
   const { t } = useTranslation();

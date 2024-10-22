@@ -10,7 +10,7 @@ import {
   WalletModalAction,
   WalletModalType,
 } from '../../../types/gateway';
-import { useGatewayContext } from '../../../context/hooks';
+import { useGatewayContext } from '../../../hooks';
 
 export const FederationsTable: React.FC = () => {
   const { t } = useTranslation();

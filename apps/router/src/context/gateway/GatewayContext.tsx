@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useReducer,
 } from 'react';
-import { useGatewayConfig } from '../hooks';
+import { useGatewayConfig } from '../../hooks';
 import { GatewayApi } from '../../api/GatewayApi';
 import {
   GATEWAY_APP_ACTION_TYPE,

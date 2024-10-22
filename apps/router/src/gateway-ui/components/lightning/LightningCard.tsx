@@ -10,7 +10,7 @@ import {
 import { formatEllipsized, getNodeUrl, useTranslation } from '@fedimint/utils';
 import { ReactComponent as CopyIcon } from '../../assets/svgs/copy.svg';
 import { ReactComponent as LinkIcon } from '../../assets/svgs/linkIcon.svg';
-import { useGatewayContext } from '../../../context/hooks';
+import { useGatewayContext } from '../../../hooks';
 import { Network } from '@fedimint/types';
 
 const InfoItem = ({
