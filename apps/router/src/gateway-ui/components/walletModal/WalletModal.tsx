@@ -10,10 +10,10 @@ import {
 import { useTranslation } from '@fedimint/utils';
 import { capitalizeFirstLetters } from '../../utils';
 import ReceiveEcash from './receive/ReceiveEcash';
-// import ReceiveLightning from './receive/ReceiveLightning';
+import ReceiveLightning from './receive/ReceiveLightning';
 import ReceiveOnchain from './receive/ReceiveOnchain';
 import SendEcash from './send/SendEcash';
-// import SendLightning from './send/SendLightning';
+import SendLightning from './send/SendLightning';
 import SendOnchain from './send/SendOnchain';
 import { WalletActionSelector } from './WalletActionSelector';
 import {
@@ -22,8 +22,25 @@ import {
   WalletModalType,
 } from '../../../types/gateway';
 import { useGatewayContext } from '../../../hooks';
+import { FederationInfo } from '@fedimint/types';
+export interface WalletModalState {
+  isOpen: boolean;
+  action: WalletModalAction;
+  type: WalletModalType;
+  selectedFederation: FederationInfo | null;
+}
 
-export const WalletModal: React.FC = () => {
+interface WalletModalProps {
+  federations: FederationInfo[];
+  walletModalState: WalletModalState;
+  setWalletModalState: (state: WalletModalState) => void;
+}
+
+export const WalletModal: React.FC<WalletModalProps> = ({
+  federations,
+  walletModalState,
+  setWalletModalState,
+}) => {
   const { t } = useTranslation();
   const { state, dispatch } = useGatewayContext();
   const [showSelector, setShowSelector] = useState(true);
@@ -52,12 +69,12 @@ export const WalletModal: React.FC = () => {
     const components = {
       [WalletModalAction.Receive]: {
         [WalletModalType.Ecash]: ReceiveEcash,
-        // [WalletModalType.Lightning]: ReceiveLightning,
+        [WalletModalType.Lightning]: ReceiveLightning,
         [WalletModalType.Onchain]: ReceiveOnchain,
       },
       [WalletModalAction.Send]: {
         [WalletModalType.Ecash]: SendEcash,
-        // [WalletModalType.Lightning]: SendLightning,
+        [WalletModalType.Lightning]: SendLightning,
         [WalletModalType.Onchain]: SendOnchain,
       },
     };

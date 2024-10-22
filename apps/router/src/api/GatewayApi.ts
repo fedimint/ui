@@ -13,6 +13,7 @@ import {
   SpendEcashResponse,
   ReceiveEcashResponse,
   GatewayBalances,
+  PayInvoiceFromSelfPayload,
 } from '@fedimint/types';
 import { GatewayConfig } from '../types/gateway';
 
@@ -227,6 +228,30 @@ export class GatewayApi {
     }
   };
 
+  createBolt11InvoiceForSelf = async (
+    payload: CreateBolt11InvoiceV2Payload
+  ): Promise<string> => {
+    try {
+      const res: Response = await this.post(
+        'create_bolt11_invoice_for_self',
+        payload
+      );
+
+      if (res.ok) {
+        const invoice: string = await res.json();
+        return Promise.resolve(invoice);
+      }
+
+      throw responseToError(res);
+    } catch (error) {
+      console.error('Error creating bolt11 invoice for self', error);
+      return Promise.reject({
+        message: 'Error creating bolt11 invoice for self',
+        error,
+      });
+    }
+  };
+
   fetchInfo = async (): Promise<GatewayInfo> => {
     try {
       const res: Response = await this.get('info');
@@ -379,6 +404,28 @@ export class GatewayApi {
     } catch (error) {
       console.error('Error paying invoice', error);
       return Promise.reject({ message: 'Error paying invoice', error });
+    }
+  };
+
+  // Returns the preimage as a string
+  payInvoiceFromSelf = async (
+    payload: PayInvoiceFromSelfPayload
+  ): Promise<string> => {
+    try {
+      const res: Response = await this.post('pay_invoice_self', payload);
+
+      if (res.ok) {
+        const preimage: string = await res.json();
+        return Promise.resolve(preimage);
+      }
+
+      throw responseToError(res);
+    } catch (error) {
+      console.error('Error paying invoice from self', error);
+      return Promise.reject({
+        message: 'Error paying invoice from self',
+        error,
+      });
     }
   };
 
