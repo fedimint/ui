@@ -62,7 +62,7 @@ const reducer = (
     case GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED:
       return { ...state, showConnectFed: action.payload };
     case GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE:
-      return { ...state, walletModalState: action.payload };
+      return { ...state, walletModalState: { ...state.walletModalState, ...action.payload } };
     case GATEWAY_APP_ACTION_TYPE.SET_ACTIVE_TAB:
       return { ...state, activeTab: action.payload };
     default:
