@@ -1,6 +1,7 @@
 import { JsonRpcError, JsonRpcWebsocket } from 'jsonrpc-client-websocket';
 import {
   AuditSummary,
+  BitcoinRpcConnectionStatus,
   ClientConfig,
   ConfigGenParams,
   ConsensusState,
@@ -110,6 +111,10 @@ export class GuardianApi {
 
   status = (): Promise<StatusResponse> => {
     return this.call(SharedRpc.status);
+  };
+
+  checkBitcoinStatus = (): Promise<BitcoinRpcConnectionStatus> => {
+    return this.call(SharedRpc.checkBitcoinStatus);
   };
 
   /*** Setup RPC methods ***/

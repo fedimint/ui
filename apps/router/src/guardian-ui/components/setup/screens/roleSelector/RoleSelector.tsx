@@ -18,8 +18,12 @@ import { ReactComponent as WarningIcon } from '../../../../assets/svgs/warning.s
 import { ReactComponent as SoloIcon } from '../../../../assets/svgs/solo.svg';
 import { useTranslation } from '@fedimint/utils';
 import { WarningModal } from './WarningModal';
-import { useGuardianSetupContext } from '../../../../../context/hooks';
+import {
+  useGuardianApi,
+  useGuardianSetupContext,
+} from '../../../../../context/hooks';
 import { GuardianRole, SETUP_ACTION_TYPE } from '../../../../../types/guardian';
+import { BitcoinRpcConnectionStatus } from '@fedimint/types';
 
 interface Props {
   next: () => void;
@@ -29,9 +33,25 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
   next,
 }: Props) {
   const { t } = useTranslation();
+  const api = useGuardianApi();
   const { dispatch } = useGuardianSetupContext();
   const [role, setRole] = useState<GuardianRole>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [bitcoinStatus, setBitcoinStatus] =
+    useState<BitcoinRpcConnectionStatus>();
+
+  useEffect(() => {
+    const fetchBitcoinStatus = async () => {
+      try {
+        const status = await api.checkBitcoinStatus();
+        setBitcoinStatus(status);
+      } catch (error) {
+        console.error('Failed to fetch Bitcoin status:', error);
+      }
+    };
+
+    fetchBitcoinStatus();
+  }, [api]);
 
   // If role in query params, set it
   useEffect(() => {
@@ -90,17 +110,33 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
         onChange={(value) => setRole(value)}
         activeIcon={CheckIcon}
       />
-      <Alert status='warning'>
-        <AlertIcon>
-          <WarningIcon />
-        </AlertIcon>
-        <Box>
-          <AlertTitle>{t('role-selector.disclaimer-title')}</AlertTitle>
-          <AlertDescription>
-            {t('role-selector.disclaimer-text')}
-          </AlertDescription>
-        </Box>
-      </Alert>
+      {bitcoinStatus && bitcoinStatus !== 'Synced' ? (
+        <Alert status='warning'>
+          <AlertIcon />
+          <Box>
+            <AlertTitle>
+              {t('role-selector.bitcoin-node.not-synced')}
+            </AlertTitle>
+            <AlertDescription>
+              {t('role-selector.bitcoin-node.not-synced-description', {
+                progress: bitcoinStatus * 100,
+              })}
+            </AlertDescription>
+          </Box>
+        </Alert>
+      ) : (
+        <Alert status='warning'>
+          <AlertIcon>
+            <WarningIcon />
+          </AlertIcon>
+          <Box>
+            <AlertTitle>{t('role-selector.disclaimer-title')}</AlertTitle>
+            <AlertDescription>
+              {t('role-selector.disclaimer-text')}
+            </AlertDescription>
+          </Box>
+        </Alert>
+      )}
       <div>
         <Button
           width={['100%', 'auto']}

@@ -5,11 +5,21 @@ import {
   Input,
   Select,
   FormHelperText,
+  Alert,
+  AlertIcon,
+  Box,
+  AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { FormGroup, NetworkIndicator } from '@fedimint/ui';
 import { ReactComponent as BitcoinLogo } from '../../../../assets/svgs/bitcoin.svg';
-import { Network, BitcoinRpc, BitcoinRpcKind } from '@fedimint/types';
+import {
+  Network,
+  BitcoinRpc,
+  BitcoinRpcKind,
+  BitcoinRpcConnectionStatus,
+} from '@fedimint/types';
 import { NumberFormControl } from '../../../NumberFormControl';
 
 interface BitcoinSettingsFormProps {
@@ -22,6 +32,7 @@ interface BitcoinSettingsFormProps {
   blockConfirmations: string;
   setBlockConfirmations: (value: string) => void;
   isHostOrSolo: boolean;
+  bitcoinStatus: BitcoinRpcConnectionStatus | undefined;
 }
 
 export const BitcoinSettingsForm: React.FC<BitcoinSettingsFormProps> = ({
@@ -34,6 +45,7 @@ export const BitcoinSettingsForm: React.FC<BitcoinSettingsFormProps> = ({
   blockConfirmations,
   setBlockConfirmations,
   isHostOrSolo,
+  bitcoinStatus,
 }) => {
   const { t } = useTranslation();
 
@@ -48,6 +60,21 @@ export const BitcoinSettingsForm: React.FC<BitcoinSettingsFormProps> = ({
       }
       isOpen={true}
     >
+      {bitcoinStatus && bitcoinStatus !== 'Synced' && (
+        <Alert status='warning'>
+          <AlertIcon />
+          <Box>
+            <AlertTitle>
+              {t('role-selector.bitcoin-node.not-synced')}
+            </AlertTitle>
+            <AlertDescription>
+              {t('role-selector.bitcoin-node.not-synced-description', {
+                progress: bitcoinStatus * 100,
+              })}
+            </AlertDescription>
+          </Box>
+        </Alert>
+      )}
       {isHostOrSolo && (
         <NumberFormControl
           isDisabled={bitcoinSetFromParams}
