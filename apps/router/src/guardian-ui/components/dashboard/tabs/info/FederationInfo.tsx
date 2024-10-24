@@ -6,11 +6,10 @@ import {
   Versions,
   ModuleConfigs,
   ModuleKind,
-  BitcoinRpcConnectionStatus,
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues, NetworkIndicator } from '@fedimint/ui';
-import { useGuardianAdminApi } from '../../../../../context/hooks';
+import { useGuardianApi } from '../../../../../context/hooks';
 import { BftInfo } from '../../../BftInfo';
 
 interface Props {
@@ -27,11 +26,9 @@ export const FederationInfo: React.FC<Props> = ({
   modulesConfigs,
 }) => {
   const { t } = useTranslation();
-  const api = useGuardianAdminApi();
+  const api = useGuardianApi();
   const [versions, setVersions] = useState<Versions>();
   const [blockCount, setBlockCount] = useState<number>();
-  const [bitcoinStatus, setBitcoinStatus] =
-    useState<BitcoinRpcConnectionStatus>();
 
   const serverStatus = status?.server || '';
   const apiVersion = versions?.core.api.length
@@ -44,19 +41,6 @@ export const FederationInfo: React.FC<Props> = ({
 
   useEffect(() => {
     api.version().then(setVersions).catch(console.error);
-  }, [api]);
-
-  useEffect(() => {
-    const fetchBitcoinStatus = async () => {
-      try {
-        const status = await api.checkBitcoinStatus();
-        setBitcoinStatus(status);
-      } catch (error) {
-        console.error('Failed to fetch Bitcoin status:', error);
-      }
-    };
-
-    fetchBitcoinStatus();
   }, [api]);
 
   useEffect(() => {
@@ -116,17 +100,8 @@ export const FederationInfo: React.FC<Props> = ({
         label: t('federation-dashboard.info.consensus-block-height-label'),
         value: blockCount ?? <Skeleton height='24px' width='60px' />,
       },
-      {
-        key: 'bitcoinStatus',
-        label: t('federation-dashboard.info.bitcoin-status-label'),
-        value: bitcoinStatus ? (
-          bitcoinStatus
-        ) : (
-          <Skeleton height='24px' width='60px' />
-        ),
-      },
     ],
-    [t, walletConfig, blockCount, bitcoinStatus]
+    [t, walletConfig, blockCount]
   );
 
   return (
