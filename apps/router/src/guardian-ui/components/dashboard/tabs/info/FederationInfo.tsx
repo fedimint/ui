@@ -119,7 +119,7 @@ export const FederationInfo: React.FC<Props> = ({
       {
         key: 'bitcoinStatus',
         label: t('federation-dashboard.info.bitcoin-status-label'),
-        value: bitcoinStatus,
+        value: bitcoinStatus ? t(`bitcoin-status.${bitcoinStatus.toLowerCase()}`) : <Skeleton height='24px' width='60px' />,
       },
     ],
     [t, walletConfig, blockCount, bitcoinStatus]
