@@ -110,33 +110,43 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
         onChange={(value) => setRole(value)}
         activeIcon={CheckIcon}
       />
-      {bitcoinStatus && bitcoinStatus !== 'Synced' ? (
-        <Alert status='warning'>
-          <AlertIcon />
-          <Box>
-            <AlertTitle>
-              {t('role-selector.bitcoin-node.not-synced')}
-            </AlertTitle>
-            <AlertDescription>
-              {t('role-selector.bitcoin-node.not-synced-description', {
-                progress: bitcoinStatus * 100,
-              })}
-            </AlertDescription>
-          </Box>
-        </Alert>
-      ) : (
-        <Alert status='warning'>
-          <AlertIcon>
-            <WarningIcon />
-          </AlertIcon>
-          <Box>
-            <AlertTitle>{t('role-selector.disclaimer-title')}</AlertTitle>
-            <AlertDescription>
-              {t('role-selector.disclaimer-text')}
-            </AlertDescription>
-          </Box>
-        </Alert>
-      )}
+      <Alert status='warning'>
+        {bitcoinStatus === undefined ? (
+          // Error state
+          <>
+            <AlertIcon />
+            <Box>
+              <AlertTitle>{t('role-selector.bitcoin-node.error')}</AlertTitle>
+            </Box>
+          </>
+        ) : bitcoinStatus !== 'Synced' ? (
+          // Not synced state
+          <>
+            <AlertIcon />
+            <Box>
+              <AlertTitle>{t('role-selector.bitcoin-node.not-synced')}</AlertTitle>
+              <AlertDescription>
+                {t('role-selector.bitcoin-node.not-synced-description', {
+                  progress: Math.round(Number(bitcoinStatus) * 100),
+                })}
+              </AlertDescription>
+            </Box>
+          </>
+        ) : (
+          // Default warning
+          <>
+            <AlertIcon>
+              <WarningIcon />
+            </AlertIcon>
+            <Box>
+              <AlertTitle>{t('role-selector.disclaimer-title')}</AlertTitle>
+              <AlertDescription>
+                {t('role-selector.disclaimer-text')}
+              </AlertDescription>
+            </Box>
+          </>
+        )}
+      </Alert>
       <div>
         <Button
           width={['100%', 'auto']}
