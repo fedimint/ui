@@ -66,7 +66,8 @@
         "latest-session": "Última sessió"
       },
       "version-label": "Versió (consens / api)",
-      "consensus-block-height-label": "Consens de l'altura del bloc Bitcoin"
+      "consensus-block-height-label": "Consens de l'altura del bloc Bitcoin",
+      "bitcoin-status-label": "Estat de sincronització de Bitcoin"
     },
     "balance": {
       "label": "Balanç general"
@@ -219,6 +220,10 @@
     "warning-modal": {
       "title": "Tothom està a punt?",
       "description": "Sortir de la cerimònia de configuració pot provocar que la configuració falli i requereixi que reinicieu el vostre guardià. Assegureu-vos que tothom està preparat per executar la configuració completa abans de continuar!"
+    },
+    "bitcoin-node": {
+      "not-synced": "Node de Bitcoin no està completament sincronitzat",
+      "not-synced-description": "El vostre node de Bitcoin està actualment sincronitzat al {{progress}}%. Heu d'esperar a la sincronització completa abans de continuar."
     }
   },
   "run-dkg": {

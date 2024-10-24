@@ -66,7 +66,8 @@
         "latest-session": "Letzte Sitzung"
       },
       "version-label": "Version (Konsens / API)",
-      "consensus-block-height-label": "Konsens Bitcoin Blockhöhe"
+      "consensus-block-height-label": "Konsens Bitcoin Blockhöhe",
+      "bitcoin-status-label": "Bitcoin-Synchronisierungsstatus"
     },
     "balance": {
       "label": "Bilanz"
@@ -219,6 +220,10 @@
     "warning-modal": {
       "title": "Ist jeder bereit?",
       "description": "Das Verlassen der Einrichtungszeremonie kann dazu führen, dass die Einrichtung fehlschlägt und Sie Ihren Wächter neu starten müssen. Stellen Sie sicher, dass jeder bereit ist, die vollständige Einrichtung durchzuführen, bevor Sie fortfahren!"
+    },
+    "bitcoin-node": {
+      "not-synced": "Bitcoin-Knoten nicht vollständig synchronisiert",
+      "not-synced-description": "Ihr Bitcoin-Knotenpunkt ist derzeit zu {{progress}}% synchronisiert. Sie müssen auf die vollständige Synchronisation warten, bevor Sie fortfahren können."
     }
   },
   "run-dkg": {

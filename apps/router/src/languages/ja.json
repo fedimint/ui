@@ -66,7 +66,8 @@
         "latest-session": "最新のセッション"
       },
       "version-label": "バージョン（合意 / API）",
-      "consensus-block-height-label": "合意ビットコインブロック高さ"
+      "consensus-block-height-label": "合意ビットコインブロック高さ",
+      "bitcoin-status-label": "ビットコイン同期状況"
     },
     "balance": {
       "label": "貸借対照表"
@@ -219,6 +220,10 @@
     "warning-modal": {
       "title": "皆さん、準備はできていますか？",
       "description": "セットアップの儀式を途中で終了すると、セットアップが失敗し、ガーディアンの再起動が必要になる可能性があります。続行する前に、全員が完全なセットアップを実行する準備ができていることを確認してください！"
+    },
+    "bitcoin-node": {
+      "not-synced": "Bitcoinノードが完全に同期されていません",
+      "not-synced-description": "あなたのビットコインノードは現在{{progress}}％同期されています。完全に同期が完了するまで待つ必要があります。"
     }
   },
   "run-dkg": {

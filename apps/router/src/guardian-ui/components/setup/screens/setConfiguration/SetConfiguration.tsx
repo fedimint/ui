@@ -245,6 +245,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       justify='flex-start'
       align='flex-start'
       width='auto'
+      minWidth='90%'
     >
       <FederationSettingsForm
         federationName={federationName}
@@ -281,7 +282,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         width='60%'
         alignSelf='center'
       >
-        {t('common.next')}
+        {t('common.continue')}
       </Button>
       {error && (
         <Text color={theme.colors.red[500]} mt={4}>

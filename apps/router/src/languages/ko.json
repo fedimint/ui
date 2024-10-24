@@ -66,7 +66,8 @@
         "latest-session": "최근 세션"
       },
       "version-label": "버전 (합의 / api)",
-      "consensus-block-height-label": "합의 비트코인 블록 높이"
+      "consensus-block-height-label": "합의 비트코인 블록 높이",
+      "bitcoin-status-label": "비트코인 동기화 상태"
     },
     "balance": {
       "label": "대차대조표"
@@ -219,6 +220,10 @@
     "warning-modal": {
       "title": "모두 준비되셨나요?",
       "description": "설정 절차를 중단하면 설정이 실패하고 보호자를 다시 시작해야 할 수 있습니다. 계속하기 전에 모두가 전체 설정을 실행할 준비가 되었는지 확인하세요!"
+    },
+    "bitcoin-node": {
+      "not-synced": "비트코인 노드가 완전히 동기화되지 않았습니다",
+      "not-synced-description": "당신의 비트코인 노드는 현재 {{progress}}% 동기화되었습니다. 진행하기 전에 완전한 동기화를 기다려야 합니다."
     }
   },
   "run-dkg": {

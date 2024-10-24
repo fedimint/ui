@@ -6,6 +6,7 @@ import {
   Versions,
   ModuleConfigs,
   ModuleKind,
+  BitcoinRpcConnectionStatus,
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues, NetworkIndicator } from '@fedimint/ui';
@@ -29,6 +30,8 @@ export const FederationInfo: React.FC<Props> = ({
   const api = useGuardianAdminApi();
   const [versions, setVersions] = useState<Versions>();
   const [blockCount, setBlockCount] = useState<number>();
+  const [bitcoinStatus, setBitcoinStatus] =
+    useState<BitcoinRpcConnectionStatus>();
 
   const serverStatus = status?.server || '';
   const apiVersion = versions?.core.api.length
@@ -41,6 +44,19 @@ export const FederationInfo: React.FC<Props> = ({
 
   useEffect(() => {
     api.version().then(setVersions).catch(console.error);
+  }, [api]);
+
+  useEffect(() => {
+    const fetchBitcoinStatus = async () => {
+      try {
+        const status = await api.checkBitcoinStatus();
+        setBitcoinStatus(status);
+      } catch (error) {
+        console.error('Failed to fetch Bitcoin status:', error);
+      }
+    };
+
+    fetchBitcoinStatus();
   }, [api]);
 
   useEffect(() => {
@@ -100,8 +116,13 @@ export const FederationInfo: React.FC<Props> = ({
         label: t('federation-dashboard.info.consensus-block-height-label'),
         value: blockCount ?? <Skeleton height='24px' width='60px' />,
       },
+      {
+        key: 'bitcoinStatus',
+        label: t('federation-dashboard.info.bitcoin-status-label'),
+        value: bitcoinStatus,
+      },
     ],
-    [t, walletConfig, blockCount]
+    [t, walletConfig, blockCount, bitcoinStatus]
   );
 
   return (
