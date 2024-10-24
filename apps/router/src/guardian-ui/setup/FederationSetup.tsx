@@ -211,7 +211,9 @@ export const FederationSetup: React.FC = () => {
       <Box
         width={['100%', '90%']}
         justifyItems={
-          progress === SetupProgress.Start && !tosConfig?.showTos
+          (progress === SetupProgress.Start ||
+            progress === SetupProgress.VerifyGuardians) &&
+          !tosConfig?.showTos
             ? 'left'
             : 'center'
         }
