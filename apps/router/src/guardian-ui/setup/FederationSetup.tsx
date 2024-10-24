@@ -208,7 +208,14 @@ export const FederationSetup: React.FC = () => {
           </Text>
         )}
       </Flex>
-      <Box width={['100%', '90%']} justifyItems='center'>
+      <Box
+        width={['100%', '90%']}
+        justifyItems={
+          progress === SetupProgress.Start && !tosConfig?.showTos
+            ? 'left'
+            : 'center'
+        }
+      >
         {content}
       </Box>
       <RestartModals
