@@ -117,7 +117,7 @@ export const MetaManager = React.memo(function MetaManager({
         }
       )
       .then(() => {
-        setActiveTab(3);
+        setActiveTab(0);
       })
       .catch((error) => {
         console.error(error);
