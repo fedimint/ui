@@ -288,7 +288,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
           {error}
         </Text>
       )}
-      {password !== null && (
+      {password !== null && bitcoinStatus === 'Synced' && (
         <ConfirmPasswordModal
           password={password}
           submitConfig={submitConfig}
