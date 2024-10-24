@@ -259,7 +259,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     return <Spinner />;
   } else if (numPeers === 1) {
     return (
-      <Flex direction='column' gap={10} justify='center' align='center'>
+      <Flex direction='column' gap={6} justify='center' align='center'>
         <CircularProgress
           isIndeterminate
           color={theme.colors.blue[400]}
@@ -270,7 +270,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     );
   } else {
     return (
-      <Flex direction='column' gap={10} justify='start' align='start'>
+      <Flex direction='column' gap={6} justify='start' align='start'>
         <FormControl
           bg={theme.colors.blue[50]}
           p={4}

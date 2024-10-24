@@ -66,7 +66,8 @@
         "latest-session": "Latest Session"
       },
       "version-label": "Version (consensus / api)",
-      "consensus-block-height-label": "Consensus Bitcoin Block Height"
+      "consensus-block-height-label": "Consensus Bitcoin Block Height",
+      "bitcoin-status-label": "Bitcoin Sync Status"
     },
     "status": {
       "label": "Status"
@@ -246,6 +247,10 @@
     "warning-modal": {
       "title": "Is everyone ready?",
       "description": "Exiting the setup ceremony may cause the setup to fail and require you to restart your guardian. Make sure everyone is ready to run the full setup before continuing!"
+    },
+    "bitcoin-node": {
+      "not-synced": "Bitcoin Node Not Fully Synced",
+      "not-synced-description": "Your Bitcoin node is currently {{progress}}% synced. You must wait for full synchronization before proceeding."
     }
   },
   "run-dkg": {

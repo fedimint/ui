@@ -9,7 +9,7 @@ import {
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues, NetworkIndicator } from '@fedimint/ui';
-import { useGuardianAdminApi } from '../../../../../context/hooks';
+import { useGuardianApi } from '../../../../../context/hooks';
 import { BftInfo } from '../../../BftInfo';
 
 interface Props {
@@ -26,7 +26,7 @@ export const FederationInfo: React.FC<Props> = ({
   modulesConfigs,
 }) => {
   const { t } = useTranslation();
-  const api = useGuardianAdminApi();
+  const api = useGuardianApi();
   const [versions, setVersions] = useState<Versions>();
   const [blockCount, setBlockCount] = useState<number>();
 

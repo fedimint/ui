@@ -12,6 +12,7 @@ import {
   ConfigGenParams,
   ModuleKind,
   Network,
+  BitcoinRpcConnectionStatus,
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { GuardianRole } from '../../../../../types/guardian';
@@ -67,6 +68,8 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
     url: '',
   });
   const [bitcoinSetFromParams, setBitcoinSetFromParams] = useState(false);
+  const [bitcoinStatus, setBitcoinStatus] =
+    useState<BitcoinRpcConnectionStatus>();
   const [mintAmounts, setMintAmounts] = useState<number[]>([]);
   const [error, setError] = useState<string>();
   const [numPeers, setNumPeers] = useState(
@@ -114,6 +117,19 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       initStateFromParams(configGenParams);
     }
   }, [configGenParams, api]);
+
+  useEffect(() => {
+    const fetchBitcoinStatus = async () => {
+      try {
+        const status = await api.checkBitcoinStatus();
+        setBitcoinStatus(status);
+      } catch (error) {
+        console.error('Failed to fetch Bitcoin status:', error);
+      }
+    };
+
+    fetchBitcoinStatus();
+  }, [api]);
 
   // Update password when updated from state
   useEffect(() => {
@@ -229,6 +245,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
       justify='flex-start'
       align='flex-start'
       width='auto'
+      minWidth='90%'
     >
       <FederationSettingsForm
         federationName={federationName}
@@ -250,6 +267,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         blockConfirmations={blockConfirmations}
         setBlockConfirmations={setBlockConfirmations}
         isHostOrSolo={isHost || isSolo}
+        bitcoinStatus={bitcoinStatus}
       />
       <BasicSettingsForm
         myName={myName}
@@ -264,14 +282,14 @@ export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
         width='60%'
         alignSelf='center'
       >
-        {t('common.next')}
+        {t('common.continue')}
       </Button>
       {error && (
         <Text color={theme.colors.red[500]} mt={4}>
           {error}
         </Text>
       )}
-      {password !== null && (
+      {password !== null && bitcoinStatus === 'Synced' && (
         <ConfirmPasswordModal
           password={password}
           submitConfig={submitConfig}

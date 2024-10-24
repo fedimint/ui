@@ -66,7 +66,8 @@
         "latest-session": "Legutóbbi munkamenet"
       },
       "version-label": "Verzió (konszenzus / api)",
-      "consensus-block-height-label": "Konszenzus Bitcoin Blokk Magasság"
+      "consensus-block-height-label": "Konszenzus Bitcoin Blokk Magasság",
+      "bitcoin-status-label": "Bitcoin szinkronizálási állapot"
     },
     "balance": {
       "label": "Mérleg"
@@ -219,6 +220,10 @@
     "warning-modal": {
       "title": "Mindenki kész?",
       "description": "A beállítási ceremónia elhagyása meghiúsíthatja a beállítást, és szükségessé teheti a védelmező újraindítását. Győződjön meg róla, hogy mindenki készen áll a teljes beállítás futtatására, mielőtt folytatná!"
+    },
+    "bitcoin-node": {
+      "not-synced": "A Bitcoin csomópont nincs teljesen szinkronizálva",
+      "not-synced-description": "A Bitcoin csomópontja jelenleg {{progress}}% -ban szinkronizált. Teljes szinkronizációra kell várnia a folytatás előtt."
     }
   },
   "run-dkg": {

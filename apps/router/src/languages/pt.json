@@ -66,7 +66,8 @@
         "latest-session": "Última Sessão"
       },
       "version-label": "Versão (consenso / api)",
-      "consensus-block-height-label": "Altura do Bloco de Consenso Bitcoin"
+      "consensus-block-height-label": "Altura do Bloco de Consenso Bitcoin",
+      "bitcoin-status-label": "Status de Sincronização do Bitcoin"
     },
     "balance": {
       "label": "Balanço Patrimonial"
@@ -219,6 +220,10 @@
     "warning-modal": {
       "title": "Todos estão prontos?",
       "description": "Sair da cerimônia de configuração pode fazer com que a configuração falhe e exija que você reinicie seu guardião. Certifique-se de que todos estão prontos para executar a configuração completa antes de continuar!"
+    },
+    "bitcoin-node": {
+      "not-synced": "Nó Bitcoin Não Sincronizado Completamente",
+      "not-synced-description": "Seu nó Bitcoin está atualmente sincronizado em {{progress}}%. Você deve esperar pela sincronização completa antes de prosseguir."
     }
   },
   "run-dkg": {
