@@ -18,12 +18,9 @@ import { ReactComponent as WarningIcon } from '../../../../assets/svgs/warning.s
 import { ReactComponent as SoloIcon } from '../../../../assets/svgs/solo.svg';
 import { useTranslation } from '@fedimint/utils';
 import { WarningModal } from './WarningModal';
-import {
-  useGuardianApi,
-  useGuardianSetupContext,
-} from '../../../../../context/hooks';
-import { GuardianRole, SETUP_ACTION_TYPE } from '../../../../../types/guardian';
 import { BitcoinRpcConnectionStatus } from '@fedimint/types';
+import { useGuardianApi, useGuardianSetupContext } from '../../../../../hooks';
+import { GuardianRole, SETUP_ACTION_TYPE } from '../../../../../types/guardian';
 
 interface Props {
   next: () => void;
