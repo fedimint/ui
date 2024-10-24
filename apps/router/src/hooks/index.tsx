@@ -1,5 +1,16 @@
 import { useLocation } from 'react-router-dom';
 
+export * from './guardian/useGuardian';
+export * from './guardian/useGuardianSetup';
+export * from './gateway/useGateway';
+
+import { useContext } from 'react';
+import { AppContext, AppContextValue } from '../context/AppContext';
+
+export function useAppContext(): AppContextValue {
+  return useContext(AppContext);
+}
+
 export const useActiveService = (): {
   type: 'guardian' | 'gateway';
   id: string;

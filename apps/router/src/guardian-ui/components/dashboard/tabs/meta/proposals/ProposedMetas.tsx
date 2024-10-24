@@ -23,7 +23,7 @@ import {
 } from '../../../../../utils';
 import { DEFAULT_META_KEY } from '../../FederationTabsCard';
 import { ConfirmNewMetaModal } from './ConfirmNewMetaModal';
-import { useGuardianAdminApi } from '../../../../../../context/hooks';
+import { useGuardianAdminApi } from '../../../../../../hooks';
 import { ModuleRpc } from '../../../../../../types/guardian';
 
 export const formatJsonValue = (value: string): JSX.Element => {

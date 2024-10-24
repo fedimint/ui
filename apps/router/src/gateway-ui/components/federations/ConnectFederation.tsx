@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { FederationInfo } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { useGatewayApi } from '../../../context/hooks';
+import { useGatewayApi } from '../../../hooks';
 
 export interface ConnectFedModalProps {
   isOpen: boolean;

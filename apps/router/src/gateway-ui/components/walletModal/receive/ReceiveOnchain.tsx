@@ -1,27 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { Flex, useClipboard, Text } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { Bip21Uri, FederationInfo, Sats } from '@fedimint/types';
-import { WalletModalState } from '../WalletModal';
+import { Bip21Uri, Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
 import { AmountInput, CreateButton, QRCodeTabs } from '..';
-import { useGatewayApi } from '../../../../context/hooks';
+import { useGatewayContext } from '../../../../hooks';
 
-interface ReceiveOnchainProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-  setShowSelector: (show: boolean) => void;
-}
-
-const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
-  federations,
-  walletModalState,
-  setWalletModalState,
-  setShowSelector,
-}) => {
+const ReceiveOnchain: React.FC = () => {
   const { t } = useTranslation();
-  const api = useGatewayApi();
+  const { state, api } = useGatewayContext();
   const [amount, setAmount] = useState<Sats>(0 as Sats);
   const [bip21Uri, setBip21Uri] = useState<Bip21Uri>();
   const [showAddressInfo, setShowAddressInfo] = useState(false);
@@ -29,20 +16,21 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
   const { onCopy: onCopyAddress } = useClipboard(bip21Uri?.address ?? '');
 
   const handleCreateDepositAddress = useCallback(() => {
-    if (!walletModalState.selectedFederation) return;
+    if (!state.walletModalState.selectedFederation) return;
     api
-      .fetchPegInAddress(walletModalState.selectedFederation.federation_id)
+      .fetchPegInAddress(
+        state.walletModalState.selectedFederation.federation_id
+      )
       .then((newAddress: string) => {
         const bip21Uri = new Bip21Uri(newAddress, amount);
         setBip21Uri(bip21Uri);
-        setShowSelector(false);
         setShowAddressInfo(true);
       })
       .catch(({ message, error }) => {
         console.error(error, message);
         alert(t('wallet-modal.receive.address-error', { error: message }));
       });
-  }, [api, walletModalState.selectedFederation, amount, setShowSelector, t]);
+  }, [api, state.walletModalState.selectedFederation, amount, t]);
 
   if (showAddressInfo) {
     return (
@@ -50,7 +38,7 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
         <Text>
           {t('wallet-modal.receive.peg-in-instructions', {
             federationName:
-              walletModalState.selectedFederation?.config.global.meta
+              state.walletModalState.selectedFederation?.config.global.meta
                 .federation_name,
           })}
         </Text>
@@ -68,11 +56,7 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
 
   return (
     <Flex direction='column' gap={4}>
-      <FederationSelector
-        federations={federations}
-        walletModalState={walletModalState}
-        setWalletModalState={setWalletModalState}
-      />
+      <FederationSelector />
       <AmountInput amount={amount} setAmount={setAmount} unit='sats' />
       <CreateButton
         onClick={handleCreateDepositAddress}

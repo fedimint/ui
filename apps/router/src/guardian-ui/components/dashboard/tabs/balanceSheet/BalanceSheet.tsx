@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Text, Flex } from '@chakra-ui/react';
 import { AuditSummary } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { BalanceTable } from './BalanceTable';
-import { useGuardianAdminApi } from '../../../../../context/hooks';
+import { useGuardianAdminApi } from '../../../../../hooks';
 
 export const BalanceSheet: React.FC = () => {
   const { t } = useTranslation();

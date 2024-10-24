@@ -12,7 +12,7 @@ import {
   GuardianAppState,
   GuardianStatus,
 } from '../../types/guardian';
-import { useGuardianConfig } from '../hooks';
+import { useGuardianConfig } from '../../hooks';
 import { useLocation } from 'react-router-dom';
 
 export interface GuardianContextValue {

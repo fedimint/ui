@@ -3,7 +3,7 @@ import { Box, Button, Divider, Flex, Link, Text } from '@chakra-ui/react';
 import { fieldsToMeta, metaToHex, useTranslation } from '@fedimint/utils';
 import { ParsedConsensusMeta } from '@fedimint/types';
 import { DEFAULT_META_KEY } from '../../FederationTabsCard';
-import { useGuardianAdminApi } from '../../../../../../context/hooks';
+import { useGuardianAdminApi } from '../../../../../../hooks';
 import { ModuleRpc } from '../../../../../../types/guardian';
 import { SitesInput } from './SitesInput';
 import { CustomMetaFields } from './CustomMetaFields';

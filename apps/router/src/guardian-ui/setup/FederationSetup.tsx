@@ -20,10 +20,7 @@ import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
 import { GuardianServerStatus } from '@fedimint/types';
 import { RestartModals } from './RestartModals';
-import {
-  useGuardianSetupApi,
-  useGuardianSetupContext,
-} from '../../context/hooks';
+import { useGuardianSetupApi, useGuardianSetupContext } from '../../hooks';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,

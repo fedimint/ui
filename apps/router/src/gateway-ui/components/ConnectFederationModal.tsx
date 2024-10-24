@@ -15,11 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { GatewayInfo } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import {
-  useGatewayApi,
-  useGatewayContext,
-  useGatewayInfo,
-} from '../../context/hooks';
+import { useGatewayApi, useGatewayContext, useGatewayInfo } from '../../hooks';
 import { GATEWAY_APP_ACTION_TYPE } from '../../types/gateway';
 
 export type ConnectFederationModalProps = {

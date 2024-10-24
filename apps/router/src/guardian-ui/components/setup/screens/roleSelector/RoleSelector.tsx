@@ -18,12 +18,9 @@ import { ReactComponent as WarningIcon } from '../../../../assets/svgs/warning.s
 import { ReactComponent as SoloIcon } from '../../../../assets/svgs/solo.svg';
 import { useTranslation } from '@fedimint/utils';
 import { WarningModal } from './WarningModal';
-import {
-  useGuardianApi,
-  useGuardianSetupContext,
-} from '../../../../../context/hooks';
-import { GuardianRole, SETUP_ACTION_TYPE } from '../../../../../types/guardian';
 import { BitcoinRpcConnectionStatus } from '@fedimint/types';
+import { useGuardianApi, useGuardianSetupContext } from '../../../../../hooks';
+import { GuardianRole, SETUP_ACTION_TYPE } from '../../../../../types/guardian';
 
 interface Props {
   next: () => void;
@@ -124,7 +121,9 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
           <>
             <AlertIcon />
             <Box>
-              <AlertTitle>{t('role-selector.bitcoin-node.not-synced')}</AlertTitle>
+              <AlertTitle>
+                {t('role-selector.bitcoin-node.not-synced')}
+              </AlertTitle>
               <AlertDescription>
                 {t('role-selector.bitcoin-node.not-synced-description', {
                   progress: Math.round(Number(bitcoinStatus) * 100),
@@ -151,7 +150,9 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
         <Button
           width={['100%', 'auto']}
           leftIcon={<Icon as={ArrowRightIcon} />}
-          isDisabled={!role || (bitcoinStatus !== undefined && bitcoinStatus !== 'Synced')}
+          isDisabled={
+            !role || (bitcoinStatus !== undefined && bitcoinStatus !== 'Synced')
+          }
           onClick={() => {
             role === GuardianRole.Solo ? handleConfirm() : setIsModalOpen(true);
           }}

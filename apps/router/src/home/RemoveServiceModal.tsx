@@ -11,7 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { useAppContext } from '../context/hooks';
+import { useAppContext } from '../hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
 
 interface RemoveServiceModalProps {

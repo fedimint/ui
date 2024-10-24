@@ -1,32 +1,21 @@
 import React from 'react';
 import { Text, Flex, Link, useTheme, Button } from '@chakra-ui/react';
-import { FederationInfo, MSats } from '@fedimint/types';
+import { MSats } from '@fedimint/types';
 import { useTranslation, formatEllipsized, formatValue } from '@fedimint/utils';
 import { Table, TableColumn, TableRow } from '@fedimint/ui';
 import { ViewConfigModal } from './ViewConfig';
+
 import {
+  GATEWAY_APP_ACTION_TYPE,
   WalletModalAction,
-  WalletModalState,
   WalletModalType,
-} from '../walletModal/WalletModal';
-import { Unit } from '../../../types';
+} from '../../../types/gateway';
+import { useGatewayContext } from '../../../hooks';
 
-interface FederationsTableProps {
-  federations: FederationInfo[];
-  onConnectFederation: () => void;
-  unit: Unit;
-  setWalletModalState: (state: WalletModalState) => void;
-}
-
-export const FederationsTable: React.FC<FederationsTableProps> = ({
-  federations,
-  onConnectFederation,
-  unit,
-  setWalletModalState,
-}) => {
+export const FederationsTable: React.FC = () => {
   const { t } = useTranslation();
   const theme = useTheme();
-
+  const { state, dispatch } = useGatewayContext();
   const columns: TableColumn<'name' | 'id' | 'balance' | 'actions'>[] = [
     { key: 'name', heading: t('federation-card.name') },
     { key: 'id', heading: t('federation-card.id') },
@@ -35,7 +24,7 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
   ];
 
   const rows: TableRow<'name' | 'id' | 'balance' | 'actions'>[] =
-    federations.map((federation) => ({
+    state.gatewayInfo?.federations?.map((federation) => ({
       key: federation.federation_id,
       name: federation.config.global.meta.federation_name,
       id: (
@@ -58,17 +47,21 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
           </Button>
         </Flex>
       ),
-      balance: formatValue(federation.balance_msat as MSats, unit, true),
+      balance: formatValue(federation.balance_msat as MSats, state.unit, true),
       actions: (
         <Flex gap='8px'>
           <Link
             color={theme.colors.blue[600]}
             onClick={() =>
-              setWalletModalState({
-                action: WalletModalAction.Receive,
-                type: WalletModalType.Onchain,
-                selectedFederation: federation,
-                isOpen: true,
+              dispatch({
+                type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
+                payload: {
+                  action: WalletModalAction.Receive,
+                  type: WalletModalType.Onchain,
+                  selectedFederation: federation,
+                  isOpen: true,
+                  showSelector: true,
+                },
               })
             }
           >
@@ -77,11 +70,15 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
           <Link
             color={theme.colors.blue[600]}
             onClick={() =>
-              setWalletModalState({
-                action: WalletModalAction.Send,
-                type: WalletModalType.Onchain,
-                selectedFederation: federation,
-                isOpen: true,
+              dispatch({
+                type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
+                payload: {
+                  action: WalletModalAction.Send,
+                  type: WalletModalType.Onchain,
+                  selectedFederation: federation,
+                  isOpen: true,
+                  showSelector: true,
+                },
               })
             }
           >
@@ -89,12 +86,19 @@ export const FederationsTable: React.FC<FederationsTableProps> = ({
           </Link>
         </Flex>
       ),
-    }));
+    })) ?? [];
 
   return (
     <Flex direction='column' gap={4}>
       <Flex alignItems='center' justifyContent='flex-end'>
-        <Button onClick={onConnectFederation}>
+        <Button
+          onClick={() =>
+            dispatch({
+              type: GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED,
+              payload: true,
+            })
+          }
+        >
           {t('connect-federation.connect-federation-button')}
         </Button>
       </Flex>

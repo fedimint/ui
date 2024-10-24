@@ -6,7 +6,7 @@ import {
   GuardianRole,
   GuardianStatus,
 } from '../../../../../types/guardian';
-import { useGuardianContext } from '../../../../../context/hooks';
+import { useGuardianDispatch } from '../../../../../hooks';
 
 interface SetupCompleteProps {
   role: GuardianRole;
@@ -14,7 +14,7 @@ interface SetupCompleteProps {
 
 export const SetupComplete: React.FC<SetupCompleteProps> = ({ role }) => {
   const { t } = useTranslation();
-  const { dispatch } = useGuardianContext();
+  const dispatch = useGuardianDispatch();
 
   useEffect(() => {
     const timer = setTimeout(() => {

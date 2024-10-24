@@ -1,6 +1,5 @@
 import React, { createContext, ReactNode } from 'react';
-// import { AdminApiInterface } from '../guardian-ui/GuardianApi';
-import { useGuardianStatus } from '../hooks';
+import { useGuardianStatus } from '../../hooks';
 import { GuardianStatus } from '../../types/guardian';
 
 // export interface AdminContextValue {}

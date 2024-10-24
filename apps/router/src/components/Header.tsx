@@ -3,7 +3,7 @@ import { Flex, Text } from '@chakra-ui/react';
 import { Logo } from './Logo';
 import { ServiceMenu } from './ServiceMenu';
 import { useActiveService } from '../hooks';
-import { useAppContext } from '../context/hooks';
+import { useAppContext } from '../hooks';
 
 export const Header = React.memo(function Header() {
   const { guardians, gateways } = useAppContext();

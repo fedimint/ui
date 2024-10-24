@@ -16,7 +16,7 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
-import { useAppContext } from '../context/hooks';
+import { useAppContext } from '../hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
 import { getServiceType } from './utils';
 

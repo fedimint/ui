@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { hexToBlob } from '../../../utils/api';
-import { useGuardianAdminApi } from '../../../../context/hooks';
+import { useGuardianAdminApi } from '../../../../hooks';
 
 export const DownloadBackup: React.FC = () => {
   const theme = useTheme();

@@ -16,18 +16,10 @@ import {
   FormLabel,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FederationInfo, Sats } from '@fedimint/types';
-import { WalletModalState } from './WalletModal';
+import { Sats } from '@fedimint/types';
 import { QRCodeSVG } from 'qrcode.react';
 import { FiCheck, FiCopy } from 'react-icons/fi';
 import { motion } from 'framer-motion';
-
-export interface ReceiveProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-  setShowSelector: (show: boolean) => void;
-}
 
 export const AmountInput: React.FC<{
   amount: Sats;

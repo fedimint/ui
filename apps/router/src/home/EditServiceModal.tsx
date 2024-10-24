@@ -13,7 +13,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
-import { useAppContext } from '../context/hooks';
+import { useAppContext } from '../hooks';
 import { APP_ACTION_TYPE, AppAction } from '../context/AppContext';
 
 interface EditServiceModalProps {

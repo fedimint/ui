@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Button, Flex, Heading, useDisclosure } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { ConnectServiceModal } from './ConnectServiceModal';
-import { useAppContext } from '../context/hooks';
+import { useAppContext } from '../hooks';
 import { EditServiceModal } from './EditServiceModal';
 import { RemoveServiceModal } from './RemoveServiceModal';
 import { NoConnectedServices } from './NoConnectedServices';

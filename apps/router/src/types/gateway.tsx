@@ -1,4 +1,4 @@
-import { GatewayBalances, GatewayInfo } from '@fedimint/types';
+import { FederationInfo, GatewayBalances, GatewayInfo } from '@fedimint/types';
 import { Unit } from './index';
 
 export type GatewayConfig = {
@@ -15,6 +15,24 @@ export enum GatewayStatus {
   Disconnected,
 }
 
+export enum WalletModalAction {
+  Receive = 'receive',
+  Send = 'send',
+}
+export enum WalletModalType {
+  Ecash = 'ecash',
+  // Lightning = 'lightning',
+  Onchain = 'onchain',
+}
+
+export interface WalletModalState {
+  isOpen: boolean;
+  action: WalletModalAction;
+  type: WalletModalType;
+  selectedFederation: FederationInfo | null;
+  showSelector: boolean;
+}
+
 export interface GatewayAppState {
   status: GatewayStatus;
   needsAuth: boolean;
@@ -22,6 +40,9 @@ export interface GatewayAppState {
   balances: GatewayBalances | null;
   gatewayInfo: GatewayInfo | null;
   unit: Unit;
+  showConnectFed: boolean;
+  walletModalState: WalletModalState;
+  activeTab: number;
 }
 
 export enum GATEWAY_APP_ACTION_TYPE {
@@ -31,6 +52,9 @@ export enum GATEWAY_APP_ACTION_TYPE {
   SET_BALANCES = 'SET_BALANCES',
   SET_GATEWAY_INFO = 'SET_GATEWAY_INFO',
   SET_UNIT = 'SET_UNIT',
+  SET_SHOW_CONNECT_FED = 'SET_SHOW_CONNECT_FED',
+  SET_WALLET_MODAL_STATE = 'SET_WALLET_MODAL_STATE',
+  SET_ACTIVE_TAB = 'SET_ACTIVE_TAB',
 }
 
 export type GatewayAppAction =
@@ -57,4 +81,16 @@ export type GatewayAppAction =
   | {
       type: GATEWAY_APP_ACTION_TYPE.SET_UNIT;
       payload: Unit;
+    }
+  | {
+      type: GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED;
+      payload: boolean;
+    }
+  | {
+      type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE;
+      payload: WalletModalState;
+    }
+  | {
+      type: GATEWAY_APP_ACTION_TYPE.SET_ACTIVE_TAB;
+      payload: number;
     };

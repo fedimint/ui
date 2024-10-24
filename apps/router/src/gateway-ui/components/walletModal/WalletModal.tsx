@@ -8,7 +8,6 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FederationInfo } from '@fedimint/types';
 import { capitalizeFirstLetters } from '../../utils';
 import ReceiveEcash from './receive/ReceiveEcash';
 // import ReceiveLightning from './receive/ReceiveLightning';
@@ -17,57 +16,39 @@ import SendEcash from './send/SendEcash';
 // import SendLightning from './send/SendLightning';
 import SendOnchain from './send/SendOnchain';
 import { WalletActionSelector } from './WalletActionSelector';
+import {
+  GATEWAY_APP_ACTION_TYPE,
+  WalletModalAction,
+  WalletModalType,
+} from '../../../types/gateway';
+import { useGatewayContext } from '../../../hooks';
 
-export enum WalletModalAction {
-  Receive = 'receive',
-  Send = 'send',
-}
-export enum WalletModalType {
-  Ecash = 'ecash',
-  // Lightning = 'lightning',
-  Onchain = 'onchain',
-}
-
-export interface WalletModalState {
-  isOpen: boolean;
-  action: WalletModalAction;
-  type: WalletModalType;
-  selectedFederation: FederationInfo | null;
-}
-
-interface WalletModalProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-}
-
-export const WalletModal: React.FC<WalletModalProps> = ({
-  federations,
-  walletModalState,
-  setWalletModalState,
-}) => {
+export const WalletModal: React.FC = () => {
   const { t } = useTranslation();
+  const { state, dispatch } = useGatewayContext();
   const [showSelector, setShowSelector] = useState(true);
 
   const handleActionChange = (action: WalletModalAction) => {
-    setWalletModalState({
-      ...walletModalState,
-      action,
+    dispatch({
+      type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
+      payload: {
+        ...state.walletModalState,
+        action,
+      },
     });
   };
 
   const handleTypeChange = (type: WalletModalType) => {
-    setWalletModalState({
-      ...walletModalState,
-      type,
+    dispatch({
+      type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
+      payload: {
+        ...state.walletModalState,
+        type,
+      },
     });
   };
 
-  const renderActionComponent = (
-    federations: FederationInfo[],
-    walletModalState: WalletModalState,
-    setWalletModalState: (state: WalletModalState) => void
-  ) => {
+  const renderActionComponent = () => {
     const components = {
       [WalletModalAction.Receive]: {
         [WalletModalType.Ecash]: ReceiveEcash,
@@ -82,24 +63,18 @@ export const WalletModal: React.FC<WalletModalProps> = ({
     };
 
     const Component =
-      components[walletModalState.action][walletModalState.type];
-    return Component ? (
-      <Component
-        {...{
-          federations,
-          walletModalState,
-          setWalletModalState,
-          setShowSelector,
-        }}
-      />
-    ) : null;
+      components[state.walletModalState.action][state.walletModalState.type];
+    return Component ? <Component /> : null;
   };
 
   return (
     <Modal
-      isOpen={walletModalState.isOpen}
+      isOpen={state.walletModalState.isOpen}
       onClose={() => {
-        setWalletModalState({ ...walletModalState, isOpen: false });
+        dispatch({
+          type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
+          payload: { ...state.walletModalState, isOpen: false },
+        });
         setShowSelector(true);
       }}
       size='md'
@@ -108,26 +83,22 @@ export const WalletModal: React.FC<WalletModalProps> = ({
       <ModalContent>
         <ModalHeader>
           {capitalizeFirstLetters(
-            t(`wallet.${walletModalState.action}`) +
+            t(`wallet.${state.walletModalState.action}`) +
               ' ' +
-              t(`wallet.${walletModalState.type}`)
+              t(`wallet.${state.walletModalState.type}`)
           )}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           {showSelector && (
             <WalletActionSelector
-              action={walletModalState.action}
-              type={walletModalState.type}
+              action={state.walletModalState.action}
+              type={state.walletModalState.type}
               onActionChange={handleActionChange}
               onTypeChange={handleTypeChange}
             />
           )}
-          {renderActionComponent(
-            federations,
-            walletModalState,
-            setWalletModalState
-          )}
+          {renderActionComponent()}
         </ModalBody>
       </ModalContent>
     </Modal>
