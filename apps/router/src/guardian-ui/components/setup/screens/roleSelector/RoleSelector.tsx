@@ -151,7 +151,7 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
         <Button
           width={['100%', 'auto']}
           leftIcon={<Icon as={ArrowRightIcon} />}
-          isDisabled={!role || bitcoinStatus !== 'Synced'}
+          isDisabled={!role || (bitcoinStatus !== undefined && bitcoinStatus !== 'Synced')}
           onClick={() => {
             role === GuardianRole.Solo ? handleConfirm() : setIsModalOpen(true);
           }}
