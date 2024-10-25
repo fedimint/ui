@@ -26,13 +26,20 @@ export function useBalanceCalculations(balances: Balances | undefined) {
       0
     );
 
-    const onchainMsats = balances.onchain_balance_sats * 1000;
+    const onchainMsats = Number.isSafeInteger(balances.onchain_balance_sats * 1000)
+      ? balances.onchain_balance_sats * 1000
+      : throw new Error('Onchain balance too large for safe conversion');
 
     return {
       ecash: ecashTotal,
       lightning: balances.lightning_balance_msats,
       onchain: onchainMsats,
-      total: ecashTotal + balances.lightning_balance_msats + onchainMsats,
+      total: [ecashTotal, balances.lightning_balance_msats, onchainMsats].reduce(
+        (sum, value) => {
+          const newSum = sum + value;
+          if (!Number.isSafeInteger(newSum)) throw new Error('Balance overflow');
+          return newSum;
+        }, 0),
     } as const;
   }, [balances]);
 }
