@@ -14,6 +14,7 @@ import { useAppContext } from '..';
 
 export function useAppGuardianConfigs(): GuardianConfig[] {
   const { guardians } = useAppContext();
+  if (!guardians) return [];
   return Object.values(guardians).map((guardian) => guardian.config);
 }
 
