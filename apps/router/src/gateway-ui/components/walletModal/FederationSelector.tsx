@@ -20,7 +20,7 @@ const FederationSelector: React.FC = () => {
       <Select
         value={state.walletModalState.selectedFederation?.federation_id || ''}
         onChange={(e) => {
-          const selected = state.gatewayInfo?.federations.find(
+          const selected = state.gatewayInfo?.federations?.find(
             (fed) => fed.federation_id === e.target.value
           );
           if (selected)
