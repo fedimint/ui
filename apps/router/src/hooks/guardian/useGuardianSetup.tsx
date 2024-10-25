@@ -144,19 +144,25 @@ export const useHandleBackgroundGuardianSetupActions = (
   const [isPollingConsensus, setIsPollingConsensus] = useState(false);
 
   const fetchConsensusState = useCallback(async () => {
-    const consensusState = await api.getConsensusConfigGenParams();
-    dispatch({
-      type: SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID,
-      payload: consensusState.our_current_id,
-    });
-    dispatch({
-      type: SETUP_ACTION_TYPE.SET_PEERS,
-      payload: Object.values(consensusState.consensus.peers),
-    });
-    dispatch({
-      type: SETUP_ACTION_TYPE.SET_CONFIG_GEN_PARAMS,
-      payload: consensusState.consensus,
-    });
+    try {
+      const consensusState = await api.getConsensusConfigGenParams();
+      dispatch({
+        type: SETUP_ACTION_TYPE.SET_OUR_CURRENT_ID,
+        payload: consensusState.our_current_id,
+      });
+      dispatch({
+        type: SETUP_ACTION_TYPE.SET_PEERS,
+        payload: Object.values(consensusState.consensus.peers),
+      });
+      dispatch({
+        type: SETUP_ACTION_TYPE.SET_CONFIG_GEN_PARAMS,
+        payload: consensusState.consensus,
+      });
+    } catch (error) {
+      throw new Error(
+        `Failed to fetch consensus state: ${(error as Error).message}`
+      );
+    }
   }, [api, dispatch]);
 
   useEffect(() => {

@@ -115,7 +115,10 @@ export const useLoadGateway = () => {
       fetchInfoAndConfigs();
       fetchBalances();
 
-      const interval = setInterval(fetchInfoAndConfigs, 5000);
+      const interval = setInterval(() => {
+        fetchInfoAndConfigs();
+        fetchBalances();
+      }, 5000);
       return () => clearInterval(interval);
     }
   }, [state.needsAuth, api, dispatch]);

@@ -91,7 +91,11 @@ export const Gateway = () => {
             </TabList>
             <Divider orientation='vertical' />
             <TabPanels flex={1} width='100%'>
-              <TabPanel>{state.balances && <WalletCard />}</TabPanel>
+              {state.balances && (
+                <TabPanel>
+                  <WalletCard />
+                </TabPanel>
+              )}
               <TabPanel>
                 <LightningCard />
               </TabPanel>

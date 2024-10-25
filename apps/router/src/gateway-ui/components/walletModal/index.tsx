@@ -49,13 +49,14 @@ export const CreateButton: React.FC<{
   onClick: () => void;
   label: string;
   isLoading?: boolean;
-}> = ({ onClick, label, isLoading }) => (
+  isDisabled?: boolean;
+}> = ({ onClick, label, isLoading, isDisabled }) => (
   <Button
     onClick={onClick}
     size='lg'
     width='100%'
     isLoading={isLoading}
-    isDisabled={isLoading}
+    isDisabled={isDisabled}
   >
     {label}
   </Button>
