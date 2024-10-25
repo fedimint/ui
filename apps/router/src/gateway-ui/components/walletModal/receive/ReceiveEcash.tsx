@@ -25,6 +25,10 @@ const ReceiveEcash: React.FC = () => {
       });
     } catch (err) {
       console.error('Failed to receive ecash: ', err);
+      dispatch({
+        type: GATEWAY_APP_ACTION_TYPE.SET_ERROR,
+        payload: (err as Error).message,
+      });
     }
   };
 

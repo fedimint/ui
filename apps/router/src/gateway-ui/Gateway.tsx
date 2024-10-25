@@ -37,6 +37,15 @@ export const Gateway = () => {
     [dispatch]
   );
 
+  const handleCloseConnectFed = useCallback(
+    () =>
+      dispatch({
+        type: GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED,
+        payload: false,
+      }),
+    [dispatch]
+  );
+
   if (state.needsAuth) {
     return (
       <Login
@@ -95,12 +104,7 @@ export const Gateway = () => {
       </Card>
       <ConnectFederationModal
         isOpen={state.showConnectFed}
-        onClose={() =>
-          dispatch({
-            type: GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED,
-            payload: false,
-          })
-        }
+        onClose={handleCloseConnectFed}
       />
       <WalletModal />
     </Flex>

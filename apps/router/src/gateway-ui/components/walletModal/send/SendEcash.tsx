@@ -4,18 +4,46 @@ import { useTranslation } from '@fedimint/utils';
 import { Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
 import { AmountInput, CreateButton, QRCodeTabs } from '..';
-import { useGatewayContext } from '../../../../hooks';
+import {
+  useGatewayApi,
+  useGatewayDispatch,
+  useGatewayState,
+} from '../../../../hooks';
+import { GATEWAY_APP_ACTION_TYPE } from '../../../../types/gateway';
 
 const SendEcash: React.FC = () => {
   const { t } = useTranslation();
-  const { state, api } = useGatewayContext();
+  const state = useGatewayState();
+  const api = useGatewayApi();
+  const dispatch = useGatewayDispatch();
   const [amount, setAmount] = useState<Sats>(0 as Sats);
   const [ecash, setEcash] = useState<string>('');
   const [showEcash, setShowEcash] = useState<boolean>(false);
   const { onCopy: onCopyEcash } = useClipboard(ecash);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const isValidAmount = (amount: Sats): boolean => {
+    return amount > 0 && Number.isInteger(Number(amount));
+  };
 
   const handleCreateEcash = useCallback(() => {
-    if (!state.walletModalState.selectedFederation) return;
+    if (isLoading) return;
+    setIsLoading(true);
+
+    if (!state.walletModalState.selectedFederation) {
+      setIsLoading(false);
+      return;
+    }
+
+    if (!isValidAmount(amount)) {
+      dispatch({
+        type: GATEWAY_APP_ACTION_TYPE.SET_ERROR,
+        payload: t('wallet-modal.send.invalid-amount'),
+      });
+      setIsLoading(false);
+      return;
+    }
+
     api
       .spendEcash(
         state.walletModalState.selectedFederation.federation_id,
@@ -27,9 +55,20 @@ const SendEcash: React.FC = () => {
       })
       .catch(({ message, error }) => {
         console.error(error, message);
-        alert(t('wallet-modal.send.ecash-error', { error: message }));
-      });
-  }, [api, state.walletModalState.selectedFederation, amount, t]);
+        dispatch({
+          type: GATEWAY_APP_ACTION_TYPE.SET_ERROR,
+          payload: message,
+        });
+      })
+      .finally(() => setIsLoading(false));
+  }, [
+    api,
+    state.walletModalState.selectedFederation,
+    amount,
+    t,
+    dispatch,
+    isLoading,
+  ]);
 
   if (showEcash) {
     return (
@@ -59,6 +98,7 @@ const SendEcash: React.FC = () => {
         <CreateButton
           onClick={handleCreateEcash}
           label={t('wallet-modal.send.create-ecash')}
+          isLoading={isLoading}
         />
       </Flex>
     </Box>

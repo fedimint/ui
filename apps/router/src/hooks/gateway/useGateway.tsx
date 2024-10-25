@@ -1,5 +1,4 @@
 import { Dispatch, useContext, useEffect } from 'react';
-import { AppContext } from '../../context/AppContext';
 import {
   GATEWAY_APP_ACTION_TYPE,
   GatewayAppAction,
@@ -9,13 +8,14 @@ import {
 import { GatewayContext } from '../../context/gateway/GatewayContext';
 import { GatewayApi } from '../../api/GatewayApi';
 import { GatewayInfo } from '@fedimint/types';
+import { useAppContext } from '..';
 
 export function useNumberOfGateways(): number {
-  return Object.keys(useContext(AppContext).gateways).length;
+  return Object.keys(useAppContext().gateways).length;
 }
 
 export const useGatewayConfig = (id: string): GatewayConfig => {
-  const { gateways } = useContext(AppContext);
+  const { gateways } = useAppContext();
   if (!gateways[id])
     throw new Error('useGatewayConfig must be used with a selected gateway');
   return gateways[id].config;
@@ -42,26 +42,23 @@ export const useGatewayState = (): GatewayAppState => {
 
 export const useGatewayDispatch = (): Dispatch<GatewayAppAction> => {
   const gateway = useGatewayContext();
-  if (!gateway)
-    throw new Error(
-      'useGatewayDispatch must be used within a GatewayContextProvider'
-    );
   return gateway.dispatch;
 };
 
 export const useGatewayInfo = (): GatewayInfo => {
   const gateway = useGatewayContext();
   if (!gateway.state.gatewayInfo)
-    throw new Error(
-      'useGatewayInfo must be used within a GatewayContextProvider'
-    );
+    throw new Error('useGatewayInfo called with no gateway info available');
   return gateway.state.gatewayInfo;
 };
 
 export const useLoadGateway = () => {
   const { state, dispatch, api, id } = useGatewayContext();
   if (sessionStorage.getItem(id)) {
-    state.needsAuth = false;
+    dispatch({
+      type: GATEWAY_APP_ACTION_TYPE.SET_NEEDS_AUTH,
+      payload: false,
+    });
   }
 
   useEffect(() => {
@@ -106,11 +103,11 @@ export const useLoadGateway = () => {
               payload: balances,
             });
           })
-          .catch(({ message, error }) => {
+          .catch((error) => {
             console.error(error);
             dispatch({
               type: GATEWAY_APP_ACTION_TYPE.SET_ERROR,
-              payload: message,
+              payload: (error as Error).message,
             });
           });
       };

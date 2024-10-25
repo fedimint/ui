@@ -26,8 +26,11 @@ const ReceiveLightning: React.FC = () => {
           state.walletModalState.selectedFederation?.federation_id ?? '',
         contract: incomingContract,
         invoice_amount: amount as number,
-        description: { type: 'Direct', value: 'Test Lightning Invoice' },
-        expiry_time: Math.floor(Date.now() / 1000) + 3600, // Set expiry to 1 hour from now
+        description: {
+          type: 'Direct',
+          value: `Lightning Invoice for ${amount} sats`,
+        },
+        expiry_time: Math.floor(Date.now() / 1000) + 3600,
       });
       setInvoice(invoice);
       setShowInvoiceInfo(true);

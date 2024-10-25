@@ -1,5 +1,4 @@
 import { Dispatch, useContext, useEffect } from 'react';
-import { AppContext } from '../../context/AppContext';
 import { GuardianContext } from '../../context/guardian/GuardianContext';
 import {
   GUARDIAN_APP_ACTION_TYPE,
@@ -11,18 +10,19 @@ import {
 import { AdminApiInterface, GuardianApi } from '../../api/GuardianApi';
 import { GuardianServerStatus } from '@fedimint/types';
 import { formatApiErrorMessage } from '../../guardian-ui/utils/api';
+import { useAppContext } from '..';
 
 export function useAppGuardianConfigs(): GuardianConfig[] {
-  const { guardians } = useContext(AppContext);
+  const { guardians } = useAppContext();
   return Object.values(guardians).map((guardian) => guardian.config);
 }
 
 export function useNumberOfGuardians(): number {
-  return Object.keys(useContext(AppContext).guardians).length;
+  return Object.keys(useAppContext().guardians).length;
 }
 
 export const useGuardianConfig = (id: string): GuardianConfig => {
-  const { guardians } = useContext(AppContext);
+  const { guardians } = useAppContext();
   if (!guardians[id])
     throw new Error('useGuardianConfig must be used with a selected guardian');
   return guardians[id].config;

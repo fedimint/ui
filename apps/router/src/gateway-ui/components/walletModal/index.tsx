@@ -48,8 +48,15 @@ export const AmountInput: React.FC<{
 export const CreateButton: React.FC<{
   onClick: () => void;
   label: string;
-}> = ({ onClick, label }) => (
-  <Button onClick={onClick} size='lg' width='100%'>
+  isLoading?: boolean;
+}> = ({ onClick, label, isLoading }) => (
+  <Button
+    onClick={onClick}
+    size='lg'
+    width='100%'
+    isLoading={isLoading}
+    isDisabled={isLoading}
+  >
     {label}
   </Button>
 );

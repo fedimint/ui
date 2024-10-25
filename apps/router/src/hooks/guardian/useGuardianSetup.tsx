@@ -94,12 +94,6 @@ export const useUpdateLocalStorageOnSetupStateChange = (
         ourCurrentId: state.ourCurrentId,
       })
     );
-
-    return () => {
-      if (state.progress === SetupProgress.SetupComplete) {
-        localStorage.removeItem(LOCAL_STORAGE_SETUP_KEY);
-      }
-    };
   }, [
     state.role,
     state.progress,
@@ -108,6 +102,12 @@ export const useUpdateLocalStorageOnSetupStateChange = (
     state.configGenParams,
     state.ourCurrentId,
   ]);
+
+  useEffect(() => {
+    if (state.progress === SetupProgress.SetupComplete) {
+      localStorage.removeItem(LOCAL_STORAGE_SETUP_KEY);
+    }
+  }, [state.progress]);
 };
 
 export type HostConfigs = ConfigGenParams & {
@@ -121,13 +121,13 @@ export type FollowerConfigs = ConfigGenParams & {
 const isHostConfigs = (
   configs: HostConfigs | FollowerConfigs
 ): configs is HostConfigs => {
-  return (configs as HostConfigs).numPeers !== undefined;
+  return 'numPeers' in configs && !('hostServerUrl' in configs);
 };
 
 const isFollowerConfigs = (
   configs: HostConfigs | FollowerConfigs
 ): configs is FollowerConfigs => {
-  return (configs as FollowerConfigs).hostServerUrl !== undefined;
+  return 'hostServerUrl' in configs && !('numPeers' in configs);
 };
 
 export const useHandleBackgroundGuardianSetupActions = (
@@ -178,6 +178,11 @@ export const useHandleBackgroundGuardianSetupActions = (
   const submitConfiguration: SetupContextValue['submitConfiguration'] =
     useCallback(
       async ({ password: newPassword, myName, configs }) => {
+        if (!myName) {
+          console.error('myName is required to submit configuration');
+          return;
+        }
+
         if (!password) {
           await api.setPassword(newPassword);
 
