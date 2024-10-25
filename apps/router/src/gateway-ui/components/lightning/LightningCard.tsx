@@ -49,6 +49,8 @@ export const LightningCard = React.memo(function LightningCard(): JSX.Element {
         width='20px'
         onClick={onCopy}
         cursor='pointer'
+        aria-label={t('common.copy')}
+        role="button"
         _hover={{ color: 'gray.700' }}
       />
       {hasCopied && (
