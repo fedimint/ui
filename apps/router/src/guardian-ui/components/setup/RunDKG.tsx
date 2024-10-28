@@ -51,11 +51,14 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
               if (err.code === -32002) return;
               throw err;
             });
+            //showInfo(t('run-dkg.waiting-header'));
             break;
           case GuardianServerStatus.ReadyForConfigGen:
             setIsWaitingForOthers(true);
+            //showInfo(t('run-dkg.waiting-for-others'));
             break;
           case GuardianServerStatus.VerifyingConfigs:
+            //showSuccess(t('run-dkg.completed'));
             next();
             break;
           case GuardianServerStatus.ConfigGenFailed:

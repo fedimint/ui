@@ -15,12 +15,13 @@ import { VerifyGuardians } from '../components/setup/screens/verifyGuardians/Ver
 import { SetupComplete } from '../components/setup/screens/setupComplete/SetupComplete';
 import { SetupProgress as SetupStepper } from '../components/setup/SetupProgress';
 import { TermsOfService } from '../components/TermsOfService';
+import { useGuardianSetupApi, useGuardianSetupContext } from '../../hooks';
+import { useNotification } from '../../home/NotificationProvider';
 
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
 import { GuardianServerStatus } from '@fedimint/types';
 import { RestartModals } from './RestartModals';
-import { useGuardianSetupApi, useGuardianSetupContext } from '../../hooks';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,
@@ -38,6 +39,7 @@ export const FederationSetup: React.FC = () => {
     state: { progress, role, peers, tosConfig },
     dispatch,
   } = useGuardianSetupContext();
+  const { showSuccess, showError } = useNotification();
   const [confirmRestart, setConfirmRestart] = useState(false);
 
   const setTosConfig = useCallback(
@@ -59,7 +61,8 @@ export const FederationSetup: React.FC = () => {
     if (!prevProgress) return;
     dispatch({ type: SETUP_ACTION_TYPE.SET_PROGRESS, payload: prevProgress });
     window.scrollTo(0, 0);
-  }, [dispatch, prevProgress]);
+    showSuccess(t('common.back'));
+  }, [dispatch, prevProgress, showSuccess, t]);
 
   const handleNext = useCallback(() => {
     if (!nextProgress) return;
@@ -73,11 +76,13 @@ export const FederationSetup: React.FC = () => {
       .then(() => {
         dispatch({ type: SETUP_ACTION_TYPE.SET_INITIAL_STATE, payload: null });
         window.scrollTo(0, 0);
+        showSuccess(t('setup.common.restart-success'));
       })
       .catch((err) => {
         console.error(err);
+        showError(t('setup.common.restart-error'));
       });
-  }, [api, dispatch]);
+  }, [api, dispatch, showSuccess, showError, t]);
 
   let title: React.ReactNode;
   let subtitle: React.ReactNode;
