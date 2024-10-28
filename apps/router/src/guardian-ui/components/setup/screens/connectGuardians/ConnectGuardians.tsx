@@ -57,11 +57,9 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   }, [role, isAllAccepted, next]);
 
   const handleApprove = useCallback(() => {
-    if (role === GuardianRole.Host) {
-      showSuccess(t('connect-guardians.approve'));
-    }
+    showSuccess(t('connect-guardians.approve'));
     next();
-  }, [next, showSuccess, t, role]);
+  }, [next, showSuccess, t]);
 
   let content: React.ReactNode;
   if (!configGenParams) {
