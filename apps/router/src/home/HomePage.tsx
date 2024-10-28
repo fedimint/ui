@@ -24,6 +24,7 @@ export const HomePage: React.FC = () => {
   const { showError, showSuccess } = useNotification();
 
   useEffect(() => {
+    //simulate toast
     try {
       // Simulate error
       throw new Error('Failed to connect to the service.');
@@ -37,7 +38,7 @@ export const HomePage: React.FC = () => {
 
     try {
       // Simulate a success
-      showSuccess('Service connected successfully!');
+      showSuccess(t('home.connect-service-modal.label'));
     } catch (error) {
       if (error instanceof Error) {
         showError(error.message);
@@ -45,7 +46,7 @@ export const HomePage: React.FC = () => {
         showError('An unknown error occurred.');
       }
     }
-  }, [showError, showSuccess]);
+  }, [showError, showSuccess, t]);
 
   return (
     <Box width='100%' maxWidth='1200px' margin='auto' paddingY='8'>

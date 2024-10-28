@@ -31,7 +31,7 @@ interface Props {
 }
 
 export const ConnectGuardians: React.FC<Props> = ({ next }) => {
-  const { showSuccess, showInfo } = useNotification();
+  const { showSuccess } = useNotification();
   const { t } = useTranslation();
   const {
     state: { role, peers, numPeers, configGenParams, ourCurrentId },
@@ -58,9 +58,8 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   }, [role, isAllAccepted, next, showSuccess, t]);
 
   const handleApprove = useCallback(() => {
-    showInfo(t('connect-guardians.approved'));
     next();
-  }, [next, showInfo, t]);
+  }, [next]);
 
   let content: React.ReactNode;
   if (!configGenParams) {

@@ -15,6 +15,7 @@ import { HomePage } from './home/HomePage';
 import { GuardianContextProvider } from './context/guardian/GuardianContext';
 import { GatewayContextProvider } from './context/gateway/GatewayContext';
 import { Wrapper } from './components/Wrapper';
+import { ChakraProvider } from '@chakra-ui/react';
 import { NotificationProvider } from './home/NotificationProvider';
 
 i18nProvider(languages);
@@ -53,14 +54,16 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <SharedChakraProvider theme={theme}>
-      <ColorModeScript />
-      <Fonts spaceGroteskTtf={spaceGroteskTtf} interTtf={interTtf} />
-      <AppContextProvider>
-        <NotificationProvider>
-          <App />
-        </NotificationProvider>
-      </AppContextProvider>
-    </SharedChakraProvider>
+    <ChakraProvider>
+      <SharedChakraProvider theme={theme}>
+        <ColorModeScript />
+        <Fonts spaceGroteskTtf={spaceGroteskTtf} interTtf={interTtf} />
+        <AppContextProvider>
+          <NotificationProvider>
+            <App />
+          </NotificationProvider>
+        </AppContextProvider>
+      </SharedChakraProvider>
+    </ChakraProvider>
   </React.StrictMode>
 );

@@ -39,7 +39,7 @@ interface Props {
 const MIN_BFT_NUM_PEERS = '4';
 
 export const SetConfiguration: React.FC<Props> = ({ next }) => {
-  const { showSuccess, showError } = useNotification();
+  const { showError } = useNotification();
   const { t } = useTranslation();
   const api = useGuardianSetupApi();
   const {
@@ -218,7 +218,7 @@ export const SetConfiguration: React.FC<Props> = ({ next }) => {
           },
         });
       }
-      showSuccess(t('set-config.success-message'));
+      //showInfo(t('setup.progress.connect-guardians.step-leader'));  DELETE!!!
       next();
     } catch (err) {
       const errorMessage = formatApiErrorMessage(err);
