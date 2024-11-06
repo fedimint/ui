@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, Stack, useTheme, Link } from '@chakra-ui/react';
+import { Flex, useTheme, Link, Box } from '@chakra-ui/react';
+import { GIT_COMMIT_HASH } from '../home/version';
 
 export const Footer = () => {
   const theme = useTheme();
@@ -36,20 +37,25 @@ export const Footer = () => {
       align='center'
       justify='center'
     >
-      <Stack
-        direction={{ base: 'column-reverse', sm: 'row' }}
-        spacing={4}
-        order={{ base: 1, sm: 2 }}
-      >
-        <CustomLink
-          title='© The Fedimint Developers'
-          href='https://fedimint.org'
-        />
-        <Flex direction='row' gap={4} justifyContent='center'>
+      <Flex direction='column' alignItems='center'>
+        <Flex direction='row' alignItems='center'>
+          <CustomLink
+            title='© The Fedimint Developers'
+            href='https://fedimint.org'
+          />
+          <Box marginLeft='2'>
+            <CustomLink
+              title={`version ${GIT_COMMIT_HASH.slice(0, 7)}`}
+              href={`https://github.com/fedimint/ui/commit/${GIT_COMMIT_HASH}`}
+            />
+          </Box>
+        </Flex>
+
+        <Flex direction='row' gap={4} justifyContent='center' marginTop='2'>
           <CustomLink title='Discord' href='https://chat.fedimint.org/' />
           <CustomLink title='Github' href='https://github.com/fedimint' />
         </Flex>
-      </Stack>
+      </Flex>
     </Flex>
   );
 };

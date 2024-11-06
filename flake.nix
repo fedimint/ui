@@ -82,6 +82,7 @@
               --ignore-engines --ignore-scripts
             patchShebangs .
 
+            yarn prebuild
             yarn build
           '';
 

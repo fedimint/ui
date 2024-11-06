@@ -10,6 +10,7 @@
     "prepare": "husky install",
     "nix-guardian": "./scripts/mprocs-nix.sh run-ui mprocs-nix-guardian.yml",
     "nix-gateway": "./scripts/mprocs-nix.sh dev-fed mprocs-nix-gateway.yml",
+    "prebuild": "echo \"export const GIT_COMMIT_HASH = '$(git rev-parse HEAD)'\" > ./apps/router/src/home/version.tsx",
     "docker": "mprocs -c ./mprocs-docker.yml",
     "translate": "node scripts/translate.js"
   },
