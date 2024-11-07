@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, useTheme, Link, Box } from '@chakra-ui/react';
-import { GIT_COMMIT_HASH } from '../home/version';
+import { GIT_COMMIT_HASH } from '../home/Version';
 
 export const Footer = () => {
   const theme = useTheme();
