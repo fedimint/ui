@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Flex,
-  Input,
-  Button,
-  useToast,
-  FormControl,
-  FormLabel,
-} from '@chakra-ui/react';
+import { Flex, Input, Button, FormControl, FormLabel } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { WalletModalState } from '../WalletModal';
 import { FederationInfo, Sats } from '@fedimint/types';
@@ -14,6 +7,7 @@ import FederationSelector from '../FederationSelector';
 import { AmountInput } from '..';
 import SendOnchainSuccess from './SendOnchainSuccess';
 import { useGatewayApi } from '../../../../context/hooks';
+import { useNotification } from '../../../../home/NotificationProvider';
 
 interface SendOnchainProps {
   federations: FederationInfo[];
@@ -33,36 +27,21 @@ const SendOnchain: React.FC<SendOnchainProps> = ({
   const [bitcoinAddress, setBitcoinAddress] = useState('');
   const [amountSats, setAmountSats] = useState<Sats>(0 as Sats);
   const [successTxid, setSuccessTxid] = useState<string | null>(null);
-  const toast = useToast();
+  const { showError } = useNotification();
 
   const handlePegOut = async () => {
     if (!walletModalState.selectedFederation) {
-      toast({
-        title: t('wallet-modal.send.select-federation'),
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      showError(t('wallet-modal.send.select-federation'));
       return;
     }
 
     if (!bitcoinAddress) {
-      toast({
-        title: t('wallet-modal.send.enter-bitcoin-address'),
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      showError(t('wallet-modal.send.enter-bitcoin-address'));
       return;
     }
 
     if (amountSats <= 0) {
-      toast({
-        title: t('wallet-modal.send.enter-valid-amount'),
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      showError(t('wallet-modal.send.enter-valid-amount'));
       return;
     }
 
@@ -76,13 +55,11 @@ const SendOnchain: React.FC<SendOnchainProps> = ({
       setSuccessTxid(txid);
     } catch (error) {
       console.error('Peg-out error:', error);
-      toast({
-        title: t('wallet-modal.send.peg-out-error'),
-        description: error instanceof Error ? error.message : String(error),
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      showError(
+        t('wallet-modal.send.peg-out-error', {
+          description: error instanceof Error ? error.message : String(error),
+        })
+      );
     }
   };
 

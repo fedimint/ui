@@ -10,11 +10,11 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  useToast,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../context/hooks';
 import { APP_ACTION_TYPE, AppAction } from '../context/AppContext';
+import { useNotification } from './NotificationProvider';
 
 interface EditServiceModalProps {
   isOpen: boolean;
@@ -32,7 +32,7 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
   const { t } = useTranslation();
   const [configUrl, setConfigUrl] = useState(serviceUrl);
   const { dispatch, guardians, gateways } = useAppContext();
-  const toast = useToast();
+  const { showSuccess, showError } = useNotification();
 
   const handleSubmit = async () => {
     if (service) {
@@ -72,23 +72,11 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
         } as AppAction);
 
         onClose();
-        toast({
-          title: 'Service updated',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        });
+        showSuccess('Service updated');
       } catch (error) {
-        toast({
-          title: 'Error updating service',
-          description:
-            error instanceof Error
-              ? error.message
-              : 'An unknown error occurred',
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        });
+        showError(
+          error instanceof Error ? error.message : 'An unknown error occurred'
+        );
       }
     }
   };
