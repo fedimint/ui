@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "turbo run dev",
+    "prebuild": "echo \"export const GIT_COMMIT_HASH = '$(git rev-parse HEAD)'\" > ./apps/router/src/constants/Version.tsx",
     "build": "turbo run build",
     "clean": "turbo run clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -10,7 +11,6 @@
     "prepare": "husky install",
     "nix-guardian": "./scripts/mprocs-nix.sh run-ui mprocs-nix-guardian.yml",
     "nix-gateway": "./scripts/mprocs-nix.sh dev-fed mprocs-nix-gateway.yml",
-    "prebuild": "echo \"export const GIT_COMMIT_HASH = '$(git rev-parse HEAD)'\" > ./apps/router/src/home/Version.tsx",
     "docker": "mprocs -c ./mprocs-docker.yml",
     "translate": "node scripts/translate.js"
   },

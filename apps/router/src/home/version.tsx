@@ -1,1 +1,0 @@
-export const GIT_COMMIT_HASH = 'ed84f63ae4c80099072456454c5bb5ff25568bec';
