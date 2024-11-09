@@ -10,6 +10,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
+import { useNotification } from '../../../../../home/NotificationProvider';
 
 interface WarningModalProps {
   isOpen: boolean;
@@ -23,6 +24,12 @@ export const WarningModal: React.FC<WarningModalProps> = ({
   onConfirm,
 }) => {
   const { t } = useTranslation();
+  const { showWarning } = useNotification();
+
+  const handleConfirm = () => {
+    showWarning(t('role-selector.warning-modal.description'));
+    onConfirm();
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -32,7 +39,7 @@ export const WarningModal: React.FC<WarningModalProps> = ({
         <ModalCloseButton />
         <ModalBody>{t('role-selector.warning-modal.description')}</ModalBody>
         <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={onConfirm}>
+          <Button colorScheme='blue' mr={3} onClick={handleConfirm}>
             {t('common.continue')}
           </Button>
           <Button variant='ghost' onClick={onClose}>

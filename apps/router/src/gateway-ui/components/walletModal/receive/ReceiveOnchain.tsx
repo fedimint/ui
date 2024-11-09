@@ -6,6 +6,7 @@ import { WalletModalState } from '../WalletModal';
 import FederationSelector from '../FederationSelector';
 import { AmountInput, CreateButton, QRCodeTabs } from '..';
 import { useGatewayApi } from '../../../../context/hooks';
+import { useNotification } from '../../../../home/NotificationProvider';
 
 interface ReceiveOnchainProps {
   federations: FederationInfo[];
@@ -21,6 +22,7 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
   setShowSelector,
 }) => {
   const { t } = useTranslation();
+  const { showSuccess, showError } = useNotification();
   const api = useGatewayApi();
   const [amount, setAmount] = useState<Sats>(0 as Sats);
   const [bip21Uri, setBip21Uri] = useState<Bip21Uri>();
@@ -37,12 +39,21 @@ const ReceiveOnchain: React.FC<ReceiveOnchainProps> = ({
         setBip21Uri(bip21Uri);
         setShowSelector(false);
         setShowAddressInfo(true);
+        showSuccess(t('deposit-card.create-pegin-address'));
       })
       .catch(({ message, error }) => {
         console.error(error, message);
-        alert(t('wallet-modal.receive.address-error', { error: message }));
+        showError(t('wallet-modal.receive.address-error', { error: message }));
       });
-  }, [api, walletModalState.selectedFederation, amount, setShowSelector, t]);
+  }, [
+    api,
+    walletModalState.selectedFederation,
+    amount,
+    setShowSelector,
+    t,
+    showSuccess,
+    showError,
+  ]);
 
   if (showAddressInfo) {
     return (

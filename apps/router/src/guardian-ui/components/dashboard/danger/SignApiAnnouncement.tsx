@@ -22,6 +22,7 @@ import { SignedApiAnnouncement } from '@fedimint/types';
 import { normalizeUrl } from '../../../utils';
 import { FiCheckCircle, FiAlertTriangle, FiEdit2 } from 'react-icons/fi';
 import { useGuardianAdminApi } from '../../../../context/hooks';
+import { useNotification } from '../../../../home/NotificationProvider';
 
 interface SignApiAnnouncementProps {
   ourPeer: { id: number; name: string };
@@ -40,6 +41,7 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [apiUrl, setApiUrl] = useState(currentApiUrl);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { showSuccess, showError } = useNotification();
 
   const currentAnnouncement = ourPeer
     ? signedApiAnnouncements[ourPeer.id.toString()]?.api_announcement
@@ -70,10 +72,16 @@ export const SignApiAnnouncement: React.FC<SignApiAnnouncementProps> = ({
       .signApiAnnouncement(apiUrl)
       .then(() => {
         setIsSigningNew(false);
+        showSuccess(
+          t('federation-dashboard.danger-zone.sign-api-announcement.success')
+        );
         onClose();
       })
       .catch((error) => {
         setIsSigningNew(false);
+        showError(
+          t('federation-dashboard.danger-zone.sign-api-announcement.error')
+        );
         console.error('Failed to sign API announcement:', error);
       });
   };

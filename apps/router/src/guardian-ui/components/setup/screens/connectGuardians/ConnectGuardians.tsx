@@ -31,7 +31,7 @@ interface Props {
 }
 
 export const ConnectGuardians: React.FC<Props> = ({ next }) => {
-  const { showSuccess } = useNotification();
+  const { showSuccess, showInfo } = useNotification();
   const { t } = useTranslation();
   const {
     state: { role, peers, numPeers, configGenParams, ourCurrentId },
@@ -50,16 +50,20 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
     ).length >=
       numPeers - 1;
 
-  // For hosts, once all peers have connected, run DKG immediately.
   useEffect(() => {
     if (role !== GuardianRole.Host || !isAllAccepted) return;
+
+    showInfo(t('header.connect'));
+
     showSuccess(t('setup.progress.run-dkg.title'));
+
     next();
-  }, [role, isAllAccepted, next, showSuccess, t]);
+  }, [role, isAllAccepted, next, showSuccess, showInfo, t]);
 
   const handleApprove = useCallback(() => {
+    showSuccess(t('header.connect'));
     next();
-  }, [next]);
+  }, [next, showSuccess, t]);
 
   let content: React.ReactNode;
   if (!configGenParams) {

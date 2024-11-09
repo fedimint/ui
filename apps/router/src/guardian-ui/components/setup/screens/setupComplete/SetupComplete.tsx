@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Flex, Heading, Text, Spinner } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
+import { useNotification } from '../../../../../home/NotificationProvider';
 import {
   GUARDIAN_APP_ACTION_TYPE,
   GuardianRole,
@@ -14,9 +15,11 @@ interface SetupCompleteProps {
 
 export const SetupComplete: React.FC<SetupCompleteProps> = ({ role }) => {
   const { t } = useTranslation();
+  const { showSuccess } = useNotification();
   const { dispatch } = useGuardianContext();
 
   useEffect(() => {
+    showSuccess(t('setup-complete.congratulations'));
     const timer = setTimeout(() => {
       dispatch({
         type: GUARDIAN_APP_ACTION_TYPE.SET_STATUS,
@@ -25,7 +28,7 @@ export const SetupComplete: React.FC<SetupCompleteProps> = ({ role }) => {
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [dispatch]);
+  }, [dispatch, showSuccess, t]);
 
   return (
     <Flex

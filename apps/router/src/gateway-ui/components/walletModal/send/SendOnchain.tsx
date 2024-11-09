@@ -27,7 +27,7 @@ const SendOnchain: React.FC<SendOnchainProps> = ({
   const [bitcoinAddress, setBitcoinAddress] = useState('');
   const [amountSats, setAmountSats] = useState<Sats>(0 as Sats);
   const [successTxid, setSuccessTxid] = useState<string | null>(null);
-  const { showError } = useNotification();
+  const { showError, showSuccess } = useNotification();
 
   const handlePegOut = async () => {
     if (!walletModalState.selectedFederation) {
@@ -53,6 +53,7 @@ const SendOnchain: React.FC<SendOnchainProps> = ({
       });
       setShowSelector(false);
       setSuccessTxid(txid);
+      showSuccess(t('wallet-modal.send.peg-out-success'));
     } catch (error) {
       console.error('Peg-out error:', error);
       showError(
