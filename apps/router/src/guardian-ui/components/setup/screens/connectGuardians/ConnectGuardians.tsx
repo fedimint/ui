@@ -53,7 +53,7 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   // For hosts, once all peers have connected, run DKG immediately.
   useEffect(() => {
     if (role !== GuardianRole.Host || !isAllAccepted) return;
-    showSuccess(t('connect-guardians.all-connected'));
+    showSuccess(t('setup.progress.run-dkg.title'));
     next();
   }, [role, isAllAccepted, next, showSuccess, t]);
 
