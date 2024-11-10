@@ -22,29 +22,33 @@ i18nProvider(languages);
 
 const App = () => {
   return (
-    <Router>
-      <Wrapper>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route
-            path='/guardian/:id'
-            element={
-              <GuardianContextProvider>
-                <Guardian />
-              </GuardianContextProvider>
-            }
-          />
-          <Route
-            path='/gateway/:id'
-            element={
-              <GatewayContextProvider>
-                <Gateway />
-              </GatewayContextProvider>
-            }
-          />
-        </Routes>
-      </Wrapper>
-    </Router>
+    <ChakraProvider>
+      <NotificationProvider>
+        <Router>
+          <Wrapper>
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route
+                path='/guardian/:id'
+                element={
+                  <GuardianContextProvider>
+                    <Guardian />
+                  </GuardianContextProvider>
+                }
+              />
+              <Route
+                path='/gateway/:id'
+                element={
+                  <GatewayContextProvider>
+                    <Gateway />
+                  </GatewayContextProvider>
+                }
+              />
+            </Routes>
+          </Wrapper>
+        </Router>
+      </NotificationProvider>
+    </ChakraProvider>
   );
 };
 
@@ -58,9 +62,7 @@ root.render(
       <ColorModeScript />
       <Fonts spaceGroteskTtf={spaceGroteskTtf} interTtf={interTtf} />
       <AppContextProvider>
-        <NotificationProvider>
-          <App />
-        </NotificationProvider>
+        <App />
       </AppContextProvider>
     </ChakraProvider>
   </React.StrictMode>
