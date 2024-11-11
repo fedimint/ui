@@ -31,4 +31,4 @@ export class Bip21Uri {
   }
 }
 
-export type BitcoinRpcConnectionStatus = 'Synced' | number;
+export type BitcoinRpcConnectionStatus = 'Synced' | string;

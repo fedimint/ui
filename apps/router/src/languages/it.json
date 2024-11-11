@@ -223,7 +223,9 @@
     },
     "bitcoin-node": {
       "not-synced": "Nodo Bitcoin non completamente sincronizzato",
-      "not-synced-description": "Il tuo nodo Bitcoin è attualmente sincronizzato al {{progress}}%. Devi aspettare la completa sincronizzazione prima di procedere."
+      "not-synced-description": "Il tuo nodo Bitcoin è attualmente sincronizzato al {{progress}}. Devi aspettare la completa sincronizzazione prima di procedere.",
+      "error": "Errore del Nodo Bitcoin",
+      "error-description": "C'è stato un errore nel collegamento al tuo nodo Bitcoin. Controlla la tua configurazione e prova di nuovo."
     }
   },
   "run-dkg": {

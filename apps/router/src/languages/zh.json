@@ -223,7 +223,9 @@
     },
     "bitcoin-node": {
       "not-synced": "比特币节点未完全同步",
-      "not-synced-description": "您的比特币节点目前已同步{{progress}}%。在进行下一步操作之前，您必须等待完全同步。"
+      "not-synced-description": "您的比特币节点目前已同步{{progress}}。在进行下一步操作之前，您必须等待完全同步。",
+      "error": "比特币节点错误",
+      "error-description": "连接到您的比特币节点时出现错误。请检查您的配置并再试一次。"
     }
   },
   "run-dkg": {

@@ -223,7 +223,9 @@
     },
     "bitcoin-node": {
       "not-synced": "A Bitcoin csomópont nincs teljesen szinkronizálva",
-      "not-synced-description": "A Bitcoin csomópontja jelenleg {{progress}}% -ban szinkronizált. Teljes szinkronizációra kell várnia a folytatás előtt."
+      "not-synced-description": "A Bitcoin csomópontja jelenleg {{progress}} -ban szinkronizált. Teljes szinkronizációra kell várnia a folytatás előtt.",
+      "error": "Bitcoin csomópont hiba",
+      "error-description": "Hiba történt a Bitcoin csomópontodhoz való csatlakozás során. Kérjük, ellenőrizze a konfigurációját, és próbálja újra."
     }
   },
   "run-dkg": {

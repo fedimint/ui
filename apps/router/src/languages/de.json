@@ -223,7 +223,9 @@
     },
     "bitcoin-node": {
       "not-synced": "Bitcoin-Knoten nicht vollständig synchronisiert",
-      "not-synced-description": "Ihr Bitcoin-Knotenpunkt ist derzeit zu {{progress}}% synchronisiert. Sie müssen auf die vollständige Synchronisation warten, bevor Sie fortfahren können."
+      "not-synced-description": "Ihr Bitcoin-Knotenpunkt ist derzeit zu {{progress}} synchronisiert. Sie müssen auf die vollständige Synchronisation warten, bevor Sie fortfahren können.",
+      "error": "Bitcoin Node Fehler",
+      "error-description": "Es gab einen Fehler bei der Verbindung zu Ihrem Bitcoin-Knoten. Bitte überprüfen Sie Ihre Konfiguration und versuchen Sie es erneut."
     }
   },
   "run-dkg": {

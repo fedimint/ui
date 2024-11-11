@@ -69,7 +69,7 @@ export const BitcoinSettingsForm: React.FC<BitcoinSettingsFormProps> = ({
             </AlertTitle>
             <AlertDescription>
               {t('role-selector.bitcoin-node.not-synced-description', {
-                progress: typeof bitcoinStatus === 'number' ? bitcoinStatus * 100 : 0,
+                progress: bitcoinStatus,
               })}
             </AlertDescription>
           </Box>
