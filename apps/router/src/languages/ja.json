@@ -223,7 +223,7 @@
     },
     "bitcoin-node": {
       "not-synced": "Bitcoinノードが完全に同期されていません",
-      "not-synced-description": "あなたのビットコインノードは現在{{progress}}％同期されています。完全に同期が完了するまで待つ必要があります。",
+      "not-synced-description": "あなたのビットコインノードは現在{{progress}}同期されています。完全に同期が完了するまで待つ必要があります。",
       "error": "ビットコインノードエラー",
       "error-description": "あなたのビットコインノードへの接続中にエラーが発生しました。設定を確認して、再度お試しください。"
     }
