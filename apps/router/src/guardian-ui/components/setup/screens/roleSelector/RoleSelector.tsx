@@ -126,7 +126,7 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
               </AlertTitle>
               <AlertDescription>
                 {t('role-selector.bitcoin-node.not-synced-description', {
-                  progress: Math.round(Number(bitcoinStatus) * 100),
+                  progress: bitcoinStatus,
                 })}
               </AlertDescription>
             </Box>

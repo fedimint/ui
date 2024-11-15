@@ -223,7 +223,9 @@
     },
     "bitcoin-node": {
       "not-synced": "비트코인 노드가 완전히 동기화되지 않았습니다",
-      "not-synced-description": "당신의 비트코인 노드는 현재 {{progress}}% 동기화되었습니다. 진행하기 전에 완전한 동기화를 기다려야 합니다."
+      "not-synced-description": "당신의 비트코인 노드는 현재 {{progress}} 동기화되었습니다. 진행하기 전에 완전한 동기화를 기다려야 합니다.",
+      "error": "비트코인 노드 오류",
+      "error-description": "비트코인 노드에 연결하는 중 오류가 발생했습니다. 구성을 확인하고 다시 시도해 주세요."
     }
   },
   "run-dkg": {

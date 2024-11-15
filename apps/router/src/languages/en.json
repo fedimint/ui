@@ -250,7 +250,9 @@
     },
     "bitcoin-node": {
       "not-synced": "Bitcoin Node Not Fully Synced",
-      "not-synced-description": "Your Bitcoin node is currently {{progress}}% synced. You must wait for full synchronization before proceeding."
+      "not-synced-description": "Your Bitcoin node is currently {{progress}} synced. You must wait for full synchronization before proceeding.",
+      "error": "Bitcoin Node Error",
+      "error-description": "There was an error connecting to your Bitcoin node. Please check your configuration and try again."
     }
   },
   "run-dkg": {

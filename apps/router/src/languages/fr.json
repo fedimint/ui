@@ -223,7 +223,9 @@
     },
     "bitcoin-node": {
       "not-synced": "Nœud Bitcoin pas entièrement synchronisé",
-      "not-synced-description": "Votre nœud Bitcoin est actuellement synchronisé à {{progress}}%. Vous devez attendre la synchronisation complète avant de continuer."
+      "not-synced-description": "Votre nœud Bitcoin est actuellement synchronisé à {{progress}}. Vous devez attendre la synchronisation complète avant de continuer.",
+      "error": "Erreur de nœud Bitcoin",
+      "error-description": "Il y a eu une erreur de connexion à votre nœud Bitcoin. Veuillez vérifier votre configuration et réessayer."
     }
   },
   "run-dkg": {

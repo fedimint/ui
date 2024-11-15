@@ -223,7 +223,9 @@
     },
     "bitcoin-node": {
       "not-synced": "Node de Bitcoin no està completament sincronitzat",
-      "not-synced-description": "El vostre node de Bitcoin està actualment sincronitzat al {{progress}}%. Heu d'esperar a la sincronització completa abans de continuar."
+      "not-synced-description": "El vostre node de Bitcoin està actualment sincronitzat al {{progress}}. Heu d'esperar a la sincronització completa abans de continuar.",
+      "error": "Error del Node de Bitcoin",
+      "error-description": "S'ha produït un error en connectar-se al vostre node de Bitcoin. Si us plau, comproveu la vostra configuració i torneu-ho a provar."
     }
   },
   "run-dkg": {
