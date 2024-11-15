@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import {
   Flex,
   Tabs,
@@ -14,31 +14,38 @@ import { FederationsTable } from './components/federations/FederationsTable';
 import { Loading } from './components/Loading';
 import { HeaderWithUnitSelector } from './components/HeaderWithUnitSelector';
 import { WalletCard } from './components/walletCard/WalletCard';
-import {
-  WalletModal,
-  WalletModalAction,
-  WalletModalState,
-  WalletModalType,
-} from './components/walletModal/WalletModal';
-import { useGatewayContext, useLoadGateway } from '../context/hooks';
+import { WalletModal } from './components/walletModal/WalletModal';
 import { ErrorMessage } from './components/ErrorMessage';
 import { Login } from '@fedimint/ui';
 import { GATEWAY_APP_ACTION_TYPE } from '../types/gateway';
 import { useTranslation } from '@fedimint/utils';
+import { useGatewayContext, useLoadGateway } from '../hooks';
 
 export const Gateway = () => {
   const { t } = useTranslation();
   const { state, dispatch, api, id } = useGatewayContext();
-  const [showConnectFed, setShowConnectFed] = useState(false);
-  const [walletModalState, setWalletModalState] = useState<WalletModalState>({
-    isOpen: false,
-    action: WalletModalAction.Receive,
-    type: WalletModalType.Onchain,
-    selectedFederation: null,
-  });
-  const [activeTab, setActiveTab] = useState(0);
 
   useLoadGateway();
+
+  const setActiveTab = useCallback(
+    (index: number) => {
+      dispatch({
+        type: GATEWAY_APP_ACTION_TYPE.SET_ACTIVE_TAB,
+        payload: index,
+      });
+    },
+    [dispatch]
+  );
+
+  const handleCloseConnectFed = useCallback(
+    () =>
+      dispatch({
+        type: GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED,
+        payload: false,
+      }),
+    [dispatch]
+  );
+
   if (state.needsAuth) {
     return (
       <Login
@@ -64,7 +71,7 @@ export const Gateway = () => {
         <Tabs
           variant='soft-rounded'
           colorScheme='blue'
-          index={activeTab}
+          index={state.activeTab}
           onChange={setActiveTab}
           orientation='vertical'
           display='flex'
@@ -84,48 +91,22 @@ export const Gateway = () => {
             </TabList>
             <Divider orientation='vertical' />
             <TabPanels flex={1} width='100%'>
+              <TabPanel>{state.balances && <WalletCard />}</TabPanel>
               <TabPanel>
-                {state.balances && (
-                  <WalletCard
-                    unit={state.unit}
-                    balances={state.balances}
-                    setWalletModalState={setWalletModalState}
-                    federations={state.gatewayInfo.federations}
-                  />
-                )}
+                <LightningCard />
               </TabPanel>
               <TabPanel>
-                <LightningCard
-                  nodeId={state.gatewayInfo.gateway_id}
-                  network={state.gatewayInfo.network}
-                  alias={state.gatewayInfo.lightning_alias}
-                  mode={state.gatewayInfo.lightning_mode}
-                  pubkey={state.gatewayInfo.lightning_pub_key}
-                  blockHeight={state.gatewayInfo.block_height}
-                  syncedToChain={state.gatewayInfo.synced_to_chain}
-                />
-              </TabPanel>
-              <TabPanel>
-                <FederationsTable
-                  unit={state.unit}
-                  federations={state.gatewayInfo.federations}
-                  onConnectFederation={() => setShowConnectFed(true)}
-                  setWalletModalState={setWalletModalState}
-                />
+                <FederationsTable />
               </TabPanel>
             </TabPanels>
           </Flex>
         </Tabs>
       </Card>
       <ConnectFederationModal
-        isOpen={showConnectFed}
-        onClose={() => setShowConnectFed(false)}
+        isOpen={state.showConnectFed}
+        onClose={handleCloseConnectFed}
       />
-      <WalletModal
-        federations={state.gatewayInfo.federations}
-        walletModalState={walletModalState}
-        setWalletModalState={setWalletModalState}
-      />
+      <WalletModal />
     </Flex>
   );
 };

@@ -9,7 +9,7 @@ import {
 } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { KeyValues, NetworkIndicator } from '@fedimint/ui';
-import { useGuardianApi } from '../../../../../context/hooks';
+import { useGuardianApi } from '../../../../../hooks';
 import { BftInfo } from '../../../BftInfo';
 
 interface Props {

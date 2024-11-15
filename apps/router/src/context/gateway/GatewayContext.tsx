@@ -5,13 +5,15 @@ import React, {
   useMemo,
   useReducer,
 } from 'react';
-import { useGatewayConfig } from '../hooks';
+import { useGatewayConfig } from '../../hooks';
 import { GatewayApi } from '../../api/GatewayApi';
 import {
   GATEWAY_APP_ACTION_TYPE,
   GatewayAppAction,
   GatewayAppState,
   GatewayStatus,
+  WalletModalAction,
+  WalletModalType,
 } from '../../types/gateway';
 import { useLocation } from 'react-router-dom';
 
@@ -29,6 +31,15 @@ const initialState: GatewayAppState = {
   balances: null,
   gatewayInfo: null,
   unit: 'msats',
+  showConnectFed: false,
+  walletModalState: {
+    isOpen: false,
+    action: WalletModalAction.Receive,
+    type: WalletModalType.Onchain,
+    selectedFederation: null,
+    showSelector: true,
+  },
+  activeTab: 0,
 };
 
 const reducer = (
@@ -48,6 +59,12 @@ const reducer = (
       return { ...state, gatewayInfo: action.payload };
     case GATEWAY_APP_ACTION_TYPE.SET_UNIT:
       return { ...state, unit: action.payload };
+    case GATEWAY_APP_ACTION_TYPE.SET_SHOW_CONNECT_FED:
+      return { ...state, showConnectFed: action.payload };
+    case GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE:
+      return { ...state, walletModalState: { ...state.walletModalState, ...action.payload } };
+    case GATEWAY_APP_ACTION_TYPE.SET_ACTIVE_TAB:
+      return { ...state, activeTab: action.payload };
     default:
       return state;
   }

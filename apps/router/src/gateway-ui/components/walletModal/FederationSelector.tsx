@@ -1,23 +1,16 @@
 import React from 'react';
 import { FormControl, FormLabel, Select } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FederationInfo } from '@fedimint/types';
-import { WalletModalAction, WalletModalState } from './WalletModal';
-
-interface FederationSelectorProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-}
-
-const FederationSelector: React.FC<FederationSelectorProps> = ({
-  federations,
-  walletModalState,
-  setWalletModalState,
-}) => {
+import { useGatewayContext } from '../../../hooks';
+import {
+  GATEWAY_APP_ACTION_TYPE,
+  WalletModalAction,
+} from '../../../types/gateway';
+const FederationSelector: React.FC = () => {
   const { t } = useTranslation();
+  const { state, dispatch } = useGatewayContext();
   const labelText =
-    walletModalState.action === WalletModalAction.Receive
+    state.walletModalState.action === WalletModalAction.Receive
       ? t('wallet.to-federation')
       : t('wallet.from-federation');
 
@@ -25,19 +18,22 @@ const FederationSelector: React.FC<FederationSelectorProps> = ({
     <FormControl>
       <FormLabel>{labelText}</FormLabel>
       <Select
-        value={walletModalState.selectedFederation?.federation_id || ''}
+        value={state.walletModalState.selectedFederation?.federation_id || ''}
         onChange={(e) => {
-          const selected = federations.find(
+          const selected = state.gatewayInfo?.federations?.find(
             (fed) => fed.federation_id === e.target.value
           );
           if (selected)
-            setWalletModalState({
-              ...walletModalState,
-              selectedFederation: selected,
+            dispatch({
+              type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
+              payload: {
+                ...state.walletModalState,
+                selectedFederation: selected,
+              },
             });
         }}
       >
-        {federations.map((federation) => (
+        {state.gatewayInfo?.federations.map((federation) => (
           <option
             key={federation.federation_id}
             value={federation.federation_id}

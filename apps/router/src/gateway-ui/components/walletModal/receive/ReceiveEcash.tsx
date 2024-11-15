@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
 import { Flex, Text, Button } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FederationInfo } from '@fedimint/types';
-import { WalletModalState } from '../WalletModal';
 import { motion } from 'framer-motion';
 import { FiCheckCircle } from 'react-icons/fi';
 import { InfoField } from '..';
-import { useGatewayApi } from '../../../../context/hooks';
+import { useGatewayContext } from '../../../../hooks';
+import { GATEWAY_APP_ACTION_TYPE } from '../../../../types/gateway';
 
-interface ReceiveEcashProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-  setShowSelector: (show: boolean) => void;
-}
-
-const ReceiveEcash: React.FC<ReceiveEcashProps> = ({ setShowSelector }) => {
+const ReceiveEcash: React.FC = () => {
   const { t } = useTranslation();
+  const { state, dispatch, api } = useGatewayContext();
   const [ecashNote, setEcashNote] = useState('');
   const [claimedAmount, setClaimedAmount] = useState<number | null>(null);
-  const api = useGatewayApi();
 
   const handlePaste = async () => {
     try {
@@ -27,9 +19,16 @@ const ReceiveEcash: React.FC<ReceiveEcashProps> = ({ setShowSelector }) => {
       setEcashNote(text);
       const result = await api.receiveEcash(text);
       setClaimedAmount(result);
-      setShowSelector(false);
+      dispatch({
+        type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
+        payload: { ...state.walletModalState, showSelector: false },
+      });
     } catch (err) {
       console.error('Failed to receive ecash: ', err);
+      dispatch({
+        type: GATEWAY_APP_ACTION_TYPE.SET_ERROR,
+        payload: err instanceof Error ? err.message : 'Failed to receive eCash',
+      });
     }
   };
 

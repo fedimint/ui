@@ -30,7 +30,7 @@ import { ConfirmPasswordModal } from './ConfirmPasswordModal';
 import {
   useGuardianSetupApi,
   useGuardianSetupContext,
-} from '../../../../../context/hooks';
+} from '../../../../../hooks';
 
 interface Props {
   next: () => void;

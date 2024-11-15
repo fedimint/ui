@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Flex } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { WalletModalType } from './WalletModal';
 import { FaRegMoneyBillAlt, FaBitcoin, FaBolt } from 'react-icons/fa';
+import { WalletModalType } from '../../../types/gateway';
 
 interface WalletTypeButtonsProps {
   type: WalletModalType;

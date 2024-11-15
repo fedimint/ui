@@ -7,7 +7,7 @@ import {
 } from '@fedimint/types';
 import { FederationTabsCard } from '../components/dashboard/tabs/FederationTabsCard';
 import { DangerZone } from '../components/dashboard/danger/DangerZone';
-import { useGuardianAdminApi } from '../../context/hooks';
+import { useGuardianAdminApi } from '../../hooks';
 import { InviteCode } from '../components/dashboard/admin/InviteCode';
 import { useTranslation } from '@fedimint/utils';
 

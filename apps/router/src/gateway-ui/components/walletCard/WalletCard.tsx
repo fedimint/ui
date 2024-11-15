@@ -1,82 +1,80 @@
 import React, { useMemo } from 'react';
 import { Box, Button, Flex, Text, Square } from '@chakra-ui/react';
 import { formatValue, useTranslation } from '@fedimint/utils';
-import { FederationInfo, GatewayBalances, MSats } from '@fedimint/types';
+import { MSats } from '@fedimint/types';
 import { PieChart } from 'react-minimal-pie-chart';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import {
+  GATEWAY_APP_ACTION_TYPE,
   WalletModalAction,
-  WalletModalState,
   WalletModalType,
-} from '../walletModal/WalletModal';
-import { Unit } from '../../../types';
+} from '../../../types/gateway';
+import { useGatewayContext } from '../../../hooks';
+import { useBalanceCalculations } from '../../hooks/useBalanceCalculations';
 
-interface WalletCardProps {
-  unit: Unit;
-  balances: GatewayBalances;
-  setWalletModalState: (state: WalletModalState) => void;
-  federations: FederationInfo[];
-}
-
-export const WalletCard = React.memo(function WalletCard({
-  unit,
-  balances,
-  setWalletModalState,
-  federations,
-}: WalletCardProps): JSX.Element {
+export const WalletCard = React.memo(function WalletCard(): JSX.Element {
   const { t } = useTranslation();
+  const { state, dispatch } = useGatewayContext();
+  const balanceAmounts = useBalanceCalculations(state.balances ?? undefined);
 
   const balanceData = useMemo(
-    // Structure the data for the pie chart:
-    // title, value: balance_msats, formattedValue, color
     () => [
       {
         title: t('wallet.ecash'),
-        value: balances.ecash_balances.reduce(
-          (total, item) => total + item.ecash_balance_msats,
-          0
-        ),
+        value: balanceAmounts.ecash,
         formattedValue: formatValue(
-          balances.ecash_balances.reduce(
-            (total, item) => total + item.ecash_balance_msats,
-            0
-          ) as MSats,
-          unit,
+          balanceAmounts.ecash as MSats,
+          state.unit,
           true
         ),
         color: '#FF6384',
       },
       {
         title: t('wallet.lightning'),
-        value: balances.lightning_balance_msats,
+        value: balanceAmounts.lightning,
         formattedValue: formatValue(
-          balances.lightning_balance_msats as MSats,
-          unit,
+          balanceAmounts.lightning as MSats,
+          state.unit,
           true
         ),
         color: '#36A2EB',
       },
       {
         title: t('wallet.onchain'),
-        value: balances.onchain_balance_sats * 1000,
+        value: balanceAmounts.onchain,
         formattedValue: formatValue(
-          (balances.onchain_balance_sats * 1000) as MSats,
-          unit,
+          balanceAmounts.onchain as MSats,
+          state.unit,
           true
         ),
         color: '#FFCE56',
       },
     ],
-    [balances, t, unit]
+    [balanceAmounts, state.unit, t]
   );
 
-  const totalBalance = useMemo(() => {
-    return formatValue(
-      balanceData.reduce((total, item) => total + item.value, 0) as MSats,
-      unit,
-      true
-    );
-  }, [balanceData, unit]);
+  const totalBalance = useMemo(
+    () => formatValue(balanceAmounts.total as MSats, state.unit, true),
+    [balanceAmounts.total, state.unit]
+  );
+
+  const handleModalOpen = (action: WalletModalAction) => {
+    const federations = state.gatewayInfo?.federations;
+    if (!federations?.length) {
+      console.error('No federations available');
+      return;
+    }
+    dispatch({
+      type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
+      payload: {
+        action,
+        type: WalletModalType.Onchain,
+        selectedFederation: federations[0],
+        showSelector: true,
+        isOpen: true,
+      },
+    });
+  };
 
   return (
     <Flex
@@ -136,14 +134,7 @@ export const WalletCard = React.memo(function WalletCard({
           colorScheme='blue'
           size='md'
           mb={4}
-          onClick={() => {
-            setWalletModalState({
-              action: WalletModalAction.Receive,
-              type: WalletModalType.Onchain,
-              selectedFederation: federations[0],
-              isOpen: true,
-            });
-          }}
+          onClick={() => handleModalOpen(WalletModalAction.Receive)}
           width='100%'
         >
           {t('wallet.receive')}
@@ -153,14 +144,7 @@ export const WalletCard = React.memo(function WalletCard({
           colorScheme='blue'
           size='md'
           variant='outline'
-          onClick={() => {
-            setWalletModalState({
-              action: WalletModalAction.Send,
-              type: WalletModalType.Onchain,
-              selectedFederation: federations[0],
-              isOpen: true,
-            });
-          }}
+          onClick={() => handleModalOpen(WalletModalAction.Send)}
           width='100%'
         >
           {t('wallet.send')}

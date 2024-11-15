@@ -20,7 +20,7 @@ import { HomePage } from './home/HomePage';
 import { GuardianContextProvider } from './context/guardian/GuardianContext';
 import { GatewayContextProvider } from './context/gateway/GatewayContext';
 import { Wrapper } from './components/Wrapper';
-import { useAppContext } from './context/hooks';
+import { useAppContext } from './hooks';
 
 i18nProvider(languages);
 

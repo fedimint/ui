@@ -40,7 +40,7 @@ import {
   useConsensusPolling,
   useGuardianSetupApi,
   useGuardianSetupContext,
-} from '../../../../../context/hooks';
+} from '../../../../../hooks';
 
 interface PeerWithHash {
   id: string;

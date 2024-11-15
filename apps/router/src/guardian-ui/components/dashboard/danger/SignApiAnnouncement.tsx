@@ -21,7 +21,7 @@ import { useTranslation } from '@fedimint/utils';
 import { SignedApiAnnouncement } from '@fedimint/types';
 import { normalizeUrl } from '../../../utils';
 import { FiCheckCircle, FiAlertTriangle, FiEdit2 } from 'react-icons/fi';
-import { useGuardianAdminApi } from '../../../../context/hooks';
+import { useGuardianAdminApi } from '../../../../hooks';
 
 interface SignApiAnnouncementProps {
   ourPeer: { id: number; name: string };
