@@ -22,25 +22,8 @@ import {
   WalletModalType,
 } from '../../../types/gateway';
 import { useGatewayContext } from '../../../hooks';
-import { FederationInfo } from '@fedimint/types';
-export interface WalletModalState {
-  isOpen: boolean;
-  action: WalletModalAction;
-  type: WalletModalType;
-  selectedFederation: FederationInfo | null;
-}
 
-interface WalletModalProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-}
-
-export const WalletModal: React.FC<WalletModalProps> = ({
-  federations,
-  walletModalState,
-  setWalletModalState,
-}) => {
+export const WalletModal: React.FC = () => {
   const { t } = useTranslation();
   const { state, dispatch } = useGatewayContext();
   const [showSelector, setShowSelector] = useState(true);

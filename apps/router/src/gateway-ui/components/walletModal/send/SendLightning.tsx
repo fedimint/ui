@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Text, Button, Flex } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FederationInfo } from '@fedimint/types';
-import { WalletModalState } from '../WalletModal';
 import { motion } from 'framer-motion';
 import { FiCheckCircle } from 'react-icons/fi';
 import { InfoField } from '..';
 import { useGatewayApi } from '../../../../hooks';
 import { decode, DecodedInvoice } from 'light-bolt11-decoder';
-
-interface SendLightningProps {
-  federations: FederationInfo[];
-  walletModalState: WalletModalState;
-  setWalletModalState: (state: WalletModalState) => void;
-}
 
 interface InvoiceDetails {
   amount: number;
@@ -21,7 +13,7 @@ interface InvoiceDetails {
   paymentHash: string;
 }
 
-const SendLightning: React.FC<SendLightningProps> = () => {
+const SendLightning: React.FC = () => {
   const { t } = useTranslation();
   const api = useGatewayApi();
   const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetails | null>(
