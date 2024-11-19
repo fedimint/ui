@@ -1,1 +1,8 @@
-export const GIT_COMMIT_HASH = '4f1a30e09a6b49c1c10d3af6d6a5fe3a048f50a2';
+export const RELEASE_TAG = 'v0.5.0-alpha';
+
+export const getVersionInfo = () => {
+  return {
+    display: RELEASE_TAG,
+    url: `https://github.com/fedimint/ui/releases/tag/${RELEASE_TAG}`,
+  };
+};

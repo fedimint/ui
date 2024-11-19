@@ -1,9 +1,10 @@
 import React from 'react';
 import { Flex, useTheme, Link, Box } from '@chakra-ui/react';
-import { GIT_COMMIT_HASH } from '@fedimint/router/src/constants/Version';
+import { getVersionInfo } from '@fedimint/router/src/constants/Version';
 
 export const Footer = () => {
   const theme = useTheme();
+  const version = getVersionInfo();
 
   interface CustomLinkProps {
     href: string;
@@ -44,10 +45,7 @@ export const Footer = () => {
             href='https://fedimint.org'
           />
           <Box marginLeft='2'>
-            <CustomLink
-              title={`version ${GIT_COMMIT_HASH.slice(0, 7)}`}
-              href={`https://github.com/fedimint/ui/commit/${GIT_COMMIT_HASH}`}
-            />
+            <CustomLink title={version.display} href={version.url} />
           </Box>
         </Flex>
 
