@@ -1,8 +1,10 @@
 import React from 'react';
-import { Flex, Stack, useTheme, Link } from '@chakra-ui/react';
+import { Flex, useTheme, Link, Box } from '@chakra-ui/react';
+import { getVersionInfo } from '@fedimint/router/src/constants/Version';
 
 export const Footer = () => {
   const theme = useTheme();
+  const version = getVersionInfo();
 
   interface CustomLinkProps {
     href: string;
@@ -36,20 +38,22 @@ export const Footer = () => {
       align='center'
       justify='center'
     >
-      <Stack
-        direction={{ base: 'column-reverse', sm: 'row' }}
-        spacing={4}
-        order={{ base: 1, sm: 2 }}
-      >
-        <CustomLink
-          title='© The Fedimint Developers'
-          href='https://fedimint.org'
-        />
-        <Flex direction='row' gap={4} justifyContent='center'>
+      <Flex direction='column' alignItems='center'>
+        <Flex direction='row' alignItems='center'>
+          <CustomLink
+            title='© The Fedimint Developers'
+            href='https://fedimint.org'
+          />
+          <Box marginLeft='2'>
+            <CustomLink title={version.display} href={version.url} />
+          </Box>
+        </Flex>
+
+        <Flex direction='row' gap={4} justifyContent='center' marginTop='2'>
           <CustomLink title='Discord' href='https://chat.fedimint.org/' />
           <CustomLink title='Github' href='https://github.com/fedimint' />
         </Flex>
-      </Stack>
+      </Flex>
     </Flex>
   );
 };
