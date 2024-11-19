@@ -3,9 +3,9 @@ import { Box, Text, Button, Flex } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { motion } from 'framer-motion';
 import { FiCheckCircle } from 'react-icons/fi';
-import { InfoField } from '..';
-import { useGatewayApi } from '../../../../hooks';
 import { decode, DecodedInvoice } from 'light-bolt11-decoder';
+import { useGatewayApi } from '../../../../hooks/gateway/useGateway';
+import { InfoField } from '..';
 
 interface InvoiceDetails {
   amount: number;
