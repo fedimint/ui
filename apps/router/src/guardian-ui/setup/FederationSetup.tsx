@@ -39,7 +39,7 @@ export const FederationSetup: React.FC = () => {
     state: { progress, role, peers, tosConfig },
     dispatch,
   } = useGuardianSetupContext();
-  const { showSuccess, showError } = useNotification();
+  const { showSuccess, showError, showInfo } = useNotification();
   const [confirmRestart, setConfirmRestart] = useState(false);
 
   const setTosConfig = useCallback(
@@ -76,13 +76,13 @@ export const FederationSetup: React.FC = () => {
       .then(() => {
         dispatch({ type: SETUP_ACTION_TYPE.SET_INITIAL_STATE, payload: null });
         window.scrollTo(0, 0);
-        showSuccess(t('setup.common.restart-success'));
+        showInfo(t('setup.common.restart-setup'));
       })
       .catch((err) => {
         console.error(err);
         showError(t('setup.common.restart-error'));
       });
-  }, [api, dispatch, showSuccess, showError, t]);
+  }, [api, dispatch, showInfo, showError, t]);
 
   let title: React.ReactNode;
   let subtitle: React.ReactNode;
