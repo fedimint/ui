@@ -442,7 +442,10 @@
     "to-address": "To Address",
     "txid": "Transaction ID",
     "claimed-note": "Claimed Note",
-    "claimed-amount": "Claimed Amount"
+    "claimed-amount": "Claimed Amount",
+    "invoice-amount": "Invoice Amount",
+    "invoice-description": "Invoice Description",
+    "paid-amount": "Paid Amount"
   },
   "wallet-modal": {
     "title": "Wallet Actions",
@@ -468,7 +471,11 @@
       "peg-out-success": "Peg Out TX Sent!",
       "create-ecash": "Create Ecash Note",
       "ecash-created": "Pulled a {{amount}} ecash note from your {{federationName}} balance. Send it to the recipient to claim.",
-      "ecash-error": "Error creating ecash note: {{error}}"
+      "ecash-error": "Error creating ecash note: {{error}}",
+      "lightning-instructions": "Enter a Lightning invoice to pay",
+      "paste-invoice": "Paste Lightning invoice",
+      "confirm-payment": "Confirm Payment",
+      "lightning-payment-success": "Lightning Payment Successful!"
     }
   },
   "federation-card": {

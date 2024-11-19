@@ -10,10 +10,10 @@ import {
 import { useTranslation } from '@fedimint/utils';
 import { capitalizeFirstLetters } from '../../utils';
 import ReceiveEcash from './receive/ReceiveEcash';
-// import ReceiveLightning from './receive/ReceiveLightning';
+import ReceiveLightning from './receive/ReceiveLightning';
 import ReceiveOnchain from './receive/ReceiveOnchain';
 import SendEcash from './send/SendEcash';
-// import SendLightning from './send/SendLightning';
+import SendLightning from './send/SendLightning';
 import SendOnchain from './send/SendOnchain';
 import { WalletActionSelector } from './WalletActionSelector';
 import {
@@ -52,12 +52,12 @@ export const WalletModal: React.FC = () => {
     const components = {
       [WalletModalAction.Receive]: {
         [WalletModalType.Ecash]: ReceiveEcash,
-        // [WalletModalType.Lightning]: ReceiveLightning,
+        [WalletModalType.Lightning]: ReceiveLightning,
         [WalletModalType.Onchain]: ReceiveOnchain,
       },
       [WalletModalAction.Send]: {
         [WalletModalType.Ecash]: SendEcash,
-        // [WalletModalType.Lightning]: SendLightning,
+        [WalletModalType.Lightning]: SendLightning,
         [WalletModalType.Onchain]: SendOnchain,
       },
     };

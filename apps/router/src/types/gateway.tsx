@@ -21,7 +21,7 @@ export enum WalletModalAction {
 }
 export enum WalletModalType {
   Ecash = 'ecash',
-  // Lightning = 'lightning',
+  Lightning = 'lightning',
   Onchain = 'onchain',
 }
 
