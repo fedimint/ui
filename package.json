@@ -2,7 +2,6 @@
   "private": true,
   "scripts": {
     "dev": "turbo run dev",
-    "prebuild": "echo \"export const GIT_COMMIT_HASH = '$(git rev-parse HEAD)'\" > ./apps/router/src/constants/Version.tsx",
     "build": "turbo run build",
     "clean": "turbo run clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
