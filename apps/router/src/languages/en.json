@@ -425,6 +425,7 @@
     "error-message": "Error connecting to federation: {{error}}"
   },
   "wallet": {
+    "balances-summary": "Balances Summary",
     "title": "Wallet",
     "ecash": "Ecash",
     "lightning": "Lightning",
