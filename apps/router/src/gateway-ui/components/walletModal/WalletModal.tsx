@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -10,55 +10,29 @@ import {
 import { useTranslation } from '@fedimint/utils';
 import { capitalizeFirstLetters } from '../../utils';
 import ReceiveEcash from './receive/ReceiveEcash';
-// import ReceiveLightning from './receive/ReceiveLightning';
+import ReceiveLightning from './receive/ReceiveLightning';
 import ReceiveOnchain from './receive/ReceiveOnchain';
 import SendEcash from './send/SendEcash';
-// import SendLightning from './send/SendLightning';
+import SendLightning from './send/SendLightning';
 import SendOnchain from './send/SendOnchain';
-import { WalletActionSelector } from './WalletActionSelector';
-import {
-  GATEWAY_APP_ACTION_TYPE,
-  WalletModalAction,
-  WalletModalType,
-} from '../../../types/gateway';
 import { useGatewayContext } from '../../../hooks';
+import { GATEWAY_APP_ACTION_TYPE } from '../../../types/gateway';
 
 export const WalletModal: React.FC = () => {
   const { t } = useTranslation();
   const { state, dispatch } = useGatewayContext();
-  const [showSelector, setShowSelector] = useState(true);
-
-  const handleActionChange = (action: WalletModalAction) => {
-    dispatch({
-      type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
-      payload: {
-        ...state.walletModalState,
-        action,
-      },
-    });
-  };
-
-  const handleTypeChange = (type: WalletModalType) => {
-    dispatch({
-      type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
-      payload: {
-        ...state.walletModalState,
-        type,
-      },
-    });
-  };
 
   const renderActionComponent = () => {
     const components = {
-      [WalletModalAction.Receive]: {
-        [WalletModalType.Ecash]: ReceiveEcash,
-        // [WalletModalType.Lightning]: ReceiveLightning,
-        [WalletModalType.Onchain]: ReceiveOnchain,
+      receive: {
+        ecash: ReceiveEcash,
+        lightning: ReceiveLightning,
+        onchain: ReceiveOnchain,
       },
-      [WalletModalAction.Send]: {
-        [WalletModalType.Ecash]: SendEcash,
-        // [WalletModalType.Lightning]: SendLightning,
-        [WalletModalType.Onchain]: SendOnchain,
+      send: {
+        ecash: SendEcash,
+        lightning: SendLightning,
+        onchain: SendOnchain,
       },
     };
 
@@ -67,39 +41,45 @@ export const WalletModal: React.FC = () => {
     return Component ? <Component /> : null;
   };
 
+  const getModalTitle = () => {
+    const action = t(`wallet.${state.walletModalState.action}`);
+    const type = t(`wallet.${state.walletModalState.type}`);
+
+    // Special cases for peg-in/peg-out
+    if (state.walletModalState.type === 'onchain') {
+      if (state.walletModalState.action === 'receive') {
+        return t('wallet.peg-in');
+      }
+      if (state.walletModalState.action === 'send') {
+        return t('wallet.peg-out');
+      }
+    }
+
+    return capitalizeFirstLetters(`${action} ${type}`);
+  };
+
   return (
     <Modal
       isOpen={state.walletModalState.isOpen}
       onClose={() => {
         dispatch({
           type: GATEWAY_APP_ACTION_TYPE.SET_WALLET_MODAL_STATE,
-          payload: { ...state.walletModalState, isOpen: false },
+          payload: {
+            ...state.walletModalState,
+            isOpen: false,
+          },
         });
-        setShowSelector(true);
       }}
       size='md'
+      isCentered
     >
-      <ModalOverlay />
+      <ModalOverlay bg='blackAlpha.700' backdropFilter='blur(5px)' />
       <ModalContent>
-        <ModalHeader>
-          {capitalizeFirstLetters(
-            t(`wallet.${state.walletModalState.action}`) +
-              ' ' +
-              t(`wallet.${state.walletModalState.type}`)
-          )}
+        <ModalHeader fontSize='xl' fontWeight='bold'>
+          {getModalTitle()}
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          {showSelector && (
-            <WalletActionSelector
-              action={state.walletModalState.action}
-              type={state.walletModalState.type}
-              onActionChange={handleActionChange}
-              onTypeChange={handleTypeChange}
-            />
-          )}
-          {renderActionComponent()}
-        </ModalBody>
+        <ModalBody pb={6}>{renderActionComponent()}</ModalBody>
       </ModalContent>
     </Modal>
   );
