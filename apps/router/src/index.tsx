@@ -119,10 +119,10 @@ root.render(
   <React.StrictMode>
     <ChakraProvider>
       <SharedChakraProvider theme={theme}>
-        <ColorModeScript />
-        <Fonts spaceGroteskTtf={spaceGroteskTtf} interTtf={interTtf} />
         <AppContextProvider>
           <NotificationProvider>
+            <ColorModeScript />
+            <Fonts spaceGroteskTtf={spaceGroteskTtf} interTtf={interTtf} />
             <App />
           </NotificationProvider>
         </AppContextProvider>
