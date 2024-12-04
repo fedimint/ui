@@ -99,6 +99,7 @@ export const ConnectFederation = React.memo(function ConnectFederation({
 
   const handleConnectFederation = () => {
     setLoading(true);
+    setErrorMsg('');
     showInfo(t('connect-federation.progress-modal-text'));
 
     api
