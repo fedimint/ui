@@ -16,7 +16,6 @@ import { SetupComplete } from '../components/setup/screens/setupComplete/SetupCo
 import { SetupProgress as SetupStepper } from '../components/setup/SetupProgress';
 import { TermsOfService } from '../components/TermsOfService';
 import { useGuardianSetupApi, useGuardianSetupContext } from '../../hooks';
-import { useNotification } from '../../home/NotificationProvider';
 
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
@@ -39,7 +38,6 @@ export const FederationSetup: React.FC = () => {
     state: { progress, role, peers, tosConfig },
     dispatch,
   } = useGuardianSetupContext();
-  const { showSuccess } = useNotification();
   const [confirmRestart, setConfirmRestart] = useState(false);
 
   const setTosConfig = useCallback(
@@ -61,8 +59,7 @@ export const FederationSetup: React.FC = () => {
     if (!prevProgress) return;
     dispatch({ type: SETUP_ACTION_TYPE.SET_PROGRESS, payload: prevProgress });
     window.scrollTo(0, 0);
-    showSuccess(t('common.back'));
-  }, [dispatch, prevProgress, showSuccess, t]);
+  }, [dispatch, prevProgress]);
 
   const handleNext = useCallback(() => {
     if (!nextProgress) return;
