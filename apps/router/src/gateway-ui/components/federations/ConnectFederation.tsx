@@ -104,7 +104,6 @@ export const ConnectFederation = React.memo(function ConnectFederation({
     api
       .connectFederation(connectInfo.trim())
       .then((federation) => {
-        // showSuccess(t('connect-federation.success-message'));
         renderConnectedFedCallback(federation);
         setConnectInfo('');
         onClose();
