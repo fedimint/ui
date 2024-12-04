@@ -15,12 +15,12 @@ import { VerifyGuardians } from '../components/setup/screens/verifyGuardians/Ver
 import { SetupComplete } from '../components/setup/screens/setupComplete/SetupComplete';
 import { SetupProgress as SetupStepper } from '../components/setup/SetupProgress';
 import { TermsOfService } from '../components/TermsOfService';
+import { useGuardianSetupApi, useGuardianSetupContext } from '../../hooks';
 
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
 import { GuardianServerStatus } from '@fedimint/types';
 import { RestartModals } from './RestartModals';
-import { useGuardianSetupApi, useGuardianSetupContext } from '../../hooks';
 
 const PROGRESS_ORDER: SetupProgress[] = [
   SetupProgress.Start,

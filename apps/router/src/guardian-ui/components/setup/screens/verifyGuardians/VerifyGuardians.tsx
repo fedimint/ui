@@ -41,6 +41,7 @@ import {
   useGuardianSetupApi,
   useGuardianSetupContext,
 } from '../../../../../hooks';
+import { useNotification } from '../../../../../home/NotificationProvider';
 
 interface PeerWithHash {
   id: string;
@@ -69,6 +70,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const [error, setError] = useState<string>();
   const [isOpen, setIsOpen] = useState(false);
   const [ourPeerName, setOurPeerName] = useState('');
+  const { showSuccess, showError, showInfo } = useNotification();
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -149,9 +151,12 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
         .then(() => {
           setVerifiedConfigs(true);
           toggleConsensusPolling(false);
+          showSuccess(t('verify-guardians.verified'));
+          showInfo(t('verify-guardians.all-guardians-verified'));
         })
         .catch((err) => {
           setError(formatApiErrorMessage(err));
+          showError(t('verify-guardians.error'));
         });
     }
   }, [
@@ -162,18 +167,24 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     numPeers,
     next,
     toggleConsensusPolling,
+    showSuccess,
+    showError,
+    showInfo,
+    t,
   ]);
 
   const handleNext = useCallback(async () => {
     setIsStarting(true);
     try {
       await api.startConsensus();
+      showInfo(t('verify-guardians.starting-consensus'));
       next();
     } catch (err) {
       setError(formatApiErrorMessage(err));
+      showError(t('verify-guardians.error'));
     }
     setIsStarting(false);
-  }, [api, next]);
+  }, [api, next, showInfo, showError, t]);
 
   // Host of one immediately skips this step.
   useEffect(() => {
