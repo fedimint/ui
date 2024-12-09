@@ -59,3 +59,5 @@ yarn-error.log*
 fm_*
 misc/test/data
 misc/test/tls.key
+
+todo.md
