@@ -42,7 +42,6 @@ import {
   useGuardianSetupContext,
   useTrimmedInputArray,
 } from '../../../../../hooks';
-import { useTrimmedInputArray } from '../../../../../hooks';
 
 interface PeerWithHash {
   id: string;
@@ -76,9 +75,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
-
-  const [enteredHashes, handleHashChange, setEnteredHashes] =
-    useTrimmedInputArray(peersWithHash ? peersWithHash.map(() => '') : []);
 
   useEffect(() => {
     async function assembleHashInfo() {

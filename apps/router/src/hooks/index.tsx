@@ -3,14 +3,7 @@ import { useLocation } from 'react-router-dom';
 export * from './guardian/useGuardian';
 export * from './guardian/useGuardianSetup';
 export * from './gateway/useGateway';
-<<<<<<< HEAD
 export * from './custom/useTrimmedInput';
-=======
-export {
-  useTrimmedInput,
-  useTrimmedInputArray,
-} from './custom/useTrimmedInput';
->>>>>>> d42ce8a9 (feat: trim whitespace in verification codes)
 
 import { useContext } from 'react';
 import { AppContext, AppContextValue } from '../context/AppContext';
