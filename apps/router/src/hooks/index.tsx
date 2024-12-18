@@ -3,6 +3,10 @@ import { useLocation } from 'react-router-dom';
 export * from './guardian/useGuardian';
 export * from './guardian/useGuardianSetup';
 export * from './gateway/useGateway';
+export {
+  useTrimmedInput,
+  useTrimmedInputArray,
+} from './custom/useTrimmedInput';
 
 import { useContext } from 'react';
 import { AppContext, AppContextValue } from '../context/AppContext';

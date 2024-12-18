@@ -41,6 +41,7 @@ import {
   useGuardianSetupApi,
   useGuardianSetupContext,
 } from '../../../../../hooks';
+import { useTrimmedInputArray } from '../../../../../hooks';
 
 interface PeerWithHash {
   id: string;
@@ -63,7 +64,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const isHost = role === GuardianRole.Host;
   const [myHash, setMyHash] = useState('');
   const [peersWithHash, setPeersWithHash] = useState<PeerWithHash[]>();
-  const [enteredHashes, setEnteredHashes] = useState<string[]>([]);
   const [verifiedConfigs, setVerifiedConfigs] = useState<boolean>(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
@@ -73,15 +73,10 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
 
-  useEffect(() => {
-    if (
-      peers.every(
-        (peer) => peer.status === GuardianServerStatus.VerifiedConfigs
-      )
-    ) {
-      setVerifiedConfigs(true);
-    }
+  const [enteredHashes, handleHashChange, setEnteredHashes] =
+    useTrimmedInputArray(peersWithHash ? peersWithHash.map(() => '') : []);
 
+  useEffect(() => {
     async function assembleHashInfo() {
       if (peers.length === 0) {
         return setError(t('verify-guardians.error'));
@@ -97,7 +92,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
       try {
         const hashes = await api.getVerifyConfigHash();
-
         setMyHash(hashes[ourCurrentId]);
         setPeersWithHash(
           Object.entries(peers)
@@ -109,7 +103,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             .filter((peer) => peer.id !== ourCurrentId.toString())
         );
 
-        // If we're already at the VerifiedConfigs state, prefill all the other hashes with the correct values
+        // Prefill hashes if already verified
         if (
           peers[ourCurrentId].status === GuardianServerStatus.VerifiedConfigs
         ) {
@@ -125,7 +119,40 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
       }
     }
     assembleHashInfo();
-  }, [api, peers, ourCurrentId, t]);
+  }, [api, peers, ourCurrentId, t, setEnteredHashes]);
+
+  const tableRows = useMemo(() => {
+    if (!peersWithHash) return [];
+    return peersWithHash.map(({ peer, hash }, idx) => {
+      const value = enteredHashes[idx] || '';
+      const isValid = Boolean(value && value === hash);
+      const isError = Boolean(value && !isValid);
+      return {
+        key: peer.cert,
+        name: (
+          <Text maxWidth={200} isTruncated>
+            {peer.name}
+          </Text>
+        ),
+        status: isValid ? (
+          <Tag colorScheme='green'>{t('verify-guardians.verified')}</Tag>
+        ) : (
+          ''
+        ),
+        hashInput: (
+          <FormControl isInvalid={isError}>
+            <Input
+              variant='filled'
+              value={value}
+              placeholder={`${t('verify-guardians.verified-placeholder')}`}
+              onChange={(ev) => handleHashChange(idx, ev.currentTarget.value)}
+              readOnly={isValid}
+            />
+          </FormControl>
+        ),
+      };
+    });
+  }, [peersWithHash, enteredHashes, t, handleHashChange]);
 
   useEffect(() => {
     // If we're the only guardian, skip this verify other guardians step.
@@ -206,47 +233,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     base: 'column-reverse',
     sm: 'row',
   }) as StackDirection | undefined;
-
-  const handleChangeHash = useCallback((value: string, index: number) => {
-    setEnteredHashes((hashes) => {
-      const newHashes = [...hashes];
-      newHashes[index] = value;
-      return newHashes;
-    });
-  }, []);
-
-  const tableRows = useMemo(() => {
-    if (!peersWithHash) return [];
-    return peersWithHash.map(({ peer, hash }, idx) => {
-      const value = enteredHashes[idx] || '';
-      const isValid = Boolean(value && value === hash);
-      const isError = Boolean(value && !isValid);
-      return {
-        key: peer.cert,
-        name: (
-          <Text maxWidth={200} isTruncated>
-            {peer.name}
-          </Text>
-        ),
-        status: isValid ? (
-          <Tag colorScheme='green'>{t('verify-guardians.verified')}</Tag>
-        ) : (
-          ''
-        ),
-        hashInput: (
-          <FormControl isInvalid={isError}>
-            <Input
-              variant='filled'
-              value={value}
-              placeholder={`${t('verify-guardians.verified-placeholder')}`}
-              onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
-              readOnly={isValid}
-            />
-          </FormControl>
-        ),
-      };
-    });
-  }, [peersWithHash, enteredHashes, handleChangeHash, t]);
 
   if (error) {
     return (
@@ -344,7 +330,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
                             'verify-guardians.verified-placeholder'
                           )}`}
                           onChange={(ev) =>
-                            handleChangeHash(ev.currentTarget.value, idx)
+                            handleHashChange(idx, ev.currentTarget.value)
                           }
                           readOnly={isValid}
                         />
