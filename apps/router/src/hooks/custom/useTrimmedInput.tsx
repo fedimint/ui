@@ -2,16 +2,6 @@ import { useState } from 'react';
 
 const cleanInput = (value: string) => value.trim();
 
-export const useTrimmedInput = (initialValue: string) => {
-  const [value, setValue] = useState(initialValue);
-
-  const handleChange = (newValue: string) => {
-    setValue(cleanInput(newValue));
-  };
-
-  return [value, handleChange] as const;
-};
-
 export const useTrimmedInputArray = (initialValues: string[]) => {
   const [values, setValues] = useState<string[]>(initialValues);
 
@@ -23,9 +13,5 @@ export const useTrimmedInputArray = (initialValues: string[]) => {
     });
   };
 
-  const setAllValues = (newValues: string[]) => {
-    setValues(newValues.map(cleanInput));
-  };
-
-  return [values, handleChange, setAllValues] as const;
+  return [values, handleChange] as const;
 };

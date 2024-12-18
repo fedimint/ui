@@ -40,8 +40,8 @@ import {
   useConsensusPolling,
   useGuardianSetupApi,
   useGuardianSetupContext,
+  useTrimmedInputArray,
 } from '../../../../../hooks';
-import { useTrimmedInputArray } from '../../../../../hooks';
 
 interface PeerWithHash {
   id: string;
@@ -64,6 +64,9 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const isHost = role === GuardianRole.Host;
   const [myHash, setMyHash] = useState('');
   const [peersWithHash, setPeersWithHash] = useState<PeerWithHash[]>();
+  const [enteredHashes, handleHashChange] = useTrimmedInputArray(
+    peersWithHash ? peersWithHash.map(() => '') : []
+  );
   const [verifiedConfigs, setVerifiedConfigs] = useState<boolean>(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
@@ -72,9 +75,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
-
-  const [enteredHashes, handleHashChange, setEnteredHashes] =
-    useTrimmedInputArray(peersWithHash ? peersWithHash.map(() => '') : []);
 
   useEffect(() => {
     async function assembleHashInfo() {
@@ -110,49 +110,16 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
           const otherPeers = Object.entries(peers).filter(
             ([id]) => id !== ourCurrentId.toString()
           );
-          setEnteredHashes(
-            otherPeers.map(([id]) => hashes[id as unknown as number])
-          );
+          otherPeers.forEach(([id], idx) => {
+            handleHashChange(idx, hashes[id as unknown as number]);
+          });
         }
       } catch (err) {
         setError(formatApiErrorMessage(err));
       }
     }
     assembleHashInfo();
-  }, [api, peers, ourCurrentId, t, setEnteredHashes]);
-
-  const tableRows = useMemo(() => {
-    if (!peersWithHash) return [];
-    return peersWithHash.map(({ peer, hash }, idx) => {
-      const value = enteredHashes[idx] || '';
-      const isValid = Boolean(value && value === hash);
-      const isError = Boolean(value && !isValid);
-      return {
-        key: peer.cert,
-        name: (
-          <Text maxWidth={200} isTruncated>
-            {peer.name}
-          </Text>
-        ),
-        status: isValid ? (
-          <Tag colorScheme='green'>{t('verify-guardians.verified')}</Tag>
-        ) : (
-          ''
-        ),
-        hashInput: (
-          <FormControl isInvalid={isError}>
-            <Input
-              variant='filled'
-              value={value}
-              placeholder={`${t('verify-guardians.verified-placeholder')}`}
-              onChange={(ev) => handleHashChange(idx, ev.currentTarget.value)}
-              readOnly={isValid}
-            />
-          </FormControl>
-        ),
-      };
-    });
-  }, [peersWithHash, enteredHashes, t, handleHashChange]);
+  }, [api, peers, ourCurrentId, t, handleHashChange]);
 
   useEffect(() => {
     // If we're the only guardian, skip this verify other guardians step.
@@ -233,6 +200,39 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     base: 'column-reverse',
     sm: 'row',
   }) as StackDirection | undefined;
+
+  const tableRows = useMemo(() => {
+    if (!peersWithHash) return [];
+    return peersWithHash.map(({ peer, hash }, idx) => {
+      const value = enteredHashes[idx] || '';
+      const isValid = Boolean(value && value === hash);
+      const isError = Boolean(value && !isValid);
+      return {
+        key: peer.cert,
+        name: (
+          <Text maxWidth={200} isTruncated>
+            {peer.name}
+          </Text>
+        ),
+        status: isValid ? (
+          <Tag colorScheme='green'>{t('verify-guardians.verified')}</Tag>
+        ) : (
+          ''
+        ),
+        hashInput: (
+          <FormControl isInvalid={isError}>
+            <Input
+              variant='filled'
+              value={value}
+              placeholder={`${t('verify-guardians.verified-placeholder')}`}
+              onChange={(ev) => handleHashChange(idx, ev.currentTarget.value)}
+              readOnly={isValid}
+            />
+          </FormControl>
+        ),
+      };
+    });
+  }, [peersWithHash, enteredHashes, handleHashChange, t]);
 
   if (error) {
     return (
