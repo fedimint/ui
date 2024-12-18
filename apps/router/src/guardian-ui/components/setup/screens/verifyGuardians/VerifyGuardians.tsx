@@ -77,14 +77,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   useConsensusPolling();
 
   useEffect(() => {
-    if (
-      peers.every(
-        (peer) => peer.status === GuardianServerStatus.VerifiedConfigs
-      )
-    ) {
-      setVerifiedConfigs(true);
-    }
-
     async function assembleHashInfo() {
       if (peers.length === 0) {
         return setError(t('verify-guardians.error'));
@@ -100,7 +92,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
       try {
         const hashes = await api.getVerifyConfigHash();
-
         setMyHash(hashes[ourCurrentId]);
         setPeersWithHash(
           Object.entries(peers)
@@ -112,7 +103,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             .filter((peer) => peer.id !== ourCurrentId.toString())
         );
 
-        // If we're already at the VerifiedConfigs state, prefill all the other hashes with the correct values
+        // Prefill hashes if already verified
         if (
           peers[ourCurrentId].status === GuardianServerStatus.VerifiedConfigs
         ) {
