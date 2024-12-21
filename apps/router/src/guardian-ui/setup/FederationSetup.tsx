@@ -15,6 +15,7 @@ import { VerifyGuardians } from '../components/setup/screens/verifyGuardians/Ver
 import { SetupComplete } from '../components/setup/screens/setupComplete/SetupComplete';
 import { SetupProgress as SetupStepper } from '../components/setup/SetupProgress';
 import { TermsOfService } from '../components/TermsOfService';
+import { BackupModal } from '../components/BackupModal';
 
 import { ReactComponent as ArrowLeftIcon } from '../assets/svgs/arrow-left.svg';
 import { ReactComponent as CancelIcon } from '../assets/svgs/x-circle.svg';
@@ -137,7 +138,17 @@ export const FederationSetup: React.FC = () => {
       canRestart = true;
       break;
     case SetupProgress.SetupComplete:
-      content = <SetupComplete role={role ?? GuardianRole.Follower} />;
+      content = (
+        <>
+          <SetupComplete role={role ?? GuardianRole.Follower} />
+          <BackupModal
+            isOpen={true}
+            onClose={() => {
+              /* handle navigation to dashboard */
+            }}
+          />
+        </>
+      );
       break;
     default:
       title = t('setup.progress.error.title');
