@@ -144,7 +144,10 @@ export const FederationSetup: React.FC = () => {
           <BackupModal
             isOpen={true}
             onClose={() => {
-              /* handle navigation to dashboard */
+              dispatch({
+                type: SETUP_ACTION_TYPE.SET_INITIAL_STATE,
+                payload: null,
+              });
             }}
           />
         </>
