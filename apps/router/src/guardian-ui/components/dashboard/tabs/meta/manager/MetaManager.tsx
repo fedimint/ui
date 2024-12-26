@@ -21,12 +21,14 @@ interface MetaManagerProps {
   metaModuleId?: string;
   consensusMeta?: ParsedConsensusMeta;
   setActiveTab: (tab: number) => void;
+  isSoloMode: boolean;
 }
 
 export const MetaManager = React.memo(function MetaManager({
   metaModuleId,
   consensusMeta,
   setActiveTab,
+  isSoloMode,
 }: MetaManagerProps): JSX.Element {
   const { t } = useTranslation();
   const api = useGuardianAdminApi();
@@ -157,7 +159,11 @@ export const MetaManager = React.memo(function MetaManager({
           onClick={proposeMetaEdits}
           isDisabled={!canSubmit()}
         >
-          {t('federation-dashboard.config.manage-meta.propose-new-meta-button')}
+          {isSoloMode
+            ? t('federation-dashboard.config.manage-meta.update-meta-button')
+            : t(
+                'federation-dashboard.config.manage-meta.propose-new-meta-button'
+              )}
         </Button>
         {consensusMeta?.value && !isMetaUnchanged() && (
           <Button onClick={resetToConsensus}>

@@ -272,6 +272,9 @@ export const FederationTabsCard: React.FC<FederationTabsCardProps> = ({
                 metaModuleId={metaModuleId}
                 consensusMeta={consensusMeta}
                 setActiveTab={setActiveTab}
+                isSoloMode={
+                  Object.keys(config.global.api_endpoints).length === 1
+                }
               />
             </TabPanel>
             {pendingProposalsCount > 0 && (
