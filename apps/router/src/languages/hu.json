@@ -110,6 +110,7 @@
       "manage-meta": {
         "label": "Kezelje a Meta-t",
         "cancel-button": "Törlés",
+        "update-meta-button": "Metaadatok frissítése",
         "confirm-modal": {
           "title": "Jóváhagyás megerősítése",
           "description": "Az Ön jóváhagyása eléri a küszöbértéket, hogy elfogadja ezt a meta-változtatást. Az új meta így fog kinézni:"

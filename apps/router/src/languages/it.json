@@ -110,6 +110,7 @@
       "manage-meta": {
         "label": "Gestisci Meta",
         "cancel-button": "Annulla",
+        "update-meta-button": "Aggiorna Metadati",
         "confirm-modal": {
           "title": "Conferma approvazione",
           "description": "La tua approvazione raggiungerà la soglia per adottare questa modifica meta. Il tuo nuovo meta sarà così:"

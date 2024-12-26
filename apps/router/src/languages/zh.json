@@ -142,6 +142,7 @@
         "meta-effect-modify": "修改",
         "meta-effect-unchanged": "未改变",
         "proposals": "提案",
+        "update-meta-button": "更新元数据",
         "header": "您的联邦元数据",
         "description": "Fedimint可以为您的用户提供有关联邦的额外信息（元数据），例如名称、欢迎信息或图片。虽然这些信息不会影响资金的保管，但所有的守护者都必须对元数据达成一致。",
         "learn-more": "了解更多关联元数据。",
