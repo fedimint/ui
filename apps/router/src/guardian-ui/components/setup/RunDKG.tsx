@@ -11,6 +11,7 @@ import { GuardianServerStatus } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { useEllipsis } from '../../hooks';
 import { formatApiErrorMessage } from '../../utils/api';
+import { useNotification } from '../../../home/NotificationProvider';
 import {
   useConsensusPolling,
   useGuardianSetupApi,
@@ -31,6 +32,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
   const [isWaitingForOthers, setIsWaitingForOthers] = useState(false);
   const [error, setError] = useState<string>();
   const ellipsis = useEllipsis();
+  const { showInfo, showSuccess } = useNotification();
 
   // Poll for peers and configGenParams while on this page.
   useConsensusPolling();
@@ -51,11 +53,14 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
               if (err.code === -32002) return;
               throw err;
             });
+            showInfo(t('run-dkg.waiting-header'));
             break;
           case GuardianServerStatus.ReadyForConfigGen:
             setIsWaitingForOthers(true);
+            showInfo(t('connect-guardians.waiting-for-guardian'));
             break;
           case GuardianServerStatus.VerifyingConfigs:
+            showSuccess(t('connect-guardians.approved'));
             next();
             break;
           case GuardianServerStatus.ConfigGenFailed:
@@ -75,7 +80,7 @@ export const RunDKG: React.FC<Props> = ({ next }) => {
       clearTimeout(timeout);
       canceled = true;
     };
-  }, [next, api, t]);
+  }, [next, api, t, showInfo, showSuccess]);
 
   const progress = useMemo(() => {
     if (!peers.length) return 0;

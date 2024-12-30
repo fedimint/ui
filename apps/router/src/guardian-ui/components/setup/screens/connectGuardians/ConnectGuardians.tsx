@@ -24,12 +24,14 @@ import {
   useGuardianSetupContext,
 } from '../../../../../hooks';
 import { GuardianRole } from '../../../../../types/guardian';
+import { useNotification } from '../../../../../home/NotificationProvider';
 
 interface Props {
   next(): void;
 }
 
 export const ConnectGuardians: React.FC<Props> = ({ next }) => {
+  const { showSuccess } = useNotification();
   const { t } = useTranslation();
   const {
     state: { role, peers, numPeers, configGenParams, ourCurrentId },
@@ -55,8 +57,9 @@ export const ConnectGuardians: React.FC<Props> = ({ next }) => {
   }, [role, isAllAccepted, next]);
 
   const handleApprove = useCallback(() => {
+    showSuccess(t('connect-guardians.approve'));
     next();
-  }, [next]);
+  }, [next, showSuccess, t]);
 
   let content: React.ReactNode;
   if (!configGenParams) {
