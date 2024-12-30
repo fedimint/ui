@@ -56,6 +56,7 @@ export enum SetupProgress {
   RunDKG = 'RunDKG',
   VerifyGuardians = 'VerifyGuardians',
   SetupComplete = 'SetupComplete',
+  Backup = 'Backup',
 }
 
 export enum StepState {
@@ -79,6 +80,7 @@ export interface SetupState {
   numPeers: number;
   peers: Peer[];
   tosConfig: tosConfigState;
+  guardianName?: string;
 }
 
 export enum SETUP_ACTION_TYPE {

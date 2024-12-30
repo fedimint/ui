@@ -26,6 +26,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "@chakra-ui/icons": "^2.2.4",
     "@vitalets/google-translate-api": "^9.2.0"
   }
 }
