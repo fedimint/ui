@@ -110,6 +110,7 @@
       "manage-meta": {
         "label": "Gestiona Meta",
         "cancel-button": "Cancel·la",
+        "update-meta-button": "Actualitza Metadades",
         "confirm-modal": {
           "title": "Confirma l'aprovació",
           "description": "La vostra aprovació arribarà al llindar per adoptar aquest canvi meta. El vostre nou meta es veurà així:"

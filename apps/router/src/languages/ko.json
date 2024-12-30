@@ -110,6 +110,7 @@
       "manage-meta": {
         "label": "메타 관리",
         "cancel-button": "취소",
+        "update-meta-button": "메타데이터 업데이트",
         "confirm-modal": {
           "title": "승인 확인",
           "description": "당신의 승인이 이 메타 변경을 채택하기 위한 임계점에 도달할 것입니다. 당신의 새로운 메타는 다음과 같이 보일 것입니다:"

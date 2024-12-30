@@ -110,6 +110,7 @@
       "manage-meta": {
         "label": "Gérer Meta",
         "cancel-button": "Annuler",
+        "update-meta-button": "Mettre à jour les métadonnées",
         "confirm-modal": {
           "title": "Confirmer l'approbation",
           "description": "Votre approbation atteindra le seuil pour adopter ce changement méta. Votre nouveau méta ressemblera à :"
