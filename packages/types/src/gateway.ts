@@ -50,6 +50,12 @@ export interface CreateBolt11InvoiceV2Payload {
   expiry_time: number;
 }
 
+export interface CreateBolt11InvoiceForSelfPayload {
+  amount_msats: number;
+  expiry_secs: number;
+  description?: string;
+}
+
 export interface IncomingContract {
   commitment: string;
   ciphertext: string;
@@ -167,6 +173,12 @@ export interface PayInvoicePayload {
   contract_id: string;
   payment_data: PaymentData;
   preimage_auth: string;
+}
+
+export interface PayInvoiceFromSelfPayload {
+  invoice: string;
+  max_delay: number;
+  max_fee: number;
 }
 
 export type PaymentData =

@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Flex, Skeleton, Text } from '@chakra-ui/react';
-import {
-  ClientConfig,
-  SignedApiAnnouncement,
-  StatusResponse,
-} from '@fedimint/types';
 import { FederationTabsCard } from '../components/dashboard/tabs/FederationTabsCard';
 import { DangerZone } from '../components/dashboard/danger/DangerZone';
 import { useGuardianAdminApi } from '../../hooks';
 import { InviteCode } from '../components/dashboard/admin/InviteCode';
 import { useTranslation } from '@fedimint/utils';
+import {
+  ClientConfig,
+  SignedApiAnnouncement,
+  StatusResponse,
+} from '@fedimint/types';
 
 const findOurPeerId = (
   configPeerIds: number[],

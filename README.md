@@ -220,7 +220,7 @@ This will put binaries in `fedimint/target-nix/debug` at the front of your `$PAT
 You can officially bump the referenced version of Fedimint using the following steps:
 
 1. Locate a desired hash from [Fedimint](https://github.com/fedimint/fedimint/commits/master)
-2. Find and replace all instances of the current reference commit hash: `4ccc52631b02ee741b01257e8cfb207e9f9629bf`
+2. Find and replace all instances of the current reference commit hash: `62da01943cefae398161399e621d14dd87e8d83b`
 
 3. Run `nix flake update` at the root of the repo
 4. Restart your nix shell and validate the reference, then commit to complete bump
