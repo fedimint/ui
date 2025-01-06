@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Alert,
   AlertDescription,
@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { ReactComponent as WarningIcon } from '../../../../assets/svgs/warning.svg';
+import { useTrimmedInput } from '../../../../../hooks';
 
 interface ConfirmPasswordModalProps {
   password: string;
@@ -38,8 +39,8 @@ export const ConfirmPasswordModal: React.FC<ConfirmPasswordModalProps> = ({
   guardianName,
 }) => {
   const { t } = useTranslation();
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [confirmGuardianName, setConfirmGuardianName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useTrimmedInput('');
+  const [confirmGuardianName, setConfirmGuardianName] = useTrimmedInput('');
 
   const confirmed =
     confirmPassword === password && confirmGuardianName === guardianName;

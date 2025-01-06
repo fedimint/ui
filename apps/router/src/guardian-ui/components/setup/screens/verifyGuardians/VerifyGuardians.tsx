@@ -40,6 +40,7 @@ import {
   useConsensusPolling,
   useGuardianSetupApi,
   useGuardianSetupContext,
+  useTrimmedInputArray,
 } from '../../../../../hooks';
 
 interface PeerWithHash {
@@ -63,7 +64,9 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const isHost = role === GuardianRole.Host;
   const [myHash, setMyHash] = useState('');
   const [peersWithHash, setPeersWithHash] = useState<PeerWithHash[]>();
-  const [enteredHashes, setEnteredHashes] = useState<string[]>([]);
+  const [enteredHashes, handleHashChange] = useTrimmedInputArray(
+    peersWithHash ? peersWithHash.map(() => '') : []
+  );
   const [verifiedConfigs, setVerifiedConfigs] = useState<boolean>(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
@@ -74,14 +77,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   useConsensusPolling();
 
   useEffect(() => {
-    if (
-      peers.every(
-        (peer) => peer.status === GuardianServerStatus.VerifiedConfigs
-      )
-    ) {
-      setVerifiedConfigs(true);
-    }
-
     async function assembleHashInfo() {
       if (peers.length === 0) {
         return setError(t('verify-guardians.error'));
@@ -97,7 +92,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
 
       try {
         const hashes = await api.getVerifyConfigHash();
-
         setMyHash(hashes[ourCurrentId]);
         setPeersWithHash(
           Object.entries(peers)
@@ -109,23 +103,23 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
             .filter((peer) => peer.id !== ourCurrentId.toString())
         );
 
-        // If we're already at the VerifiedConfigs state, prefill all the other hashes with the correct values
+        // Prefill hashes if already verified
         if (
           peers[ourCurrentId].status === GuardianServerStatus.VerifiedConfigs
         ) {
           const otherPeers = Object.entries(peers).filter(
             ([id]) => id !== ourCurrentId.toString()
           );
-          setEnteredHashes(
-            otherPeers.map(([id]) => hashes[id as unknown as number])
-          );
+          otherPeers.forEach(([id], idx) => {
+            handleHashChange(idx, hashes[id as unknown as number]);
+          });
         }
       } catch (err) {
         setError(formatApiErrorMessage(err));
       }
     }
     assembleHashInfo();
-  }, [api, peers, ourCurrentId, t]);
+  }, [api, peers, ourCurrentId, t, handleHashChange]);
 
   useEffect(() => {
     // If we're the only guardian, skip this verify other guardians step.
@@ -207,14 +201,6 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
     sm: 'row',
   }) as StackDirection | undefined;
 
-  const handleChangeHash = useCallback((value: string, index: number) => {
-    setEnteredHashes((hashes) => {
-      const newHashes = [...hashes];
-      newHashes[index] = value;
-      return newHashes;
-    });
-  }, []);
-
   const tableRows = useMemo(() => {
     if (!peersWithHash) return [];
     return peersWithHash.map(({ peer, hash }, idx) => {
@@ -239,14 +225,14 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
               variant='filled'
               value={value}
               placeholder={`${t('verify-guardians.verified-placeholder')}`}
-              onChange={(ev) => handleChangeHash(ev.currentTarget.value, idx)}
+              onChange={(ev) => handleHashChange(idx, ev.currentTarget.value)}
               readOnly={isValid}
             />
           </FormControl>
         ),
       };
     });
-  }, [peersWithHash, enteredHashes, handleChangeHash, t]);
+  }, [peersWithHash, enteredHashes, handleHashChange, t]);
 
   if (error) {
     return (
@@ -344,7 +330,7 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
                             'verify-guardians.verified-placeholder'
                           )}`}
                           onChange={(ev) =>
-                            handleChangeHash(ev.currentTarget.value, idx)
+                            handleHashChange(idx, ev.currentTarget.value)
                           }
                           readOnly={isValid}
                         />
