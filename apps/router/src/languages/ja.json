@@ -110,6 +110,7 @@
       "manage-meta": {
         "label": "メタを管理する",
         "cancel-button": "キャンセル",
+        "update-meta-button": "メタデータを更新",
         "confirm-modal": {
           "title": "承認を確認する",
           "description": "あなたの承認により、このメタの変更を採用する閾値に達します。あなたの新しいメタは次のようになります："

@@ -127,6 +127,7 @@
         "proposed-meta-label": "Meta Proposals",
         "propose-meta": "Propose Meta",
         "propose-new-meta-button": "Propose New Metadata",
+        "update-meta-button": "Update Metadata",
         "add-custom-field-button": "Add Custom Field",
         "reset-to-consensus-button": "Reset to Consensus",
         "proposal-approved": "You have approved this proposal",

@@ -110,6 +110,7 @@
       "manage-meta": {
         "label": "Gestionar Meta",
         "cancel-button": "Cancelar",
+        "update-meta-button": "Actualizar Metadatos",
         "confirm-modal": {
           "title": "Confirmar Aprobación",
           "description": "Su aprobación alcanzará el umbral para adoptar este cambio meta. Su nuevo meta se verá así:"

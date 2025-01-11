@@ -110,6 +110,7 @@
       "manage-meta": {
         "label": "Meta verwalten",
         "cancel-button": "Stornieren",
+        "update-meta-button": "Metadaten aktualisieren",
         "confirm-modal": {
           "title": "Genehmigung bestätigen",
           "description": "Ihre Zustimmung wird die Schwelle erreichen, um diese Meta-Änderung zu übernehmen. Ihr neues Meta wird so aussehen:"
