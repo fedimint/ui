@@ -481,7 +481,8 @@
     "pubkey": "Clau pública",
     "network": "Xarxa",
     "block-height": "Alçada del bloc",
-    "synced-to-chain": "Sincronitzat a la Cadena"
+    "synced-to-chain": "Sincronitzat a la Cadena",
+    "card_header": "ID de Node Lightning"
   },
   "withdraw-card": {
     "address-label": "La teva adreça:",
@@ -535,5 +536,16 @@
       "title": "Edita {{type}}",
       "url-label": "URL"
     }
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Dipòsit de Bitcoin",
+    "card_header": "Dipòsit Bitcoin",
+    "confirmations": "Confirmacions:",
+    "header": "Dipòsit de Bitcoin a la Federació",
+    "receiving-address": "Adreça de recepció",
+    "required": "requerit",
+    "sentence-one": "Dipòsit a l'adreça o escaneja el codi QR",
+    "transaction-id": "ID de transacció",
+    "create-pegin-address": "Crea adreça Peg-in"
   }
 }

@@ -481,7 +481,8 @@
     "pubkey": "Clé publique",
     "network": "Réseau",
     "block-height": "Hauteur de bloc",
-    "synced-to-chain": "Synchronisé à la Chaîne"
+    "synced-to-chain": "Synchronisé à la Chaîne",
+    "card_header": "ID de nœud Lightning"
   },
   "withdraw-card": {
     "address-label": "Votre adresse :",
@@ -535,5 +536,16 @@
       "title": "Modifier {{type}}",
       "url-label": "URL"
     }
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Dépôt Bitcoin",
+    "card_header": "Déposer des Bitcoin",
+    "confirmations": "Confirmations :",
+    "header": "Dépôt Bitcoin à la Fédération",
+    "receiving-address": "Adresse de réception",
+    "required": "exigé",
+    "sentence-one": "Déposez à l'adresse ou scannez le code QR",
+    "transaction-id": "ID de transaction",
+    "create-pegin-address": "Créer une adresse Peg-in"
   }
 }
