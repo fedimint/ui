@@ -482,7 +482,8 @@
     "pubkey": "Chiave pubblica",
     "network": "Rete",
     "block-height": "Altezza del blocco",
-    "synced-to-chain": "Sincronizzato alla Catena"
+    "synced-to-chain": "Sincronizzato alla Catena",
+    "card_header": "ID de Nodo Lightning"
   },
   "withdraw-card": {
     "address-label": "Il tuo indirizzo:",
@@ -536,5 +537,40 @@
       "title": "Modifica {{type}}",
       "url-label": "URL"
     }
+  },
+  "address-label": "Tu dirección:",
+  "address-placeholder": "Введите ваш btc-адрес",
+  "amount-label": "Montant (sats) :",
+  "amount-placeholder": "Ingresa la cantidad en sats",
+  "card-header": "Retirar Bitcoin",
+  "close": "Chiudi",
+  "confirm-withdraw": "Confirmar Retiro",
+  "error": "Erro",
+  "error-address": "L'importo o l'indirizzo non possono essere vuoti",
+  "error-amount": "El monto no puede estar vacío ni ser igual a cero",
+  "error-request": "Solicitud de retiro fallida",
+  "request-from": "Retiro Solicitado de",
+  "requested-withdrawal": "Retiro Solicitado",
+  "to": "à",
+  "total_bitcoin": "Total Bitcoin:",
+  "transaction-sent": "Transacción Enviada!",
+  "view": "Vista",
+  "view-it-on": "Véalo en",
+  "withdraw": "Retirar",
+  "withdraw-all": "Retirar todo",
+  "withdrawal-created": "Retiro creado.",
+  "withdrawal-created-description": "Si prega di controllare la cronologia delle transazioni",
+  "withdrawal-history": "Historique des retraits",
+  "your-transaction": "Tu ID de transacción:",
+  "deposit-card": {
+    "bitcoin-deposit": "Bitcoin Einzahlung",
+    "card_header": "Depositar Bitcoin",
+    "confirmations": "Confirmaciones:",
+    "header": "Bitcoin Einzahlung in die Föderation",
+    "receiving-address": "Dirección de Recepción",
+    "required": "requis",
+    "sentence-one": "Depósito a la dirección o escanea el código QR",
+    "transaction-id": "ID de transacción",
+    "create-pegin-address": "Crear dirección Peg-in"
   }
 }

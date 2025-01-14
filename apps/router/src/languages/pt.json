@@ -482,7 +482,8 @@
     "pubkey": "Chave pública",
     "network": "Rede",
     "block-height": "Altura do Bloco",
-    "synced-to-chain": "Sincronizado com a Corrente"
+    "synced-to-chain": "Sincronizado com a Corrente",
+    "card_header": "ID do Nó Lightning"
   },
   "withdraw-card": {
     "address-label": "O seu endereço:",
@@ -536,5 +537,21 @@
       "title": "Editar {{type}}",
       "url-label": "URL"
     }
+  },
+  "connect": "Conectar 🚀",
+  "connect-federation-button": "Adicionar Federação",
+  "connection-string-placeholder": "Cole o código de convite da federação",
+  "heading": "Conecte-se a uma federação usando um código de convite",
+  "information-bar-text": "O número de federações que você pode conectar é limitado a uma. A conexão com várias federações será suportada em breve.",
+  "deposit-card": {
+    "bitcoin-deposit": "Depósito de Bitcoin",
+    "card_header": "Depositar Bitcoin",
+    "confirmations": "Confirmações:",
+    "header": "Depósito de Bitcoin para a Federação",
+    "receiving-address": "Endereço de Recebimento",
+    "required": "obrigatório",
+    "sentence-one": "Deposite no endereço ou escaneie o código QR",
+    "transaction-id": "ID da Transação",
+    "create-pegin-address": "Criar Endereço Peg-in"
   }
 }

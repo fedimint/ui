@@ -482,7 +482,8 @@
     "pubkey": "공개키",
     "network": "네트워크",
     "block-height": "블록 높이",
-    "synced-to-chain": "체인에 동기화됨"
+    "synced-to-chain": "체인에 동기화됨",
+    "card_header": "라이트닝 노드 ID"
   },
   "withdraw-card": {
     "address-label": "당신의 주소:",
@@ -536,5 +537,24 @@
       "title": "{{type}} 편집",
       "url-label": "URL"
     }
+  },
+  "bitcoin-deposit": "비트코인 예금",
+  "card_header": "비트코인 입금",
+  "confirmations": "확인:",
+  "receiving-address": "수신주소",
+  "required": "필수의",
+  "sentence-one": "해당 주소로 입금하거나 QR코드를 스캔하세요.",
+  "transaction-id": "거래 ID",
+  "create-pegin-address": "페그인 주소 생성",
+  "deposit-card": {
+    "bitcoin-deposit": "비트코인 입금",
+    "card_header": "비트코인 입금",
+    "confirmations": "확인 사항:",
+    "header": "연합에 비트코인 입금",
+    "receiving-address": "수신 주소",
+    "required": "필수",
+    "sentence-one": "주소로 입금하거나 QR 코드를 스캔하세요.",
+    "transaction-id": "거래 ID",
+    "create-pegin-address": "페그인 주소 생성"
   }
 }

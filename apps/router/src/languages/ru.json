@@ -482,7 +482,8 @@
     "pubkey": "Публичный ключ",
     "network": "Сеть",
     "block-height": "Высота блока",
-    "synced-to-chain": "Синхронизировано с цепью"
+    "synced-to-chain": "Синхронизировано с цепью",
+    "card_header": "Идентификатор узла Lightning"
   },
   "withdraw-card": {
     "address-label": "Ваш адрес:",
@@ -536,5 +537,16 @@
       "title": "Редактировать {{type}}",
       "url-label": "URL"
     }
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Депозит Биткойн",
+    "card_header": "Внести биткойн",
+    "confirmations": "Подтверждения:",
+    "header": "Депозит биткойнов в Федерацию",
+    "receiving-address": "Адрес получения",
+    "required": "требуется",
+    "sentence-one": "Переведите на адрес или отсканируйте QR-код.",
+    "transaction-id": "Идентификатор транзакции",
+    "create-pegin-address": "Создать адрес Peg-in"
   }
 }

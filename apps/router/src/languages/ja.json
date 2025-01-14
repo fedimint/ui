@@ -482,7 +482,8 @@
     "pubkey": "公開鍵",
     "network": "ネットワーク",
     "block-height": "ブロックの高さ",
-    "synced-to-chain": "チェーンに同期済み"
+    "synced-to-chain": "チェーンに同期済み",
+    "card_header": "ライトニングノードID"
   },
   "withdraw-card": {
     "address-label": "あなたの住所：",
@@ -536,5 +537,16 @@
       "title": "{{type}}を編集する",
       "url-label": "URL"
     }
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "ビットコイン入金",
+    "card_header": "ビットコインを入金する",
+    "confirmations": "確認事項：",
+    "header": "ビットコインの連邦への入金",
+    "receiving-address": "受取先住所",
+    "required": "必要な",
+    "sentence-one": "アドレスに入金するか、QRコードをスキャンしてください。",
+    "transaction-id": "取引ID",
+    "create-pegin-address": "ペグインアドレスを作成する"
   }
 }
