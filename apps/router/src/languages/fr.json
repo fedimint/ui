@@ -169,7 +169,8 @@
         "warning-title": "Avertissement",
         "warning-text": "La sauvegarde contient des clés privées et des matériaux secrets pour le gardien de la fédération et doit être conservée en toute sécurité. La récupération à l'aide de cette sauvegarde nécessite votre mot de passe administrateur !",
         "cancelButton": "Annuler",
-        "acknowledgeButton": "Reconnaître & Télécharger"
+        "acknowledgeButton": "Reconnaître & Télécharger",
+        "downloaded": "Téléchargé"
       },
       "sign-api-announcement": {
         "label": "Annonce de l'API Sign",

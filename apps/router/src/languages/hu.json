@@ -169,7 +169,8 @@
         "warning-title": "Figyelmeztetés",
         "warning-text": "A biztonsági mentés tartalmazza a szövetségi őrző privát kulcsait és titkos anyagait, és biztonságban kell tartani. A helyreállítás ehhez a biztonsági mentéshez az adminisztrátori jelszavadat igényli!",
         "cancelButton": "Mégsem",
-        "acknowledgeButton": "Elfogad és Letölt"
+        "acknowledgeButton": "Elfogad és Letölt",
+        "downloaded": "Letöltve"
       },
       "sign-api-announcement": {
         "label": "API bejelentés aláírása",
