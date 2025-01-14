@@ -32,7 +32,7 @@ export const OnchainCard = React.memo(function OnchainCard(): JSX.Element {
   return (
     <Box p={6} bg='white' borderRadius='lg' borderWidth='1px'>
       <Text fontSize='xl' mb={6}>
-        Onchain
+        {t('wallet.onchain')}
       </Text>
 
       {/* Federation Balances Section */}
@@ -59,16 +59,14 @@ export const OnchainCard = React.memo(function OnchainCard(): JSX.Element {
             </Button>
           </Flex>
         </Flex>
-        <Text color='gray.600'>
-          Deposit and withdraw bitcoin to/from the federation
-        </Text>
+        <Text color='gray.600'>{t('wallet.onchain-description')}</Text>
       </Box>
 
       {/* Node's Onchain Wallet Section */}
       <Box>
         <Flex justify='space-between' align='center' mb={4}>
           <Text fontSize='md' fontWeight='medium'>
-            {t('wallet.node-onchain-wallet')}
+            {t('wallet.gateway-on-chain-wallet')}
           </Text>
           <Flex gap={2}>
             <Button
@@ -83,9 +81,7 @@ export const OnchainCard = React.memo(function OnchainCard(): JSX.Element {
             </Button>
           </Flex>
         </Flex>
-        <Text color='gray.600'>
-          Manage bitcoin in the gateway&apos;s onchain wallet
-        </Text>
+        <Text color='gray.600'>{t('wallet.gateway-onchain-manage')}</Text>
       </Box>
     </Box>
   );
