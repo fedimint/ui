@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Modal,
@@ -40,7 +40,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({
     }
   }, [isOpen]);
 
-  const handleDownload = async () => {
+  const handleDownload = useCallback(async () => {
     setIsDownloading(true);
     setDownloadError(null);
 
@@ -48,29 +48,12 @@ export const BackupModal: React.FC<BackupModalProps> = ({
       const response = await api.downloadGuardianBackup();
       const blob = hexToBlob(response.tar_archive_bytes, 'application/x-tar');
       const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'guardianBackup.tar';
+      link.click();
 
-      await new Promise((resolve, reject) => {
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'guardianBackup.tar');
-
-        link.onclick = () => {
-          setTimeout(() => {
-            URL.revokeObjectURL(url);
-            resolve(true);
-          }, 1000);
-        };
-
-        link.onerror = () => {
-          URL.revokeObjectURL(url);
-          reject(new Error('Download failed'));
-        };
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      });
-
+      setTimeout(() => URL.revokeObjectURL(url), 100);
       setHasDownloaded(true);
     } catch (error) {
       console.error('Error in handleDownload:', error);
@@ -80,9 +63,9 @@ export const BackupModal: React.FC<BackupModalProps> = ({
     } finally {
       setIsDownloading(false);
     }
-  };
+  }, [api, t]);
 
-  const handleContinue = () => {
+  const handleContinue = useCallback(() => {
     if (hasDownloaded) {
       dispatch({
         type: GUARDIAN_APP_ACTION_TYPE.SET_STATUS,
@@ -90,7 +73,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({
       });
       onClose();
     }
-  };
+  }, [dispatch, hasDownloaded, onClose]);
 
   return (
     <Modal
@@ -133,7 +116,12 @@ export const BackupModal: React.FC<BackupModalProps> = ({
                 _hover={{ bg: 'red.600' }}
                 _active={{ bg: 'red.700' }}
               >
-                {t('federation-dashboard.danger-zone.acknowledge-and-download')}
+                {hasDownloaded
+                  ? t('federation-dashboard.danger-zone.backup.downloaded') +
+                    ' ✓'
+                  : t(
+                      'federation-dashboard.danger-zone.acknowledge-and-download'
+                    )}
               </Button>
               <Button
                 colorScheme='blue'
