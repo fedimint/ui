@@ -481,7 +481,8 @@
     "pubkey": "公钥",
     "network": "网络",
     "block-height": "区块高度",
-    "synced-to-chain": "同步到链条"
+    "synced-to-chain": "同步到链条",
+    "card_header": "闪电节点 ID"
   },
   "withdraw-card": {
     "address-label": "您的地址：",
@@ -535,5 +536,16 @@
       "title": "编辑{{type}}",
       "url-label": "网址"
     }
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "比特币存款",
+    "card_header": "存入比特币",
+    "confirmations": "确认：",
+    "header": "比特币存款到联邦",
+    "receiving-address": "接收地址",
+    "required": "必需的",
+    "sentence-one": "存款到该地址或扫描二维码",
+    "transaction-id": "交易ID",
+    "create-pegin-address": "创建 Peg-in 地址"
   }
 }

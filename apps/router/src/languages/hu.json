@@ -481,7 +481,8 @@
     "pubkey": "Publikus kulcs",
     "network": "Hálózat",
     "block-height": "Blokk magasság",
-    "synced-to-chain": "Szinkronizálva a láncra"
+    "synced-to-chain": "Szinkronizálva a láncra",
+    "card_header": "Villámcsomópont azonosító"
   },
   "withdraw-card": {
     "address-label": "Az Ön címe:",
@@ -535,5 +536,16 @@
       "title": "Szerkesztés {{type}}",
       "url-label": "URL"
     }
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Bitcoin Betét",
+    "card_header": "Bitcoin betét",
+    "confirmations": "Megerősítések:",
+    "header": "Bitcoin befizetés a Szövetséghez",
+    "receiving-address": "Fogadó cím",
+    "required": "kötelező",
+    "sentence-one": "Fizess az címre, vagy olvasd be a QR kódot.",
+    "transaction-id": "Tranzakciós azonosító",
+    "create-pegin-address": "Hozzon létre Peg-in címet"
   }
 }
