@@ -51,9 +51,7 @@ export const LightningCard = React.memo(function LightningCard(): JSX.Element {
           </Button>
         </Flex>
       </Flex>
-      <Text color='gray.600'>
-        Send and receive Lightning Network payments through the federation
-      </Text>
+      <Text color='gray.600'>{t('wallet.lightning-payments-description')}</Text>
     </Box>
   );
 });
