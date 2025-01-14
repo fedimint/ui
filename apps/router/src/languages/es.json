@@ -482,7 +482,8 @@
     "pubkey": "Clave pública",
     "network": "Red",
     "block-height": "Altura de Bloque",
-    "synced-to-chain": "Sincronizado con la Cadena"
+    "synced-to-chain": "Sincronizado con la Cadena",
+    "card_header": "ID de Nodo Lightning"
   },
   "withdraw-card": {
     "address-label": "Tu dirección:",
@@ -536,5 +537,19 @@
       "title": "Editar {{tipo}}",
       "url-label": "URL"
     }
+  },
+  "card_header": "saldo de eCash",
+  "sentence": "Denominado en Sats",
+  "your-balance": "Tu saldo de eCash en esta federación:",
+  "deposit-card": {
+    "bitcoin-deposit": "Depósito de Bitcoin",
+    "card_header": "Depositar Bitcoin",
+    "confirmations": "Confirmaciones:",
+    "header": "Depósito de Bitcoin a la Federación",
+    "receiving-address": "Dirección de Recepción",
+    "required": "requerido",
+    "sentence-one": "Deposita en la dirección o escanea el código QR",
+    "transaction-id": "ID de transacción",
+    "create-pegin-address": "Crear dirección Peg-in"
   }
 }
