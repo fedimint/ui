@@ -169,7 +169,8 @@
         "warning-title": "警告",
         "warning-text": "备份包含联邦监护人的私钥和秘密材料，必须保持安全。使用此备份进行恢复需要您的管理员密码！",
         "cancelButton": "取消",
-        "acknowledgeButton": "确认并下载"
+        "acknowledgeButton": "确认并下载",
+        "downloaded": "已下载"
       },
       "sign-api-announcement": {
         "label": "签名API公告",

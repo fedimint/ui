@@ -169,7 +169,8 @@
         "warning-title": "Warnung",
         "warning-text": "Die Sicherung enthält private Schlüssel und geheimes Material für den Föderationswächter und muss sicher aufbewahrt werden. Die Wiederherstellung mit dieser Sicherung erfordert Ihr Admin-Passwort!",
         "cancelButton": "Stornieren",
-        "acknowledgeButton": "Bestätigen & Herunterladen"
+        "acknowledgeButton": "Bestätigen & Herunterladen",
+        "downloaded": "Heruntergeladen"
       },
       "sign-api-announcement": {
         "label": "Ankündigung der Sign API",

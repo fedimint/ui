@@ -169,7 +169,8 @@
         "warning-title": "Advertència",
         "warning-text": "La còpia de seguretat conté claus privades i material secret per al guardià de la federació i s'ha de mantenir segura. La recuperació utilitzant aquesta còpia de seguretat requereix la vostra contrasenya d'administrador!",
         "cancelButton": "Cancel·la",
-        "acknowledgeButton": "Reconeix i descarrega"
+        "acknowledgeButton": "Reconeix i descarrega",
+        "downloaded": "Descarregat"
       },
       "sign-api-announcement": {
         "label": "Anunci de l'API de signatura",
