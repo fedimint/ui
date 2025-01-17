@@ -3,13 +3,15 @@ import { Box, Flex, Text, useClipboard } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
-import { AmountInput, CreateButton, QRCodeTabs } from '..';
 import {
   useGatewayApi,
   useGatewayDispatch,
   useGatewayState,
 } from '../../../../hooks';
 import { GATEWAY_APP_ACTION_TYPE } from '../../../../types/gateway';
+import { QRCodeTabs } from '../../form/QRTabs';
+import { AmountInput } from '../../form/AmountInput';
+import { CreateButton } from '../../form/CreateButton';
 
 const SendEcash: React.FC = () => {
   const { t } = useTranslation();

@@ -3,8 +3,10 @@ import { Flex, useClipboard } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { IncomingContract, Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
-import { AmountInput, CreateButton, QRCodeTabs } from '..';
 import { useGatewayContext } from '../../../../hooks';
+import { AmountInput } from '../../form/AmountInput';
+import { CreateButton } from '../../form/CreateButton';
+import { QRCodeTabs } from '../../form/QRTabs';
 
 const ReceiveLightning: React.FC = () => {
   const { state, api } = useGatewayContext();

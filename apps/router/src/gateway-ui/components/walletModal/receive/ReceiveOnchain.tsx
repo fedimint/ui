@@ -3,8 +3,10 @@ import { Flex, useClipboard, Text } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { Bip21Uri, Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
-import { AmountInput, CreateButton, QRCodeTabs } from '..';
 import { useGatewayContext } from '../../../../hooks';
+import { AmountInput } from '../../form/AmountInput';
+import { CreateButton } from '../../form/CreateButton';
+import { QRCodeTabs } from '../../form/QRTabs';
 
 const ReceiveOnchain: React.FC = () => {
   const { t } = useTranslation();

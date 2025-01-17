@@ -13,6 +13,7 @@ import {
   SpendEcashResponse,
   ReceiveEcashResponse,
   GatewayBalances,
+  WithdrawResponse,
 } from '@fedimint/types';
 import { GatewayConfig } from '../types/gateway';
 
@@ -210,7 +211,10 @@ export class GatewayApi {
     payload: CreateBolt11InvoiceV2Payload
   ): Promise<string> => {
     try {
-      const res: Response = await this.post('create_bolt11_invoice', payload);
+      const res: Response = await this.post(
+        'create_bolt11_invoice_for_operator',
+        payload
+      );
 
       if (res.ok) {
         const invoice: string = await res.json();
@@ -433,7 +437,7 @@ export class GatewayApi {
     }
   };
 
-  submitPegOut = async (payload: PegOutPayload): Promise<string> => {
+  submitPegOut = async (payload: PegOutPayload): Promise<WithdrawResponse> => {
     try {
       const res: Response = await this.post('withdraw', {
         federation_id: payload.federationId,
@@ -442,8 +446,8 @@ export class GatewayApi {
       });
 
       if (res.ok) {
-        const txid: string = await res.json();
-        return Promise.resolve(txid);
+        const response: WithdrawResponse = await res.json();
+        return Promise.resolve(response);
       }
 
       throw responseToError(res);

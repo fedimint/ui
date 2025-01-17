@@ -3,9 +3,9 @@ import { Flex, Text, Button } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { motion } from 'framer-motion';
 import { FiCheckCircle } from 'react-icons/fi';
-import { InfoField } from '..';
 import { useGatewayContext } from '../../../../hooks';
 import { GATEWAY_APP_ACTION_TYPE } from '../../../../types/gateway';
+import { InfoField } from '../../form/InfoField';
 
 const ReceiveEcash: React.FC = () => {
   const { t } = useTranslation();

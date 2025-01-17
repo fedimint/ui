@@ -242,3 +242,17 @@ export interface FederationBalanceInfo {
   federation_id: string;
   ecash_balance_msats: number;
 }
+
+export interface WithdrawResponse {
+  txid: string;
+  fees: PegOutFees;
+}
+
+export interface PegOutFees {
+  fee_rate: FeeRate;
+  total_weight: number;
+}
+
+export interface FeeRate {
+  sats_per_kvb: number;
+}
