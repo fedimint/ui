@@ -32,7 +32,8 @@
     "connect": "接続する",
     "password": "パスワード",
     "federation-name": "連盟名",
-    "guardian-name": "保護者の名前"
+    "guardian-name": "保護者の名前",
+    "guardians": "守護者"
   },
   "notConfigured": {
     "title": "設定されていません",
@@ -417,7 +418,16 @@
     "to-address": "宛先に",
     "txid": "取引ID",
     "claimed-note": "主張されたノート",
-    "claimed-amount": "請求額"
+    "claimed-amount": "請求額",
+    "balances-summary": "残高の概要",
+    "lightning-payments": "ライトニングペイメント",
+    "lightning-payments-description": "連盟を通じてライトニングネットワークの支払いを送受信する",
+    "onchain-description": "連邦にビットコインを入金および出金する",
+    "gateway-onchain-manage": "ゲートウェイのオンチェーンウォレットでビットコインを管理する",
+    "federation-balances": "連邦残高",
+    "peg-in": "ペグイン",
+    "peg-out": "ペグアウト",
+    "gateway-on-chain-wallet": "ゲートウェイオンチェーンウォレット"
   },
   "wallet-modal": {
     "title": "ウォレットの操作",
@@ -443,7 +453,11 @@
       "peg-out-success": "Peg Out TX送信完了！",
       "create-ecash": "Ecashノートを作成する",
       "ecash-created": "あなたの{{federationName}}の残高から{{amount}} ecashのノートを引き出しました。受取人に送って請求してください。",
-      "ecash-error": "ecashノートの作成エラー: {{error}}"
+      "ecash-error": "ecashノートの作成エラー: {{error}}",
+      "lightning-invoice": "ライトニング請求書",
+      "lightning-invoice-placeholder": "lnbc...",
+      "pay-invoice": "ライトニングインボイスを支払う",
+      "peg-out-error": "オンチェーンのペグアウトに失敗しました"
     }
   },
   "federation-card": {
@@ -548,5 +562,14 @@
     "sentence-one": "アドレスに入金するか、QRコードをスキャンしてください。",
     "transaction-id": "取引ID",
     "create-pegin-address": "ペグインアドレスを作成する"
+  },
+  "router": {
+    "title": "まだ接続されているサービスはありません。",
+    "services-title": "Fedimint連合は、2種類のサービスで構成されています：",
+    "services-description": "Fedimintプロトコルの運営、資金の保管、eCashノートの鋳造と償還の管理を担当しています。彼らは分散型合意を使用して連合を保護します。",
+    "gateways": "ゲートウェイ（ライトニングサービスプロバイダー）：",
+    "gateways-description": "FedimintとLightning Networkの間のブリッジで、ユーザーがLightning決済を送受信できるようにします。連合または独立したプロバイダーによって運営されることができます。",
+    "learn-more": "Fedimintサービスの設定方法については、こちらで詳しく学ぶことができます：",
+    "learn-more-link": "Fedimintサービスの設定方法を学ぶ"
   }
 }

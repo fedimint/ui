@@ -32,7 +32,8 @@
     "connect": "Подключить",
     "password": "Пароль",
     "federation-name": "Название федерации",
-    "guardian-name": "Имя опекуна"
+    "guardian-name": "Имя опекуна",
+    "guardians": "Стражи"
   },
   "notConfigured": {
     "title": "Не настроено",
@@ -417,7 +418,16 @@
     "to-address": "Для адреса",
     "txid": "ID транзакции",
     "claimed-note": "Заявленная записка",
-    "claimed-amount": "Заявленная сумма"
+    "claimed-amount": "Заявленная сумма",
+    "balances-summary": "Сводка остатков",
+    "lightning-payments": "Молниеносные платежи",
+    "lightning-payments-description": "Отправляйте и получайте платежи в сети Lightning через федерацию.",
+    "onchain-description": "Вносите и выводите биткойны в/из федерации",
+    "gateway-onchain-manage": "Управляйте биткойнами в ончейн-кошельке шлюза",
+    "federation-balances": "Баланс Федерации",
+    "peg-in": "Пег-Ин",
+    "peg-out": "Выход с игры",
+    "gateway-on-chain-wallet": "Гейтвей Он-Чейн Кошелек"
   },
   "wallet-modal": {
     "title": "Действия с кошельком",
@@ -443,7 +453,11 @@
       "peg-out-success": "Отправлен Peg Out TX!",
       "create-ecash": "Создать Электронную Денежную Записку",
       "ecash-created": "Вынул {{amount}} е-денежную купюру из вашего баланса {{federationName}}. Отправьте ее получателю для получения.",
-      "ecash-error": "Ошибка создания электронной купюры: {{error}}"
+      "ecash-error": "Ошибка создания электронной купюры: {{error}}",
+      "lightning-invoice": "Счет-фактура Lightning",
+      "lightning-invoice-placeholder": "lnbc...",
+      "pay-invoice": "Оплатить счет Lightning",
+      "peg-out-error": "Не удалось зафиксировать в цепочке блоков"
     }
   },
   "federation-card": {
@@ -548,5 +562,14 @@
     "sentence-one": "Переведите на адрес или отсканируйте QR-код.",
     "transaction-id": "Идентификатор транзакции",
     "create-pegin-address": "Создать адрес Peg-in"
+  },
+  "router": {
+    "title": "Пока нет подключенных сервисов.",
+    "services-title": "Федерация Fedimint состоит из двух типов услуг:",
+    "services-description": "Ответственны за управление протоколом Fedimint, хранение средств и управление чеканкой и выкупом eCash-нот. Они используют распределенный консенсус для обеспечения безопасности федерации.",
+    "gateways": "Шлюзы (Поставщики услуг Lightning):",
+    "gateways-description": "Мост между Fedimint и Lightning Network, позволяющий пользователям отправлять и получать платежи в Lightning. Они могут управляться федерацией или независимыми провайдерами.",
+    "learn-more": "Вы можете узнать больше о том, как настроить услуги Fedimint, здесь:",
+    "learn-more-link": "Узнайте, как настроить службы Fedimint."
   }
 }

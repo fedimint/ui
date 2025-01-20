@@ -32,7 +32,8 @@
     "connect": "Csatlakozás",
     "password": "Jelszó",
     "federation-name": "Szövetség Neve",
-    "guardian-name": "Őrző Neve"
+    "guardian-name": "Őrző Neve",
+    "guardians": "Őrzők"
   },
   "notConfigured": {
     "title": "Nincs beállítva",
@@ -417,7 +418,16 @@
     "to-address": "Címzéshez",
     "txid": "Tranzakció azonosító",
     "claimed-note": "Állítólagos Megjegyzés",
-    "claimed-amount": "Igényelt összeg"
+    "claimed-amount": "Igényelt összeg",
+    "balances-summary": "Egyenleg összegzés",
+    "lightning-payments": "Villámfizetések",
+    "lightning-payments-description": "Küldj és fogadj Lightning Network kifizetéseket a szövetségen keresztül.",
+    "onchain-description": "Bitcoin betét és kivétel a szövetségtől/hoz.",
+    "gateway-onchain-manage": "Kezele a bitcoint a gateway onchain pénztárcájában",
+    "federation-balances": "Szövetségi egyenlegek",
+    "peg-in": "Peg-be",
+    "peg-out": "Peg-kiadás",
+    "gateway-on-chain-wallet": "Gateway On-Chain Tárca"
   },
   "wallet-modal": {
     "title": "Pénztárca Műveletek",
@@ -443,7 +453,11 @@
       "peg-out-success": "Peg Out TX elküldve!",
       "create-ecash": "Hozzon létre Ecash jegyzetet",
       "ecash-created": "Levontottam egy {{amount}} ecash jegyet a {{federationName}} egyenlegedről. Küldd el a címzettnek, hogy igénybe vehesse.",
-      "ecash-error": "Hiba történt az ecash jegyzet létrehozásakor: {{error}}"
+      "ecash-error": "Hiba történt az ecash jegyzet létrehozásakor: {{error}}",
+      "lightning-invoice": "Villám számla",
+      "lightning-invoice-placeholder": "lnbc...",
+      "pay-invoice": "Fizess a Lightning számlát",
+      "peg-out-error": "Nem sikerült a Peg out Onchain."
     }
   },
   "federation-card": {
@@ -548,5 +562,14 @@
     "sentence-one": "Fizess az címre, vagy olvasd be a QR kódot.",
     "transaction-id": "Tranzakciós azonosító",
     "create-pegin-address": "Hozzon létre Peg-in címet"
+  },
+  "router": {
+    "title": "Még nincsenek csatlakoztatott szolgáltatások.",
+    "services-title": "A Fedimint szövetség kétféle szolgáltatásból áll:",
+    "services-description": "Felelős a Fedimint protokoll működtetéséért, a pénzeszközök őrzéséért, valamint az eCash bankjegyek kibocsátásának és beváltásának kezeléséért. Elosztott konszenzust használnak a szövetség biztonságának megőrzésére.",
+    "gateways": "Kapuk (Villám Szolgáltatók):",
+    "gateways-description": "Híd a Fedimint és a Lightning Network között, lehetővé téve a felhasználók számára, hogy Lightning kifizetéseket küldjenek és fogadjanak. Ezeket a szövetség vagy független szolgáltatók üzemeltethetik.",
+    "learn-more": "További információkat találhat a Fedimint szolgáltatások beállításáról itt:",
+    "learn-more-link": "Tanulja meg, hogyan állíthatja be a Fedimint szolgáltatásokat."
   }
 }

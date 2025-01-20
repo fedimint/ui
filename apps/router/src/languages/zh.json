@@ -32,7 +32,8 @@
     "connect": "连接",
     "password": "密码",
     "federation-name": "联邦名称",
-    "guardian-name": "监护人姓名"
+    "guardian-name": "监护人姓名",
+    "guardians": "守护者"
   },
   "notConfigured": {
     "title": "未配置",
@@ -417,7 +418,16 @@
     "to-address": "致地址",
     "txid": "交易ID",
     "claimed-note": "声称的笔记",
-    "claimed-amount": "声称金额"
+    "claimed-amount": "声称金额",
+    "balances-summary": "余额摘要",
+    "lightning-payments": "闪电支付",
+    "lightning-payments-description": "通过联邦发送和接收闪电网络支付",
+    "onchain-description": "向联邦存入和提取比特币",
+    "gateway-onchain-manage": "在网关的链上钱包中管理比特币",
+    "federation-balances": "联邦余额",
+    "peg-in": "插钉",
+    "peg-out": "放钉",
+    "gateway-on-chain-wallet": "网关链上钱包"
   },
   "wallet-modal": {
     "title": "钱包操作",
@@ -443,7 +453,11 @@
       "peg-out-success": "发送Peg Out TX！",
       "create-ecash": "创建电子现金票据",
       "ecash-created": "从您的{{federationName}}余额中提取了{{amount}}电子现金票据。将其发送给收款人进行认领。",
-      "ecash-error": "创建电子现金票据时出错：{{error}}"
+      "ecash-error": "创建电子现金票据时出错：{{error}}",
+      "lightning-invoice": "闪电发票",
+      "lightning-invoice-placeholder": "lnbc...",
+      "pay-invoice": "支付闪电发票",
+      "peg-out-error": "未能在链上固定"
     }
   },
   "federation-card": {
@@ -548,5 +562,14 @@
     "sentence-one": "存款到该地址或扫描二维码",
     "transaction-id": "交易ID",
     "create-pegin-address": "创建 Peg-in 地址"
+  },
+  "router": {
+    "title": "尚未连接任何服务。",
+    "services-title": "一个Fedimint联盟由两种类型的服务组成：",
+    "services-description": "负责运行 Fedimint 协议，保管资金，并管理 eCash 票据的铸造和赎回。他们使用分布式共识来确保联邦的安全。",
+    "gateways": "网关（闪电服务提供商）：",
+    "gateways-description": "连接Fedimint和闪电网络的桥梁，允许用户发送和接收闪电支付。它们可以由联盟或独立提供商运行。",
+    "learn-more": "您可以在这里了解有关如何设置Fedimint服务的更多信息：",
+    "learn-more-link": "了解如何设置 Fedimint 服务"
   }
 }
