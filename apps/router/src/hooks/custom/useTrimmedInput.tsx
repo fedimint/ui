@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const cleanInput = (value: string) => value.trim();
+const cleanInput = (value: string | undefined) => value?.trim() ?? '';
 
 export const useTrimmedInput = (initialValue = '') => {
   const [value, setValue] = useState(initialValue);

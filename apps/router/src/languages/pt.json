@@ -169,7 +169,8 @@
         "warning-title": "Aviso",
         "warning-text": "O backup contém chaves privadas e material secreto para o guardião da federação e deve ser mantido em segurança. A recuperação usando este backup requer sua senha de administrador!",
         "cancelButton": "Cancelar",
-        "acknowledgeButton": "Reconhecer & Baixar"
+        "acknowledgeButton": "Reconhecer & Baixar",
+        "downloaded": "Baixado"
       },
       "sign-api-announcement": {
         "label": "Anúncio da API de Assinatura",

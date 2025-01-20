@@ -18,11 +18,11 @@ export const NoConnectedServices: React.FC = () => {
         <Text fontSize='xl' fontWeight='bold' textAlign='center'>
           {t('router.title', 'No services connected yet.')}
         </Text>
-        <Text>{t('router.services-description')}</Text>
+        <Text>{t('router.services-title')}</Text>
         <UnorderedList spacing={4} paddingLeft={6}>
           <ListItem>
             <Text fontWeight='bold'>{t('router.guardians')}</Text>
-            <Text>{t('router.guardians-description')}</Text>
+            <Text>{t('router.services-description')}</Text>
           </ListItem>
           <ListItem>
             <Text fontWeight='bold'>{t('router.gateways')}</Text>

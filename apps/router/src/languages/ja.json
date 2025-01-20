@@ -169,7 +169,8 @@
         "warning-title": "警告",
         "warning-text": "このバックアップには、連邦ガーディアンのプライベートキーと秘密情報が含まれており、安全に保管する必要があります。このバックアップを使用した復旧には、あなたの管理者パスワードが必要です！",
         "cancelButton": "キャンセル",
-        "acknowledgeButton": "認識してダウンロードする"
+        "acknowledgeButton": "認識してダウンロードする",
+        "downloaded": "ダウンロード済み"
       },
       "sign-api-announcement": {
         "label": "APIのお知らせ",

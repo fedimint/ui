@@ -169,7 +169,8 @@
         "warning-title": "Advertencia",
         "warning-text": "La copia de seguridad contiene claves privadas y material secreto para el guardián de la federación y debe mantenerse segura. ¡La recuperación usando esta copia de seguridad requiere tu contraseña de administrador!",
         "cancelButton": "Cancelar",
-        "acknowledgeButton": "Reconocer y Descargar"
+        "acknowledgeButton": "Reconocer y Descargar",
+        "downloaded": "Descargado"
       },
       "sign-api-announcement": {
         "label": "Anuncio de API de Firma",
