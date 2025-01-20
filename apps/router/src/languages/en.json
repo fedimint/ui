@@ -37,8 +37,9 @@
   },
   "router": {
     "title": "No services connected yet.",
-    "services-title": "A Fedimint federation consists of two types of services:",
-    "services-description": "Responsible for running the Fedimint protocol, custodying funds, and managing the minting and redemption of eCash notes. They use distributed consensus to secure the federation.",
+    "services-description": "A Fedimint federation consists of two types of services:",
+    "guardians": "Guardians:",
+    "guardians-description": "Responsible for running the Fedimint protocol, custodying funds, and managing the minting and redemption of eCash notes. They use distributed consensus to secure the federation.",
     "gateways": "Gateways (Lightning Service Providers):",
     "gateways-description": "Bridge between the Fedimint and the Lightning Network, allowing users to send and receive Lightning payments. They can be run by the federation or independent providers.",
     "learn-more": "You can learn more about how to set up Fedimint services here:",
