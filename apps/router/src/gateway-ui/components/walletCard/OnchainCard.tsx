@@ -65,8 +65,8 @@ export const OnchainCard = React.memo(function OnchainCard(): JSX.Element {
         <Text color='gray.600'>{t('wallet.onchain-description')}</Text>
       </Box>
 
-      {/* Node's Onchain Wallet Section */}
-      <Box>
+      {/* TODO: Implement Node's Onchain Wallet Section */}
+      {/* <Box>
         <Flex justify='space-between' align='center' mb={4}>
           <Text fontSize='md' fontWeight='medium'>
             {t('wallet.gateway-on-chain-wallet')}
@@ -85,7 +85,7 @@ export const OnchainCard = React.memo(function OnchainCard(): JSX.Element {
           </Flex>
         </Flex>
         <Text color='gray.600'>{t('wallet.gateway-onchain-manage')}</Text>
-      </Box>
+      </Box> */}
     </Box>
   );
 });

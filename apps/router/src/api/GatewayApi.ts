@@ -130,6 +130,26 @@ export class GatewayApi {
     }
   };
 
+  // TODO: Implement gateway onchain wallet in UI
+  // fetchGatewayOnchainAddress = async (): Promise<string> => {
+  //   try {
+  //     const res: Response = await this.post('get_ln_onchain_address', {});
+
+  //     if (res.ok) {
+  //       const address: string = await res.json();
+  //       return Promise.resolve(address);
+  //     }
+
+  //     throw responseToError(res);
+  //   } catch (error) {
+  //     console.error('Error fetching gateway onchain address', error);
+  //     return Promise.reject({
+  //       message: 'Error fetching gateway onchain address',
+  //       error,
+  //     });
+  //   }
+  // };
+
   // TODO: unimplemented in fedimint
   backup = async (federationId: string): Promise<void> => {
     try {

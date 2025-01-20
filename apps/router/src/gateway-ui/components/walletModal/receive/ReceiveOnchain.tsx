@@ -34,6 +34,21 @@ const ReceiveOnchain: React.FC = () => {
       });
   }, [api, state.walletModalState.selectedFederation, amount, t]);
 
+  // const handleCreateGatewayOnchainAddress = useCallback(() => {
+  //   if (!state.walletModalState.selectedFederation) return;
+  //   api
+  //     .fetchGatewayOnchainAddress()
+  //     .then((newAddress: string) => {
+  //       const bip21Uri = new Bip21Uri(newAddress, amount);
+  //       setBip21Uri(bip21Uri);
+  //       setShowAddressInfo(true);
+  //     })
+  //     .catch(({ message, error }) => {
+  //       console.error(error, message);
+  //       alert(t('wallet-modal.receive.address-error', { error: message }));
+  //     });
+  // }, [api, state.walletModalState.selectedFederation, amount, t]);
+
   if (showAddressInfo) {
     return (
       <Flex direction='column' gap={2} align='center'>
