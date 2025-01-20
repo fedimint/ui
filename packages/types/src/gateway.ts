@@ -45,9 +45,9 @@ export interface FederationInfo {
 export interface CreateBolt11InvoiceV2Payload {
   federation_id: string;
   contract: IncomingContract;
-  invoice_amount: number;
-  description: Bolt11InvoiceDescription;
-  expiry_time: number;
+  amount_msats: number;
+  description: string;
+  expiry_secs: number;
 }
 
 export interface IncomingContract {

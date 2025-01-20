@@ -27,12 +27,9 @@ const ReceiveLightning: React.FC = () => {
         federation_id:
           state.walletModalState.selectedFederation?.federation_id ?? '',
         contract: incomingContract,
-        invoice_amount: amount as number,
-        description: {
-          type: 'Direct',
-          value: `Lightning Invoice for ${amount} sats`,
-        },
-        expiry_time: Math.floor(Date.now() / 1000) + 3600,
+        amount_msats: amount * 1000,
+        description: `Lightning Invoice for ${amount} sats`,
+        expiry_secs: Math.floor(Date.now() / 1000) + 3600,
       });
       setInvoice(invoice);
       setShowInvoiceInfo(true);
@@ -55,7 +52,7 @@ const ReceiveLightning: React.FC = () => {
         onCopyUri={onCopyInvoice}
         onCopyAddress={onCopyInvoice}
         uriLabel={t('common.uri')}
-        addressLabel={t('common.invoice')}
+        addressLabel={t('wallet.invoice')}
       />
     );
   }
