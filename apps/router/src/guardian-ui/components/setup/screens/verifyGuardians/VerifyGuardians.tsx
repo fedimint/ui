@@ -64,9 +64,8 @@ export const VerifyGuardians: React.FC<Props> = ({ next }) => {
   const isHost = role === GuardianRole.Host;
   const [myHash, setMyHash] = useState('');
   const [peersWithHash, setPeersWithHash] = useState<PeerWithHash[]>();
-  const [enteredHashes, handleHashChange] = useTrimmedInputArray(
-    peersWithHash ? peersWithHash.map(() => '') : []
-  );
+  const { values: enteredHashes, handleChange: handleHashChange } =
+    useTrimmedInputArray(peersWithHash ? peersWithHash.map(() => '') : []);
   const [verifiedConfigs, setVerifiedConfigs] = useState<boolean>(false);
   const [isStarting, setIsStarting] = useState(false);
   const [error, setError] = useState<string>();
