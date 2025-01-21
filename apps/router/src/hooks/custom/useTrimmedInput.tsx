@@ -23,5 +23,5 @@ export const useTrimmedInputArray = (initialValues: string[]) => {
     });
   }, []);
 
-  return [values, handleChange] as const;
+  return { values, handleChange };
 };
