@@ -483,10 +483,14 @@
     },
     "send": {
       "submit": "Submit",
+      "lightning-invoice": "Lightning Invoice",
+      "lightning-invoice-placeholder": "lnbc...",
       "to-onchain-address": "To Onchain Address",
+      "pay-invoice": "Pay Lightning Invoice",
       "address-placeholder": "bc1p...",
       "peg-out-to-onchain": "Peg Out Ecash to Onchain",
       "peg-out-success": "Peg Out TX Sent!",
+      "peg-out-error": "Failed to Peg out Onchain",
       "create-ecash": "Create Ecash Note",
       "ecash-created": "Pulled a {{amount}} ecash note from your {{federationName}} balance. Send it to the recipient to claim.",
       "ecash-error": "Error creating ecash note: {{error}}"

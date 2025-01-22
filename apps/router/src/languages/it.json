@@ -32,7 +32,8 @@
     "connect": "Collegare",
     "password": "Contraseña",
     "federation-name": "Nome della Federazione",
-    "guardian-name": "Nome del tutore"
+    "guardian-name": "Nome del tutore",
+    "guardians": "Guardianes"
   },
   "notConfigured": {
     "title": "Non configurato",
@@ -417,7 +418,16 @@
     "to-address": "All'indirizzo",
     "txid": "ID della transazione",
     "claimed-note": "Nota rivendicata",
-    "claimed-amount": "Importo rivendicato"
+    "claimed-amount": "Importo rivendicato",
+    "balances-summary": "Resumen de Saldos",
+    "lightning-payments": "Pagamentos Lightning",
+    "lightning-payments-description": "Envía y recibe pagos de la Red Lightning a través de la federación.",
+    "onchain-description": "Depositar y retirar bitcoin de/a la federación",
+    "gateway-onchain-manage": "Gérer le bitcoin dans le portefeuille onchain de la passerelle",
+    "federation-balances": "Fédération des Soldes",
+    "peg-in": "Peg-In",
+    "peg-out": "Peg-Out",
+    "gateway-on-chain-wallet": "Gateway On-Chain Wallet"
   },
   "wallet-modal": {
     "title": "Azioni del portafoglio",
@@ -443,7 +453,11 @@
       "peg-out-success": "Inviato Peg Out TX!",
       "create-ecash": "Crea nota Ecash",
       "ecash-created": "Hai prelevato una nota ecash di {{amount}} dal tuo saldo {{federationName}}. Inviala al destinatario per richiederla.",
-      "ecash-error": "Errore nella creazione della nota ecash: {{error}}"
+      "ecash-error": "Errore nella creazione della nota ecash: {{error}}",
+      "lightning-invoice": "Factura Relámpago",
+      "lightning-invoice-placeholder": "lnbc...",
+      "pay-invoice": "Pagar factura de Lightning",
+      "peg-out-error": "Failed to Peg out Onchain"
     }
   },
   "federation-card": {
@@ -572,5 +586,14 @@
     "sentence-one": "Depósito a la dirección o escanea el código QR",
     "transaction-id": "ID de transacción",
     "create-pegin-address": "Crear dirección Peg-in"
+  },
+  "router": {
+    "title": "Ainda não há serviços conectados.",
+    "services-title": "Fedimint fédération se compose de deux types de services :",
+    "services-description": "Responsable de ejecutar el protocolo Fedimint, custodiar fondos y gestionar la acuñación y redención de notas eCash. Utilizan consenso distribuido para asegurar la federación.",
+    "gateways": "Gateways (Proveedores de Servicios Lightning):",
+    "gateways-description": "Puente entre Fedimint y la Red Lightning, permitiendo a los usuarios enviar y recibir pagos Lightning. Pueden ser operados por la federación o proveedores independientes.",
+    "learn-more": "Puedes aprender más sobre cómo configurar los servicios de Fedimint aquí:",
+    "learn-more-link": "Aprende cómo configurar los servicios de Fedimint."
   }
 }

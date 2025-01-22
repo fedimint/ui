@@ -3,8 +3,10 @@ import { Flex, useClipboard, Text } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
 import { Bip21Uri, Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
-import { AmountInput, CreateButton, QRCodeTabs } from '..';
 import { useGatewayContext } from '../../../../hooks';
+import { AmountInput } from '../../form/AmountInput';
+import { CreateButton } from '../../form/CreateButton';
+import { QRCodeTabs } from '../../form/QRTabs';
 
 const ReceiveOnchain: React.FC = () => {
   const { t } = useTranslation();
@@ -31,6 +33,21 @@ const ReceiveOnchain: React.FC = () => {
         alert(t('wallet-modal.receive.address-error', { error: message }));
       });
   }, [api, state.walletModalState.selectedFederation, amount, t]);
+
+  // const handleCreateGatewayOnchainAddress = useCallback(() => {
+  //   if (!state.walletModalState.selectedFederation) return;
+  //   api
+  //     .fetchGatewayOnchainAddress()
+  //     .then((newAddress: string) => {
+  //       const bip21Uri = new Bip21Uri(newAddress, amount);
+  //       setBip21Uri(bip21Uri);
+  //       setShowAddressInfo(true);
+  //     })
+  //     .catch(({ message, error }) => {
+  //       console.error(error, message);
+  //       alert(t('wallet-modal.receive.address-error', { error: message }));
+  //     });
+  // }, [api, state.walletModalState.selectedFederation, amount, t]);
 
   if (showAddressInfo) {
     return (

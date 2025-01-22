@@ -187,10 +187,9 @@ async function translateWithOpenAI(text, targetLang, openaiInstance) {
   const prompt = `Translate the following text to ${targetLang}. Return only the translated string, without any additional text or explanations:\n\n${text}`;
 
   const response = await openaiInstance.chat.completions.create({
-    model: 'gpt-4',
+    model: 'gpt-4o-mini',
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.3,
-    max_tokens: 150,
     stream: false,
   });
 

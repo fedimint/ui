@@ -222,17 +222,17 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1732138835,
-        "narHash": "sha256-wzqa+77Hb2Jc4jIO58sdkwo7QUuAsxq8AAQDOxL5NhA=",
+        "lastModified": 1736810629,
+        "narHash": "sha256-M03r6ts2abjzrylMgefYBxFK0MRm9pgFFXVPJaG00k8=",
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "a0cdd6f80bfd4d41caa95a5499f7074744813a89",
+        "rev": "6da8ff595d1373e24f365d750872bd588fda17c9",
         "type": "github"
       },
       "original": {
         "owner": "fedimint",
         "repo": "fedimint",
-        "rev": "a0cdd6f80bfd4d41caa95a5499f7074744813a89",
+        "rev": "6da8ff595d1373e24f365d750872bd588fda17c9",
         "type": "github"
       }
     },
