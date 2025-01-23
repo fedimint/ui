@@ -25,6 +25,13 @@ const SendLightning: React.FC = () => {
       });
       return;
     }
+
+    toast({
+      title: 'Unimplemented',
+      status: 'info',
+      duration: 3000,
+      isClosable: true,
+    });
   }, [invoice, t, toast]);
 
   return (
