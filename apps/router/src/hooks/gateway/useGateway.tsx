@@ -54,19 +54,21 @@ export const useGatewayInfo = (): GatewayInfo => {
 
 export const useLoadGateway = () => {
   const { state, dispatch, api, id } = useGatewayContext();
-  if (sessionStorage.getItem(id)) {
-    dispatch({
-      type: GATEWAY_APP_ACTION_TYPE.SET_NEEDS_AUTH,
-      payload: false,
-    });
-  }
+
+  useEffect(() => {
+    if (sessionStorage.getItem(id)) {
+      dispatch({
+        type: GATEWAY_APP_ACTION_TYPE.SET_NEEDS_AUTH,
+        payload: false,
+      });
+    }
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (!state.needsAuth) {
       const fetchInfoAndConfigs = async () => {
         try {
           const gatewayInfo = await api.fetchInfo();
-
           const configs = await api.fetchConfigs();
 
           const updatedFederations = gatewayInfo.federations.map(
