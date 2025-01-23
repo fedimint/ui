@@ -32,7 +32,8 @@
     "connect": "Connecta",
     "password": "Contrasenya",
     "federation-name": "Nom de la Federació",
-    "guardian-name": "Nom del Tutor"
+    "guardian-name": "Nom del Tutor",
+    "guardians": "Guardians"
   },
   "notConfigured": {
     "title": "No configurat",
@@ -417,7 +418,16 @@
     "to-address": "Per a l'adreça",
     "txid": "ID de la transacció",
     "claimed-note": "Nota Reclamada",
-    "claimed-amount": "Quantitat Reclamada"
+    "claimed-amount": "Quantitat Reclamada",
+    "balances-summary": "Resum de saldos",
+    "lightning-payments": "Pagaments Lightning",
+    "lightning-payments-description": "Envia i rep les pagaments de la Lightning Network a través de la federació",
+    "onchain-description": "Dipòsit i retireu bitcoin a/de la federació",
+    "gateway-onchain-manage": "Gestiona bitcoin a la cartera onchain del gateway",
+    "federation-balances": "Equilibris de Federació",
+    "peg-in": "Clavada",
+    "peg-out": "Retirar",
+    "gateway-on-chain-wallet": "Wallet On-Chain Gateway"
   },
   "wallet-modal": {
     "title": "Accions de la cartera",
@@ -438,12 +448,17 @@
     "send": {
       "submit": "Enviar",
       "to-onchain-address": "A l'adreça Onchain",
-      "address-placeholder": "As an AI developed by OpenAI, I need to inform you that the text you provided \"bc1p...\" is not recognizable in any language, therefore it can't be translated into Catalan or any other language. It seems like it might be a part of a Bitcoin address or some other kind of code. Please provide a valid sentence or phrase for translation.",
+      "address-placeholder": "bc1p...",
       "peg-out-to-onchain": "Peg Out Ecash a Onchain",
       "peg-out-success": "Peg Out TX Enviat!",
       "create-ecash": "Crear nota Ecash",
       "ecash-created": "S'ha retirat una nota d'ecash de {{amount}} del teu saldo de {{federationName}}. Envia-la al destinatari per reclamar-la.",
-      "ecash-error": "Error en crear la nota d'efectiu: {{error}}"
+      "ecash-error": "Error en crear la nota d'efectiu: {{error}}",
+      "lightning-invoice": "Factura de llamp",
+      "lightning-invoice-placeholder": "lnbc...",
+      "pay-invoice": "Paga la factura de Lightning",
+      "peg-out-error": "No s'ha pogut fixar a Onchain",
+      "lightning-invoice-error": "Si us plau, introdueix una factura Lightning vàlida."
     }
   },
   "federation-card": {
@@ -482,7 +497,8 @@
     "pubkey": "Clau pública",
     "network": "Xarxa",
     "block-height": "Alçada del bloc",
-    "synced-to-chain": "Sincronitzat a la Cadena"
+    "synced-to-chain": "Sincronitzat a la Cadena",
+    "card_header": "ID de Node Lightning"
   },
   "withdraw-card": {
     "address-label": "La teva adreça:",
@@ -536,5 +552,25 @@
       "title": "Edita {{type}}",
       "url-label": "URL"
     }
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Dipòsit de Bitcoin",
+    "card_header": "Dipòsit Bitcoin",
+    "confirmations": "Confirmacions:",
+    "header": "Dipòsit de Bitcoin a la Federació",
+    "receiving-address": "Adreça de recepció",
+    "required": "requerit",
+    "sentence-one": "Dipòsit a l'adreça o escaneja el codi QR",
+    "transaction-id": "ID de transacció",
+    "create-pegin-address": "Crea adreça Peg-in"
+  },
+  "router": {
+    "title": "Encara no hi ha serveis connectats.",
+    "services-title": "Una federació de Fedimint consisteix en dos tipus de serveis:",
+    "services-description": "Responsable de gestionar el protocol·lo Fedimint, custodiar fons i gestionar la creació i redempció de notes d'eCash. Utilitzen consens distribuït per assegurar la federació.",
+    "gateways": "Passarel·les (Proveïdors de Servei Lightning):",
+    "gateways-description": "Pont entre el Fedimint i la Lightning Network, permetent als usuaris enviar i rebre pagaments Lightning. Poden ser gestionats per la federació o proveïdors independents.",
+    "learn-more": "Podeu aprendre més sobre com configurar els serveis de Fedimint aquí:",
+    "learn-more-link": "Aprèn com configurar els serveis de Fedimint"
   }
 }

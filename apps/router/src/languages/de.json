@@ -32,7 +32,8 @@
     "connect": "Verbinden",
     "password": "Passwort",
     "federation-name": "Bundesname",
-    "guardian-name": "Name des Vormunds"
+    "guardian-name": "Name des Vormunds",
+    "guardians": "Wächter"
   },
   "notConfigured": {
     "title": "Nicht konfiguriert",
@@ -417,7 +418,16 @@
     "to-address": "An Adresse",
     "txid": "Transaktions-ID",
     "claimed-note": "Anspruchsvolle Notiz",
-    "claimed-amount": "Geltend gemachter Betrag"
+    "claimed-amount": "Geltend gemachter Betrag",
+    "balances-summary": "Saldoübersicht",
+    "lightning-payments": "Blitzzahlungen",
+    "lightning-payments-description": "Zahlungen über das Lightning Network über die Föderation senden und empfangen",
+    "onchain-description": "Bitcoin in die Föderation einzahlen und abheben",
+    "gateway-onchain-manage": "Verwalten Sie Bitcoin in der Onchain-Brieftasche des Gateways.",
+    "federation-balances": "Föderationssalden",
+    "peg-in": "Peg-In",
+    "peg-out": "Peg-Außentritt",
+    "gateway-on-chain-wallet": "Gateway On-Chain Wallet"
   },
   "wallet-modal": {
     "title": "Wallet-Aktionen",
@@ -443,7 +453,12 @@
       "peg-out-success": "Peg Out TX gesendet!",
       "create-ecash": "Erstelle Ecash Note",
       "ecash-created": "Haben eine {{amount}} ecash-Note von Ihrem {{federationName}}-Guthaben abgehoben. Senden Sie es an den Empfänger, um es einzufordern.",
-      "ecash-error": "Fehler beim Erstellen der ecash-Notiz: {{error}}"
+      "ecash-error": "Fehler beim Erstellen der ecash-Notiz: {{error}}",
+      "lightning-invoice": "Blitzrechnung",
+      "lightning-invoice-placeholder": "lnbc...",
+      "pay-invoice": "Zahle Lightning-Rechnung",
+      "peg-out-error": "Fehler beim Auslagern auf der Blockchain",
+      "lightning-invoice-error": "Bitte geben Sie eine gültige Lightning-Rechnung ein."
     }
   },
   "federation-card": {
@@ -482,7 +497,8 @@
     "pubkey": "Pubkey",
     "network": "Netzwerk",
     "block-height": "Blockhöhe",
-    "synced-to-chain": "Synchronisiert mit Kette"
+    "synced-to-chain": "Synchronisiert mit Kette",
+    "card_header": "Lightning-Knoten-ID"
   },
   "withdraw-card": {
     "address-label": "Ihre Adresse:",
@@ -536,5 +552,49 @@
       "title": "Bearbeiten {{type}}",
       "url-label": "URL"
     }
+  },
+  "address-label": "Ihre Adresse:",
+  "address-placeholder": "Geben Sie Ihre BTC-Adresse ein",
+  "amount-label": "Betrag (sats):",
+  "amount-placeholder": "Gib den Betrag in Sats ein",
+  "card-header": "Bitcoin abheben",
+  "close": "Schließen",
+  "confirm-withdraw": "Abhebung bestätigen",
+  "error": "Fehler",
+  "error-address": "Betrag oder Adresse dürfen nicht leer sein",
+  "error-amount": "Der Betrag darf nicht leer oder gleich null sein.",
+  "error-request": "Abheben-Anfrage fehlgeschlagen",
+  "request-from": "Beantragte Abhebung von",
+  "requested-withdrawal": "Beantragte Abhebung",
+  "to": "zu",
+  "total_bitcoin": "Gesamt-Bitcoin:",
+  "transaction-sent": "Transaktion gesendet!",
+  "view": "Ansicht",
+  "view-it-on": "Ansicht auf",
+  "withdraw": "Abheben",
+  "withdraw-all": "Alle abheben",
+  "withdrawal-created": "Abhebung erstellt.",
+  "withdrawal-created-description": "Bitte überprüfen Sie Ihre Transaktionshistorie",
+  "withdrawal-history": "Auszahlungsverlauf",
+  "your-transaction": "Ihre Transaktions-ID:",
+  "deposit-card": {
+    "bitcoin-deposit": "Bitcoin Einzahlung",
+    "card_header": "Bitcoin einzahlen",
+    "confirmations": "Bestätigungen:",
+    "header": "Bitcoin-Einzahlung an die Föderation",
+    "receiving-address": "Empfangsadresse",
+    "required": "erforderlich",
+    "sentence-one": "Zahle an die Adresse oder scanne den QR-Code",
+    "transaction-id": "Transaktions-ID",
+    "create-pegin-address": "Peg-in-Adresse erstellen"
+  },
+  "router": {
+    "title": "Noch keine Dienste verbunden.",
+    "services-title": "Eine Fedimint-Föderation besteht aus zwei Arten von Dienstleistungen:",
+    "services-description": "Verantwortlich für die Durchführung des Fedimint-Protokolls, die Verwahrung von Mitteln und die Verwaltung der Prägung und Einlösung von eCash-Noten. Sie nutzen verteilten Konsens, um die Föderation abzusichern.",
+    "gateways": "Gateways (Lightning-Dienstanbieter):",
+    "gateways-description": "Brücke zwischen dem Fedimint und dem Lightning Network, die es Benutzern ermöglicht, Lightning-Zahlungen zu senden und zu empfangen. Sie können von der Föderation oder unabhängigen Anbietern betrieben werden.",
+    "learn-more": "Sie können hier mehr darüber erfahren, wie Sie Fedimint-Dienste einrichten.",
+    "learn-more-link": "Erfahren Sie, wie Sie Fedimint-Dienste einrichten können."
   }
 }

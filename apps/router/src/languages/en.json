@@ -2,6 +2,7 @@
   "common": {
     "federation-name": "Federation Name",
     "guardian-name": "Guardian Name",
+    "guardians": "Guardians",
     "bitcoin": "Bitcoin",
     "next": "Next",
     "back": "Back",
@@ -33,6 +34,15 @@
     "view-on-mempool": "View on Mempool",
     "ecash": "Ecash",
     "password": "Password"
+  },
+  "router": {
+    "title": "No services connected yet.",
+    "services-title": "A Fedimint federation consists of two types of services:",
+    "services-description": "Responsible for running the Fedimint protocol, custodying funds, and managing the minting and redemption of eCash notes. They use distributed consensus to secure the federation.",
+    "gateways": "Gateways (Lightning Service Providers):",
+    "gateways-description": "Bridge between the Fedimint and the Lightning Network, allowing users to send and receive Lightning payments. They can be run by the federation or independent providers.",
+    "learn-more": "You can learn more about how to set up Fedimint services here:",
+    "learn-more-link": "Learn how to set up Fedimint services"
   },
   "notConfigured": {
     "title": "Not Configured",
@@ -426,12 +436,21 @@
     "error-message": "Error connecting to federation: {{error}}"
   },
   "wallet": {
+    "balances-summary": "Balances Summary",
     "title": "Wallet",
     "ecash": "Ecash",
     "lightning": "Lightning",
+    "lightning-payments": "Lightning Payments",
+    "lightning-payments-description": "Send and receive Lightning Network payments through the federation",
     "onchain": "Onchain",
+    "onchain-description": "Deposit and withdraw bitcoin to/from the federation",
+    "gateway-onchain-manage": "Manage bitcoin in the gateway's onchain wallet",
     "total": "Total",
+    "federation-balances": "Federation Balances",
     "balance": "Balance",
+    "peg-in": "Peg-In",
+    "peg-out": "Peg-Out",
+    "gateway-on-chain-wallet": "Gateway On-Chain Wallet",
     "address": "Address",
     "invoice": "Invoice",
     "receive": "Receive",
@@ -464,10 +483,15 @@
     },
     "send": {
       "submit": "Submit",
+      "lightning-invoice": "Lightning Invoice",
+      "lightning-invoice-error": "Please enter a valid Lightning invoice",
+      "lightning-invoice-placeholder": "lnbc...",
       "to-onchain-address": "To Onchain Address",
+      "pay-invoice": "Pay Lightning Invoice",
       "address-placeholder": "bc1p...",
       "peg-out-to-onchain": "Peg Out Ecash to Onchain",
       "peg-out-success": "Peg Out TX Sent!",
+      "peg-out-error": "Failed to Peg out Onchain",
       "create-ecash": "Create Ecash Note",
       "ecash-created": "Pulled a {{amount}} ecash note from your {{federationName}} balance. Send it to the recipient to claim.",
       "ecash-error": "Error creating ecash note: {{error}}"

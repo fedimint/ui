@@ -4,13 +4,13 @@ import { Sats } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { motion } from 'framer-motion';
 import { FiCheckCircle, FiSend } from 'react-icons/fi';
-import { InfoField } from '..';
+import { InfoField } from '../../form/InfoField';
 
-interface SendOnchainSuccessProps {
+type SendOnchainSuccessProps = {
   txid: string;
   amount: Sats;
   address: string;
-}
+};
 
 const SendOnchainSuccess: React.FC<SendOnchainSuccessProps> = ({
   txid,
@@ -32,7 +32,7 @@ const SendOnchainSuccess: React.FC<SendOnchainSuccessProps> = ({
         </Text>
         <Flex direction='column' align='center' gap={4} width='100%'>
           <InfoField
-            label={t('wallet.sent-amount')}
+            label={t('wallet.sent')}
             value={`${amount} ${t('common.sats')}`}
           />
           <InfoField label={t('wallet.to-address')} value={address} />

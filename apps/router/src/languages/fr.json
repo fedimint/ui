@@ -32,7 +32,8 @@
     "connect": "Connecter",
     "password": "Mot de passe",
     "federation-name": "Nom de la Fédération",
-    "guardian-name": "Nom du Tuteur"
+    "guardian-name": "Nom du Tuteur",
+    "guardians": "Gardiens"
   },
   "notConfigured": {
     "title": "Non configuré",
@@ -417,7 +418,16 @@
     "to-address": "À l'adresse",
     "txid": "ID de transaction",
     "claimed-note": "Note revendiquée",
-    "claimed-amount": "Montant revendiqué"
+    "claimed-amount": "Montant revendiqué",
+    "balances-summary": "Résumé des soldes",
+    "lightning-payments": "Paiements Lightning",
+    "lightning-payments-description": "Envoyez et recevez des paiements via le réseau Lightning à travers la fédération.",
+    "onchain-description": "Déposez et retirez des bitcoins vers/depuis la fédération.",
+    "gateway-onchain-manage": "Gérer le bitcoin dans le portefeuille onchain de la passerelle",
+    "federation-balances": "Soldes de la Fédération",
+    "peg-in": "Peg-in",
+    "peg-out": "Peguer",
+    "gateway-on-chain-wallet": "Portefeuille On-Chain Gateway"
   },
   "wallet-modal": {
     "title": "Actions de Portefeuille",
@@ -443,7 +453,12 @@
       "peg-out-success": "Peg Out TX Envoyé !",
       "create-ecash": "Créer une Note Ecash",
       "ecash-created": "Retiré une note d'ecash de {{amount}} de votre solde {{federationName}}. Envoyez-le au destinataire pour réclamer.",
-      "ecash-error": "Erreur lors de la création de la note ecash : {{error}}"
+      "ecash-error": "Erreur lors de la création de la note ecash : {{error}}",
+      "lightning-invoice": "Facture Lightning",
+      "lightning-invoice-placeholder": "lnbc...",
+      "pay-invoice": "Payer la facture Lightning",
+      "peg-out-error": "Échec de l'ancrage Onchain",
+      "lightning-invoice-error": "Veuillez entrer une facture Lightning valide."
     }
   },
   "federation-card": {
@@ -482,7 +497,8 @@
     "pubkey": "Clé publique",
     "network": "Réseau",
     "block-height": "Hauteur de bloc",
-    "synced-to-chain": "Synchronisé à la Chaîne"
+    "synced-to-chain": "Synchronisé à la Chaîne",
+    "card_header": "ID de nœud Lightning"
   },
   "withdraw-card": {
     "address-label": "Votre adresse :",
@@ -536,5 +552,25 @@
       "title": "Modifier {{type}}",
       "url-label": "URL"
     }
+  },
+  "deposit-card": {
+    "bitcoin-deposit": "Dépôt Bitcoin",
+    "card_header": "Déposer des Bitcoin",
+    "confirmations": "Confirmations :",
+    "header": "Dépôt Bitcoin à la Fédération",
+    "receiving-address": "Adresse de réception",
+    "required": "exigé",
+    "sentence-one": "Déposez à l'adresse ou scannez le code QR",
+    "transaction-id": "ID de transaction",
+    "create-pegin-address": "Créer une adresse Peg-in"
+  },
+  "router": {
+    "title": "Aucun service connecté pour le moment.",
+    "services-title": "Une fédération Fedimint se compose de deux types de services :",
+    "services-description": "Responsable de l'exécution du protocole Fedimint, de la garde des fonds et de la gestion de la création et du rachat des billets eCash. Ils utilisent un consensus distribué pour sécuriser la fédération.",
+    "gateways": "Passerelles (Fournisseurs de services Lightning) :",
+    "gateways-description": "Pont entre le Fedimint et le réseau Lightning, permettant aux utilisateurs d'envoyer et de recevoir des paiements Lightning. Ils peuvent être gérés par la fédération ou des fournisseurs indépendants.",
+    "learn-more": "Vous pouvez en savoir plus sur la façon de configurer les services Fedimint ici :",
+    "learn-more-link": "Apprenez à configurer les services Fedimint."
   }
 }

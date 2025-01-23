@@ -10,9 +10,9 @@ import {
 import { useTranslation } from '@fedimint/utils';
 import { Sats } from '@fedimint/types';
 import FederationSelector from '../FederationSelector';
-import { AmountInput } from '..';
 import SendOnchainSuccess from './SendOnchainSuccess';
 import { useGatewayContext } from '../../../../hooks';
+import { AmountInput } from '../../form/AmountInput';
 
 const SendOnchain: React.FC = () => {
   const { t } = useTranslation();
@@ -59,7 +59,7 @@ const SendOnchain: React.FC = () => {
         satAmountOrAll: amountSats,
         address: bitcoinAddress,
       });
-      setSuccessTxid(txid);
+      setSuccessTxid(txid.txid);
     } catch (error) {
       console.error('Peg-out error:', error);
       toast({

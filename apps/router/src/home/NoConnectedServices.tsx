@@ -16,39 +16,27 @@ export const NoConnectedServices: React.FC = () => {
     <Box textAlign='left' py={10} maxWidth='800px' margin='auto'>
       <Flex direction='column' gap={6} align='stretch'>
         <Text fontSize='xl' fontWeight='bold' textAlign='center'>
-          {t('home.noServices', 'No services connected yet.')}
+          {t('router.title', 'No services connected yet.')}
         </Text>
-        <Text>A Fedimint federation consists of two types of services:</Text>
+        <Text>{t('router.services-title')}</Text>
         <UnorderedList spacing={4} paddingLeft={6}>
           <ListItem>
-            <Text fontWeight='bold'>Guardians:</Text>
-            <Text>
-              Responsible for running the Fedimint protocol, custodying funds,
-              and managing the minting and redemption of eCash notes. They use
-              distributed consensus to secure the federation.
-            </Text>
+            <Text fontWeight='bold'>{t('router.guardians')}</Text>
+            <Text>{t('router.services-description')}</Text>
           </ListItem>
           <ListItem>
-            <Text fontWeight='bold'>
-              Gateways (Lightning Service Providers):
-            </Text>
-            <Text>
-              Bridge between the Fedimint and the Lightning Network, allowing
-              users to send and receive Lightning payments. They can be run by
-              the federation or independent providers.
-            </Text>
+            <Text fontWeight='bold'>{t('router.gateways')}</Text>
+            <Text>{t('router.gateways-description')}</Text>
           </ListItem>
         </UnorderedList>
-        <Text>
-          You can learn more about how to set up Fedimint services here:
-        </Text>
+        <Text>{t('router.learn-more')}</Text>
         <Link
           href='https://github.com/fedimint/fedimint'
           isExternal
           color='blue.500'
           textAlign='center'
         >
-          Learn how to set up Fedimint services
+          {t('router.learn-more-link')}
         </Link>
       </Flex>
     </Box>
