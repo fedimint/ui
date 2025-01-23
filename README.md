@@ -54,8 +54,6 @@ PORT=3000 REACT_APP_FM_CONFIG_API="[app-address-here]" yarn build && yarn start
 
 Replace `PORT` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
 
-> **NOTE**: The Guardian UI references a `config.json` specified at the root of where the UI is served from. The Dockerfile writes this file from ENV VARs but a static site deployment will want to customize this file.
-
 #### Gateway UI
 
 ```bash
@@ -130,7 +128,9 @@ yarn nix-gateway
 nix-gateway spins up these instances
 | instance | url |
 | ---------- | --- |
-| gateway-ui | http://127.0.0.1:3004/ |
+| gateway-ui-cln | http://127.0.0.1:3004/ |
+| gateway-ui-lnd | http://127.0.0.1:3005/ |
+| gateway-ui-ldk | http://127.0.0.1:3006/ |
 | guardian-ui | http://127.0.0.1:3000/ |
 
 #### **Guardian UI**
@@ -174,6 +174,7 @@ yarn mprocs spins up these instances
 | guardian-ui-4 | http://127.0.0.1:3003/ |
 | gateway-ui | http://127.0.0.1:3004/ |
 
+<!-- TODO: Fix this section... these instructions are outdated
 ### Option 3 - Running with Docker Compose and Yarn manually
 
 From root repo directory:
@@ -197,14 +198,14 @@ From root repo directory:
 1. Run gateway-ui in development environment
 
    ```bash
-     PORT=3004 REACT_APP_FM_GATEWAY_API="http://127.0.0.1:8175" REACT_APP_FM_GATEWAY_PASSWORD="theresnosecondbest" yarn dev:gateway-ui
+      yarn dev:gateway-ui
    ```
 
-1. Run `docker compose down` when done. It might be worth deleting `fm_*`, directory from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove.
+1. Run `docker compose down` when done. It might be worth deleting `fm_*`, directory from the repo. These are data directories mounted to Docker containers running fedmintd and are listed in `.gitignore` so are safe to remove. -->
 
 ## Referencing Fedimint
 
-The docker containers and devimint are for specific releases or commits of `fedimint/fedimint`. At present, the reference commit-hash is `819df733ce330e5ac77e32011f11e2b192a48948`
+The docker containers and devimint are for specific releases or commits of `fedimint/fedimint`. At present, the reference commit-hash is `6da8ff595d1373e24f365d750872bd588fda17c9`
 
 ### Running with local Fedimint
 
@@ -220,12 +221,13 @@ This will put binaries in `fedimint/target-nix/debug` at the front of your `$PAT
 You can officially bump the referenced version of Fedimint using the following steps:
 
 1. Locate a desired hash from [Fedimint](https://github.com/fedimint/fedimint/commits/master)
-2. Find and replace all instances of the current reference commit hash: `4ccc52631b02ee741b01257e8cfb207e9f9629bf`
+2. Find and replace all instances of the current reference commit hash: `6da8ff595d1373e24f365d750872bd588fda17c9`
 
 3. Run `nix flake update` at the root of the repo
 4. Restart your nix shell and validate the reference, then commit to complete bump
 
 ## Developer Certificate of Origin
+
 By contributing to the project you agree to the following:
 
 ```
