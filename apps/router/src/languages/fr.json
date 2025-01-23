@@ -457,7 +457,8 @@
       "lightning-invoice": "Facture Lightning",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "Payer la facture Lightning",
-      "peg-out-error": "Échec de l'ancrage Onchain"
+      "peg-out-error": "Échec de l'ancrage Onchain",
+      "lightning-invoice-error": "Veuillez entrer une facture Lightning valide."
     }
   },
   "federation-card": {

@@ -457,7 +457,8 @@
       "lightning-invoice": "Счет-фактура Lightning",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "Оплатить счет Lightning",
-      "peg-out-error": "Не удалось зафиксировать в цепочке блоков"
+      "peg-out-error": "Не удалось зафиксировать в цепочке блоков",
+      "lightning-invoice-error": "Пожалуйста, введите действительный счет Lightning"
     }
   },
   "federation-card": {

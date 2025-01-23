@@ -457,7 +457,8 @@
       "lightning-invoice": "Factura de Lightning",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "Pagar factura de Lightning",
-      "peg-out-error": "Error al fijar en la cadena de bloques"
+      "peg-out-error": "Error al fijar en la cadena de bloques",
+      "lightning-invoice-error": "Por favor, introduzca una factura de Lightning válida."
     }
   },
   "federation-card": {

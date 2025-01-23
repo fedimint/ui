@@ -457,7 +457,8 @@
       "lightning-invoice": "Factura de llamp",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "Paga la factura de Lightning",
-      "peg-out-error": "No s'ha pogut fixar a Onchain"
+      "peg-out-error": "No s'ha pogut fixar a Onchain",
+      "lightning-invoice-error": "Si us plau, introdueix una factura Lightning vàlida."
     }
   },
   "federation-card": {

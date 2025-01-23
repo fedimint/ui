@@ -457,7 +457,8 @@
       "lightning-invoice": "라이트닝 인보이스",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "라이트닝 청구서 지불",
-      "peg-out-error": "온체인에서 핀 고정 실패"
+      "peg-out-error": "온체인에서 핀 고정 실패",
+      "lightning-invoice-error": "유효한 라이트닝 청구서를 입력해 주세요."
     }
   },
   "federation-card": {

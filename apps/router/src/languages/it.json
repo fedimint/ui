@@ -457,7 +457,8 @@
       "lightning-invoice": "Factura Relámpago",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "Pagar factura de Lightning",
-      "peg-out-error": "Failed to Peg out Onchain"
+      "peg-out-error": "Failed to Peg out Onchain",
+      "lightning-invoice-error": "Por favor, ingrese una factura de Lightning válida."
     }
   },
   "federation-card": {

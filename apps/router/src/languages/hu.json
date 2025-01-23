@@ -457,7 +457,8 @@
       "lightning-invoice": "Villám számla",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "Fizess a Lightning számlát",
-      "peg-out-error": "Nem sikerült a Peg out Onchain."
+      "peg-out-error": "Nem sikerült a Peg out Onchain.",
+      "lightning-invoice-error": "Kérjük, adjon meg egy érvényes Lightning számlát."
     }
   },
   "federation-card": {

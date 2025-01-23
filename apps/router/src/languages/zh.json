@@ -457,7 +457,8 @@
       "lightning-invoice": "闪电发票",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "支付闪电发票",
-      "peg-out-error": "未能在链上固定"
+      "peg-out-error": "未能在链上固定",
+      "lightning-invoice-error": "请输入有效的闪电发票"
     }
   },
   "federation-card": {

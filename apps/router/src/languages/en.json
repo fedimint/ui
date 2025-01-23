@@ -484,6 +484,7 @@
     "send": {
       "submit": "Submit",
       "lightning-invoice": "Lightning Invoice",
+      "lightning-invoice-error": "Please enter a valid Lightning invoice",
       "lightning-invoice-placeholder": "lnbc...",
       "to-onchain-address": "To Onchain Address",
       "pay-invoice": "Pay Lightning Invoice",

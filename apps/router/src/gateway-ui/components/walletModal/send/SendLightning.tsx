@@ -18,21 +18,16 @@ const SendLightning: React.FC = () => {
   const handleSendLightning = useCallback(() => {
     if (!invoice) {
       toast({
-        // title: t('wallet-modal.send.enter-valid-amount'),
-        title: 'FIXME',
+        title: t('wallet-modal.send.lightning-invoice-error'),
         status: 'error',
         duration: 3000,
         isClosable: true,
       });
       return;
     }
-  }, [invoice, toast]);
+  }, [invoice, t, toast]);
 
   return (
-    // <Box>
-    //   <Text>{t('wallet-modal.send.lightning-instructions')}</Text>
-    //   {/* TODO: actually implement this after we get fedimint side working*/}
-    // </Box>
     <Flex direction='column' gap={4}>
       <FederationSelector />
       <FormControl>

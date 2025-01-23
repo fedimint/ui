@@ -457,7 +457,8 @@
       "lightning-invoice": "Blitzrechnung",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "Zahle Lightning-Rechnung",
-      "peg-out-error": "Fehler beim Auslagern auf der Blockchain"
+      "peg-out-error": "Fehler beim Auslagern auf der Blockchain",
+      "lightning-invoice-error": "Bitte geben Sie eine gültige Lightning-Rechnung ein."
     }
   },
   "federation-card": {

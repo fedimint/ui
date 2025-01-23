@@ -34,6 +34,7 @@ const ReceiveOnchain: React.FC = () => {
       });
   }, [api, state.walletModalState.selectedFederation, amount, t]);
 
+  // TODO: Add this back when we implement send/receive onchain for the gateway wallet
   // const handleCreateGatewayOnchainAddress = useCallback(() => {
   //   if (!state.walletModalState.selectedFederation) return;
   //   api

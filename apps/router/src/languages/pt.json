@@ -457,7 +457,8 @@
       "lightning-invoice": "Fatura Relâmpago",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "Pagar Fatura Lightning",
-      "peg-out-error": "Falha ao fixar na cadeia."
+      "peg-out-error": "Falha ao fixar na cadeia.",
+      "lightning-invoice-error": "Por favor, insira uma fatura Lightning válida."
     }
   },
   "federation-card": {

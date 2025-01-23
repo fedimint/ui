@@ -457,7 +457,8 @@
       "lightning-invoice": "ライトニング請求書",
       "lightning-invoice-placeholder": "lnbc...",
       "pay-invoice": "ライトニングインボイスを支払う",
-      "peg-out-error": "オンチェーンのペグアウトに失敗しました"
+      "peg-out-error": "オンチェーンのペグアウトに失敗しました",
+      "lightning-invoice-error": "有効なLightning請求書を入力してください。"
     }
   },
   "federation-card": {
