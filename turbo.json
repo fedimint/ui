@@ -31,8 +31,10 @@
       ]
     },
     "test": {
-      "outputs": ["coverage/**"],
-      "dependsOn": []
+      "outputs": []
+    },
+    "test:watch": {
+      "cache": false
     },
     "lint": {
       "outputs": [],

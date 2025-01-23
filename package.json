@@ -7,6 +7,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
     "prepare": "husky install",
     "nix-guardian": "./scripts/mprocs-nix.sh run-ui mprocs-nix-guardian.yml",
     "nix-gateway": "./scripts/mprocs-nix.sh dev-fed mprocs-nix-gateway.yml",
