@@ -44,7 +44,7 @@ describe('App', () => {
       process.env.REACT_APP_FM_CONFIG_API = 'wss://guardian.com';
     });
 
-    afterAll(() => {
+    afterEach(() => {
       process.env = OLD_ENV; // restore
     });
 
@@ -66,7 +66,7 @@ describe('App', () => {
       process.env.REACT_APP_FM_GATEWAY_API = 'https://gateway.com';
     });
 
-    afterAll(() => {
+    afterEach(() => {
       process.env = OLD_ENV; // restore
     });
 
