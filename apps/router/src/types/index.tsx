@@ -1,3 +1,9 @@
+export enum Service {
+  Guardian = 'guardian',
+  Gateway = 'gateway',
+}
+
+// Better to use enum above
 export type ServiceType = 'guardian' | 'gateway';
 
 export interface ServiceConfig {
