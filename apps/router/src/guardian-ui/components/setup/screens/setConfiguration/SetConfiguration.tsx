@@ -38,7 +38,7 @@ interface Props {
 
 const MIN_BFT_NUM_PEERS = '4';
 
-export const SetConfiguration: React.FC<Props> = ({ next }: Props) => {
+export const SetConfiguration: React.FC<Props> = ({ next }) => {
   const { t } = useTranslation();
   const api = useGuardianSetupApi();
   const {

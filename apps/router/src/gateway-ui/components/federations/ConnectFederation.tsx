@@ -19,6 +19,7 @@ import {
 import { FederationInfo } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { useGatewayApi } from '../../../hooks';
+import { useNotification } from '../../../home/NotificationProvider';
 
 export interface ConnectFedModalProps {
   isOpen: boolean;
@@ -89,6 +90,7 @@ export const ConnectFederation = React.memo(function ConnectFederation({
   const [connectInfo, setConnectInfo] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const theme = useTheme();
+  const { showError, showInfo } = useNotification();
 
   const handleInputString = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     event.preventDefault();
@@ -97,15 +99,23 @@ export const ConnectFederation = React.memo(function ConnectFederation({
 
   const handleConnectFederation = () => {
     setLoading(true);
+    setErrorMsg('');
+    showInfo(t('connect-federation.progress-modal-text'));
+
     api
       .connectFederation(connectInfo.trim())
       .then((federation) => {
         renderConnectedFedCallback(federation);
         setConnectInfo('');
+        onClose();
       })
       .catch(({ message, error }) => {
         console.error(error);
-        setErrorMsg(t('connect-federation.error-message', { error: message }));
+        const errorMessage = t('connect-federation.error-message', {
+          error: message,
+        });
+        showError(errorMessage);
+        setErrorMsg(errorMessage);
       })
       .finally(() => {
         setLoading(false);
