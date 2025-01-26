@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from './utils/testing/customRender';
 import '@testing-library/jest-dom';
 import App from './App';
+import { APP_ACTION_TYPE } from './context/AppContext';
 
 // Mock react router dom
 const mockedNavigate = jest.fn();
@@ -37,7 +38,7 @@ describe('App', () => {
   });
 
   describe('With guardian env var', () => {
-    const OLD_ENV = process.env;
+    const OLD_ENV = { ...process.env };
 
     beforeEach(() => {
       jest.resetModules();
@@ -46,20 +47,32 @@ describe('App', () => {
 
     afterEach(() => {
       process.env = OLD_ENV; // restore
+      jest.clearAllMocks();
     });
 
     it('should call dispatch and navigate', async () => {
       render(<App />);
 
       await waitFor(() => {
-        expect(mockedDispatch).toBeCalledTimes(1);
+        expect(mockedDispatch).toBeCalledWith({
+          type: APP_ACTION_TYPE.ADD_GUARDIAN,
+          payload: {
+            id: 'dummy-hash-value',
+            guardian: {
+              config: {
+                id: 'dummy-hash-value',
+                baseUrl: 'wss://guardian.com',
+              },
+            },
+          },
+        });
         expect(mockedNavigate).toBeCalledTimes(1);
       });
     });
   });
 
   describe('With gateway env var', () => {
-    const OLD_ENV = process.env;
+    const OLD_ENV = { ...process.env };
 
     beforeEach(() => {
       jest.resetModules();
@@ -74,7 +87,18 @@ describe('App', () => {
       render(<App />);
 
       await waitFor(() => {
-        expect(mockedDispatch).toBeCalledTimes(1);
+        expect(mockedDispatch).toBeCalledWith({
+          type: APP_ACTION_TYPE.ADD_GATEWAY,
+          payload: {
+            id: 'dummy-hash-value',
+            gateway: {
+              config: {
+                id: 'dummy-hash-value',
+                baseUrl: 'https://gateway.com',
+              },
+            },
+          },
+        });
         expect(mockedNavigate).toBeCalledTimes(1);
       });
     });
