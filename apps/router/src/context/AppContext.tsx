@@ -25,6 +25,12 @@ export interface AppContextValue {
   dispatch: Dispatch<AppAction>;
 }
 
+export const initialState: AppContextValue = {
+  guardians: {},
+  gateways: {},
+  dispatch: () => null,
+};
+
 const makeInitialState = (): AppContextValue => {
   const storedState = localStorage.getItem('fedimint_ui_state');
   if (storedState) {
@@ -38,11 +44,7 @@ const makeInitialState = (): AppContextValue => {
       console.error('Failed to parse stored state:', error);
     }
   }
-  return {
-    guardians: {},
-    gateways: {},
-    dispatch: () => null,
-  };
+  return initialState;
 };
 
 export enum APP_ACTION_TYPE {
