@@ -18,7 +18,7 @@ import {
 import { sha256Hash, useTranslation } from '@fedimint/utils';
 import { useAppContext } from '../hooks';
 import { APP_ACTION_TYPE } from '../context/AppContext';
-import { getServiceType } from './utils';
+import { getServiceType } from '../helpers/service';
 
 interface ConnectServiceModalProps {
   isOpen: boolean;
@@ -60,6 +60,9 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
       const id = await sha256Hash(configUrl);
       const serviceType = getServiceType(configUrl);
 
+      // helps to prevent user adding empty / invalid url
+      if (!serviceType) return;
+
       if (serviceType === 'guardian') {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
@@ -71,6 +74,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
           payload: { id, gateway: { config: { id, baseUrl: configUrl } } },
         });
       }
+
       resetForm();
       onClose();
     } catch (error) {

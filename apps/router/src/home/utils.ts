@@ -9,9 +9,3 @@ export const checkServiceExists = (
     (s) => s.config.baseUrl === configUrl
   );
 };
-
-export const getServiceType = (configUrl: string): 'guardian' | 'gateway' => {
-  const isWebSocket =
-    configUrl.startsWith('ws://') || configUrl.startsWith('wss://');
-  return isWebSocket ? 'guardian' : 'gateway';
-};
