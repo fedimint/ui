@@ -8,6 +8,7 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
+    "preinstall": "npx only-allow yarn",
     "prepare": "husky install",
     "nix-guardian": "./scripts/mprocs-nix.sh run-ui mprocs-nix-guardian.yml",
     "nix-gateway": "./scripts/mprocs-nix.sh dev-fed mprocs-nix-gateway.yml",
