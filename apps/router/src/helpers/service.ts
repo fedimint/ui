@@ -1,15 +1,15 @@
-import { Service } from '../types';
+import { ServiceType } from '../types';
 
-export const getServiceType = (configUrl: string): Service | null => {
+export const getServiceType = (configUrl: string): ServiceType | null => {
   try {
     const url = new URL(configUrl);
 
     if (url.protocol.startsWith('ws')) {
-      return Service.Guardian;
+      return 'guardian';
     }
 
     if (url.protocol.startsWith('http')) {
-      return Service.Gateway;
+      return 'gateway';
     }
 
     return null;
