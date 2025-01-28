@@ -5,15 +5,15 @@ import {
   Routes,
   Navigate,
 } from 'react-router-dom';
+import { sha256Hash } from '@fedimint/utils';
 import { Guardian } from './guardian-ui/Guardian';
 import { Gateway } from './gateway-ui/Gateway';
-import { sha256Hash } from '@fedimint/utils';
 import { APP_ACTION_TYPE } from './context/AppContext';
-import { HomePage } from './home/HomePage';
 import { GuardianContextProvider } from './context/guardian/GuardianContext';
 import { GatewayContextProvider } from './context/gateway/GatewayContext';
-import { Wrapper } from './components/Wrapper';
 import { useAppContext } from './hooks';
+import { Wrapper } from './components/Wrapper';
+import HomePage from './pages/Home';
 
 export default function App() {
   const { dispatch } = useAppContext();

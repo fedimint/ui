@@ -7,7 +7,7 @@ import {
   Button,
   Text,
 } from '@chakra-ui/react';
-import { FiMenu } from 'react-icons/fi';
+import { FiGrid } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { ServiceType, ServiceConfig } from '../types';
 
@@ -71,11 +71,13 @@ export const ServiceMenu: React.FC<ServiceMenuProps> = ({
     >
       <MenuButton
         as={Button}
-        leftIcon={<FiMenu />}
+        leftIcon={<FiGrid />}
         size='md'
         variant='outline'
         onClick={() => setIsOpen(!isOpen)}
-      />
+      >
+        Services
+      </MenuButton>
       <MenuList>
         {Object.keys(guardians).length > 0 &&
           renderServiceList(guardians, 'guardian')}
