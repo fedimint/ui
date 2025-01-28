@@ -27,9 +27,13 @@ const HomePage: React.FC = () => {
   const numServices = numGuardians + numGateways;
 
   return (
-    <Box width='100%' maxWidth='1200px' margin='auto' paddingY='8'>
+    <Box width='100%' maxWidth='1200px' margin='auto'>
       {numServices > 0 && (
-        <Flex justifyContent='flex-end' alignItems='center' marginBottom='6'>
+        <Flex
+          justifyContent={['center', 'flex-end']}
+          alignItems='center'
+          marginBottom='6'
+        >
           <Button
             leftIcon={<FiPlus />}
             onClick={onOpen}
@@ -45,7 +49,7 @@ const HomePage: React.FC = () => {
         <ServiceTable
           services={guardians}
           type='guardian'
-          heading='Guardians'
+          heading={t('home.guardians')}
           setEditingService={setEditingService}
           setRemovingService={setRemovingService}
         />
@@ -54,7 +58,7 @@ const HomePage: React.FC = () => {
         <ServiceTable
           services={gateways}
           type='gateway'
-          heading='Gateways'
+          heading={t('home.gateways')}
           setEditingService={setEditingService}
           setRemovingService={setRemovingService}
         />

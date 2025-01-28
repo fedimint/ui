@@ -19,8 +19,8 @@ export const Logo = ({ isSoloDeploy }: LogoProps) => (
 
 const LogoSVG = () => (
   <svg
-    width='200'
-    height='46'
+    width='180'
+    height='40'
     viewBox='0 0 200 46'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'

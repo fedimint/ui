@@ -35,16 +35,6 @@
     "ecash": "Ecash",
     "password": "Password"
   },
-  "router": {
-    "title": "No services connected yet.",
-    "services-description": "A Fedimint federation consists of two types of services:",
-    "guardians": "Guardians:",
-    "guardians-description": "Responsible for running the Fedimint protocol, custodying funds, and managing the minting and redemption of eCash notes. They use distributed consensus to secure the federation.",
-    "gateways": "Gateways (Lightning Service Providers):",
-    "gateways-description": "Bridge between the Fedimint and the Lightning Network, allowing users to send and receive Lightning payments. They can be run by the federation or independent providers.",
-    "learn-more": "You can learn more about how to set up Fedimint services here:",
-    "learn-more-link": "Learn how to set up Fedimint services"
-  },
   "notConfigured": {
     "title": "Not Configured",
     "description": "Please enter the CONFIG_API_URL of the Fedimint guardian server to point at.",
@@ -234,7 +224,8 @@
     "edit-service-modal": {
       "title": "Edit {{type}}",
       "url-label": "URL"
-    }
+    },
+    "learn-more-link": "Learn more about Fedimint services"
   },
   "login": {
     "title": "Welcome back!",

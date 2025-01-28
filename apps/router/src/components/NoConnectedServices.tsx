@@ -48,7 +48,7 @@ export const NoConnectedServices: React.FC<Props> = ({ onOpen }) => {
           color='blue.500'
           textAlign='center'
         >
-          {t('router.learn-more-link')}
+          {t('home.learn-more-link')}
         </Link>
       </Flex>
     </Box>

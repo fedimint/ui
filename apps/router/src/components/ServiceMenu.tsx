@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {
+  IconButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Button,
   Text,
 } from '@chakra-ui/react';
 import { FiGrid } from 'react-icons/fi';
@@ -70,8 +70,8 @@ export const ServiceMenu: React.FC<ServiceMenuProps> = ({
       closeOnBlur={true}
     >
       <MenuButton
-        as={Button}
-        leftIcon={<FiGrid />}
+        as={IconButton}
+        icon={<FiGrid />}
         size='md'
         variant='outline'
         onClick={() => setIsOpen(!isOpen)}

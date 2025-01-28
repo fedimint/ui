@@ -22,17 +22,12 @@ export const Header = React.memo(function Header() {
   );
 
   return (
-    <Flex
-      width='100%'
-      justifyContent={['center', 'space-between']}
-      mb={['24px', '12px']}
-    >
+    <Flex width='100%' justifyContent={['space-between']} mb='24px'>
       <Logo isSoloDeploy={isSoloDeploy} />
       {hasServices && !isSoloDeploy && (
         <Flex alignItems='center'>
           {activeService && activeServiceInfo && (
             <Text mr={2} fontSize='sm' color='gray.600'>
-              {activeService.type === 'guardian' ? 'Guardian' : 'Gateway'}:{' '}
               {activeServiceInfo?.config.baseUrl}
             </Text>
           )}
