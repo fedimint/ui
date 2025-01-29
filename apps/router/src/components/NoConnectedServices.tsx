@@ -37,7 +37,7 @@ export const NoConnectedServices: React.FC<Props> = ({ onOpen }) => {
                 colorScheme='blue'
                 width='200px'
               >
-                {t('home.connect-service-modal.label')}
+                {t('home.connect-service-button.label')}
               </Button>
             </Center>
           </Box>

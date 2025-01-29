@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
             colorScheme='blue'
             aria-label='connect-service-btn'
           >
-            {t('home.connect-service-modal.label')}
+            {t('home.connect-service-button.label')}
           </Button>
         </Flex>
       )}

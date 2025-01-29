@@ -208,6 +208,10 @@
     "view": "View",
     "gateways": "Gateways",
     "gatewayUrl": "Gateway URL",
+    "learn-more-link": "Learn more about Fedimint services",
+    "connect-service-button": {
+      "label": "Connect Service"
+    },
     "connect-service-modal": {
       "label": "Connect a Service",
       "title": "Connect a Fedimint Service",
@@ -224,8 +228,7 @@
     "edit-service-modal": {
       "title": "Edit {{type}}",
       "url-label": "URL"
-    },
-    "learn-more-link": "Learn more about Fedimint services"
+    }
   },
   "login": {
     "title": "Welcome back!",
