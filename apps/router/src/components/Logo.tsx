@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
 
 interface LogoProps {
@@ -10,9 +11,9 @@ export const Logo = ({ isSoloDeploy }: LogoProps) => (
     {isSoloDeploy ? (
       <LogoSVG />
     ) : (
-      <a href='/'>
+      <Link to='/'>
         <LogoSVG />
-      </a>
+      </Link>
     )}
   </Flex>
 );

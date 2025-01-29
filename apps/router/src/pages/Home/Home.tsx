@@ -29,11 +29,7 @@ const HomePage: React.FC = () => {
   return (
     <Box width='100%' maxWidth='1200px' margin='auto'>
       {numServices > 0 && (
-        <Flex
-          justifyContent={['center', 'flex-end']}
-          alignItems='center'
-          marginBottom='6'
-        >
+        <Flex justifyContent={['center', 'flex-end']} alignItems='center'>
           <Button
             leftIcon={<FiPlus />}
             onClick={onOpen}
