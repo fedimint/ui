@@ -75,9 +75,7 @@ export const ServiceMenu: React.FC<ServiceMenuProps> = ({
         size='md'
         variant='outline'
         onClick={() => setIsOpen(!isOpen)}
-      >
-        Services
-      </MenuButton>
+      />
       <MenuList>
         {Object.keys(guardians).length > 0 &&
           renderServiceList(guardians, 'guardian')}

@@ -110,7 +110,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
           <FormControl isInvalid={!!error}>
             <FormLabel>{t('home.connect-service-modal.url-label')}</FormLabel>
             <Input
-              placeholder='fedimintd or gatewayd url'
+              placeholder='wss://fedimintd.domain.com:8174'
               value={configUrl}
               onChange={(e) => setConfigUrl(e.target.value)}
               onKeyDown={(e) => {
