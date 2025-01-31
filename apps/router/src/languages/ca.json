@@ -563,14 +563,5 @@
     "sentence-one": "Dipòsit a l'adreça o escaneja el codi QR",
     "transaction-id": "ID de transacció",
     "create-pegin-address": "Crea adreça Peg-in"
-  },
-  "router": {
-    "title": "Encara no hi ha serveis connectats.",
-    "services-title": "Una federació de Fedimint consisteix en dos tipus de serveis:",
-    "services-description": "Responsable de gestionar el protocol·lo Fedimint, custodiar fons i gestionar la creació i redempció de notes d'eCash. Utilitzen consens distribuït per assegurar la federació.",
-    "gateways": "Passarel·les (Proveïdors de Servei Lightning):",
-    "gateways-description": "Pont entre el Fedimint i la Lightning Network, permetent als usuaris enviar i rebre pagaments Lightning. Poden ser gestionats per la federació o proveïdors independents.",
-    "learn-more": "Podeu aprendre més sobre com configurar els serveis de Fedimint aquí:",
-    "learn-more-link": "Aprèn com configurar els serveis de Fedimint"
   }
 }

@@ -587,14 +587,5 @@
     "sentence-one": "Depósito a la dirección o escanea el código QR",
     "transaction-id": "ID de transacción",
     "create-pegin-address": "Crear dirección Peg-in"
-  },
-  "router": {
-    "title": "Ainda não há serviços conectados.",
-    "services-title": "Fedimint fédération se compose de deux types de services :",
-    "services-description": "Responsable de ejecutar el protocolo Fedimint, custodiar fondos y gestionar la acuñación y redención de notas eCash. Utilizan consenso distribuido para asegurar la federación.",
-    "gateways": "Gateways (Proveedores de Servicios Lightning):",
-    "gateways-description": "Puente entre Fedimint y la Red Lightning, permitiendo a los usuarios enviar y recibir pagos Lightning. Pueden ser operados por la federación o proveedores independientes.",
-    "learn-more": "Puedes aprender más sobre cómo configurar los servicios de Fedimint aquí:",
-    "learn-more-link": "Aprende cómo configurar los servicios de Fedimint."
   }
 }

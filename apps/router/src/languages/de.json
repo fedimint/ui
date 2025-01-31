@@ -587,14 +587,5 @@
     "sentence-one": "Zahle an die Adresse oder scanne den QR-Code",
     "transaction-id": "Transaktions-ID",
     "create-pegin-address": "Peg-in-Adresse erstellen"
-  },
-  "router": {
-    "title": "Noch keine Dienste verbunden.",
-    "services-title": "Eine Fedimint-Föderation besteht aus zwei Arten von Dienstleistungen:",
-    "services-description": "Verantwortlich für die Durchführung des Fedimint-Protokolls, die Verwahrung von Mitteln und die Verwaltung der Prägung und Einlösung von eCash-Noten. Sie nutzen verteilten Konsens, um die Föderation abzusichern.",
-    "gateways": "Gateways (Lightning-Dienstanbieter):",
-    "gateways-description": "Brücke zwischen dem Fedimint und dem Lightning Network, die es Benutzern ermöglicht, Lightning-Zahlungen zu senden und zu empfangen. Sie können von der Föderation oder unabhängigen Anbietern betrieben werden.",
-    "learn-more": "Sie können hier mehr darüber erfahren, wie Sie Fedimint-Dienste einrichten.",
-    "learn-more-link": "Erfahren Sie, wie Sie Fedimint-Dienste einrichten können."
   }
 }
