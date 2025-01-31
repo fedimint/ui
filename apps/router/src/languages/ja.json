@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "{{type}}を編集する",
       "url-label": "URL"
+    },
+    "learn-more-link": "Fedimintサービスについてもっと知る",
+    "connect-service-button": {
+      "label": "接続サービス"
     }
   },
   "deposit-card": {

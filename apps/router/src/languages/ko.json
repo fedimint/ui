@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "{{type}} 편집",
       "url-label": "URL"
+    },
+    "learn-more-link": "Fedimint 서비스에 대해 더 알아보기",
+    "connect-service-button": {
+      "label": "연결 서비스"
     }
   },
   "bitcoin-deposit": "비트코인 예금",

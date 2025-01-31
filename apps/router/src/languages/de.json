@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "Bearbeiten {{type}}",
       "url-label": "URL"
+    },
+    "learn-more-link": "Erfahren Sie mehr über die Fedimint-Dienste",
+    "connect-service-button": {
+      "label": "Verbindungsdienst"
     }
   },
   "address-label": "Ihre Adresse:",

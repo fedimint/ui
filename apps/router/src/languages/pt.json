@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "Editar {{type}}",
       "url-label": "URL"
+    },
+    "learn-more-link": "Saiba mais sobre os serviços da Fedimint",
+    "connect-service-button": {
+      "label": "Conectar Serviço"
     }
   },
   "connect": "Conectar 🚀",

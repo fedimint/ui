@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "Edita {{type}}",
       "url-label": "URL"
+    },
+    "learn-more-link": "Aprèn més sobre els serveis de Fedimint",
+    "connect-service-button": {
+      "label": "Connect Servei"
     }
   },
   "deposit-card": {

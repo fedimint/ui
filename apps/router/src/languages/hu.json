@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "Szerkesztés {{type}}",
       "url-label": "URL"
+    },
+    "learn-more-link": "Tudj meg többet a Fedimint szolgáltatásokról",
+    "connect-service-button": {
+      "label": "Csatlakoztassa a szolgáltatást"
     }
   },
   "deposit-card": {

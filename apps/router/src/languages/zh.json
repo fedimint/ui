@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "编辑{{type}}",
       "url-label": "网址"
+    },
+    "learn-more-link": "了解更多关于 Fedimint 服务的信息",
+    "connect-service-button": {
+      "label": "连接服务"
     }
   },
   "deposit-card": {

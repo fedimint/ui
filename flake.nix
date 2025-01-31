@@ -49,6 +49,7 @@
           });
         };
 
+        # Used for a releasable build artifact 
         packages.guardian-ui = pkgs.stdenv.mkDerivation {
           pname = "guardian-ui";
           version = "0.4.3";

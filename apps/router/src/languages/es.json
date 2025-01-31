@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "Editar {{tipo}}",
       "url-label": "URL"
+    },
+    "learn-more-link": "Aprende más sobre los servicios de Fedimint",
+    "connect-service-button": {
+      "label": "Conectar Servicio"
     }
   },
   "card_header": "saldo de eCash",
