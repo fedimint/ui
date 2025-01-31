@@ -7,8 +7,6 @@ if (!targetDir) {
   process.exit(1);
 }
 
-console.log('Target dir', targetDir);
-
 function write_config(filePath) {
   let config = {
     baseUrl: process.env.REACT_APP_FM_CONFIG_API,
