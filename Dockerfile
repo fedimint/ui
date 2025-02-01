@@ -32,10 +32,7 @@ WORKDIR /app
 COPY --from=installer /app/apps/router/build build
 COPY scripts/replace-react-env.js scripts/replace-react-env.js
 COPY scripts/write-config-from-env.js scripts/write-config-from-env.js
-COPY scripts/entrypoint.sh entrypoint.sh
-RUN chmod +x entrypoint.sh
 
 RUN yarn global add serve
 
-ENTRYPOINT ["./entrypoint.sh"]
-CMD ["serve", "-s", "build"]
+CMD node scripts/write-config-from-env.js build && serve -s build
