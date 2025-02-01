@@ -66,12 +66,12 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
       if (serviceType === 'guardian') {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
-          payload: { id, guardian: { config: { id, baseUrl: configUrl } } },
+          payload: { id, service: { config: { id, baseUrl: configUrl } } },
         });
       } else {
         dispatch({
           type: APP_ACTION_TYPE.ADD_GATEWAY,
-          payload: { id, gateway: { config: { id, baseUrl: configUrl } } },
+          payload: { id, service: { config: { id, baseUrl: configUrl } } },
         });
       }
 
