@@ -30,38 +30,37 @@ export const useActiveService = (): {
   };
 };
 
-export function useAppInit(dispatch: Dispatch<AppAction>) {
+export function useAppInit(
+  dispatch: Dispatch<AppAction>,
+  url: string | undefined
+) {
   useEffect(() => {
+    if (!url) return;
+
     const init = async () => {
-      const url =
-        process.env.REACT_APP_FM_CONFIG_API ||
-        process.env.REACT_APP_FM_GATEWAY_API;
+      const service = getServiceType(url);
+      const hash = await sha256Hash(url);
+      const actionType =
+        service === 'guardian'
+          ? APP_ACTION_TYPE.ADD_GUARDIAN
+          : APP_ACTION_TYPE.ADD_GATEWAY;
 
-      if (url) {
-        const service = getServiceType(url);
-        const hash = await sha256Hash(url);
-        const actionType =
-          service === 'guardian'
-            ? APP_ACTION_TYPE.ADD_GUARDIAN
-            : APP_ACTION_TYPE.ADD_GATEWAY;
-
-        dispatch({
-          type: actionType,
-          payload: {
-            id: hash,
-            service: {
-              config: {
-                id: hash,
-                baseUrl: url,
-              },
+      dispatch({
+        type: actionType,
+        payload: {
+          id: hash,
+          service: {
+            config: {
+              id: hash,
+              baseUrl: url,
             },
           },
-        });
-      }
+        },
+      });
     };
 
     init();
-  }, [dispatch]);
+  }, [dispatch, url]);
 }
 
 export * from './guardian/useGuardian';
