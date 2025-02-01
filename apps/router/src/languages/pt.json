@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "Editar {{type}}",
       "url-label": "URL"
+    },
+    "learn-more-link": "Saiba mais sobre os serviços da Fedimint",
+    "connect-service-button": {
+      "label": "Conectar Serviço"
     }
   },
   "connect": "Conectar 🚀",
@@ -568,14 +572,5 @@
     "sentence-one": "Deposite no endereço ou escaneie o código QR",
     "transaction-id": "ID da Transação",
     "create-pegin-address": "Criar Endereço Peg-in"
-  },
-  "router": {
-    "title": "Nenhum serviço conectado ainda.",
-    "services-title": "Uma federação Fedimint consiste em dois tipos de serviços:",
-    "services-description": "Responsável por executar o protocolo Fedimint, custodiar fundos e gerenciar a emissão e resgate de notas eCash. Eles utilizam consenso distribuído para garantir a segurança da federação.",
-    "gateways": "Gateways (Provedores de Serviço Lightning):",
-    "gateways-description": "Ponte entre o Fedimint e a Lightning Network, permitindo que os usuários enviem e recebam pagamentos Lightning. Podem ser operados pela federação ou por provedores independentes.",
-    "learn-more": "Você pode aprender mais sobre como configurar os serviços do Fedimint aqui:",
-    "learn-more-link": "Aprenda como configurar os serviços Fedimint."
   }
 }

@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "{{type}} 편집",
       "url-label": "URL"
+    },
+    "learn-more-link": "Fedimint 서비스에 대해 더 알아보기",
+    "connect-service-button": {
+      "label": "연결 서비스"
     }
   },
   "bitcoin-deposit": "비트코인 예금",
@@ -571,14 +575,5 @@
     "sentence-one": "주소로 입금하거나 QR 코드를 스캔하세요.",
     "transaction-id": "거래 ID",
     "create-pegin-address": "페그인 주소 생성"
-  },
-  "router": {
-    "title": "아직 연결된 서비스가 없습니다.",
-    "services-title": "페디민트 연합은 두 가지 유형의 서비스로 구성됩니다:",
-    "services-description": "Fedimint 프로토콜 운영, 자금 관리 및 eCash 노트의 발행 및 상환 관리를 담당합니다. 그들은 분산 합의를 사용하여 연합을 보호합니다.",
-    "gateways": "게이트웨이 (라이트닝 서비스 제공자):",
-    "gateways-description": "페디민트와 라이트닝 네트워크 간의 브리지로, 사용자가 라이트닝 결제를 송금하고 수신할 수 있게 해줍니다. 이는 연합 또는 독립 제공자가 운영할 수 있습니다.",
-    "learn-more": "여기에서 Fedimint 서비스를 설정하는 방법에 대해 자세히 알아볼 수 있습니다:",
-    "learn-more-link": "Fedimint 서비스를 설정하는 방법을 배우세요."
   }
 }

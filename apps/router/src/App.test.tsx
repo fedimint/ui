@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from './utils/testing/customRender';
+import { render, waitFor } from './utils/testing/customRender';
 import '@testing-library/jest-dom';
 import App from './App';
 import { APP_ACTION_TYPE } from './context/AppContext';
@@ -30,10 +30,10 @@ jest.mock('@fedimint/utils', () => ({
 
 describe('App', () => {
   describe('Without env vars', () => {
-    it('should render the NoConnectedServices page', () => {
+    it('should not make any dispatch calls', () => {
       render(<App />);
-      const title = screen.getByText('No services connected yet.');
-      expect(title).toBeInTheDocument();
+
+      expect(mockedNavigate).toBeCalledTimes(0);
     });
   });
 
