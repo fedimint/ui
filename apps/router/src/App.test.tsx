@@ -58,7 +58,7 @@ describe('App', () => {
           type: APP_ACTION_TYPE.ADD_GUARDIAN,
           payload: {
             id: 'dummy-hash-value',
-            guardian: {
+            service: {
               config: {
                 id: 'dummy-hash-value',
                 baseUrl: 'wss://guardian.com',
@@ -91,7 +91,7 @@ describe('App', () => {
           type: APP_ACTION_TYPE.ADD_GATEWAY,
           payload: {
             id: 'dummy-hash-value',
-            gateway: {
+            service: {
               config: {
                 id: 'dummy-hash-value',
                 baseUrl: 'https://gateway.com',
