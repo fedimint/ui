@@ -6,10 +6,10 @@ import { HomePage } from './home/HomePage';
 
 export default function App() {
   const { dispatch } = useAppContext();
-  useAppInit(
-    dispatch,
-    process.env.REACT_APP_FM_CONFIG_API || process.env.REACT_APP_FM_GATEWAY_API
-  );
+
+  const url =
+    process.env.REACT_APP_FM_CONFIG_API || process.env.REACT_APP_FM_GATEWAY_API;
+  useAppInit(dispatch, url);
 
   return (
     <Router>
