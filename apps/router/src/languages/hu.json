@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "Szerkesztés {{type}}",
       "url-label": "URL"
+    },
+    "learn-more-link": "Tudj meg többet a Fedimint szolgáltatásokról",
+    "connect-service-button": {
+      "label": "Csatlakoztassa a szolgáltatást"
     }
   },
   "deposit-card": {
@@ -563,14 +567,5 @@
     "sentence-one": "Fizess az címre, vagy olvasd be a QR kódot.",
     "transaction-id": "Tranzakciós azonosító",
     "create-pegin-address": "Hozzon létre Peg-in címet"
-  },
-  "router": {
-    "title": "Még nincsenek csatlakoztatott szolgáltatások.",
-    "services-title": "A Fedimint szövetség kétféle szolgáltatásból áll:",
-    "services-description": "Felelős a Fedimint protokoll működtetéséért, a pénzeszközök őrzéséért, valamint az eCash bankjegyek kibocsátásának és beváltásának kezeléséért. Elosztott konszenzust használnak a szövetség biztonságának megőrzésére.",
-    "gateways": "Kapuk (Villám Szolgáltatók):",
-    "gateways-description": "Híd a Fedimint és a Lightning Network között, lehetővé téve a felhasználók számára, hogy Lightning kifizetéseket küldjenek és fogadjanak. Ezeket a szövetség vagy független szolgáltatók üzemeltethetik.",
-    "learn-more": "További információkat találhat a Fedimint szolgáltatások beállításáról itt:",
-    "learn-more-link": "Tanulja meg, hogyan állíthatja be a Fedimint szolgáltatásokat."
   }
 }

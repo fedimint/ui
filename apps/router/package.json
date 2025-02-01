@@ -13,10 +13,10 @@
     "clean": "rm -rf build"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.2.4",
     "@codemirror/lang-json": "^6.0.1",
     "@fedimint/types": "*",
     "@fedimint/ui": "*",
-    "@chakra-ui/icons": "^2.2.4",
     "@fedimint/utils": "*",
     "@uiw/codemirror-theme-github": "^4.23.2",
     "@uiw/react-codemirror": "^4.23.2",
