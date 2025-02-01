@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "编辑{{type}}",
       "url-label": "网址"
+    },
+    "learn-more-link": "了解更多关于 Fedimint 服务的信息",
+    "connect-service-button": {
+      "label": "连接服务"
     }
   },
   "deposit-card": {
@@ -563,14 +567,5 @@
     "sentence-one": "存款到该地址或扫描二维码",
     "transaction-id": "交易ID",
     "create-pegin-address": "创建 Peg-in 地址"
-  },
-  "router": {
-    "title": "尚未连接任何服务。",
-    "services-title": "一个Fedimint联盟由两种类型的服务组成：",
-    "services-description": "负责运行 Fedimint 协议，保管资金，并管理 eCash 票据的铸造和赎回。他们使用分布式共识来确保联邦的安全。",
-    "gateways": "网关（闪电服务提供商）：",
-    "gateways-description": "连接Fedimint和闪电网络的桥梁，允许用户发送和接收闪电支付。它们可以由联盟或独立提供商运行。",
-    "learn-more": "您可以在这里了解有关如何设置Fedimint服务的更多信息：",
-    "learn-more-link": "了解如何设置 Fedimint 服务"
   }
 }

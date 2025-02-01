@@ -551,6 +551,10 @@
     "edit-service-modal": {
       "title": "{{type}}を編集する",
       "url-label": "URL"
+    },
+    "learn-more-link": "Fedimintサービスについてもっと知る",
+    "connect-service-button": {
+      "label": "接続サービス"
     }
   },
   "deposit-card": {
@@ -563,14 +567,5 @@
     "sentence-one": "アドレスに入金するか、QRコードをスキャンしてください。",
     "transaction-id": "取引ID",
     "create-pegin-address": "ペグインアドレスを作成する"
-  },
-  "router": {
-    "title": "まだ接続されているサービスはありません。",
-    "services-title": "Fedimint連合は、2種類のサービスで構成されています：",
-    "services-description": "Fedimintプロトコルの運営、資金の保管、eCashノートの鋳造と償還の管理を担当しています。彼らは分散型合意を使用して連合を保護します。",
-    "gateways": "ゲートウェイ（ライトニングサービスプロバイダー）：",
-    "gateways-description": "FedimintとLightning Networkの間のブリッジで、ユーザーがLightning決済を送受信できるようにします。連合または独立したプロバイダーによって運営されることができます。",
-    "learn-more": "Fedimintサービスの設定方法については、こちらで詳しく学ぶことができます：",
-    "learn-more-link": "Fedimintサービスの設定方法を学ぶ"
   }
 }
