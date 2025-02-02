@@ -21,10 +21,10 @@ describe('hooks/index', () => {
     });
 
     describe('When guardian url is provided', () => {
-      it('should call dispatch', () => {
+      it('should call dispatch with correct args', async () => {
         renderHook(() => useAppInit(mockedDispatch, 'wss://guardian.com'));
 
-        waitFor(() => {
+        await waitFor(() => {
           expect(mockedDispatch).toBeCalledWith({
             type: APP_ACTION_TYPE.ADD_GUARDIAN,
             payload: {
@@ -42,10 +42,10 @@ describe('hooks/index', () => {
     });
 
     describe('When gateway url is provided', () => {
-      it('should call dispatch', () => {
-        renderHook(() => useAppInit(mockedDispatch, 'wss://guardian.com'));
+      it('should call dispatch', async () => {
+        renderHook(() => useAppInit(mockedDispatch, 'https://gateway.com'));
 
-        waitFor(() => {
+        await waitFor(() => {
           expect(mockedDispatch).toBeCalledWith({
             type: APP_ACTION_TYPE.ADD_GATEWAY,
             payload: {

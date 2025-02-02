@@ -37,14 +37,15 @@ export function useAppInit(
   useEffect(() => {
     (async () => {
       if (!url) return;
+
       const service = getServiceType(url);
       if (!service) return;
-
-      const hash = await sha256Hash(url);
       const actionType =
         service === 'guardian'
           ? APP_ACTION_TYPE.ADD_GUARDIAN
           : APP_ACTION_TYPE.ADD_GATEWAY;
+
+      const hash = await sha256Hash(url);
 
       dispatch({
         type: actionType,
