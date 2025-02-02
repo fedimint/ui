@@ -1,0 +1,43 @@
+name: Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy_preview:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - name: Deploy Preview
+        uses: elsirion/sspd@a4c65022a30987d61e2eec01545e5fa245995e06
+        id: upload
+        with:
+          path: 'apps/router/build'
+          preview_token: ${{ secrets.SSPD_API_TOKEN }}
+          preview_url: "preview.sirion.io"
+
+      # This will fail for external contributors :/
+      - name: Comment Preview Link
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            🚀 Preview deployment is ready! [View Preview](${{ steps.upload.outputs.preview_url }})
