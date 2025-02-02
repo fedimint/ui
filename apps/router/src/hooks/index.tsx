@@ -32,13 +32,14 @@ export const useActiveService = (): {
 
 export function useAppInit(
   dispatch: Dispatch<AppAction>,
-  url: string | undefined
+  url?: string | undefined
 ) {
   useEffect(() => {
-    if (!url) return;
-
-    const init = async () => {
+    (async () => {
+      if (!url) return;
       const service = getServiceType(url);
+      if (!service) return;
+
       const hash = await sha256Hash(url);
       const actionType =
         service === 'guardian'
@@ -57,9 +58,7 @@ export function useAppInit(
           },
         },
       });
-    };
-
-    init();
+    })();
   }, [dispatch, url]);
 }
 
