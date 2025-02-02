@@ -11,6 +11,10 @@ jest.mock('@fedimint/utils', () => ({
 const mockedDispatch = jest.fn();
 
 describe('hooks/index', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('useAppInit', () => {
     describe('When no url is provided', () => {
       it('should not call dispatch', () => {
@@ -42,7 +46,7 @@ describe('hooks/index', () => {
     });
 
     describe('When gateway url is provided', () => {
-      it('should call dispatch', async () => {
+      it('should call dispatch with correct args', async () => {
         renderHook(() => useAppInit(mockedDispatch, 'https://gateway.com'));
 
         await waitFor(() => {
