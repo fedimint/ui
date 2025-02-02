@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
           <Button
             leftIcon={<FiPlus />}
             onClick={onOpen}
-            colorScheme='blue'
+            colorScheme='green'
             aria-label='connect-service-btn'
           >
             {t('home.connect-service-button.label')}
