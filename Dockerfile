@@ -28,7 +28,6 @@ RUN yarn turbo run build
 FROM base AS runner
 WORKDIR /app
 
-# note: remember to make changes to the installPhase in flake.nix as well
 COPY --from=installer /app/apps/router/build build
 
 RUN yarn global add serve
