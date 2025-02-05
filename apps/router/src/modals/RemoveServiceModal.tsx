@@ -62,7 +62,7 @@ export const RemoveServiceModal: React.FC<RemoveServiceModalProps> = ({
           <Button variant='ghost' onClick={onClose}>
             {t('common.cancel')}
           </Button>
-          <Button colorScheme='red' mr={3} onClick={handleRemove}>
+          <Button colorScheme='red' ml={3} onClick={handleRemove}>
             {t('common.remove')}
           </Button>
         </ModalFooter>
