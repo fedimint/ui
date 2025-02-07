@@ -220,8 +220,7 @@
       "service-type-label": "Service Type",
       "service-name-label": "Service Name",
       "sync-status-label": "Sync Status",
-      "service-exists-error": "Service already exists",
-      "no-gateways-error": "Only Guardians can be added right now"
+      "service-exists-error": "Service already exists"
     },
     "remove-service-modal": {
       "title": "Remove {{type}}",
