@@ -1,4 +1,4 @@
-export const RELEASE_TAG = 'v0.5.0-rc2';
+export const RELEASE_TAG = 'v0.5.0-rc3';
 
 export const getVersionInfo = () => {
   return {
