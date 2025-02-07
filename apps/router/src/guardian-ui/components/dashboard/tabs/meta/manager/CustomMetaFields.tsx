@@ -24,12 +24,11 @@ export const CustomMetaFields: React.FC<CustomMetaFieldsProps> = ({
 
   const validateIcon = useCallback(async (url: string) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const response = await fetch(url, { mode: 'no-cors' });
+      await fetch(url, { mode: 'no-cors' });
       setLocalIconUrl(url);
       setIconValidity(true);
       return url;
-    } catch (error) {
+    } catch {
       setLocalIconUrl(null);
       setIconValidity(false);
       return null;

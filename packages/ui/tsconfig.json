@@ -4,6 +4,10 @@
   "include": [
     "src",
     "../../apps/router/src/components/Header.tsx",
-    "../../apps/router/src/components/Wrapper.tsx"
-  ]
+    "../../apps/router/src/components/Wrapper.tsx",
+    "src/env.d.ts"
+  ],
+  "compilerOptions": {
+    "types": ["vite/client"]
+  }
 }

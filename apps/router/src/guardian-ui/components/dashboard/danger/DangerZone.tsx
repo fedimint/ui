@@ -25,7 +25,7 @@ export const DangerZone: React.FC<DangerZoneProps> = ({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const currentApiUrl = process.env.REACT_APP_FM_CONFIG_API || '';
+  const currentApiUrl = import.meta.env.VITE_FM_CONFIG_API || '';
 
   const toggleCollapse = () => setIsOpen(!isOpen);
 

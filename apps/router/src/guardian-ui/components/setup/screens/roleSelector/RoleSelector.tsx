@@ -154,7 +154,11 @@ export const RoleSelector = React.memo<Props>(function RoleSelector({
             !role || (bitcoinStatus !== undefined && bitcoinStatus !== 'Synced')
           }
           onClick={() => {
-            role === GuardianRole.Solo ? handleConfirm() : setIsModalOpen(true);
+            if (role === GuardianRole.Solo) {
+              handleConfirm();
+            } else {
+              setIsModalOpen(true);
+            }
           }}
         >
           {t('common.next')}

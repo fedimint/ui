@@ -214,26 +214,26 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
     // Check environment variables
     const checkEnvVars = async () => {
-      if (process.env.REACT_APP_FM_CONFIG_API) {
-        const id = await sha256Hash(process.env.REACT_APP_FM_CONFIG_API);
+      if (import.meta.env.VITE_FM_CONFIG_API) {
+        const id = await sha256Hash(import.meta.env.VITE_FM_CONFIG_API);
         console.log(
           'Adding guardian config from env var',
-          process.env.REACT_APP_FM_CONFIG_API
+          import.meta.env.VITE_FM_CONFIG_API
         );
         await addService({
           id,
-          baseUrl: process.env.REACT_APP_FM_CONFIG_API,
+          baseUrl: import.meta.env.VITE_FM_CONFIG_API,
         });
       }
-      if (process.env.REACT_APP_FM_GATEWAY_API) {
-        const id = await sha256Hash(process.env.REACT_APP_FM_GATEWAY_API);
+      if (import.meta.env.VITE_FM_GATEWAY_API) {
+        const id = await sha256Hash(import.meta.env.VITE_FM_GATEWAY_API);
         console.log(
           'Adding gateway config from env var',
-          process.env.REACT_APP_FM_GATEWAY_API
+          import.meta.env.VITE_FM_GATEWAY_API
         );
         await addService({
           id,
-          baseUrl: process.env.REACT_APP_FM_GATEWAY_API,
+          baseUrl: import.meta.env.VITE_FM_GATEWAY_API,
         });
       }
     };

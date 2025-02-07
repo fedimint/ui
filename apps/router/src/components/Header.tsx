@@ -18,7 +18,7 @@ export const Header = React.memo(function Header() {
     Object.keys(guardians).length > 0 || Object.keys(gateways).length > 0;
 
   const isSoloDeploy = !!(
-    process.env.REACT_APP_FM_CONFIG_API || process.env.REACT_APP_FM_GATEWAY_API
+    import.meta.env.VITE_FM_CONFIG_API || import.meta.env.VITE_FM_GATEWAY_API
   );
 
   return (

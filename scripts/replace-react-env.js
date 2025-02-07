@@ -9,12 +9,12 @@ if (!targetDir) {
 }
 
 /**
- * Give a file path, replace all {{REACT_APP_ENV}} in its contents with
+ * Give a file path, replace all {{VITE_ENV}} in its contents with
  * their actual environment variable value.
  */
 function processFile(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
-  const envVariableRegex = /\{\{REACT_APP_([^}]+)\}\}/g;
+  const envVariableRegex = /\{\{VITE_([^}]+)\}\}/g;
   const matches = content.match(envVariableRegex);
 
   if (!matches) {

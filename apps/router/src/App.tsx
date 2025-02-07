@@ -21,9 +21,9 @@ export default function App() {
 
   useEffect(() => {
     const calculateRedirectPath = async () => {
-      if (process.env.REACT_APP_FM_CONFIG_API) {
+      if (import.meta.env.VITE_FM_CONFIG_API) {
         try {
-          const hash = await sha256Hash(process.env.REACT_APP_FM_CONFIG_API);
+          const hash = await sha256Hash(import.meta.env.VITE_FM_CONFIG_API);
           dispatch({
             type: APP_ACTION_TYPE.ADD_GUARDIAN,
             payload: {
@@ -31,7 +31,7 @@ export default function App() {
               guardian: {
                 config: {
                   id: hash,
-                  baseUrl: process.env.REACT_APP_FM_CONFIG_API,
+                  baseUrl: import.meta.env.VITE_FM_CONFIG_API,
                 },
               },
             },
@@ -40,9 +40,9 @@ export default function App() {
         } catch (e) {
           console.error(e);
         }
-      } else if (process.env.REACT_APP_FM_GATEWAY_API) {
+      } else if (import.meta.env.VITE_FM_GATEWAY_API) {
         try {
-          const hash = await sha256Hash(process.env.REACT_APP_FM_GATEWAY_API);
+          const hash = await sha256Hash(import.meta.env.VITE_FM_GATEWAY_API);
           dispatch({
             type: APP_ACTION_TYPE.ADD_GATEWAY,
             payload: {
@@ -50,7 +50,7 @@ export default function App() {
               gateway: {
                 config: {
                   id: hash,
-                  baseUrl: process.env.REACT_APP_FM_GATEWAY_API,
+                  baseUrl: import.meta.env.VITE_FM_GATEWAY_API,
                 },
               },
             },

@@ -29,7 +29,7 @@ const isMutinynet = (bitcoinRpcUrl: string) => {
   try {
     const url = new URL(bitcoinRpcUrl);
     return url.host === 'mutinynet.com';
-  } catch (e) {
+  } catch {
     return false;
   }
 };
