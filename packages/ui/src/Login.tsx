@@ -7,9 +7,13 @@ import {
   Flex,
   FormErrorMessage,
   Heading,
-  Text,
   InputRightElement,
   InputGroup,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  AlertDialogContent,
 } from '@chakra-ui/react';
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import { useTranslation } from '@fedimint/utils';
@@ -36,13 +40,14 @@ export const Login: React.FC<LoginProps> = ({
   const handleSubmit = useCallback(
     async (ev: React.FormEvent) => {
       ev.preventDefault();
+
       setLoading(true);
       try {
         const isValid = await checkAuth(password);
         if (isValid) {
           setAuthenticated();
         } else {
-          setError('Invalid password');
+          setError(t('login.errors.invalid-password'));
         }
       } catch (err: unknown) {
         console.error({ err });
@@ -50,19 +55,20 @@ export const Login: React.FC<LoginProps> = ({
       }
       setLoading(false);
     },
-    [password, checkAuth, setAuthenticated, parseError]
+    [password, checkAuth, setAuthenticated, parseError, t]
   );
 
   return (
     <form onSubmit={handleSubmit}>
       <Flex direction='column' pt={8} gap={4} align='start' justify='start'>
         <Flex direction='column' align='start' gap={4}>
-          <Heading size='md' fontWeight='medium'>
+          <Alert status='error'>
+            <AlertIcon />
+            <AlertTitle>{t('login.alert-title')}</AlertTitle>
+          </Alert>
+          <Heading size='sm' fontWeight='medium'>
             {t('login.title')}
           </Heading>
-          <Text size='md' fontWeight='medium'>
-            {t('login.subtitle')}
-          </Text>
         </Flex>
         <FormControl isInvalid={!!error} maxW='480px'>
           <FormLabel htmlFor={`password-${serviceId}`}>
@@ -77,6 +83,7 @@ export const Login: React.FC<LoginProps> = ({
               value={password}
               onChange={(ev) => setPassword(ev.currentTarget.value)}
               autoComplete='current-password'
+              disabled
             />
             <InputRightElement onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}

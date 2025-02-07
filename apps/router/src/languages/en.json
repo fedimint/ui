@@ -234,7 +234,11 @@
     "title": "Welcome back!",
     "subtitle": "Please enter your password.",
     "password": "Password",
-    "submit": "Submit"
+    "submit": "Submit",
+    "errors": {
+      "invalid-password": "Invalid password"
+    },
+    "alert-title": "Login is not available at this time"
   },
   "role-selector": {
     "disclaimer-title": "Fedimint is beta software",
