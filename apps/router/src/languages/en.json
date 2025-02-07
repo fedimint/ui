@@ -232,7 +232,6 @@
   },
   "login": {
     "title": "Welcome back!",
-    "subtitle": "Please enter your password.",
     "password": "Password",
     "submit": "Submit",
     "errors": {
