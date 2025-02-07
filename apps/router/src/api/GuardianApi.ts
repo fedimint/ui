@@ -91,7 +91,7 @@ export class GuardianApi {
     try {
       await this.auth();
       return true;
-    } catch (err) {
+    } catch {
       // TODO: make sure error is auth error, not unrelated
       this.clearPassword();
       return false;

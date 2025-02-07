@@ -3,6 +3,7 @@ import { render, waitFor } from './utils/testing/customRender';
 import '@testing-library/jest-dom';
 import App from './App';
 import { APP_ACTION_TYPE } from './context/AppContext';
+import { vi } from 'vitest';
 
 // Mock react router dom
 const mockedNavigate = jest.fn();
@@ -38,15 +39,17 @@ describe('App', () => {
   });
 
   describe('With guardian env var', () => {
-    const OLD_ENV = { ...process.env };
+    const OLD_ENV = { ...import.meta.env };
 
     beforeEach(() => {
       jest.resetModules();
-      process.env.REACT_APP_FM_CONFIG_API = 'wss://guardian.com';
+      vi.stubGlobal('import.meta', {
+        env: { VITE_FM_CONFIG_API: 'wss://guardian.com' },
+      });
     });
 
     afterEach(() => {
-      process.env = OLD_ENV; // restore
+      vi.stubGlobal('import.meta', { env: OLD_ENV });
       jest.clearAllMocks();
     });
 
@@ -72,15 +75,18 @@ describe('App', () => {
   });
 
   describe('With gateway env var', () => {
-    const OLD_ENV = { ...process.env };
+    const OLD_ENV = { ...import.meta.env };
 
     beforeEach(() => {
       jest.resetModules();
-      process.env.REACT_APP_FM_GATEWAY_API = 'https://gateway.com';
+      vi.stubGlobal('import.meta', {
+        env: { VITE_FM_GATEWAY_API: 'https://gateway.com' },
+      });
     });
 
     afterEach(() => {
-      process.env = OLD_ENV; // restore
+      vi.stubGlobal('import.meta', { env: OLD_ENV });
+      jest.clearAllMocks();
     });
 
     it('should call dispatch and navigate', async () => {

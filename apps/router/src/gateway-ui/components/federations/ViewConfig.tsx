@@ -20,11 +20,11 @@ interface ViewConfigModalProps {
   config: JsonClientConfig;
 }
 
+/* eslint-disable react/prop-types */
 export const ViewConfigModal = forwardRef<
   HTMLButtonElement,
   ViewConfigModalProps
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
->(({ federationId, config }, ref) => {
+>(({ federationId, config }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
 

@@ -9,8 +9,8 @@ if (!targetDir) {
 
 function write_config(filePath) {
   let config = {
-    baseUrl: process.env.REACT_APP_FM_CONFIG_API,
-    tos: process.env.REACT_APP_TOS,
+    baseUrl: process.env.VITE_FM_CONFIG_API,
+    tos: process.env.VITE_TOS,
   };
 
   fs.writeFileSync(

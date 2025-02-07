@@ -49,10 +49,10 @@ Fedimint UI releases use semantic versioning (`major.minor.patch`)
 git clone git@github.com:fedimint/ui.git fedimint-ui
 cd fedimint-ui/apps/guardian-ui
 yarn install
-PORT=3000 REACT_APP_FM_CONFIG_API="[app-address-here]" yarn build && yarn start
+PORT=3000 VITE_FM_CONFIG_API="[app-address-here]" yarn build && yarn start
 ```
 
-Replace `PORT` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
+Replace `PORT` with a port of your choice, and `VITE_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
 
 #### Gateway UI
 
@@ -60,10 +60,10 @@ Replace `PORT` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with th
 git clone git@github.com:fedimint/ui.git fedimint-ui
 cd fedimint-ui/apps/gateway-ui
 yarn install
-PORT=3000 REACT_APP_FM_GATEWAY_API="[app-address-here]" REACT_APP_FM_GATEWAY_PASSWORD="[password-here]" yarn build && yarn start
+PORT=3000 VITE_FM_GATEWAY_API="[app-address-here]" VITE_FM_GATEWAY_PASSWORD="[password-here]" yarn build && yarn start
 ```
 
-Replace `PORT` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password of your deployed gatewayd server.
+Replace `PORT` with a port of your choice, `VITE_FM_GATEWAY_API` with the http address, and `VITE_FM_GATEWAY_PASSWORD` with the password of your deployed gatewayd server.
 
 ### Run with Docker
 
@@ -77,12 +77,12 @@ The guardian UI container is available at [`fedimintui/guardian-ui`](https://hub
 docker pull fedimintui/guardian-ui:0.1.0
 docker run \
   --platform linux/amd64 \
-  --env "REACT_APP_FM_CONFIG_API='[app-address-here]'" \
+  --env "VITE_FM_CONFIG_API='[app-address-here]'" \
   -p 3000:3000 \
   fedimintui/guardian-ui:0.1.0
 ```
 
-Replace `-p 3000:3000` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
+Replace `-p 3000:3000` with a port of your choice, and `VITE_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
 
 #### Gateway UI
 
@@ -92,13 +92,13 @@ The gateway UI container is available at [`fedimintui/gateway-ui`](https://hub.d
 docker pull fedimintui/gateway-ui:0.1.0
 docker run \
   --platform linux/amd64 \
-  --env "REACT_APP_FM_GATEWAY_API='[app-address-here]'" \
-  --env "REACT_APP_FM_GATEWAY_PASSWORD='[password-here]'" \
+  --env "VITE_FM_GATEWAY_API='[app-address-here]'" \
+  --env "VITE_FM_GATEWAY_PASSWORD='[password-here]'" \
   -p 3000:3000 \
   fedimintui/gateway-ui:0.1.0
 ```
 
-Replace `-p 3000:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password of your deployed gatewayd server.
+Replace `-p 3000:3000` with a port of your choice, `VITE_FM_GATEWAY_API` with the http address, and `VITE_FM_GATEWAY_PASSWORD` with the password of your deployed gatewayd server.
 
 ## Development
 
@@ -186,13 +186,13 @@ From root repo directory:
 
    ```bash
      # first guardian
-     PORT=3000 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18174" yarn dev:guardian-ui
+     PORT=3000 VITE_FM_CONFIG_API="ws://127.0.0.1:18174" yarn dev:guardian-ui
      # second guardian
-     PORT=3001 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18184" yarn dev:guardian-ui
+     PORT=3001 VITE_FM_CONFIG_API="ws://127.0.0.1:18184" yarn dev:guardian-ui
      # third guardian
-     PORT=3002 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18185" yarn dev:guardian-ui
+     PORT=3002 VITE_FM_CONFIG_API="ws://127.0.0.1:18185" yarn dev:guardian-ui
      # fourth guardian
-     PORT=3003 REACT_APP_FM_CONFIG_API="ws://127.0.0.1:18186" yarn dev:guardian-ui
+     PORT=3003 VITE_FM_CONFIG_API="ws://127.0.0.1:18186" yarn dev:guardian-ui
    ```
 
 1. Run gateway-ui in development environment
