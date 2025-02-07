@@ -70,13 +70,10 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
           payload: { id, guardian: { config: { id, baseUrl: configUrl } } },
         });
       } else {
-        // When Gateway UI is production ready, the dispatch can be reinstated
-        throw new Error(t('home.connect-service-modal.no-gateways-error'));
-
-        // dispatch({
-        //   type: APP_ACTION_TYPE.ADD_GATEWAY,
-        //   payload: { id, gateway: { config: { id, baseUrl: configUrl } } },
-        // });
+        dispatch({
+          type: APP_ACTION_TYPE.ADD_GATEWAY,
+          payload: { id, gateway: { config: { id, baseUrl: configUrl } } },
+        });
       }
 
       resetForm();
