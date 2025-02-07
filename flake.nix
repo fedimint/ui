@@ -29,7 +29,7 @@
         # to build failures or inconsistent behavior.
         yarnOfflineCache = pkgs.fetchYarnDeps {
           yarnLock = ./yarn.lock;
-          hash = "sha256-a1YeZYvxstAqDCgK2qrlylkKYhIX1Xo28tCKt46hxrE=";
+          hash = "sha256-4EN7QqlFPYwvLqBGSY46VGxrsTcLg5NvGyNKHuP0sic=";
         };
       in
       {
@@ -52,7 +52,7 @@
         # Used for a releasable build artifact 
         packages.guardian-ui = pkgs.stdenv.mkDerivation {
           pname = "guardian-ui";
-          version = "0.4.3";
+          version = "0.5.0";
           src = ./.;
 
           nativeBuildInputs = with pkgs; [
