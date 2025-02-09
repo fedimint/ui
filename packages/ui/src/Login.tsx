@@ -12,8 +12,6 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
-  AlertDescription,
-  AlertDialogContent,
 } from '@chakra-ui/react';
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import { useTranslation } from '@fedimint/utils';
