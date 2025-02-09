@@ -8,17 +8,17 @@ The Fedimint UI enables you to administer your Guardian from the browser. Once y
 
 ### Option 1 - Docker Desktop
 
-Using Docker Desktop is a quick and easy way to get started. Run the following commands after setting the correct version tag:
+Using Docker Desktop is a quick and easy way to get started. Run the following commands:
 
 ```bash
-docker image pull --platform linux/amd64 fedimintui/fedimint-ui:<tag>
+docker image pull --platform linux/amd64 fedimintui/fedimint-ui:0.5.0
 ```
 
 ```
-docker run -p 3000:3000 --platform linux/amd64 fedimintui/fedimint-ui:<tag>
+docker run -p 3000:3000 --platform linux/amd64 fedimintui/fedimint-ui:0.5.0
 ```
 
-The `--platform linux/amd64` flag is only required if you're using a Mac with a M1/M2/M3/M4 chip.
+The `--platform linux/amd64` flag is typically only required if you're using a Mac with an M chip.
 
 You can now navigate to `http://localhost:3000` in your browser and connect to your fedimintd service.
 
