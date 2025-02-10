@@ -219,7 +219,8 @@
       "helper-text": "Will be wss:// for guardian or https:// for gateway",
       "service-type-label": "Service Type",
       "service-name-label": "Service Name",
-      "sync-status-label": "Sync Status"
+      "sync-status-label": "Sync Status",
+      "service-exists-error": "Service already exists"
     },
     "remove-service-modal": {
       "title": "Remove {{type}}",

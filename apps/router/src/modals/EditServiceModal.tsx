@@ -10,6 +10,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  ModalFooter,
   useToast,
 } from '@chakra-ui/react';
 import { sha256Hash, useTranslation } from '@fedimint/utils';
@@ -103,7 +104,7 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
           })}
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody pb={6}>
+        <ModalBody>
           <FormControl>
             <FormLabel>{t('home.edit-service-modal.url-label')}</FormLabel>
             <Input
@@ -111,10 +112,12 @@ export const EditServiceModal: React.FC<EditServiceModalProps> = ({
               onChange={(e) => setConfigUrl(e.target.value)}
             />
           </FormControl>
-          <Button mt={4} colorScheme='blue' onClick={handleSubmit}>
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme='blue' onClick={handleSubmit}>
             {t('common.save')}
           </Button>
-        </ModalBody>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
