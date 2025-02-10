@@ -3,14 +3,14 @@ import { render } from '@testing-library/react';
 import { SharedChakraProvider, theme } from '@fedimint/ui';
 import { i18nProvider } from '@fedimint/utils';
 import { languages } from '../../languages';
-import { AppContext, initialState } from '../../context/AppContext';
+import { AppContextProvider } from '../../context/AppContext';
 
 i18nProvider(languages);
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <SharedChakraProvider theme={theme}>
-      <AppContext.Provider value={initialState}>{children}</AppContext.Provider>
+      <AppContextProvider>{children}</AppContextProvider>
     </SharedChakraProvider>
   );
 };
