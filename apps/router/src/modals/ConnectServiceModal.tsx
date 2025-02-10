@@ -10,6 +10,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  ModalFooter,
   Text,
   Badge,
   Flex,
@@ -54,7 +55,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     try {
       const exists = await checkServiceExists(configUrl);
       if (exists) {
-        throw new Error('Service already exists');
+        throw new Error(t('home.connect-service-modal.service-exists-error'));
       }
 
       const id = await sha256Hash(configUrl);
@@ -84,7 +85,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
     } finally {
       setIsLoading(false);
     }
-  }, [configUrl, dispatch, resetForm, onClose, checkServiceExists]);
+  }, [configUrl, dispatch, resetForm, onClose, checkServiceExists, t]);
 
   return (
     <Modal
@@ -101,7 +102,7 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
           {t('home.connect-service-modal.title', 'Connect a Service')}
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody pb={6}>
+        <ModalBody>
           {error && (
             <Text color='red.500' mb={4}>
               {error}
@@ -120,15 +121,16 @@ export const ConnectServiceModal: React.FC<ConnectServiceModalProps> = ({
               }}
             />
           </FormControl>
+        </ModalBody>
+        <ModalFooter>
           <Button
-            mt={4}
             colorScheme='blue'
             onClick={handleConfirm}
             isLoading={isLoading}
           >
             {t('common.confirm')}
           </Button>
-        </ModalBody>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
