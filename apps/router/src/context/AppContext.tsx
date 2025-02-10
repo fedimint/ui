@@ -1,15 +1,6 @@
-import React, {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useEffect,
-  useReducer,
-} from 'react';
+import React, { createContext, Dispatch, ReactNode, useReducer } from 'react';
 import { GuardianConfig } from '../types/guardian';
 import { GatewayConfig } from '../types/gateway';
-import { sha256Hash } from '@fedimint/utils';
-
-type Service = GuardianConfig | GatewayConfig;
 
 export interface Guardian {
   config: GuardianConfig;
@@ -62,14 +53,14 @@ export type AppAction =
       type: APP_ACTION_TYPE.ADD_GUARDIAN;
       payload: {
         id: string;
-        guardian: Guardian;
+        service: Guardian;
       };
     }
   | {
       type: APP_ACTION_TYPE.ADD_GATEWAY;
       payload: {
         id: string;
-        gateway: Gateway;
+        service: Gateway;
       };
     }
   | {
@@ -84,14 +75,14 @@ export type AppAction =
       type: APP_ACTION_TYPE.UPDATE_GUARDIAN;
       payload: {
         id: string;
-        guardian: Guardian;
+        service: Guardian;
       };
     }
   | {
       type: APP_ACTION_TYPE.UPDATE_GATEWAY;
       payload: {
         id: string;
-        gateway: Gateway;
+        service: Gateway;
       };
     };
 
@@ -109,7 +100,7 @@ const reducer = (
         ...state,
         guardians: {
           ...state.guardians,
-          [action.payload.id]: action.payload.guardian,
+          [action.payload.id]: action.payload.service,
         },
       };
     case APP_ACTION_TYPE.ADD_GATEWAY:
@@ -117,7 +108,7 @@ const reducer = (
         ...state,
         gateways: {
           ...state.gateways,
-          [action.payload.id]: action.payload.gateway,
+          [action.payload.id]: action.payload.service,
         },
       };
     case APP_ACTION_TYPE.REMOVE_GUARDIAN:
@@ -143,7 +134,7 @@ const reducer = (
         ...state,
         guardians: {
           ...state.guardians,
-          [action.payload.id]: action.payload.guardian,
+          [action.payload.id]: action.payload.service,
         },
       };
     case APP_ACTION_TYPE.UPDATE_GATEWAY:
@@ -151,7 +142,7 @@ const reducer = (
         ...state,
         gateways: {
           ...state.gateways,
-          [action.payload.id]: action.payload.gateway,
+          [action.payload.id]: action.payload.service,
         },
       };
   }
@@ -179,100 +170,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     reducerWithMiddleware,
     makeInitialState()
   );
-
-  useEffect(() => {
-    const isGuardian = (service: Service): service is GuardianConfig =>
-      service.baseUrl.startsWith('ws');
-    const isGateway = (service: Service): service is GatewayConfig =>
-      service.baseUrl.startsWith('http');
-
-    const addService = async (service: Service) => {
-      const id = await sha256Hash(service.baseUrl);
-      const newService = { ...service, id };
-
-      if (isGuardian(newService)) {
-        dispatch({
-          type: APP_ACTION_TYPE.ADD_GUARDIAN,
-          payload: { id, guardian: { config: newService as GuardianConfig } },
-        });
-      } else if (isGateway(newService)) {
-        dispatch({
-          type: APP_ACTION_TYPE.ADD_GATEWAY,
-          payload: { id, gateway: { config: newService as GatewayConfig } },
-        });
-      } else {
-        throw new Error(`Invalid service baseUrl: ${service.baseUrl}`);
-      }
-    };
-
-    const handleConfig = (data: Service | Service[]) => {
-      const services = Array.isArray(data) ? data : [data];
-      services.forEach((service) => {
-        addService(service);
-      });
-    };
-
-    // Check environment variables
-    const checkEnvVars = async () => {
-      if (process.env.REACT_APP_FM_CONFIG_API) {
-        const id = await sha256Hash(process.env.REACT_APP_FM_CONFIG_API);
-        console.log(
-          'Adding guardian config from env var',
-          process.env.REACT_APP_FM_CONFIG_API
-        );
-        await addService({
-          id,
-          baseUrl: process.env.REACT_APP_FM_CONFIG_API,
-        });
-      }
-      if (process.env.REACT_APP_FM_GATEWAY_API) {
-        const id = await sha256Hash(process.env.REACT_APP_FM_GATEWAY_API);
-        console.log(
-          'Adding gateway config from env var',
-          process.env.REACT_APP_FM_GATEWAY_API
-        );
-        await addService({
-          id,
-          baseUrl: process.env.REACT_APP_FM_GATEWAY_API,
-        });
-      }
-    };
-
-    // Fetch config.json
-    const fetchConfig = () => {
-      fetch('/config.json')
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return response.text();
-        })
-        .then((text) => {
-          if (!text.trim()) {
-            console.warn('Config file is empty');
-            return;
-          }
-          try {
-            const data = JSON.parse(text);
-            handleConfig(data);
-          } catch (error) {
-            console.error('Error parsing config JSON:', error);
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching or processing config:', error);
-        });
-    };
-
-    // Run both checks
-    checkEnvVars()
-      .catch((error) => {
-        console.error('Error in checkEnvVars:', error);
-      })
-      .finally(() => {
-        fetchConfig();
-      });
-  }, []);
 
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>

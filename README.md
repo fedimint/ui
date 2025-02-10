@@ -1,106 +1,40 @@
-# Fedimint UI Projects
+# Fedimint UI
 
-<p align="center">
-<img width="42%" alt="268047037-d648b83d-b676-44fe-98be-07f84f4d7465" src="https://github.com/fedimint/ui/assets/101964499/2d85544d-e1d0-4e06-a610-e2bc618f463b">
-<img width="47%" alt="268046987-3b480175-7f5e-4235-bed3-cab5c092c2e5" src="https://github.com/fedimint/ui/assets/101964499/ce0fe039-9260-4443-9d84-9359bdfa901f">
-</p>
+The Fedimint UI enables you to administer your Guardian from the browser. Once you're running an instance of fedimintd, you can use the UI to connect to this instance and run the setup process.
 
-## What's Inside
+> If you would like to contribute to this project then please take a look at our [CONTRIBUTING](CONTRIBUTING.md) licence first.
 
-This project includes the following apps / packages:
+## Quick Start
 
-### App
+### Option 1 - Docker Desktop
 
-We've refactored the Fedimint UI into a single client side app that can run on the browser or on desktop using Electron.
-
-- `router`: This creates a homescreen that shows all your connected services: guardians or gateways. You can connect to other guardians or gateways by entering their baseUrl. You have to authenticate each service separately because the auth for each one is done differently.
-
-### Packages
-
-- `ui`: Shared React UI component library for building Fedimint UI experiences
-- `utils`: Shared utility functions like the current translation framework on Fedimint UI apps
-- `eslint-config`: Shared `eslint` configurations (includes `eslint-plugin-react` and `eslint-config-prettier`)
-- `tsconfig`: Shared `tsconfig.json`s used throughout Fedimint UI apps
-
-## Testing
-
-For detailed testing instructions, please refer to the [testing.md](./testing.md) file in this repository. It contains comprehensive information on how to set up and run local tests for the Fedimint UI projects.
-
-## Version Policy
-
-Fedimint UI releases use semantic versioning (`major.minor.patch`)
-
-- Major and minor versions of `fedimint/ui` are made to be compatible major and minor versions of `fedimint/fedimint`
-  - For instance, any `1.1.x` release of the UI should work with any `1.1.x` release of Fedimint
-- Patch versions of `fedimint/ui` are made independent of `fedimint/fedimint`
-  - For instance, you could run `fedimint/ui@1.0.1` against `fedimint/fedimint@1.0.0` and vice versa
-  - It is always recommended to run the latest patch release of any version as they may contain important fixes
-- The `master` branch of `fedimint/ui` attempts to track `master` of `fedimint/fedimint`
-  - This tracking is a best effort, and sometimes the two will fall out of sync. Feel free to open an issue if you notice an incompatibility.
-  - It is not recommended to run `master` in production as breaking changes may occur without warning
-
-## Running a Release
-
-### Build and Run from Source
-
-#### Guardian UI
+Using Docker Desktop is a quick and easy way to get started. Run the following commands:
 
 ```bash
-git clone git@github.com:fedimint/ui.git fedimint-ui
-cd fedimint-ui/apps/guardian-ui
-yarn install
-PORT=3000 REACT_APP_FM_CONFIG_API="[app-address-here]" yarn build && yarn start
+docker image pull --platform linux/amd64 fedimintui/fedimint-ui:0.5.0
 ```
 
-Replace `PORT` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
-
-#### Gateway UI
-
-```bash
-git clone git@github.com:fedimint/ui.git fedimint-ui
-cd fedimint-ui/apps/gateway-ui
-yarn install
-PORT=3000 REACT_APP_FM_GATEWAY_API="[app-address-here]" REACT_APP_FM_GATEWAY_PASSWORD="[password-here]" yarn build && yarn start
+```
+docker run -p 3000:3000 --platform linux/amd64 fedimintui/fedimint-ui:0.5.0
 ```
 
-Replace `PORT` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password of your deployed gatewayd server.
+The `--platform linux/amd64` flag is typically only required if you're using a Mac with an M chip.
 
-### Run with Docker
+You can now navigate to `http://localhost:3000` in your browser and connect to your fedimintd service.
 
-**Note:** Docker images are only built for `linux/amd64`. Your docker will need to support virtualization to run on other platforms.
+### Option 2 - Source
 
-#### Guardian UI
+You can also run the UI from source locally. Clone the repo using the following command:
 
-The guardian UI container is available at [`fedimintui/guardian-ui`](https://hub.docker.com/r/fedimintui/guardian-ui)
+`git clone git@github.com:fedimint/fedimint-ui.git fedimint-ui`
 
-```sh
-docker pull fedimintui/guardian-ui:0.1.0
-docker run \
-  --platform linux/amd64 \
-  --env "REACT_APP_FM_CONFIG_API='[app-address-here]'" \
-  -p 3000:3000 \
-  fedimintui/guardian-ui:0.1.0
-```
+Then install the npm packages by running the following command from the root directory:
 
-Replace `-p 3000:3000` with a port of your choice, and `REACT_APP_FM_CONFIG_API` with the socket address of your deployed fedimintd server.
+`yarn`
 
-#### Gateway UI
+Finally, run `yarn dev` to launch the project on localhost in your browser.
 
-The gateway UI container is available at [`fedimintui/gateway-ui`](https://hub.docker.com/r/fedimintui/gateway-ui)
-
-```sh
-docker pull fedimintui/gateway-ui:0.1.0
-docker run \
-  --platform linux/amd64 \
-  --env "REACT_APP_FM_GATEWAY_API='[app-address-here]'" \
-  --env "REACT_APP_FM_GATEWAY_PASSWORD='[password-here]'" \
-  -p 3000:3000 \
-  fedimintui/gateway-ui:0.1.0
-```
-
-Replace `-p 3000:3000` with a port of your choice, `REACT_APP_FM_GATEWAY_API` with the http address, and `REACT_APP_FM_GATEWAY_PASSWORD` with the password of your deployed gatewayd server.
-
-## Development
+## Advanced Options
 
 The development password for the gateway is `theresnosecondbest`.
 The development password for the guardians when using the `nix-gateway` or `docker` development environments is `pass`.
@@ -225,44 +159,3 @@ You can officially bump the referenced version of Fedimint using the following s
 
 3. Run `nix flake update` at the root of the repo
 4. Restart your nix shell and validate the reference, then commit to complete bump
-
-## Developer Certificate of Origin
-
-By contributing to the project you agree to the following:
-
-```
-Developer Certificate of Origin
-Version 1.1
-
-Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
-
-Everyone is permitted to copy and distribute verbatim copies of this
-license document, but changing it is not allowed.
-
-
-Developer's Certificate of Origin 1.1
-
-By making a contribution to this project, I certify that:
-
-(a) The contribution was created in whole or in part by me and I
-    have the right to submit it under the open source license
-    indicated in the file; or
-
-(b) The contribution is based upon previous work that, to the best
-    of my knowledge, is covered under an appropriate open source
-    license and I have the right under that license to submit that
-    work with modifications, whether created in whole or in part
-    by me, under the same open source license (unless I am
-    permitted to submit under a different license), as indicated
-    in the file; or
-
-(c) The contribution was provided directly to me by some other
-    person who certified (a), (b) or (c) and I have not modified
-    it.
-
-(d) I understand and agree that this project and the contribution
-    are public and that a record of the contribution (including all
-    personal information I submit with it, including my sign-off) is
-    maintained indefinitely and may be redistributed consistent with
-    this project or the open source license(s) involved.
-```
