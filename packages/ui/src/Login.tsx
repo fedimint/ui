@@ -12,6 +12,7 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import { useTranslation } from '@fedimint/utils';
@@ -62,7 +63,12 @@ export const Login: React.FC<LoginProps> = ({
         <Flex direction='column' align='start' gap={4}>
           <Alert status='error'>
             <AlertIcon />
-            <AlertTitle>{t('login.alert-title')}</AlertTitle>
+            <Flex direction='column'>
+              <AlertTitle>{t('login.alert-title')}</AlertTitle>
+              <AlertDescription>
+                {t('login.alert-description')}
+              </AlertDescription>
+            </Flex>
           </Alert>
           <Heading size='sm' fontWeight='medium'>
             {t('login.title')}
