@@ -233,9 +233,13 @@
   },
   "login": {
     "title": "Welcome back!",
-    "subtitle": "Please enter your password.",
     "password": "Password",
-    "submit": "Submit"
+    "submit": "Submit",
+    "errors": {
+      "invalid-password": "Invalid password"
+    },
+    "alert-title": "The Gateway UI is under maintenance.",
+    "alert-description": "Please use the gateway-cli for now and monitor our release channels for updates."
   },
   "role-selector": {
     "disclaimer-title": "Fedimint is beta software",
