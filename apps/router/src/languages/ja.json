@@ -203,7 +203,12 @@
     "title": "おかえりなさい！",
     "subtitle": "パスワードを入力してください。",
     "password": "パスワード",
-    "submit": "提出する"
+    "submit": "提出する",
+    "errors": {
+      "invalid-password": "無効なパスワード"
+    },
+    "alert-title": "ゲートウェイUIはメンテナンス中です。",
+    "alert-description": "今のところgateway-cliを使用し、更新のためにリリースチャンネルを監視してください。"
   },
   "role-selector": {
     "disclaimer-title": "Fedimintはベータ版ソフトウェアです",
@@ -542,7 +547,8 @@
       "helper-text": "ガーディアンの場合はwss://、ゲートウェイの場合はhttps://になります。",
       "service-type-label": "サービスタイプ",
       "service-name-label": "サービス名",
-      "sync-status-label": "同期状況"
+      "sync-status-label": "同期状況",
+      "service-exists-error": "サービスはすでに存在します"
     },
     "remove-service-modal": {
       "title": "{{type}}を削除する",

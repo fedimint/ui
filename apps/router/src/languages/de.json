@@ -203,7 +203,12 @@
     "title": "Willkommen zurück!",
     "subtitle": "Bitte geben Sie Ihr Passwort ein.",
     "password": "Passwort",
-    "submit": "Einreichen"
+    "submit": "Einreichen",
+    "errors": {
+      "invalid-password": "Ungültiges Passwort"
+    },
+    "alert-title": "Die Gateway-Benutzeroberfläche befindet sich in Wartung.",
+    "alert-description": "Bitte verwenden Sie vorerst die gateway-cli und überwachen Sie unsere Release-Kanäle auf Updates."
   },
   "role-selector": {
     "disclaimer-title": "Fedimint ist Beta-Software",
@@ -542,7 +547,8 @@
       "helper-text": "Wird wss:// für Guardian oder https:// für Gateway sein",
       "service-type-label": "Dienstleistungsart",
       "service-name-label": "Dienstname",
-      "sync-status-label": "Synchronisationsstatus"
+      "sync-status-label": "Synchronisationsstatus",
+      "service-exists-error": "Der Dienst existiert bereits"
     },
     "remove-service-modal": {
       "title": "Entfernen Sie {{type}}",
