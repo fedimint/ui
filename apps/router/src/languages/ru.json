@@ -203,7 +203,12 @@
     "title": "Добро пожаловать обратно!",
     "subtitle": "Пожалуйста, введите ваш пароль.",
     "password": "Пароль",
-    "submit": "Отправить"
+    "submit": "Отправить",
+    "errors": {
+      "invalid-password": "Неверный пароль"
+    },
+    "alert-title": "Интерфейс Gateway находится на обслуживании.",
+    "alert-description": "Пожалуйста, используйте gateway-cli на данный момент и следите за нашими каналами релиза для обновлений."
   },
   "role-selector": {
     "disclaimer-title": "Fedimint - это бета-версия программного обеспечения.",
@@ -542,7 +547,8 @@
       "helper-text": "Будет wss:// для защитника или https:// для шлюза",
       "service-type-label": "Тип услуги",
       "service-name-label": "Название услуги",
-      "sync-status-label": "Статус синхронизации"
+      "sync-status-label": "Статус синхронизации",
+      "service-exists-error": "Сервис уже существует"
     },
     "remove-service-modal": {
       "title": "Удалить {{type}}",
