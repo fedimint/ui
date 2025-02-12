@@ -30,7 +30,7 @@ describe('hooks/index', () => {
 
         await waitFor(() => {
           expect(mockedDispatch).toBeCalledWith({
-            type: APP_ACTION_TYPE.ADD_GUARDIAN,
+            type: APP_ACTION_TYPE.ADD_SERVICE,
             payload: {
               id: 'dummy-hash-value',
               service: {
@@ -51,7 +51,7 @@ describe('hooks/index', () => {
 
         await waitFor(() => {
           expect(mockedDispatch).toBeCalledWith({
-            type: APP_ACTION_TYPE.ADD_GATEWAY,
+            type: APP_ACTION_TYPE.ADD_SERVICE,
             payload: {
               id: 'dummy-hash-value',
               service: {

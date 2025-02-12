@@ -1,9 +1,12 @@
 export type ServiceType = 'guardian' | 'gateway';
 
 export interface ServiceConfig {
-  config: {
-    baseUrl: string;
-  };
+  id: string;
+  baseUrl: string;
+}
+
+export interface Service {
+  config: ServiceConfig;
 }
 
 export const UNIT_OPTIONS = ['msats', 'sats', 'btc'] as const;

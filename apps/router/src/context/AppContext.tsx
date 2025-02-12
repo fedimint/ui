@@ -1,24 +1,13 @@
 import React, { createContext, Dispatch, ReactNode, useReducer } from 'react';
-import { GuardianConfig } from '../types/guardian';
-import { GatewayConfig } from '../types/gateway';
-
-export interface Guardian {
-  config: GuardianConfig;
-}
-
-export interface Gateway {
-  config: GatewayConfig;
-}
+import { Service } from '../types';
 
 export interface AppContextValue {
-  guardians: Record<string, Guardian>;
-  gateways: Record<string, Gateway>;
+  services: Record<string, Service>;
   dispatch: Dispatch<AppAction>;
 }
 
 export const initialState: AppContextValue = {
-  guardians: {},
-  gateways: {},
+  services: {},
   dispatch: () => null,
 };
 
@@ -40,49 +29,28 @@ const makeInitialState = (): AppContextValue => {
 
 export enum APP_ACTION_TYPE {
   SET_SELECTED_SERVICE = 'SET_SELECTED_SERVICE',
-  ADD_GUARDIAN = 'ADD_GUARDIAN',
-  ADD_GATEWAY = 'ADD_GATEWAY',
-  REMOVE_GUARDIAN = 'REMOVE_GUARDIAN',
-  REMOVE_GATEWAY = 'REMOVE_GATEWAY',
-  UPDATE_GUARDIAN = 'UPDATE_GUARDIAN',
-  UPDATE_GATEWAY = 'UPDATE_GATEWAY',
+  ADD_SERVICE = 'ADD_SERVICE',
+  UPDATE_SERVICE = 'UPDATE_SERVICE',
+  REMOVE_SERVICE = 'REMOVE_SERVICE',
 }
 
 export type AppAction =
   | {
-      type: APP_ACTION_TYPE.ADD_GUARDIAN;
+      type: APP_ACTION_TYPE.ADD_SERVICE;
       payload: {
         id: string;
-        service: Guardian;
+        service: Service;
       };
     }
   | {
-      type: APP_ACTION_TYPE.ADD_GATEWAY;
-      payload: {
-        id: string;
-        service: Gateway;
-      };
-    }
-  | {
-      type: APP_ACTION_TYPE.REMOVE_GUARDIAN;
+      type: APP_ACTION_TYPE.REMOVE_SERVICE;
       payload: string;
     }
   | {
-      type: APP_ACTION_TYPE.REMOVE_GATEWAY;
-      payload: string;
-    }
-  | {
-      type: APP_ACTION_TYPE.UPDATE_GUARDIAN;
+      type: APP_ACTION_TYPE.UPDATE_SERVICE;
       payload: {
         id: string;
-        service: Guardian;
-      };
-    }
-  | {
-      type: APP_ACTION_TYPE.UPDATE_GATEWAY;
-      payload: {
-        id: string;
-        service: Gateway;
+        service: Service;
       };
     };
 
@@ -95,53 +63,28 @@ const reducer = (
   action: AppAction
 ): AppContextValue => {
   switch (action.type) {
-    case APP_ACTION_TYPE.ADD_GUARDIAN:
+    case APP_ACTION_TYPE.ADD_SERVICE:
       return {
         ...state,
-        guardians: {
-          ...state.guardians,
+        services: {
+          ...state.services,
           [action.payload.id]: action.payload.service,
         },
       };
-    case APP_ACTION_TYPE.ADD_GATEWAY:
+    case APP_ACTION_TYPE.REMOVE_SERVICE:
       return {
         ...state,
-        gateways: {
-          ...state.gateways,
-          [action.payload.id]: action.payload.service,
-        },
-      };
-    case APP_ACTION_TYPE.REMOVE_GUARDIAN:
-      return {
-        ...state,
-        guardians: Object.fromEntries(
-          Object.entries(state.guardians).filter(
+        services: Object.fromEntries(
+          Object.entries(state.services).filter(
             ([key]) => key !== action.payload
           )
         ),
       };
-    case APP_ACTION_TYPE.REMOVE_GATEWAY:
+    case APP_ACTION_TYPE.UPDATE_SERVICE:
       return {
         ...state,
-        gateways: Object.fromEntries(
-          Object.entries(state.gateways).filter(
-            ([key]) => key !== action.payload
-          )
-        ),
-      };
-    case APP_ACTION_TYPE.UPDATE_GUARDIAN:
-      return {
-        ...state,
-        guardians: {
-          ...state.guardians,
-          [action.payload.id]: action.payload.service,
-        },
-      };
-    case APP_ACTION_TYPE.UPDATE_GATEWAY:
-      return {
-        ...state,
-        gateways: {
-          ...state.gateways,
+        services: {
+          ...state.services,
           [action.payload.id]: action.payload.service,
         },
       };

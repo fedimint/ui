@@ -1,11 +1,10 @@
-import { Gateway, Guardian } from '../context/AppContext';
+import { Service } from '../types';
 
 export const checkServiceExists = (
   configUrl: string,
-  guardians: Record<string, Guardian>,
-  gateways: Record<string, Gateway>
+  services: Record<string, Service>
 ) => {
-  return Object.values({ ...guardians, ...gateways }).some(
+  return Object.values({ ...services }).some(
     (s) => s.config.baseUrl === configUrl
   );
 };

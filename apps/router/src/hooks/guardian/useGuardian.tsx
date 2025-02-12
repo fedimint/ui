@@ -11,22 +11,24 @@ import { AdminApiInterface, GuardianApi } from '../../api/GuardianApi';
 import { GuardianServerStatus } from '@fedimint/types';
 import { formatApiErrorMessage } from '../../guardian-ui/utils/api';
 import { useAppContext } from '..';
+import { Service } from '../../types';
 
 export function useAppGuardianConfigs(): GuardianConfig[] {
-  const { guardians } = useAppContext();
-  if (!guardians) return [];
-  return Object.values(guardians).map((guardian) => guardian.config);
+  const { services } = useAppContext();
+
+  return Object.values(services).map((service: Service) => service.config);
 }
 
 export function useNumberOfGuardians(): number {
-  return Object.keys(useAppContext().guardians).length;
+  return Object.keys(useAppContext().services).length;
 }
 
 export const useGuardianConfig = (id: string): GuardianConfig => {
-  const { guardians } = useAppContext();
-  if (!guardians[id])
+  const { services } = useAppContext();
+
+  if (!services[id])
     throw new Error('useGuardianConfig must be used with a selected guardian');
-  return guardians[id].config;
+  return services[id].config;
 };
 
 export const useGuardianDispatch = (): Dispatch<GuardianAppAction> => {

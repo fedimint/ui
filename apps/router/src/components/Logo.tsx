@@ -2,19 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
 
-interface LogoProps {
-  isSoloDeploy: boolean;
-}
-
-export const Logo = ({ isSoloDeploy }: LogoProps) => (
+export const Logo = () => (
   <Flex alignItems='center' justifyContent={['center', 'flex-start']} gap='2'>
-    {isSoloDeploy ? (
+    <Link to='/'>
       <LogoSVG />
-    ) : (
-      <Link to='/'>
-        <LogoSVG />
-      </Link>
-    )}
+    </Link>
   </Flex>
 );
 

@@ -17,27 +17,29 @@ export default function App() {
 
   return (
     <Router>
-      <Wrapper>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route
-            path='/guardian/:id'
-            element={
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route
+          path='/guardian/:id'
+          element={
+            <Wrapper>
               <GuardianContextProvider>
                 <Guardian />
               </GuardianContextProvider>
-            }
-          />
-          <Route
-            path='/gateway/:id'
-            element={
+            </Wrapper>
+          }
+        />
+        <Route
+          path='/gateway/:id'
+          element={
+            <Wrapper>
               <GatewayContextProvider>
                 <Gateway />
               </GatewayContextProvider>
-            }
-          />
-        </Routes>
-      </Wrapper>
+            </Wrapper>
+          }
+        />
+      </Routes>
     </Router>
   );
 }
