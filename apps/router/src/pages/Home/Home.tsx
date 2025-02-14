@@ -33,60 +33,51 @@ const HomePage: React.FC = () => {
   const { dispatch, services } = useAppContext();
   const version = getVersionInfo();
 
-  console.log('services', services);
-
-  const [serviceUrl, setServiceUrl] = useState('');
-  const [service, setService] = useState<Service | null>(null);
+  const [serviceUrl, setServiceUrl] = useState<string>('');
   const [isGateway, setIsGateway] = useState(false);
 
   useEffect(() => {
-    const numServices = Object.keys(services).length;
-
-    if (numServices > 0) {
-      const lastKey = Object.keys(services)[numServices - 1];
-      const recentService: Service = services[lastKey];
-
-      // console.log(recentGuardian.config.baseUrl);
-      setServiceUrl(recentService?.config?.baseUrl);
-      setService(recentService);
-    } else {
+    if (Object.keys(services).length === 0) {
       setServiceUrl('');
-      setService(null);
+      return;
     }
+
+    Object.values(services).forEach((service: Service) => {
+      setServiceUrl(service.config.baseUrl);
+    });
   }, [services]);
 
-  const handleOnChange = (e: any) => {
-    const value = e.target.value;
-    setServiceUrl(value?.trim());
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const url = e.target.value;
+    setServiceUrl(url.trim());
   };
 
   const handleOnConnect = async () => {
     setIsGateway(false);
 
-    try {
-      const id = await sha256Hash(serviceUrl);
-      const serviceType = getServiceType(serviceUrl);
+    const id = await sha256Hash(serviceUrl);
+    const serviceType = getServiceType(serviceUrl);
 
-      if (serviceType !== 'guardian') {
-        setIsGateway(true);
-        return;
-      }
+    if (!serviceType) return;
 
-      dispatch({
-        type: APP_ACTION_TYPE.ADD_SERVICE,
-        payload: { id, service: { config: { id, baseUrl: serviceUrl } } },
-      });
-
-      navigate(`/guardians/${id}`);
-    } catch {
-      console.log('Error');
+    if (serviceType === 'gateway') {
+      setIsGateway(true);
+      return;
     }
+
+    dispatch({
+      type: APP_ACTION_TYPE.ADD_SERVICE,
+      payload: { id, service: { config: { id, baseUrl: serviceUrl } } },
+    });
+
+    return navigate(`/guardians/${id}`);
   };
 
   const handleOnDelete = () => {
+    setIsGateway(false);
+
     dispatch({
       type: APP_ACTION_TYPE.REMOVE_SERVICE,
-      payload: service?.config.id as string,
     });
   };
 
@@ -100,6 +91,10 @@ const HomePage: React.FC = () => {
         display={{ base: 'none', lg: 'flex' }}
         alignItems='center'
         justifyContent='center'
+        bgImage={HeroSvg}
+        bgPosition='center'
+        bgSize='cover'
+        bgRepeat='no-repeat'
       >
         <Box position='fixed' left='5' top='5'>
           <Text fontSize='14px' fontWeight='500' color='#555'>
@@ -112,7 +107,6 @@ const HomePage: React.FC = () => {
             </Link>
           </Text>
         </Box>
-        <img src={HeroSvg} width='80%' />
       </Box>
 
       {/* Right */}
@@ -150,19 +144,18 @@ const HomePage: React.FC = () => {
             <InputGroup>
               <Input
                 variant='outline'
-                placeholder='Guardian URL'
+                placeholder={t('home.guardian-url')}
                 value={serviceUrl}
                 onChange={handleOnChange}
                 onKeyDown={(e) => {
-                  setIsGateway(false);
                   if (e.key === 'Enter') {
-                    console.log('Enter');
+                    handleOnConnect();
                   }
                 }}
               />
-              {serviceUrl?.trim().length > 0 && (
+              {serviceUrl.length > 0 && (
                 <InputRightElement>
-                  <FiX onClick={handleOnDelete} />
+                  <FiX onClick={handleOnDelete} style={{ cursor: 'pointer' }} />
                 </InputRightElement>
               )}
             </InputGroup>
@@ -174,35 +167,26 @@ const HomePage: React.FC = () => {
               Connect
             </Button>
           </Stack>
-          <Text fontSize='14px'>
-            Want to learn more about Fedimint?{' '}
-            <Link
-              href='https://github.com/fedimint/fedimint'
-              isExternal
-              color='blue.500'
-              textAlign='center'
-            >
-              Click here
-            </Link>
-          </Text>
           <Text fontSize='14px' mb='5'>
-            By using this application you agree to our{' '}
+            {t('home.learn-more-link')}
             <Link
               href='https://github.com/fedimint/fedimint'
               isExternal
               color='blue.500'
               textAlign='center'
+              ml='1'
             >
-              T&amp;Cs
+              here
             </Link>
+            .
           </Text>
 
-          <Link href='https://chat.fedimint.org/'>
+          <Link href='https://chat.fedimint.org/' isExternal>
             <Icon fontSize='24px' mr='2'>
               <FaDiscord />
             </Icon>
           </Link>
-          <Link href='https://github.com/fedimint'>
+          <Link href='https://github.com/fedimint' isExternal>
             <Icon fontSize='22px'>
               <FaGithub />
             </Icon>

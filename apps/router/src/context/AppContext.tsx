@@ -43,15 +43,14 @@ export type AppAction =
       };
     }
   | {
-      type: APP_ACTION_TYPE.REMOVE_SERVICE;
-      payload: string;
-    }
-  | {
       type: APP_ACTION_TYPE.UPDATE_SERVICE;
       payload: {
         id: string;
         service: Service;
       };
+    }
+  | {
+      type: APP_ACTION_TYPE.REMOVE_SERVICE;
     };
 
 const saveToLocalStorage = (state: AppContextValue) => {
@@ -71,15 +70,6 @@ const reducer = (
           [action.payload.id]: action.payload.service,
         },
       };
-    case APP_ACTION_TYPE.REMOVE_SERVICE:
-      return {
-        ...state,
-        services: Object.fromEntries(
-          Object.entries(state.services).filter(
-            ([key]) => key !== action.payload
-          )
-        ),
-      };
     case APP_ACTION_TYPE.UPDATE_SERVICE:
       return {
         ...state,
@@ -87,6 +77,11 @@ const reducer = (
           ...state.services,
           [action.payload.id]: action.payload.service,
         },
+      };
+    case APP_ACTION_TYPE.REMOVE_SERVICE:
+      return {
+        ...state,
+        services: {},
       };
   }
 };

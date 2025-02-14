@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import { Box, Flex, useBreakpointValue } from '@chakra-ui/react';
-import AlertBar from './AlertBar/AlertBar';
 import { Header } from './Header';
 import { Footer } from './Footer';
 

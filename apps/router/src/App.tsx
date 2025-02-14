@@ -20,7 +20,7 @@ export default function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route
-          path='/guardian/:id'
+          path='/guardians/:id'
           element={
             <Wrapper>
               <GuardianContextProvider>
@@ -30,7 +30,7 @@ export default function App() {
           }
         />
         <Route
-          path='/gateway/:id'
+          path='/gateways/:id'
           element={
             <Wrapper>
               <GatewayContextProvider>
