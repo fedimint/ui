@@ -37,6 +37,10 @@ const HomePage: React.FC = () => {
   const [isGateway, setIsGateway] = useState(false);
 
   useEffect(() => {
+    setIsGateway(false);
+  }, [serviceUrl]);
+
+  useEffect(() => {
     if (Object.keys(services).length === 0) {
       setServiceUrl('');
       return;
@@ -53,8 +57,6 @@ const HomePage: React.FC = () => {
   };
 
   const handleOnConnect = async () => {
-    setIsGateway(false);
-
     const id = await sha256Hash(serviceUrl);
     const serviceType = getServiceType(serviceUrl);
 
@@ -74,8 +76,6 @@ const HomePage: React.FC = () => {
   };
 
   const handleOnDelete = () => {
-    setIsGateway(false);
-
     dispatch({
       type: APP_ACTION_TYPE.REMOVE_SERVICE,
     });
@@ -131,7 +131,7 @@ const HomePage: React.FC = () => {
         >
           <Stack gap='3' mb='5'>
             {isGateway && (
-              <Alert status='error'>
+              <Alert status='error' textAlign='left'>
                 <AlertIcon />
                 <Flex direction='column'>
                   <AlertTitle>{t('login.alert-title')}</AlertTitle>
